@@ -11,6 +11,9 @@ namespace StarterAssets
 #endif
     public class CharControlScript : MonoBehaviour
     {
+        const string ATTACK = "Attack";
+        const string PICKUP = "Pickup";
+
         [Tooltip("Camera")]
         public Camera cam;
         [Tooltip("Player")]
@@ -28,17 +31,28 @@ namespace StarterAssets
         [SerializeField] ParticleSystem clickEffect;
         [SerializeField] LayerMask clickableLayer;
 
+        [Header("Attack")]
+        [SerializeField] float attackSpeed = 1.5f;
+        [SerializeField] float attackDelay = .3f;
+        [SerializeField] float attackDistance = 1.5f;
+        [SerializeField] int attackDamage = 10;
+        [SerializeField] ParticleSystem hitEffect;
+
+        bool playerBusy = false;
+        Interactable target;
 
         private CharacterController _controller;
 
-        private void Start()
+        void Start()
         {
             _controller = GetComponent<CharacterController>();
         }
 
         // Update is called once per frame
-        private void Update()
+        void Update()
         {
+            FollowTarget();
+
             if (Input.GetMouseButtonDown(1))
             {
                 Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -46,8 +60,27 @@ namespace StarterAssets
 
                 if (Physics.Raycast(ray, out hitPoint))
                 {
-                    targetDest.transform.position = hitPoint.point;
-                    player.SetDestination(hitPoint.point);
+                    if (hitPoint.transform.CompareTag("Interactable"))
+                    {
+                        target = hitPoint.transform.GetComponent<Interactable>();
+                        if (!clickEffect)
+                        {
+                            Instantiate(clickEffect, hitPoint.point += new Vector3(0, 0.1f, 0), clickEffect.transform.rotation);
+                        }
+                    }
+                    else
+                    {
+                        target = null;
+
+                        targetDest.transform.position = hitPoint.point;
+                        player.SetDestination(hitPoint.point);
+                        if (!clickEffect)
+                        {
+                            Instantiate(clickEffect, hitPoint.point += new Vector3(0, 0.1f, 0), clickEffect.transform.rotation);
+                        }
+                    }
+
+                    
                 }
             }
 
@@ -61,6 +94,50 @@ namespace StarterAssets
             }
         }
 
+        void FollowTarget()
+        {
+            if (target == null) return;
+
+            if (Vector3.Distance(target.transform.position, transform.position) <= attackDistance) { ReachDistance(); }
+            else { player.SetDestination(target.transform.position); }
+        }
+        void ReachDistance()
+        {
+            player.SetDestination(transform.position);
+
+            if (playerBusy) return;
+            playerBusy = true;
+
+            switch (target.interactionType)
+            {
+                case InteractableType.Enemy:
+                    //animator.Play(ATTACK);
+                    Invoke(nameof(SendAttack), attackDelay);
+                    Invoke(nameof(ResetBusyState), attackSpeed);
+                    break;
+                case InteractableType.Item:
+                    //animator.Play(PICKUP);
+                    target.InteractWithItem();
+                    target = null;
+
+                    Invoke(nameof(ResetBusyState), 0.5f);
+                    break;
+            }
+        }
+        void SendAttack()
+        {
+            if (target == null) return;
+
+            if(target.myActor.health <= 0) { target = null; return; }
+
+            Instantiate(hitEffect, target.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+            target.GetComponent<EnemyAI>().TakeDamage(attackDamage);
+
+        }
+        void ResetBusyState()
+        {
+            playerBusy = false;
+        }
         private void OnFootstep(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)

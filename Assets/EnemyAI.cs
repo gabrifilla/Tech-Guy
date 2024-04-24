@@ -23,13 +23,13 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
-    private void Awake()
+    void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
     }
 
-    private void Update()
+    void Update()
     {
         // Check if player in sight and attack range
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -40,7 +40,7 @@ public class EnemyAI : MonoBehaviour
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
     }
 
-    private void Patroling()
+    void Patroling()
     {
         if (!walkPointSet) SearchWalkpoint();
         if (walkPointSet) agent.SetDestination(walkPoint);
@@ -50,7 +50,7 @@ public class EnemyAI : MonoBehaviour
         // Walkpoint Reached
         if (distancetoWalkPoint.magnitude < 1f) walkPointSet = false;
     }
-    private void SearchWalkpoint()
+    void SearchWalkpoint()
     {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -59,11 +59,11 @@ public class EnemyAI : MonoBehaviour
 
         if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround)) walkPointSet = true;
     }
-    private void ChasePlayer()
+    void ChasePlayer()
     {
         agent.SetDestination(player.position);
     }
-    private void AttackPlayer()
+    void AttackPlayer()
     {
         agent.SetDestination(transform.position);
 
@@ -75,17 +75,17 @@ public class EnemyAI : MonoBehaviour
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
     }
-    private void ResetAttack()
+    void ResetAttack()
     {
         alreadyAttacked = false;
     }
-    private void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         health -= damage;
 
         if (health < 0) Invoke(nameof(DestroyEnemy), 0.5f);
     }
-    private void DestroyEnemy()
+    void DestroyEnemy()
     {
         Destroy(gameObject);
     }
