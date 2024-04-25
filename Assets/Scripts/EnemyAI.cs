@@ -7,9 +7,6 @@ public class EnemyAI : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
 
-    // Enemy
-    public float health;
-
     // Patrol
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -23,6 +20,23 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    //Shaders for highlights
+    public Shader shader1;
+    public Shader shader2;
+    public Renderer rend;
+
+    public AudioClip[] FootstepAudioClips;
+    [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
+
+    private CharacterController _controller;
+    void Start()
+    {
+        _controller = GetComponent<CharacterController>();
+
+        rend = GetComponent<Renderer>();
+        shader1 = Shader.Find("");
+        shader2 = Shader.Find("");
+    }
     void Awake()
     {
         player = GameObject.Find("Player").transform;
@@ -79,15 +93,26 @@ public class EnemyAI : MonoBehaviour
     {
         alreadyAttacked = false;
     }
-    public void TakeDamage(int damage)
+    
+    public void Selected()
     {
-        health -= damage;
-
-        if (health < 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        rend.material.shader = shader2;
     }
-    void DestroyEnemy()
+    public void Deselected()
     {
-        Destroy(gameObject);
+        rend.material.shader = shader1;
+    }
+
+    private void OnFootstep(AnimationEvent animationEvent)
+    {
+        if (animationEvent.animatorClipInfo.weight > 0.5f)
+        {
+            if (FootstepAudioClips.Length > 0)
+            {
+                var index = Random.Range(0, FootstepAudioClips.Length);
+                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+            }
+        }
     }
 
 }

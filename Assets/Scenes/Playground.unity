@@ -1577,10 +1577,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1762682264}
-    - targetCorrespondingSourceObject: {fileID: 4416926081852918481, guid: 64dce48905ffd9b4293e595fa6941544,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1762682265}
   m_SourcePrefab: {fileID: 100100000, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
 --- !u!1 &1762682261 stripped
 GameObject:
@@ -1616,40 +1612,6 @@ NavMeshAgent:
   m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1762682265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1762682261}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37fe7a78383bdd348a207d3482580988, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 1133549261}
-  player: {fileID: 1762682264}
-  playerAnimator: {fileID: 1762682266}
-  targetDest: {fileID: 1310847582}
-  FootstepAudioClips: []
-  FootstepAudioVolume: 0.5
-  clickEffect: {fileID: 2629482439324332389, guid: d73518ac39297e64995acb17999b6908,
-    type: 3}
-  clickableLayer:
-    serializedVersion: 2
-    m_Bits: 1536
-  attackSpeed: 1.5
-  attackDelay: 0.3
-  attackDistance: 1.5
-  attackDamage: 10
-  hitEffect: {fileID: 0}
---- !u!95 &1762682266 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6982812146204527121, guid: 64dce48905ffd9b4293e595fa6941544,
-    type: 3}
-  m_PrefabInstance: {fileID: 1762682258}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1764214107
 GameObject:
   m_ObjectHideFlags: 0
