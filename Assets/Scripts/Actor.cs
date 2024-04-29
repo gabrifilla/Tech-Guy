@@ -1,20 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Actor : MonoBehaviour
 {
-    public int maxHealth;
+    public float health;
+    public float maxHealth { get; private set; }
 
-    public int currentHealth { get; private set; }
+    public Image healthBar;
 
     void Awake()
-    { currentHealth = maxHealth; }
+    { maxHealth = health; }
+
+    void Update()
+    {
+        healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+    }
 
     public void TakeDamage(int amount)
     {
-        currentHealth -= amount;
-        if (currentHealth <= 0)
+        health -= amount;
+        if (health <= 0)
         { Death(); }
     }
 

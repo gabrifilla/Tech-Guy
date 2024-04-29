@@ -20,11 +20,6 @@ public class EnemyAI : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
-    //Shaders for highlights
-    public Shader shader1;
-    public Shader shader2;
-    public Renderer rend;
-
     public AudioClip[] FootstepAudioClips;
     [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
@@ -32,10 +27,6 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         _controller = GetComponent<CharacterController>();
-
-        rend = GetComponent<Renderer>();
-        shader1 = Shader.Find("");
-        shader2 = Shader.Find("");
     }
     void Awake()
     {
@@ -92,15 +83,6 @@ public class EnemyAI : MonoBehaviour
     void ResetAttack()
     {
         alreadyAttacked = false;
-    }
-    
-    public void Selected()
-    {
-        rend.material.shader = shader2;
-    }
-    public void Deselected()
-    {
-        rend.material.shader = shader1;
     }
 
     private void OnFootstep(AnimationEvent animationEvent)

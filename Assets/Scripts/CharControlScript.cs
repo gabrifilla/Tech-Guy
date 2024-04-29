@@ -149,7 +149,7 @@ public class CharControlScript : MonoBehaviour
     {
         if (target == null) return;
 
-        if (target.myActor.currentHealth <= 0)
+        if (target.myActor.maxHealth <= 0)
         { target = null; return; }
 
         Instantiate(hitEffect, target.transform.position + new Vector3(0, 1, 0), Quaternion.identity);

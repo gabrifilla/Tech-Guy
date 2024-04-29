@@ -6430,7 +6430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968eb81713e1d1e40b9b5887ae0fdd02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 250
+  maxHealth: 1000000000
 --- !u!114 &1679995906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7107,6 +7107,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5542111180780342640, guid: c708a3b79cd542b42bbfedb17e213bc1,
+        type: 3}
+      propertyPath: orthographic size
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7181,7 +7186,7 @@ MonoBehaviour:
   attackSpeed: 1.5
   attackDelay: 0.3
   attackDistance: 1.5
-  attackDamage: 1
+  attackDamage: 20
   hitEffect: {fileID: 297789674}
   FootstepAudioClips: []
   FootstepAudioVolume: 0.5
@@ -7931,6 +7936,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3019802357415506049, guid: 09aade0ecefd01e4b8f7661acf64f5c2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3297709168547847191, guid: 09aade0ecefd01e4b8f7661acf64f5c2,
         type: 3}
