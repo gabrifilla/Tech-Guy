@@ -30,6 +30,7 @@ public class Actor : MonoBehaviour
 
     void Death()
     {
+        healthBar.gameObject.SetActive(false);
         Destroy(gameObject);
     }
 }

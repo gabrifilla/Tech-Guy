@@ -76,7 +76,10 @@ public class CharControlScript : MonoBehaviour
                 {
                     target = interactable;
                     // Ativa a barra de vida do novo alvo
-                    target.GetComponent<Actor>().healthBar.gameObject.SetActive(true);
+                    if (target.GetComponent<Actor>().healthBar != null)
+                    {
+                        target.GetComponent<Actor>().healthBar.gameObject.SetActive(true);
+                    }
                 }
                 else
                 {

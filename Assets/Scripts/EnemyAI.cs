@@ -7,6 +7,14 @@ public class EnemyAI : MonoBehaviour
     public Transform player;
     public LayerMask whatIsGround, whatIsPlayer;
 
+    const string IDLE = "Idle";
+    const string WALK = "Walk";
+    const string ATTACK = "Attack";
+
+    string currentAnimation;
+
+    Animator animator;
+
     // Patrol
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -33,10 +41,13 @@ public class EnemyAI : MonoBehaviour
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
+        SetAnimations();
+
         // Check if player in sight and attack range
         playerInSightRange = CheckPlayerInRange(sightRange);
         playerInAttackRange = CheckPlayerInRange(attackRange);
@@ -82,6 +93,7 @@ public class EnemyAI : MonoBehaviour
     {
         agent.SetDestination(player.position);
     }
+
     void AttackPlayer()
     {
         agent.SetDestination(transform.position);
@@ -92,14 +104,27 @@ public class EnemyAI : MonoBehaviour
         {
             // Ataque o jogador
             player.GetComponent<Actor>().TakeDamage(attackDamage);
-
+            animator.Play(ATTACK);
             alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+
+            Invoke(nameof(ResetBusyState), timeBetweenAttacks);
+
         }
     }
-    void ResetAttack()
+    void ResetBusyState()
     {
         alreadyAttacked = false;
+        SetAnimations();
+    }
+
+    void SetAnimations()
+    {
+        if (alreadyAttacked) return;
+
+        if (agent.velocity == Vector3.zero)
+        { animator.Play(IDLE); }
+        else
+        { animator.Play(WALK); }
     }
 
     private void OnFootstep(AnimationEvent animationEvent)
