@@ -63,9 +63,26 @@ public class CharControlScript : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, clickableLayers))
         {
+            // Desativa a barra de vida do alvo anterior
+            if (target != null)
+            {
+                target.GetComponent<Actor>().healthBar.gameObject.SetActive(false);
+            }
+
             if (hit.transform.CompareTag("Interactable"))
             {
-                target = hit.transform.GetComponent<Interactable>();
+                Interactable interactable = hit.transform.GetComponent<Interactable>();
+                if (interactable.interactionType == InteractableType.Enemy)
+                {
+                    target = interactable;
+                    // Ativa a barra de vida do novo alvo
+                    target.GetComponent<Actor>().healthBar.gameObject.SetActive(true);
+                }
+                else
+                {
+                    target = hit.transform.GetComponent<Interactable>();
+                }
+
                 if (clickEffect != null)
                 { Instantiate(clickEffect, hit.transform.position + new Vector3(0, 0.1f, 0), clickEffect.transform.rotation); }
             }

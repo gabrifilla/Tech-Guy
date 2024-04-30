@@ -10,15 +10,18 @@ public class Actor : MonoBehaviour
 
     public Image healthBar;
 
-    void Awake()
-    { maxHealth = health; }
+    public virtual void Awake()
+    { maxHealth = health; healthBar.gameObject.SetActive(false); }
 
     void Update()
     {
-        healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+        }
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         health -= amount;
         if (health <= 0)

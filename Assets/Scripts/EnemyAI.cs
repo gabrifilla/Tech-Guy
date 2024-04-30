@@ -13,6 +13,7 @@ public class EnemyAI : MonoBehaviour
     public float walkPointRange;
 
     // Attacking
+    public float attackDamage;
     public float timeBetweenAttacks;
     bool alreadyAttacked;
 
@@ -37,14 +38,27 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         // Check if player in sight and attack range
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        playerInSightRange = CheckPlayerInRange(sightRange);
+        playerInAttackRange = CheckPlayerInRange(attackRange);
 
         if (!playerInSightRange && !playerInAttackRange) Patroling();
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         if (playerInSightRange && playerInAttackRange) AttackPlayer();
     }
 
+    // CheckPlayerInRange usa Physics.OverlapSphere para obter todos os colisores dentro de um determinado range e verifica se algum deles tem a tag “Player”
+    bool CheckPlayerInRange(float range)
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, range);
+        foreach (Collider collider in colliders)
+        {
+            if (collider.CompareTag("Player"))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     void Patroling()
     {
         if (!walkPointSet) SearchWalkpoint();
@@ -76,6 +90,9 @@ public class EnemyAI : MonoBehaviour
 
         if (!alreadyAttacked)
         {
+            // Ataque o jogador
+            player.GetComponent<Actor>().TakeDamage(attackDamage);
+
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
         }
