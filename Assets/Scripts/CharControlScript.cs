@@ -8,8 +8,9 @@ public class CharControlScript : MonoBehaviour
 {
     const string IDLE = "Idle";
     const string WALK = "Walk";
-    const string ATTACK = "Attack";
+    const string ATTACK = "Combo";
     const string PICKUP = "Pickup";
+    string[] attackAnimations = { "Attack", "Attack2", "Attack3" };
 
     string currentAnimation;
 
@@ -30,6 +31,9 @@ public class CharControlScript : MonoBehaviour
     [SerializeField] float attackDistance = 1.5f;
     [SerializeField] int attackDamage = 1;
     [SerializeField] ParticleSystem hitEffect;
+    [SerializeField] int maxComboCount = 3;
+
+    int currentComboCount = 0;
 
     bool playerBusy = false;
     Interactable target;
@@ -150,10 +154,25 @@ public class CharControlScript : MonoBehaviour
         {
             case InteractableType.Enemy:
 
-                animator.Play(ATTACK);
+                animator.Play(attackAnimations[currentComboCount]);
 
                 Invoke(nameof(SendAttack), attackDelay);
                 Invoke(nameof(ResetBusyState), attackSpeed);
+
+                if (currentComboCount >= maxComboCount - 1)
+                {
+                    currentComboCount = 0;
+                    playerBusy = true;
+
+                    Invoke(nameof(ResetBusyState), attackSpeed);
+                }
+                else
+                {
+                    currentComboCount++;
+                    Invoke(nameof(SendAttack), attackDelay);
+                    Invoke(nameof(ResetBusyState), attackSpeed);
+
+                }
                 break;
             case InteractableType.Item:
 

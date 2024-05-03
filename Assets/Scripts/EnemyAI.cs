@@ -10,6 +10,7 @@ public class EnemyAI : MonoBehaviour
     const string IDLE = "Idle";
     const string WALK = "Walk";
     const string ATTACK = "Attack";
+    const string DIE = "Die";
 
     string currentAnimation;
 
