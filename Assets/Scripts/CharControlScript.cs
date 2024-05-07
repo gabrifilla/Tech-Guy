@@ -8,11 +8,13 @@ public class CharControlScript : MonoBehaviour
 {
     const string IDLE = "Idle";
     const string WALK = "Walk";
-    const string ATTACK = "Combo";
     const string PICKUP = "Pickup";
+
     string[] attackAnimations = { "Attack", "Attack2", "Attack3" };
 
     string currentAnimation;
+
+    public bool isDashing = false;
 
     CustomActions input;
 
@@ -30,7 +32,7 @@ public class CharControlScript : MonoBehaviour
     [SerializeField] float attackDelay = 0.3f;
     [SerializeField] float attackDistance = 1.5f;
     [SerializeField] int attackDamage = 1;
-    [SerializeField] ParticleSystem hitEffect;
+    [SerializeField] public ParticleSystem hitEffect;
     [SerializeField] int maxComboCount = 3;
 
     int currentComboCount = 0;
@@ -64,42 +66,45 @@ public class CharControlScript : MonoBehaviour
 
     void ClickToMove()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, clickableLayers))
+        if (!isDashing)
         {
-            // Desativa a barra de vida do alvo anterior
-            if (target != null)
+            RaycastHit hit;
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, clickableLayers))
             {
-                target.GetComponent<Actor>().healthBar.gameObject.SetActive(false);
-            }
-
-            if (hit.transform.CompareTag("Interactable"))
-            {
-                Interactable interactable = hit.transform.GetComponent<Interactable>();
-                if (interactable.interactionType == InteractableType.Enemy)
+                // Desativa a barra de vida do alvo anterior
+                if (target != null)
                 {
-                    target = interactable;
-                    // Ativa a barra de vida do novo alvo
-                    if (target.GetComponent<Actor>().healthBar != null)
+                    target.GetComponent<Actor>().healthBar.gameObject.SetActive(false);
+                }
+
+                if (hit.transform.CompareTag("Interactable"))
+                {
+                    Interactable interactable = hit.transform.GetComponent<Interactable>();
+                    if (interactable.interactionType == InteractableType.Enemy)
                     {
-                        target.GetComponent<Actor>().healthBar.gameObject.SetActive(true);
+                        target = interactable;
+                        // Ativa a barra de vida do novo alvo
+                        if (target.GetComponent<Actor>().healthBar != null)
+                        {
+                            target.GetComponent<Actor>().healthBar.gameObject.SetActive(true);
+                        }
                     }
+                    else
+                    {
+                        target = hit.transform.GetComponent<Interactable>();
+                    }
+
+                    if (clickEffect != null)
+                    { Instantiate(clickEffect, hit.transform.position + new Vector3(0, 0.1f, 0), clickEffect.transform.rotation); }
                 }
                 else
                 {
-                    target = hit.transform.GetComponent<Interactable>();
+                    target = null;
+
+                    agent.destination = hit.point;
+                    if (clickEffect != null)
+                    { Instantiate(clickEffect, hit.point + new Vector3(0, 0.1f, 0), clickEffect.transform.rotation); }
                 }
-
-                if (clickEffect != null)
-                { Instantiate(clickEffect, hit.transform.position + new Vector3(0, 0.1f, 0), clickEffect.transform.rotation); }
-            }
-            else
-            {
-                target = null;
-
-                agent.destination = hit.point;
-                if (clickEffect != null)
-                { Instantiate(clickEffect, hit.point + new Vector3(0, 0.1f, 0), clickEffect.transform.rotation); }
             }
         }
     }

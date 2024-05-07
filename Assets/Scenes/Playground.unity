@@ -10219,6 +10219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fe7a78383bdd348a207d3482580988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDashing: 0
   clickEffect: {fileID: 169947126}
   clickableLayers:
     serializedVersion: 2
@@ -10296,13 +10297,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762682261}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9ff72f5130047c4681fb409cb8d8d72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 0
-  dashTime: 0
+  dashSpeed: 20
+  dashTime: 0.25
+  rotationSpeed: 10
 --- !u!1 &1764214107
 GameObject:
   m_ObjectHideFlags: 0
