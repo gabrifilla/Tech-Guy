@@ -38,12 +38,10 @@ public class SkillsScript : MonoBehaviour
             // Chame a função para a habilidade Q aqui
             Q.onClick.Invoke();
 
-            // Simule o pressionamento do botão
+            // Simula o pressionamento do botão
             ExecuteEvents.Execute(Q.gameObject, pointerEventData, ExecuteEvents.pointerDownHandler);
 
-            Debug.Log("Oi");
-
-            ComboAttack();
+            PerformQ();
         }
 
         // Verifique se a tecla foi liberada
@@ -69,43 +67,37 @@ public class SkillsScript : MonoBehaviour
             R.onClick.Invoke();
         }
     }
-
-    void ComboAttack()
+    void PerformQ()
     {
         for (int i = 0; i < 5; i++)
         {
-            // Espaço cada ataque por 0.2 segundos
-            Invoke("PerformAttack", i * 0.2f);
-        }
-    }
+            charControlScript.animator.Play("Attack");
+            // Defina a distância do ataque e o raio da área de ataque
+            float attackDistance = 5f;
+            float attackRadius = 2f;
 
-    void PerformAttack()
-    {
-        // Defina a distância do ataque e o raio da área de ataque
-        float attackDistance = 5f;
-        float attackRadius = 2f;
+            // Use um SphereCast na direção que o personagem está olhando para detectar inimigos
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, attackRadius, transform.forward, attackDistance);
 
-        // Use um SphereCast na direção que o personagem está olhando para detectar inimigos
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, attackRadius, transform.forward, attackDistance);
-
-        // Itere sobre todos os objetos atingidos
-        foreach (RaycastHit hit in hits)
-        {
-            // Verifique se o objeto atingido é interagivel
-            if (hit.transform.CompareTag("Interactable"))
+            // Itere sobre todos os objetos atingidos
+            foreach (RaycastHit hit in hits)
             {
-                // Obtenha o componente Actor
-                Actor actor = hit.transform.GetComponent<Actor>();
+                // Verifique se o objeto atingido é interagivel
+                if (hit.transform.CompareTag("Interactable"))
+                {
+                    // Obtenha o componente Actor
+                    Actor actor = hit.transform.GetComponent<Actor>();
 
-                // Verifique se o componente Actor existe antes de chamar TakeDamage
-                if (actor != null)
-                {
-                    Instantiate(charControlScript.hitEffect, actor.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-                    actor.TakeDamage(15);
-                }
-                else
-                {
-                    Debug.Log("O objeto atingido não tem um componente Actor!");
+                    // Verifique se o componente Actor existe antes de chamar TakeDamage
+                    if (actor != null)
+                    {
+                        Instantiate(charControlScript.hitEffect, actor.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+                        actor.TakeDamage(15);
+                    }
+                    else
+                    {
+                        Debug.Log("O objeto atingido não tem um componente Actor!");
+                    }
                 }
             }
         }

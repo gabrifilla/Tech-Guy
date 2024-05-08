@@ -9442,7 +9442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968eb81713e1d1e40b9b5887ae0fdd02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1e+11
+  health: 1000
   healthBar: {fileID: 106647806}
 --- !u!114 &1679995906
 MonoBehaviour:
@@ -10172,6 +10172,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1762682273}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36078ab0369161e49a29d349ae3e0739,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1762682274}
   m_SourcePrefab: {fileID: 100100000, guid: 36078ab0369161e49a29d349ae3e0739, type: 3}
 --- !u!1 &1762682261 stripped
 GameObject:
@@ -10305,6 +10309,22 @@ MonoBehaviour:
   dashSpeed: 20
   dashTime: 0.25
   rotationSpeed: 10
+--- !u!114 &1762682274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762682261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d54880da6396da4c8cb3d4f4d1289a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Q: {fileID: 1360990074}
+  W: {fileID: 1386135613}
+  E: {fileID: 1899877725}
+  R: {fileID: 1919801010}
 --- !u!1 &1764214107
 GameObject:
   m_ObjectHideFlags: 0
@@ -10478,7 +10498,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a5a12717b3a60954ea1e9695ee0d5d3b,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1679995905}
+      addedObject: {fileID: 1679995903}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a5a12717b3a60954ea1e9695ee0d5d3b,
         type: 3}
       insertIndex: -1
@@ -10486,7 +10506,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a5a12717b3a60954ea1e9695ee0d5d3b,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1679995903}
+      addedObject: {fileID: 1679995905}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a5a12717b3a60954ea1e9695ee0d5d3b,
         type: 3}
       insertIndex: -1

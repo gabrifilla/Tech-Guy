@@ -19,7 +19,7 @@ public class CharControlScript : MonoBehaviour
     CustomActions input;
 
     NavMeshAgent agent;
-    Animator animator;
+    public Animator animator;
 
     [Header("Movement")]
     [SerializeField] ParticleSystem clickEffect;
