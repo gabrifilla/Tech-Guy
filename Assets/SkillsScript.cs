@@ -12,6 +12,12 @@ public class SkillsScript : MonoBehaviour
     // Referência para o PointerEventData
     private PointerEventData pointerEventData;
 
+    // Cooldown
+    public float abilityQCooldown = 5f;
+
+    // Rastrear quando a habilidade foi usada pela última vez
+    private float lastAbilityQTime;
+
     // Referência para o botão
     public Button Q;
     public Button W;
@@ -35,13 +41,21 @@ public class SkillsScript : MonoBehaviour
         // Verifique se a tecla foi pressionada
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            // Chame a função para a habilidade Q aqui
-            Q.onClick.Invoke();
+            // Verifique se o cooldown acabou
+            if (Time.time >= lastAbilityQTime + abilityQCooldown)
+            {
+                // Atualize o tempo da última vez que a habilidade foi usada
+                lastAbilityQTime = Time.time;
 
-            // Simula o pressionamento do botão
-            ExecuteEvents.Execute(Q.gameObject, pointerEventData, ExecuteEvents.pointerDownHandler);
+                // Chame a função para a habilidade Q aqui
+                Q.onClick.Invoke();
 
-            PerformQ();
+                // Simula o pressionamento do botão
+                ExecuteEvents.Execute(Q.gameObject, pointerEventData, ExecuteEvents.pointerDownHandler);
+
+                PerformQ();
+            }
+            
         }
 
         // Verifique se a tecla foi liberada
