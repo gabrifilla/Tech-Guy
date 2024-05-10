@@ -8,15 +8,22 @@ public class SkillsScript : MonoBehaviour
 {
     // Adicione uma referência para o script do personagem
     private CharControlScript charControlScript;
+    public Transform player;
 
     // Referência para o PointerEventData
     private PointerEventData pointerEventData;
 
     // Cooldown
     public float abilityQCooldown = 5f;
+    public float abilityWCooldown = 5f;
+    public float abilityECooldown = 5f;
+    public float abilityRCooldown = 5f;
 
     // Rastrear quando a habilidade foi usada pela última vez
     private float lastAbilityQTime;
+    private float lastAbilityWTime;
+    private float lastAbilityETime;
+    private float lastAbilityRTime;
 
     // Referência para o botão
     public Button Q;
@@ -38,47 +45,67 @@ public class SkillsScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Verifique se a tecla foi pressionada
-        if (Input.GetKeyDown(KeyCode.Q))
+        if(player.GetComponent<PlayerActor>().mana > 0)
         {
-            // Verifique se o cooldown acabou
-            if (Time.time >= lastAbilityQTime + abilityQCooldown)
+            // Verifique se a tecla foi pressionada
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                // Atualize o tempo da última vez que a habilidade foi usada
-                lastAbilityQTime = Time.time;
+                // Verifique se o cooldown acabou
+                if (Time.time >= lastAbilityQTime + abilityQCooldown)
+                {
+                    // Atualize o tempo da última vez que a habilidade foi usada
+                    lastAbilityQTime = Time.time;
 
-                // Chame a função para a habilidade Q aqui
-                Q.onClick.Invoke();
+                    // Chama a função para a habilidade Q aqui
+                    Q.onClick.Invoke();
 
-                // Simula o pressionamento do botão
-                ExecuteEvents.Execute(Q.gameObject, pointerEventData, ExecuteEvents.pointerDownHandler);
+                    // Simula o pressionamento do botão
+                    ExecuteEvents.Execute(Q.gameObject, pointerEventData, ExecuteEvents.pointerDownHandler);
 
-                PerformQ();
+                    // Chama a skill
+                    PerformQ();
+                    player.GetComponent<PlayerActor>().UseMana(100);
+                }
+            
+            }
+
+            // Verifica se a tecla foi liberada
+            if (Input.GetKeyUp(KeyCode.Q))
+            {
+                // Simula a liberação do botão
+                ExecuteEvents.Execute(Q.gameObject, pointerEventData, ExecuteEvents.pointerUpHandler);
+            }
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                // Verifica se o cooldown acabou
+                if (Time.time >= lastAbilityWTime + abilityWCooldown)
+                {
+                    // Chama a função para a habilidade W aqui
+                    W.onClick.Invoke();
+                }
             }
             
-        }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                // Verifica se o cooldown acabou
+                if (Time.time >= lastAbilityETime + abilityECooldown)
+                {
+                    // Chama a função para a habilidade E aqui
+                    E.onClick.Invoke();
+                }
+            }
+            
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                // Verifica se o cooldown acabou
+                if (Time.time >= lastAbilityRTime + abilityRCooldown)
+                {
+                    // Chama a função para a habilidade R aqui
+                    R.onClick.Invoke();
+                }
+            }
 
-        // Verifique se a tecla foi liberada
-        if (Input.GetKeyUp(KeyCode.Q))
-        {
-            // Simule a liberação do botão
-            ExecuteEvents.Execute(Q.gameObject, pointerEventData, ExecuteEvents.pointerUpHandler);
-        }
-
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            // Chame a função para a habilidade W aqui
-            W.onClick.Invoke();
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            // Chame a função para a habilidade E aqui
-            E.onClick.Invoke();
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            // Chame a função para a habilidade R aqui
-            R.onClick.Invoke();
         }
     }
     void PerformQ()
@@ -86,8 +113,9 @@ public class SkillsScript : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             charControlScript.animator.Play("Attack");
+
             // Defina a distância do ataque e o raio da área de ataque
-            float attackDistance = 5f;
+            float attackDistance = 1f;
             float attackRadius = 2f;
 
             // Use um SphereCast na direção que o personagem está olhando para detectar inimigos

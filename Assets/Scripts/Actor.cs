@@ -11,7 +11,10 @@ public class Actor : MonoBehaviour
     public Image healthBar;
 
     public virtual void Awake()
-    { maxHealth = health; healthBar.gameObject.SetActive(false); }
+    { 
+        maxHealth = health;
+        healthBar.gameObject.SetActive(false);
+    }
 
     void Update()
     {
@@ -27,7 +30,7 @@ public class Actor : MonoBehaviour
         if (health <= 0)
         { Death(); }
     }
-
+    
     void Death()
     {
         healthBar.gameObject.SetActive(false);
