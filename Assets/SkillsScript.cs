@@ -13,6 +13,9 @@ public class SkillsScript : MonoBehaviour
     // Referência para o PointerEventData
     private PointerEventData pointerEventData;
 
+    // Referência para o objeto de visualização
+    public GameObject abilityRangeIndicator;
+
     // Cooldown
     public float abilityQCooldown = 5f;
     public float abilityWCooldown = 5f;
@@ -64,7 +67,11 @@ public class SkillsScript : MonoBehaviour
 
                     // Chama a skill
                     PerformQ();
+                    // Gasta mana
                     player.GetComponent<PlayerActor>().UseMana(100);
+
+                    // Mostre o objeto de visualização da skill
+                    abilityRangeIndicator.SetActive(true);
                 }
             
             }
@@ -74,6 +81,9 @@ public class SkillsScript : MonoBehaviour
             {
                 // Simula a liberação do botão
                 ExecuteEvents.Execute(Q.gameObject, pointerEventData, ExecuteEvents.pointerUpHandler);
+
+                // Oculta o objeto de visualização da skill
+                abilityRangeIndicator.SetActive(false);
             }
 
             if (Input.GetKeyDown(KeyCode.W))
@@ -110,13 +120,13 @@ public class SkillsScript : MonoBehaviour
     }
     void PerformQ()
     {
+        charControlScript.animator.Play("QSkill");
+
         for (int i = 0; i < 5; i++)
         {
-            charControlScript.animator.Play("Attack");
-
             // Defina a distância do ataque e o raio da área de ataque
-            float attackDistance = 1f;
-            float attackRadius = 2f;
+            float attackDistance = .5f;
+            float attackRadius = .5f;
 
             // Use um SphereCast na direção que o personagem está olhando para detectar inimigos
             RaycastHit[] hits = Physics.SphereCastAll(transform.position, attackRadius, transform.forward, attackDistance);
