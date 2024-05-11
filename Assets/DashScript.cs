@@ -16,41 +16,45 @@ public class DashScript : MonoBehaviour
 
     Animator animator;
 
+    public bool isDashing = false;
+
     private void Start()
     {
         // Obtenha a referencia ao NavMeshAgent
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isDashing)
         {
-            // Posição do mouse no mundo
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                // Calcula a direção para dar o Dash
-                dashDirection = (hit.point - transform.position);
-                dashDirection.y = 0; // Zera o y
-                dashDirection = dashDirection.normalized;
+            // Posição do mouse na tela
+            Vector3 mousePosition = Input.mousePosition;
 
-                // Faz o personagem olhar na direção do Dash
-                Quaternion dashRotation = Quaternion.LookRotation(dashDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, dashRotation, Time.deltaTime * rotationSpeed);
+            // Posição do personagem na tela
+            Vector3 characterScreenPosition = Camera.main.WorldToScreenPoint(transform.position);
 
-                //animator.Play("Dash");
-                StartCoroutine(Dash());
-            }
+            // Calcula a direção para dar o Dash
+            dashDirection = (mousePosition - characterScreenPosition).normalized;
+            dashDirection.z = dashDirection.y;
+            dashDirection.y = 0;
+
+            // Faz o personagem olhar na direção do Dash
+            Quaternion dashRotation = Quaternion.LookRotation(dashDirection);
+            transform.rotation = dashRotation;
+
+            StartCoroutine(Dash());
         }
     }
 
     IEnumerator Dash()
     {
+        // Defina isDashing como true no início do dash
+        isDashing = true;
+
+        animator.Play("Dash");
         float startTime = Time.time;
 
         while (Time.time < startTime + dashTime)
@@ -62,5 +66,8 @@ public class DashScript : MonoBehaviour
 
         // Faz com que o NavMesh não mova (Personagem para quando chega no ponto final)
         agent.SetDestination(transform.position);
+
+        // Defina isDashing como false no final do dash
+        isDashing = false;
     }
 }

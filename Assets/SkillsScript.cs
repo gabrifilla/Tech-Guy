@@ -125,8 +125,8 @@ public class SkillsScript : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             // Defina a distância do ataque e o raio da área de ataque
-            float attackDistance = .5f;
-            float attackRadius = .5f;
+            float attackDistance = 1f;
+            float attackRadius = 1f;
 
             // Use um SphereCast na direção que o personagem está olhando para detectar inimigos
             RaycastHit[] hits = Physics.SphereCastAll(transform.position, attackRadius, transform.forward, attackDistance);

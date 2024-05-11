@@ -40,6 +40,9 @@ public class CharControlScript : MonoBehaviour
     bool playerBusy = false;
     Interactable target;
 
+    // Adicione uma variável pública para o DashScript
+    public DashScript dashScript;
+
     public AudioClip[] FootstepAudioClips;
     [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
@@ -117,9 +120,13 @@ public class CharControlScript : MonoBehaviour
 
     void Update()
     {
-        FollowTarget();
-        FaceTarget();
-        SetAnimations();
+        if (!dashScript.isDashing)
+        {
+            FollowTarget();
+            FaceTarget();
+            SetAnimations();
+        }
+        
     }
 
     void FollowTarget()
