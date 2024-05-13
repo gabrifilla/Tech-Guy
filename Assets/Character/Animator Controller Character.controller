@@ -77,6 +77,33 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!1102 &-4446398625273625482
+AnimatorState:
+  serializedVersion: 6
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: GetHit
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: -7880898593064695190, guid: b411db09ef04a054bbf420d2f6bc4572,
+    type: 3}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &-4216089211663704060
 AnimatorState:
   serializedVersion: 6
@@ -251,7 +278,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Dash
-  m_Speed: 1
+  m_Speed: 3
   m_CycleOffset: 0
   m_Transitions: []
   m_StateMachineBehaviours: []
@@ -636,7 +663,7 @@ AnimatorStateMachine:
     m_Position: {x: 20, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8226911319172069465}
-    m_Position: {x: 20, y: 230, z: 0}
+    m_Position: {x: 20, y: 290, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7959247258284534898}
     m_Position: {x: 250, y: 170, z: 0}
@@ -645,7 +672,7 @@ AnimatorStateMachine:
     m_Position: {x: 480, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -115040067423355569}
-    m_Position: {x: 250, y: 100, z: 0}
+    m_Position: {x: 250, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3386858251904846824}
     m_Position: {x: 290, y: 340, z: 0}
@@ -670,6 +697,9 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: 5843027326371473925}
     m_Position: {x: 1130, y: 340, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: -4446398625273625482}
+    m_Position: {x: 20, y: 230, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions:

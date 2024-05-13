@@ -121,7 +121,7 @@ public class CharControlScript : MonoBehaviour
     void Update()
     {
         if (!dashScript.isDashing)
-        {
+        { 
             FollowTarget();
             FaceTarget();
             SetAnimations();
@@ -150,9 +150,15 @@ public class CharControlScript : MonoBehaviour
         { facing = agent.destination; }
 
         Vector3 direction = (facing - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookRotationSpeed);
+
+        // Verifique se a direção não é zero
+        if (direction != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookRotationSpeed);
+        }
     }
+
 
     void ReachDistance()
     {
