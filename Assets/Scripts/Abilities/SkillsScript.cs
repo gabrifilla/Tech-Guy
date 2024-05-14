@@ -65,6 +65,8 @@ public class SkillsScript : MonoBehaviour
                     // Simula o pressionamento do botão
                     ExecuteEvents.Execute(Q.gameObject, pointerEventData, ExecuteEvents.pointerDownHandler);
 
+                    charControlScript.animator.Play("QSkill");
+
                     // Chama a skill
                     PerformQ();
                     // Gasta mana
@@ -120,8 +122,6 @@ public class SkillsScript : MonoBehaviour
     }
     void PerformQ()
     {
-        charControlScript.animator.Play("QSkill");
-
         for (int i = 0; i < 5; i++)
         {
             // Defina a distância do ataque e o raio da área de ataque
