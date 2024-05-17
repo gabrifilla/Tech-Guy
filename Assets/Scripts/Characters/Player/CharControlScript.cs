@@ -28,12 +28,7 @@ public class CharControlScript : MonoBehaviour
     float lookRotationSpeed = 8f;
 
     [Header("Attack")]
-    [SerializeField] float attackSpeed = 1.5f;
-    [SerializeField] float attackDelay = 0.3f;
-    [SerializeField] float attackDistance = 1.5f;
-    [SerializeField] int attackDamage = 1;
     [SerializeField] public ParticleSystem hitEffect;
-    [SerializeField] int maxComboCount = 3;
 
     int currentComboCount = 0;
 
@@ -47,6 +42,8 @@ public class CharControlScript : MonoBehaviour
     [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
     private CharacterController _controller;
+
+    public PlayerActor playerActor;
 
     void Start()
     {
@@ -133,7 +130,7 @@ public class CharControlScript : MonoBehaviour
     {
         if (target == null) return;
 
-        if (Vector3.Distance(target.transform.position, transform.position) <= attackDistance)
+        if (Vector3.Distance(target.transform.position, transform.position) <= playerActor.weapon.attackDistance)
         { ReachDistance(); }
         else
         { agent.SetDestination(target.transform.position); }
@@ -174,21 +171,21 @@ public class CharControlScript : MonoBehaviour
 
                 animator.Play(attackAnimations[currentComboCount]);
 
-                Invoke(nameof(SendAttack), attackDelay);
-                Invoke(nameof(ResetBusyState), attackSpeed);
+                Invoke(nameof(SendAttack), playerActor.weapon.attackDelay);
+                Invoke(nameof(ResetBusyState), playerActor.weapon.attackSpeed);
 
-                if (currentComboCount >= maxComboCount - 1)
+                if (currentComboCount >= playerActor.weapon.maxComboCount - 1)
                 {
                     currentComboCount = 0;
                     playerBusy = true;
 
-                    Invoke(nameof(ResetBusyState), attackSpeed);
+                    Invoke(nameof(ResetBusyState), playerActor.weapon.attackSpeed);
                 }
                 else
                 {
                     currentComboCount++;
-                    Invoke(nameof(SendAttack), attackDelay);
-                    Invoke(nameof(ResetBusyState), attackSpeed);
+                    Invoke(nameof(SendAttack), playerActor.weapon.attackDelay);
+                    Invoke(nameof(ResetBusyState), playerActor.weapon.attackSpeed);
 
                 }
                 break;
@@ -204,14 +201,12 @@ public class CharControlScript : MonoBehaviour
 
     void SendAttack()
     {
-        if (target == null) return;
-
-        if (target.myActor.maxHealth <= 0)
-        { target = null; return; }
-
-        Instantiate(hitEffect, target.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
-        target.GetComponent<Actor>().TakeDamage(attackDamage);
+        if (playerActor.weapon != null)
+        {
+            playerActor.weapon.Attack(playerActor.handTransform, playerActor.weapon.attackDamage, hitEffect);
+        }
     }
+
 
     void ResetBusyState()
     {

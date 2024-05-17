@@ -27,10 +27,20 @@ public class Actor : MonoBehaviour
     public virtual void TakeDamage(float amount)
     {
         health -= amount;
+        UpdateHealthBar();
+
         if (health <= 0)
         { Death(); }
     }
-    
+
+    void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+        }
+    }
+
     void Death()
     {
         healthBar.gameObject.SetActive(false);

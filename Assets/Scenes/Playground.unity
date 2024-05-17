@@ -533,8 +533,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionType: 1
---- !u!135 &116812068
-SphereCollider:
+--- !u!136 &116812068
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -543,17 +543,19 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 823
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1
-  m_Center: {x: 0, y: 2, z: 1}
+  serializedVersion: 2
+  m_Radius: 0.14
+  m_Height: 4.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.5, z: 1.12}
 --- !u!198 &169947126 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2629482439324332389, guid: d73518ac39297e64995acb17999b6908,
@@ -5861,7 +5863,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ffc80ccae3b416c48a6857afd2a8b5e5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 75b4dcf0ce769e34bacc62d0a22e60fa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6014,7 +6016,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ffc80ccae3b416c48a6857afd2a8b5e5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 75b4dcf0ce769e34bacc62d0a22e60fa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6089,7 +6091,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ffc80ccae3b416c48a6857afd2a8b5e5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 75b4dcf0ce769e34bacc62d0a22e60fa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10414,7 +10416,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ffc80ccae3b416c48a6857afd2a8b5e5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 75b4dcf0ce769e34bacc62d0a22e60fa, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11452,7 +11454,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1139509187}
-  - component: {fileID: 1139509186}
   - component: {fileID: 1139509188}
   m_Layer: 10
   m_Name: Item pickup
@@ -11461,27 +11462,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!135 &1139509186
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1139509185}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1139509187
 Transform:
   m_ObjectHideFlags: 0
@@ -12253,7 +12233,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -100, y: 0}
+  m_AnchoredPosition: {x: -100, y: 34}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1360990074
@@ -12320,8 +12300,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 976e58b72b422aa45aa171dc48f89394, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -12450,7 +12430,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -41, y: 0}
+  m_AnchoredPosition: {x: -41, y: 34}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1386135613
@@ -12517,8 +12497,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 976e58b72b422aa45aa171dc48f89394, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -12910,6 +12890,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1561824125}
   m_CullTransparentMesh: 1
+--- !u!4 &1576164575 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8636926368578176749, guid: 8e5f91e967c6c8841894d3cbb4e1a3a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1762682258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1679995900 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 017609c0fdd67f441949d45b44b7e92a,
@@ -13065,12 +13051,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 94a84fadd607125499086a8fd99cb22e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.374
+      value: 1.589
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 94a84fadd607125499086a8fd99cb22e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.226
+      value: -0.218
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 94a84fadd607125499086a8fd99cb22e,
         type: 3}
@@ -13797,15 +13783,11 @@ MonoBehaviour:
   clickableLayers:
     serializedVersion: 2
     m_Bits: 1536
-  attackSpeed: 1
-  attackDelay: 0.3
-  attackDistance: 1.5
-  attackDamage: 20
   hitEffect: {fileID: 297789674}
-  maxComboCount: 3
   dashScript: {fileID: 11400000, guid: 24016d47fac531b468c8a2bd60271fa7, type: 2}
   FootstepAudioClips: []
   FootstepAudioVolume: 0.5
+  playerActor: {fileID: 1762682271}
 --- !u!95 &1762682270
 Animator:
   serializedVersion: 5
@@ -13843,6 +13825,8 @@ MonoBehaviour:
   healthBar: {fileID: 1144507395}
   mana: 1500
   manaBar: {fileID: 1306628284}
+  handTransform: {fileID: 1576164575}
+  weapon: {fileID: 11400000, guid: 13662e278dc660b46a2edfe92a6262d0, type: 2}
 --- !u!136 &1762682272
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -13873,7 +13857,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762682261}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d54880da6396da4c8cb3d4f4d1289a3, type: 3}
   m_Name: 
@@ -14193,10 +14177,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 4
+  m_Radius: 0.32
+  m_Height: 2.15
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0.04, y: 0.8, z: 0}
 --- !u!1001 &1860477237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14413,7 +14397,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 19, y: 0}
+  m_AnchoredPosition: {x: 19, y: 34}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1899877725
@@ -14480,8 +14464,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 976e58b72b422aa45aa171dc48f89394, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -14535,7 +14519,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 78, y: 0}
+  m_AnchoredPosition: {x: 78, y: 34}
   m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1919801010
@@ -14602,8 +14586,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 976e58b72b422aa45aa171dc48f89394, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -15487,11 +15471,11 @@ SceneRoots:
   - {fileID: 746329221}
   - {fileID: 8893349930969585363}
   - {fileID: 297789675}
-  - {fileID: 1139509187}
   - {fileID: 1789904844}
   - {fileID: 1534523781}
   - {fileID: 904466096}
   - {fileID: 210586120}
+  - {fileID: 1139509187}
   - {fileID: 1860477237}
   - {fileID: 1524438640}
   - {fileID: 88430763}
