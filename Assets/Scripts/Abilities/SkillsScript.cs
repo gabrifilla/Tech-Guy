@@ -143,7 +143,7 @@ public class SkillsScript : MonoBehaviour
                     // Verifique se o componente Actor existe antes de chamar TakeDamage
                     if (actor != null)
                     {
-                        Instantiate(charControlScript.hitEffect, actor.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+                        //Instantiate(charControlScript.hitEffect, actor.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                         actor.TakeDamage(15);
                     }
                     else

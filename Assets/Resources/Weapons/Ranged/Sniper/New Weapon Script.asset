@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77acea091a6857844a14768faefdb05a, type: 3}
-  m_Name: Gauntlet
+  m_Name: New Weapon Script
   m_EditorClassIdentifier: 
-  weaponName: Gauntlet
-  weaponPrefab: {fileID: 919132149155446097, guid: 37981f8719c79c94ebff38ba4241b400,
-    type: 3}
-  attackDamage: 10
-  attackSpeed: 2
-  attackDistance: 1.5
+  weaponName: Sniper
+  weaponPrefab: {fileID: 0}
+  attackDamage: 30
+  attackSpeed: 0.5
+  attackDistance: 10
   attackDelay: 0.3
+  attackRadius: 0
+  attackArea: 0
   maxComboCount: 3
+  hitEffectName: 
   abilities: []

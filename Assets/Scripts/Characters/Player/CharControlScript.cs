@@ -28,7 +28,6 @@ public class CharControlScript : MonoBehaviour
     float lookRotationSpeed = 8f;
 
     [Header("Attack")]
-    [SerializeField] public ParticleSystem hitEffect;
 
     int currentComboCount = 0;
 
@@ -203,7 +202,7 @@ public class CharControlScript : MonoBehaviour
     {
         if (playerActor.weapon != null)
         {
-            playerActor.weapon.Attack(playerActor.handTransform, playerActor.weapon.attackDamage, hitEffect);
+            playerActor.weapon.Attack(playerActor.handTransform, playerActor.weapon.attackDamage);
         }
     }
 

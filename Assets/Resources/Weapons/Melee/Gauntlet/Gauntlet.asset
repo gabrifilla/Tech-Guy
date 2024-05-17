@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Gauntlet
   m_EditorClassIdentifier: 
   weaponName: Gauntlet
-  weaponPrefab: {fileID: 919132149155446097, guid: 06f2a27403da5a4489bfd23c841499fc,
+  weaponPrefab: {fileID: 919132149155446097, guid: 37981f8719c79c94ebff38ba4241b400,
     type: 3}
   attackDamage: 10
   attackSpeed: 2
   attackDistance: 1.5
   attackDelay: 0.3
-  hitEffect: {fileID: 0}
+  hitEffectName: HitEffect
   maxComboCount: 3
   abilities: []

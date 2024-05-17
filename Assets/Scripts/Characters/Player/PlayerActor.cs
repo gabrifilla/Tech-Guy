@@ -19,6 +19,7 @@ public class PlayerActor : Actor
 
     private Animator animator; // Adicione uma referência ao componente Animator
 
+
     public override void Awake()
     {
         base.Awake();
@@ -28,7 +29,7 @@ public class PlayerActor : Actor
         manaBar.gameObject.SetActive(true); // A barra de mana do jogador está sempre visível
         animator = GetComponent<Animator>(); // Inicialize a referência ao componente Animator
 
-        EquipWeapon(Resources.Load<WeaponScript>("Gauntlet")); // Equipa uma manopla no início
+        EquipWeapon(Resources.Load<WeaponScript>("Weapons/Melee/Gauntlet/Gauntlet")); // Equipa uma manopla no início + Alterar para + currentWeapon, para que seja possivel não iniciar SEMPRE com a manopla.
     }
 
     void Update()

@@ -15,15 +15,22 @@ public class WeaponScript : ScriptableObject
     [SerializeField] public float attackSpeed;
     [SerializeField] public float attackDistance;
     [SerializeField] public float attackDelay;
-
+    [SerializeField] public float attackRadius;
+    [SerializeField] public float attackArea;
     [SerializeField] public int maxComboCount = 3;
+
+    [Header("Hit Effects")]
+    [SerializeField] public string hitEffectName; // Nome do prefab do efeito de ataque
 
     [Header("Skills")]
     [SerializeField] public Ability[] abilities; // Lista de habilidades desta arma
 
 
-    public void Attack(Transform handTransform, float attackDamage, ParticleSystem hitEffect)
+    public void Attack(Transform handTransform, float attackDamage)
     {
+        // Carregue o prefab do efeito de ataque
+        ParticleSystem hitEffectPrefab = Resources.Load<ParticleSystem>("Weapons/Melee/Gauntlet/" + hitEffectName);
+
         // Use um SphereCast na direção que o personagem está olhando para detectar inimigos
         RaycastHit[] hits = Physics.SphereCastAll(handTransform.position, 1f, handTransform.forward, 1f);
 
@@ -39,7 +46,7 @@ public class WeaponScript : ScriptableObject
                 // Verifique se o componente Actor existe antes de chamar TakeDamage
                 if (actor != null)
                 {
-                    Instantiate(hitEffect, actor.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
+                    Instantiate(hitEffectPrefab, actor.transform.position + new Vector3(0, 1, 0), Quaternion.identity);
                     actor.TakeDamage(attackDamage);
                 }
             }
