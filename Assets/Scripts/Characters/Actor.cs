@@ -13,7 +13,10 @@ public class Actor : MonoBehaviour
     public virtual void Awake()
     { 
         maxHealth = health;
-        healthBar.gameObject.SetActive(false);
+        if (healthBar != null)
+        {
+            healthBar.gameObject.SetActive(false);
+        }
     }
 
     void Update()
@@ -29,6 +32,12 @@ public class Actor : MonoBehaviour
         health -= amount;
         UpdateHealthBar();
 
+        EnemyTargetUI ui = EnemyTargetUI.Instance;
+        if (ui != null)
+        {
+            ui.NotifyHealthChanged(this);
+        }
+
         if (health <= 0)
         { Death(); }
     }
@@ -43,7 +52,10 @@ public class Actor : MonoBehaviour
 
     void Death()
     {
-        healthBar.gameObject.SetActive(false);
+        if (healthBar != null)
+        {
+            healthBar.gameObject.SetActive(false);
+        }
         Destroy(gameObject);
     }
 }

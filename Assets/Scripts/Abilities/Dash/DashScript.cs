@@ -1,41 +1,70 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+#if ENABLE_INPUT_SYSTEM
+using UnityEngine.InputSystem;
+#endif
 
-[CreateAssetMenu]
+[CreateAssetMenu(menuName = "Abilities/Dash")]
 public class DashScript : Ability
 {
     public float dashVelocity;
     public float dashTime;
     public string dashAnimation = "Dash";
-
     public bool isDashing = false;
 
-    Vector3 dashDirection;
+    private void OnEnable()
+    {
+        isDashing = false;
+    }
 
     public override void Activate(GameObject parent)
     {
-        Vector3 mousePosition = Input.mousePosition;
+        if (isDashing) return;
 
-        //Posição do personagem na tela
-        Vector3 characterScreenPosition = Camera.main.WorldToScreenPoint(parent.transform.position);
+        Camera mainCamera = Camera.main;
+        if (mainCamera == null)
+        {
+            return;
+        }
 
-        //Calcula a direção para dar o Dash
-        dashDirection = (mousePosition - characterScreenPosition).normalized;
+        Vector3 mousePosition = GetMousePosition();
+        Vector3 characterScreenPosition = mainCamera.WorldToScreenPoint(parent.transform.position);
+
+        Vector3 dashDirection = (mousePosition - characterScreenPosition).normalized;
         dashDirection.z = dashDirection.y;
         dashDirection.y = 0;
 
-        //Faz o personagem olhar na direção do Dash
         Quaternion dashRotation = Quaternion.LookRotation(dashDirection);
         parent.transform.rotation = dashRotation;
 
-        parent.GetComponent<AbilityHolder>().StartCoroutine(Dash(parent, dashDirection));
+        MonoBehaviour runner = parent.GetComponent<AbilityHolder>();
+        if (runner == null)
+        {
+            runner = parent.GetComponent<MonoBehaviour>();
+        }
+
+        if (runner == null)
+        {
+            return;
+        }
+
+        runner.StartCoroutine(Dash(parent, dashDirection));
+    }
+
+    private static Vector3 GetMousePosition()
+    {
+#if ENABLE_INPUT_SYSTEM
+        if (Mouse.current != null)
+        {
+            return Mouse.current.position.ReadValue();
+        }
+#endif
+        return Input.mousePosition;
     }
 
     private IEnumerator Dash(GameObject parent, Vector3 dashDirection)
     {
-        //Defina isDashing como true no in�cio do dash
         isDashing = true;
 
         Animator animator = parent.GetComponent<Animator>();
@@ -44,9 +73,12 @@ public class DashScript : Ability
             animator.Play(dashAnimation);
         }
 
-        // Pega o Nav Mesh do player
         NavMeshAgent agent = parent.GetComponent<NavMeshAgent>();
-      
+        if (agent != null)
+        {
+            agent.enabled = false; // Desativa o NavMeshAgent temporariamente
+        }
+
         float startTime = Time.time;
         while (Time.time < startTime + dashTime)
         {
@@ -54,10 +86,11 @@ public class DashScript : Ability
             yield return null;
         }
 
-        // Faz com que o NavMesh não mova (Personagem para quando chega no ponto final)
-        agent.SetDestination(parent.transform.position);
+        if (agent != null)
+        {
+            agent.enabled = true; // Reativa o NavMeshAgent
+        }
 
-        // Defina isDashing como false no final do dash
         isDashing = false;
     }
 }

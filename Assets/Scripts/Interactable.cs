@@ -12,15 +12,63 @@ public class Interactable : MonoBehaviour
 
     void Awake()
     {
-        if(interactionType == InteractableType.Enemy)
+        if (interactionType == InteractableType.Enemy)
         {
             myActor = GetComponent<Actor>();
+            if (myActor == null)
+            {
+                myActor = GetComponentInParent<Actor>();
+            }
         }
     }
 
-    public void InteractWithItem()
+    /// <summary>
+    /// Método principal para interagir com o objeto.
+    /// </summary>
+    /// <param name="player">O objeto do jogador que está interagindo.</param>
+    public void Interact(GameObject player)
     {
-        Destroy(gameObject);
+        switch (interactionType)
+        {
+            case InteractableType.Enemy:
+                InteractWithEnemy(player);
+                break;
+            case InteractableType.Item:
+                InteractWithItem();
+                break;
+            default:
+                Debug.LogWarning("Tipo de interação não definido.");
+                break;
+        }
     }
 
+    private void InteractWithEnemy(GameObject player)
+    {
+        if (myActor == null)
+        {
+            myActor = GetComponentInParent<Actor>();
+        }
+
+        if (myActor != null)
+        {
+            if (myActor.healthBar != null)
+            {
+                myActor.healthBar.gameObject.SetActive(true);
+            }
+
+            Debug.Log($"Interagindo com inimigo: {myActor.name}");
+            // Aqui voce pode adicionar logica para combate ou dialogo com inimigos
+
+        }
+        else
+        {
+            Debug.LogWarning("O ator inimigo nao foi encontrado!");
+        }
+    }
+
+    private void InteractWithItem()
+    {
+        Debug.Log($"Item coletado: {gameObject.name}");
+        Destroy(gameObject);
+    }
 }

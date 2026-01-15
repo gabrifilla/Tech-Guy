@@ -6,232 +6,624 @@ using UnityEngine.AI;
 
 public class CharControlScript : MonoBehaviour
 {
-    const string IDLE = "Idle";
-    const string WALK = "Walk";
-    const string PICKUP = "Pickup";
+    private const string IDLE = "Idle";
+    private const string WALK = "Walk";
 
-    string[] attackAnimations = { "Attack", "Attack2", "Attack3" };
+    [Header("Movement")]
+    [SerializeField] private ParticleSystem clickEffect;
+    [SerializeField] private LayerMask clickableLayers;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private float lookRotationSpeed = 8f;
+    [SerializeField] private int clickEffectPoolSize = 8;
+    [SerializeField] private Transform clickEffectPoolRoot;
+    [SerializeField] private bool debugClickLog = false;
 
-    string currentAnimation;
+    [Header("Attack")]
+    [SerializeField] private string[] attackAnimations = { "Attack1", "Attack2", "Attack3" };
+    [SerializeField] private AudioClip[] footstepAudioClips;
+    [Range(0, 1)] [SerializeField] private float footstepAudioVolume = 0.5f;
+    [SerializeField] private float attackRange = 1.8f;
+    [SerializeField] private float attackInterval = 0.7f;
+    [SerializeField] private float attackBusyDuration = 0.45f;
+    [SerializeField] private float attackHitboxDuration = 0.2f;
 
     public bool isDashing = false;
 
-    CustomActions input;
+    private CustomActions input;
+    private NavMeshAgent agent;
+    private Animator animator;
+    private Interactable target;
+    private WeaponScript weapon;
 
-    NavMeshAgent agent;
-    public Animator animator;
+    private float baseAttackRange;
+    private float baseAttackInterval;
+    private float baseAttackBusyDuration;
+    private float baseAttackHitboxDuration;
 
-    [Header("Movement")]
-    [SerializeField] ParticleSystem clickEffect;
-    [SerializeField] LayerMask clickableLayers;
+    private int currentComboCount = 0;
+    private bool playerBusy = false;
+    private float comboResetTime = 1.0f; // Tempo para resetar o combo
+    private float lastAttackTime;
+    private float nextAttackTime;
+    private float defaultStoppingDistance;
+    private Coroutine attackBusyCoroutine;
+    private Coroutine hitboxCoroutine;
 
-    float lookRotationSpeed = 8f;
-
-    [Header("Attack")]
-
-    int currentComboCount = 0;
-
-    bool playerBusy = false;
-    Interactable target;
-
-    // Adicione uma variável pública para o DashScript
     public DashScript dashScript;
-
-    public AudioClip[] FootstepAudioClips;
-    [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
-
-    private CharacterController _controller;
-
     public PlayerActor playerActor;
+    private AbilityHolder abilityHolder;
 
-    void Start()
-    {
-        _controller = GetComponent<CharacterController>();
-    }
+    private readonly List<ParticleSystem> clickEffectPool = new List<ParticleSystem>();
+    private int lastMoveRequestFrame = -1;
 
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
+        if (playerActor == null)
+        {
+            playerActor = GetComponent<PlayerActor>();
+        }
+
+        defaultStoppingDistance = agent != null ? agent.stoppingDistance : 0f;
+        baseAttackRange = attackRange;
+        baseAttackInterval = attackInterval;
+        baseAttackBusyDuration = attackBusyDuration;
+        baseAttackHitboxDuration = attackHitboxDuration;
 
         input = new CustomActions();
-        AssignInputs();
+        input.Main.Move.performed += ctx => RequestMove();
     }
 
-    void AssignInputs()
+    private void Start()
     {
-        input.Main.Move.performed += ctx => ClickToMove();
+        abilityHolder = GetComponent<AbilityHolder>();
+        ValidateComponents();
+        InitializeClickEffectPool();
+        if (debugClickLog) Debug.Log($"CharControlScript active on {gameObject.name}");
+        if (dashScript != null && dashScript.isDashing)
+        {
+            dashScript.isDashing = false;
+            if (debugClickLog) Debug.Log("Reset dash state on start");
+        }
+
+        RefreshWeaponStats();
+    }
+
+    void OnEnable() => input.Enable();
+    void OnDisable() => input.Disable();
+
+    void Update()
+    {
+        RefreshWeaponStats();
+
+
+        isDashing = dashScript != null && dashScript.isDashing;
+        HandleDashInput();
+
+        if (!isDashing)
+        {
+            HandleMovement();
+            SetAnimations();
+            HandleComboReset();
+        }
+    }
+
+    // MÃ©todo para validar componentes essenciais
+    private void ValidateComponents()
+    {
+        if (agent == null) Debug.LogError("NavMeshAgent nÃ£o encontrado!");
+        if (animator == null) Debug.LogError("Animator nÃ£o encontrado!");
+        if (clickEffect == null) Debug.LogWarning("Efeito de clique nÃ£o configurado!");
+        if (dashScript == null) Debug.LogWarning("DashScript nao configurado!");
+        if (mainCamera == null && Camera.main == null) Debug.LogWarning("Main camera nao configurada!");
+    }
+
+    // LÃ³gica principal para movimentaÃ§Ã£o
+    private void HandleMovement()
+    {
+        FollowTarget();
+        FaceTarget();
+    }
+
+    // Gerencia o reset de combo
+    private void HandleComboReset()
+    {
+        if (Time.time - lastAttackTime > comboResetTime)
+        {
+            currentComboCount = 0;
+        }
+    }
+
+    private void RefreshWeaponStats()
+    {
+        WeaponScript currentWeapon = playerActor != null ? playerActor.weapon : null;
+        if (currentWeapon == weapon) return;
+
+        weapon = currentWeapon;
+        ApplyWeaponStats(weapon);
+    }
+
+    private void ApplyWeaponStats(WeaponScript currentWeapon)
+    {
+        if (currentWeapon == null)
+        {
+            attackRange = baseAttackRange;
+            attackInterval = baseAttackInterval;
+            attackBusyDuration = baseAttackBusyDuration;
+            attackHitboxDuration = baseAttackHitboxDuration;
+        }
+        else
+        {
+            attackRange = currentWeapon.attackDistance > 0f ? currentWeapon.attackDistance : baseAttackRange;
+            attackInterval = currentWeapon.attackSpeed > 0f ? currentWeapon.attackSpeed : baseAttackInterval;
+            attackBusyDuration = baseAttackBusyDuration;
+            if (attackBusyDuration > 0f && attackInterval > 0f && attackBusyDuration > attackInterval)
+            {
+                attackBusyDuration = attackInterval;
+            }
+            attackHitboxDuration = baseAttackHitboxDuration;
+        }
+
+        if (attackInterval > 0f && Time.time + attackInterval < nextAttackTime)
+        {
+            nextAttackTime = Time.time + attackInterval;
+        }
+
+        if (target != null && agent != null && target.interactionType == InteractableType.Enemy)
+        {
+            agent.stoppingDistance = attackRange;
+        }
+    }
+
+    private void HandleDashInput()
+    {
+        if (dashScript == null || isDashing) return;
+
+        if (IsDashPressed())
+        {
+            dashScript.Activate(gameObject);
+        }
+    }
+
+    private void RequestMove()
+    {
+        if (lastMoveRequestFrame == Time.frameCount)
+        {
+            return;
+        }
+
+        lastMoveRequestFrame = Time.frameCount;
+        ClickToMove();
+    }
+
+    private bool IsDashPressed()
+    {
+        bool pressed = Input.GetKeyDown(KeyCode.Space);
+#if ENABLE_INPUT_SYSTEM
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard != null)
+        {
+            pressed |= keyboard.spaceKey.wasPressedThisFrame;
+        }
+#endif
+        return pressed;
+    }
+
+    private Vector3 GetPointerPosition()
+    {
+        Vector3 position = Input.mousePosition;
+#if ENABLE_INPUT_SYSTEM
+        Mouse mouse = Mouse.current;
+        if (mouse != null)
+        {
+            Vector2 inputSystemPos = mouse.position.ReadValue();
+            if (inputSystemPos != Vector2.zero || position == Vector3.zero)
+            {
+                position = inputSystemPos;
+            }
+        }
+#endif
+        return position;
     }
 
     void ClickToMove()
     {
-        if (!isDashing)
+        if (isDashing)
         {
-            RaycastHit hit;
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100, clickableLayers))
+            if (debugClickLog) Debug.Log("ClickToMove: ignored because isDashing");
+            return;
+        }
+
+        Camera cameraToUse = mainCamera != null ? mainCamera : Camera.main;
+        Vector3 pointerPosition = GetPointerPosition();
+        if (cameraToUse == null)
+        {
+            if (debugClickLog) Debug.LogWarning("ClickToMove: no camera found");
+            return;
+        }
+
+        int mask = clickableLayers.value != 0 ? clickableLayers.value : Physics.DefaultRaycastLayers;
+        bool hitSomething = Physics.Raycast(cameraToUse.ScreenPointToRay(pointerPosition), out RaycastHit hit, 100, mask);
+        if (!hitSomething && clickableLayers.value != 0)
+        {
+            hitSomething = Physics.Raycast(cameraToUse.ScreenPointToRay(pointerPosition), out hit, 100, Physics.DefaultRaycastLayers);
+        }
+
+        if (debugClickLog)
+        {
+            string camName = cameraToUse != null ? cameraToUse.name : "null";
+            if (hitSomething && hit.collider != null)
             {
-                // Desativa a barra de vida do alvo anterior
-                if (target != null)
-                {
-                    target.GetComponent<Actor>().healthBar.gameObject.SetActive(false);
-                }
-
-                if (hit.transform.CompareTag("Interactable"))
-                {
-                    Interactable interactable = hit.transform.GetComponent<Interactable>();
-                    if (interactable.interactionType == InteractableType.Enemy)
-                    {
-                        target = interactable;
-                        // Ativa a barra de vida do novo alvo
-                        if (target.GetComponent<Actor>().healthBar != null)
-                        {
-                            target.GetComponent<Actor>().healthBar.gameObject.SetActive(true);
-                        }
-                    }
-                    else
-                    {
-                        target = hit.transform.GetComponent<Interactable>();
-                    }
-
-                    if (clickEffect != null)
-                    { Instantiate(clickEffect, hit.transform.position + new Vector3(0, 0.1f, 0), clickEffect.transform.rotation); }
-                }
-                else
-                {
-                    target = null;
-
-                    agent.destination = hit.point;
-                    if (clickEffect != null)
-                    { Instantiate(clickEffect, hit.point + new Vector3(0, 0.1f, 0), clickEffect.transform.rotation); }
-                }
+                Debug.Log($"ClickToMove: hit {hit.collider.name} at {hit.point} cam={camName} mask={mask}");
+            }
+            else
+            {
+                Debug.Log($"ClickToMove: no hit pointer={pointerPosition} cam={camName} mask={mask}");
             }
         }
-    }
 
-    void OnEnable()
-    { input.Enable(); }
+        if (hitSomething && hit.collider != null)
+        {
+            HandleClickEffect(hit);
 
-    void OnDisable()
-    { input.Disable(); }
+            Interactable interactable = hit.transform.GetComponentInParent<Interactable>();
+            if (interactable != null)
+            {
+                HandleInteractable(hit);
+                return;
+            }
 
-    void Update()
-    {
-        if (!dashScript.isDashing)
-        { 
-            FollowTarget();
-            FaceTarget();
-            SetAnimations();
+            MoveToPosition(hit.point);
         }
-        
     }
 
-    void FollowTarget()
+    private void HandleClickEffect(RaycastHit hit)
+    {
+        if (clickEffect != null)
+        {
+            ParticleSystem effect = GetClickEffectInstance();
+            effect.transform.position = hit.point + Vector3.up * 0.1f;
+            effect.transform.rotation = clickEffect.transform.rotation;
+            effect.gameObject.SetActive(true);
+            effect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            effect.Play(true);
+        }
+    }
+
+    private void InitializeClickEffectPool()
+    {
+        if (clickEffect == null || clickEffectPoolSize <= 0) return;
+
+        clickEffectPool.Clear();
+        EnsureClickEffectPoolRoot();
+
+        if (clickEffect.gameObject.scene.IsValid())
+        {
+            clickEffect.transform.SetParent(clickEffectPoolRoot, false);
+            clickEffect.gameObject.SetActive(false);
+            ConfigureClickEffectInstance(clickEffect);
+            clickEffectPool.Add(clickEffect);
+        }
+
+        int toCreate = clickEffectPoolSize - clickEffectPool.Count;
+        for (int i = 0; i < toCreate; i++)
+        {
+            clickEffectPool.Add(CreateClickEffectInstance());
+        }
+    }
+
+    private void EnsureClickEffectPoolRoot()
+    {
+        if (clickEffectPoolRoot != null) return;
+
+        GameObject root = new GameObject("ClickEffectPool");
+        clickEffectPoolRoot = root.transform;
+    }
+
+    private ParticleSystem GetClickEffectInstance()
+    {
+        foreach (ParticleSystem ps in clickEffectPool)
+        {
+            if (!ps.gameObject.activeSelf)
+            {
+                return ps;
+            }
+        }
+
+        ParticleSystem extra = CreateClickEffectInstance();
+        clickEffectPool.Add(extra);
+        return extra;
+    }
+
+    private ParticleSystem CreateClickEffectInstance()
+    {
+        ParticleSystem ps = Instantiate(clickEffect, clickEffectPoolRoot);
+        ps.gameObject.SetActive(false);
+        ConfigureClickEffectInstance(ps);
+        return ps;
+    }
+
+    private void ConfigureClickEffectInstance(ParticleSystem ps)
+    {
+        var main = ps.main;
+        main.stopAction = ParticleSystemStopAction.Callback;
+
+        if (ps.GetComponent<AutoDisableOnStop>() == null)
+        {
+            ps.gameObject.AddComponent<AutoDisableOnStop>();
+        }
+    }
+
+    private void ClearTarget()
+    {
+        target = null;
+        if (agent != null)
+        {
+            agent.stoppingDistance = defaultStoppingDistance;
+        }
+
+        EnemyTargetUI ui = EnemyTargetUI.Instance;
+        if (ui != null)
+        {
+            ui.ClearTarget();
+        }
+    }
+
+    private void SetTarget(Interactable newTarget)
+    {
+        if (newTarget == null || agent == null) return;
+
+        target = newTarget;
+        agent.stoppingDistance = attackRange;
+        agent.SetDestination(target.transform.position);
+
+        Actor targetActor = target.myActor;
+        if (targetActor == null)
+        {
+            targetActor = target.GetComponentInParent<Actor>();
+        }
+
+        EnemyTargetUI ui = EnemyTargetUI.Ensure();
+        if (ui != null)
+        {
+            ui.SetTarget(targetActor);
+        }
+    }
+
+    void HandleInteractable(RaycastHit hit)
+    {
+        Interactable interactable = hit.transform.GetComponentInParent<Interactable>();
+        if (interactable != null)
+        {
+            if (interactable.interactionType == InteractableType.Enemy)
+            {
+                SetTarget(interactable);
+                interactable.Interact(gameObject); // Exibe barra de vida/feedback
+            }
+            else
+            {
+                interactable.Interact(gameObject); // Passa o jogador como parametro para o metodo Interact
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Nenhum componente Interactable encontrado no objeto clicado.");
+        }
+    }
+
+    private void MoveToPosition(Vector3 destination)
+    {
+        if (agent != null)
+        {
+            agent.stoppingDistance = defaultStoppingDistance;
+            agent.SetDestination(destination);
+        }
+        ClearTarget();
+    }
+
+    private void FollowTarget()
+    {
+        if (target == null || agent == null || agent.pathPending) return;
+
+        if (target.interactionType != InteractableType.Enemy)
+        {
+            ClearTarget();
+            return;
+        }
+
+        Actor targetActor = target.myActor;
+        if (targetActor == null)
+        {
+            targetActor = target.GetComponentInParent<Actor>();
+        }
+        if (targetActor == null)
+        {
+            ClearTarget();
+            return;
+        }
+
+        agent.SetDestination(target.transform.position);
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            agent.ResetPath();
+            TryAttackTarget();
+        }
+    }
+
+    private void TryAttackTarget()
     {
         if (target == null) return;
+        if (Time.time < nextAttackTime) return;
 
-        if (Vector3.Distance(target.transform.position, transform.position) <= playerActor.weapon.attackDistance)
-        { ReachDistance(); }
-        else
-        { agent.SetDestination(target.transform.position); }
+        Vector3 direction = target.transform.position - transform.position;
+        direction.y = 0;
+        if (direction.sqrMagnitude > Mathf.Epsilon)
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
+
+        nextAttackTime = Time.time + attackInterval;
+        Attack();
     }
 
-    void FaceTarget()
+    private void FaceTarget()
     {
-        if (agent.destination == transform.position) return;
-
-        Vector3 facing = Vector3.zero;
-        if (target != null)
-        { facing = target.transform.position; }
-        else
-        { facing = agent.destination; }
-
-        Vector3 direction = (facing - transform.position).normalized;
-
-        // Verifique se a direção não é zero
-        if (direction != Vector3.zero)
+        if (agent.velocity.sqrMagnitude > Mathf.Epsilon)
         {
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * lookRotationSpeed);
+            Vector3 direction = agent.steeringTarget - transform.position;
+            direction.y = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lookRotationSpeed * Time.deltaTime);
         }
     }
 
-
-    void ReachDistance()
-    {
-        agent.SetDestination(transform.position);
-
-        if (playerBusy) return;
-
-        playerBusy = true;
-
-        switch (target.interactionType)
-        {
-            case InteractableType.Enemy:
-
-                animator.Play(attackAnimations[currentComboCount]);
-
-                Invoke(nameof(SendAttack), playerActor.weapon.attackDelay);
-                Invoke(nameof(ResetBusyState), playerActor.weapon.attackSpeed);
-
-                if (currentComboCount >= playerActor.weapon.maxComboCount - 1)
-                {
-                    currentComboCount = 0;
-                    playerBusy = true;
-
-                    Invoke(nameof(ResetBusyState), playerActor.weapon.attackSpeed);
-                }
-                else
-                {
-                    currentComboCount++;
-                    Invoke(nameof(SendAttack), playerActor.weapon.attackDelay);
-                    Invoke(nameof(ResetBusyState), playerActor.weapon.attackSpeed);
-
-                }
-                break;
-            case InteractableType.Item:
-
-                target.InteractWithItem();
-                target = null;
-
-                Invoke(nameof(ResetBusyState), 0.5f);
-                break;
-        }
-    }
-
-    void SendAttack()
-    {
-        if (playerActor.weapon != null)
-        {
-            playerActor.weapon.Attack(playerActor.handTransform, playerActor.weapon.attackDamage);
-        }
-    }
-
-
-    void ResetBusyState()
-    {
-        playerBusy = false;
-        SetAnimations();
-    }
-
+    
     void SetAnimations()
     {
         if (playerBusy) return;
 
-        if (agent.velocity == Vector3.zero)
-        { animator.Play(IDLE); }
-        else
-        { animator.Play(WALK); }
+        animator.Play(agent.velocity == Vector3.zero ? IDLE : WALK);
     }
 
-    private void OnFootstep(AnimationEvent animationEvent)
+    private bool TryPlayAttackAnimation(string stateName)
     {
-        if (animationEvent.animatorClipInfo.weight > 0.5f)
+        if (animator == null || animator.layerCount == 0) return false;
+        if (string.IsNullOrWhiteSpace(stateName)) return false;
+
+        int layer = 0;
+        int stateHash = Animator.StringToHash(stateName);
+        if (animator.HasState(layer, stateHash))
         {
-            if (FootstepAudioClips.Length > 0)
+            animator.Play(stateHash, layer, 0f);
+            return true;
+        }
+
+        if (stateName == "Attack1")
+        {
+            int fallbackHash = Animator.StringToHash("Attack");
+            if (animator.HasState(layer, fallbackHash))
             {
-                var index = Random.Range(0, FootstepAudioClips.Length);
-                AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
+                animator.Play(fallbackHash, layer, 0f);
+                return true;
             }
+        }
+
+        string triggerName = stateName == "Attack1" ? "Attack" : stateName;
+        if (HasParameter(triggerName, AnimatorControllerParameterType.Trigger))
+        {
+            animator.ResetTrigger(triggerName);
+            animator.SetTrigger(triggerName);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool HasParameter(string paramName, AnimatorControllerParameterType type)
+    {
+        if (animator == null) return false;
+
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.type == type && param.name == paramName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private IEnumerator ClearBusyAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        playerBusy = false;
+        attackBusyCoroutine = null;
+    }
+
+    private IEnumerator DeactivateHitboxAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (playerActor != null)
+        {
+            playerActor.DeactivateHitbox();
+        }
+        hitboxCoroutine = null;
+    }
+
+    public void Attack()
+    {
+        if (playerBusy) return;
+
+        string attackName = null;
+        if (attackAnimations != null && attackAnimations.Length > 0)
+        {
+            attackName = attackAnimations[currentComboCount];
+        }
+
+        bool played = TryPlayAttackAnimation(attackName);
+        if (!played && debugClickLog)
+        {
+            Debug.LogWarning($"Attack animation not found: {attackName}");
+        }
+
+        if (playerActor != null)
+        {
+            playerActor.ActivateHitbox();
+            if (hitboxCoroutine != null)
+            {
+                StopCoroutine(hitboxCoroutine);
+            }
+            float hitboxDuration = attackHitboxDuration > 0 ? attackHitboxDuration : 0.2f;
+            hitboxCoroutine = StartCoroutine(DeactivateHitboxAfter(hitboxDuration));
+        }
+
+        if (playerActor != null && target != null && target.interactionType == InteractableType.Enemy)
+        {
+            Actor targetActor = target.myActor;
+            if (targetActor == null)
+            {
+                targetActor = target.GetComponentInParent<Actor>();
+            }
+
+            if (targetActor != null)
+            {
+                float range = attackRange > 0f ? attackRange : defaultStoppingDistance;
+                float sqrDistance = (targetActor.transform.position - transform.position).sqrMagnitude;
+                if (sqrDistance <= range * range)
+                {
+                    playerActor.TryApplyDamage(targetActor);
+                }
+            }
+        }
+
+        if (attackAnimations != null && attackAnimations.Length > 0)
+        {
+            currentComboCount = (currentComboCount + 1) % attackAnimations.Length;
+        }
+
+        lastAttackTime = Time.time;
+        playerBusy = true;
+        float busyDuration = attackBusyDuration > 0 ? attackBusyDuration : attackInterval;
+        if (busyDuration <= 0f) busyDuration = 0.1f;
+
+        if (attackBusyCoroutine != null)
+        {
+            StopCoroutine(attackBusyCoroutine);
+        }
+
+        attackBusyCoroutine = StartCoroutine(ClearBusyAfter(busyDuration));
+    }
+
+    void OnFootstep()
+    {
+        if (!playerBusy && footstepAudioClips.Length > 0)
+        {
+            int index = Random.Range(0, footstepAudioClips.Length);
+            AudioClip clip = footstepAudioClips[index];
+            AudioSource.PlayClipAtPoint(clip, transform.position, footstepAudioVolume);
         }
     }
 }

@@ -25,6 +25,7 @@ public class EnemyAI : MonoBehaviour
     public float attackDamage;
     public float timeBetweenAttacks;
     bool alreadyAttacked;
+    [SerializeField] private GameObject hitbox;
 
     // States
     public float sightRange, attackRange;
@@ -37,6 +38,10 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         _controller = GetComponent<CharacterController>();
+        if (hitbox != null)
+        {
+            hitbox.SetActive(false);
+        }
     }
     void Awake()
     {
@@ -137,6 +142,22 @@ public class EnemyAI : MonoBehaviour
                 var index = Random.Range(0, FootstepAudioClips.Length);
                 AudioSource.PlayClipAtPoint(FootstepAudioClips[index], transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
+        }
+    }
+
+    public void ActivateHitbox()
+    {
+        if (hitbox != null)
+        {
+            hitbox.SetActive(true);
+        }
+    }
+
+    public void DeactivateHitbox()
+    {
+        if (hitbox != null)
+        {
+            hitbox.SetActive(false);
         }
     }
 
