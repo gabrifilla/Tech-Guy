@@ -1,0 +1,27 @@
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Weapons/Weapon")]
+public class WeaponScript : ScriptableObject
+{
+    public string weaponName;
+    public GameObject weaponPrefab;
+
+    [Header("Attack")]
+    [SerializeField] public float attackDamage;
+    [SerializeField] public float attackSpeed;
+    [SerializeField] public float attackDistance;
+    [SerializeField] public float attackDelay;
+    [SerializeField] public float attackRadius;
+    [SerializeField] public Vector3 attackBoxSize;
+
+    [Header("Hit Effects")]
+    [SerializeField] public string hitEffectName;
+    [SerializeField] public GameObject hitbox;
+
+    [Header("Skills")]
+    [SerializeField] public Ability[] abilities;
+
+    public string HitEffectResourcePath => string.IsNullOrEmpty(hitEffectName)
+        ? null
+        : $"Weapons/Melee/Gauntlet/{hitEffectName}";
+}
