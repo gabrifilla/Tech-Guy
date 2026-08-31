@@ -46,12 +46,18 @@ public class HitboxDamage : MonoBehaviour
 
         SpawnHitEffect(actor);
 
-        if (logDamage)
+        float finalDamage = damage;
+        if (owner is PlayerActor playerActor)
         {
-            Debug.Log($"HitboxDamage: {owner.name} hit {actor.name} for {damage}");
+            finalDamage = playerActor.RollAttackDamage(damage).Amount;
         }
 
-        actor.TakeDamage(damage);
+        if (logDamage)
+        {
+            Debug.Log($"HitboxDamage: {owner.name} hit {actor.name} for {finalDamage}");
+        }
+
+        actor.TakeDamage(finalDamage);
         return true;
     }
 

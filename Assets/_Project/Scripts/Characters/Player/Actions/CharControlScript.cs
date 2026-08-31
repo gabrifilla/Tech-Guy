@@ -26,6 +26,9 @@ public class CharControlScript : MonoBehaviour
     [SerializeField] private float attackInterval = 0.7f;
     [SerializeField] private float attackBusyDuration = 0.45f;
     [SerializeField] private float attackHitboxDuration = 0.2f;
+    [SerializeField] private float comboResetTime = 1.0f;
+    [SerializeField] private Vector3 attackBoxSize = new Vector3(2f, 2f, 0f);
+    [SerializeField] private LayerMask attackLayers;
 
     public bool isDashing = false;
 
@@ -39,10 +42,13 @@ public class CharControlScript : MonoBehaviour
     private float baseAttackInterval;
     private float baseAttackBusyDuration;
     private float baseAttackHitboxDuration;
+    private Vector3 baseAttackBoxSize;
+    private float baseMoveSpeed;
+    private float cachedAttackSpeedMultiplier = -1f;
+    private float cachedMovementSpeedMultiplier = -1f;
 
     private int currentComboCount = 0;
     private bool playerBusy = false;
-    private float comboResetTime = 1.0f; // Tempo para resetar o combo
     private float lastAttackTime;
     private float nextAttackTime;
     private float defaultStoppingDistance;
@@ -65,10 +71,12 @@ public class CharControlScript : MonoBehaviour
         }
 
         defaultStoppingDistance = agent != null ? agent.stoppingDistance : 0f;
+        baseMoveSpeed = agent != null ? agent.speed : 0f;
         baseAttackRange = attackRange;
         baseAttackInterval = attackInterval;
         baseAttackBusyDuration = attackBusyDuration;
         baseAttackHitboxDuration = attackHitboxDuration;
+        baseAttackBoxSize = attackBoxSize;
 
         input = new CustomActions();
         input.Main.Move.performed += ctx => RequestMove();
@@ -86,6 +94,7 @@ public class CharControlScript : MonoBehaviour
         }
 
         RefreshWeaponStats();
+        RefreshMovementStats();
     }
 
     void OnEnable() => input.Enable();
@@ -94,6 +103,7 @@ public class CharControlScript : MonoBehaviour
     void Update()
     {
         RefreshWeaponStats();
+        RefreshMovementStats();
 
 
         isDashing = dashScript != null && dashScript.isDashing;
@@ -136,10 +146,27 @@ public class CharControlScript : MonoBehaviour
     private void RefreshWeaponStats()
     {
         WeaponScript currentWeapon = playerActor != null ? playerActor.CurrentWeapon : null;
-        if (currentWeapon == weapon) return;
+        float currentAttackSpeedMultiplier = playerActor != null && playerActor.Stats != null
+            ? playerActor.Stats.AttackSpeedMultiplier
+            : 1f;
+        if (currentWeapon == weapon && Mathf.Approximately(currentAttackSpeedMultiplier, cachedAttackSpeedMultiplier)) return;
 
         weapon = currentWeapon;
+        cachedAttackSpeedMultiplier = currentAttackSpeedMultiplier;
         ApplyWeaponStats(weapon);
+    }
+
+    private void RefreshMovementStats()
+    {
+        if (agent == null) return;
+
+        float currentMovementSpeedMultiplier = playerActor != null && playerActor.Stats != null
+            ? playerActor.Stats.MovementSpeedMultiplier
+            : 1f;
+        if (Mathf.Approximately(currentMovementSpeedMultiplier, cachedMovementSpeedMultiplier)) return;
+
+        cachedMovementSpeedMultiplier = currentMovementSpeedMultiplier;
+        agent.speed = baseMoveSpeed * currentMovementSpeedMultiplier;
     }
 
     private void ApplyWeaponStats(WeaponScript currentWeapon)
@@ -150,11 +177,17 @@ public class CharControlScript : MonoBehaviour
             attackInterval = baseAttackInterval;
             attackBusyDuration = baseAttackBusyDuration;
             attackHitboxDuration = baseAttackHitboxDuration;
+            attackBoxSize = baseAttackBoxSize;
         }
         else
         {
             attackRange = currentWeapon.attackDistance > 0f ? currentWeapon.attackDistance : baseAttackRange;
             attackInterval = currentWeapon.attackSpeed > 0f ? currentWeapon.attackSpeed : baseAttackInterval;
+            if (playerActor != null)
+            {
+                attackInterval = playerActor.GetAttackInterval(attackInterval);
+            }
+            attackBoxSize = currentWeapon.attackBoxSize != Vector3.zero ? currentWeapon.attackBoxSize : baseAttackBoxSize;
             attackBusyDuration = baseAttackBusyDuration;
             if (attackBusyDuration > 0f && attackInterval > 0f && attackBusyDuration > attackInterval)
             {
@@ -203,6 +236,19 @@ public class CharControlScript : MonoBehaviour
         if (keyboard != null)
         {
             pressed |= keyboard.spaceKey.wasPressedThisFrame;
+        }
+#endif
+        return pressed;
+    }
+
+    private bool IsAttackModifierPressed()
+    {
+        bool pressed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+#if ENABLE_INPUT_SYSTEM
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard != null)
+        {
+            pressed |= keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed;
         }
 #endif
         return pressed;
@@ -264,6 +310,12 @@ public class CharControlScript : MonoBehaviour
         if (hitSomething && hit.collider != null)
         {
             HandleClickEffect(hit);
+
+            if (IsAttackModifierPressed())
+            {
+                RequestStationaryAttack(hit.point);
+                return;
+            }
 
             Interactable interactable = hit.transform.GetComponentInParent<Interactable>();
             if (interactable != null)
@@ -412,12 +464,31 @@ public class CharControlScript : MonoBehaviour
 
     private void MoveToPosition(Vector3 destination)
     {
+        CancelCombo();
         if (agent != null)
         {
             agent.stoppingDistance = defaultStoppingDistance;
             agent.SetDestination(destination);
         }
         ClearTarget();
+    }
+
+    private void RequestStationaryAttack(Vector3 targetPoint)
+    {
+        ClearTarget();
+
+        if (agent != null)
+        {
+            agent.ResetPath();
+            agent.stoppingDistance = defaultStoppingDistance;
+        }
+
+        FacePosition(targetPoint);
+
+        if (Time.time < nextAttackTime) return;
+
+        nextAttackTime = Time.time + attackInterval;
+        Attack();
     }
 
     private void FollowTarget()
@@ -435,7 +506,7 @@ public class CharControlScript : MonoBehaviour
         {
             targetActor = target.GetComponentInParent<Actor>();
         }
-        if (targetActor == null)
+        if (targetActor == null || !targetActor.isActiveAndEnabled)
         {
             ClearTarget();
             return;
@@ -456,13 +527,25 @@ public class CharControlScript : MonoBehaviour
 
         Vector3 direction = target.transform.position - transform.position;
         direction.y = 0;
+        FaceDirection(direction);
+
+        nextAttackTime = Time.time + attackInterval;
+        Attack();
+    }
+
+    private void FacePosition(Vector3 targetPoint)
+    {
+        Vector3 direction = targetPoint - transform.position;
+        direction.y = 0f;
+        FaceDirection(direction);
+    }
+
+    private void FaceDirection(Vector3 direction)
+    {
         if (direction.sqrMagnitude > Mathf.Epsilon)
         {
             transform.rotation = Quaternion.LookRotation(direction);
         }
-
-        nextAttackTime = Time.time + attackInterval;
-        Attack();
     }
 
     private void FaceTarget()
@@ -551,6 +634,30 @@ public class CharControlScript : MonoBehaviour
         hitboxCoroutine = null;
     }
 
+    public void CancelCombo()
+    {
+        currentComboCount = 0;
+        playerBusy = false;
+        lastAttackTime = 0f;
+
+        if (attackBusyCoroutine != null)
+        {
+            StopCoroutine(attackBusyCoroutine);
+            attackBusyCoroutine = null;
+        }
+
+        if (hitboxCoroutine != null)
+        {
+            StopCoroutine(hitboxCoroutine);
+            hitboxCoroutine = null;
+        }
+
+        if (playerActor != null)
+        {
+            playerActor.DeactivateHitbox();
+        }
+    }
+
     public void Attack()
     {
         if (playerBusy) return;
@@ -558,6 +665,11 @@ public class CharControlScript : MonoBehaviour
         string attackName = null;
         if (attackAnimations != null && attackAnimations.Length > 0)
         {
+            if (currentComboCount < 0 || currentComboCount >= attackAnimations.Length)
+            {
+                currentComboCount = 0;
+            }
+
             attackName = attackAnimations[currentComboCount];
         }
 
@@ -578,23 +690,10 @@ public class CharControlScript : MonoBehaviour
             hitboxCoroutine = StartCoroutine(DeactivateHitboxAfter(hitboxDuration));
         }
 
-        if (playerActor != null && target != null && target.interactionType == InteractableType.Enemy)
+        if (playerActor != null)
         {
-            Actor targetActor = target.myActor;
-            if (targetActor == null)
-            {
-                targetActor = target.GetComponentInParent<Actor>();
-            }
-
-            if (targetActor != null)
-            {
-                float range = attackRange > 0f ? attackRange : defaultStoppingDistance;
-                float sqrDistance = (targetActor.transform.position - transform.position).sqrMagnitude;
-                if (sqrDistance <= range * range)
-                {
-                    playerActor.TryApplyDamage(targetActor);
-                }
-            }
+            float range = attackRange > 0f ? attackRange : defaultStoppingDistance;
+            playerActor.TryApplyAreaDamage(transform.position, transform.forward, range, attackBoxSize, attackLayers);
         }
 
         if (attackAnimations != null && attackAnimations.Length > 0)

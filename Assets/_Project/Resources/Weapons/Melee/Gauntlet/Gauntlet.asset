@@ -23,4 +23,5 @@ MonoBehaviour:
   attackBoxSize: {x: 0, y: 0, z: 0}
   hitEffectName: HitEffect
   hitbox: {fileID: 2599738818665923750, guid: 83d04be508d466248a9267697cb142ec, type: 3}
-  abilities: []
+  abilities:
+  - {fileID: 11400000, guid: 43a61e21cd2d41d3b84f9f70a1194128, type: 2}

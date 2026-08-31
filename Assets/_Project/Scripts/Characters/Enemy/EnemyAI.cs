@@ -127,6 +127,11 @@ public class EnemyAI : MonoBehaviour
         }
 
         Actor owner = GetComponent<Actor>();
+        if (owner == null)
+        {
+            owner = GetComponentInParent<Actor>();
+        }
+
         hitboxDamage.Configure(owner, attackDamage, null);
     }
 
@@ -139,6 +144,15 @@ public class EnemyAI : MonoBehaviour
     private bool CheckPlayerInRange(float range)
     {
         if (range <= 0f) return false;
+        if (player != null)
+        {
+            Vector3 distanceToPlayer = player.position - transform.position;
+            distanceToPlayer.y = 0f;
+            if (distanceToPlayer.sqrMagnitude <= range * range)
+            {
+                return true;
+            }
+        }
 
         int mask = whatIsPlayer.value != 0 ? whatIsPlayer.value : Physics.DefaultRaycastLayers;
         Collider[] colliders = Physics.OverlapSphere(transform.position, range, mask, QueryTriggerInteraction.Ignore);
@@ -197,7 +211,7 @@ public class EnemyAI : MonoBehaviour
 
         if (Time.time < nextAttackTime) return;
 
-        Actor targetActor = player.GetComponentInParent<Actor>();
+        Actor targetActor = ResolvePlayerActor();
         if (targetActor != null)
         {
             targetActor.TakeDamage(attackDamage);
@@ -210,6 +224,16 @@ public class EnemyAI : MonoBehaviour
 
         alreadyAttacked = true;
         nextAttackTime = Time.time + Mathf.Max(0.1f, timeBetweenAttacks);
+    }
+
+    private Actor ResolvePlayerActor()
+    {
+        if (player == null) return null;
+
+        Actor targetActor = player.GetComponentInParent<Actor>();
+        if (targetActor != null) return targetActor;
+
+        return player.GetComponentInChildren<Actor>();
     }
 
     private void FacePlayer()

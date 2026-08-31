@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Actor : MonoBehaviour
 {
     public float health;
-    public float maxHealth { get; private set; }
+    public float maxHealth { get; protected set; }
 
     public Image healthBar;
 
