@@ -30,6 +30,19 @@ public class CharControlScript : MonoBehaviour
     [SerializeField] private Vector3 attackBoxSize = new Vector3(2f, 2f, 0f);
     [SerializeField] private LayerMask attackLayers;
 
+    [Header("Attack Reaction")]
+    [SerializeField] private HitReactionType defaultAttackReaction = HitReactionType.Flinch;
+    [SerializeField] private HitStrength defaultAttackStrength = HitStrength.Light;
+    [SerializeField] private float defaultAttackPoiseDamage = 10f;
+    [SerializeField] private float defaultAttackStunDuration = 0.25f;
+    [SerializeField] private float defaultAttackKnockbackForce = 3f;
+    [SerializeField] private float defaultAttackLaunchForce = 0f;
+    [SerializeField] private bool defaultAttackCanAirJuggle = true;
+    [SerializeField] private bool defaultAttackCanRagdoll = false;
+    [SerializeField] private HitReactionType[] comboReactions;
+    [SerializeField] private HitStrength[] comboStrengths;
+    [SerializeField] private float[] comboPoiseDamage;
+
     public bool isDashing = false;
 
     private CustomActions input;
@@ -679,6 +692,7 @@ public class CharControlScript : MonoBehaviour
             Debug.LogWarning($"Attack animation not found: {attackName}");
         }
 
+        int attackIndex = currentComboCount;
         if (playerActor != null)
         {
             playerActor.ActivateHitbox();
@@ -693,7 +707,16 @@ public class CharControlScript : MonoBehaviour
         if (playerActor != null)
         {
             float range = attackRange > 0f ? attackRange : defaultStoppingDistance;
-            playerActor.TryApplyAreaDamage(transform.position, transform.forward, range, attackBoxSize, attackLayers);
+            playerActor.TryApplyAreaDamage(
+                transform.position,
+                transform.forward,
+                range,
+                attackBoxSize,
+                attackLayers,
+                weapon ? weapon.attackDamage : -1f,
+                1f,
+                0f,
+                BuildBasicAttackReaction(attackIndex, range));
         }
 
         if (attackAnimations != null && attackAnimations.Length > 0)
@@ -712,6 +735,31 @@ public class CharControlScript : MonoBehaviour
         }
 
         attackBusyCoroutine = StartCoroutine(ClearBusyAfter(busyDuration));
+    }
+
+    private HitReactionRequest BuildBasicAttackReaction(int attackIndex, float range)
+    {
+        HitReactionType reactionType = GetComboValue(comboReactions, attackIndex, defaultAttackReaction);
+        HitStrength strength = GetComboValue(comboStrengths, attackIndex, defaultAttackStrength);
+        float poiseDamage = GetComboValue(comboPoiseDamage, attackIndex, defaultAttackPoiseDamage);
+
+        return new HitReactionRequest(
+            playerActor,
+            transform.position + transform.forward * Mathf.Max(0f, range),
+            transform.forward,
+            reactionType,
+            strength,
+            poiseDamage,
+            defaultAttackStunDuration,
+            defaultAttackKnockbackForce,
+            defaultAttackLaunchForce,
+            defaultAttackCanAirJuggle,
+            defaultAttackCanRagdoll);
+    }
+
+    private static T GetComboValue<T>(IReadOnlyList<T> values, int index, T fallback)
+    {
+        return values != null && index >= 0 && index < values.Count ? values[index] : fallback;
     }
 
     void OnFootstep()

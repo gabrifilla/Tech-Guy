@@ -178,6 +178,11 @@ public class PlayerActor : Actor
 
     public int TryApplyAreaDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize, LayerMask targetLayers, float weaponDamage, float skillMultiplier, float addedDamage)
     {
+        return TryApplyAreaDamage(origin, forward, range, boxSize, targetLayers, weaponDamage, skillMultiplier, addedDamage, null);
+    }
+
+    public int TryApplyAreaDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize, LayerMask targetLayers, float weaponDamage, float skillMultiplier, float addedDamage, HitReactionRequest? reactionRequest)
+    {
         if (range <= 0f || forward.sqrMagnitude <= Mathf.Epsilon) return 0;
 
         Vector3 normalizedForward = forward.normalized;
@@ -201,6 +206,7 @@ public class PlayerActor : Actor
                 : TryApplyDamage(actor, weaponDamage, skillMultiplier, addedDamage);
             if (damaged)
             {
+                ApplyHitReaction(actor, reactionRequest, hit.ClosestPoint(center), normalizedForward);
                 damageCount++;
                 damagedActors.Add(actor);
             }
@@ -212,6 +218,37 @@ public class PlayerActor : Actor
         }
 
         return damageCount;
+    }
+
+    private void ApplyHitReaction(Actor targetActor, HitReactionRequest? reactionRequest, Vector3 hitPoint, Vector3 fallbackDirection)
+    {
+        if (!targetActor || !reactionRequest.HasValue) return;
+
+        CombatReactionController reactionController = targetActor.GetComponentInParent<CombatReactionController>();
+        if (!reactionController)
+        {
+            reactionController = targetActor.GetComponentInChildren<CombatReactionController>();
+        }
+
+        if (!reactionController) return;
+
+        HitReactionRequest request = reactionRequest.Value;
+        Vector3 hitDirection = request.HitDirection.sqrMagnitude > Mathf.Epsilon
+            ? request.HitDirection
+            : fallbackDirection;
+
+        reactionController.ApplyReaction(new HitReactionRequest(
+            this,
+            hitPoint,
+            hitDirection,
+            request.ReactionType,
+            request.Strength,
+            request.PoiseDamage,
+            request.StunDuration,
+            request.KnockbackForce,
+            request.LaunchForce,
+            request.CanAirJuggle,
+            request.CanRagdoll));
     }
 
     public void UseMana(float amount)

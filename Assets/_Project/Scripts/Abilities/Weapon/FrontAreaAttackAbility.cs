@@ -1,11 +1,7 @@
 using UnityEngine;
-using UnityEngine.AI;
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-#endif
 
 [CreateAssetMenu(menuName = "Abilities/Weapon/Front Area Attack")]
-public class FrontAreaAttackAbility : Ability
+public class FrontAreaAttackAbility : SequencedAreaAttackAbility
 {
     [Header("Area")]
     [SerializeField] private float rangeOverride = 0f;
@@ -16,85 +12,36 @@ public class FrontAreaAttackAbility : Ability
     [SerializeField] private float damageMultiplier = 1.5f;
     [SerializeField] private float bonusDamage = 0f;
 
-    [Header("Presentation")]
-    [SerializeField] private string animationName = "Attack1";
-    [SerializeField] private bool stopMovement = true;
-    [SerializeField] private bool faceMousePosition = true;
+    [Header("Reaction")]
+    [SerializeField] private HitReactionType reactionType = HitReactionType.Knockback;
+    [SerializeField] private HitStrength hitStrength = HitStrength.Medium;
+    [SerializeField] private float poiseDamage = 30f;
+    [SerializeField] private float stunDuration = 0.35f;
+    [SerializeField] private float knockbackForce = 5f;
+    [SerializeField] private float launchForce = 0f;
+    [SerializeField] private bool canAirJuggle = true;
+    [SerializeField] private bool canRagdoll = false;
 
     public override void Activate(GameObject parent)
     {
-        if (parent == null) return;
-
-        PlayerActor playerActor = parent.GetComponent<PlayerActor>();
-        if (playerActor == null) return;
-
-        if (stopMovement && parent.TryGetComponent(out NavMeshAgent agent))
+        AreaHitStep hitStep = new AreaHitStep
         {
-            agent.ResetPath();
-        }
+            delay = 0f,
+            rangeOverride = rangeOverride,
+            boxSize = boxSize,
+            targetLayers = targetLayers,
+            damageMultiplier = damageMultiplier,
+            bonusDamage = bonusDamage,
+            reactionType = reactionType,
+            hitStrength = hitStrength,
+            poiseDamage = poiseDamage,
+            stunDuration = stunDuration,
+            knockbackForce = knockbackForce,
+            launchForce = launchForce,
+            canAirJuggle = canAirJuggle,
+            canRagdoll = canRagdoll
+        };
 
-        if (faceMousePosition)
-        {
-            FaceMousePosition(parent.transform);
-        }
-
-        if (!string.IsNullOrWhiteSpace(animationName) && parent.TryGetComponent(out Animator animator))
-        {
-            animator.Play(animationName, 0, 0f);
-        }
-
-        WeaponScript weapon = playerActor.CurrentWeapon;
-        float range = rangeOverride > 0f
-            ? rangeOverride
-            : weapon != null && weapon.attackDistance > 0f
-                ? weapon.attackDistance
-                : 2f;
-
-        Vector3 resolvedBoxSize = boxSize != Vector3.zero
-            ? boxSize
-            : weapon != null
-                ? weapon.attackBoxSize
-                : Vector3.zero;
-
-        float weaponDamage = weapon != null ? weapon.attackDamage : 0f;
-        playerActor.TryApplyAreaDamage(
-            parent.transform.position,
-            parent.transform.forward,
-            range,
-            resolvedBoxSize,
-            targetLayers,
-            weaponDamage,
-            damageMultiplier,
-            bonusDamage);
-    }
-
-    private static void FaceMousePosition(Transform actorTransform)
-    {
-        Camera camera = Camera.main;
-        if (camera == null) return;
-
-        Ray ray = camera.ScreenPointToRay(GetMousePosition());
-        Plane groundPlane = new Plane(Vector3.up, actorTransform.position);
-        if (!groundPlane.Raycast(ray, out float distance)) return;
-
-        Vector3 targetPoint = ray.GetPoint(distance);
-        Vector3 direction = targetPoint - actorTransform.position;
-        direction.y = 0f;
-
-        if (direction.sqrMagnitude > Mathf.Epsilon)
-        {
-            actorTransform.rotation = Quaternion.LookRotation(direction);
-        }
-    }
-
-    private static Vector3 GetMousePosition()
-    {
-#if ENABLE_INPUT_SYSTEM
-        if (Mouse.current != null)
-        {
-            return Mouse.current.position.ReadValue();
-        }
-#endif
-        return Input.mousePosition;
+        ActivateSequence(parent, new[] { hitStep });
     }
 }
