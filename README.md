@@ -1,44 +1,82 @@
-# Tech-Guy (Title subject to change)
+# Tech-Guy (Title Subject to Change)
 
 ## Sinopse / Synopsis
 
 ## EN-US
-  In “Tech-Guy,” you are a talented yet unsuspecting software developer who finds himself sucked into his own computer during an unexpected isekai event. Within this new digital world, you must navigate a web of interconnected universes, each with their own challenges and secrets, to find your way back to Earth.
 
-  At the heart of this technological realm, which serves as a lobby between lives and levels of the game, you discover your first weapon: an enigmatic gauntlet. This gauntlet is not just an extension of your being; it connects directly to your brain, endowing you with martial abilities and arcane knowledge that are key to your survival and eventual return.
+In **Tech-Guy**, a software developer is unexpectedly pulled into his own computer and trapped inside a vast digital universe made up of interconnected worlds.
 
-  But the weapons in “Tech-Guy” are not mere instruments of power; they possess egos and vibrant personalities, each offering sarcastic commentary, strategic advice, or simply a good chat. Inspired by the humor and interactivity of “High on Life,” each weapon becomes a unique companion on your journey.
+To find a way back to Earth, the player must explore these different realities, face enemies and bosses, unlock new abilities, and uncover the secrets behind the system that brought him there.
 
-  The gameplay is a tribute to classics like “Lost Ark” and “Diablo,” with a touch of roguelike in the style of “Hades,” ensuring that each foray is as unique as it is challenging. And with visuals that blend the neon and futuristic style of “Cyberpunk” with the diversity and dynamism of the “Spider-Verse,” “Tech-Guy” is an adventure that redefines the genre, inviting players to hack, fight, and laugh as they unravel the mysteries of a universe where reality is as fluid as the code that constructs it.
+At the center of this universe lies a technological hub that acts as a safe zone between expeditions. There, the protagonist discovers his first weapon: a high-tech gauntlet capable of connecting directly to his nervous system and granting him combat abilities far beyond anything he possessed in the real world.
 
-  Get ready to plug in and power up in “Tech-Guy,” where every bit counts and every pixel could be your last.
+But weapons in **Tech-Guy** are more than equipment. They are intelligent, expressive companions with their own personalities, opinions, humor, and combat styles, inspired by the character-driven weapon interactions of **High on Life**.
+
+The gameplay combines the action RPG foundations of **Diablo** and **Lost Ark** with roguelike elements inspired by **Hades**, while its visual identity blends futuristic technology with the stylistic diversity and dynamic presentation of **Spider-Verse**.
+
+Every expedition reveals more about this strange digital reality - and brings the protagonist one step closer to answering the most important question:
+
+**How do you escape a system when you don't have access to its source code?**
+
+---
 
 ## PT-BR
-  Em "Tech-Guy", você é um desenvolvedor de software talentoso, mas desavisado, que se vê sugado para dentro do seu próprio computador em um evento isekai inesperado. Dentro deste novo mundo digital, você deve navegar por uma teia de universos interconectados, cada um com seus próprios desafios e segredos, para encontrar o caminho de volta para a Terra.
 
-  No coração deste reino tecnológico, que serve como lobby entre as vidas e os níveis do jogo, você encontra sua primeira arma: uma manopla enigmática. Esta manopla não é apenas uma extensão do seu ser; ela se conecta diretamente ao seu cérebro, imbuindo-o com habilidades marciais e conhecimentos arcanos que são a chave para sua sobrevivência e eventual retorno.
+Em **Tech-Guy**, um desenvolvedor de software é inesperadamente sugado para dentro do próprio computador e acaba preso em um vasto universo digital formado por diferentes mundos interconectados.
 
-  Mas as armas em "Tech-Guy" não são meros instrumentos de poder; elas possuem ego e personalidades vibrantes, cada uma oferecendo comentários sarcásticos, conselhos estratégicos ou simplesmente um bom papo. Inspirado pelo humor e interatividade de “High on Life”, cada arma se torna um companheiro único em sua jornada.
+Para encontrar um caminho de volta para a Terra, o jogador deverá explorar essas diferentes realidades, enfrentar inimigos e chefes, desbloquear novas habilidades e descobrir os segredos por trás do sistema que o levou até ali.
 
-  A jogabilidade é uma homenagem aos clássicos “Lost Ark” e “Diablo”, com uma pitada de roguelike ao estilo de “Hades”, garantindo que cada incursão seja tão única quanto desafiadora. E com um visual que mistura o estilo neon e futurista de “Cyberpunk” com a diversidade e dinamismo do “Aranhaverso”, "Tech-Guy" é uma aventura que redefine o gênero, convidando os jogadores a hackear, lutar e rir enquanto desvendam os mistérios de um universo onde a realidade é tão fluida quanto o código que o constrói.
+No centro desse universo existe um grande hub tecnológico que funciona como uma zona segura entre as incursões. É nesse lugar que o protagonista encontra sua primeira arma: uma manopla tecnológica capaz de se conectar diretamente ao seu sistema nervoso e conceder habilidades de combate muito além daquelas que possuía no mundo real.
 
-  Prepare-se para plug-in e power-up em "Tech-Guy", onde cada bit conta e cada pixel pode ser o seu último.
+Mas as armas de **Tech-Guy** são mais do que simples equipamentos. Elas são companheiras inteligentes e expressivas, com suas próprias personalidades, opiniões, humor e estilos de combate, inspiradas nas interações entre armas e jogador de **High on Life**.
+
+A jogabilidade combina as bases de action RPG de **Diablo** e **Lost Ark** com elementos roguelike inspirados em **Hades**, enquanto sua identidade visual mistura tecnologia futurista com a diversidade artística e o dinamismo de **Aranhaverso**.
+
+Cada incursão revela um pouco mais sobre essa estranha realidade digital - e aproxima o protagonista da resposta para a pergunta mais importante de sua jornada:
+
+**Como escapar de um sistema quando você não tem acesso ao código-fonte?**
+
+---
 
 ## Características do Jogo
 
-- **Mundo Digital Isekai**: Explore universos interconectados em busca de um caminho de volta para casa.
-- **Manopla Enigmática**: Uma arma que se conecta ao seu cérebro, concedendo habilidades únicas.
-- **Armas com Personalidade**: Interaja com armas que têm suas próprias personalidades e comentários.
-- **Jogabilidade Inspirada em Clássicos**: Uma mistura de ação estilo "Lost Ark" e "Diablo" com elementos de roguelike.
-- **Estilo Visual Único**: Uma combinação do tecnológico de "Cyberpunk" com o dinamismo do "Aranhaverso".
+* **Universo Digital Interconectado**
+  Explore diferentes mundos digitais, cada um com sua própria identidade, desafios, inimigos e segredos.
+
+* **Combate Action RPG**
+  Sistema de combate inspirado em jogos como **Diablo** e **Lost Ark**, com foco em habilidades, movimentação e diferentes estilos de jogo.
+
+* **Elementos Roguelike**
+  Incursões inspiradas em **Hades**, com progressão, desafios e novas possibilidades a cada tentativa.
+
+* **Armas com Personalidade**
+  Cada arma funciona também como um personagem, possuindo comportamento, diálogos, opiniões e uma identidade própria.
+
+* **Manopla Tecnológica**
+  A primeira arma do protagonista se conecta ao seu sistema nervoso, permitindo que ele utilize técnicas e habilidades que jamais aprendeu no mundo real.
+
+* **Hub Central**
+  Um ambiente tecnológico funciona como ponto de descanso, progressão e preparação entre as incursões pelos diferentes mundos.
+
+* **Identidade Visual Variada**
+  Uma mistura de tecnologia futurista e neon com diferentes estilos artísticos, permitindo que cada universo tenha uma aparência própria.
+
+* **Mistério e Narrativa**
+  Descubra por que o protagonista foi levado para esse mundo e quem - ou o quê - está por trás do sistema que conecta todas essas realidades.
+
+---
 
 ## Contribuições
 
-Estamos sempre procurando melhorar "Tech-Guy". Se você tem ideias ou quer contribuir para o jogo, por favor, veja nosso guia de contribuição.
+**Tech-Guy** ainda está em desenvolvimento.
+
+Ideias, sugestões e contribuições são bem-vindas. Consulte o guia de contribuição do projeto para mais informações.
+
+---
 
 ## Créditos
 
-Em desenvolvimento por [Gabriel Filla Camargo]
-Design de Jogo por [--]
-Arte por [--]
-Música e Efeitos Sonoros por [--]
+**Desenvolvimento:** Gabriel Filla Camargo
+**Game Design:** --
+**Arte:** --
+**Música e Efeitos Sonoros:** --
