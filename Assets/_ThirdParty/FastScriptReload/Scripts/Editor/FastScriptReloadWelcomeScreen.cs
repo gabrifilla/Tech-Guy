@@ -958,8 +958,8 @@ Tick this box to use custom implementation.", MessageType.Info);
                 $"\r\n\r\nDepending on version you'll find it via: " +
                 $"\r\n1) Edit -> Preferences -> General -> Script Changes While Playing -> Recompile After Finished Playing." +
                 $"\r\n2) Edit -> Preferences -> Asset Pipeline -> Auto Refresh -> Enabled Outside Playmode",
-                "Ok, disable asset auto refresh (I'll refresh manually when needed)",
-                "No, don't change (stop showing this message)",
+                "Disable auto refresh",
+                "Don't change; hide message",
                 "No, don't change"
             );
 
