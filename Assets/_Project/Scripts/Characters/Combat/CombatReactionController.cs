@@ -46,6 +46,15 @@ public class CombatReactionController : MonoBehaviour
     public bool ArmorBroken => armorBroken;
     public float CurrentPoise => currentPoise;
 
+    public void ConfigureRank(EnemyRank newRank, bool bossAirJuggle = false, bool bossRagdoll = false)
+    {
+        rank = newRank;
+        allowBossAirJuggle = bossAirJuggle;
+        allowBossRagdoll = bossRagdoll;
+        armorBroken = false;
+        currentPoise = Mathf.Max(1f, maxPoise);
+    }
+
     private void Awake()
     {
         currentPoise = Mathf.Max(1f, maxPoise);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,13 @@ public class Actor : MonoBehaviour
 
     public Image healthBar;
 
+    public event Action<Actor> Died;
+    public bool IsDead { get; private set; }
+
     public virtual void Awake()
     { 
         maxHealth = health;
+        IsDead = false;
         if (healthBar != null)
         {
             healthBar.gameObject.SetActive(false);
@@ -29,6 +34,8 @@ public class Actor : MonoBehaviour
 
     public virtual void TakeDamage(float amount)
     {
+        if (IsDead) return;
+
         health -= amount;
         UpdateHealthBar();
 
@@ -42,7 +49,14 @@ public class Actor : MonoBehaviour
         { Death(); }
     }
 
-    void UpdateHealthBar()
+    public void RestoreHealthToMax()
+    {
+        IsDead = false;
+        health = maxHealth;
+        UpdateHealthBar();
+    }
+
+    protected void UpdateHealthBar()
     {
         if (healthBar != null)
         {
@@ -50,12 +64,17 @@ public class Actor : MonoBehaviour
         }
     }
 
-    void Death()
+    protected virtual void Death()
     {
+        if (IsDead) return;
+
+        IsDead = true;
         if (healthBar != null)
         {
             healthBar.gameObject.SetActive(false);
         }
+
+        Died?.Invoke(this);
         Destroy(gameObject);
     }
 }
