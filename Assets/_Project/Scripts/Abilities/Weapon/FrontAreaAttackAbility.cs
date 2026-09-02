@@ -5,7 +5,9 @@ public class FrontAreaAttackAbility : SequencedAreaAttackAbility
 {
     [Header("Area")]
     [SerializeField] private float rangeOverride = 0f;
+    [SerializeField] private AreaHitShape hitShape = AreaHitShape.Box;
     [SerializeField] private Vector3 boxSize = new Vector3(3f, 2f, 0f);
+    [SerializeField] private float sphereRadius = 1.5f;
     [SerializeField] private LayerMask targetLayers;
 
     [Header("Damage")]
@@ -28,7 +30,9 @@ public class FrontAreaAttackAbility : SequencedAreaAttackAbility
         {
             delay = 0f,
             rangeOverride = rangeOverride,
+            hitShape = hitShape,
             boxSize = boxSize,
+            sphereRadius = sphereRadius,
             targetLayers = targetLayers,
             damageMultiplier = damageMultiplier,
             bonusDamage = bonusDamage,

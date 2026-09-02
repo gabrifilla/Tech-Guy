@@ -16,7 +16,9 @@ MonoBehaviour:
   cooldownTime: 0.8
   activeTime: 0
   rangeOverride: 4.5
+  hitShape: 0
   boxSize: {x: 3, y: 2, z: 4.5}
+  sphereRadius: 1.5
   targetLayers:
     serializedVersion: 2
     m_Bits: 0

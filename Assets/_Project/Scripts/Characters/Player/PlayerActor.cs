@@ -193,16 +193,39 @@ public class PlayerActor : Actor
 
     public int TryApplyAreaDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize, LayerMask targetLayers, float weaponDamage, float skillMultiplier, float addedDamage, HitReactionRequest? reactionRequest)
     {
+        return TryApplyAreaDamage(origin, forward, range, boxSize, AreaHitShape.Box, 0f, targetLayers, weaponDamage, skillMultiplier, addedDamage, reactionRequest);
+    }
+
+    public int TryApplyAreaDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize, AreaHitShape hitShape, float sphereRadius, LayerMask targetLayers, float weaponDamage, float skillMultiplier, float addedDamage, HitReactionRequest? reactionRequest)
+    {
         if (range <= 0f || forward.sqrMagnitude <= Mathf.Epsilon) return 0;
 
         Vector3 normalizedForward = forward.normalized;
-        Vector3 resolvedBoxSize = ResolveAttackBoxSize(range, boxSize);
-        ShowAttackAreaSwoosh(origin, normalizedForward, range, resolvedBoxSize);
-        Vector3 center = origin + normalizedForward * (range * 0.5f);
-        center.y += resolvedBoxSize.y * 0.5f;
-
         int mask = targetLayers.value != 0 ? targetLayers.value : Physics.DefaultRaycastLayers;
-        Collider[] hits = Physics.OverlapBox(center, resolvedBoxSize * 0.5f, Quaternion.LookRotation(normalizedForward), mask, QueryTriggerInteraction.Collide);
+        Vector3 center;
+        Collider[] hits;
+
+        if (hitShape == AreaHitShape.Sphere)
+        {
+            float resolvedRadius = ResolveAttackSphereRadius(range, boxSize, sphereRadius);
+            center = origin + normalizedForward * range;
+            center.y += resolvedRadius;
+
+            Vector3 effectOrigin = origin + normalizedForward * Mathf.Max(0f, range - resolvedRadius);
+            Vector3 effectSize = Vector3.one * (resolvedRadius * 2f);
+            ShowAttackAreaSwoosh(effectOrigin, normalizedForward, resolvedRadius * 2f, effectSize);
+
+            hits = Physics.OverlapSphere(center, resolvedRadius, mask, QueryTriggerInteraction.Collide);
+        }
+        else
+        {
+            Vector3 resolvedBoxSize = ResolveAttackBoxSize(range, boxSize);
+            ShowAttackAreaSwoosh(origin, normalizedForward, range, resolvedBoxSize);
+            center = origin + normalizedForward * (range * 0.5f);
+            center.y += resolvedBoxSize.y * 0.5f;
+
+            hits = Physics.OverlapBox(center, resolvedBoxSize * 0.5f, Quaternion.LookRotation(normalizedForward), mask, QueryTriggerInteraction.Collide);
+        }
 
         int damageCount = 0;
         HashSet<Actor> resolvedActors = new HashSet<Actor>();
@@ -361,6 +384,18 @@ public class PlayerActor : Actor
         float height = configuredSize.y > 0f ? configuredSize.y : 2f;
         float depth = configuredSize.z > 0f ? configuredSize.z : range;
         return new Vector3(width, height, depth);
+    }
+
+    private static float ResolveAttackSphereRadius(float range, Vector3 configuredSize, float configuredRadius)
+    {
+        if (configuredRadius > 0f) return configuredRadius;
+
+        if (configuredSize != Vector3.zero)
+        {
+            return Mathf.Max(0.1f, Mathf.Max(configuredSize.x, configuredSize.y, configuredSize.z) * 0.5f);
+        }
+
+        return Mathf.Max(0.1f, range * 0.5f);
     }
 
     private void ShowAttackAreaSwoosh(Vector3 origin, Vector3 forward, float range, Vector3 boxSize)

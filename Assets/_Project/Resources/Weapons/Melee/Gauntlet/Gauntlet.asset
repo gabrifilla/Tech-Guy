@@ -19,10 +19,10 @@ MonoBehaviour:
     type: 3}
   attackDamage: 15
   attackSpeed: 0.2
-  attackDistance: 8
+  attackDistance: 2.2
   attackDelay: 1
   attackRadius: 0
-  attackBoxSize: {x: 0, y: 0, z: 0}
+  attackBoxSize: {x: 1.25, y: 1.8, z: 1.6}
   hitEffectName: HitEffect
   hitbox: {fileID: 2599738818665923750, guid: 83d04be508d466248a9267697cb142ec, type: 3}
   abilities:

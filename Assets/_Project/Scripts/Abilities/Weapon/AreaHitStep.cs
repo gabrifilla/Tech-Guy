@@ -1,12 +1,20 @@
 using System;
 using UnityEngine;
 
+public enum AreaHitShape
+{
+    Box,
+    Sphere
+}
+
 [Serializable]
 public class AreaHitStep
 {
     [Min(0f)] public float delay;
     [Min(0f)] public float rangeOverride;
+    public AreaHitShape hitShape = AreaHitShape.Box;
     public Vector3 boxSize = new Vector3(3f, 2f, 0f);
+    [Min(0f)] public float sphereRadius = 1.5f;
     public LayerMask targetLayers;
     [Min(0f)] public float damageMultiplier = 1f;
     public float bonusDamage;

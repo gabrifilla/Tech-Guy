@@ -15,8 +15,10 @@ MonoBehaviour:
   name: Front Area Strike
   cooldownTime: 1.2
   activeTime: 0
-  rangeOverride: 0
-  boxSize: {x: 3, y: 2, z: 0}
+  rangeOverride: 2
+  hitShape: 1
+  boxSize: {x: 2.5, y: 2.5, z: 2.5}
+  sphereRadius: 1.25
   targetLayers:
     serializedVersion: 2
     m_Bits: 0

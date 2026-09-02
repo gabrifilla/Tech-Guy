@@ -118,6 +118,8 @@ public abstract class SequencedAreaAttackAbility : Ability
             ownerTransform.forward,
             range,
             boxSize,
+            hitStep.hitShape,
+            hitStep.sphereRadius,
             hitStep.targetLayers,
             weaponDamage,
             hitStep.damageMultiplier,
