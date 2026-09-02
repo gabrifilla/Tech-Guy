@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 #if ENABLE_INPUT_SYSTEM
@@ -11,21 +12,24 @@ public class DashScript : Ability
     public float dashVelocity = 8f;
     public float dashTime = 0.2f;
     public string dashAnimation = "Dash";
-    public bool isDashing = false;
+
+    private readonly HashSet<GameObject> activeDashOwners = new HashSet<GameObject>();
+    private readonly Dictionary<GameObject, float> nextReadyTimes = new Dictionary<GameObject, float>();
 
     private void OnEnable()
     {
-        isDashing = false;
+        activeDashOwners.Clear();
+        nextReadyTimes.Clear();
     }
 
     public override void Activate(GameObject parent)
     {
-        if (isDashing || parent == null) return;
+        if (parent == null || IsDashing(parent) || !IsReady(parent)) return;
 
         Camera mainCamera = Camera.main;
         if (mainCamera == null) return;
 
-        Vector3 dashDirection = ResolveDashDirection(parent.transform, mainCamera);
+        Vector3 dashDirection = ResolveDashDirection(parent.transform, mainCamera, parent.transform.forward);
         if (dashDirection.sqrMagnitude <= Mathf.Epsilon) return;
 
         parent.transform.rotation = Quaternion.LookRotation(dashDirection);
@@ -38,19 +42,59 @@ public class DashScript : Ability
 
         if (runner != null)
         {
+            nextReadyTimes[parent] = Time.time + GetCooldownDuration(parent);
             runner.StartCoroutine(Dash(parent, dashDirection));
         }
     }
 
-    private static Vector3 ResolveDashDirection(Transform parentTransform, Camera mainCamera)
+    public bool IsDashing(GameObject parent)
     {
-        Vector3 mousePosition = GetMousePosition();
-        Vector3 characterScreenPosition = mainCamera.WorldToScreenPoint(parentTransform.position);
+        return parent != null && activeDashOwners.Contains(parent);
+    }
 
-        Vector3 dashDirection = mousePosition - characterScreenPosition;
-        dashDirection.z = dashDirection.y;
+    private bool IsReady(GameObject parent)
+    {
+        if (parent == null) return false;
+
+        return !nextReadyTimes.TryGetValue(parent, out float nextReadyTime) || Time.time >= nextReadyTime;
+    }
+
+    private float GetCooldownDuration(GameObject parent)
+    {
+        float cooldownMultiplier = 1f;
+        if (parent.TryGetComponent(out PlayerActor playerActor))
+        {
+            cooldownMultiplier = playerActor.Stats.CooldownMultiplier;
+        }
+
+        return Mathf.Max(0f, cooldownTime * cooldownMultiplier);
+    }
+
+    private static Vector3 ResolveDashDirection(Transform parentTransform, Camera mainCamera, Vector3 fallbackDirection)
+    {
+        Ray ray = mainCamera.ScreenPointToRay(GetMousePosition());
+        Plane groundPlane = new Plane(Vector3.up, parentTransform.position);
+        if (!groundPlane.Raycast(ray, out float distance))
+        {
+            return Flatten(fallbackDirection).normalized;
+        }
+
+        Vector3 targetPoint = ray.GetPoint(distance);
+        Vector3 dashDirection = targetPoint - parentTransform.position;
         dashDirection.y = 0f;
+
+        if (dashDirection.sqrMagnitude <= Mathf.Epsilon)
+        {
+            dashDirection = Flatten(fallbackDirection);
+        }
+
         return dashDirection.normalized;
+    }
+
+    private static Vector3 Flatten(Vector3 direction)
+    {
+        direction.y = 0f;
+        return direction;
     }
 
     private static Vector3 GetMousePosition()
@@ -66,7 +110,7 @@ public class DashScript : Ability
 
     private IEnumerator Dash(GameObject parent, Vector3 dashDirection)
     {
-        isDashing = true;
+        activeDashOwners.Add(parent);
 
         Animator animator = parent.GetComponent<Animator>();
         if (animator != null && !string.IsNullOrWhiteSpace(dashAnimation))
@@ -79,23 +123,46 @@ public class DashScript : Ability
         if (hadAgent)
         {
             agent.ResetPath();
-            agent.enabled = false;
         }
 
         float endTime = Time.time + Mathf.Max(0f, dashTime);
         while (Time.time < endTime)
         {
-            parent.transform.position += dashDirection * dashVelocity * Time.deltaTime;
+            if (parent == null) break;
+
+            Vector3 step = dashDirection * dashVelocity * Time.deltaTime;
+            if (hadAgent && agent != null && agent.enabled && agent.isOnNavMesh)
+            {
+                MoveAgentOnNavMesh(agent, step);
+            }
+            else
+            {
+                parent.transform.position += step;
+            }
+
             yield return null;
         }
 
         if (hadAgent)
         {
-            agent.enabled = true;
-            agent.Warp(parent.transform.position);
-            agent.ResetPath();
+            if (agent != null && agent.enabled && agent.isOnNavMesh)
+            {
+                agent.ResetPath();
+            }
         }
 
-        isDashing = false;
+        activeDashOwners.Remove(parent);
+    }
+
+    private static void MoveAgentOnNavMesh(NavMeshAgent agent, Vector3 step)
+    {
+        Vector3 targetPosition = agent.transform.position + step;
+        if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, agent.radius + step.magnitude, agent.areaMask))
+        {
+            agent.Move(hit.position - agent.transform.position);
+            return;
+        }
+
+        agent.Move(step);
     }
 }

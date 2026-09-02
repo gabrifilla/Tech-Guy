@@ -16,6 +16,12 @@ public class PlayerActor : Actor
     [SerializeField] private WeaponScript startingWeapon;
     public WeaponScript weapon;
 
+    [Header("Attack Area Swoosh")]
+    [SerializeField] private bool showAttackAreaSwoosh = true;
+    [SerializeField] private Color attackAreaSwooshColor = new Color(1f, 0.85f, 0.25f, 0.36f);
+    [SerializeField] private float attackAreaSwooshDuration = 0.18f;
+    [SerializeField] private float attackAreaSwooshHeightOffset = 0.06f;
+
     [Header("ARPG Stats")]
     [SerializeField] private PlayerArpgStats stats = new PlayerArpgStats();
 
@@ -71,14 +77,16 @@ public class PlayerActor : Actor
         SyncEquippedObject(currentWeaponInstance);
     }
 
-    public void EquipWeapon(WeaponScript newWeapon)
+    public WeaponScript EquipWeapon(WeaponScript newWeapon)
     {
-        if (!newWeapon) return;
+        if (!newWeapon) return null;
         if (!handTransform)
         {
             Debug.LogError($"{nameof(PlayerActor)} requires a hand transform to equip weapons.", this);
-            return;
+            return null;
         }
+
+        WeaponScript previousWeapon = weapon;
 
         if (currentWeaponInstance)
         {
@@ -105,6 +113,8 @@ public class PlayerActor : Actor
             hitbox.SetActive(false);
             ConfigureHitbox(hitbox, newWeapon);
         }
+
+        return previousWeapon;
     }
 
     public void ActivateHitbox()
@@ -187,6 +197,7 @@ public class PlayerActor : Actor
 
         Vector3 normalizedForward = forward.normalized;
         Vector3 resolvedBoxSize = ResolveAttackBoxSize(range, boxSize);
+        ShowAttackAreaSwoosh(origin, normalizedForward, range, resolvedBoxSize);
         Vector3 center = origin + normalizedForward * (range * 0.5f);
         center.y += resolvedBoxSize.y * 0.5f;
 
@@ -290,6 +301,8 @@ public class PlayerActor : Actor
             health = Mathf.Min(maxHealth, maxHealth * healthRatio);
             mana = Mathf.Min(maxMana, maxMana * manaRatio);
         }
+
+        UpdateHealthBar();
     }
 
     private void SyncEquippedObject(GameObject equippedObject)
@@ -348,6 +361,14 @@ public class PlayerActor : Actor
         float height = configuredSize.y > 0f ? configuredSize.y : 2f;
         float depth = configuredSize.z > 0f ? configuredSize.z : range;
         return new Vector3(width, height, depth);
+    }
+
+    private void ShowAttackAreaSwoosh(Vector3 origin, Vector3 forward, float range, Vector3 boxSize)
+    {
+        if (!showAttackAreaSwoosh) return;
+
+        Vector3 spawnOrigin = origin + Vector3.up * attackAreaSwooshHeightOffset;
+        AttackAreaSwoosh.Spawn(spawnOrigin, forward, range, boxSize, attackAreaSwooshColor, attackAreaSwooshDuration);
     }
 
     private static Actor ResolveActor(Collider collider)

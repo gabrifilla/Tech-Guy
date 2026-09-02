@@ -11,6 +11,7 @@ public class Actor : MonoBehaviour
 
     public Image healthBar;
 
+    public event Action<Actor> HealthChanged;
     public event Action<Actor> Died;
     public bool IsDead { get; private set; }
 
@@ -26,18 +27,16 @@ public class Actor : MonoBehaviour
 
     void Update()
     {
-        if (healthBar != null)
-        {
-            healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
-        }
+        UpdateHealthBar();
     }
 
     public virtual void TakeDamage(float amount)
     {
         if (IsDead) return;
 
-        health -= amount;
+        health = Mathf.Max(0f, health - amount);
         UpdateHealthBar();
+        HealthChanged?.Invoke(this);
 
         EnemyTargetUI ui = EnemyTargetUI.Instance;
         if (ui != null)
@@ -54,13 +53,15 @@ public class Actor : MonoBehaviour
         IsDead = false;
         health = maxHealth;
         UpdateHealthBar();
+        HealthChanged?.Invoke(this);
     }
 
     protected void UpdateHealthBar()
     {
         if (healthBar != null)
         {
-            healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+            float resolvedMaxHealth = Mathf.Max(maxHealth, 0.0001f);
+            healthBar.fillAmount = Mathf.Clamp01(health / resolvedMaxHealth);
         }
     }
 

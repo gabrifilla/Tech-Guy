@@ -100,12 +100,6 @@ public class CharControlScript : MonoBehaviour
         ValidateComponents();
         InitializeClickEffectPool();
         if (debugClickLog) Debug.Log($"CharControlScript active on {gameObject.name}");
-        if (dashScript != null && dashScript.isDashing)
-        {
-            dashScript.isDashing = false;
-            if (debugClickLog) Debug.Log("Reset dash state on start");
-        }
-
         RefreshWeaponStats();
         RefreshMovementStats();
     }
@@ -119,7 +113,7 @@ public class CharControlScript : MonoBehaviour
         RefreshMovementStats();
 
 
-        isDashing = dashScript != null && dashScript.isDashing;
+        isDashing = dashScript != null && dashScript.IsDashing(gameObject);
         HandleDashInput();
 
         if (!isDashing)

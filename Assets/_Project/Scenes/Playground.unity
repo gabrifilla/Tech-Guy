@@ -280,6 +280,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionType: 1
+--- !u!114 &116812069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116812065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3ad71c203671c43bce66d238a1bda5, type: 3}
+  m_Name: WeaponPickup
+  m_EditorClassIdentifier:
+  weapon: {fileID: 11400000, guid: e0b5baec9c1197f499186415b5f42772, type: 2}
+  autoPickupOnTrigger: 0
+  visualContainer: {fileID: 116812066}
+  replaceVisualOnSwap: 1
+  hideOriginalVisualOnSwap: 1
 --- !u!136 &116812068
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5933,6 +5950,7 @@ GameObject:
   - component: {fileID: 1072212186}
   - component: {fileID: 1072212188}
   - component: {fileID: 1072212187}
+  - component: {fileID: 1072212189}
   m_Layer: 5
   m_Name: HealthPlacer
   m_TagString: Untagged
@@ -5999,6 +6017,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072212185}
   m_CullTransparentMesh: 1
+--- !u!114 &1072212189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072212185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b1837901c5641c8a944d73a2f264d38, type: 3}
+  m_Name: PlayerHealthHover
+  m_EditorClassIdentifier:
+  playerActor: {fileID: 1762682271}
+  offset: {x: 0, y: 44}
+  tooltipSize: {x: 120, y: 34}
 --- !u!1 &1114648778
 GameObject:
   m_ObjectHideFlags: 0
@@ -7751,6 +7784,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 116812068}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 94a84fadd607125499086a8fd99cb22e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 116812069}
   m_SourcePrefab: {fileID: 100100000, guid: 94a84fadd607125499086a8fd99cb22e, type: 3}
 --- !u!1001 &1762682258
 PrefabInstance:
@@ -8786,7 +8823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  healthBar: {fileID: 1144507395}
+  healthBar: {fileID: 0}
 --- !u!136 &1804728355
 CapsuleCollider:
   m_ObjectHideFlags: 0

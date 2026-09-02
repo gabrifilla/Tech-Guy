@@ -5,6 +5,7 @@ public class WeaponScript : ScriptableObject
 {
     public string weaponName;
     public GameObject weaponPrefab;
+    public GameObject pickupPrefab;
 
     [Header("Attack")]
     [SerializeField] public float attackDamage;
@@ -20,6 +21,8 @@ public class WeaponScript : ScriptableObject
 
     [Header("Skills")]
     [SerializeField] public Ability[] abilities;
+
+    public GameObject PickupPrefab => pickupPrefab ? pickupPrefab : weaponPrefab;
 
     public string HitEffectResourcePath => string.IsNullOrEmpty(hitEffectName)
         ? null
