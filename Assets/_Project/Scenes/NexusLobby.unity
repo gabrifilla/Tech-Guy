@@ -7623,7 +7623,7 @@ TextMesh:
   m_GameObject: {fileID: 283012082}
   m_Text: MANOPLA  //  PRIMEIRO CONTATO
   m_OffsetZ: 0
-  m_CharacterSize: 0.1
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -7634,7 +7634,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291279523
 --- !u!23 &283012085
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8922,8 +8922,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TechGuy.Cameras.TG_TopDown_Camera
   m_Target: {fileID: 1665369847}
-  m_Height: 22
-  m_Distance: 18
+  m_Height: 10
+  m_Distance: 10
   m_Angle: 0
 --- !u!114 &342316919
 MonoBehaviour:
@@ -9008,11 +9008,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
-  far clip plane: 180
-  field of view: 60
-  orthographic: 1
-  orthographic size: 12
+  near clip plane: 0.2
+  far clip plane: 500
+  field of view: 40
+  orthographic: 0
+  orthographic size: 10
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -9036,8 +9036,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 342316917}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4282302, y: 0, z: 0, w: 0.9036697}
-  m_LocalPosition: {x: 0, y: 22, z: -30}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 10, z: -22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13853,7 +13853,7 @@ TextMesh:
   m_GameObject: {fileID: 534421488}
   m_Text: RECONEXAO
   m_OffsetZ: 0
-  m_CharacterSize: 0.15
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -13864,7 +13864,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967040
+    rgba: 4291279523
 --- !u!23 &534421491
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16660,7 +16660,7 @@ TextMesh:
   m_GameObject: {fileID: 661566102}
   m_Text: 02 / FRAGMENTO
   m_OffsetZ: 0
-  m_CharacterSize: 0.2
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -16671,7 +16671,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291279523
 --- !u!23 &661566105
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19232,7 +19232,7 @@ TextMesh:
   m_GameObject: {fileID: 778923058}
   m_Text: NEURAL / LINK
   m_OffsetZ: 0
-  m_CharacterSize: 0.23
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -19243,7 +19243,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4281578495
+    rgba: 4291279523
 --- !u!23 &778923061
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -19426,7 +19426,7 @@ TextMesh:
   m_GameObject: {fileID: 781020387}
   m_Text: 03 / ORIGEM
   m_OffsetZ: 0
-  m_CharacterSize: 0.2
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -19437,7 +19437,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291279523
 --- !u!23 &781020390
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -20730,7 +20730,7 @@ TextMesh:
   m_GameObject: {fileID: 827656496}
   m_Text: ARQUIVO / 404
   m_OffsetZ: 0
-  m_CharacterSize: 0.23
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -20741,7 +20741,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4288230399
+    rgba: 4291279523
 --- !u!23 &827656499
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -24168,7 +24168,7 @@ TextMesh:
   m_GameObject: {fileID: 976152439}
   m_Text: ACESSO NEGADO
   m_OffsetZ: 0
-  m_CharacterSize: 0.14
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -24179,7 +24179,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291279523
 --- !u!23 &976152442
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -31438,7 +31438,7 @@ TextMesh:
   m_GameObject: {fileID: 1243464593}
   m_Text: N E X U S
   m_OffsetZ: 0
-  m_CharacterSize: 0.32
+  m_CharacterSize: 0.08
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -31449,7 +31449,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291279523
 --- !u!23 &1243464596
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -35658,7 +35658,7 @@ TextMesh:
   m_GameObject: {fileID: 1401300685}
   m_Text: 01 / INCURSAO
   m_OffsetZ: 0
-  m_CharacterSize: 0.2
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -35669,7 +35669,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291279523
 --- !u!23 &1401300688
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -36821,7 +36821,7 @@ TextMesh:
   m_GameObject: {fileID: 1420044139}
   m_Text: KERNEL / ONLINE
   m_OffsetZ: 0
-  m_CharacterSize: 0.13
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -36832,7 +36832,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967040
+    rgba: 4291279523
 --- !u!23 &1420044142
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -43509,7 +43509,7 @@ TextMesh:
   m_GameObject: {fileID: 1702264669}
   m_Text: SEM SINAL
   m_OffsetZ: 0
-  m_CharacterSize: 0.14
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -43520,7 +43520,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291279523
 --- !u!23 &1702264672
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -44679,7 +44679,7 @@ TextMesh:
   m_GameObject: {fileID: 1736083031}
   m_Text: P O N T O   Z E R O
   m_OffsetZ: 0
-  m_CharacterSize: 0.11
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -44690,7 +44690,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967040
+    rgba: 4291279523
 --- !u!23 &1736083034
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -54332,7 +54332,7 @@ TextMesh:
   m_GameObject: {fileID: 2112619055}
   m_Text: SANDBOX
   m_OffsetZ: 0
-  m_CharacterSize: 0.14
+  m_CharacterSize: 0.04
   m_LineSpacing: 1
   m_Anchor: 4
   m_Alignment: 1
@@ -54343,7 +54343,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291279523
 --- !u!23 &2112619058
 MeshRenderer:
   m_ObjectHideFlags: 0

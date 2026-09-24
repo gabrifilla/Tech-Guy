@@ -39,7 +39,11 @@ conectar outro mundo, altere `Destination Scene` da estacao e inclua a cena
 nas Build Settings. Um destino vazio abre apenas o texto informativo.
 
 O player foi copiado da configuracao do Playground, com camera e movimento
-por clique ligados ao lobby. A camera segue o player na perspectiva superior.
+por clique ligados ao lobby. A camera segue o mesmo padrao do Playground:
+altura 10, distancia 10 e angulo horizontal 0. Projecao e campo de visao sao
+copiados da camera da cena de referencia pelo gerador, mantendo o alvo no player
+do lobby. `Docs/NexusLobby-gameplay.png` mostra esse enquadramento; a imagem
+`NexusLobby-preview.png` e apenas uma vista geral para apresentar o mapa.
 Playground permanece como a primeira cena das Build Settings; NexusLobby foi
 adicionada e pode ser aberta diretamente para testar.
 

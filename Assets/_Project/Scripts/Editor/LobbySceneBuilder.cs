@@ -59,6 +59,7 @@ public static class LobbySceneBuilder
         BuildArchive(stations);
         BuildArrival();
         BuildBackground();
+        RefineSignage(_environment);
         SetupLighting();
         Camera camera = SetupCamera(player.transform);
         SetupPlayer(player, camera);
@@ -95,9 +96,9 @@ public static class LobbySceneBuilder
         _metal = Material("Obsidian Alloy", new Color(0.055f, 0.08f, 0.15f), 0.65f);
         _floor = Material("Midnight Deck", new Color(0.11f, 0.16f, 0.24f), 0.35f);
         _panel = Material("Blue Steel", new Color(0.2f, 0.28f, 0.37f), 0.55f);
-        _cyan = Material("Signal Cyan", new Color(0.03f, 0.84f, 1f), 0.15f, 2.5f);
-        _pink = Material("Glitch Magenta", new Color(1f, 0.06f, 0.42f), 0.15f, 2f);
-        _gold = Material("Gauntlet Amber", new Color(1f, 0.48f, 0.035f), 0.4f, 1.7f);
+        _cyan = Material("Signal Cyan", new Color(0.14f, 0.66f, 0.73f), 0.15f, 1.1f);
+        _pink = Material("Glitch Magenta", new Color(0.6f, 0.2f, 0.38f), 0.15f, 1f);
+        _gold = Material("Gauntlet Amber", new Color(0.85f, 0.55f, 0.22f), 0.4f, 1f);
         _white = Material("Interface White", new Color(0.65f, 0.89f, 1f), 0.1f, 1.2f);
         _void = Material("Distant Data", new Color(0.035f, 0.045f, 0.09f), 0.2f);
     }
@@ -424,21 +425,59 @@ public static class LobbySceneBuilder
         camera.tag = "MainCamera";
         camera.clearFlags = CameraClearFlags.SolidColor;
         camera.backgroundColor = new Color(0.015f, 0.022f, 0.055f);
-        camera.orthographic = true;
-        camera.orthographicSize = 12;
         camera.nearClipPlane = 0.1f;
         camera.farClipPlane = 180;
         camera.gameObject.AddComponent<AudioListener>();
         camera.GetUniversalAdditionalCameraData().renderPostProcessing = true;
         var follow = camera.gameObject.AddComponent<TechGuy.Cameras.TG_TopDown_Camera>();
         follow.m_Target = player;
-        var serialized = new SerializedObject(follow);
-        serialized.FindProperty("m_Height").floatValue = 22;
-        serialized.FindProperty("m_Distance").floatValue = 18;
-        serialized.ApplyModifiedPropertiesWithoutUndo();
-        camera.transform.position = new Vector3(0, 22, -30);
-        camera.transform.LookAt(new Vector3(0, 0, -12));
+        MatchPlaygroundCamera(camera, player);
         return camera;
+    }
+
+    private static void MatchPlaygroundCamera(Camera camera, Transform player)
+    {
+        Scene source = EditorSceneManager.OpenScene(SourceScene, OpenSceneMode.Additive);
+        try
+        {
+            Camera reference = source.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Camera>())
+                .First(candidate => candidate.CompareTag("MainCamera"));
+            var referenceFollow = reference.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>();
+            if (!referenceFollow) throw new InvalidOperationException("Playground camera follow component missing.");
+            camera.orthographic = reference.orthographic;
+            camera.orthographicSize = reference.orthographicSize;
+            camera.fieldOfView = reference.fieldOfView;
+            camera.nearClipPlane = reference.nearClipPlane;
+            camera.farClipPlane = reference.farClipPlane;
+            camera.usePhysicalProperties = reference.usePhysicalProperties;
+            camera.sensorSize = reference.sensorSize;
+            camera.lensShift = reference.lensShift;
+            camera.gateFit = reference.gateFit;
+            var follow = camera.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>();
+            follow.m_Target = player;
+            var from = new SerializedObject(referenceFollow);
+            var to = new SerializedObject(follow);
+            foreach (string field in new[] { "m_Height", "m_Distance", "m_Angle" })
+                to.FindProperty(field).floatValue = from.FindProperty(field).floatValue;
+            to.ApplyModifiedPropertiesWithoutUndo();
+            float height = from.FindProperty("m_Height").floatValue;
+            float distance = from.FindProperty("m_Distance").floatValue;
+            float angle = from.FindProperty("m_Angle").floatValue;
+            Vector3 target = new Vector3(player.position.x, 0, player.position.z);
+            camera.transform.position = target + Quaternion.AngleAxis(angle, Vector3.up) * new Vector3(0, height, -distance);
+            camera.transform.LookAt(target);
+            Debug.Log($"LOBBY_CAMERA_MATCH: height={height}, distance={distance}, angle={angle}, fov={camera.fieldOfView}, orthographic={camera.orthographic}");
+        }
+        finally { EditorSceneManager.CloseScene(source, true); }
+    }
+
+    private static void RefineSignage(Transform environment)
+    {
+        foreach (TextMesh label in environment.GetComponentsInChildren<TextMesh>())
+        {
+            label.characterSize = Mathf.Min(label.characterSize, label.text == "N E X U S" ? 0.08f : 0.04f);
+            label.color = new Color(0.64f, 0.73f, 0.78f);
+        }
     }
 
     private static void SetupPlayer(GameObject player, Camera camera)
@@ -489,10 +528,15 @@ public static class LobbySceneBuilder
             if (renderer.name == "Deck tile") renderer.sharedMaterial = _floor;
             if (renderer.name == "Walkable deck") renderer.sharedMaterial = _metal;
         }
+        RefineSignage(_environment);
+        Camera camera = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<Camera>())
+            .First(candidate => candidate.CompareTag("MainCamera"));
+        MatchPlaygroundCamera(camera, camera.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>().m_Target);
         PrefabUtility.SaveAsPrefabAsset(_environment.gameObject, "Assets/_Project/Prefabs/NexusEnvironment.prefab");
         EditorSceneManager.SaveScene(scene);
         AssetDatabase.SaveAssets();
-        CapturePreview(Camera.main);
+        CapturePreview(camera);
+        CapturePreview(camera, false);
         Debug.Log("NEXUS_POLISH_SUCCESS");
     }
 
@@ -502,12 +546,13 @@ public static class LobbySceneBuilder
         LobbySceneValidation.Run();
     }
 
-    private static void CapturePreview(Camera camera)
+    private static void CapturePreview(Camera camera, bool overview = true)
     {
         if (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null) return;
         Vector3 position = camera.transform.position;
         Quaternion rotation = camera.transform.rotation;
         float size = camera.orthographicSize;
+        bool orthographic = camera.orthographic;
         var texture = new RenderTexture(1600, 1000, 24);
         var image = new Texture2D(1600, 1000, TextureFormat.RGB24, false);
         RenderTexture previous = RenderTexture.active;
@@ -515,16 +560,20 @@ public static class LobbySceneBuilder
         try
         {
             ShaderUtil.allowAsyncCompilation = false;
-            camera.transform.position = new Vector3(32, 43, -46);
-            camera.transform.LookAt(new Vector3(0, 0, 1));
-            camera.orthographicSize = 30;
+            if (overview)
+            {
+                camera.orthographic = true;
+                camera.transform.position = new Vector3(32, 43, -46);
+                camera.transform.LookAt(new Vector3(0, 0, 1));
+                camera.orthographicSize = 30;
+            }
             camera.targetTexture = texture;
             camera.Render();
             RenderTexture.active = texture;
             image.ReadPixels(new Rect(0, 0, 1600, 1000), 0, 0);
             image.Apply();
             Directory.CreateDirectory("Docs");
-            File.WriteAllBytes("Docs/NexusLobby-preview.png", image.EncodeToPNG());
+            File.WriteAllBytes(overview ? "Docs/NexusLobby-preview.png" : "Docs/NexusLobby-gameplay.png", image.EncodeToPNG());
         }
         finally
         {
@@ -532,6 +581,7 @@ public static class LobbySceneBuilder
             RenderTexture.active = previous;
             camera.transform.SetPositionAndRotation(position, rotation);
             camera.orthographicSize = size;
+            camera.orthographic = orthographic;
             ShaderUtil.allowAsyncCompilation = asyncCompilation;
             Object.DestroyImmediate(image);
             texture.Release();

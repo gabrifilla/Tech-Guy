@@ -76,8 +76,8 @@ public sealed class LobbyInteraction : MonoBehaviour
         if (!_player) return;
         if (_heading == null)
         {
-            _heading = new GUIStyle(GUI.skin.label) { fontSize = 22, fontStyle = FontStyle.Bold };
-            _heading.normal.textColor = new Color(0.35f, 0.96f, 1f);
+            _heading = new GUIStyle(GUI.skin.label) { fontSize = 18, fontStyle = FontStyle.Bold };
+            _heading.normal.textColor = new Color(0.78f, 0.85f, 0.87f);
             _body = new GUIStyle(GUI.skin.label) { fontSize = 15, wordWrap = true };
             _body.normal.textColor = new Color(0.86f, 0.9f, 0.97f);
             _hint = new GUIStyle(_body) { fontSize = 12 };
@@ -90,11 +90,10 @@ public sealed class LobbyInteraction : MonoBehaviour
         GUI.matrix = Matrix4x4.Scale(Vector3.one * scale);
         float width = Screen.width / scale;
         float height = Screen.height / scale;
-        GUI.DrawTexture(new Rect(24, 24, 295, 80), _panel);
-        GUI.Label(new Rect(40, 34, 265, 30), "NEXUS / PONTO ZERO", _heading);
-        GUI.Label(new Rect(40, 70, 265, 24), "ZONA SEGURA  /  CONEXÃO ESTÁVEL", _hint);
+        GUI.Label(new Rect(30, 28, 220, 30), "Nexus · Ponto Zero", _heading);
+        GUI.Label(new Rect(30, 57, 220, 24), "Área segura", _hint);
         GUI.Label(new Rect(26, height - 35, 650, 28),
-            "CLIQUE PARA MOVER     •     E  INTERAGIR     •     ESC  FECHAR", _hint);
+            "Clique para mover     ·     E  Interagir     ·     Esc  Fechar", _hint);
         if (_nearest != null)
         {
             float panelHeight = _showDetails ? 180 : 84;
