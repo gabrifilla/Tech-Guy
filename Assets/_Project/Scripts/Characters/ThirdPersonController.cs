@@ -103,6 +103,7 @@ namespace StarterAssets
 #endif
         private Animator _animator;
         private CharacterController _controller;
+        private PlayerActor _playerActor;
         private StarterAssetsInputs _input;
         private GameObject _mainCamera;
 
@@ -125,6 +126,7 @@ namespace StarterAssets
 
         private void Awake()
         {
+            _playerActor = GetComponent<PlayerActor>();
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -215,6 +217,7 @@ namespace StarterAssets
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            if (_playerActor) targetSpeed *= _playerActor.Stats.MovementSpeedMultiplier;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 

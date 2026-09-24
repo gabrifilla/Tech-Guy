@@ -116,6 +116,13 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    public void ConfigureAttack(float damage, float interval)
+    {
+        attackDamage = Mathf.Max(0f, damage);
+        timeBetweenAttacks = Mathf.Max(0.1f, interval);
+        ConfigureHitbox();
+    }
+
     private void ConfigureHitbox()
     {
         if (hitbox == null) return;

@@ -17,6 +17,8 @@ public class EnemyRespawnPoint : MonoBehaviour
     [SerializeField] private float navMeshSearchRadius = 2f;
 
     [Header("Mob Defaults")]
+    [Tooltip("Optional rarity and abilities; applied on every spawn, including the initial enemy.")]
+    [SerializeField] private EnemyProfile _enemyProfile;
     [SerializeField] private bool configureRankOnSpawn = true;
     [SerializeField] private bool addCombatReactionIfMissing = true;
     [SerializeField] private EnemyRank enemyRank = EnemyRank.Normal;
@@ -93,6 +95,17 @@ public class EnemyRespawnPoint : MonoBehaviour
 
     private void ConfigureSpawnedEnemy(GameObject enemyObject)
     {
+        if (enemyObject && _enemyProfile)
+        {
+            EnemyAI ai = enemyObject.GetComponentInChildren<EnemyAI>();
+            if (ai && ai.GetComponent<Actor>())
+            {
+                EnemyVariant variant = ai.GetComponent<EnemyVariant>();
+                if (!variant) variant = ai.gameObject.AddComponent<EnemyVariant>();
+                variant.Configure(_enemyProfile);
+            }
+            else Debug.LogWarning("Enemy profile requires Actor and EnemyAI on the same object.", enemyObject);
+        }
         if (!configureRankOnSpawn || !enemyObject) return;
 
         CombatReactionController reactionController = enemyObject.GetComponentInChildren<CombatReactionController>();

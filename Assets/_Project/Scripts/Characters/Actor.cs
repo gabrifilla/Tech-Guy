@@ -48,6 +48,15 @@ public class Actor : MonoBehaviour
         { Death(); }
     }
 
+    public void SetMaxHealth(float value)
+    {
+        float ratio = maxHealth > 0f ? Mathf.Clamp01(health / maxHealth) : 1f;
+        maxHealth = Mathf.Max(1f, value);
+        health = IsDead ? 0f : maxHealth * ratio;
+        UpdateHealthBar();
+        HealthChanged?.Invoke(this);
+    }
+
     public void RestoreHealthToMax()
     {
         IsDead = false;
