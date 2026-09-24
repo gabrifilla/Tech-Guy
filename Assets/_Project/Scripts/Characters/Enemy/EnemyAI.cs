@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -28,6 +29,12 @@ public class EnemyAI : MonoBehaviour
     [Header("Attack")]
     public float attackDamage;
     public float timeBetweenAttacks;
+    [SerializeField, Min(0.2f)] private float _attackWindup = 0.7f;
+    [SerializeField, Min(0.1f)] private float _attackRecovery = 0.35f;
+    private Coroutine _attackRoutine;
+    private CombatGroundRing _attackBoundary, _attackProgress;
+    private Actor _owner;
+    public bool IsWindingUp { get; private set; }
 
     [Header("Audio")]
     public AudioClip[] FootstepAudioClips;
@@ -51,6 +58,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         controller = GetComponent<CharacterController>();
+        _owner = GetComponent<Actor>();
         ResolvePlayerReference();
         ConfigureHitbox();
     }
@@ -65,11 +73,14 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
-        if (agent == null || player == null)
+        if (agent == null || !agent.enabled || !agent.isOnNavMesh || player == null || (_owner && _owner.IsDead))
         {
             SetMovementAnimation();
             return;
         }
+
+        if (agent.isStopped) { CancelAttack(); return; }
+        if (_attackRoutine != null) return;
 
         UpdatePerception();
 
@@ -91,10 +102,7 @@ public class EnemyAI : MonoBehaviour
 
     public void ActivateHitbox()
     {
-        if (hitbox != null)
-        {
-            hitbox.SetActive(true);
-        }
+        // Animation events must not cause a second hit: impact is resolved once after the telegraph.
     }
 
     public void DeactivateHitbox()
@@ -218,20 +226,62 @@ public class EnemyAI : MonoBehaviour
 
         if (Time.time < nextAttackTime) return;
 
-        Actor targetActor = ResolvePlayerActor();
-        if (targetActor != null)
-        {
-            targetActor.TakeDamage(attackDamage);
-        }
-
-        if (animator != null)
-        {
-            animator.Play(AttackAnimation);
-        }
-
         alreadyAttacked = true;
-        nextAttackTime = Time.time + Mathf.Max(0.1f, timeBetweenAttacks);
+        _attackRoutine = StartCoroutine(TelegraphedAttack());
     }
+
+    private IEnumerator TelegraphedAttack()
+    {
+        IsWindingUp = true;
+        Vector3 origin = transform.position;
+        float radius = Mathf.Max(0.1f, attackRange);
+        _attackBoundary = CombatGroundRing.Create(null, "Enemy attack boundary", new Color(1, 0.35f, 0.12f));
+        _attackProgress = CombatGroundRing.Create(null, "Enemy attack countdown", new Color(1, 0.8f, 0.25f));
+        _attackBoundary.Draw(origin, radius, 0.1f);
+        float duration = Mathf.Max(0.2f, _attackWindup);
+        float elapsed = 0;
+        if (animator) animator.Play(IdleAnimation);
+        while (elapsed < duration)
+        {
+            if ((_owner && _owner.IsDead) || !agent || !agent.enabled || !agent.isOnNavMesh || agent.isStopped)
+            { IsWindingUp = false; ClearAttackVisuals(); _attackRoutine = null; yield break; }
+            _attackProgress.Draw(origin, radius * Mathf.Clamp01(elapsed / duration), 0.14f);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        IsWindingUp = false;
+        ClearAttackVisuals();
+        if (animator) animator.Play(AttackAnimation);
+        Actor target = ResolvePlayerActor();
+        if (target && !target.IsDead)
+        {
+            Vector3 delta = target.transform.position - origin;
+            float height = Mathf.Abs(delta.y);
+            delta.y = 0;
+            if (height <= 2f && delta.sqrMagnitude <= radius * radius) target.TakeDamage(attackDamage);
+        }
+        nextAttackTime = Time.time + Mathf.Max(_attackRecovery, timeBetweenAttacks);
+        yield return new WaitForSeconds(Mathf.Max(0.1f, _attackRecovery));
+        _attackRoutine = null;
+    }
+
+    private void ClearAttackVisuals()
+    {
+        if (_attackBoundary) { _attackBoundary.gameObject.SetActive(false); Destroy(_attackBoundary.gameObject); }
+        if (_attackProgress) { _attackProgress.gameObject.SetActive(false); Destroy(_attackProgress.gameObject); }
+    }
+
+    private void CancelAttack()
+    {
+        if (_attackRoutine != null) StopCoroutine(_attackRoutine);
+        _attackRoutine = null;
+        IsWindingUp = false;
+        alreadyAttacked = false;
+        ClearAttackVisuals();
+        DeactivateHitbox();
+    }
+
+    private void OnDisable() => CancelAttack();
 
     private Actor ResolvePlayerActor()
     {

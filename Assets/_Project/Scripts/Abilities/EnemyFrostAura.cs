@@ -10,6 +10,8 @@ public sealed class EnemyFrostAura : MonoBehaviour
     [SerializeField] private LayerMask _targetLayers = ~0;
     private Actor _owner;
     private Coroutine _routine;
+    private CombatGroundRing _boundary;
+    public float Radius => Mathf.Max(0.1f, _radius);
     private readonly HashSet<PlayerActor> _affected = new HashSet<PlayerActor>();
     private readonly HashSet<PlayerActor> _inRange = new HashSet<PlayerActor>();
 
@@ -26,6 +28,8 @@ public sealed class EnemyFrostAura : MonoBehaviour
     private void OnEnable()
     {
         if (!_owner || _owner.IsDead) return;
+        _boundary = CombatGroundRing.Create(transform, "Frost boundary", new Color(0.2f, 0.75f, 1f));
+        _boundary.Draw(transform.position, Radius, 0.12f);
         _owner.Died += OnOwnerDied;
         _routine = StartCoroutine(Scan());
     }
@@ -57,11 +61,17 @@ public sealed class EnemyFrostAura : MonoBehaviour
 
     private void OnOwnerDied(Actor owner) => enabled = false;
 
+    private void LateUpdate()
+    {
+        if (_boundary) _boundary.Draw(transform.position, Radius, 0.12f);
+    }
+
     private void OnDisable()
     {
         if (_owner) _owner.Died -= OnOwnerDied;
         if (_routine != null) StopCoroutine(_routine);
         _routine = null;
+        if (_boundary) { _boundary.gameObject.SetActive(false); Destroy(_boundary.gameObject); }
         ClearSlow();
     }
 

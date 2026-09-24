@@ -14,6 +14,17 @@ public class Actor : MonoBehaviour
     public event Action<Actor> HealthChanged;
     public event Action<Actor> Died;
     public bool IsDead { get; private set; }
+    private readonly Dictionary<UnityEngine.Object, float> _damageTakenModifiers = new Dictionary<UnityEngine.Object, float>();
+
+    public void SetDamageTakenMultiplier(UnityEngine.Object source, float multiplier)
+    {
+        if (source) _damageTakenModifiers[source] = Mathf.Clamp(multiplier, 0.1f, 10f);
+    }
+
+    public void RemoveDamageTakenMultiplier(UnityEngine.Object source)
+    {
+        if (source) _damageTakenModifiers.Remove(source);
+    }
 
     public virtual void Awake()
     { 
@@ -33,7 +44,8 @@ public class Actor : MonoBehaviour
     public virtual void TakeDamage(float amount)
     {
         if (IsDead) return;
-
+        foreach (var modifier in _damageTakenModifiers)
+            if (modifier.Key) amount *= modifier.Value;
         health = Mathf.Max(0f, health - amount);
         UpdateHealthBar();
         HealthChanged?.Invoke(this);

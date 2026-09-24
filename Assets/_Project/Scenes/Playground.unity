@@ -235,6 +235,7 @@ MonoBehaviour:
   spawnedParent: {fileID: 0}
   alignToNavMesh: 1
   navMeshSearchRadius: 2
+  _enemyProfile: {fileID: 0}
   configureRankOnSpawn: 1
   addCombatReactionIfMissing: 1
   enemyRank: 0
@@ -280,23 +281,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactionType: 1
---- !u!114 &116812069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 116812065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b3ad71c203671c43bce66d238a1bda5, type: 3}
-  m_Name: WeaponPickup
-  m_EditorClassIdentifier:
-  weapon: {fileID: 11400000, guid: e0b5baec9c1197f499186415b5f42772, type: 2}
-  autoPickupOnTrigger: 0
-  visualContainer: {fileID: 116812066}
-  replaceVisualOnSwap: 1
-  hideOriginalVisualOnSwap: 1
 --- !u!136 &116812068
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -320,6 +304,23 @@ CapsuleCollider:
   m_Height: 4.8
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 1.12}
+--- !u!114 &116812069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116812065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3ad71c203671c43bce66d238a1bda5, type: 3}
+  m_Name: WeaponPickup
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 11400000, guid: e0b5baec9c1197f499186415b5f42772, type: 2}
+  autoPickupOnTrigger: 0
+  visualContainer: {fileID: 116812066}
+  replaceVisualOnSwap: 1
+  hideOriginalVisualOnSwap: 1
 --- !u!198 &169947126 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 2629482439324332389, guid: d73518ac39297e64995acb17999b6908,
@@ -6028,7 +6029,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b1837901c5641c8a944d73a2f264d38, type: 3}
   m_Name: PlayerHealthHover
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   playerActor: {fileID: 1762682271}
   offset: {x: 0, y: 44}
   tooltipSize: {x: 120, y: 34}
@@ -7630,6 +7631,8 @@ MonoBehaviour:
   walkPointRange: 5
   attackDamage: 15
   timeBetweenAttacks: 2
+  _attackWindup: 0.7
+  _attackRecovery: 0.35
   FootstepAudioClips: []
   FootstepAudioVolume: 0.5
 --- !u!95 &1679995908
@@ -8359,6 +8362,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1762682275}
+    - targetCorrespondingSourceObject: {fileID: 8636926368577821441, guid: 8e5f91e967c6c8841894d3cbb4e1a3a0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1762682276}
   m_SourcePrefab: {fileID: 100100000, guid: 8e5f91e967c6c8841894d3cbb4e1a3a0, type: 3}
 --- !u!1 &1762682261 stripped
 GameObject:
@@ -8487,6 +8494,10 @@ MonoBehaviour:
   hitbox: {fileID: 0}
   startingWeapon: {fileID: 0}
   weapon: {fileID: 11400000, guid: 13662e278dc660b46a2edfe92a6262d0, type: 2}
+  showAttackAreaSwoosh: 1
+  attackAreaSwooshColor: {r: 1, g: 0.85, b: 0.25, a: 0.36}
+  attackAreaSwooshDuration: 0.18
+  attackAreaSwooshHeightOffset: 0.06
   stats:
     baseDamage: 5
     flatDamageBonus: 0
@@ -8550,6 +8561,19 @@ MonoBehaviour:
   keys: 
   passiveAbilities: []
   abilities: []
+--- !u!114 &1762682276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762682261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 417c28440e3b3b244929dfd643975533, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombatReadabilityUI
+  _camera: {fileID: 0}
 --- !u!1 &1764214107
 GameObject:
   m_ObjectHideFlags: 0
@@ -8795,6 +8819,8 @@ MonoBehaviour:
   walkPointRange: 5
   attackDamage: 3.5
   timeBetweenAttacks: 2
+  _attackWindup: 0.7
+  _attackRecovery: 0.35
   FootstepAudioClips: []
   FootstepAudioVolume: 0.5
 --- !u!114 &1804728349
@@ -8885,6 +8911,7 @@ MonoBehaviour:
   spawnedParent: {fileID: 0}
   alignToNavMesh: 1
   navMeshSearchRadius: 2
+  _enemyProfile: {fileID: 0}
   configureRankOnSpawn: 1
   addCombatReactionIfMissing: 1
   enemyRank: 0

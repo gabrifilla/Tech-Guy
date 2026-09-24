@@ -17,6 +17,7 @@ public sealed class EnemyVariant : MonoBehaviour
     private readonly List<GameObject> _affixes = new List<GameObject>();
 
     public EnemyProfile Profile => _profile;
+    public string AffixSummary { get; private set; } = "";
 
     private void Start()
     {
@@ -37,6 +38,12 @@ public sealed class EnemyVariant : MonoBehaviour
         if (_started) ApplyProfile();
     }
 
+    public void Configure(EnemyProfile profile, GameObject[] affixPrefabs)
+    {
+        _additionalAffixPrefabs = affixPrefabs;
+        Configure(profile);
+    }
+
     private void ApplyProfile()
     {
         foreach (GameObject affix in _affixes)
@@ -46,10 +53,30 @@ public sealed class EnemyVariant : MonoBehaviour
             Destroy(affix);
         }
         _affixes.Clear();
+        var selected = new HashSet<GameObject>();
+        if (_profile && _profile.AffixPrefabs != null)
+            foreach (var prefab in _profile.AffixPrefabs) if (prefab) selected.Add(prefab);
+        if (_additionalAffixPrefabs != null)
+            foreach (var prefab in _additionalAffixPrefabs) if (prefab) selected.Add(prefab);
+        float movement = 1f, attackSpeed = 1f, damageTaken = 1f;
+        var names = new List<string>();
+        foreach (var prefab in selected)
+        {
+            if (prefab.GetComponentInChildren<EnemyFrostAura>(true)) names.Add("Gelo");
+            foreach (var affix in prefab.GetComponentsInChildren<EnemyStatAffix>(true))
+            {
+                movement *= affix.MovementMultiplier;
+                attackSpeed *= affix.AttackSpeedMultiplier;
+                damageTaken *= affix.DamageTakenMultiplier;
+                names.Add(affix.DisplayName);
+            }
+        }
+        AffixSummary = string.Join(" · ", names);
+        _actor.SetDamageTakenMultiplier(this, damageTaken);
         _actor.SetMaxHealth(_baseHealth * (_profile ? _profile.HealthMultiplier : 1f));
         _ai.ConfigureAttack(_baseDamage * (_profile ? _profile.DamageMultiplier : 1f),
-            _baseInterval / (_profile ? _profile.AttackSpeedMultiplier : 1f));
-        if (_agent) _agent.speed = _baseSpeed * (_profile ? _profile.MovementMultiplier : 1f);
+            _baseInterval / ((_profile ? _profile.AttackSpeedMultiplier : 1f) * attackSpeed));
+        if (_agent) _agent.speed = _baseSpeed * (_profile ? _profile.MovementMultiplier : 1f) * movement;
 
         if (_actor.IsDead) return;
         var added = new HashSet<GameObject>();

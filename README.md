@@ -40,6 +40,13 @@ Cada incursão revela um pouco mais sobre essa estranha realidade digital - e ap
 
 ## Características do Jogo
 
+### Estrutura da run
+
+O Nexus é a preparação antes da run. Durante uma run, o jogador segue pelos
+encontros e mundos sem retornar ao lobby entre etapas. O retorno ao Nexus ocorre
+ao finalizar a run derrotando o boss. A navegação entre cenas e a conclusão por
+boss ainda precisam ser implementadas; os mapas atuais são protótipos de teste.
+
 * **Universo Digital Interconectado**
   Explore diferentes mundos digitais, cada um com sua própria identidade, desafios, inimigos e segredos.
 
