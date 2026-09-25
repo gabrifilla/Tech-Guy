@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/NexusLobby.unity
     guid: 6dc47f6cb7b15754c9cc7622d8a39b39
+  - enabled: 1
+    path: Assets/_Project/Scenes/CombatStudy.unity
+    guid: 0476bd2adfdec0e4f86ca246e077b7a9
+  - enabled: 1
+    path: Assets/_Project/Scenes/FirstSector.unity
+    guid: f62bb8b29264e014aa2e95e916388ed9
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7,
       type: 2}

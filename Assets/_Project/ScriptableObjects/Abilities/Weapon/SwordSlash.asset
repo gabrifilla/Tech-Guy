@@ -15,6 +15,13 @@ MonoBehaviour:
   name: Sword Slash
   cooldownTime: 0.8
   activeTime: 0
+  _manaCost: 120
+  _displayName: Corte
+  _glyph: 5
+  _accentColor: {r: 0.6, g: 0.8, b: 1, a: 1}
+  animationName: Attack1
+  stopMovement: 1
+  faceMousePosition: 1
   rangeOverride: 4.5
   hitShape: 0
   boxSize: {x: 3, y: 2, z: 4.5}
@@ -32,6 +39,3 @@ MonoBehaviour:
   launchForce: 0
   canAirJuggle: 1
   canRagdoll: 0
-  animationName: Attack1
-  stopMovement: 1
-  faceMousePosition: 1

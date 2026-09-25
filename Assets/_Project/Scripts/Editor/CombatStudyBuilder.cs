@@ -18,7 +18,11 @@ public static class CombatStudyBuilder
     [MenuItem("Tools/Tech Guy/Combat/Create Combat Study")]
     public static void Create()
     {
-        if (File.Exists(ScenePath)) { Debug.Log("CombatStudy already exists; edits preserved."); return; }
+        if (File.Exists(ScenePath))
+        {
+            if (!Application.isBatchMode) ProjectSceneMenu.OpenCombat();
+            return;
+        }
         if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
         Folder(Art); Folder(Prefabs);
         EnemyVariantSetup.CreateExamples();
@@ -116,6 +120,7 @@ public static class CombatStudyBuilder
         camera.clearFlags = CameraClearFlags.SolidColor;
         camera.backgroundColor = new Color(0.025f, 0.04f, 0.065f);
         PrefabUtility.SaveAsPrefabAsset(yard, "Assets/_Project/Prefabs/CombatReferenceDeck.prefab");
+        SharedHudBuilder.InstallInScene(scene);
         EditorSceneManager.SaveScene(scene, ScenePath);
         RefineLobby(steel, dark, signal);
         AssetDatabase.SaveAssets();

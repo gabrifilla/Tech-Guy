@@ -50,6 +50,8 @@ public class CharControlScript : MonoBehaviour
     private Animator animator;
     private Interactable target;
     private WeaponScript weapon;
+    private AbilityHolder _abilityHolder;
+    [SerializeField] private PlayerHUD _playerHUD;
 
     private float baseAttackRange;
     private float baseAttackInterval;
@@ -77,6 +79,7 @@ public class CharControlScript : MonoBehaviour
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        _abilityHolder = GetComponent<AbilityHolder>();
         animator = GetComponent<Animator>();
         if (playerActor == null)
         {
@@ -113,6 +116,7 @@ public class CharControlScript : MonoBehaviour
         RefreshMovementStats();
 
 
+        if (_abilityHolder && _abilityHolder.IsCasting) return;
         isDashing = dashScript != null && dashScript.IsDashing(gameObject);
         HandleDashInput();
 
@@ -220,7 +224,7 @@ public class CharControlScript : MonoBehaviour
 
         if (IsDashPressed())
         {
-            dashScript.Activate(gameObject);
+            if (_abilityHolder) _abilityHolder.TryUseDash(dashScript);
         }
     }
 
@@ -280,6 +284,8 @@ public class CharControlScript : MonoBehaviour
 
     void ClickToMove()
     {
+        if (_playerHUD && _playerHUD.BlocksPointer(GetPointerPosition())) return;
+        if (_abilityHolder && _abilityHolder.IsCasting) return;
         if (isDashing)
         {
             if (debugClickLog) Debug.Log("ClickToMove: ignored because isDashing");
@@ -667,6 +673,7 @@ public class CharControlScript : MonoBehaviour
 
     public void Attack()
     {
+        if (_abilityHolder && _abilityHolder.IsCasting) return;
         if (playerBusy) return;
 
         string attackName = null;

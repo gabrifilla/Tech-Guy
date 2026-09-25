@@ -31,6 +31,16 @@ public sealed class LobbyInteraction : MonoBehaviour
         _stations = stations;
     }
 
+    public bool BlocksAbilityInput(KeyCode key)
+    {
+        if (_loading || _showDetails) return true;
+        if (key != KeyCode.E || !_player || _stations == null) return false;
+        foreach (Station station in _stations)
+            if (station?.anchor && (_player.position - station.anchor.position).sqrMagnitude < _interactionRange * _interactionRange)
+                return true;
+        return false;
+    }
+
     private void Awake()
     {
         if (!_player)
@@ -92,12 +102,12 @@ public sealed class LobbyInteraction : MonoBehaviour
         float height = Screen.height / scale;
         GUI.Label(new Rect(30, 28, 220, 30), "Nexus · Ponto Zero", _heading);
         GUI.Label(new Rect(30, 57, 220, 24), "Área segura", _hint);
-        GUI.Label(new Rect(26, height - 35, 650, 28),
+        GUI.Label(new Rect(30, 82, 650, 28),
             "Clique para mover     ·     E  Interagir     ·     Esc  Fechar", _hint);
         if (_nearest != null)
         {
             float panelHeight = _showDetails ? 180 : 84;
-            Rect box = new Rect((width - 540) / 2, height - panelHeight - 55, 540, panelHeight);
+            Rect box = new Rect((width - 540) / 2, height - panelHeight - 190, 540, panelHeight);
             GUI.DrawTexture(box, _panel);
             GUI.Label(new Rect(box.x + 18, box.y + 10, 505, 30), _nearest.title, _heading);
             GUI.Label(new Rect(box.x + 18, box.y + 46, 505, panelHeight - 50),

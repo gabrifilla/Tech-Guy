@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 461bfd23a09c4aa8a2ff1cc563a023d1, type: 3}
+  m_Name: BreakerShock
+  m_EditorClassIdentifier: 
+  name: Impacto de Choque
+  cooldownTime: 6
+  activeTime: 0.8
+  _manaCost: 140
+  _displayName: Choque
+  _glyph: 2
+  _accentColor: {r: 0.32, g: 0.8, b: 1, a: 1}
+  _shockSkill: 1
+  _asuraBurst: 0
+  _advanceDistance: 0
+  _advanceDuration: 0.16
+  _animationSpeed: 1.5
+  _effectColor: {r: 0.15, g: 0.85, b: 1, a: 0.85}
+  _hitSteps:
+  - delay: 0.18
+    rangeOverride: 2.6
+    hitShape: 0
+    boxSize: {x: 1.6, y: 2, z: 0}
+    sphereRadius: 1.5
+    targetLayers:
+      serializedVersion: 2
+      m_Bits: 0
+    damageMultiplier: 0.5
+    bonusDamage: 0
+    localOffset: {x: 0, y: 0, z: 0}
+    reactionType: 1
+    hitStrength: 0
+    poiseDamage: 5
+    stunDuration: 0.12
+    knockbackForce: 0
+    launchForce: 0
+    canAirJuggle: 0
+    canRagdoll: 0
+  - delay: 0.5
+    rangeOverride: 3.2
+    hitShape: 0
+    boxSize: {x: 2.3, y: 2, z: 0}
+    sphereRadius: 1.5
+    targetLayers:
+      serializedVersion: 2
+      m_Bits: 0
+    damageMultiplier: 2.2
+    bonusDamage: 0
+    localOffset: {x: 0, y: 0, z: 0}
+    reactionType: 2
+    hitStrength: 1
+    poiseDamage: 35
+    stunDuration: 0.65
+    knockbackForce: 0
+    launchForce: 0
+    canAirJuggle: 0
+    canRagdoll: 0

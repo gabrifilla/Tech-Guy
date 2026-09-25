@@ -26,7 +26,7 @@ public static class LobbySceneBuilder
     {
         if (File.Exists(ScenePath))
         {
-            Debug.Log("NexusLobby already exists. Open " + ScenePath + " to edit it.");
+            if (!Application.isBatchMode) ProjectSceneMenu.OpenLobby();
             return;
         }
         if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
@@ -82,12 +82,13 @@ public static class LobbySceneBuilder
         else AssetDatabase.CreateAsset(surface.navMeshData, ArtPath + "/NexusNavMesh.asset");
         ValidateNavigation(player.transform.position, stations);
         PrefabUtility.SaveAsPrefabAsset(_environment.gameObject, "Assets/_Project/Prefabs/NexusEnvironment.prefab");
+        SharedHudBuilder.InstallInScene(scene);
         EditorSceneManager.SaveScene(scene, ScenePath);
         var buildScenes = EditorBuildSettings.scenes.ToList();
         if (!buildScenes.Any(entry => entry.path == ScenePath)) buildScenes.Add(new EditorBuildSettingsScene(ScenePath, true));
         EditorBuildSettings.scenes = buildScenes.ToArray();
         AssetDatabase.SaveAssets();
-        CapturePreview(camera);
+        LobbyCompactLayout.Apply();
         Debug.Log("NEXUS_LOBBY_SUCCESS: scene saved, environment prefab saved, navigation to all stations validated.");
     }
 
@@ -278,7 +279,7 @@ public static class LobbySceneBuilder
         anchor.localPosition = new Vector3(0, 0, -2.4f);
         stations.Add(new LobbyInteraction.Station { anchor = anchor, title = title,
             description = "Este endereço ainda não responde. Outros mundos serão conectados ao Nexus conforme a jornada avançar.",
-            destinationScene = unlocked ? "Playground" : "" });
+            destinationScene = unlocked ? "FirstSector" : "" });
     }
 
     private static void BuildWorkshop(List<LobbyInteraction.Station> stations)

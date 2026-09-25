@@ -8,6 +8,10 @@ public class PlayerActor : Actor
     public float maxMana { get; private set; }
 
     public Image manaBar;
+    [SerializeField, Min(0f)] private float _manaRegenerationPercentPerSecond = 4f;
+    [SerializeField, Min(0f)] private float _manaRegenerationDelay = 1.25f;
+    private float _manaRegenerationAt;
+    public event System.Action<PlayerActor> ManaChanged;
 
     [Header("Weapon")]
     [SerializeField] public Transform handTransform;
@@ -72,6 +76,8 @@ public class PlayerActor : Actor
 
     private void Update()
     {
+        if (!IsDead && Time.time >= _manaRegenerationAt && mana < maxMana)
+            RestoreMana(maxMana * _manaRegenerationPercentPerSecond * 0.01f * Time.deltaTime);
         UpdateManaBar();
         SyncEquippedObject(hitbox);
         SyncEquippedObject(currentWeaponInstance);
@@ -196,7 +202,7 @@ public class PlayerActor : Actor
         return TryApplyAreaDamage(origin, forward, range, boxSize, AreaHitShape.Box, 0f, targetLayers, weaponDamage, skillMultiplier, addedDamage, reactionRequest);
     }
 
-    public int TryApplyAreaDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize, AreaHitShape hitShape, float sphereRadius, LayerMask targetLayers, float weaponDamage, float skillMultiplier, float addedDamage, HitReactionRequest? reactionRequest)
+    public int TryApplyAreaDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize, AreaHitShape hitShape, float sphereRadius, LayerMask targetLayers, float weaponDamage, float skillMultiplier, float addedDamage, HitReactionRequest? reactionRequest, bool showEffect = true)
     {
         if (range <= 0f || forward.sqrMagnitude <= Mathf.Epsilon) return 0;
 
@@ -213,14 +219,14 @@ public class PlayerActor : Actor
 
             Vector3 effectOrigin = origin + normalizedForward * Mathf.Max(0f, range - resolvedRadius);
             Vector3 effectSize = Vector3.one * (resolvedRadius * 2f);
-            ShowAttackAreaSwoosh(effectOrigin, normalizedForward, resolvedRadius * 2f, effectSize);
+            if (showEffect) ShowAttackAreaSwoosh(effectOrigin, normalizedForward, resolvedRadius * 2f, effectSize);
 
             hits = Physics.OverlapSphere(center, resolvedRadius, mask, QueryTriggerInteraction.Collide);
         }
         else
         {
             Vector3 resolvedBoxSize = ResolveAttackBoxSize(range, boxSize);
-            ShowAttackAreaSwoosh(origin, normalizedForward, range, resolvedBoxSize);
+            if (showEffect) ShowAttackAreaSwoosh(origin, normalizedForward, range, resolvedBoxSize);
             center = origin + normalizedForward * (range * 0.5f);
             center.y += resolvedBoxSize.y * 0.5f;
 
@@ -287,13 +293,30 @@ public class PlayerActor : Actor
 
     public void UseMana(float amount)
     {
-        mana -= amount;
-        UpdateManaBar();
+        TrySpendMana(amount);
+    }
 
-        if (mana <= 0)
-        {
-            Debug.Log("Mana depleted.");
-        }
+    public bool HasMana(float amount) => !IsDead && !float.IsNaN(amount) &&
+        !float.IsInfinity(amount) && mana >= Mathf.Max(0f, amount);
+
+    public bool TrySpendMana(float amount)
+    {
+        if (!HasMana(amount)) return false;
+        amount = Mathf.Max(0f, amount);
+        if (amount == 0f) return true;
+        mana = Mathf.Clamp(mana - amount, 0f, maxMana);
+        _manaRegenerationAt = Time.time + _manaRegenerationDelay;
+        UpdateManaBar();
+        ManaChanged?.Invoke(this);
+        return true;
+    }
+
+    public void RestoreMana(float amount)
+    {
+        if (IsDead || amount <= 0f || float.IsNaN(amount) || float.IsInfinity(amount)) return;
+        mana = Mathf.Clamp(mana + amount, 0f, maxMana);
+        UpdateManaBar();
+        ManaChanged?.Invoke(this);
     }
 
     public override void TakeDamage(float amount)
@@ -326,6 +349,8 @@ public class PlayerActor : Actor
         }
 
         UpdateHealthBar();
+        UpdateManaBar();
+        ManaChanged?.Invoke(this);
     }
 
     private void SyncEquippedObject(GameObject equippedObject)

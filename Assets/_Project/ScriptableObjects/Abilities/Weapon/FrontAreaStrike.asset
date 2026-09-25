@@ -15,6 +15,13 @@ MonoBehaviour:
   name: Front Area Strike
   cooldownTime: 1.2
   activeTime: 0
+  _manaCost: 100
+  _displayName: Impacto
+  _glyph: 0
+  _accentColor: {r: 0.95, g: 0.65, b: 0.23, a: 1}
+  animationName: Attack1
+  stopMovement: 1
+  faceMousePosition: 1
   rangeOverride: 2
   hitShape: 1
   boxSize: {x: 2.5, y: 2.5, z: 2.5}
@@ -24,6 +31,11 @@ MonoBehaviour:
     m_Bits: 0
   damageMultiplier: 1.5
   bonusDamage: 0
-  animationName: Attack1
-  stopMovement: 1
-  faceMousePosition: 1
+  reactionType: 3
+  hitStrength: 1
+  poiseDamage: 30
+  stunDuration: 0.35
+  knockbackForce: 5
+  launchForce: 0
+  canAirJuggle: 1
+  canRagdoll: 0

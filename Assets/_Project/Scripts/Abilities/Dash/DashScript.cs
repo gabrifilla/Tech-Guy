@@ -22,6 +22,13 @@ public class DashScript : Ability
         nextReadyTimes.Clear();
     }
 
+    public override bool CanActivate(GameObject parent) => parent && IsReady(parent) &&
+        !IsDashing(parent) && Camera.main && parent.GetComponent<AbilityHolder>() &&
+        !parent.GetComponent<AbilityHolder>().IsCasting;
+
+    public float GetRemainingCooldown(GameObject parent) => parent && nextReadyTimes.TryGetValue(parent, out float ready)
+        ? Mathf.Max(0f, ready - Time.time) : 0f;
+
     public override void Activate(GameObject parent)
     {
         if (parent == null || IsDashing(parent) || !IsReady(parent)) return;

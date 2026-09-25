@@ -15,6 +15,10 @@ MonoBehaviour:
   name: Dash
   cooldownTime: 0
   activeTime: 0.5
+  _manaCost: 0
+  _displayName: Esquiva
+  _glyph: 4
+  _accentColor: {r: 0.68, g: 0.77, b: 0.85, a: 1}
   dashVelocity: 20
   dashTime: 0.25
   dashAnimation: Dash

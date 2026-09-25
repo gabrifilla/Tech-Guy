@@ -13,6 +13,7 @@ public class AttackAreaSwoosh : MonoBehaviour
     private static readonly int CullId = Shader.PropertyToID("_Cull");
 
     private MeshRenderer meshRenderer;
+    private Mesh _mesh;
     private Material material;
     private Color baseColor;
 
@@ -34,7 +35,8 @@ public class AttackAreaSwoosh : MonoBehaviour
 
         MeshFilter meshFilter = gameObject.AddComponent<MeshFilter>();
         meshRenderer = gameObject.AddComponent<MeshRenderer>();
-        meshFilter.sharedMesh = BuildMesh(range, boxSize);
+        _mesh = BuildMesh(range, boxSize);
+        meshFilter.sharedMesh = _mesh;
         material = CreateMaterial(color);
         meshRenderer.sharedMaterial = material;
 
@@ -47,24 +49,21 @@ public class AttackAreaSwoosh : MonoBehaviour
         float depth = Mathf.Max(0.1f, boxSize.z > 0f ? boxSize.z : range);
         float halfWidth = width * 0.5f;
 
-        Vector3[] vertices = new Vector3[SegmentCount + 3];
-        int[] triangles = new int[(SegmentCount + 1) * 3];
-
-        vertices[0] = Vector3.zero;
-        for (int i = 0; i <= SegmentCount + 1; i++)
-        {
-            float t = i / (float)(SegmentCount + 1);
-            float x = Mathf.Lerp(-halfWidth, halfWidth, t);
-            float arc = Mathf.Sin(t * Mathf.PI) * width * 0.22f;
-            vertices[i + 1] = new Vector3(x, 0f, depth - arc);
-        }
-
+        // A narrow curved ribbon instead of a filled triangular hitbox preview.
+        Vector3[] vertices = new Vector3[(SegmentCount + 1) * 2];
+        int[] triangles = new int[SegmentCount * 6];
         for (int i = 0; i <= SegmentCount; i++)
         {
-            int triangleIndex = i * 3;
-            triangles[triangleIndex] = 0;
-            triangles[triangleIndex + 1] = i + 1;
-            triangles[triangleIndex + 2] = i + 2;
+            float t = i / (float)SegmentCount;
+            float x = Mathf.Lerp(-halfWidth, halfWidth, t);
+            float arc = Mathf.Sin(t * Mathf.PI) * width * 0.22f;
+            float thickness = Mathf.Sin(t * Mathf.PI) * .12f + .012f;
+            vertices[i * 2] = new Vector3(x, 0f, depth - arc);
+            vertices[i * 2 + 1] = new Vector3(x, 0f, depth - arc - thickness);
+            if (i == SegmentCount) continue;
+            int v = i * 2, triangle = i * 6;
+            triangles[triangle] = v; triangles[triangle + 1] = v + 2; triangles[triangle + 2] = v + 1;
+            triangles[triangle + 3] = v + 1; triangles[triangle + 4] = v + 2; triangles[triangle + 5] = v + 3;
         }
 
         Mesh mesh = new Mesh
@@ -80,7 +79,7 @@ public class AttackAreaSwoosh : MonoBehaviour
 
     private static Material CreateMaterial(Color color)
     {
-        Shader shader = Shader.Find("Unlit/Transparent");
+        Shader shader = Shader.Find("Universal Render Pipeline/Unlit");
         if (!shader)
         {
             shader = Shader.Find("Sprites/Default");
@@ -178,6 +177,7 @@ public class AttackAreaSwoosh : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (_mesh) Destroy(_mesh);
         if (material)
         {
             Destroy(material);

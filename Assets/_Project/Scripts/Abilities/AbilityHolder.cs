@@ -31,6 +31,13 @@ public class AbilityHolder : MonoBehaviour
     private AbilityState[] states = Array.Empty<AbilityState>();
     private PlayerActor playerActor;
     private WeaponScript currentWeapon;
+    private BreakerGauntletCombat _breakerCombat;
+    private CharControlScript _characterControl;
+    [SerializeField] private LobbyInteraction _lobbyInteraction;
+    public event Action<int> AbilityUsed;
+    public event Action<int, AbilityUseFailure> AbilityRejected;
+
+    public bool IsCasting => _breakerCombat && _breakerCombat.IsExecuting;
 
     private enum AbilityState
     {
@@ -42,6 +49,7 @@ public class AbilityHolder : MonoBehaviour
     private void Awake()
     {
         playerActor = GetComponent<PlayerActor>();
+        _characterControl = GetComponent<CharControlScript>();
     }
 
     private void Start()
@@ -64,6 +72,7 @@ public class AbilityHolder : MonoBehaviour
         for (int i = 0; i < activeAbilities.Length; i++)
         {
             TickAbility(i);
+            if (IsAbilityKeyPressed(i)) TryUseAbility(i);
         }
     }
 
@@ -130,6 +139,11 @@ public class AbilityHolder : MonoBehaviour
         activeTimers = new float[activeAbilities.Length];
         states = new AbilityState[activeAbilities.Length];
 
+        bool usesBreaker = Array.Exists(activeAbilities, ability => ability is BreakerGauntletAbility);
+        if (usesBreaker && !_breakerCombat)
+            _breakerCombat = gameObject.AddComponent<BreakerGauntletCombat>();
+        if (_breakerCombat) _breakerCombat.Configure(usesBreaker ? currentWeapon : null);
+
         if (keys is null || keys.Length < activeAbilities.Length)
         {
             Debug.LogWarning("AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.", this);
@@ -144,7 +158,6 @@ public class AbilityHolder : MonoBehaviour
         switch (states[index])
         {
             case AbilityState.Ready:
-                TryActivate(index, ability);
                 break;
             case AbilityState.Active:
                 TickActive(index, ability);
@@ -155,12 +168,15 @@ public class AbilityHolder : MonoBehaviour
         }
     }
 
-    private void TryActivate(int index, Ability ability)
+    public bool TryUseAbility(int index)
     {
-        if (!IsAbilityKeyPressed(index)) return;
+        RefreshWeaponAbilities(false);
+        if (index < 0 || index >= activeAbilities.Length || !activeAbilities[index]) return false;
+        Ability ability = activeAbilities[index];
+        if (states[index] != AbilityState.Ready) return Reject(index, AbilityUseFailure.Cooldown);
+        if (!CheckUse(index, ability, ResolveKey(index))) return false;
 
-        SendMessage("CancelCombo", SendMessageOptions.DontRequireReceiver);
-        ability.Activate(gameObject);
+        if (!ability.TryActivate(gameObject)) return Reject(index, AbilityUseFailure.Requirement);
         states[index] = AbilityState.Active;
         activeTimers[index] = Mathf.Max(0f, ability.activeTime);
 
@@ -169,7 +185,46 @@ public class AbilityHolder : MonoBehaviour
             states[index] = AbilityState.Cooldown;
             cooldownTimers[index] = GetCooldownDuration(ability);
         }
+        AbilityUsed?.Invoke(index);
+        return true;
     }
+
+    private bool CheckUse(int index, Ability ability, KeyCode key)
+    {
+        if (!isActiveAndEnabled || !playerActor || playerActor.IsDead) return Reject(index, AbilityUseFailure.Unavailable);
+        if (_lobbyInteraction && _lobbyInteraction.BlocksAbilityInput(key)) return Reject(index, AbilityUseFailure.Interaction);
+        if (IsCasting || (_characterControl && _characterControl.isDashing)) return Reject(index, AbilityUseFailure.Busy);
+        if (!ability.CanActivate(gameObject)) return Reject(index, AbilityUseFailure.Requirement);
+        if (!playerActor.HasMana(ability.ManaCost)) return Reject(index, AbilityUseFailure.NotEnoughMana);
+        if (_characterControl) _characterControl.CancelCombo();
+        return true;
+    }
+
+    public bool TryUseDash(DashScript dash)
+    {
+        if (!dash) return false;
+        if (dash.GetRemainingCooldown(gameObject) > 0f) return Reject(4, AbilityUseFailure.Cooldown);
+        if (!CheckUse(4, dash, KeyCode.Space)) return false;
+        if (!dash.TryActivate(gameObject)) return Reject(4, AbilityUseFailure.Requirement);
+        AbilityUsed?.Invoke(4);
+        return true;
+    }
+
+    private bool Reject(int index, AbilityUseFailure reason)
+    {
+        AbilityRejected?.Invoke(index, reason);
+        return false;
+    }
+
+    public float GetRemainingCooldown(int index) =>
+        index >= 0 && index < cooldownTimers.Length ? Mathf.Max(0f, cooldownTimers[index]) : 0f;
+
+    public KeyCode GetAbilityKey(int index) => ResolveKey(index);
+    public float GetCooldownRatio(int index) => index >= 0 && index < activeAbilities.Length
+        ? Mathf.Clamp01(GetRemainingCooldown(index) / Mathf.Max(0.001f, GetCooldownDuration(activeAbilities[index]))) : 0f;
+
+    public bool IsAbilityActive(int index) =>
+        index >= 0 && index < states.Length && states[index] == AbilityState.Active;
 
     private void TickActive(int index, Ability ability)
     {

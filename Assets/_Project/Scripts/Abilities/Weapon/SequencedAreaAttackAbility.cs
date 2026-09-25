@@ -84,7 +84,7 @@ public abstract class SequencedAreaAttackAbility : Ability
         return appliedCount;
     }
 
-    private static void ApplyHitStep(Transform ownerTransform, PlayerActor playerActor, WeaponScript weapon, AreaHitStep hitStep)
+    internal static void ApplyHitStep(Transform ownerTransform, PlayerActor playerActor, WeaponScript weapon, AreaHitStep hitStep, bool showEffect = true)
     {
         float range = hitStep.rangeOverride > 0f
             ? hitStep.rangeOverride
@@ -124,10 +124,10 @@ public abstract class SequencedAreaAttackAbility : Ability
             weaponDamage,
             hitStep.damageMultiplier,
             hitStep.bonusDamage,
-            reactionRequest);
+            reactionRequest, showEffect);
     }
 
-    private static void FaceMousePosition(Transform actorTransform)
+    internal static void FaceMousePosition(Transform actorTransform)
     {
         Camera camera = Camera.main;
         if (camera == null) return;

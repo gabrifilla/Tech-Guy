@@ -26,4 +26,7 @@ MonoBehaviour:
   hitEffectName: HitEffect
   hitbox: {fileID: 2599738818665923750, guid: 83d04be508d466248a9267697cb142ec, type: 3}
   abilities:
-  - {fileID: 11400000, guid: 43a61e21cd2d41d3b84f9f70a1194128, type: 2}
+  - {fileID: 11400000, guid: 0f7c4220df084d0db73b811f6d49bce0, type: 2}
+  - {fileID: 11400000, guid: d1bff7393a5345b7a9f607cebd345fb1, type: 2}
+  - {fileID: 11400000, guid: cd462492dd554c3d985f61d363b8a234, type: 2}
+  - {fileID: 11400000, guid: 3d3c58db237147dfb57c99ae2aafc52c, type: 2}

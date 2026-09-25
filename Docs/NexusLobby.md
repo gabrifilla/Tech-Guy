@@ -1,6 +1,9 @@
 # Nexus — Ponto Zero
 
 Cena: `Assets/_Project/Scenes/NexusLobby.unity`.
+No Editor, use **Tools > Tech Guy > Scenes > Open Nexus Lobby** para abrir o lobby.
+O mesmo menu oferece **Open Combat Study** e **Open Playground**. Saia do Play
+Mode antes de trocar de cena; o Editor pergunta se deseja salvar alteracoes pendentes.
 Abra a cena no Unity e aperte **Play**. Clique no piso para andar; aproxime-se
 de um terminal e pressione **E**. **Esc** fecha o texto do terminal.
 
@@ -8,7 +11,7 @@ O lobby interpreta o hub seguro descrito no README: uma praca suspensa dentro
 do computador, cercada por blocos de memoria desconectados. Materiais escuros,
 circuitos ciano, falhas magenta e detalhes ambar distinguem suas areas.
 
-- **Kernel:** nucleo flutuante animado, no centro da praca.
+- **Kernel:** nucleo flutuante animado, recuado ao fundo para liberar a circulacao central.
 - **Neural Link:** bancada com modelo geometrico de uma manopla, caixas de
   equipamento e um terminal com a primeira fala da arma. A manopla exposta e
   decorativa; o player usa o equipamento configurado no projeto.
@@ -23,6 +26,26 @@ destino com a configuracao existente dela; nao transfere inventario nem inclui
 retorno automatico ao lobby.
 
 ## Editar
+
+### Layout compacto
+
+O posicionamento usa o [hub de Hades como referencia visual](https://www.gamepressure.com/hades/house-of/z0ec5c):
+chegada ao sul, preparacao nas laterais, centro livre e saida principal a direita.
+A identidade visual continua sendo a do Nexus.
+
+- Plataforma com 72% da largura e 68% da profundidade anteriores.
+- Bancada com 78% da escala original; arquivo com 72%; bancos com 75%.
+- Nucleo e portais bloqueados com 62%; portal principal com 76%.
+- Chegada em `(-3, 0.1, -8.5)`, bancada a esquerda e arquivo a direita.
+- Portal de incursao no fundo a direita, destacado dos dois portais bloqueados.
+- Alcance de interacao ajustado para 2,2 m; escala do jogador e camera preservadas.
+
+O menu **Tools > Tech Guy > Lobby > Apply Compact Layout** reaplica essas
+posicoes absolutas e escalas, atualiza cena e prefab e refaz o NavMesh salvo.
+Ele valida caminhos da chegada ate as cinco estacoes antes de salvar a cena.
+Repetir o comando nao reduz os objetos novamente; ele restaura o layout descrito
+acima, portanto use-o somente se quiser substituir ajustes manuais de posicionamento.
+As imagens `NexusLobby-preview.png` e `NexusLobby-gameplay.png` mostram esse layout.
 
 Toda a geometria e formada por objetos 3D editaveis no Unity. A hierarquia
 `NEXUS - Modular Environment` separa as areas. O mesmo conjunto foi salvo em
@@ -49,6 +72,7 @@ adicionada e pode ser aberta diretamente para testar.
 
 O menu **Tools > Tech Guy > Lobby > Create Nexus Lobby** gera a cena apenas
 quando ela nao existe, evitando sobrescrever edicoes feitas no Editor.
+Se ela ja existe, esse comando abre a cena salva.
 
 ## Validacao
 
@@ -57,6 +81,12 @@ quando ela nao existe, evitando sobrescrever edicoes feitas no Editor.
 - Smoke test em Play Mode: um player, nenhuma EnemyAI, arma e camera presentes,
   player sobre o NavMesh salvo, deslocamento real e destino Playground disponivel.
 - Imagem da cena renderizada pelo Unity: `Docs/NexusLobby-preview.png`.
+
+Layout compacto validado em uma copia isolada no Unity 6000.5.10f1: bake salvo,
+caminhos completos ate as cinco estacoes e smoke test de movimento em Play Mode.
+Cena e prefab mantiveram suas referencias de GUID. Na primeira execucao, uma
+excecao do indexador Unity Search interferiu na contagem de erros; a repeticao
+apos a inicializacao do Editor passou.
 
 Smoke test via CLI (encerra o Editor ao terminar; execute numa instancia separada):
 
@@ -67,3 +97,11 @@ Unity.exe -batchmode -nographics -projectPath <projeto> -executeMethod LobbyScen
 Os comandos E, o painel de texto e a transicao acionada pelo teclado ainda devem
 ser conferidos manualmente. O teste automatizado verifica o destino, mas nao
 simula a tecla E.
+
+## Incursao: primeira fase
+
+O portal 01 / INCURSAO agora leva a FirstSector. Caminhar ate o centro do portal
+inicia a viagem; E nas proximidades continua funcionando. Os outros portais
+continuam como estacoes informativas bloqueadas. Ao concluir a fase, o portal
+dourado retorna ao Nexus; morrer tambem retorna ao lobby, permitindo tentar novamente.
+Veja [Primeira fase](FirstSector.md).
