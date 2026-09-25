@@ -63,11 +63,20 @@ public sealed class RunBoons : MonoBehaviour
             new Offer("recharge", "Fluxo arcano", "+15 pontos percentuais de redução de recarga."),
             new Offer("vitality", "Coração de ferro", "+100 de vida máxima e recuperação completa de vida."),
             new Offer("focus", "Foco eficiente", "Q custa 25% menos mana e recarrega 35% mais rápido."),
+            // Repeatable stat scaling.
+            new Offer("crit", "Olho preciso", "+15% de chance e +40% de dano crítico."),
+            new Offer("brutal", "Golpe brutal", "+8 de dano fixo somado a cada golpe."),
+            new Offer("bulwark", "Placa reforçada", "+40 de armadura, reduzindo o dano recebido."),
+            new Offer("swift", "Passo veloz", "+20% de velocidade de movimento."),
+            // Bizarre property-changing modifiers: they alter what basic attacks DO.
+            new Offer("ignite", "Lâmina incandescente", "BIZARRO: seus ataques agora causam QUEIMADURA, dano contínuo por 4s. Acumula."),
+            new Offer("frost", "Toque glacial", "BIZARRO: seus ataques agora CONGELAM — chance de imobilizar e lentidão pesada por 2.5s."),
             new Offer("transform", _weapon.FiresArrows ? "Disparo prismático" : "Nova de impacto",
                 _weapon.FiresArrows ? "TRANSFORMA Q: troca o disparo duplo por cinco flechas perfurantes em leque." :
                 "TRANSFORMA Q: troca o avanço/estocada por uma explosão circular de 4m. Não gera Asura.")
         };
-        pool.RemoveAll(offer => _acquired.Exists(owned => owned.Id == offer.Id));
+        // Only single-use boons are removed once taken; repeatable ones (stats + elemental) stay in the pool.
+        pool.RemoveAll(offer => IsSingleUse(offer.Id) && _acquired.Exists(owned => owned.Id == offer.Id));
         _choices.Clear();
         // Always include a skill-changing option while one remains, plus two different upgrades.
         Offer skillOffer = pool.Find(offer => offer.Id == "transform") ?? pool.Find(offer => offer.Id == "focus");
@@ -97,6 +106,21 @@ public sealed class RunBoons : MonoBehaviour
             case "vitality":
                 AddStat(PlayerStatType.MaxHealthBonus, 100);
                 _player.RefreshResourceStats(); _player.RestoreHealthToMax(); break;
+            case "crit":
+                AddStat(PlayerStatType.CriticalChance, 15);
+                AddStat(PlayerStatType.CriticalDamageMultiplier, 0.4f);
+                break;
+            case "brutal": AddStat(PlayerStatType.FlatDamageBonus, 8); break;
+            case "bulwark": AddStat(PlayerStatType.Armor, 40); break;
+            case "swift": AddStat(PlayerStatType.MovementSpeedMultiplier, 0.2f, PlayerStatModifierMode.IncreasedPercent); break;
+            case "ignite":
+                // Each pick makes the burn hit harder; duration stays at 4s.
+                _player.OnHitEffects.EnableBurn(6f, 4f);
+                break;
+            case "frost":
+                // Heavy slow with a chance to fully freeze; picking again raises the chance.
+                _player.OnHitEffects.EnableChill(0.9f, 2.5f, 0.35f);
+                break;
             case "focus":
                 Ability q = _weapon.abilities[0];
                 q.cooldownTime *= .65f;
@@ -123,12 +147,19 @@ public sealed class RunBoons : MonoBehaviour
         return true;
     }
 
-    private void AddStat(PlayerStatType stat, float value) =>
-        _player.Stats.AddModifier(new PlayerStatModifier(stat, PlayerStatModifierMode.Flat, value), this);
+    private void AddStat(PlayerStatType stat, float value, PlayerStatModifierMode mode = PlayerStatModifierMode.Flat) =>
+        _player.Stats.AddModifier(new PlayerStatModifier(stat, mode, value), this);
+
+    // Skill transforms and one-off utility boons are single-use; stat and elemental boons repeat and stack.
+    private static bool IsSingleUse(string id) => id == "transform" || id == "focus" || id == "recharge" || id == "vitality";
 
     private void OnDestroy()
     {
-        if (_player) _player.Stats.RemoveModifiersFrom(this);
+        if (_player)
+        {
+            _player.Stats.RemoveModifiersFrom(this);
+            _player.OnHitEffects.Clear();
+        }
         if (_holder) _holder.BindRun(null);
         foreach (ScriptableObject asset in _owned) if (asset) Destroy(asset);
     }

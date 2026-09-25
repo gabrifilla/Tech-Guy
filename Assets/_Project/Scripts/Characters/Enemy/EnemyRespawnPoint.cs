@@ -95,6 +95,21 @@ public class EnemyRespawnPoint : MonoBehaviour
 
     private void ConfigureSpawnedEnemy(GameObject enemyObject)
     {
+        // Set the rank first so the reaction controller exists and knows its category; the
+        // EnemyVariant then layers the profile's stance pool and CC resistances on top.
+        if (configureRankOnSpawn && enemyObject)
+        {
+            CombatReactionController reactionController = enemyObject.GetComponentInChildren<CombatReactionController>();
+            if (!reactionController && addCombatReactionIfMissing)
+            {
+                reactionController = enemyObject.AddComponent<CombatReactionController>();
+            }
+            if (reactionController)
+            {
+                reactionController.ConfigureRank(enemyRank, allowBossAirJuggle, allowBossRagdoll);
+            }
+        }
+
         if (enemyObject && _enemyProfile)
         {
             EnemyAI ai = enemyObject.GetComponentInChildren<EnemyAI>();
@@ -105,18 +120,6 @@ public class EnemyRespawnPoint : MonoBehaviour
                 variant.Configure(_enemyProfile);
             }
             else Debug.LogWarning("Enemy profile requires Actor and EnemyAI on the same object.", enemyObject);
-        }
-        if (!configureRankOnSpawn || !enemyObject) return;
-
-        CombatReactionController reactionController = enemyObject.GetComponentInChildren<CombatReactionController>();
-        if (!reactionController && addCombatReactionIfMissing)
-        {
-            reactionController = enemyObject.AddComponent<CombatReactionController>();
-        }
-
-        if (reactionController)
-        {
-            reactionController.ConfigureRank(enemyRank, allowBossAirJuggle, allowBossRagdoll);
         }
     }
 

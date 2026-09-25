@@ -43,8 +43,13 @@ public class PlayerActor : Actor
 
     private Animator animator;
     private AbilityHolder abilityHolder;
+    private PlayerOnHitEffects onHitEffects;
     private float baseMaxHealth;
     private float baseMaxMana;
+
+    /// <summary>Per-run on-hit status effects (burn/chill) applied to every enemy this player damages.</summary>
+    public PlayerOnHitEffects OnHitEffects =>
+        onHitEffects ? onHitEffects : (onHitEffects = GetComponent<PlayerOnHitEffects>() ?? gameObject.AddComponent<PlayerOnHitEffects>());
 
     public override void Awake()
     {
@@ -259,7 +264,31 @@ public class PlayerActor : Actor
             abilityHolder.NotifyAttackHits(this, damagedActors);
         }
 
+        if (damageCount > 0 && onHitEffects && onHitEffects.HasAnyEffect)
+        {
+            onHitEffects.ApplyTo(damagedActors);
+        }
+
         return damageCount;
+    }
+
+    /// <summary>
+    /// Public entry point for damage sources outside the area-attack pipeline (e.g. the animated
+    /// basic-swing hitbox) to apply a crowd-control reaction to a victim. The hit direction, when
+    /// unset, defaults to pushing the target away from this attacker.
+    /// </summary>
+    public void ApplyHitReactionTo(Actor targetActor, HitReactionType reactionType, HitStrength strength,
+        float stanceDamage, StanceBreakEffect breakEffect, float pushDistance)
+    {
+        if (!targetActor || targetActor == this) return;
+
+        Vector3 away = targetActor.transform.position - transform.position;
+        away.y = 0f;
+        Vector3 direction = away.sqrMagnitude > Mathf.Epsilon ? away.normalized : transform.forward;
+
+        var request = new HitReactionRequest(this, targetActor.transform.position, direction,
+            reactionType, strength, stanceDamage, breakEffect, pushDistance);
+        ApplyHitReaction(targetActor, request, targetActor.transform.position, direction);
     }
 
     private void ApplyHitReaction(Actor targetActor, HitReactionRequest? reactionRequest, Vector3 hitPoint, Vector3 fallbackDirection)
@@ -285,12 +314,12 @@ public class PlayerActor : Actor
             hitDirection,
             request.ReactionType,
             request.Strength,
-            request.PoiseDamage,
+            request.StanceDamage,
+            request.BreakEffect,
+            request.PushDistance,
             request.StunDuration,
-            request.KnockbackForce,
-            request.LaunchForce,
-            request.CanAirJuggle,
-            request.CanRagdoll));
+            request.KnockUpHeight,
+            request.KnockbackDistance));
     }
 
     public void UseMana(float amount)

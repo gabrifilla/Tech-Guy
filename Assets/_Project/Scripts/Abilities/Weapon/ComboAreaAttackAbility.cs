@@ -5,9 +5,10 @@ public class ComboAreaAttackAbility : SequencedAreaAttackAbility
 {
     [SerializeField] private AreaHitStep[] hitSteps =
     {
-        new AreaHitStep { delay = 0.15f, damageMultiplier = 1f, reactionType = HitReactionType.Flinch, hitStrength = HitStrength.Light, poiseDamage = 10f },
-        new AreaHitStep { delay = 0.45f, damageMultiplier = 1.1f, reactionType = HitReactionType.Knockback, hitStrength = HitStrength.Medium, poiseDamage = 20f, knockbackForce = 5f },
-        new AreaHitStep { delay = 0.8f, damageMultiplier = 1.4f, reactionType = HitReactionType.Launch, hitStrength = HitStrength.Heavy, poiseDamage = 35f, knockbackForce = 4f, launchForce = 5f }
+        // Each hit chips stance and staggers; only the finisher breaks stance into a knock-up.
+        new AreaHitStep { delay = 0.15f, damageMultiplier = 1f, reactionType = HitReactionType.Stagger, hitStrength = HitStrength.Light, pushDistance = 0.3f, stanceDamage = 25f, breakEffect = StanceBreakEffect.None },
+        new AreaHitStep { delay = 0.45f, damageMultiplier = 1.1f, reactionType = HitReactionType.Stagger, hitStrength = HitStrength.Medium, pushDistance = 0.5f, stanceDamage = 35f, breakEffect = StanceBreakEffect.None },
+        new AreaHitStep { delay = 0.8f, damageMultiplier = 1.4f, reactionType = HitReactionType.Stagger, hitStrength = HitStrength.Heavy, pushDistance = 0.4f, stanceDamage = 55f, breakEffect = StanceBreakEffect.KnockUp, knockUpHeight = 2f, stunDuration = 1.1f }
     };
 
     public override void Activate(GameObject parent)

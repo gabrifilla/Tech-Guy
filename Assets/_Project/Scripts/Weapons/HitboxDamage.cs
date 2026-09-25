@@ -7,6 +7,15 @@ public class HitboxDamage : MonoBehaviour
     public float damage = 0f;
     public string hitEffectResourcePath;
     [SerializeField] private bool logDamage = true;
+
+    [Header("Reaction (basic swing)")]
+    [Tooltip("Basic swings only Push/Stagger and chip stance; they never stun/knock-up directly.")]
+    [SerializeField] private HitReactionType reactionType = HitReactionType.Stagger;
+    [SerializeField] private HitStrength reactionStrength = HitStrength.Light;
+    [SerializeField, Min(0f)] private float stanceDamage = 12f;
+    [SerializeField, Min(0f)] private float pushDistance = 0.35f;
+    [Tooltip("Hard CC only if a basic hit actually breaks stance. Keep None for basic swings.")]
+    [SerializeField] private StanceBreakEffect breakEffect = StanceBreakEffect.None;
     private readonly HashSet<Actor> hitActors = new HashSet<Actor>();
     private static readonly Dictionary<string, List<ParticleSystem>> effectPools = new Dictionary<string, List<ParticleSystem>>();
     private static Transform effectPoolRoot;
@@ -58,6 +67,18 @@ public class HitboxDamage : MonoBehaviour
         }
 
         actor.TakeDamage(finalDamage);
+
+        // Basic swings apply crowd-control too, so weak mobs get pushed back / staggered
+        // instead of the player having to dash out of their range.
+        if (owner is PlayerActor player)
+        {
+            if (reactionType != HitReactionType.None || stanceDamage > 0f)
+                player.ApplyHitReactionTo(actor, reactionType, reactionStrength, stanceDamage, breakEffect, pushDistance);
+
+            // On-hit run modifiers (e.g. basic attacks Burn / Freeze) also proc on basic swings.
+            if (player.OnHitEffects.HasAnyEffect) player.OnHitEffects.ApplyTo(actor);
+        }
+
         return true;
     }
 

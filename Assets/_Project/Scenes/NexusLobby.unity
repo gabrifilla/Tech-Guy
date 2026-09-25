@@ -22788,7 +22788,7 @@ PrefabInstance:
     - target: {fileID: 5028284298094899657, guid: aa6f801b8cc9c7d4ea03ac1ca1a1164a,
         type: 3}
       propertyPath: _player
-      value:
+      value: 
       objectReference: {fileID: 1665369851}
     - target: {fileID: 7805772453535397997, guid: aa6f801b8cc9c7d4ea03ac1ca1a1164a,
         type: 3}
@@ -22810,7 +22810,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7b1ddfb3d8c4ea78164d125e2c026bf, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHUD
 --- !u!114 &865726956 stripped
 MonoBehaviour:
@@ -22822,7 +22822,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &865726957 stripped
 MonoBehaviour:
@@ -22834,7 +22834,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &868582342
 GameObject:
@@ -28545,8 +28545,8 @@ MonoBehaviour:
   _stations:
   - anchor: {fileID: 839945469}
     title: 01 / INCURSAO
-    description: 'Setor 01: Memoria Corrompida. Elimine os tres grupos e extraia
-      pelo portal dourado.'
+    description: 'Setor 01: Memoria Corrompida. Avance pelas salas, derrote o guardiao
+      e extraia pelo portal dourado.'
     destinationScene: FirstSector
     weaponSelection: 0
   - anchor: {fileID: 966233553}
@@ -43694,15 +43694,12 @@ MonoBehaviour:
     m_Bits: 0
   defaultAttackReaction: 1
   defaultAttackStrength: 0
-  defaultAttackPoiseDamage: 10
-  defaultAttackStunDuration: 0.25
-  defaultAttackKnockbackForce: 3
-  defaultAttackLaunchForce: 0
-  defaultAttackCanAirJuggle: 1
-  defaultAttackCanRagdoll: 0
+  defaultAttackStanceDamage: 12
+  defaultAttackPushDistance: 0.35
+  defaultAttackBreakEffect: 0
   comboReactions: 
   comboStrengths: 
-  comboPoiseDamage: []
+  comboStanceDamage: []
   isDashing: 0
   _playerHUD: {fileID: 865726955}
   dashScript: {fileID: 11400000, guid: 24016d47fac531b468c8a2bd60271fa7, type: 2}
@@ -44368,7 +44365,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c5f88219287581468e1e116f84b5fa2, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LobbyCoreMotion
   _degreesPerSecond: 18
   _floatAmplitude: 0.15
@@ -50024,7 +50021,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb63a351918b4ad40b2c2ab19c46b9e9, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScenePortal
   _player: {fileID: 1665369847}
   _destination: FirstSector
@@ -53429,7 +53426,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c5f88219287581468e1e116f84b5fa2, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LobbyCoreMotion
   _degreesPerSecond: 18
   _floatAmplitude: 0.15

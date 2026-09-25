@@ -8,6 +8,7 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
     [SerializeField] private float _barHeight = 2.5f;
     private Actor _actor;
     private EnemyVariant _variant;
+    private CombatReactionController _reaction;
     private Camera _camera;
     private float _damageAt = -10f, _trailingHealth = 1;
     private GUIStyle _label;
@@ -18,6 +19,7 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
     {
         _actor = GetComponent<Actor>();
         _variant = GetComponent<EnemyVariant>();
+        _reaction = GetComponent<CombatReactionController>();
         _actor.DamageReceived += OnDamage;
     }
     private void OnDamage(Actor actor, float amount)
@@ -46,6 +48,20 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
         GUI.color = Time.time-_damageAt < .12f ? Color.white : new Color(.92f,.16f,.2f);
         GUI.DrawTexture(new Rect(bar.x,bar.y,bar.width*HealthRatio,bar.height),Texture2D.whiteTexture);
         GUI.color = old;
+
+        // Stance bar for tougher enemies: a thin bar just below the health bar. Turns amber when
+        // broken (empty), and flashes white while stunned so the player reads the CC window.
+        if (_reaction && _reaction.ShouldShowStanceBar)
+        {
+            float stanceRatio = _reaction.StanceRatio;
+            var stanceBar = new Rect(bar.x, bar.y + bar.height + 3f*scale, bar.width, 5f*scale);
+            GUI.color = new Color(.015f,.02f,.03f,.95f);
+            GUI.DrawTexture(new Rect(stanceBar.x-2,stanceBar.y-2,stanceBar.width+4,stanceBar.height+4),Texture2D.whiteTexture);
+            GUI.color = _reaction.IsStunned ? Color.white : new Color(.45f,.7f,1f);
+            GUI.DrawTexture(new Rect(stanceBar.x,stanceBar.y,stanceBar.width*stanceRatio,stanceBar.height),Texture2D.whiteTexture);
+            GUI.color = old;
+        }
+
         if (_label == null)
         {
             _label = new GUIStyle(GUI.skin.label) { alignment=TextAnchor.MiddleCenter, fontStyle=FontStyle.Bold };

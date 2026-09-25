@@ -31,17 +31,17 @@ public class CharControlScript : MonoBehaviour
     [SerializeField] private LayerMask attackLayers;
 
     [Header("Attack Reaction")]
-    [SerializeField] private HitReactionType defaultAttackReaction = HitReactionType.Flinch;
+    // Basic attacks only Push/Stagger and chip stance. They never stun or knock up directly;
+    // hard CC only comes from a Stance Break, which basic swings leave to the finisher/skills.
+    [SerializeField] private HitReactionType defaultAttackReaction = HitReactionType.Stagger;
     [SerializeField] private HitStrength defaultAttackStrength = HitStrength.Light;
-    [SerializeField] private float defaultAttackPoiseDamage = 10f;
-    [SerializeField] private float defaultAttackStunDuration = 0.25f;
-    [SerializeField] private float defaultAttackKnockbackForce = 3f;
-    [SerializeField] private float defaultAttackLaunchForce = 0f;
-    [SerializeField] private bool defaultAttackCanAirJuggle = true;
-    [SerializeField] private bool defaultAttackCanRagdoll = false;
+    [SerializeField, Min(0f)] private float defaultAttackStanceDamage = 12f;
+    [SerializeField, Min(0f)] private float defaultAttackPushDistance = 0.35f;
+    [Tooltip("Hard CC applied only if a basic hit actually breaks stance. Keep None so combos, not single swings, decide CC.")]
+    [SerializeField] private StanceBreakEffect defaultAttackBreakEffect = StanceBreakEffect.None;
     [SerializeField] private HitReactionType[] comboReactions;
     [SerializeField] private HitStrength[] comboStrengths;
-    [SerializeField] private float[] comboPoiseDamage;
+    [SerializeField] private float[] comboStanceDamage;
 
     public bool isDashing = false;
 
@@ -775,7 +775,7 @@ public class CharControlScript : MonoBehaviour
     {
         HitReactionType reactionType = GetComboValue(comboReactions, attackIndex, defaultAttackReaction);
         HitStrength strength = GetComboValue(comboStrengths, attackIndex, defaultAttackStrength);
-        float poiseDamage = GetComboValue(comboPoiseDamage, attackIndex, defaultAttackPoiseDamage);
+        float stanceDamage = GetComboValue(comboStanceDamage, attackIndex, defaultAttackStanceDamage);
 
         return new HitReactionRequest(
             playerActor,
@@ -783,12 +783,9 @@ public class CharControlScript : MonoBehaviour
             transform.forward,
             reactionType,
             strength,
-            poiseDamage,
-            defaultAttackStunDuration,
-            defaultAttackKnockbackForce,
-            defaultAttackLaunchForce,
-            defaultAttackCanAirJuggle,
-            defaultAttackCanRagdoll);
+            stanceDamage,
+            defaultAttackBreakEffect,
+            defaultAttackPushDistance);
     }
 
     private static T GetComboValue<T>(IReadOnlyList<T> values, int index, T fallback)

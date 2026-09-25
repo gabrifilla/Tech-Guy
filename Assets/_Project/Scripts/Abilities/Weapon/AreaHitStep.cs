@@ -21,12 +21,21 @@ public class AreaHitStep
     public Vector3 localOffset;
 
     [Header("Reaction")]
-    public HitReactionType reactionType = HitReactionType.Flinch;
+    [Tooltip("Immediate reaction: Push (small nudge) or Stagger (short interrupt). Hard CC comes from a Stance Break.")]
+    public HitReactionType reactionType = HitReactionType.Stagger;
     public HitStrength hitStrength = HitStrength.Light;
-    [Min(0f)] public float poiseDamage = 10f;
-    [Min(0f)] public float stunDuration = 0.35f;
-    [Min(0f)] public float knockbackForce = 4f;
-    [Min(0f)] public float launchForce;
-    public bool canAirJuggle = true;
-    public bool canRagdoll;
+    [Tooltip("Metres the enemy is nudged on Push.")]
+    [Min(0f)] public float pushDistance = 0.35f;
+
+    [Header("Stance")]
+    [Tooltip("Stance damage dealt by this hit. When the enemy's stance breaks, the effect below triggers.")]
+    [Min(0f)] public float stanceDamage = 12f;
+    [Tooltip("Hard CC applied when this hit breaks the enemy's stance (subject to enemy resistances).")]
+    public StanceBreakEffect breakEffect = StanceBreakEffect.None;
+    [Tooltip("Stun/airborne seconds on a Stun or KnockUp break.")]
+    [Min(0f)] public float stunDuration = 1f;
+    [Tooltip("Rise height in metres on a KnockUp break.")]
+    [Min(0f)] public float knockUpHeight = 2f;
+    [Tooltip("Throw distance in metres on a Knockback break (reserve for skills meant to launch enemies away).")]
+    [Min(0f)] public float knockbackDistance = 4f;
 }

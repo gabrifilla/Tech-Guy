@@ -17,9 +17,34 @@ public static class FirstSectorBuilder
     private const string Art = "Assets/_Project/Art/FirstSector";
 
     [MenuItem("Tools/Tech Guy/Scenes/Create First Sector")]
-    public static void Build()
+    public static void Build() => Build(false);
+
+    [MenuItem("Tools/Tech Guy/Scenes/Rebuild First Sector (overwrite)")]
+    public static void Rebuild()
     {
-        if (File.Exists(ScenePath)) { Debug.Log("First sector already exists; preserving scene edits."); return; }
+        // Explicit, destructive action: warn before discarding the existing generated scene.
+        if (!Application.isBatchMode && File.Exists(ScenePath) &&
+            !EditorUtility.DisplayDialog("Rebuild First Sector",
+                "This regenerates FirstSector.unity from scratch and DISCARDS any manual edits made to that scene. " +
+                "The scene's asset GUID is preserved so Build Settings stay intact.\n\nContinue?",
+                "Rebuild", "Cancel"))
+        {
+            return;
+        }
+        Build(true);
+    }
+
+    private static void Build(bool overwrite)
+    {
+        if (File.Exists(ScenePath))
+        {
+            if (!overwrite) { Debug.Log("First sector already exists; preserving scene edits. Use 'Rebuild First Sector (overwrite)' to regenerate."); return; }
+            // Delete only the .unity file, keeping its .meta so the scene keeps its GUID and stays wired
+            // in Build Settings. Intentionally NOT calling AssetDatabase.Refresh here: that would let Unity
+            // clean up the now-orphaned .meta. SaveScene below rewrites the .unity at the same path and
+            // Unity re-associates it with the preserved .meta.
+            File.Delete(ScenePath);
+        }
         if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
         Directory.CreateDirectory(Art); AssetDatabase.Refresh();
         Scene source = EditorSceneManager.OpenScene(CombatStudyBuilder.ScenePath);
@@ -46,14 +71,34 @@ public static class FirstSectorBuilder
         Material amber = Mat("Extraction gold",new Color(1,.52f,.09f),true);
         Material corruption = Mat("Corrupted signal",new Color(.7f,.08f,.22f),true);
         var environment = new GameObject("Sector 01 - Broken memory bridge").transform;
+        // Six rooms marching down +Z: five escalating fights then the guardian. Rooms alternate in X
+        // for variety; corridors between them are generated so the whole sector is one navmesh island.
+        Vector3[] centers =
+        {
+            new Vector3(0,0,0), new Vector3(6,0,26), new Vector3(-4,0,52),
+            new Vector3(5,0,78), new Vector3(-6,0,104), new Vector3(0,0,130)
+        };
+        Vector2[] sizes =
+        {
+            new Vector2(22,18), new Vector2(24,20), new Vector2(24,20),
+            new Vector2(26,22), new Vector2(26,22), new Vector2(30,26)
+        };
+        int roomCount = centers.Length;
+        int bossRoom = roomCount - 1;
+
+        // Entrance apron plus a connecting corridor floor between each pair of rooms.
         Floor(environment,new Vector3(0,0,-12),new Vector2(10,12),floor);
-        Floor(environment,new Vector3(2,0,13),new Vector2(8,14),floor);
-        Floor(environment,new Vector3(1,0,39),new Vector2(8,14),floor);
-        Vector3[] centers = { new Vector3(0,0,0),new Vector3(6,0,26),new Vector3(-4,0,52) };
-        Vector2[] sizes = { new Vector2(22,18),new Vector2(24,20),new Vector2(26,22) };
-        for(int room=0;room<3;room++)
+        for(int room=0;room<roomCount-1;room++)
+        {
+            Vector3 a=centers[room], b=centers[room+1];
+            Vector3 mid=(a+b)*0.5f;
+            Floor(environment,mid,new Vector2(8, Vector3.Distance(a,b)),floor);
+        }
+
+        for(int room=0;room<roomCount;room++)
         {
             Vector3 center = centers[room]; Vector2 size=sizes[room];
+            bool corrupted = room >= roomCount-2; // last two rooms read as corrupted
             Floor(environment,center,size,floor);
             for(float x=-size.x/2+2;x<size.x/2;x+=3)
                 for(float z=-size.y/2+2;z<size.y/2;z+=3)
@@ -67,22 +112,41 @@ public static class FirstSectorBuilder
                     Box(environment,"Memory bank",point+Vector3.up*1.65f,new Vector3(1.5f,3.3f,2),dark,true);
                     Box(environment,"Bank cap",point+Vector3.up*3.35f,new Vector3(1.7f,.16f,2.2f),trim,false);
                     for(int strip=0;strip<4;strip++)
-                        Box(environment,"Status light",point+new Vector3(-side*.78f,.8f+strip*.48f,0),new Vector3(.055f,.12f,1.6f),room==2?corruption:cyan,false);
+                        Box(environment,"Status light",point+new Vector3(-side*.78f,.8f+strip*.48f,0),new Vector3(.055f,.12f,1.6f),corrupted?corruption:cyan,false);
                 }
             }
-            Label(environment,$"0{room+1}",center+new Vector3(0,.04f,-size.y/2+2),5,cyan.color);
+            Label(environment,$"{room+1:00}",center+new Vector3(0,.04f,-size.y/2+2),5,cyan.color);
         }
-        for(int z=-15;z<59;z+=3)
+        // Route markers follow the room chain from the entrance to just before the boss room.
+        float routeEndZ = centers[bossRoom].z - sizes[bossRoom].y/2;
+        for(float z=-15;z<routeEndZ;z+=3)
         {
-            float x=z<8?0:z<20?2:z<34?6:z<46?1:-4;
+            // Interpolate the guide x across the nearest room centers so markers hug the path.
+            float x = centers[0].x;
+            for(int room=0;room<roomCount-1;room++)
+                if(z>=centers[room].z){ float t=Mathf.InverseLerp(centers[room].z,centers[room+1].z,z); x=Mathf.Lerp(centers[room].x,centers[room+1].x,Mathf.Clamp01(t)); }
             Box(environment,"Route marker",new Vector3(x,.04f,z),new Vector3(.45f,.04f,.8f),cyan,false);
         }
-        var encounters = new FirstSectorDirector.Encounter[3];
-        string[][] types = { new[]{"Normal","Normal","Normal"},new[]{"Normal","Magic_Haste","Normal","Normal"},new[]{"Rare_Haste_Guard","Normal","Normal"} };
-        string[] titles = { "Limpe o acesso", "Recupere o rele", "Derrote o guardiao" };
-        var encounterRoot = new GameObject("Finite encounters").transform;
-        for(int room=0;room<3;room++)
+
+        var encounters = new FirstSectorDirector.Encounter[roomCount];
+        // Difficulty curve: more enemies and tougher archetypes deeper in; final room is the guardian.
+        string[][] types =
         {
+            new[]{"Normal","Normal"},
+            new[]{"Normal","Normal","Normal"},
+            new[]{"Normal","Magic_Haste","Normal","Normal"},
+            new[]{"Magic_Haste","Normal","Normal","Magic_Haste"},
+            new[]{"Rare_Haste_Guard","Magic_Haste","Normal","Normal","Normal"},
+            new[]{"Rare_Haste_Guard","Magic_Haste","Magic_Haste"}
+        };
+        string[] titles = { "Limpe o acesso", "Recupere o rele", "Purgue a memoria", "Contenha a corrupcao", "Rompa a guarda", "Derrote o guardiao" };
+        var encounterRoot = new GameObject("Finite encounters").transform;
+        for(int room=0;room<roomCount;room++)
+        {
+            bool isBoss = room==bossRoom;
+            // Escalating stats: damage and health grow with room index; boss room is the toughest.
+            float roomDamage = 6f + room*1.5f;
+            float baseHealth = 45f + room*12f;
             var center = new GameObject(titles[room]).transform; center.SetParent(encounterRoot); center.position=centers[room];
             var enemies = new Actor[types[room].Length];
             for(int i=0;i<enemies.Length;i++)
@@ -91,13 +155,17 @@ public static class FirstSectorBuilder
                 var enemy=(GameObject)PrefabUtility.InstantiatePrefab(prefab,center);
                 enemy.transform.position=centers[room]+new Vector3((i-(enemies.Length-1)*.5f)*2.5f,.1f,2+(i%2)*2);
                 var ai=enemy.GetComponent<EnemyAI>(); ai.player=player.transform; ai.sightRange=30;
-                ai.attackDamage=room==2?9:7; ai.timeBetweenAttacks=1.8f; ai.walkPointRange=0;
-                enemies[i]=enemy.GetComponent<Actor>(); enemies[i].health=room==2&&i==0?90:55;
+                ai.attackDamage=isBoss?12:roomDamage; ai.timeBetweenAttacks=1.8f; ai.walkPointRange=0;
+                enemies[i]=enemy.GetComponent<Actor>();
+                enemies[i].health = isBoss && i==0 ? 140f : baseHealth;
                 enemy.SetActive(false);
             }
             encounters[room]=new FirstSectorDirector.Encounter {title=titles[room],center=center,enemies=enemies};
         }
-        var exit=new GameObject("Extraction portal").transform; exit.position=new Vector3(-4,0,59);
+        float exitZ = centers[bossRoom].z + sizes[bossRoom].y/2 + 5f;
+        var exit=new GameObject("Extraction portal").transform; exit.position=new Vector3(centers[bossRoom].x,0,exitZ);
+        // Short apron so the extraction portal sits on walkable navmesh past the boss room.
+        Floor(environment,new Vector3(centers[bossRoom].x,0,(centers[bossRoom].z+sizes[bossRoom].y/2+exitZ)*0.5f),new Vector2(10,exitZ-(centers[bossRoom].z+sizes[bossRoom].y/2)+4f),floor);
         for(int side=-1;side<=1;side+=2)
             Box(environment,"Extraction pylon",exit.position+new Vector3(side*2,1.6f,0),new Vector3(.6f,3.2f,.8f),trim,true);
         var glow=new GameObject("Extraction active"); glow.transform.SetParent(exit,false);
@@ -123,7 +191,7 @@ public static class FirstSectorBuilder
         ValidatePaths(player.transform.position,centers.Concat(new[]{exit.position}).Concat(encounters.SelectMany(e=>e.enemies).Select(e=>e.transform.position)).ToArray());
         CaptureOverview(camera);
         ConnectLobby(); AssetDatabase.SaveAssets();
-        Debug.Log("FIRST_SECTOR_BUILD_SUCCESS: 3 finite encounters, 10 enemies, guardian, extraction and lobby portal.");
+        Debug.Log($"FIRST_SECTOR_BUILD_SUCCESS: {encounters.Length} finite encounters ({encounters.Sum(e=>e.enemies.Length)} enemies), guardian, extraction and lobby portal.");
     }
 
     public static void ConnectLobby()
@@ -138,7 +206,7 @@ public static class FirstSectorBuilder
             var station=stations.GetArrayElementAtIndex(i);var destination=station.FindPropertyRelative("destinationScene");
             if(string.IsNullOrEmpty(destination.stringValue))continue;
             destination.stringValue="FirstSector";
-            station.FindPropertyRelative("description").stringValue="Setor 01: Memoria Corrompida. Elimine os tres grupos e extraia pelo portal dourado.";
+            station.FindPropertyRelative("description").stringValue="Setor 01: Memoria Corrompida. Avance pelas salas, derrote o guardiao e extraia pelo portal dourado.";
             var anchor=(Transform)station.FindPropertyRelative("anchor").objectReferenceValue;
             var portal=anchor.parent.GetComponent<ScenePortal>()??anchor.parent.gameObject.AddComponent<ScenePortal>();
             portal.Configure(player.transform,"FirstSector");

@@ -37,6 +37,8 @@ public class Actor : MonoBehaviour
         }
         if (!(this is PlayerActor) && !TryGetComponent<EnemyCombatFeedback>(out _))
             gameObject.AddComponent<EnemyCombatFeedback>();
+        if (!(this is PlayerActor) && !TryGetComponent<CoinDrop>(out _))
+            gameObject.AddComponent<CoinDrop>();
     }
 
     void Update()

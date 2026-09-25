@@ -106,12 +106,12 @@ public abstract class SequencedAreaAttackAbility : Ability
             ownerTransform.forward,
             hitStep.reactionType,
             hitStep.hitStrength,
-            hitStep.poiseDamage,
+            hitStep.stanceDamage,
+            hitStep.breakEffect,
+            hitStep.pushDistance,
             hitStep.stunDuration,
-            hitStep.knockbackForce,
-            hitStep.launchForce,
-            hitStep.canAirJuggle,
-            hitStep.canRagdoll);
+            hitStep.knockUpHeight,
+            hitStep.knockbackDistance);
 
         playerActor.TryApplyAreaDamage(
             origin,

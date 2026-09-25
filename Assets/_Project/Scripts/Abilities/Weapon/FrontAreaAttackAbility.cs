@@ -15,14 +15,15 @@ public class FrontAreaAttackAbility : SequencedAreaAttackAbility
     [SerializeField] private float bonusDamage = 0f;
 
     [Header("Reaction")]
-    [SerializeField] private HitReactionType reactionType = HitReactionType.Knockback;
-    [SerializeField] private HitStrength hitStrength = HitStrength.Medium;
-    [SerializeField] private float poiseDamage = 30f;
-    [SerializeField] private float stunDuration = 0.35f;
-    [SerializeField] private float knockbackForce = 5f;
-    [SerializeField] private float launchForce = 0f;
-    [SerializeField] private bool canAirJuggle = true;
-    [SerializeField] private bool canRagdoll = false;
+    [SerializeField] private HitReactionType reactionType = HitReactionType.Stagger;
+    [SerializeField] private HitStrength hitStrength = HitStrength.Heavy;
+    [SerializeField] private float pushDistance = 0.5f;
+    [Tooltip("A heavy frontal blow: it breaks stance into a real Knockback, throwing the enemy away.")]
+    [SerializeField] private StanceBreakEffect breakEffect = StanceBreakEffect.Knockback;
+    [SerializeField] private float stanceDamage = 60f;
+    [SerializeField] private float stunDuration = 1f;
+    [SerializeField] private float knockUpHeight = 2f;
+    [SerializeField] private float knockbackDistance = 5f;
 
     public override void Activate(GameObject parent)
     {
@@ -38,12 +39,12 @@ public class FrontAreaAttackAbility : SequencedAreaAttackAbility
             bonusDamage = bonusDamage,
             reactionType = reactionType,
             hitStrength = hitStrength,
-            poiseDamage = poiseDamage,
+            pushDistance = pushDistance,
+            stanceDamage = stanceDamage,
+            breakEffect = breakEffect,
             stunDuration = stunDuration,
-            knockbackForce = knockbackForce,
-            launchForce = launchForce,
-            canAirJuggle = canAirJuggle,
-            canRagdoll = canRagdoll
+            knockUpHeight = knockUpHeight,
+            knockbackDistance = knockbackDistance
         };
 
         ActivateSequence(parent, new[] { hitStep });

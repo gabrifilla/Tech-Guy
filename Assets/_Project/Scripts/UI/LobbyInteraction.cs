@@ -140,7 +140,8 @@ public sealed class LobbyInteraction : MonoBehaviour
     {
         Rect box = new Rect((width - 860) / 2, (height - 420) / 2 - 30, 860, 420);
         GUI.DrawTexture(box, _panel);
-        GUI.Label(new Rect(box.x + 24, box.y + 18, 700, 30), "ARSENAL / PREPARAR INCURSÃO", _heading);
+        GUI.Label(new Rect(box.x + 24, box.y + 18, 500, 30), "ARSENAL / PREPARAR INCURSÃO", _heading);
+        GUI.Label(new Rect(box.xMax - 320, box.y + 20, 240, 26), $"MOEDAS: {CurrencyWallet.Balance}", _heading);
         if (GUI.Button(new Rect(box.xMax - 75, box.y + 18, 50, 28), "Esc")) _showDetails = false;
         string[] titles = { "MANOPLA", "ARCO E FLECHA", "LANÇA" };
         string[] styles = { "Principal · Combos e energia Asura", "Precisão · Projéteis e controle de área", "Alcance · Estocadas e varreduras" };
@@ -148,9 +149,11 @@ public sealed class LobbyInteraction : MonoBehaviour
         for (int i = 0; i < titles.Length; i++)
         {
             bool equipped = actor && actor.CurrentWeapon == _weapons[i];
-            GUI.backgroundColor = _previewWeapon == i ? new Color(.25f, .65f, .85f) : Color.white;
-            if (GUI.Button(new Rect(box.x + 24 + i * 274, box.y + 62, 262, 60),
-                titles[i] + (equipped ? "  ·  EQUIPADA" : ""))) _previewWeapon = i;
+            bool unlocked = WeaponLoadout.IsUnlocked(i);
+            GUI.backgroundColor = _previewWeapon == i ? new Color(.25f, .65f, .85f) :
+                unlocked ? Color.white : new Color(.45f, .45f, .5f);
+            string caption = titles[i] + (equipped ? "  ·  EQUIPADA" : unlocked ? "" : $"  ·  {WeaponLoadout.GetCost(i)} moedas");
+            if (GUI.Button(new Rect(box.x + 24 + i * 274, box.y + 62, 262, 60), caption)) _previewWeapon = i;
         }
         GUI.backgroundColor = Color.white;
         GUI.Label(new Rect(box.x + 24, box.y + 137, 810, 28), styles[_previewWeapon], _body);
@@ -168,11 +171,28 @@ public sealed class LobbyInteraction : MonoBehaviour
                 GUI.Label(new Rect(box.x + 60, box.y + 201 + i * 42, 775, 20), detail, _hint);
             }
         bool alreadyEquipped = actor && selected && actor.CurrentWeapon == selected;
-        GUI.enabled = selected && !alreadyEquipped;
-        if (GUI.Button(new Rect(box.xMax - 270, box.yMax - 54, 245, 34), alreadyEquipped ? "EQUIPADA" : "EQUIPAR " + titles[_previewWeapon]))
-            WeaponLoadout.Select(actor, _previewWeapon);
-        GUI.enabled = true;
-        GUI.Label(new Rect(box.x + 24, box.yMax - 48, 520, 28), "Seleção salva para as próximas incursões.  ·  Esc para fechar", _hint);
+        bool previewUnlocked = WeaponLoadout.IsUnlocked(_previewWeapon);
+        var actionRect = new Rect(box.xMax - 270, box.yMax - 54, 245, 34);
+        if (!previewUnlocked)
+        {
+            int cost = WeaponLoadout.GetCost(_previewWeapon);
+            bool canAfford = CurrencyWallet.CanAfford(cost);
+            GUI.enabled = selected && canAfford;
+            if (GUI.Button(actionRect, $"LIBERAR · {cost} moedas") && WeaponLoadout.TryUnlock(_previewWeapon))
+                WeaponLoadout.Select(actor, _previewWeapon);
+            GUI.enabled = true;
+            GUI.Label(new Rect(box.x + 24, box.yMax - 48, 640, 28),
+                canAfford ? "Junte moedas nas incursões para liberar novas armas.  ·  Esc para fechar"
+                          : $"Moedas insuficientes ({CurrencyWallet.Balance}/{cost}).  Derrote inimigos para juntar mais.", _hint);
+        }
+        else
+        {
+            GUI.enabled = selected && !alreadyEquipped;
+            if (GUI.Button(actionRect, alreadyEquipped ? "EQUIPADA" : "EQUIPAR " + titles[_previewWeapon]))
+                WeaponLoadout.Select(actor, _previewWeapon);
+            GUI.enabled = true;
+            GUI.Label(new Rect(box.x + 24, box.yMax - 48, 520, 28), "Seleção salva para as próximas incursões.  ·  Esc para fechar", _hint);
+        }
     }
 
     private void OnDestroy()

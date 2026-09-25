@@ -83,6 +83,7 @@ public sealed class EnemyVariant : MonoBehaviour
             }
         }
         AffixSummary = string.Join(" · ", names);
+        ApplyStanceProfile();
         _actor.SetDamageTakenMultiplier(this, damageTaken);
         _actor.SetMaxHealth(_baseHealth * (_profile ? _profile.HealthMultiplier : 1f));
         _ai.ConfigureAttack(_baseDamage * (_profile ? _profile.DamageMultiplier : 1f),
@@ -93,6 +94,36 @@ public sealed class EnemyVariant : MonoBehaviour
         var added = new HashSet<GameObject>();
         if (_profile) SpawnAffixes(_profile.AffixPrefabs, added);
         SpawnAffixes(_additionalAffixPrefabs, added);
+    }
+
+    /// <summary>
+    /// Feeds the enemy's stance pool and crowd-control resistances into its CombatReactionController.
+    /// The rank (already set by the spawner) stays authoritative for the enemy category; the profile
+    /// supplies the concrete stance numbers and per-CC resistances on top of it.
+    /// </summary>
+    private void ApplyStanceProfile()
+    {
+        CombatReactionController reaction = GetComponentInChildren<CombatReactionController>();
+        if (!reaction) return;
+
+        EnemyRank resolvedRank = reaction.Rank;
+        if (!_profile)
+        {
+            // No profile: keep whatever rank defaults the spawner applied.
+            reaction.ConfigureRank(resolvedRank);
+            return;
+        }
+
+        reaction.ConfigureStance(
+            resolvedRank,
+            _profile.MaxStance,
+            _profile.StanceDamageMultiplier,
+            _profile.StanceRecoveryPerSecond,
+            _profile.StanceRecoveryDelay,
+            _profile.StaggerResistance,
+            _profile.StunResistance,
+            _profile.KnockUpResistance,
+            _profile.KnockbackResistance);
     }
 
     private void SpawnAffixes(IReadOnlyList<GameObject> prefabs, HashSet<GameObject> added)

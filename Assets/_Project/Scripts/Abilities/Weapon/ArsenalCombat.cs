@@ -78,8 +78,9 @@ public sealed class ArsenalCombat : MonoBehaviour
                     Vector3 center = ability.Kind == ArsenalSkillKind.Rain ? rainCenter : origin;
                     // Sphere helper raises its center by the radius; keep large sweeps at torso height.
                     center.y += radial ? 1f - ability.Width : 0f;
-                    var reaction = new HitReactionRequest(_player, center, direction, HitReactionType.Flinch,
-                        HitStrength.Medium, 20f, .25f, 2f, 0f, true, false);
+                    // Q sweeps stagger and chip stance; breaking a weak mob's stance briefly stuns it.
+                    var reaction = new HitReactionRequest(_player, center, direction, HitReactionType.Stagger,
+                        HitStrength.Medium, 40f, StanceBreakEffect.Stun, 0.5f, 1f);
                     _player.TryApplyAreaDamage(center, direction, radial ? .01f : ability.Range,
                         new Vector3(ability.Width, 2f, ability.Range), radial ? AreaHitShape.Sphere : AreaHitShape.Box,
                         ability.Width, Physics.DefaultRaycastLayers, weapon.attackDamage,
