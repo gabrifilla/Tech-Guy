@@ -7377,6 +7377,7 @@ Transform:
   - {fileID: 1878603775}
   - {fileID: 803060436}
   - {fileID: 2084737314}
+  - {fileID: 762115609}
   m_Father: {fileID: 2101009954}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &261068020
@@ -7982,7 +7983,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 283012082}
-  m_Text: MANOPLA  //  PRIMEIRO CONTATO
+  m_Text: ARSENAL / ARMAS
   m_OffsetZ: 0
   m_CharacterSize: 0.04
   m_LineSpacing: 1
@@ -19644,6 +19645,39 @@ Transform:
   - {fileID: 1843208992}
   m_Father: {fileID: 1256606570}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &762115608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 762115609}
+  m_Layer: 0
+  m_Name: Arsenal displays
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &762115609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 762115608}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1682938257}
+  - {fileID: 1984985069}
+  m_Father: {fileID: 260117100}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &764792565
 GameObject:
   m_ObjectHideFlags: 0
@@ -20131,7 +20165,7 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778923058}
-  m_Text: NEURAL / LINK
+  m_Text: ARSENAL / ARMAS
   m_OffsetZ: 0
   m_CharacterSize: 0.04
   m_LineSpacing: 1
@@ -28514,29 +28548,31 @@ MonoBehaviour:
     description: 'Setor 01: Memoria Corrompida. Elimine os tres grupos e extraia
       pelo portal dourado.'
     destinationScene: FirstSector
+    weaponSelection: 0
   - anchor: {fileID: 966233553}
     title: 02 / FRAGMENTO
     description: "Este endere\xE7o ainda n\xE3o responde. Outros mundos ser\xE3o
       conectados ao Nexus conforme a jornada avan\xE7ar."
     destinationScene: 
+    weaponSelection: 0
   - anchor: {fileID: 1502600139}
     title: 03 / ORIGEM
     description: "Este endere\xE7o ainda n\xE3o responde. Outros mundos ser\xE3o
       conectados ao Nexus conforme a jornada avan\xE7ar."
     destinationScene: 
+    weaponSelection: 0
   - anchor: {fileID: 1920067947}
-    title: MANOPLA / NEURAL LINK
-    description: "Uma arma, uma conex\xE3o... e uma voz. A manopla traduz impulsos
-      nervosos em combate.\n\n\"Voc\xEA programa. Eu cuido da parte em que a gente
-      n\xE3o morre.\"\n\nEsta\xE7\xE3o de prepara\xE7\xE3o \u2014 melhorias ser\xE3o
-      conectadas aqui."
+    title: ARSENAL / ARMAS
+    description: "Escolha manopla, arco e flecha ou lan\xE7a antes da incurs\xE3o."
     destinationScene: 
+    weaponSelection: 1
   - anchor: {fileID: 1255680661}
     title: "ARQUIVO / PERMISS\xC3O NEGADA"
     description: "Usu\xE1rio: externo. Origem: Terra. M\xE9todo de entrada: desconhecido.\n\nO
       sistema reconhece voc\xEA, mas os registros foram apagados. Cada incurs\xE3o
       pode recuperar um fragmento.\n\nComo escapar sem acesso ao c\xF3digo-fonte?"
     destinationScene: 
+    weaponSelection: 0
   _interactionRange: 2.2
 --- !u!4 &1102488895
 Transform:
@@ -44238,6 +44274,104 @@ Transform:
   - {fileID: 1993899455}
   m_Father: {fileID: 2101009954}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1682938256
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 762115609}
+    m_Modifications:
+    - target: {fileID: 1656102239834365360, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1656102239834365360, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1656102239834365360, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1656102239834365360, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1656102239834365360, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1656102239834365360, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1656102239834365360, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1656102239834365360, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1656102239834365360, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1656102239834365360, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6087617604141346505, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      propertyPath: m_Name
+      value: NexusBow
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6087617604141346505, guid: 88cdc66027fe0e54e81e165217c2fd95,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1682938259}
+  m_SourcePrefab: {fileID: 100100000, guid: 88cdc66027fe0e54e81e165217c2fd95, type: 3}
+--- !u!4 &1682938257 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1656102239834365360, guid: 88cdc66027fe0e54e81e165217c2fd95,
+    type: 3}
+  m_PrefabInstance: {fileID: 1682938256}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1682938258 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6087617604141346505, guid: 88cdc66027fe0e54e81e165217c2fd95,
+    type: 3}
+  m_PrefabInstance: {fileID: 1682938256}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1682938259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682938258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5f88219287581468e1e116f84b5fa2, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::LobbyCoreMotion
+  _degreesPerSecond: 18
+  _floatAmplitude: 0.15
 --- !u!1 &1683665626
 GameObject:
   m_ObjectHideFlags: 0
@@ -53201,6 +53335,104 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1982861424}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1984985068
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 762115609}
+    m_Modifications:
+    - target: {fileID: 4242211877846962589, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      propertyPath: m_Name
+      value: NexusSpear
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010318884821067969, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010318884821067969, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010318884821067969, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010318884821067969, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.81915206
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010318884821067969, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.57357645
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010318884821067969, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010318884821067969, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010318884821067969, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010318884821067969, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9010318884821067969, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4242211877846962589, guid: 4f094783c7d1f044f855292dfb4e3304,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1984985071}
+  m_SourcePrefab: {fileID: 100100000, guid: 4f094783c7d1f044f855292dfb4e3304, type: 3}
+--- !u!4 &1984985069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9010318884821067969, guid: 4f094783c7d1f044f855292dfb4e3304,
+    type: 3}
+  m_PrefabInstance: {fileID: 1984985068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1984985070 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4242211877846962589, guid: 4f094783c7d1f044f855292dfb4e3304,
+    type: 3}
+  m_PrefabInstance: {fileID: 1984985068}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1984985071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984985070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5f88219287581468e1e116f84b5fa2, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::LobbyCoreMotion
+  _degreesPerSecond: 18
+  _floatAmplitude: 0.15
 --- !u!1 &1986009582
 GameObject:
   m_ObjectHideFlags: 0

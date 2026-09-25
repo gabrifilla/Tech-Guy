@@ -14,6 +14,8 @@ public sealed class EnemyVariant : MonoBehaviour
     private NavMeshAgent _agent;
     private float _baseHealth, _baseDamage, _baseSpeed, _baseInterval;
     private bool _started;
+    private Vector3 _baseScale;
+    public float VisualScaleMultiplier => EnemyVisualStyle.SizeMultiplier(_profile ? _profile.Rarity : EnemyRarity.Normal, GetComponent<SectorBoss>());
     private readonly List<GameObject> _affixes = new List<GameObject>();
 
     public EnemyProfile Profile => _profile;
@@ -22,6 +24,7 @@ public sealed class EnemyVariant : MonoBehaviour
     private void Start()
     {
         _actor = GetComponent<Actor>();
+        _baseScale = transform.localScale;
         _ai = GetComponent<EnemyAI>();
         _agent = GetComponent<NavMeshAgent>();
         _baseHealth = _actor.maxHealth;
@@ -46,6 +49,7 @@ public sealed class EnemyVariant : MonoBehaviour
 
     private void ApplyProfile()
     {
+        transform.localScale = _baseScale * VisualScaleMultiplier;
         foreach (GameObject affix in _affixes)
         {
             if (!affix) continue;
@@ -53,6 +57,13 @@ public sealed class EnemyVariant : MonoBehaviour
             Destroy(affix);
         }
         _affixes.Clear();
+        if (TryGetComponent(out SectorBoss boss))
+        {
+            AffixSummary = "";
+            _actor.SetDamageTakenMultiplier(this,1f);
+            _actor.SetMaxHealth(boss.MaximumHealth);
+            return;
+        }
         var selected = new HashSet<GameObject>();
         if (_profile && _profile.AffixPrefabs != null)
             foreach (var prefab in _profile.AffixPrefabs) if (prefab) selected.Add(prefab);

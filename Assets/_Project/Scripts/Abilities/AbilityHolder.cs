@@ -32,12 +32,19 @@ public class AbilityHolder : MonoBehaviour
     private PlayerActor playerActor;
     private WeaponScript currentWeapon;
     private BreakerGauntletCombat _breakerCombat;
+    private ArsenalCombat _arsenalCombat;
+    private RunBoons _runBoons;
+    public void BindRun(RunBoons run) => _runBoons = run;
+    public void RefreshLoadout() => RefreshWeaponAbilities(true);
     private CharControlScript _characterControl;
     [SerializeField] private LobbyInteraction _lobbyInteraction;
     public event Action<int> AbilityUsed;
     public event Action<int, AbilityUseFailure> AbilityRejected;
 
-    public bool IsCasting => _breakerCombat && _breakerCombat.IsExecuting;
+    public bool IsCasting => (_breakerCombat && _breakerCombat.IsExecuting) ||
+        (_arsenalCombat && _arsenalCombat.IsExecuting);
+    public bool BlocksWorldInput => (_lobbyInteraction && _lobbyInteraction.IsPanelOpen) ||
+        (_runBoons && _runBoons.IsChoosing);
 
     private enum AbilityState
     {
@@ -131,6 +138,7 @@ public class AbilityHolder : MonoBehaviour
         if (!force && equippedWeapon == currentWeapon) return;
 
         currentWeapon = equippedWeapon;
+        if (_arsenalCombat) _arsenalCombat.Cancel();
         activeAbilities = currentWeapon && currentWeapon.abilities is not null
             ? currentWeapon.abilities
             : Array.Empty<Ability>();
@@ -140,6 +148,8 @@ public class AbilityHolder : MonoBehaviour
         states = new AbilityState[activeAbilities.Length];
 
         bool usesBreaker = Array.Exists(activeAbilities, ability => ability is BreakerGauntletAbility);
+        if (Array.Exists(activeAbilities, ability => ability is ArsenalAbility) && !_arsenalCombat)
+            _arsenalCombat = gameObject.AddComponent<ArsenalCombat>();
         if (usesBreaker && !_breakerCombat)
             _breakerCombat = gameObject.AddComponent<BreakerGauntletCombat>();
         if (_breakerCombat) _breakerCombat.Configure(usesBreaker ? currentWeapon : null);
@@ -191,6 +201,7 @@ public class AbilityHolder : MonoBehaviour
 
     private bool CheckUse(int index, Ability ability, KeyCode key)
     {
+        if (BlocksWorldInput) return Reject(index, AbilityUseFailure.Interaction);
         if (!isActiveAndEnabled || !playerActor || playerActor.IsDead) return Reject(index, AbilityUseFailure.Unavailable);
         if (_lobbyInteraction && _lobbyInteraction.BlocksAbilityInput(key)) return Reject(index, AbilityUseFailure.Interaction);
         if (IsCasting || (_characterControl && _characterControl.isDashing)) return Reject(index, AbilityUseFailure.Busy);

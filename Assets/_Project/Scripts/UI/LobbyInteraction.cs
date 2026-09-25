@@ -14,6 +14,7 @@ public sealed class LobbyInteraction : MonoBehaviour
         [TextArea] public string description;
         [Tooltip("Empty for an informational station.")]
         public string destinationScene;
+        public bool weaponSelection;
     }
 
     [SerializeField] private Transform _player;
@@ -24,6 +25,9 @@ public sealed class LobbyInteraction : MonoBehaviour
     private bool _loading;
     private GUIStyle _heading, _body, _hint;
     private Texture2D _panel;
+    private WeaponScript[] _weapons;
+    private int _previewWeapon;
+    public bool IsPanelOpen => _showDetails || _loading;
 
     public void Configure(Transform player, Station[] stations)
     {
@@ -48,6 +52,7 @@ public sealed class LobbyInteraction : MonoBehaviour
             Debug.LogError("LobbyInteraction requires a player reference.", this);
             enabled = false;
         }
+        _weapons = Array.ConvertAll(WeaponLoadout.ResourcePaths, path => Resources.Load<WeaponScript>(path));
     }
 
     private void Update()
@@ -79,6 +84,14 @@ public sealed class LobbyInteraction : MonoBehaviour
         {
             Debug.LogWarning("Lobby destination is not enabled in Build Settings: " + _nearest.destinationScene, this);
         }
+        if (_showDetails && _player.TryGetComponent(out UnityEngine.AI.NavMeshAgent agent) && agent.isOnNavMesh)
+            agent.ResetPath();
+        if (_showDetails && _player.TryGetComponent(out CharControlScript control)) control.CancelCombo();
+        if (_showDetails && _nearest.weaponSelection && _player.TryGetComponent(out PlayerActor actor))
+        {
+            int equipped = Array.IndexOf(_weapons, actor.CurrentWeapon);
+            _previewWeapon = equipped >= 0 ? equipped : 0;
+        }
     }
 
     private void OnGUI()
@@ -103,9 +116,15 @@ public sealed class LobbyInteraction : MonoBehaviour
         GUI.Label(new Rect(30, 28, 220, 30), "Nexus · Ponto Zero", _heading);
         GUI.Label(new Rect(30, 57, 220, 24), "Área segura", _hint);
         GUI.Label(new Rect(30, 82, 650, 28),
-            "Clique para mover     ·     E  Interagir     ·     Esc  Fechar", _hint);
+            "Esquerdo: atacar     ·     Direito: mover     ·     E: interagir     ·     Esc: fechar", _hint);
         if (_nearest != null)
         {
+            if (_showDetails && _nearest.weaponSelection)
+            {
+                DrawArsenal(width, height);
+                GUI.matrix = oldMatrix;
+                return;
+            }
             float panelHeight = _showDetails ? 180 : 84;
             Rect box = new Rect((width - 540) / 2, height - panelHeight - 190, 540, panelHeight);
             GUI.DrawTexture(box, _panel);
@@ -115,6 +134,45 @@ public sealed class LobbyInteraction : MonoBehaviour
                 string.IsNullOrEmpty(_nearest.destinationScene) ? "[E] Acessar terminal" : "[E] Iniciar incursão", _body);
         }
         GUI.matrix = oldMatrix;
+    }
+
+    private void DrawArsenal(float width, float height)
+    {
+        Rect box = new Rect((width - 860) / 2, (height - 420) / 2 - 30, 860, 420);
+        GUI.DrawTexture(box, _panel);
+        GUI.Label(new Rect(box.x + 24, box.y + 18, 700, 30), "ARSENAL / PREPARAR INCURSÃO", _heading);
+        if (GUI.Button(new Rect(box.xMax - 75, box.y + 18, 50, 28), "Esc")) _showDetails = false;
+        string[] titles = { "MANOPLA", "ARCO E FLECHA", "LANÇA" };
+        string[] styles = { "Principal · Combos e energia Asura", "Precisão · Projéteis e controle de área", "Alcance · Estocadas e varreduras" };
+        var actor = _player.GetComponent<PlayerActor>();
+        for (int i = 0; i < titles.Length; i++)
+        {
+            bool equipped = actor && actor.CurrentWeapon == _weapons[i];
+            GUI.backgroundColor = _previewWeapon == i ? new Color(.25f, .65f, .85f) : Color.white;
+            if (GUI.Button(new Rect(box.x + 24 + i * 274, box.y + 62, 262, 60),
+                titles[i] + (equipped ? "  ·  EQUIPADA" : ""))) _previewWeapon = i;
+        }
+        GUI.backgroundColor = Color.white;
+        GUI.Label(new Rect(box.x + 24, box.y + 137, 810, 28), styles[_previewWeapon], _body);
+        WeaponScript selected = _weapons[_previewWeapon];
+        if (selected && selected.abilities != null)
+            for (int i = 0; i < Mathf.Min(4, selected.abilities.Length); i++)
+            {
+                Ability skill = selected.abilities[i];
+                if (!skill) continue;
+                string detail = skill is ArsenalAbility arsenal ? arsenal.Description :
+                    new[] { "Avanço e dois socos · Impulso", "Sequência de socos e finalizador · Impulso",
+                        "Dois impactos com dano de postura · Choque", "Consome 100 de energia Asura para liberar a rajada" }[i];
+                GUI.Label(new Rect(box.x + 24, box.y + 179 + i * 42, 810, 22),
+                    $"[{new[] { "Q", "W", "E", "R" }[i]}]  {skill.DisplayName}   ·   {skill.ManaCost:0} mana   ·   {skill.cooldownTime:0.#}s", _body);
+                GUI.Label(new Rect(box.x + 60, box.y + 201 + i * 42, 775, 20), detail, _hint);
+            }
+        bool alreadyEquipped = actor && selected && actor.CurrentWeapon == selected;
+        GUI.enabled = selected && !alreadyEquipped;
+        if (GUI.Button(new Rect(box.xMax - 270, box.yMax - 54, 245, 34), alreadyEquipped ? "EQUIPADA" : "EQUIPAR " + titles[_previewWeapon]))
+            WeaponLoadout.Select(actor, _previewWeapon);
+        GUI.enabled = true;
+        GUI.Label(new Rect(box.x + 24, box.yMax - 48, 520, 28), "Seleção salva para as próximas incursões.  ·  Esc para fechar", _hint);
     }
 
     private void OnDestroy()

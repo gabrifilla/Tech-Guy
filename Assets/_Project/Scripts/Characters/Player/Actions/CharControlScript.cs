@@ -75,6 +75,9 @@ public class CharControlScript : MonoBehaviour
 
     private readonly List<ParticleSystem> clickEffectPool = new List<ParticleSystem>();
     private int lastMoveRequestFrame = -1;
+    private bool _waitForAttackRelease;
+    public event System.Action BasicAttackPerformed;
+    public void RequireAttackRelease() => _waitForAttackRelease = true;
 
     void Awake()
     {
@@ -95,7 +98,10 @@ public class CharControlScript : MonoBehaviour
         baseAttackBoxSize = attackBoxSize;
 
         input = new CustomActions();
-        input.Main.Move.performed += ctx => RequestMove();
+        input.Main.Move.performed += ctx =>
+        {
+            if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame) RequestMove();
+        };
     }
 
     private void Start()
@@ -115,6 +121,7 @@ public class CharControlScript : MonoBehaviour
         RefreshWeaponStats();
         RefreshMovementStats();
 
+        if (_abilityHolder && _abilityHolder.BlocksWorldInput) return;
 
         if (_abilityHolder && _abilityHolder.IsCasting) return;
         isDashing = dashScript != null && dashScript.IsDashing(gameObject);
@@ -122,10 +129,37 @@ public class CharControlScript : MonoBehaviour
 
         if (!isDashing)
         {
+            if (HandleBasicAttackInput()) return;
             HandleMovement();
             SetAnimations();
             HandleComboReset();
         }
+    }
+
+    private bool HandleBasicAttackInput()
+    {
+        Mouse mouse = Mouse.current;
+        if (mouse == null || !mouse.leftButton.isPressed) { _waitForAttackRelease = false; return false; }
+        if (_waitForAttackRelease || (_playerHUD && _playerHUD.BlocksPointer(GetPointerPosition()))) return false;
+        Camera aimCamera = mainCamera ? mainCamera : Camera.main;
+        if (!aimCamera) return false;
+        Ray ray = aimCamera.ScreenPointToRay(GetPointerPosition());
+        if (new Plane(Vector3.up, transform.position).Raycast(ray, out float distance))
+            TryBasicAttack(ray.GetPoint(distance));
+        return true;
+    }
+
+    public bool TryBasicAttack(Vector3 aimPoint)
+    {
+        RefreshWeaponStats();
+        if (!isActiveAndEnabled || !playerActor || playerActor.IsDead || !weapon || playerBusy ||
+            Time.time < nextAttackTime || isDashing ||
+            (_abilityHolder && (_abilityHolder.BlocksWorldInput || _abilityHolder.IsCasting))) return false;
+        ClearTarget();
+        if (agent && agent.enabled && agent.isOnNavMesh) agent.ResetPath();
+        FacePosition(aimPoint);
+        Attack();
+        return true;
     }
 
     // Método para validar componentes essenciais
@@ -224,7 +258,7 @@ public class CharControlScript : MonoBehaviour
 
         if (IsDashPressed())
         {
-            if (_abilityHolder) _abilityHolder.TryUseDash(dashScript);
+            if (_abilityHolder && _abilityHolder.TryUseDash(dashScript)) isDashing = true;
         }
     }
 
@@ -284,6 +318,7 @@ public class CharControlScript : MonoBehaviour
 
     void ClickToMove()
     {
+        if (_abilityHolder && _abilityHolder.BlocksWorldInput) return;
         if (_playerHUD && _playerHUD.BlocksPointer(GetPointerPosition())) return;
         if (_abilityHolder && _abilityHolder.IsCasting) return;
         if (isDashing)
@@ -500,7 +535,6 @@ public class CharControlScript : MonoBehaviour
 
         if (Time.time < nextAttackTime) return;
 
-        nextAttackTime = Time.time + attackInterval;
         Attack();
     }
 
@@ -542,7 +576,6 @@ public class CharControlScript : MonoBehaviour
         direction.y = 0;
         FaceDirection(direction);
 
-        nextAttackTime = Time.time + attackInterval;
         Attack();
     }
 
@@ -673,8 +706,11 @@ public class CharControlScript : MonoBehaviour
 
     public void Attack()
     {
+        if (!playerActor || playerActor.IsDead || isDashing || Time.time < nextAttackTime) return;
+        if (_abilityHolder && _abilityHolder.BlocksWorldInput) return;
         if (_abilityHolder && _abilityHolder.IsCasting) return;
         if (playerBusy) return;
+        nextAttackTime = Time.time + Mathf.Max(.05f, attackInterval);
 
         string attackName = null;
         if (attackAnimations != null && attackAnimations.Length > 0)
@@ -694,18 +730,14 @@ public class CharControlScript : MonoBehaviour
         }
 
         int attackIndex = currentComboCount;
-        if (playerActor != null)
-        {
-            playerActor.ActivateHitbox();
-            if (hitboxCoroutine != null)
-            {
-                StopCoroutine(hitboxCoroutine);
-            }
-            float hitboxDuration = attackHitboxDuration > 0 ? attackHitboxDuration : 0.2f;
-            hitboxCoroutine = StartCoroutine(DeactivateHitboxAfter(hitboxDuration));
-        }
+        // Basic attacks resolve once through the area/projectile path, never a second trigger hitbox.
 
-        if (playerActor != null)
+        if (playerActor != null && weapon && weapon.FiresArrows)
+        {
+            ArsenalProjectile.Fire(playerActor, transform.position + Vector3.up, transform.forward,
+                weapon.attackDamage, 1f, attackRange, false, new Color(.25f, .85f, 1f));
+        }
+        else if (playerActor != null)
         {
             float range = attackRange > 0f ? attackRange : defaultStoppingDistance;
             playerActor.TryApplyAreaDamage(
@@ -736,6 +768,7 @@ public class CharControlScript : MonoBehaviour
         }
 
         attackBusyCoroutine = StartCoroutine(ClearBusyAfter(busyDuration));
+        BasicAttackPerformed?.Invoke();
     }
 
     private HitReactionRequest BuildBasicAttackReaction(int attackIndex, float range)

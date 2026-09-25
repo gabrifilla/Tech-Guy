@@ -12,6 +12,7 @@ public class Actor : MonoBehaviour
     public Image healthBar;
 
     public event Action<Actor> HealthChanged;
+    public event Action<Actor, float> DamageReceived;
     public event Action<Actor> Died;
     public bool IsDead { get; private set; }
     private readonly Dictionary<UnityEngine.Object, float> _damageTakenModifiers = new Dictionary<UnityEngine.Object, float>();
@@ -34,6 +35,8 @@ public class Actor : MonoBehaviour
         {
             healthBar.gameObject.SetActive(false);
         }
+        if (!(this is PlayerActor) && !TryGetComponent<EnemyCombatFeedback>(out _))
+            gameObject.AddComponent<EnemyCombatFeedback>();
     }
 
     void Update()
@@ -46,7 +49,10 @@ public class Actor : MonoBehaviour
         if (IsDead) return;
         foreach (var modifier in _damageTakenModifiers)
             if (modifier.Key) amount *= modifier.Value;
+        float previousHealth = health;
         health = Mathf.Max(0f, health - amount);
+        float actualDamage = previousHealth - health;
+        if (actualDamage > 0f) DamageReceived?.Invoke(this, actualDamage);
         UpdateHealthBar();
         HealthChanged?.Invoke(this);
 

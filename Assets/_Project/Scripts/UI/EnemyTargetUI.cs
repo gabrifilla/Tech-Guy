@@ -100,6 +100,10 @@ public class EnemyTargetUI : MonoBehaviour
         }
 
         nameText.text = target.name;
+        EnemyVariant variant = target.GetComponent<EnemyVariant>();
+        SectorBoss boss = target.GetComponent<SectorBoss>();
+        nameText.color = EnemyVisualStyle.NameColor(variant && variant.Profile ? variant.Profile.Rarity : EnemyRarity.Normal, boss);
+        if (boss) nameText.text = boss.DisplayName;
         if (target.maxHealth > targetMaxHealth)
         {
             targetMaxHealth = target.maxHealth;

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9092f401e4b57ed4996b909889ab3439, type: 3}
+  m_Name: SpearFlurry
+  m_EditorClassIdentifier: Assembly-CSharp::ArsenalAbility
+  name: Rajada espiral
+  cooldownTime: 10
+  activeTime: 0.72
+  _manaCost: 180
+  _displayName: Rajada espiral
+  _glyph: 7
+  _accentColor: {r: 1, g: 0.4, b: 0.3, a: 1}
+  _kind: 3
+  _windup: 0.18
+  _hits: 3
+  _interval: 0.18
+  _range: 4.5
+  _width: 1.3
+  _damageMultiplier: 0.9
+  _piercing: 0
+  _description: "Tr\xEAs estocadas consecutivas na mesma dire\xE7\xE3o."

@@ -105,6 +105,7 @@ public static class FirstSectorValidation
                 Require(Components<GauntletImpactVfx>().Length==0,"Temporary punch effects leaked");
                 foreach(var enemy in Components<EnemyAI>())enemy.GetComponent<Actor>().TakeDamage(100000);
                 Require(_director.ClearedEncounters==1,"First encounter did not finish");
+                Require(_director.Boons.IsChoosing && _director.Boons.Choose(1),"First room reward missing");
                 _room=1;Warp(new Vector3(6,.1f,23));Advance(8,1);
             }
             else if(_phase==8)
@@ -114,6 +115,7 @@ public static class FirstSectorValidation
                 if(_room==2)Capture("FirstSector-guardian");
                 foreach(var enemy in enemies)enemy.GetComponent<Actor>().TakeDamage(100000);
                 Require(_director.ClearedEncounters==_room+1,"Encounter did not progress");
+                Require(_director.Boons.IsChoosing && _director.Boons.Choose(1),"Room reward missing");
                 if(_room==1) { _room=2;Warp(new Vector3(-4,.1f,48));Advance(8,1); }
                 else { Require(_director.IsComplete,"Level did not complete");Warp(new Vector3(-4,.1f,59));Advance(9,3); }
             }

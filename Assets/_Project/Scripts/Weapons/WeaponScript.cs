@@ -6,6 +6,8 @@ public class WeaponScript : ScriptableObject
     public string weaponName;
     public GameObject weaponPrefab;
     public GameObject pickupPrefab;
+    [SerializeField] private bool _firesArrows;
+    public bool FiresArrows => _firesArrows;
 
     [Header("Attack")]
     [SerializeField] public float attackDamage;

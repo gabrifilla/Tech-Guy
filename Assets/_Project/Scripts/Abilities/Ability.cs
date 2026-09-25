@@ -14,6 +14,10 @@ public class Ability : ScriptableObject
     public string DisplayName => string.IsNullOrEmpty(_displayName) ? name : _displayName;
     public SkillGlyphKind Glyph => _glyph;
     public Color AccentColor => _accentColor;
+    public void ConfigureRunPresentation(string title, float manaCost, SkillGlyphKind glyph)
+    {
+        _displayName = title; _manaCost = manaCost; _glyph = glyph;
+    }
 
     public bool TryActivate(GameObject parent)
     {

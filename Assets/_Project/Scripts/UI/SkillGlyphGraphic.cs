@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum SkillGlyphKind { Strike, Flurry, Shock, Asura, Dash, Sword }
+public enum SkillGlyphKind { Strike, Flurry, Shock, Asura, Dash, Sword, Arrow, Spear }
 
 /// <summary>Resolution-independent, project-owned symbols for the action bar.</summary>
 [RequireComponent(typeof(CanvasRenderer))]
@@ -13,6 +13,18 @@ public sealed class SkillGlyphGraphic : MaskableGraphic
     protected override void OnPopulateMesh(VertexHelper mesh)
     {
         mesh.Clear();
+        if (_kind == SkillGlyphKind.Arrow || _kind == SkillGlyphKind.Spear)
+        {
+            Line(mesh, new Vector2(.18f,.14f), new Vector2(.79f,.85f), .055f);
+            Polygon(mesh, new[] { new Vector2(.83f,.93f), new Vector2(.54f,.76f), new Vector2(.76f,.59f) });
+            if (_kind == SkillGlyphKind.Arrow)
+            {
+                Line(mesh, new Vector2(.17f,.32f), new Vector2(.34f,.18f), .07f);
+                Line(mesh, new Vector2(.12f,.23f), new Vector2(.25f,.12f), .07f);
+            }
+            else Line(mesh, new Vector2(.48f,.72f), new Vector2(.72f,.5f), .06f);
+            return;
+        }
         if (_kind == SkillGlyphKind.Dash)
         {
             for (int i = 0; i < 3; i++)

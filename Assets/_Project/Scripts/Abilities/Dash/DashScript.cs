@@ -164,12 +164,8 @@ public class DashScript : Ability
     private static void MoveAgentOnNavMesh(NavMeshAgent agent, Vector3 step)
     {
         Vector3 targetPosition = agent.transform.position + step;
-        if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, agent.radius + step.magnitude, agent.areaMask))
-        {
-            agent.Move(hit.position - agent.transform.position);
-            return;
-        }
-
-        agent.Move(step);
+        // Sampling the far side of a carved room door can jump across it.
+        if (agent.Raycast(targetPosition, out NavMeshHit edge)) targetPosition = edge.position;
+        agent.Move(targetPosition - agent.transform.position);
     }
 }

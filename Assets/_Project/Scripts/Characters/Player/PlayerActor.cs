@@ -71,7 +71,7 @@ public class PlayerActor : Actor
             : weapon
                 ? weapon
                 : Resources.Load<WeaponScript>("Weapons/Melee/Gauntlet/Gauntlet");
-        EquipWeapon(weaponToEquip);
+        EquipWeapon(WeaponLoadout.LoadSelected() ?? weaponToEquip);
     }
 
     private void Update()
@@ -93,6 +93,8 @@ public class PlayerActor : Actor
         }
 
         WeaponScript previousWeapon = weapon;
+        if (TryGetComponent(out ArsenalCombat arsenal)) arsenal.Cancel();
+        if (TryGetComponent(out CharControlScript control)) control.CancelCombo();
 
         if (currentWeaponInstance)
         {

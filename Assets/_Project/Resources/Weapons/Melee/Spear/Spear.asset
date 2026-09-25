@@ -12,14 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77acea091a6857844a14768faefdb05a, type: 3}
   m_Name: Spear
   m_EditorClassIdentifier: 
-  weaponName: Spear
-  weaponPrefab: {fileID: 0}
-  attackDamage: 15
-  attackSpeed: 3
-  attackDistance: 4
-  attackDelay: 2
+  weaponName: "Lan\xE7a"
+  weaponPrefab: {fileID: 4242211877846962589, guid: 4f094783c7d1f044f855292dfb4e3304,
+    type: 3}
+  pickupPrefab: {fileID: 0}
+  _firesArrows: 0
+  attackDamage: 17
+  attackSpeed: 0.6
+  attackDistance: 3.6
+  attackDelay: 0
   attackRadius: 0
-  attackArea: 0
-  maxComboCount: 3
+  attackBoxSize: {x: 0.9, y: 2, z: 3.6}
   hitEffectName: 
-  abilities: []
+  hitbox: {fileID: 0}
+  abilities:
+  - {fileID: 11400000, guid: 5c25fd5a9b82cb44ba99c624f71fa92b, type: 2}
+  - {fileID: 11400000, guid: 81f3df5fb4a9d6145ab804a1cc261c1f, type: 2}
+  - {fileID: 11400000, guid: 9d0d6eb4de269ba4492e1342799ae21a, type: 2}
+  - {fileID: 11400000, guid: 5805983cf886f674c9746b2cab6ebcf3, type: 2}

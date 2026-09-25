@@ -39,6 +39,8 @@ public sealed class CombatReadabilityUI : MonoBehaviour
     private void OnGUI()
     {
         if (!_actor || _actor.IsDead || !_camera) return;
+        // EnemyCombatFeedback now combines health, rank and affixes above each enemy.
+        if (!_player && _actor.GetComponent<EnemyCombatFeedback>()) return;
         string text = _player ? (_slowMultiplier < 0.999f ? $"GELO  −{Mathf.RoundToInt((1 - _slowMultiplier) * 100)}% movimento" : "") :
             _variant && _variant.Profile ? _variant.Profile.Rarity + "\n" + _variant.AffixSummary : "";
         if (string.IsNullOrEmpty(text)) return;
