@@ -98,6 +98,9 @@ MonoBehaviour:
   spinSpeed: 220
   bobHeight: 0.18
   bobSpeed: 2.5
+  collectRadius: 1.4
+  magnetRadius: 0
+  magnetSpeed: 9
   lifetime: 30
   pickupFlourish: 0.12
 --- !u!1 &6900000000000000011

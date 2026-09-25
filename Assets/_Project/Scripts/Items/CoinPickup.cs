@@ -21,8 +21,8 @@ public sealed class CoinPickup : MonoBehaviour
     [Header("Collection")]
     [Tooltip("Distance at which the player collects the coin. Backs up the trigger in case physics layers block it.")]
     [SerializeField, Min(0f)] private float collectRadius = 1.4f;
-    [Tooltip("Distance at which the coin starts flying toward the player before collection.")]
-    [SerializeField, Min(0f)] private float magnetRadius = 3f;
+    [Tooltip("Distance at which the coin flies toward the player. 0 keeps the coin where the enemy died until the player walks over it.")]
+    [SerializeField, Min(0f)] private float magnetRadius = 0f;
     [SerializeField, Min(0f)] private float magnetSpeed = 9f;
 
     [Header("Lifetime")]
@@ -69,9 +69,10 @@ public sealed class CoinPickup : MonoBehaviour
             return;
         }
 
-        if (player && distance <= magnetRadius)
+        if (player && magnetRadius > 0f && distance <= magnetRadius)
         {
-            // Fly toward the player, easing in as it gets closer.
+            // Optional magnet: only pulls the coin in when magnetRadius is enabled. Off by default so
+            // coins stay where the enemy died and the player walks over them to collect.
             _basePosition = Vector3.MoveTowards(_basePosition, player.position, magnetSpeed * Time.deltaTime);
         }
 
