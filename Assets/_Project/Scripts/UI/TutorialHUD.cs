@@ -7,7 +7,7 @@ public sealed class TutorialHUD : MonoBehaviour
     public void Configure(TutorialDirector tutorial) => _tutorial = tutorial;
     private void OnGUI()
     {
-        if (!_tutorial || !_tutorial.enabled || _tutorial.IsLeaving) return;
+        if (Time.timeScale <= 0f || !_tutorial || !_tutorial.enabled || _tutorial.IsLeaving) return;
         if (_title == null)
         {
             _title = new GUIStyle(GUI.skin.label) { fontSize = 24, fontStyle = FontStyle.Bold, wordWrap = true };
@@ -38,9 +38,7 @@ public sealed class TutorialHUD : MonoBehaviour
             GUI.Label(new Rect(width-360,35,326,115), _tutorial.CurrentBeat.transmission, _body);
         }
         GUI.color = Color.white;
-        GUI.Label(new Rect(width-250,165,226,24), "Segure ESC para ir ao Nexus", _caption);
-        GUI.color = new Color(.95f,.7f,.3f);
-        GUI.DrawTexture(new Rect(width-245,192,215*_tutorial.SkipProgress,3),Texture2D.whiteTexture);
+        GUI.Label(new Rect(width-250,165,226,40), "ESC  ·  Pausar / pular tutorial", _caption);
         GUI.matrix = matrix; GUI.color = color;
     }
 }

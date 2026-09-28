@@ -80,6 +80,7 @@ public class PlayerActor : Actor
 
         animator = GetComponent<Animator>();
         abilityHolder = GetComponent<AbilityHolder>();
+        if (!TryGetComponent<PauseMenuUI>(out _)) gameObject.AddComponent<PauseMenuUI>();
 
         WeaponScript weaponToEquip = startingWeapon
             ? startingWeapon
@@ -142,6 +143,8 @@ public class PlayerActor : Actor
 
     public void ActivateHitbox()
     {
+        // Skill damage is scheduled explicitly; legacy clip events belong only to basic attacks.
+        if (abilityHolder && abilityHolder.IsCasting) return;
         if (hitbox)
         {
             hitbox.SetActive(true);
@@ -373,9 +376,10 @@ public class PlayerActor : Actor
 
     public override void TakeDamage(float amount)
     {
+        if (Time.timeScale <= 0f) return;
         float resolvedAmount = Stats.ReduceIncomingDamage(amount);
         base.TakeDamage(resolvedAmount);
-        if (animator)
+        if (animator && !(abilityHolder && abilityHolder.IsCasting))
         {
             animator.Play("GetHit");
         }

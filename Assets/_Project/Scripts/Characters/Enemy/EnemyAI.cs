@@ -73,6 +73,7 @@ public class EnemyAI : MonoBehaviour
 
     private void Update()
     {
+        if (Time.timeScale <= 0f) return;
         if (agent == null || !agent.enabled || !agent.isOnNavMesh || player == null || (_owner && _owner.IsDead))
         {
             SetMovementAnimation();

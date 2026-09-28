@@ -197,7 +197,7 @@ public static class SharedHudBuilder
         SetSkill("Weapon/BreakerAdvance",80,"Avanco",SkillGlyphKind.Strike,new Color(.95f,.65f,.23f));
         SetSkill("Weapon/BreakerFlurry",150,"Punhos",SkillGlyphKind.Flurry,new Color(.95f,.72f,.32f));
         SetSkill("Weapon/BreakerShock",140,"Choque",SkillGlyphKind.Shock,new Color(.32f,.8f,1f));
-        SetSkill("Weapon/BreakerAsura",280,"Asura",SkillGlyphKind.Asura,new Color(1f,.33f,.17f));
+        SetSkill("Weapon/BreakerAsura",0,"Asura",SkillGlyphKind.Asura,new Color(1f,.33f,.17f));
         SetSkill("Weapon/FrontAreaStrike",100,"Impacto",SkillGlyphKind.Strike,new Color(.95f,.65f,.23f));
         SetSkill("Weapon/SwordSlash",120,"Corte",SkillGlyphKind.Sword,new Color(.6f,.8f,1f));
         SetSkill("Dash/Dash",0,"Esquiva",SkillGlyphKind.Dash,new Color(.68f,.77f,.85f));

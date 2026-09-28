@@ -18,7 +18,7 @@ public sealed class RunRewardUI : MonoBehaviour
 
     private void Update()
     {
-        if (!_run || !_run.IsChoosing) return;
+        if (Time.timeScale <= 0f || !_run || !_run.IsChoosing) return;
         if (_knownRoom != _run.RewardRoom) { _knownRoom = _run.RewardRoom; _selected = 0; }
         var keyboard = Keyboard.current;
         if (keyboard == null) return;
@@ -62,7 +62,7 @@ public sealed class RunRewardUI : MonoBehaviour
     }
     private void OnGUI()
     {
-        if (!_run) return;
+        if (Time.timeScale <= 0f || !_run) return;
         Styles();
         Matrix4x4 previous = GUI.matrix;
         Color oldColor = GUI.color;

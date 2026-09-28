@@ -45,13 +45,11 @@ public sealed class TutorialDirector : MonoBehaviour
     private RunBoons _boons;
     private bool _skillUsed, _leaving;
     private int _basicHits, _defeated;
-    private float _skipHeld;
     public TutorialStage Stage { get; private set; }
     public Beat CurrentBeat => _beats[(int)Stage];
     public int BasicHits => _basicHits;
     public int Defeated => _defeated;
     public int EnemyCount => _enemies.Length;
-    public float SkipProgress => Mathf.Clamp01(_skipHeld / 1.2f);
     public bool RewardVisible => _boons && _boons.IsChoosing;
     public bool IsLeaving => _leaving;
     public event Action<TutorialStage> StageChanged;
@@ -78,6 +76,7 @@ public sealed class TutorialDirector : MonoBehaviour
     }
     private void Start()
     {
+        _player.GetComponent<PauseMenuUI>().BindTutorial(this);
         // Teach one predictable loadout without changing the player's saved arsenal selection.
         _player.EquipWeapon(_trainingWeapon); _abilities.RefreshLoadout();
         _player.RestoreHealthToMax(); _player.RestoreMana(_player.maxMana);
@@ -96,12 +95,6 @@ public sealed class TutorialDirector : MonoBehaviour
     }
     private bool Near(Vector3 point)
     { Vector3 offset = _player.transform.position - point; offset.y = 0; return offset.sqrMagnitude < 2.25f; }
-    private void Update()
-    {
-        if (_leaving) return;
-        _skipHeld = Keyboard.current != null && Keyboard.current.escapeKey.isPressed ? _skipHeld + Time.unscaledDeltaTime : 0;
-        if (_skipHeld >= 1.2f) Leave(false);
-    }
     private void Enter(TutorialStage stage)
     {
         Stage = stage;

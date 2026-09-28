@@ -67,7 +67,8 @@ public sealed class LobbyInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (!_player || _loading) return;
+        if (Time.timeScale <= 0f || !_player || _loading) return;
+        if (_player.TryGetComponent(out PauseMenuUI pause) && pause.BlocksInput) return;
         Station nearest = null;
         float bestDistance = _interactionRange * _interactionRange;
         if (_stations != null)
@@ -82,7 +83,6 @@ public sealed class LobbyInteraction : MonoBehaviour
         if (_nearest != nearest) _showDetails = false;
         _nearest = nearest;
         if (Keyboard.current == null) return;
-        if (Keyboard.current.escapeKey.wasPressedThisFrame) _showDetails = false;
         if (_nearest == null || !Keyboard.current.eKey.wasPressedThisFrame) return;
         if (string.IsNullOrEmpty(_nearest.destinationScene)) _showDetails = !_showDetails;
         else if (Application.CanStreamedLevelBeLoaded(_nearest.destinationScene))
@@ -106,7 +106,7 @@ public sealed class LobbyInteraction : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!_player) return;
+        if (Time.timeScale <= 0f || !_player) return;
         if (_heading == null)
         {
             _heading = new GUIStyle(GUI.skin.label) { fontSize = 18, fontStyle = FontStyle.Bold };
@@ -127,7 +127,7 @@ public sealed class LobbyInteraction : MonoBehaviour
         GUI.Label(new Rect(30, 28, 220, 30), "Nexus · Ponto Zero", _heading);
         GUI.Label(new Rect(30, 57, 220, 24), "Área segura", _hint);
         GUI.Label(new Rect(30, 82, 650, 28),
-            "Esquerdo: atacar     ·     Direito: mover     ·     E: interagir     ·     Esc: fechar", _hint);
+            "Esquerdo: atacar     ·     Direito: mover     ·     E: interagir     ·     Esc: pausar", _hint);
         if (_nearest != null)
         {
             if (_showDetails && _nearest.weaponSelection)
@@ -153,7 +153,7 @@ public sealed class LobbyInteraction : MonoBehaviour
         GUI.DrawTexture(box, _panel);
         GUI.Label(new Rect(box.x + 24, box.y + 18, 500, 30), "ARSENAL / PREPARAR INCURSÃO", _heading);
         GUI.Label(new Rect(box.xMax - 320, box.y + 20, 240, 26), $"MOEDAS: {CurrencyWallet.Balance}", _heading);
-        if (GUI.Button(new Rect(box.xMax - 75, box.y + 18, 50, 28), "Esc")) _showDetails = false;
+        if (GUI.Button(new Rect(box.xMax - 85, box.y + 18, 65, 28), "Fechar")) _showDetails = false;
         string[] titles = { "MANOPLA", "ARCO E FLECHA", "LANÇA" };
         string[] styles = { "Principal · Combos e energia Asura", "Precisão · Projéteis e controle de área", "Alcance · Estocadas e varreduras" };
         var actor = _player.GetComponent<PlayerActor>();
@@ -176,7 +176,7 @@ public sealed class LobbyInteraction : MonoBehaviour
                 if (!skill) continue;
                 string detail = skill is ArsenalAbility arsenal ? arsenal.Description :
                     new[] { "Avanço e dois socos · Impulso", "Sequência de socos e finalizador · Impulso",
-                        "Dois impactos com dano de postura · Choque", "Consome 100 de energia Asura para liberar a rajada" }[i];
+                        "Dois impactos com dano de postura · Choque", "100 energia · 85% proteção · Espaço antecipa o finalizador" }[i];
                 GUI.Label(new Rect(box.x + 24, box.y + 179 + i * 42, 810, 22),
                     $"[{new[] { "Q", "W", "E", "R" }[i]}]  {skill.DisplayName}   ·   {skill.ManaCost:0} mana   ·   {skill.cooldownTime:0.#}s", _body);
                 GUI.Label(new Rect(box.x + 60, box.y + 201 + i * 42, 775, 20), detail, _hint);
@@ -193,7 +193,7 @@ public sealed class LobbyInteraction : MonoBehaviour
                 WeaponLoadout.Select(actor, _previewWeapon);
             GUI.enabled = true;
             GUI.Label(new Rect(box.x + 24, box.yMax - 48, 640, 28),
-                canAfford ? "Junte moedas nas incursões para liberar novas armas.  ·  Esc para fechar"
+                canAfford ? "Junte moedas nas incursões para liberar novas armas.  ·  E para fechar"
                           : $"Moedas insuficientes ({CurrencyWallet.Balance}/{cost}).  Derrote inimigos para juntar mais.", _hint);
         }
         else
@@ -202,7 +202,7 @@ public sealed class LobbyInteraction : MonoBehaviour
             if (GUI.Button(actionRect, alreadyEquipped ? "EQUIPADA" : "EQUIPAR " + titles[_previewWeapon]))
                 WeaponLoadout.Select(actor, _previewWeapon);
             GUI.enabled = true;
-            GUI.Label(new Rect(box.x + 24, box.yMax - 48, 520, 28), "Seleção salva para as próximas incursões.  ·  Esc para fechar", _hint);
+            GUI.Label(new Rect(box.x + 24, box.yMax - 48, 520, 28), "Seleção salva para as próximas incursões.  ·  E para fechar", _hint);
         }
     }
 

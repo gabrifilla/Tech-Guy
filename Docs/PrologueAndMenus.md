@@ -12,7 +12,7 @@ O jogo abre em `MainMenu`. Na primeira jornada, **Iniciar jornada** abre `Prolog
 6. Escolher um modificador real usando a mesma interface das runs.
 7. Testar a escolha no alvo, se desejar, e atravessar a saída dourada até o Nexus.
 
-Segurar Esc por 1,2 segundo pula para o Nexus. Morrer reinicia o tutorial. A manopla de treinamento e o modificador escolhido são locais à cena: o equipamento salvo permanece intacto. Os drones não concedem moedas.
+Esc abre o menu de pausa, onde é possível continuar, voltar ao menu inicial, sair do jogo ou pular o tutorial para o Nexus. Morrer reinicia o tutorial. A manopla de treinamento e o modificador escolhido são locais à cena: o equipamento salvo permanece intacto. Os drones não concedem moedas.
 
 ## Preparação para a história
 

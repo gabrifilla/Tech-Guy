@@ -34,6 +34,8 @@ public class AbilityHolder : MonoBehaviour
     private BreakerGauntletCombat _breakerCombat;
     private ArsenalCombat _arsenalCombat;
     private RunBoons _runBoons;
+    private PauseMenuUI _pause;
+    public void BindPause(PauseMenuUI pause) => _pause = pause;
     public void BindRun(RunBoons run) => _runBoons = run;
     public void RefreshLoadout() => RefreshWeaponAbilities(true);
     private CharControlScript _characterControl;
@@ -43,7 +45,7 @@ public class AbilityHolder : MonoBehaviour
 
     public bool IsCasting => (_breakerCombat && _breakerCombat.IsExecuting) ||
         (_arsenalCombat && _arsenalCombat.IsExecuting);
-    public bool BlocksWorldInput => (_lobbyInteraction && _lobbyInteraction.IsPanelOpen) ||
+    public bool BlocksWorldInput => Time.timeScale <= 0f || (_pause && _pause.BlocksInput) || (_lobbyInteraction && _lobbyInteraction.IsPanelOpen) ||
         (_runBoons && _runBoons.IsChoosing);
 
     private enum AbilityState
@@ -219,6 +221,9 @@ public class AbilityHolder : MonoBehaviour
     {
         if (!dash) return false;
         if (dash.GetRemainingCooldown(gameObject) > 0f) return Reject(4, AbilityUseFailure.Cooldown);
+        if (_breakerCombat && _breakerCombat.CanDodgeCancel && !BlocksWorldInput && isActiveAndEnabled &&
+            playerActor && !playerActor.IsDead && playerActor.HasMana(dash.ManaCost) && Camera.main &&
+            !dash.IsDashing(gameObject)) _breakerCombat.FinishForDodge();
         if (!CheckUse(4, dash, KeyCode.Space)) return false;
         if (!dash.TryActivate(gameObject)) return Reject(4, AbilityUseFailure.Requirement);
         AbilityUsed?.Invoke(4);

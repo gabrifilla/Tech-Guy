@@ -112,7 +112,8 @@ public sealed class RunBoons : MonoBehaviour
 
     public bool Choose(int index)
     {
-        if (!IsChoosing || !_player || _player.IsDead || index < 0 || index >= _choices.Count || _holder.IsCasting) return false;
+        if (Time.timeScale <= 0f || !IsChoosing || !_player || _player.IsDead || index < 0 || index >= _choices.Count || _holder.IsCasting) return false;
+        if (_player.TryGetComponent(out PauseMenuUI pause) && pause.BlocksInput) return false;
         Offer offer = _choices[index];
         switch (offer.Id)
         {

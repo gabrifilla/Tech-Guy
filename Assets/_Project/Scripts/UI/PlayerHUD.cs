@@ -114,7 +114,10 @@ public sealed class PlayerHUD : MonoBehaviour
         if (index < 0 || index >= _slots.Length) return;
         _slots[index].Flash(true);
         Ability ability = index < 4 ? _holder.ActiveAbilities[index] : _controls.dashScript;
-        ShowFeedback(ability.ManaCost > 0 ? $"{ability.name}  -{ability.ManaCost:0} mana" : $"{ability.name}  |  Gratis", new Color(.94f,.78f,.45f));
+        string message = ability is BreakerGauntletAbility gauntlet && gauntlet.AsuraBurst
+            ? "ASURA  ·  85% proteção  ·  Espaço: finalizar e esquivar"
+            : ability.ManaCost > 0 ? $"{ability.name}  -{ability.ManaCost:0} mana" : $"{ability.name}  |  Gratis";
+        ShowFeedback(message, new Color(.94f,.78f,.45f));
     }
 
     private void OnRejected(int index, AbilityUseFailure reason)

@@ -128,9 +128,9 @@ public class CharControlScript : MonoBehaviour
 
         if (_abilityHolder && _abilityHolder.BlocksWorldInput) return;
 
-        if (_abilityHolder && _abilityHolder.IsCasting) return;
         isDashing = dashScript != null && dashScript.IsDashing(gameObject);
         HandleDashInput();
+        if (_abilityHolder && _abilityHolder.IsCasting) return;
 
         if (!isDashing)
         {
@@ -310,6 +310,7 @@ public class CharControlScript : MonoBehaviour
 
     private void RequestMove()
     {
+        if (_abilityHolder && (_abilityHolder.BlocksWorldInput || _abilityHolder.IsCasting)) return;
         if (lastMoveRequestFrame == Time.frameCount)
         {
             return;

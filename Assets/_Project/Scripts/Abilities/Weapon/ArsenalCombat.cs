@@ -8,6 +8,7 @@ public sealed class ArsenalCombat : MonoBehaviour
     private PlayerActor _player;
     private NavMeshAgent _agent;
     private Coroutine _cast;
+    private SkillAnimationPlayer _animation;
     private bool _locked, _wasStopped, _wasRotating;
     public bool IsExecuting { get; private set; }
     public float ExecutionDuration { get; private set; }
@@ -16,6 +17,7 @@ public sealed class ArsenalCombat : MonoBehaviour
     {
         _player = GetComponent<PlayerActor>();
         _agent = GetComponent<NavMeshAgent>();
+        _animation = GetComponent<SkillAnimationPlayer>() ?? gameObject.AddComponent<SkillAnimationPlayer>();
         _player.Died += OnDeath;
     }
 
@@ -55,17 +57,25 @@ public sealed class ArsenalCombat : MonoBehaviour
             _agent.isStopped = true;
             _agent.updateRotation = false;
         }
-        if (TryGetComponent(out Animator animator))
-        {
-            int attack = Animator.StringToHash("Attack");
-            if (animator.HasState(0, attack)) animator.Play(attack, 0, 0);
-        }
+        SkillMotion motion = weapon.FiresArrows ? (ability.Kind==ArsenalSkillKind.Rain ? SkillMotion.BowRain : SkillMotion.BowShot) :
+            ability.Kind==ArsenalSkillKind.Thrust ? SkillMotion.SpearThrust :
+            WeaponRunModifiers.Identify(weapon)==RunWeaponFamily.Gauntlet ? SkillMotion.Slam : SkillMotion.SpearSweep;
         try
         {
-            yield return new WaitForSeconds(plan.Windup);
+            float elapsed = 0f;
             for (int i = 0; i < plan.Hits; i++)
             {
+                float impact = plan.Windup + i*plan.Interval;
+                float start = i==0 ? 0 : impact-plan.Interval+Mathf.Min(.04f,plan.Interval*.25f);
+                float end = i==plan.Hits-1 ? ExecutionDuration : impact+Mathf.Min(.04f,plan.Interval*.25f);
+                while (elapsed < impact)
+                {
+                    _animation.Strike(motion,elapsed,start,impact,end);
+                    yield return null;
+                    elapsed += Time.deltaTime;
+                }
                 if (_player.IsDead || _player.CurrentWeapon != weapon) yield break;
+                _animation.Contact(motion);
                 if (ability.Kind == ArsenalSkillKind.Arrow || ability.Kind == ArsenalSkillKind.Volley)
                 {
                     int arrows = plan.Arrows;
@@ -106,7 +116,12 @@ public sealed class ArsenalCombat : MonoBehaviour
                         ArsenalProjectile.Fire(_player, origin + Vector3.up, direction, weapon.attackDamage,
                             plan.Damage * plan.WaveMultiplier, plan.Range * 2, true, ability.AccentColor);
                 }
-                yield return new WaitForSeconds(plan.Interval);
+                while (elapsed < end)
+                {
+                    yield return null;
+                    elapsed += Time.deltaTime;
+                    _animation.Strike(motion,elapsed,start,impact,end);
+                }
             }
         }
         finally { Release(); }
@@ -121,6 +136,7 @@ public sealed class ArsenalCombat : MonoBehaviour
 
     private void Release()
     {
+        if (_animation) _animation.Release();
         if (_locked && _agent && _agent.enabled && _agent.isOnNavMesh)
         {
             _agent.isStopped = _wasStopped;

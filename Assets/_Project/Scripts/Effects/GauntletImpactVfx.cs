@@ -10,14 +10,14 @@ public sealed class GauntletImpactVfx : MonoBehaviour
     private Material _material;
 
     public static void Spawn(Vector3 origin, Vector3 forward, float range, float width,
-        Color color, bool shock, bool burst, int hand)
+        Color color, bool shock, bool burst, int hand, bool radial = false)
     {
         var effect = new GameObject(burst ? "Asura impact" : shock ? "Shock impact" : "Punch trail");
         effect.transform.SetPositionAndRotation(origin, Quaternion.LookRotation(forward, Vector3.up));
-        effect.AddComponent<GauntletImpactVfx>().Build(range, width, color, shock, burst, hand);
+        effect.AddComponent<GauntletImpactVfx>().Build(range, width, color, shock, burst, hand, radial);
     }
 
-    private void Build(float range, float width, Color color, bool shock, bool burst, int hand)
+    private void Build(float range, float width, Color color, bool shock, bool burst, int hand, bool radial)
     {
         _material = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
         _material.SetColor("_BaseColor", color);
@@ -29,21 +29,22 @@ public sealed class GauntletImpactVfx : MonoBehaviour
         _material.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
         _material.renderQueue = 3000;
         float end = Mathf.Max(.6f, range * .8f);
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < (radial ? 0 : 3); i++)
         {
             float x = hand * .24f + (i - 1) * .1f;
             Line(new[] { new Vector3(x, .95f + i * .08f, .25f),
                 new Vector3(x * .6f, 1.05f + i * .08f, end) }, i == 1 ? .09f : .035f);
         }
-        Ring(new Vector3(0, 1.05f, end), shock ? width * .32f : .24f, false, .055f);
-        if (shock)
+        if (!radial) Ring(new Vector3(0, 1.05f, end), shock ? width * .32f : .24f, false, .055f);
+        if (shock || radial)
         {
-            Ring(new Vector3(0, .07f, range * .5f), width * .52f, true, .08f);
-            if (burst) Ring(new Vector3(0, .09f, range * .5f), width * .72f, true, .035f);
+            float centerZ=radial ? 0 : range*.5f;
+            Ring(new Vector3(0, .07f, centerZ), width * .5f, true, burst ? .18f : .08f);
+            if (burst) Ring(new Vector3(0, .09f, centerZ), width * .4f, true, .08f);
             for (int i = 0; i < 8; i++)
             {
                 Vector3 direction = Quaternion.Euler(0, i * 45, 0) * Vector3.forward;
-                Vector3 center = new Vector3(0, .1f, range * .5f);
+                Vector3 center = new Vector3(0, .1f, centerZ);
                 Line(new[] { center + direction * .25f, center + direction * width * .48f }, .045f);
             }
         }
