@@ -5,7 +5,6 @@ using UnityEngine;
 /// refresh (rather than stack uncontrollably) when re-applied. They automatically clean up when
 /// the effect expires or the host dies.
 /// </summary>
-[DisallowMultipleComponent]
 public abstract class StatusEffect : MonoBehaviour
 {
     protected Actor Host { get; private set; }

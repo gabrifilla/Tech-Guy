@@ -4,6 +4,10 @@ using UnityEngine;
 
 public static class ProjectSceneMenu
 {
+    [MenuItem("Tools/Tech Guy/Scenes/Open Main Menu")]
+    public static void OpenMainMenu() => OpenScene(MainMenuSceneBuilder.ScenePath);
+    [MenuItem("Tools/Tech Guy/Scenes/Open Prologue Tutorial")]
+    public static void OpenTutorial() => OpenScene(TutorialSceneBuilder.ScenePath);
     [MenuItem("Tools/Tech Guy/Scenes/Open First Sector")]
     public static void OpenFirstSector() => OpenScene(FirstSectorBuilder.ScenePath);
 
@@ -20,6 +24,8 @@ public static class ProjectSceneMenu
     [MenuItem("Tools/Tech Guy/Scenes/Open Combat Study", true)]
     [MenuItem("Tools/Tech Guy/Scenes/Open Playground", true)]
     [MenuItem("Tools/Tech Guy/Scenes/Open First Sector", true)]
+    [MenuItem("Tools/Tech Guy/Scenes/Open Prologue Tutorial", true)]
+    [MenuItem("Tools/Tech Guy/Scenes/Open Main Menu", true)]
     private static bool CanOpenScene() => !EditorApplication.isPlayingOrWillChangePlaymode;
 
     private static void OpenScene(string path)

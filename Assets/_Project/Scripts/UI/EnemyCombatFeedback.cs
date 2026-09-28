@@ -12,6 +12,9 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
     private Camera _camera;
     private float _damageAt = -10f, _trailingHealth = 1;
     private GUIStyle _label;
+    private SectorBoss _boss;
+    private float _focusUntil;
+    public void ShowFocus() => _focusUntil = Time.time + .25f;
     public Color NameColor => EnemyVisualStyle.NameColor(_variant && _variant.Profile ? _variant.Profile.Rarity : EnemyRarity.Normal, GetComponent<SectorBoss>());
     public float HealthRatio => _actor && _actor.maxHealth > 0 ? Mathf.Clamp01(_actor.health / _actor.maxHealth) : 0;
 
@@ -20,6 +23,7 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
         _actor = GetComponent<Actor>();
         _variant = GetComponent<EnemyVariant>();
         _reaction = GetComponent<CombatReactionController>();
+        _boss = GetComponent<SectorBoss>();
         _actor.DamageReceived += OnDamage;
     }
     private void OnDamage(Actor actor, float amount)
@@ -38,9 +42,13 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
             _trailingHealth = Time.time - _damageAt < .2f ? Mathf.Max(_trailingHealth, HealthRatio) :
                 Mathf.MoveTowards(_trailingHealth, HealthRatio, Time.deltaTime * 1.4f);
         float scale = Mathf.Clamp(Screen.height / 900f, .8f, 1.5f);
-        float barWidth = GetComponent<SectorBoss>() ? 220 : 128;
-        var bar = new Rect(screen.x-barWidth*.5f*scale, Screen.height-screen.y, barWidth*scale, 10*scale);
+        bool focused = Time.time < _focusUntil;
+        bool special = _boss || (_variant && _variant.Profile && _variant.Profile.Rarity != EnemyRarity.Normal);
+        float barWidth = _boss ? 180 : special ? 76 : 60;
+        var bar = new Rect(screen.x-barWidth*.5f*scale, Screen.height-screen.y, barWidth*scale, 5*scale);
         Color old = GUI.color;
+        GUI.color = focused ? new Color(1f,.86f,.48f) : special ? NameColor : new Color(.12f,.09f,.08f);
+        GUI.DrawTexture(new Rect(bar.x-3,bar.y-3,bar.width+6,bar.height+6),Texture2D.whiteTexture);
         GUI.color = new Color(.015f,.02f,.03f,.95f);
         GUI.DrawTexture(new Rect(bar.x-2,bar.y-2,bar.width+4,bar.height+4),Texture2D.whiteTexture);
         GUI.color = new Color(1,.72f,.22f);
@@ -54,7 +62,7 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
         if (_reaction && _reaction.ShouldShowStanceBar)
         {
             float stanceRatio = _reaction.StanceRatio;
-            var stanceBar = new Rect(bar.x, bar.y + bar.height + 3f*scale, bar.width, 5f*scale);
+            var stanceBar = new Rect(bar.x, bar.y + bar.height + 4f*scale, bar.width, 2f*scale);
             GUI.color = new Color(.015f,.02f,.03f,.95f);
             GUI.DrawTexture(new Rect(stanceBar.x-2,stanceBar.y-2,stanceBar.width+4,stanceBar.height+4),Texture2D.whiteTexture);
             GUI.color = _reaction.IsStunned ? Color.white : new Color(.45f,.7f,1f);
@@ -62,6 +70,7 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
             GUI.color = old;
         }
 
+        if (!focused && !_boss) return;
         if (_label == null)
         {
             _label = new GUIStyle(GUI.skin.label) { alignment=TextAnchor.MiddleCenter, fontStyle=FontStyle.Bold };
@@ -78,7 +87,7 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
         _label.normal.textColor = NameColor;
         GUI.Label(new Rect(screen.x-180*scale,bar.y-24*scale,360*scale,22*scale),title,_label);
         _label.normal.textColor = Color.white;
-        GUI.Label(new Rect(screen.x-90*scale,bar.y+11*scale,180*scale,21*scale),
+        GUI.Label(new Rect(screen.x-90*scale,bar.y+16*scale,180*scale,21*scale),
             $"{Mathf.CeilToInt(_actor.health)} / {Mathf.CeilToInt(_actor.maxHealth)}",_label);
     }
     private void OnDestroy() { if (_actor) _actor.DamageReceived -= OnDamage; }

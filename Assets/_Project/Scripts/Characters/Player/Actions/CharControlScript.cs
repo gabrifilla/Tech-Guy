@@ -30,6 +30,10 @@ public class CharControlScript : MonoBehaviour
     [SerializeField] private Vector3 attackBoxSize = new Vector3(2f, 2f, 0f);
     [SerializeField] private LayerMask attackLayers;
 
+    [Header("Cursor Aim Assist")]
+    [SerializeField, Min(0f)] private float _aimAssistRadius = 90f;
+    private readonly Collider[] _aimCandidates = new Collider[128];
+
     [Header("Attack Reaction")]
     // Basic attacks only Push/Stagger and chip stance. They never stun or knock up directly;
     // hard CC only comes from a Stance Break, which basic swings leave to the finisher/skills.
@@ -76,6 +80,7 @@ public class CharControlScript : MonoBehaviour
     private readonly List<ParticleSystem> clickEffectPool = new List<ParticleSystem>();
     private int lastMoveRequestFrame = -1;
     private bool _waitForAttackRelease;
+    private int _runBasicCount;
     public event System.Action BasicAttackPerformed;
     public void RequireAttackRelease() => _waitForAttackRelease = true;
 
@@ -143,10 +148,51 @@ public class CharControlScript : MonoBehaviour
         if (_waitForAttackRelease || (_playerHUD && _playerHUD.BlocksPointer(GetPointerPosition()))) return false;
         Camera aimCamera = mainCamera ? mainCamera : Camera.main;
         if (!aimCamera) return false;
-        Ray ray = aimCamera.ScreenPointToRay(GetPointerPosition());
+        Vector3 pointer = GetPointerPosition();
+        Ray ray = aimCamera.ScreenPointToRay(pointer);
         if (new Plane(Vector3.up, transform.position).Raycast(ray, out float distance))
-            TryBasicAttack(ray.GetPoint(distance));
+        {
+            Actor assistedTarget = ResolveAimTarget(aimCamera, pointer);
+            if (assistedTarget && assistedTarget.TryGetComponent(out EnemyCombatFeedback feedback))
+                feedback.ShowFocus();
+            TryBasicAttack(assistedTarget ? assistedTarget.transform.position : ray.GetPoint(distance));
+        }
         return true;
+    }
+
+    // Compare in screen space so tolerance follows the cursor, independent of camera angle.
+    private Actor ResolveAimTarget(Camera camera, Vector2 pointer)
+    {
+        if (_aimAssistRadius <= 0f) return null;
+        float range = Mathf.Max(.1f, attackRange * (playerActor.RunModifiers?.MeleeScale ?? 1f));
+        int mask = attackLayers.value != 0 ? attackLayers.value : Physics.DefaultRaycastLayers;
+        int count = Physics.OverlapSphereNonAlloc(transform.position, range, _aimCandidates,
+            mask, QueryTriggerInteraction.Collide);
+        float radius = _aimAssistRadius * Mathf.Clamp(Screen.height / 1080f, .5f, 2f);
+        float bestDistance = radius * radius;
+        Actor best = null;
+        Ray cursorRay = camera.ScreenPointToRay(pointer);
+        Actor direct = Physics.Raycast(cursorRay, out RaycastHit directHit, 100f,
+            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)
+            ? directHit.collider.GetComponentInParent<Actor>() : null;
+        for (int i = 0; i < count; i++)
+        {
+            Collider candidate = _aimCandidates[i];
+            Actor actor = candidate.GetComponentInParent<Actor>();
+            if (!actor || actor is PlayerActor || actor.IsDead || !actor.isActiveAndEnabled) continue;
+            Vector3 point = candidate.bounds.center;
+            Vector3 screen = camera.WorldToScreenPoint(point);
+            if (screen.z <= 0 || !camera.pixelRect.Contains((Vector2)screen)) continue;
+            float score = actor == direct ? 0f : ((Vector2)screen - pointer).sqrMagnitude;
+            if (score > bestDistance) continue;
+            Vector3 sight = point - camera.transform.position;
+            if (Physics.Raycast(camera.transform.position, sight.normalized, out RaycastHit obstruction,
+                sight.magnitude, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore) &&
+                obstruction.collider.GetComponentInParent<Actor>() != actor) continue;
+            best = actor;
+            bestDistance = score;
+        }
+        return best;
     }
 
     public bool TryBasicAttack(Vector3 aimPoint)
@@ -740,16 +786,22 @@ public class CharControlScript : MonoBehaviour
         else if (playerActor != null)
         {
             float range = attackRange > 0f ? attackRange : defaultStoppingDistance;
+            float scale = playerActor.RunModifiers?.MeleeScale ?? 1f;
             playerActor.TryApplyAreaDamage(
                 transform.position,
                 transform.forward,
-                range,
-                attackBoxSize,
+                range * scale,
+                attackBoxSize * scale,
                 attackLayers,
                 weapon ? weapon.attackDamage : -1f,
                 1f,
                 0f,
                 BuildBasicAttackReaction(attackIndex, range));
+            _runBasicCount++;
+            int nova = playerActor.RunModifiers?.Rank(WeaponBoon.ComboNova) ?? 0;
+            if (nova > 0 && _runBasicCount % 3 == 0)
+                playerActor.TryApplyAreaDamage(transform.position + Vector3.up * (1f - 2.5f), transform.forward,
+                    .01f, Vector3.one, AreaHitShape.Sphere, 2.5f, attackLayers, weapon.attackDamage, .6f * nova, 0f, null);
         }
 
         if (attackAnimations != null && attackAnimations.Length > 0)

@@ -35,7 +35,8 @@ public sealed class DamagePopup : MonoBehaviour
         Color old = GUI.color;
         float alpha = Mathf.Clamp01((1-age)/.4f);
         var rect = new Rect(screen.x-100,Screen.height-screen.y-20,200,70);
-        string text = Mathf.CeilToInt(Amount).ToString() + (_lethal ? "\nELIMINADO" : "");
+        string text = Amount >= 1000000f ? (Amount / 1000000f).ToString("0.#") + "m" :
+            Amount >= 1000f ? (Amount / 1000f).ToString("0.#") + "k" : Mathf.CeilToInt(Amount).ToString();
         GUI.color = new Color(0,0,0,alpha);
         GUI.Label(new Rect(rect.x+2,rect.y+2,rect.width,rect.height),text,_style);
         GUI.color = _lethal ? new Color(1,.8f,.25f,alpha) : new Color(1,1,1,alpha);

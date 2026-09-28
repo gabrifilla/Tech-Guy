@@ -50,7 +50,7 @@ public class HitboxDamage : MonoBehaviour
 
     public bool TryDamageActor(Actor actor)
     {
-        if (owner == null || actor == null || actor == owner) return false;
+        if (owner == null || actor == null || actor == owner || actor.IsDead) return false;
         if (!hitActors.Add(actor)) return false;
 
         SpawnHitEffect(actor);
@@ -66,7 +66,8 @@ public class HitboxDamage : MonoBehaviour
             Debug.Log($"HitboxDamage: {owner.name} hit {actor.name} for {finalDamage}");
         }
 
-        actor.TakeDamage(finalDamage);
+        if (owner is PlayerActor attacker) attacker.DealResolvedAttackDamage(actor, finalDamage);
+        else actor.TakeDamage(finalDamage);
 
         // Basic swings apply crowd-control too, so weak mobs get pushed back / staggered
         // instead of the player having to dash out of their range.
@@ -75,8 +76,6 @@ public class HitboxDamage : MonoBehaviour
             if (reactionType != HitReactionType.None || stanceDamage > 0f)
                 player.ApplyHitReactionTo(actor, reactionType, reactionStrength, stanceDamage, breakEffect, pushDistance);
 
-            // On-hit run modifiers (e.g. basic attacks Burn / Freeze) also proc on basic swings.
-            if (player.OnHitEffects.HasAnyEffect) player.OnHitEffects.ApplyTo(actor);
         }
 
         return true;

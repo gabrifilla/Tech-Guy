@@ -10,6 +10,7 @@ public sealed class ArsenalCombat : MonoBehaviour
     private Coroutine _cast;
     private bool _locked, _wasStopped, _wasRotating;
     public bool IsExecuting { get; private set; }
+    public float ExecutionDuration { get; private set; }
 
     private void Awake()
     {
@@ -31,16 +32,19 @@ public sealed class ArsenalCombat : MonoBehaviour
     {
         IsExecuting = true;
         WeaponScript weapon = _player.CurrentWeapon;
+        int slot = System.Array.IndexOf(weapon.abilities, ability);
+        ArsenalCastPlan plan = _player.RunModifiers?.Plan(ability, slot) ?? new ArsenalCastPlan(ability);
+        ExecutionDuration = plan.Windup + plan.Hits * plan.Interval;
         SequencedAreaAttackAbility.FaceMousePosition(transform);
         Vector3 origin = transform.position;
         Vector3 direction = transform.forward;
-        Vector3 rainCenter = origin + direction * ability.Range;
+        Vector3 rainCenter = origin + direction * plan.Range;
         // Rain is clamped to the cursor distance, with a fixed ground target for the whole cast.
         if (Camera.main && UnityEngine.InputSystem.Mouse.current != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(UnityEngine.InputSystem.Mouse.current.position.ReadValue());
             if (new Plane(Vector3.up, origin).Raycast(ray, out float distance))
-                rainCenter = origin + Vector3.ClampMagnitude(ray.GetPoint(distance) - origin, ability.Range);
+                rainCenter = origin + Vector3.ClampMagnitude(ray.GetPoint(distance) - origin, plan.Range);
         }
         _locked = _agent && _agent.enabled && _agent.isOnNavMesh;
         if (_locked)
@@ -58,39 +62,51 @@ public sealed class ArsenalCombat : MonoBehaviour
         }
         try
         {
-            yield return new WaitForSeconds(ability.Windup);
-            for (int i = 0; i < ability.Hits; i++)
+            yield return new WaitForSeconds(plan.Windup);
+            for (int i = 0; i < plan.Hits; i++)
             {
                 if (_player.IsDead || _player.CurrentWeapon != weapon) yield break;
                 if (ability.Kind == ArsenalSkillKind.Arrow || ability.Kind == ArsenalSkillKind.Volley)
                 {
-                    int arrows = ability.Kind == ArsenalSkillKind.Volley ? 5 : 1;
+                    int arrows = plan.Arrows;
                     for (int arrow = 0; arrow < arrows; arrow++)
                     {
-                        Vector3 aim = Quaternion.AngleAxis((arrow - (arrows - 1) * .5f) * 9f, Vector3.up) * direction;
+                        Vector3 aim = Quaternion.AngleAxis((arrow - (arrows - 1) * .5f) * Mathf.Min(9f, 100f / Mathf.Max(1, arrows - 1)), Vector3.up) * direction;
                         ArsenalProjectile.Fire(_player, origin + Vector3.up, aim, weapon.attackDamage,
-                            ability.DamageMultiplier, ability.Range, ability.Piercing, ability.AccentColor);
+                            plan.Damage, plan.Range, ability.Piercing, ability.AccentColor);
                     }
                 }
                 else
                 {
                     bool radial = ability.Kind != ArsenalSkillKind.Thrust;
+                    if (plan.TrackCursor && Camera.main && UnityEngine.InputSystem.Mouse.current != null)
+                    {
+                        Ray cursor = Camera.main.ScreenPointToRay(UnityEngine.InputSystem.Mouse.current.position.ReadValue());
+                        if (new Plane(Vector3.up, origin).Raycast(cursor, out float cursorDistance))
+                            rainCenter = origin + Vector3.ClampMagnitude(cursor.GetPoint(cursorDistance) - origin, plan.Range);
+                    }
                     Vector3 center = ability.Kind == ArsenalSkillKind.Rain ? rainCenter : origin;
+                    if (plan.Travel) center += direction * (i * 1.5f);
                     // Sphere helper raises its center by the radius; keep large sweeps at torso height.
-                    center.y += radial ? 1f - ability.Width : 0f;
+                    center.y += radial ? 1f - plan.Width : 0f;
                     // Q sweeps stagger and chip stance; breaking a weak mob's stance briefly stuns it.
                     var reaction = new HitReactionRequest(_player, center, direction, HitReactionType.Stagger,
                         HitStrength.Medium, 40f, StanceBreakEffect.Stun, 0.5f, 1f);
-                    _player.TryApplyAreaDamage(center, direction, radial ? .01f : ability.Range,
-                        new Vector3(ability.Width, 2f, ability.Range), radial ? AreaHitShape.Sphere : AreaHitShape.Box,
-                        ability.Width, Physics.DefaultRaycastLayers, weapon.attackDamage,
-                        ability.DamageMultiplier, 0f, reaction, false);
-                    AttackAreaSwoosh.Spawn((radial ? center + Vector3.up * (ability.Width - 1f) - direction * ability.Width : origin) + Vector3.up * .08f,
-                        direction, radial ? ability.Width * 2 : ability.Range,
-                        new Vector3(radial ? ability.Width * 2 : ability.Width, 1, radial ? ability.Width * 2 : ability.Range),
-                        ability.AccentColor, .25f);
+                    for (int branch = 0; branch < plan.Directions; branch++)
+                    {
+                        Vector3 aim = Quaternion.AngleAxis((branch - (plan.Directions - 1) * .5f) * 25f, Vector3.up) * direction;
+                        _player.TryApplyAreaDamage(center, aim, radial ? .01f : plan.Range,
+                            new Vector3(plan.Width, 2f, plan.Range), radial ? AreaHitShape.Sphere : AreaHitShape.Box,
+                            plan.Width, Physics.DefaultRaycastLayers, weapon.attackDamage, plan.Damage, 0f, reaction, false);
+                        AttackAreaSwoosh.Spawn((radial ? center + Vector3.up * (plan.Width - 1f) - aim * plan.Width : origin) + Vector3.up * .08f,
+                            aim, radial ? plan.Width * 2 : plan.Range,
+                            new Vector3(radial ? plan.Width * 2 : plan.Width, 1, radial ? plan.Width * 2 : plan.Range), ability.AccentColor, .25f);
+                    }
+                    if (plan.WaveMultiplier > 0)
+                        ArsenalProjectile.Fire(_player, origin + Vector3.up, direction, weapon.attackDamage,
+                            plan.Damage * plan.WaveMultiplier, plan.Range * 2, true, ability.AccentColor);
                 }
-                yield return new WaitForSeconds(ability.Interval);
+                yield return new WaitForSeconds(plan.Interval);
             }
         }
         finally { Release(); }

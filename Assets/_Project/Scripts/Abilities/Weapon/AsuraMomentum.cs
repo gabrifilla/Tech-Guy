@@ -5,6 +5,7 @@ public sealed class AsuraMomentum
     public int Energy { get; private set; }
     public bool IsReady => Energy >= Maximum;
     private bool? _lastShock;
+    public void AddEnergy(int amount) => Energy = System.Math.Min(Maximum, Energy + System.Math.Max(0, amount));
 
     public void RegisterSkill(bool shock)
     {

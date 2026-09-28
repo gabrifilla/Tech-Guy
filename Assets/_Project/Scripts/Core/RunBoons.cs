@@ -25,6 +25,8 @@ public sealed class RunBoons : MonoBehaviour
     public IReadOnlyList<Offer> Choices => _choices;
     public IReadOnlyList<Offer> Acquired => _acquired;
     public event Action RewardChosen;
+    public WeaponRunModifiers WeaponModifiers { get; private set; }
+    public WeaponScript RunWeapon => _weapon;
 
     private void Awake()
     {
@@ -39,6 +41,7 @@ public sealed class RunBoons : MonoBehaviour
     {
         if (!_player.CurrentWeapon) { Debug.LogError("Run requires an equipped weapon.", this); enabled = false; return; }
         _weapon = Instantiate(_player.CurrentWeapon);
+        WeaponModifiers = new WeaponRunModifiers(WeaponRunModifiers.Identify(_weapon));
         _owned.Add(_weapon);
         Ability[] source = _weapon.abilities;
         _weapon.abilities = new Ability[source.Length];
@@ -58,6 +61,10 @@ public sealed class RunBoons : MonoBehaviour
         RewardRoom = room;
         var pool = new List<Offer>
         {
+            new Offer("conductor", "Bobina encadeada", "Acertos saltam com 45% do dano e carregam fogo/gelo. Cada cópia: +1 alvo por salto e +0,5m de alcance (inicial: 3,5m)."),
+            new Offer("detonation", "Reator de sucata", "Mortes por impacto explodem: 75% do dano em 3,5m. Cópias: +25 pontos percentuais e +0,5m. Explosões continuam a cadeia."),
+            new Offer("reactor", "Combustível instável", "Com fogo adquirido, sua queimadura ganha por segundo +12% do dano do acerto por cópia. Combine com críticos e descargas."),
+            new Offer("resonance", "Ressonância térmica", "Descargas e explosões: +40% de dano por efeito de fogo/gelo já presente no alvo, por cópia. Prepare a horda com elementos!"),
             new Offer("power", "Núcleo de força", "+25% de dano em ataques básicos e habilidades."),
             new Offer("haste", "Mãos velozes", "+25% de velocidade dos ataques básicos."),
             new Offer("recharge", "Fluxo arcano", "+15 pontos percentuais de redução de recarga."),
@@ -75,12 +82,21 @@ public sealed class RunBoons : MonoBehaviour
                 _weapon.FiresArrows ? "TRANSFORMA Q: troca o disparo duplo por cinco flechas perfurantes em leque." :
                 "TRANSFORMA Q: troca o avanço/estocada por uma explosão circular de 4m. Não gera Asura.")
         };
+        foreach (var definition in WeaponRunModifiers.Catalog)
+            if (definition.Family == WeaponModifiers.Family && WeaponModifiers.Rank(definition.Kind) < definition.MaxRank)
+                pool.Add(new Offer(definition.Id, definition.Title, "Nível " + (WeaponModifiers.Rank(definition.Kind) + 1) + "/" + definition.MaxRank + "\n" + definition.Description));
         // Only single-use boons are removed once taken; repeatable ones (stats + elemental) stay in the pool.
         pool.RemoveAll(offer => IsSingleUse(offer.Id) && _acquired.Exists(owned => owned.Id == offer.Id));
         _choices.Clear();
         // Always include a skill-changing option while one remains, plus two different upgrades.
         Offer skillOffer = pool.Find(offer => offer.Id == "transform") ?? pool.Find(offer => offer.Id == "focus");
         if (skillOffer != null) { _choices.Add(skillOffer); pool.Remove(skillOffer); }
+        var weaponOffers = pool.FindAll(offer => offer.Id.StartsWith("weapon_", StringComparison.Ordinal));
+        if (weaponOffers.Count > 0)
+        {
+            Offer weaponOffer = weaponOffers[_random.Next(weaponOffers.Count)];
+            _choices.Add(weaponOffer); pool.Remove(weaponOffer);
+        }
         while (_choices.Count < 3 && pool.Count > 0)
         {
             int index = _random.Next(pool.Count);
@@ -100,6 +116,14 @@ public sealed class RunBoons : MonoBehaviour
         Offer offer = _choices[index];
         switch (offer.Id)
         {
+            default:
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                break;
+            case "conductor": _player.OnHitEffects.Synergies.Add(RunSynergy.Conductor); break;
+            case "detonation": _player.OnHitEffects.Synergies.Add(RunSynergy.Detonation); break;
+            case "reactor": _player.OnHitEffects.Synergies.Add(RunSynergy.Reactor); break;
+            case "resonance": _player.OnHitEffects.Synergies.Add(RunSynergy.Resonance); break;
             case "power": AddStat(PlayerStatType.IncreasedDamagePercent, 25); break;
             case "haste": AddStat(PlayerStatType.AttackSpeedMultiplier, .25f); break;
             case "recharge": AddStat(PlayerStatType.CooldownReductionPercent, 15); break;
@@ -158,7 +182,7 @@ public sealed class RunBoons : MonoBehaviour
         if (_player)
         {
             _player.Stats.RemoveModifiersFrom(this);
-            _player.OnHitEffects.Clear();
+            if (_player.TryGetComponent(out PlayerOnHitEffects effects)) effects.Clear();
         }
         if (_holder) _holder.BindRun(null);
         foreach (ScriptableObject asset in _owned) if (asset) Destroy(asset);

@@ -189,6 +189,10 @@ public class AbilityHolder : MonoBehaviour
         if (!ability.TryActivate(gameObject)) return Reject(index, AbilityUseFailure.Requirement);
         states[index] = AbilityState.Active;
         activeTimers[index] = Mathf.Max(0f, ability.activeTime);
+        if (ability is ArsenalAbility && _arsenalCombat)
+            activeTimers[index] = Mathf.Max(activeTimers[index], _arsenalCombat.ExecutionDuration);
+        if (ability is BreakerGauntletAbility && _breakerCombat)
+            activeTimers[index] = Mathf.Max(activeTimers[index], _breakerCombat.ExecutionDuration);
 
         if (activeTimers[index] <= 0f)
         {

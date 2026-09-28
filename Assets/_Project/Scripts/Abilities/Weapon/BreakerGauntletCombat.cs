@@ -23,6 +23,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     private bool _agentLocked;
 
     public bool IsExecuting { get; private set; }
+    public float ExecutionDuration { get; private set; }
     public int Energy => _momentum.Energy;
     public bool IsReady => _momentum.IsReady;
     public bool IsEquipped => _weapon && _player && !_player.IsDead && _player.CurrentWeapon == _weapon;
@@ -56,8 +57,17 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     public void Use(BreakerGauntletAbility ability)
     {
         if (!CanUse(ability)) return;
-        if (ability.AsuraBurst) _momentum.TryConsume();
-        else _momentum.RegisterSkill(ability.ShockSkill);
+        WeaponRunModifiers mods = _player.RunModifiers;
+        if (ability.AsuraBurst)
+        {
+            _momentum.TryConsume();
+            _momentum.AddEnergy(20 * (mods?.Rank(WeaponBoon.AsuraReserve) ?? 0));
+        }
+        else
+        {
+            _momentum.RegisterSkill(ability.ShockSkill);
+            _momentum.AddEnergy(10 * (mods?.Rank(WeaponBoon.Momentum) ?? 0));
+        }
         _cast = StartCoroutine(Execute(ability));
     }
 
@@ -67,6 +77,10 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         if (TryGetComponent(out CharControlScript control)) control.CancelCombo();
         SequencedAreaAttackAbility.FaceMousePosition(transform);
         Vector3 direction = transform.forward;
+        WeaponRunModifiers mods = _player.RunModifiers;
+        int slot = System.Array.IndexOf(_weapon.abilities, ability);
+        var steps = mods != null ? mods.GauntletSteps(ability, slot) : ability.HitSteps;
+        float advance = ability.AdvanceDistance * (1 + .7f * (mods?.Rank(WeaponBoon.RocketAdvance) ?? 0));
         if (_animator)
         {
             _savedAnimationSpeed = _animator.speed;
@@ -86,9 +100,10 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         {
             float elapsed = 0f;
             float duration = Mathf.Max(ability.activeTime, ability.AdvanceDuration);
-            foreach (AreaHitStep step in ability.HitSteps)
+            foreach (AreaHitStep step in steps)
                 if (step != null) duration = Mathf.Max(duration, step.delay + 0.18f);
-            var applied = new bool[ability.HitSteps.Count];
+            ExecutionDuration = duration;
+            var applied = new bool[steps.Count];
             PlayPunch(0);
             while (elapsed < duration)
             {
@@ -97,7 +112,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
                 float delta = Time.deltaTime;
                 if (_agentLocked && _agent.enabled && _agent.isOnNavMesh && elapsed < ability.AdvanceDuration)
                 {
-                    float distance = ability.AdvanceDistance * Mathf.Min(delta, ability.AdvanceDuration - elapsed)
+                    float distance = advance * Mathf.Min(delta, ability.AdvanceDuration - elapsed)
                         / Mathf.Max(0.01f, ability.AdvanceDuration);
                     Vector3 destination = transform.position + direction * distance;
                     if (_agent.Raycast(destination, out NavMeshHit edge)) destination = edge.position;
@@ -106,7 +121,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
                 elapsed += delta;
                 for (int i = 0; i < applied.Length; i++)
                 {
-                    AreaHitStep step = ability.HitSteps[i];
+                    AreaHitStep step = steps[i];
                     if (applied[i] || step == null || elapsed < step.delay) continue;
                     applied[i] = true;
                     bool finisher = i == applied.Length - 1;

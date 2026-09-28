@@ -4,6 +4,7 @@ using UnityEngine;
 /// Burn: deals damage over time in ticks. Re-applying refreshes the duration and keeps the higher
 /// tick damage, so repeated hits sustain the burn without stacking into runaway damage.
 /// </summary>
+[DisallowMultipleComponent]
 public sealed class BurnStatus : StatusEffect
 {
     private float _damagePerTick = 2f;

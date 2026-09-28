@@ -20,6 +20,7 @@ public sealed class LobbyInteraction : MonoBehaviour
     [SerializeField] private Transform _player;
     [SerializeField] private Station[] _stations;
     [SerializeField, Min(1f)] private float _interactionRange = 3.5f;
+    [SerializeField] private string _mainMenuScene = "MainMenu";
     private Station _nearest;
     private bool _showDetails;
     private bool _loading;
@@ -28,6 +29,15 @@ public sealed class LobbyInteraction : MonoBehaviour
     private WeaponScript[] _weapons;
     private int _previewWeapon;
     public bool IsPanelOpen => _showDetails || _loading;
+
+    public void ReturnToMainMenu()
+    {
+        if (_loading) return;
+        if (!Application.CanStreamedLevelBeLoaded(_mainMenuScene))
+        { Debug.LogWarning("Main menu is not enabled in Build Settings: " + _mainMenuScene, this); return; }
+        _loading = true;
+        SceneManager.LoadSceneAsync(_mainMenuScene);
+    }
 
     public void Configure(Transform player, Station[] stations)
     {
@@ -113,6 +123,7 @@ public sealed class LobbyInteraction : MonoBehaviour
         GUI.matrix = Matrix4x4.Scale(Vector3.one * scale);
         float width = Screen.width / scale;
         float height = Screen.height / scale;
+        if (GUI.Button(new Rect(width - 210, 28, 180, 36), "Menu inicial")) ReturnToMainMenu();
         GUI.Label(new Rect(30, 28, 220, 30), "Nexus · Ponto Zero", _heading);
         GUI.Label(new Rect(30, 57, 220, 24), "Área segura", _hint);
         GUI.Label(new Rect(30, 82, 650, 28),

@@ -3,9 +3,8 @@ using UnityEngine;
 
 /// <summary>
 /// Per-run registry of on-hit status effects the player applies to every enemy they damage.
-/// RunBoons toggles/upgrades these (e.g. "basic attacks now Burn" or "attacks may Freeze"). Both
-/// the basic-swing path (HitboxDamage) and the ability/area path (PlayerActor) call
-/// <see cref="ApplyTo"/> for each damaged enemy, so a single enabled effect covers all hits.
+/// RunBoons toggles/upgrades these. PlayerActor reports each resolved attack exactly once,
+/// including hitboxes, areas and projectiles. Secondary cascades apply elements without recursion.
 /// </summary>
 [DisallowMultipleComponent]
 public sealed class PlayerOnHitEffects : MonoBehaviour
@@ -17,9 +16,13 @@ public sealed class PlayerOnHitEffects : MonoBehaviour
     private bool _chillEnabled;
     private float _chillSlow;
     private float _chillDuration;
-    private float _chillChance = 1f;
+    private float _chillChance;
+    private RunSynergyEffects _synergies;
+    public float ChillChance => _chillChance;
+    public RunSynergyEffects Synergies => _synergies ? _synergies :
+        (_synergies = GetComponent<RunSynergyEffects>() ?? gameObject.AddComponent<RunSynergyEffects>());
 
-    public bool HasAnyEffect => _burnEnabled || _chillEnabled;
+    public bool HasAnyEffect => _burnEnabled || _chillEnabled || (_synergies && _synergies.HasModifiers);
 
     /// <summary>Enables/strengthens burn on hit. Repeated calls add damage and extend duration.</summary>
     public void EnableBurn(float damagePerSecond, float duration)
@@ -35,16 +38,23 @@ public sealed class PlayerOnHitEffects : MonoBehaviour
         _chillEnabled = true;
         _chillSlow = Mathf.Max(_chillSlow, Mathf.Clamp01(slowFraction));
         _chillDuration = Mathf.Max(_chillDuration, duration);
-        _chillChance = Mathf.Clamp01(Mathf.Max(_chillChance, chance));
+        _chillChance = Mathf.Clamp01(_chillChance + Mathf.Clamp01(chance));
     }
 
     /// <summary>Applies every enabled effect to a single damaged enemy.</summary>
-    public void ApplyTo(Actor enemy)
+    public void ApplyTo(Actor enemy, float damageDealt = 0f)
+    {
+        if (!enemy || enemy is PlayerActor) return;
+        ApplyElements(enemy, damageDealt);
+        if (_synergies && damageDealt > 0f) _synergies.Resolve(enemy, damageDealt, this);
+    }
+
+    public void ApplyElements(Actor enemy, float damageDealt)
     {
         if (!enemy || enemy.IsDead || enemy is PlayerActor) return;
 
         if (_burnEnabled && _burnDps > 0f)
-            BurnStatus.Apply(enemy, _burnDps, _burnDuration);
+            BurnStatus.Apply(enemy, _burnDps + damageDealt * (_synergies ? _synergies.BurnScaling : 0f), _burnDuration);
 
         if (_chillEnabled && _chillSlow > 0f && Random.value <= _chillChance)
             ChillStatus.Apply(enemy, _chillSlow, _chillDuration);
@@ -61,6 +71,7 @@ public sealed class PlayerOnHitEffects : MonoBehaviour
     public void Clear()
     {
         _burnEnabled = false; _burnDps = 0f; _burnDuration = 0f;
-        _chillEnabled = false; _chillSlow = 0f; _chillDuration = 0f; _chillChance = 1f;
+        _chillEnabled = false; _chillSlow = 0f; _chillDuration = 0f; _chillChance = 0f;
+        if (_synergies) _synergies.Clear();
     }
 }

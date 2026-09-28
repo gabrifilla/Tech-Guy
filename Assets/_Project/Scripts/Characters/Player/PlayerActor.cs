@@ -44,6 +44,16 @@ public class PlayerActor : Actor
     private Animator animator;
     private AbilityHolder abilityHolder;
     private PlayerOnHitEffects onHitEffects;
+    private RunBoons _runBoons;
+    public WeaponRunModifiers RunModifiers
+    {
+        get
+        {
+            if (!_runBoons) TryGetComponent(out _runBoons);
+            return _runBoons && _runBoons.isActiveAndEnabled && CurrentWeapon == _runBoons.RunWeapon
+                ? _runBoons.WeaponModifiers : null;
+        }
+    }
     private float baseMaxHealth;
     private float baseMaxMana;
 
@@ -153,7 +163,7 @@ public class PlayerActor : Actor
 
     public bool TryApplyDamage(Actor targetActor, float damageOverride)
     {
-        if (!targetActor || targetActor == this) return false;
+        if (!targetActor || targetActor == this || targetActor.IsDead) return false;
 
         if (damageOverride <= 0f && hitbox && hitbox.TryGetComponent(out HitboxDamage hbDamage))
         {
@@ -164,19 +174,35 @@ public class PlayerActor : Actor
         float damage = RollAttackDamage(baseDamage).Amount;
         if (damage <= 0f) return false;
 
-        targetActor.TakeDamage(damage);
+        DealResolvedAttackDamage(targetActor, damage);
         return true;
     }
 
     public bool TryApplyDamage(Actor targetActor, float weaponDamage, float skillMultiplier, float addedDamage)
     {
-        if (!targetActor || targetActor == this) return false;
+        if (!targetActor || targetActor == this || targetActor.IsDead) return false;
 
         float damage = RollAttackDamage(weaponDamage, skillMultiplier, addedDamage).Amount;
         if (damage <= 0f) return false;
 
-        targetActor.TakeDamage(damage);
+        DealResolvedAttackDamage(targetActor, damage);
         return true;
+    }
+
+    public void DealResolvedAttackDamage(Actor enemy, float damage)
+    {
+        if (!enemy || enemy.IsDead || enemy is PlayerActor || damage <= 0f) return;
+        WeaponRunModifiers modifiers = RunModifiers;
+        if (modifiers != null)
+            damage *= modifiers.DirectDamageMultiplier(Vector3.Distance(transform.position, enemy.transform.position),
+                enemy.health / Mathf.Max(1f, enemy.maxHealth), health / Mathf.Max(1f, maxHealth),
+                (enemy.GetComponent<BurnStatus>() ? 1 : 0) + (enemy.GetComponent<ChillStatus>() ? 1 : 0));
+        float before = enemy.health;
+        enemy.TakeDamage(damage);
+        float dealt = before - enemy.health;
+        if (dealt > 0f && modifiers != null) RestoreMana(2f * modifiers.Rank(WeaponBoon.Siphon));
+        if (dealt > 0f && onHitEffects && onHitEffects.HasAnyEffect)
+            onHitEffects.ApplyTo(enemy, dealt);
     }
 
     public AttackDamageRoll RollAttackDamage(float weaponDamage, float skillMultiplier = 1f, float addedDamage = 0f)
@@ -262,11 +288,6 @@ public class PlayerActor : Actor
         if (damageCount > 0 && abilityHolder)
         {
             abilityHolder.NotifyAttackHits(this, damagedActors);
-        }
-
-        if (damageCount > 0 && onHitEffects && onHitEffects.HasAnyEffect)
-        {
-            onHitEffects.ApplyTo(damagedActors);
         }
 
         return damageCount;

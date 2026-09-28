@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_Project/Scenes/MainMenu.unity
+    guid: f16ee50fc4945e3439698630abb7b413
+  - enabled: 1
+    path: Assets/_Project/Scenes/PrologueTutorial.unity
+    guid: b9dbd7d995ad4d840b7dc123c9000987
+  - enabled: 1
     path: Assets/_Project/Scenes/NexusLobby.unity
     guid: 6dc47f6cb7b15754c9cc7622d8a39b39
   - enabled: 1

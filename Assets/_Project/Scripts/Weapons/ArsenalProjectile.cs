@@ -10,9 +10,27 @@ public sealed class ArsenalProjectile : MonoBehaviour
     private bool _piercing;
     private readonly HashSet<Actor> _hit = new HashSet<Actor>();
     private Material _material;
+    private int _bounces;
+    private bool _homing;
+    private WeaponScript _weapon;
+    private float _nextSeek;
+    private Actor _seekTarget;
+    private readonly Collider[] _candidates = new Collider[64];
 
     public static void Fire(PlayerActor owner, Vector3 origin, Vector3 direction, float damage,
         float multiplier, float range, bool piercing, Color color)
+    {
+        if (!owner || owner.IsDead || direction.sqrMagnitude < .001f) return;
+        WeaponRunModifiers mods = owner.RunModifiers;
+        int twin = mods?.Rank(WeaponBoon.TwinShot) ?? 0;
+        int count = 1 + 2 * twin;
+        for (int i = 0; i < count; i++)
+            FireSingle(owner, origin, Quaternion.AngleAxis((i - (count - 1) * .5f) * 5, Vector3.up) * direction,
+                damage, multiplier / (1 + .5f * twin), range, piercing, color, mods);
+    }
+
+    private static void FireSingle(PlayerActor owner, Vector3 origin, Vector3 direction, float damage,
+        float multiplier, float range, bool piercing, Color color, WeaponRunModifiers mods)
     {
         var go = new GameObject("Energy arrow");
         go.transform.SetPositionAndRotation(origin, Quaternion.LookRotation(direction));
@@ -21,7 +39,10 @@ public sealed class ArsenalProjectile : MonoBehaviour
         arrow._damage = damage;
         arrow._multiplier = multiplier;
         arrow._remaining = range;
-        arrow._piercing = piercing;
+        arrow._piercing = piercing || (mods?.Rank(WeaponBoon.Piercing) ?? 0) > 0;
+        arrow._bounces = 2 * (mods?.Rank(WeaponBoon.Ricochet) ?? 0);
+        arrow._homing = (mods?.Rank(WeaponBoon.Homing) ?? 0) > 0;
+        arrow._weapon = owner.CurrentWeapon;
         var line = go.AddComponent<LineRenderer>();
         line.useWorldSpace = false;
         line.positionCount = 4;
@@ -34,7 +55,21 @@ public sealed class ArsenalProjectile : MonoBehaviour
 
     private void Update()
     {
-        if (!_owner || _owner.IsDead) { Destroy(gameObject); return; }
+        if (!_owner || _owner.IsDead || _owner.CurrentWeapon != _weapon || _remaining <= 0f) { Destroy(gameObject); return; }
+        if (_homing)
+        {
+            if (Time.time >= _nextSeek)
+            {
+                _nextSeek = Time.time + .1f;
+                _seekTarget = FindNextTarget(transform.position, 7f, true);
+            }
+            if (_seekTarget && !_seekTarget.IsDead && !_hit.Contains(_seekTarget))
+            {
+                Vector3 aim = _seekTarget.transform.position + Vector3.up - transform.position;
+                if (aim.sqrMagnitude > .01f)
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(aim), 180 * Time.deltaTime);
+            }
+        }
         float distance = Mathf.Min(_remaining, 24f * Time.deltaTime);
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, .12f, transform.forward,
             distance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
@@ -49,6 +84,18 @@ public sealed class ArsenalProjectile : MonoBehaviour
                 if (_owner.TryApplyDamage(actor, _damage, _multiplier, 0f) &&
                     _owner.TryGetComponent(out AbilityHolder holder))
                     holder.NotifyAttackHits(_owner, new[] { actor });
+                if (_bounces > 0)
+                {
+                    Actor next = FindNextTarget(hit.point, 6f, false);
+                    if (next)
+                    {
+                        _bounces--; _multiplier *= .75f;
+                        Vector3 aim = (next.transform.position + Vector3.up - hit.point).normalized;
+                        transform.SetPositionAndRotation(hit.point + aim * .15f, Quaternion.LookRotation(aim));
+                        _remaining -= hit.distance;
+                        return;
+                    }
+                }
                 if (_piercing) continue;
             }
             else if (hit.collider.isTrigger) continue;
@@ -58,6 +105,20 @@ public sealed class ArsenalProjectile : MonoBehaviour
         transform.position += transform.forward * distance;
         _remaining -= distance;
         if (_remaining <= 0f) Destroy(gameObject);
+    }
+    private Actor FindNextTarget(Vector3 origin, float radius, bool forwardOnly)
+    {
+        int count = Physics.OverlapSphereNonAlloc(origin, radius, _candidates, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
+        Actor best = null; float nearest = radius * radius;
+        for (int i = 0; i < count; i++)
+        {
+            Actor candidate = _candidates[i].GetComponentInParent<Actor>();
+            if (!candidate || candidate is PlayerActor || candidate.IsDead || !candidate.isActiveAndEnabled || _hit.Contains(candidate)) continue;
+            Vector3 delta = _candidates[i].bounds.center - origin;
+            if (delta.sqrMagnitude >= nearest || (forwardOnly && Vector3.Angle(transform.forward, delta) > 50)) continue;
+            best = candidate; nearest = delta.sqrMagnitude;
+        }
+        return best;
     }
     private void OnDestroy() { if (_material) Destroy(_material); }
 }

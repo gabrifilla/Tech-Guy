@@ -6,6 +6,7 @@ using UnityEngine.AI;
 /// reduces movement speed; at or above it, the agent is fully stopped (a freeze), which EnemyAI
 /// already treats as "cannot act". Restores the original speed when the effect ends.
 /// </summary>
+[DisallowMultipleComponent]
 public sealed class ChillStatus : StatusEffect
 {
     private const float FreezeThreshold = 0.9f;
