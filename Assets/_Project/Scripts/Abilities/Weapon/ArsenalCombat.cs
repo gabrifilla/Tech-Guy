@@ -10,6 +10,7 @@ public sealed class ArsenalCombat : MonoBehaviour
     private Coroutine _cast;
     private SkillAnimationPlayer _animation;
     private bool _locked, _wasStopped, _wasRotating;
+    private readonly Collider[] _overlap = new Collider[64]; // R7.5 ChainThrust enemy search buffer
     public bool IsExecuting { get; private set; }
     public float ExecutionDuration { get; private set; }
 
@@ -102,19 +103,31 @@ public sealed class ArsenalCombat : MonoBehaviour
                     // Q sweeps stagger and chip stance; breaking a weak mob's stance briefly stuns it.
                     var reaction = new HitReactionRequest(_player, center, direction, HitReactionType.Stagger,
                         HitStrength.Medium, 40f, StanceBreakEffect.Stun, 0.5f, 1f);
+                    int primaryHits = 0;
                     for (int branch = 0; branch < plan.Directions; branch++)
                     {
                         Vector3 aim = Quaternion.AngleAxis((branch - (plan.Directions - 1) * .5f) * 25f, Vector3.up) * direction;
-                        _player.TryApplyAreaDamage(center, aim, radial ? .01f : plan.Range,
+                        primaryHits += _player.TryApplyAreaDamage(center, aim, radial ? .01f : plan.Range,
                             new Vector3(plan.Width, 2f, plan.Range), radial ? AreaHitShape.Sphere : AreaHitShape.Box,
-                            plan.Width, Physics.DefaultRaycastLayers, weapon.attackDamage, plan.Damage, 0f, reaction, false);
-                        AttackAreaSwoosh.Spawn((radial ? center + Vector3.up * (plan.Width - 1f) - aim * plan.Width : origin) + Vector3.up * .08f,
-                            aim, radial ? plan.Width * 2 : plan.Range,
-                            new Vector3(radial ? plan.Width * 2 : plan.Width, 1, radial ? plan.Width * 2 : plan.Range), ability.AccentColor, .25f);
+                            plan.Width, Physics.DefaultRaycastLayers, weapon.attackDamage, plan.Damage, 0f, reaction, true, ability.AccentColor);
+
                     }
                     if (plan.WaveMultiplier > 0)
+                        // R7.4: ReturnWave flips the wave back toward the player at max range.
                         ArsenalProjectile.Fire(_player, origin + Vector3.up, direction, weapon.attackDamage,
-                            plan.Damage * plan.WaveMultiplier, plan.Range * 2, true, ability.AccentColor);
+                            plan.Damage * plan.WaveMultiplier, plan.Range * 2, true, ability.AccentColor, plan.ReturnWave);
+
+                    // R7.3: MoonShard launches ShardCount (2-6) projectiles from the sweep extremities.
+                    if (radial && ability.Kind == ArsenalSkillKind.Sweep && plan.ShardCount > 0)
+                        FireMoonShards(center, direction, plan, weapon, ability);
+
+                    // R7.5/R7.6: on a connecting thrust, chain exactly one short thrust to a different nearby enemy.
+                    if (!radial && plan.ChainThrust && primaryHits > 0)
+                        TryChainThrust(center, direction, plan, weapon, ability, reaction);
+
+                    // R7.2: PhantomSpear repeats the thrust with a spectral copy after a short delay.
+                    if (!radial && plan.PhantomDelay > 0f)
+                        StartCoroutine(SpectralThrust(center, direction, plan, weapon, ability, reaction, plan.PhantomDelay));
                 }
                 while (elapsed < end)
                 {
@@ -125,6 +138,84 @@ public sealed class ArsenalCombat : MonoBehaviour
             }
         }
         finally { Release(); }
+    }
+
+    // R7.3: launch the shard projectiles from the sweep extremities, fanned across the sweep arc.
+    // Projectiles route their hits through ArsenalProjectile -> PlayerActor.TryApplyDamage (cascade-bounded).
+    private void FireMoonShards(Vector3 center, Vector3 direction, ArsenalCastPlan plan, WeaponScript weapon, ArsenalAbility ability)
+    {
+        int shards = Mathf.Clamp(plan.ShardCount, 2, 6);
+        Vector3 flat = direction; flat.y = 0f;
+        Vector3 forward = flat.sqrMagnitude > .001f ? flat.normalized : transform.forward;
+        Vector3 rimBase = center; rimBase.y = (transform.position + Vector3.up).y;
+        float edge = Mathf.Max(.1f, plan.Width);
+        for (int i = 0; i < shards; i++)
+        {
+            // Spread outward headings evenly across the sweep and originate from the rim in that heading.
+            float t = shards == 1 ? 0f : i / (float)(shards - 1) * 2f - 1f; // -1..1 across the arc
+            Vector3 aim = Quaternion.AngleAxis(t * 90f, Vector3.up) * forward;
+            Vector3 spawn = rimBase + aim * edge;
+            ArsenalProjectile.Fire(_player, spawn, aim, weapon.attackDamage,
+                plan.Damage, plan.Range, ability.Piercing, ability.AccentColor);
+        }
+    }
+
+    // R7.5/R7.6: create exactly one short chain thrust toward a different nearby enemy within 6m; nothing otherwise.
+    private void TryChainThrust(Vector3 center, Vector3 direction, ArsenalCastPlan plan, WeaponScript weapon,
+        ArsenalAbility ability, HitReactionRequest reaction)
+    {
+        // The primary thrust connects with the enemy straight ahead; the chain must reach a *different* one.
+        Actor primary = FindNearbyEnemy(center, 6f, direction, plan.Range);
+        Actor target = FindNearbyEnemy(center, 6f, Vector3.zero, 0f, primary);
+        if (!target) return; // R7.6: no other enemy in range -> create nothing
+        Vector3 toTarget = target.transform.position - center; toTarget.y = 0f;
+        if (toTarget.sqrMagnitude < .001f) return;
+        Vector3 aim = toTarget.normalized;
+        float reach = Mathf.Min(plan.Range, toTarget.magnitude + plan.Width);
+        // Route through the shared area-damage path so the chain hit stays inside MaxDepth/MaxSecondaryHits (R7.9).
+        _player.TryApplyAreaDamage(center, aim, reach,
+            new Vector3(plan.Width, 2f, reach), AreaHitShape.Box, plan.Width,
+            Physics.DefaultRaycastLayers, weapon.attackDamage, plan.Damage, 0f, reaction, true, ability.AccentColor);
+    }
+
+    // R7.2: repeat the thrust with a spectral copy after the plan delay; the repeat reuses the shared damage path.
+    private IEnumerator SpectralThrust(Vector3 center, Vector3 direction, ArsenalCastPlan plan, WeaponScript weapon,
+        ArsenalAbility ability, HitReactionRequest reaction, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (!_player || _player.IsDead || _player.CurrentWeapon != weapon) yield break;
+        Vector3 aim = direction; aim.y = 0f;
+        if (aim.sqrMagnitude < .001f) yield break;
+        aim.Normalize();
+        _player.TryApplyAreaDamage(center, aim, plan.Range,
+            new Vector3(plan.Width, 2f, plan.Range), AreaHitShape.Box, plan.Width,
+            Physics.DefaultRaycastLayers, weapon.attackDamage, plan.Damage, 0f, reaction, true, ability.AccentColor);
+    }
+
+    // Nearest live non-player Actor within radius of origin; used by ChainThrust (R7.5).
+    // When forward is non-zero, only enemies within the forward thrust box (half-width plan) count, so the
+    // "primary" hit can be identified and excluded from the chain target search (R7.5 "different Enemy").
+    private Actor FindNearbyEnemy(Vector3 origin, float radius, Vector3 forward = default, float forwardReach = 0f, Actor exclude = null)
+    {
+        bool forwardOnly = forward.sqrMagnitude > .001f && forwardReach > 0f;
+        Vector3 heading = forwardOnly ? new Vector3(forward.x, 0f, forward.z).normalized : Vector3.zero;
+        int count = Physics.OverlapSphereNonAlloc(origin, radius, _overlap, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
+        Actor best = null; float nearest = radius * radius;
+        for (int i = 0; i < count; i++)
+        {
+            Actor candidate = _overlap[i].GetComponentInParent<Actor>();
+            if (!candidate || candidate == _player || candidate == exclude || candidate.IsDead || !candidate.isActiveAndEnabled) continue;
+            Vector3 delta = candidate.transform.position - origin; delta.y = 0f;
+            if (forwardOnly)
+            {
+                float along = Vector3.Dot(delta, heading);
+                if (along <= 0f || along > forwardReach) continue; // behind the thrust or past its reach
+            }
+            float sqr = delta.sqrMagnitude;
+            if (sqr >= nearest) continue;
+            best = candidate; nearest = sqr;
+        }
+        return best;
     }
 
     public void Cancel()

@@ -37,3 +37,18 @@ O finalizador causa 100 de dano de postura e atordoa por 1,1 s quando quebra a p
 - `WeaponModifierValidation.Run`: regressão de dano das 12 skills com todos os modificadores no máximo.
 
 As validações e capturas encerram o Editor ao terminar; execute em uma cópia isolada do projeto.
+
+## Indicadores de impacto
+
+As áreas de básicos e skills são contornos no chão criados no instante em que o dano é consultado. Caixas usam o mesmo centro, orientação, largura e profundidade de `OverlapBox`; esferas usam um círculo no centro X/Z de `OverlapSphere`, com o mesmo raio. O desenho considera offsets e os tamanhos finais após modificadores, incluindo réplicas, chuva e nova circular. A altura de apresentação usa o plano do jogador.
+
+Os contornos desaparecem sem aumentar ou diminuir a área. Rastros de soco continuam como detalhe de impacto; os antigos anéis decorativos que sugeriam outra área foram removidos. Flechas mantêm seus projéteis visíveis. Os clipes existentes continuam sincronizados pelo cronograma das habilidades.
+
+`ControlsCombatValidation.Run` verifica persistência e entrada remapeada, rascunhos independentes, geometria dos indicadores e bônus de movimento. Executar em batch sem `-quit`; encerra automaticamente. `RunLoopValidation.Run` inclui rejeição de ataques no vazio e fora de alcance.
+
+Validação desta revisão (Unity 6000.5.10f1, batch, sem renderização):
+
+- Compilação concluída; `ControlsCombatValidation.Run` passou.
+- `WeaponModifierValidation.Run`: 251 verificações aprovadas, incluindo as 12 skills com níveis máximos; Asura: 15 verificações aprovadas.
+- `RunLoopValidation.Run`: atravessou os básicos das três armas e as rejeições por vazio/alcance, mas a suíte completa falhou em `Only current room enemies active`. O fluxo completo das salas não está validado nesta revisão.
+- Aparência e legibilidade dos efeitos e do remapeamento ainda precisam de conferência visual em Game view; os testes acima não renderizam a cena.

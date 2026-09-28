@@ -36,18 +36,6 @@ public sealed class GauntletImpactVfx : MonoBehaviour
                 new Vector3(x * .6f, 1.05f + i * .08f, end) }, i == 1 ? .09f : .035f);
         }
         if (!radial) Ring(new Vector3(0, 1.05f, end), shock ? width * .32f : .24f, false, .055f);
-        if (shock || radial)
-        {
-            float centerZ=radial ? 0 : range*.5f;
-            Ring(new Vector3(0, .07f, centerZ), width * .5f, true, burst ? .18f : .08f);
-            if (burst) Ring(new Vector3(0, .09f, centerZ), width * .4f, true, .08f);
-            for (int i = 0; i < 8; i++)
-            {
-                Vector3 direction = Quaternion.Euler(0, i * 45, 0) * Vector3.forward;
-                Vector3 center = new Vector3(0, .1f, centerZ);
-                Line(new[] { center + direction * .25f, center + direction * width * .48f }, .045f);
-            }
-        }
         StartCoroutine(Animate(color, shock ? .32f : .13f));
     }
 
@@ -86,7 +74,7 @@ public sealed class GauntletImpactVfx : MonoBehaviour
         while (elapsed < duration)
         {
             float t = elapsed / duration;
-            transform.localScale = Vector3.one * Mathf.Lerp(.85f, 1.12f, t);
+            // Impact accents fade in place; area boundaries are rendered by the damage query.
             color.a = 1 - t;
             _material.SetColor("_BaseColor", color);
             elapsed += Time.deltaTime;

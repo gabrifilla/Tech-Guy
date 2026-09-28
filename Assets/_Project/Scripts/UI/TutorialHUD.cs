@@ -28,17 +28,33 @@ public sealed class TutorialHUD : MonoBehaviour
             GUI.color = Color.white;
             GUI.Label(new Rect(42,63,430,40), _tutorial.CurrentBeat.title, _title);
             GUI.color = new Color(1,.78f,.4f);
-            GUI.Label(new Rect(42,103,430,28), _tutorial.CurrentBeat.control, _body);
+            GUI.Label(new Rect(42,103,430,28), ControlHint(), _body);
             GUI.color = Color.white;
-            GUI.Label(new Rect(42,137,430,85), _tutorial.CurrentBeat.instruction, _body);
+            GUI.Label(new Rect(42,137,430,85), Instruction(), _body);
             string progress = _tutorial.Stage == TutorialStage.BasicAttack ? _tutorial.BasicHits + " / 3 acertos" :
                 _tutorial.Stage == TutorialStage.Encounter ? _tutorial.Defeated + " / " + _tutorial.EnemyCount + " drones" : "";
             GUI.Label(new Rect(42,226,430,24), progress, _caption);
             GUI.color = new Color(.75f,.85f,.92f);
-            GUI.Label(new Rect(width-360,35,326,115), _tutorial.CurrentBeat.transmission, _body);
+            GUI.Label(new Rect(width-360,35,326,115), _tutorial.Stage == TutorialStage.BasicAttack ? "O personagem se aproxima e ataca automaticamente. Clique no chão para cancelar o alvo." : _tutorial.Stage == TutorialStage.Skill ? "Use as habilidades da barra inferior. Os atalhos podem ser alterados nas configurações." : _tutorial.CurrentBeat.transmission, _body);
         }
         GUI.color = Color.white;
         GUI.Label(new Rect(width-250,165,226,40), "ESC  ·  Pausar / pular tutorial", _caption);
         GUI.matrix = matrix; GUI.color = color;
     }
+    private string ControlHint()
+    {
+        switch (_tutorial.Stage)
+        {
+            case TutorialStage.Movement:
+            case TutorialStage.Departure: return GamePreferences.BindingLabel(GameControl.Primary) + " / " + GamePreferences.BindingLabel(GameControl.Move);
+            case TutorialStage.Dodge: return GamePreferences.BindingLabel(GameControl.Dash);
+            case TutorialStage.BasicAttack: return GamePreferences.BindingLabel(GameControl.Primary);
+            case TutorialStage.Skill: return GamePreferences.BindingLabel(GameControl.Skill1);
+            default: return _tutorial.CurrentBeat.control;
+        }
+    }
+    private string Instruction() => _tutorial.Stage == TutorialStage.BasicAttack
+        ? "Clique no alvo. Aproxime-se automaticamente e acerte 3 ataques dentro do alcance."
+        : _tutorial.Stage == TutorialStage.Skill ? "Aponte para o alvo e use a habilidade 1. Observe a mana e a recarga."
+        : _tutorial.CurrentBeat.instruction;
 }

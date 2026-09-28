@@ -29,6 +29,21 @@ public class PlayerArpgStats
 
     public IReadOnlyList<PlayerStatModifier> RuntimeModifiers => runtimeModifiers;
 
+    // Seedable RNG seam for the critical-hit roll. Defaults to UnityEngine.Random.value so runtime
+    // behavior is unchanged; deterministic property tests inject a seeded source via
+    // SetCritRollForTests (task 1.1 / R11.5). Kept internal and non-behavior-changing, mirroring the
+    // PlayerOnHitEffects.SetChillRollForTests chill-chance seam.
+    private Func<float> critRoll;
+    private float CritRoll() => (critRoll ?? UnityCritRandomValue)();
+    private static float UnityCritRandomValue() => UnityEngine.Random.value;
+
+    /// <summary>
+    /// Test-only seam: replaces the critical-hit roll source so RNG-dependent crit properties are
+    /// deterministic under the Unity test runner. Passing <c>null</c> restores the default
+    /// <see cref="UnityEngine.Random.value"/> behavior. Not used by any gameplay code path.
+    /// </summary>
+    internal void SetCritRollForTests(Func<float> roll) => critRoll = roll;
+
     public void AddModifier(PlayerStatModifier modifier, UnityEngine.Object source = null)
     {
         if (modifier == null) return;
@@ -106,7 +121,7 @@ public class PlayerArpgStats
             * Mathf.Max(0f, GetStat(PlayerStatType.DamageMultiplier))
             * resolvedSkillMultiplier;
 
-        bool isCritical = UnityEngine.Random.value < CriticalChance01;
+        bool isCritical = CritRoll() < CriticalChance01;
         if (isCritical)
         {
             finalAmount *= Mathf.Max(1f, GetStat(PlayerStatType.CriticalDamageMultiplier));

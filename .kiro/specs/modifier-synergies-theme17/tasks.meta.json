@@ -1,0 +1,1220 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Set up the feature test assembly and shared test seams": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618705247
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790625548869
+      }
+    ],
+    "2.1 Add the `HasInlineTarget()` helper and reorder hit resolution in `ArsenalProjectile.Update`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618706340
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618723814
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618945093
+      }
+    ],
+    "2.2 Write property test for pierce-first ordering": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618706556
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619372398
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620189142
+      }
+    ],
+    "2.3 Write property test for ricochet damage decay": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618706684
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619373344
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620190152
+      }
+    ],
+    "2.4 Write property test for no double hit per projectile": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618706767
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619374743
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620191627
+      }
+    ],
+    "2.5 Write example test for terminal destroy": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618706902
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619375529
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620192279
+      }
+    ],
+    "3.1 Expose `ChillStatus.FreezeThreshold`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618707060
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618729024
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618946469
+      }
+    ],
+    "3.2 Add `ReportImpact` to `RunSynergyEffects`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618707200
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618729583
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618947888
+      }
+    ],
+    "3.3 Implement Thermal Shock coordination in `ApplyElements`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618707288
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619136917
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619353222
+      }
+    ],
+    "3.4 Write property test for at-most-one Thermal Shock per qualifying application": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618707420
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620783907
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621870947
+      }
+    ],
+    "3.5 Write property test for no shock without an active opposite element": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618707514
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620785181
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621871986
+      }
+    ],
+    "3.6 Write property test for Thermal Shock burst magnitude": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618707606
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620786279
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621873310
+      }
+    ],
+    "3.7 Write property test for status preservation": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618707686
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620787574
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621874199
+      }
+    ],
+    "3.8 Write property test for Resonance amplification of the shock burst": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618707758
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620788636
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621875666
+      }
+    ],
+    "4.1 Implement combustion and shatter in the detonation branch": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618707858
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620199850
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620773735
+      }
+    ],
+    "4.2 Write property test for element-death detonation classification": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618707940
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621897865
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622532797
+      }
+    ],
+    "4.3 Write property test for cascade bounds invariant (detonation path)": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618708064
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621899245
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622533914
+      }
+    ],
+    "4.4 Write property test for Reactor scaling without a new DoT": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618708142
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621900196
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622535182
+      }
+    ],
+    "4.5 Write property test for isolated burn ticks not detonating": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618708238
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621903099
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622536139
+      }
+    ],
+    "5. Checkpoint — element/cascade interactions": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618708339
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790625560420
+      }
+    ],
+    "6.1 Refine homing seek and launch-frame behavior in `ArsenalProjectile`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618708421
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620201364
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620768568
+      }
+    ],
+    "6.2 Wire fan headings from `ArsenalCombat` so homing does not override them on launch": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618708551
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621894093
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622526210
+      }
+    ],
+    "6.3 Write property test for homing steering constraints": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618708637
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622549984
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622988197
+      }
+    ],
+    "6.4 Write property test for independent per-arrow seeking": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618708756
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622548685
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622983399
+      }
+    ],
+    "6.5 Write property test for no scenery pass-through": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618708857
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622550754
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622982465
+      }
+    ],
+    "7.1 Formalize the spear slot-1 plan branches": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618708987
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618730660
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618949272
+      }
+    ],
+    "7.2 Confirm/extend the Orbit combination hint in `RunModifierPresentation`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618709166
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619140752
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619355855
+      }
+    ],
+    "7.3 Write property test for spear plan correctness and isolation": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618709289
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620204991
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620769614
+      }
+    ],
+    "7.4 Write example test for the Orbit combination hint": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618709390
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620206181
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620771012
+      }
+    ],
+    "8.1 Harden the ComboNova proc gate in `CharControlScript.PerformAttack`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618709484
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618731692
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618950189
+      }
+    ],
+    "8.2 Add the Haste→ComboNova combination hint in `RunModifierPresentation`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618709566
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619142154
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619356249
+      }
+    ],
+    "8.3 Write property test for the ComboNova proc gate": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618709667
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620789938
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621877051
+      }
+    ],
+    "8.4 Write property test for Haste scaling proc frequency proportionally": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618709748
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620790824
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621878005
+      }
+    ],
+    "8.5 Write example tests for the hint and rank-0 skip": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618709825
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620792267
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621879401
+      }
+    ],
+    "9. Checkpoint — Priority 1 complete": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618709901
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790625564577
+      }
+    ],
+    "10.1 Add new `WeaponBoon` members and catalog definitions": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618709984
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618955729
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619126526
+      }
+    ],
+    "10.2 Add `ArsenalCastPlan` fields and consume them in `WeaponRunModifiers.Plan`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618710065
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619138357
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619360137
+      }
+    ],
+    "10.3 Execute the new spear behaviors in `ArsenalCombat`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618710150
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620202649
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620774616
+      }
+    ],
+    "10.4 Write property test for the MoonShard fragment bound": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618710241
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621903705
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622527720
+      }
+    ],
+    "10.5 Write property test for the ChainThrust conditional": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618710390
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621903941
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622529041
+      }
+    ],
+    "10.6 Write property test for cascade bounds across spear secondaries": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618710490
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621905039
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622530136
+      }
+    ],
+    "10.7 Write example tests for catalog membership and metadata": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618710606
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621906217
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622531415
+      }
+    ],
+    "11.1 Create the `HookBus` plain C# class": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618710771
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619139431
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619351829
+      }
+    ],
+    "11.2 Own, create, and clear the `HookBus` in `RunBoons`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618710870
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620203601
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620772460
+      }
+    ],
+    "11.3 Wire OnCrit and OnKill raise-sites in `PlayerActor`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618710954
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621895491
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622523873
+      }
+    ],
+    "11.4 Wire OnBurn and OnFreeze raise-sites in `PlayerOnHitEffects`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618711048
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621896589
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622524929
+      }
+    ],
+    "11.5 Wire OnExplosion, OnStanceBreak, and OnDash raise-sites": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618711134
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622546337
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622981057
+      }
+    ],
+    "11.6 Write property test for OnKill dedupe": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618711221
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623174382
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623478405
+      }
+    ],
+    "11.7 Write property test for hook exception isolation": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618711351
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623175375
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623477009
+      }
+    ],
+    "11.8 Write example tests for hook wiring": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618711481
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623176736
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623475609
+      }
+    ],
+    "12. Checkpoint — spear modifiers and HookBus": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618711650
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790625569125
+      }
+    ],
+    "13.1 Add the Rewrite category flag and presentation in `RunModifierPresentation`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618711836
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618957093
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619127925
+      }
+    ],
+    "13.2 Implement Rewrite offer rules in `RunBoons.OfferReward`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618711960
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619143264
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619357458
+      }
+    ],
+    "13.3 Write property test for the Rewrite offer constraint": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618712069
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620793358
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621880471
+      }
+    ],
+    "13.4 Write example tests for Rewrite classification, presentation, target-gating, and single-use": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618712226
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620794642
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621881754
+      }
+    ],
+    "14.1 Create the `SystemBreakState` plain C# class": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618712379
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618957792
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619128833
+      }
+    ],
+    "14.2 Own, drive, and reset `SystemBreakState` in `RunBoons`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618712457
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619144270
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790619358856
+      }
+    ],
+    "14.3 Write property test for tier mapping and monotonicity": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618712539
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620796027
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621883159
+      }
+    ],
+    "14.4 Write example tests for feedback presentation and missing-asset skip": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618712630
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620796941
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621884191
+      }
+    ],
+    "15.1 Implement atomic run-end clear in `RunBoons.OnDestroy`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618712739
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623001041
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623168963
+      }
+    ],
+    "15.2 Confirm runtime-copy isolation and cascade bounds across all new paths": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618712838
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623177640
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623479324
+      }
+    ],
+    "15.3 Extend editor asset-isolation validation": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618712973
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622547636
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622984796
+      }
+    ],
+    "15.4 Write property test for asset isolation": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618713083
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623488091
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790624902570
+      }
+    ],
+    "15.5 Write property test for run-end residual state": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618713166
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623487414
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790624903482
+      }
+    ],
+    "15.6 Write property test for the global cascade bounds invariant": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618713250
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623486003
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790624904484
+      }
+    ],
+    "16.1 Write integration tests for combined interactions": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618713323
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790624909269
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790625160911
+      }
+    ],
+    "16.2 Run EditMode/PlayMode tests via the Unity CLI test runner; if unavailable, validate structurally": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618713409
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790625165499
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790625365113
+      }
+    ],
+    "17. Final checkpoint — full feature": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790618713501
+      },
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790625573891
+      }
+    ],
+    "2. R1 — Piercing + Ricochet ordering fix in `ArsenalProjectile`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620192359
+      }
+    ],
+    "7. R5 — TripleMoon + Orbit orbital core in `WeaponRunModifiers.Plan` and `RunModifierPresentation`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790620771120
+      }
+    ],
+    "3. R2 — Ignite + Frost → Thermal Shock in `PlayerOnHitEffects`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621875753
+      }
+    ],
+    "8. R6 — Haste feeds ComboNova hardening in `CharControlScript` and `RunModifierPresentation`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621879488
+      }
+    ],
+    "13. R9 — Rewrite reward category (Priority 4)": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621881811
+      }
+    ],
+    "14. R10 — \"System breaking\" escalating feedback (Priority 5)": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790621884270
+      }
+    ],
+    "10. R7 — New transformative Spear modifiers (Priority 2)": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622531555
+      }
+    ],
+    "4. R3 — Detonation reacts to elements (combustion and shatter) in `RunSynergyEffects.Resolve`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622536265
+      }
+    ],
+    "6. R4 — Homing + WideVolley fan-then-home in `ArsenalProjectile` and `ArsenalCombat`": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790622988292
+      }
+    ],
+    "11. R8 — Generic combat-event `HookBus` infrastructure (Priority 3)": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790623478561
+      }
+    ],
+    "15. R11 — Cross-cutting guarantees and atomic run-end clear": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790624904590
+      }
+    ],
+    "16. Integration and smoke coverage": [
+      {
+        "executionId": "6d1c956a-1342-4f00-9c36-89ba210c2d68",
+        "chatSessionId": "sess_92f5d16c-62cc-4d35-ae7e-0d66dbaa4345",
+        "timestamp": 1790625365283
+      }
+    ]
+  }
+}

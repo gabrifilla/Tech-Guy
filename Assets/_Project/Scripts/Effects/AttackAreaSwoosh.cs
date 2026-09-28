@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class AttackAreaSwoosh : MonoBehaviour
 {
-    private const int SegmentCount = 14;
     private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
     private static readonly int ColorId = Shader.PropertyToID("_Color");
     private static readonly int SurfaceId = Shader.PropertyToID("_Surface");
@@ -43,37 +42,70 @@ public class AttackAreaSwoosh : MonoBehaviour
         StartCoroutine(FadeAndDestroy(Mathf.Max(0.01f, duration)));
     }
 
+    public static void SpawnArea(Vector3 center, Vector3 forward, Vector3 size, AreaHitShape shape,
+        float radius, float groundHeight, Color color, float duration)
+    {
+        var effect = new GameObject("Attack area " + shape);
+        center.y = groundHeight + .06f;
+        effect.transform.SetPositionAndRotation(center, Quaternion.LookRotation(forward, Vector3.up));
+        var visual = effect.AddComponent<AttackAreaSwoosh>();
+        color.a = Mathf.Max(.8f, color.a);
+        visual.baseColor = color;
+        var filter = effect.AddComponent<MeshFilter>();
+        visual.meshRenderer = effect.AddComponent<MeshRenderer>();
+        visual._mesh = BuildBoundary(size, shape, radius);
+        filter.sharedMesh = visual._mesh;
+        visual.material = CreateMaterial(color);
+        visual.meshRenderer.sharedMaterial = visual.material;
+        visual.meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+        visual.meshRenderer.receiveShadows = false;
+        visual.StartCoroutine(visual.FadeAndDestroy(Mathf.Max(.12f, duration)));
+    }
+
     private static Mesh BuildMesh(float range, Vector3 boxSize)
     {
-        float width = Mathf.Max(0.1f, boxSize.x);
-        float depth = Mathf.Max(0.1f, boxSize.z > 0f ? boxSize.z : range);
-        float halfWidth = width * 0.5f;
-
-        // A narrow curved ribbon instead of a filled triangular hitbox preview.
-        Vector3[] vertices = new Vector3[(SegmentCount + 1) * 2];
-        int[] triangles = new int[SegmentCount * 6];
-        for (int i = 0; i <= SegmentCount; i++)
-        {
-            float t = i / (float)SegmentCount;
-            float x = Mathf.Lerp(-halfWidth, halfWidth, t);
-            float arc = Mathf.Sin(t * Mathf.PI) * width * 0.22f;
-            float thickness = Mathf.Sin(t * Mathf.PI) * .12f + .012f;
-            vertices[i * 2] = new Vector3(x, 0f, depth - arc);
-            vertices[i * 2 + 1] = new Vector3(x, 0f, depth - arc - thickness);
-            if (i == SegmentCount) continue;
-            int v = i * 2, triangle = i * 6;
-            triangles[triangle] = v; triangles[triangle + 1] = v + 2; triangles[triangle + 2] = v + 1;
-            triangles[triangle + 3] = v + 1; triangles[triangle + 4] = v + 2; triangles[triangle + 5] = v + 3;
-        }
-
-        Mesh mesh = new Mesh
-        {
-            name = "AttackAreaSwooshMesh",
-            vertices = vertices,
-            triangles = triangles
-        };
+        Vector3 size = new Vector3(boxSize.x > 0 ? boxSize.x : 2f,
+            boxSize.y > 0 ? boxSize.y : 2f, boxSize.z > 0 ? boxSize.z : range);
+        Mesh mesh = BuildBoundary(size, AreaHitShape.Box, 0);
+        Vector3[] vertices = mesh.vertices;
+        for (int i = 0; i < vertices.Length; i++) vertices[i].z += range * .5f;
+        mesh.vertices = vertices;
         mesh.RecalculateBounds();
-        mesh.RecalculateNormals();
+        return mesh;
+    }
+
+    // The outside edge is exactly the footprint of the physics query. Never expand the area during fade.
+    private static Mesh BuildBoundary(Vector3 size, AreaHitShape shape, float radius)
+    {
+        int count = shape == AreaHitShape.Sphere ? 64 : 4;
+        var vertices = new Vector3[count * 2];
+        var triangles = new int[count * 6];
+        float thickness = .07f;
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 outer, inner;
+            if (shape == AreaHitShape.Sphere)
+            {
+                float angle = i * Mathf.PI * 2 / count;
+                Vector3 direction = new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle));
+                outer = direction * radius;
+                inner = direction * Mathf.Max(0, radius - thickness);
+            }
+            else
+            {
+                float x = i == 0 || i == 3 ? -1 : 1;
+                float z = i < 2 ? -1 : 1;
+                outer = new Vector3(x * size.x * .5f, 0, z * size.z * .5f);
+                inner = new Vector3(x * Mathf.Max(0, size.x * .5f - thickness), 0,
+                    z * Mathf.Max(0, size.z * .5f - thickness));
+            }
+            vertices[i * 2] = outer; vertices[i * 2 + 1] = inner;
+            int next = (i + 1) % count * 2, t = i * 6, v = i * 2;
+            triangles[t] = v; triangles[t+1] = next; triangles[t+2] = v+1;
+            triangles[t+3] = v+1; triangles[t+4] = next; triangles[t+5] = next+1;
+        }
+        var mesh = new Mesh { name = "Damage footprint", vertices = vertices, triangles = triangles };
+        mesh.RecalculateBounds(); mesh.RecalculateNormals();
         return mesh;
     }
 

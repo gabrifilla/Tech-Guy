@@ -16,6 +16,11 @@ public sealed class RunBoons : MonoBehaviour
     private readonly List<Offer> _acquired = new List<Offer>();
     private readonly List<ScriptableObject> _owned = new List<ScriptableObject>();
     private readonly System.Random _random = new System.Random();
+    // Seedable seam for the Rewrite appearance roll (R9.3): null in production, so the gate falls back
+    // to the shared RNG (_random.NextDouble); tests assign it (by reflection) to a deterministic
+    // Func<double> so the <= 20% gate can be driven reproducibly. Never touches gameplay behavior
+    // beyond which value the roll reads. Used only by OfferReward's Rewrite gate.
+    private Func<double> _rewriteRoll;
     private PlayerActor _player;
     private AbilityHolder _holder;
     private WeaponScript _weapon;
@@ -27,6 +32,12 @@ public sealed class RunBoons : MonoBehaviour
     public event Action RewardChosen;
     public WeaponRunModifiers WeaponModifiers { get; private set; }
     public WeaponScript RunWeapon => _weapon;
+    // Escalating "system breaking" feedback state (R10); owned and driven per run.
+    private SystemBreakState _systemBreak;
+    // Per-run combat-event bus (R8/R11); created per run and cleared on run end so a previous
+    // run's subscribers never fire later. Reached by collaborators through this getter (RunBoons
+    // ownership), never via scene lookups.
+    public HookBus Hooks { get; private set; }
 
     private void Awake()
     {
@@ -53,7 +64,15 @@ public sealed class RunBoons : MonoBehaviour
         }
         _player.EquipWeapon(_weapon);
         _holder.RefreshLoadout();
+        // A fresh escalation state per run; recomputed from Acquired whenever a reward is chosen (R10.5/R11.4).
+        _systemBreak = new SystemBreakState();
+        // A fresh event bus per run; collaborators (raise-sites) reach it via the Hooks getter.
+        Hooks = new HookBus();
+        RewardChosen += EvaluateSystemBreak;
     }
+
+    // Recomputes the interacting-modifier count from the acquired set and drives the escalation tiers (R10.1/R10.2).
+    private void EvaluateSystemBreak() => _systemBreak?.Evaluate(_acquired.Count);
 
     public void OfferReward(int room)
     {
@@ -87,9 +106,16 @@ public sealed class RunBoons : MonoBehaviour
                 pool.Add(new Offer(definition.Id, definition.Title, "Nível " + (WeaponModifiers.Rank(definition.Kind) + 1) + "/" + definition.MaxRank + "\n" + definition.Description));
         // Only single-use boons are removed once taken; repeatable ones (stats + elemental) stay in the pool.
         pool.RemoveAll(offer => IsSingleUse(offer.Id) && _acquired.Exists(owned => owned.Id == offer.Id));
+        // Rewrite category (R9): exclude every Rewrite when no valid target ability exists (R9.5),
+        // and gate its appearance behind a <= 20% roll per offer set (R9.3). At most one Rewrite is
+        // ever added because only ability-replacing ids are classified as Rewrite and each is unique here.
+        bool rewriteAllowed = HasRewriteTarget() && (_rewriteRoll ?? _random.NextDouble)() <= 0.2;
+        if (!rewriteAllowed)
+            pool.RemoveAll(offer => RunModifierPresentation.IsRewriteId(offer.Id));
         _choices.Clear();
         // Always include a skill-changing option while one remains, plus two different upgrades.
-        Offer skillOffer = pool.Find(offer => offer.Id == "transform") ?? pool.Find(offer => offer.Id == "focus");
+        // A Rewrite (when allowed) fills the skill slot; otherwise fall back to the focus upgrade.
+        Offer skillOffer = pool.Find(offer => RunModifierPresentation.IsRewriteId(offer.Id)) ?? pool.Find(offer => offer.Id == "focus");
         if (skillOffer != null) { _choices.Add(skillOffer); pool.Remove(skillOffer); }
         var weaponOffers = pool.FindAll(offer => offer.Id.StartsWith("weapon_", StringComparison.Ordinal));
         if (weaponOffers.Count > 0)
@@ -137,7 +163,7 @@ public sealed class RunBoons : MonoBehaviour
                 break;
             case "brutal": AddStat(PlayerStatType.FlatDamageBonus, 8); break;
             case "bulwark": AddStat(PlayerStatType.Armor, 40); break;
-            case "swift": AddStat(PlayerStatType.MovementSpeedMultiplier, 0.2f, PlayerStatModifierMode.IncreasedPercent); break;
+            case "swift": AddStat(PlayerStatType.MovementSpeedMultiplier, 20f, PlayerStatModifierMode.IncreasedPercent); break;
             case "ignite":
                 // Each pick makes the burn hit harder; duration stays at 4s.
                 _player.OnHitEffects.EnableBurn(6f, 4f);
@@ -178,14 +204,35 @@ public sealed class RunBoons : MonoBehaviour
     // Skill transforms and one-off utility boons are single-use; stat and elemental boons repeat and stack.
     private static bool IsSingleUse(string id) => id == "transform" || id == "focus" || id == "recharge" || id == "vitality";
 
+    // A Rewrite replaces the slot-1 (Q) ability via a runtime copy, so it needs a live ability to rewrite (R9.5).
+    private bool HasRewriteTarget() => _weapon && _weapon.abilities != null && _weapon.abilities.Length > 0 && _weapon.abilities[0];
+
     private void OnDestroy()
     {
-        if (_player)
-        {
-            _player.Stats.RemoveModifiersFrom(this);
-            if (_player.TryGetComponent(out PlayerOnHitEffects effects)) effects.Clear();
-        }
+        // Lifecycle unbinding first: remove stat modifiers and detach from the holder / escalation
+        // driver so nothing can re-populate run-scoped state while (or after) it is being cleared.
+        if (_player) _player.Stats.RemoveModifiersFrom(this);
         if (_holder) _holder.BindRun(null);
+        RewardChosen -= EvaluateSystemBreak;
+        // R11.4: clear every piece of run-scoped state together, as one atomic operation.
+        ClearRunState();
+        // Runtime-copy cleanup last: the atomic clear no longer depends on these assets.
         foreach (ScriptableObject asset in _owned) if (asset) Destroy(asset);
+    }
+
+    // R11.4: atomically clear all run-scoped state as a single operation, so the element registry
+    // (PlayerOnHitEffects), the cascade ranks (RunSynergyEffects, cleared via the element registry's
+    // Clear), the combat-event bus (HookBus), and the escalation feedback (SystemBreakState) are all
+    // reset together rather than independently or at different times. A previous run's state can never
+    // leak into a later run.
+    private void ClearRunState()
+    {
+        // PlayerOnHitEffects.Clear() cascades to RunSynergyEffects.Clear() (it calls _synergies.Clear()),
+        // so this single call empties both the element registry and the cascade ranks.
+        if (_player && _player.TryGetComponent(out PlayerOnHitEffects effects)) effects.Clear();
+        // Drop every subscriber so a previous run's boons never fire in a later run (R8.9).
+        Hooks?.Clear();
+        // Reset the escalation tier (R10.5).
+        _systemBreak?.Reset();
     }
 }

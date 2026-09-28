@@ -7,6 +7,9 @@ using UnityEngine.SceneManagement;
 public sealed class PauseMenuUI : MonoBehaviour
 {
     [SerializeField] private string _mainMenuScene = "MainMenu";
+    private readonly ControlRemappingPanel _remapping = new ControlRemappingPanel();
+    private KeyCode[] _bindings;
+    private bool _settings;
     private PlayerActor _player;
     private TutorialDirector _tutorial;
     private float _previousTimeScale;
@@ -23,8 +26,10 @@ public sealed class PauseMenuUI : MonoBehaviour
     }
     private void Update()
     {
+        if (_settings && _remapping.Update(_bindings)) return;
         if (_loading || !_player || _player.IsDead || Keyboard.current == null) return;
         if (!Keyboard.current.escapeKey.wasPressedThisFrame) return;
+        if (_settings) { _settings = false; _remapping.Cancel(); return; }
         if (_confirmation != 0) _confirmation = 0;
         else if (IsPaused) Resume();
         else Pause();
@@ -39,6 +44,7 @@ public sealed class PauseMenuUI : MonoBehaviour
     public void Resume()
     {
         if (!IsPaused) return;
+        _settings = false; _remapping.Cancel();
         IsPaused = false; _confirmation = 0; _resumeFrame = Time.frameCount;
         Time.timeScale = _previousTimeScale; AudioListener.pause = _previousAudioPause;
         if (TryGetComponent(out CharControlScript controls)) controls.RequireAttackRelease();
@@ -74,6 +80,16 @@ public sealed class PauseMenuUI : MonoBehaviour
         Fill(new Rect(-Screen.width/scale,-Screen.height/scale,Screen.width/scale*3,Screen.height/scale*3),new Color(.012f,.023f,.04f,.93f));
         Fill(new Rect(380,105,520,510),new Color(.035f,.06f,.085f));
         Fill(new Rect(380,105,520,3),new Color(.24f,.86f,1));
+        if (_settings)
+        {
+            GUI.Label(new Rect(415,140,455,55), "Controles", _title);
+            _remapping.Draw(new Rect(415,210,450,275), _bindings);
+            if (GUI.Button(new Rect(415,510,140,42), "Voltar")) { _settings=false; _remapping.Cancel(); }
+            if (GUI.Button(new Rect(565,510,140,42), "Padrões")) { _remapping.Cancel(); _bindings=GamePreferences.DefaultBindings(); }
+            if (GUI.Button(new Rect(715,510,150,42), "Aplicar")) { GamePreferences.SaveBindings(_bindings); _remapping.Cancel(); _settings=false; }
+            GUI.matrix=matrix; GUI.color=color; GUI.depth=depth;
+            return;
+        }
         GUI.Label(new Rect(415,140,455,55),_confirmation==0 ? "Jogo pausado" : _confirmation==1 ? "Voltar ao menu?" : "Sair do jogo?",_title);
         GUI.Label(new Rect(415,207,455,76),_confirmation==0 ? "Respire. A ação continua de onde você parou." :
             "O progresso da incursão atual será encerrado. Moedas, equipamentos e configurações salvos serão mantidos.",_body);
@@ -82,7 +98,8 @@ public sealed class PauseMenuUI : MonoBehaviour
             if (GUI.Button(new Rect(415,298,450,52),"Continuar  ·  Esc",_button)) Resume();
             if (GUI.Button(new Rect(415,366,450,52),"Menu inicial",_button)) _confirmation=1;
             if (GUI.Button(new Rect(415,434,450,52),"Sair do jogo",_button)) _confirmation=2;
-            if (_tutorial && GUI.Button(new Rect(415,502,450,52),"Pular tutorial e ir ao Nexus",_button)) { Resume(); _tutorial.Skip(); }
+            if (GUI.Button(new Rect(415,494,450,42),"Configurações de controles",_button)) { _settings=true; _bindings=GamePreferences.ReadBindings(); }
+            if (_tutorial && GUI.Button(new Rect(415,548,450,52),"Pular tutorial e ir ao Nexus",_button)) { Resume(); _tutorial.Skip(); }
         }
         else
         {

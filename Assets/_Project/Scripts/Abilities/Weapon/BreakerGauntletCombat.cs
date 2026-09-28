@@ -159,7 +159,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         bool finisher=index>=ability.HitSteps.Count-1;
         if (finisher) _finisherApplied=true;
         _animation.Contact(Motion(ability,index));
-        SequencedAreaAttackAbility.ApplyHitStep(transform,_player,_weapon,step,false);
+        SequencedAreaAttackAbility.ApplyHitStep(transform,_player,_weapon,step,true,ability.EffectColor);
         bool radial=step.hitShape==AreaHitShape.Sphere;
         Vector3 origin=transform.TransformPoint(step.localOffset)+(radial ? Vector3.up*(step.sphereRadius-1f) : Vector3.zero);
         GauntletImpactVfx.Spawn(origin,transform.forward,

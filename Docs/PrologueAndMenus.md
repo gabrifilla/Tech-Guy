@@ -4,7 +4,7 @@ O jogo abre em `MainMenu`. Na primeira jornada, **Iniciar jornada** abre `Prolog
 
 ## Tutorial
 
-1. Caminhar até o marcador azul com o botão direito.
+1. Caminhar até o marcador azul clicando no chão com o botão esquerdo ou direito (padrões).
 2. Executar uma esquiva com Espaço.
 3. Acertar três ataques básicos no alvo de treinamento.
 4. Acertar a habilidade Q no alvo.
@@ -28,7 +28,9 @@ A calibração atual é uma base jogável para o prólogo; os textos não estabe
 - **Restaurar padrões** preenche os valores padrão; é necessário aplicar para salvá-los.
 - No jogo compilado, alterações de resolução/modo de tela exigem confirmação em 15 segundos; cancelar, pressionar Esc ou esgotar o tempo restaura os valores anteriores.
 - No Editor, resolução e modo de tela não redimensionam a Game view. As demais configurações são aplicadas normalmente.
-- A página **Controles** mostra os comandos atuais; não implementa remapeamento.
+- **Configurações → Controles** permite remapear seleção/movimento, movimento alternativo, esquiva e quatro habilidades para teclado ou botões do mouse. A terceira habilidade compartilha o atalho de interação contextual no Nexus.
+- Na pausa, **Configurações de controles** oferece o mesmo remapeamento sem sair da run. **Aplicar** salva; **Voltar** descarta; **Padrões** restaura o rascunho.
+- Teclas duplicadas são rejeitadas. Esc cancela a captura e permanece reservado para pausa. HUD, tutorial e Nexus exibem os atalhos atuais.
 
 As preferências usam `TechGuy.Settings.*`. A passagem pelo tutorial usa `TechGuy.Progress.TutorialSeen`; não representa um salvamento de run em andamento. Continuar inicia no Nexus.
 

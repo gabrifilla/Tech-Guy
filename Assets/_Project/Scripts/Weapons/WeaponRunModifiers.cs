@@ -7,7 +7,8 @@ public enum WeaponBoon
 {
     TwinShot, Piercing, Ricochet, Homing, HeavyBolt, RapidBurst, WideVolley, LongRain, GuidedRain, Sniper,
     LongReach, EchoThrust, TripleMoon, Trident, DragonWave, Affliction, SpearTip, Execution, Orbit, Siphon,
-    LongFists, RocketAdvance, FlurryEcho, ShockRing, AsuraEcho, Momentum, AsuraReserve, StanceCrusher, ComboNova, Berserker
+    LongFists, RocketAdvance, FlurryEcho, ShockRing, AsuraEcho, Momentum, AsuraReserve, StanceCrusher, ComboNova, Berserker,
+    PhantomSpear, MoonShard, ReturnWave, ChainThrust
 }
 
 /// <summary>Run-owned ranks and cast snapshots; never writes to weapon/ability assets.</summary>
@@ -45,6 +46,11 @@ public sealed class WeaponRunModifiers
         new Definition(WeaponBoon.Execution, RunWeaponFamily.Spear, "Carrasco", "Acertos diretos contra inimigos abaixo de 30% de vida: +60% de dano por nível."),
         new Definition(WeaponBoon.Orbit, RunWeaponFamily.Spear, "Lua viajante", "W: +25% de raio por nível; as varreduras avançam 1,5m por pulso."),
         new Definition(WeaponBoon.Siphon, RunWeaponFamily.Spear, "Condutor vital", "Cada acerto direto que causa dano recupera 2 de mana por nível. Descargas secundárias não recuperam."),
+        // R7 (Priority 2) transformative Spear behaviors. Applied to per-cast runtime snapshots only (see WeaponRunModifiers.Plan).
+        new Definition(WeaponBoon.PhantomSpear, RunWeaponFamily.Spear, "Lança fantasma", "Estocadas repetem com uma cópia espectral após um instante.", 1),
+        new Definition(WeaponBoon.MoonShard, RunWeaponFamily.Spear, "Lua partida", "Varreduras lançam projéteis a partir das extremidades."),
+        new Definition(WeaponBoon.ReturnWave, RunWeaponFamily.Spear, "Retorno de pacote", "Ondas retornam ao jogador ao atingir o alcance.", 1),
+        new Definition(WeaponBoon.ChainThrust, RunWeaponFamily.Spear, "Encadeamento", "Estocadas encadeiam uma estocada curta a um inimigo próximo.", 1),
         new Definition(WeaponBoon.LongFists, RunWeaponFamily.Gauntlet, "Punhos titânicos", "Básicos e habilidades: +25% de alcance, largura e raio por nível."),
         new Definition(WeaponBoon.RocketAdvance, RunWeaponFamily.Gauntlet, "Propulsor de combate", "Q: +70% de avanço por nível; respeita os limites navegáveis."),
         new Definition(WeaponBoon.FlurryEcho, RunWeaponFamily.Gauntlet, "Mil punhos", "W: repete o último golpe +2 vezes por nível, a 55% do dano e postura."),
@@ -94,10 +100,24 @@ public sealed class WeaponRunModifiers
         }
         if (Family == RunWeaponFamily.Spear)
         {
-            if (ability.Kind == ArsenalSkillKind.Thrust) { plan.Hits += Rank(WeaponBoon.EchoThrust); plan.Damage /= 1 + .2f * Rank(WeaponBoon.EchoThrust); }
-            if (slot == 1) { plan.Hits += 2 * Rank(WeaponBoon.TripleMoon); plan.Width *= 1 + .25f * Rank(WeaponBoon.Orbit); plan.Travel = Rank(WeaponBoon.Orbit) > 0; }
+            if (ability.Kind == ArsenalSkillKind.Thrust)
+            {
+                plan.Hits += Rank(WeaponBoon.EchoThrust); plan.Damage /= 1 + .2f * Rank(WeaponBoon.EchoThrust);
+                plan.PhantomDelay = Rank(WeaponBoon.PhantomSpear) > 0 ? .35f : 0f; // R7.2: within 0.2-0.5s
+                plan.ChainThrust = Rank(WeaponBoon.ChainThrust) > 0;               // R7.5/R7.6
+            }
+            if (ability.Kind == ArsenalSkillKind.Sweep)
+                plan.ShardCount = Mathf.Clamp(2 * Rank(WeaponBoon.MoonShard), 0, 6); // R7.3: between 2 and 6
+            if (slot == 1)
+            {
+                // TripleMoon + Orbit orbital core (R5). Applied to the fresh per-cast snapshot only (R5.5);
+                // every branch reads from ranks and mutates the local plan, never the source ability/weapon asset.
+                plan.Hits += 2 * Rank(WeaponBoon.TripleMoon);        // R5.1/R5.2: base sweeps + 2 per TripleMoon rank
+                plan.Width *= 1 + .25f * Rank(WeaponBoon.Orbit);     // R5.1/R5.3: width x (1 + 0.25 per Orbit rank); unchanged when Orbit rank 0
+                plan.Travel = Rank(WeaponBoon.Orbit) > 0;            // R5.1/R5.3: outward travel enabled only by Orbit; false when Orbit rank 0
+            }
             if (slot == 2 && Rank(WeaponBoon.Trident) > 0) { plan.Directions = 3; plan.Damage *= .6f; }
-            if (slot == 3) plan.WaveMultiplier = .6f * Rank(WeaponBoon.DragonWave);
+            if (slot == 3) { plan.WaveMultiplier = .6f * Rank(WeaponBoon.DragonWave); plan.ReturnWave = Rank(WeaponBoon.ReturnWave) > 0; } // R7.4
         }
         return plan;
     }
@@ -139,6 +159,11 @@ public sealed class ArsenalCastPlan
     public float Windup, Interval, Range, Width, Damage, WaveMultiplier;
     public int Hits, Arrows, Directions = 1;
     public bool TrackCursor, Travel;
+    // R7 transformative spear behaviors, set from ranks in WeaponRunModifiers.Plan (per-cast snapshot only).
+    public float PhantomDelay;   // R7.2: 0 = off; 0.2-0.5 when PhantomSpear active
+    public int ShardCount;       // R7.3: 0 = off; clamped 2-6 when MoonShard active
+    public bool ReturnWave;      // R7.4
+    public bool ChainThrust;     // R7.5/R7.6
     public ArsenalCastPlan(ArsenalAbility ability)
     {
         Windup = ability.Windup; Interval = ability.Interval; Range = ability.Range;

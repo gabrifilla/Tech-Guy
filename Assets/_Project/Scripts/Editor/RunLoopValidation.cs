@@ -75,7 +75,11 @@ public static class RunLoopValidation
             {
                 case 0:
                     Resolve();
-                    Require(WeaponLoadout.Select(_player, _weaponIndex), "Equip basic test weapon");
+                    // Combat coverage must not depend on the user's purchased arsenal.
+                    var testWeapon = Resources.Load<WeaponScript>(WeaponLoadout.ResourcePaths[_weaponIndex]);
+                    Require(testWeapon, "Load basic test weapon");
+                    _player.EquipWeapon(testWeapon);
+                    _holder.RefreshLoadout();
                     _player.Stats.criticalChance = 0;
                     var config = new SerializedObject(_player);
                     config.FindProperty("_manaRegenerationPercentPerSecond").floatValue = 0;
@@ -91,6 +95,13 @@ public static class RunLoopValidation
                     Next(1); break;
                 case 1:
                     _player.mana = 0;
+                    Require(!_controls.TryBasicAttack(_player.transform.position + Vector3.right * 50), "Empty ground never attacks");
+                    Vector3 near = _dummy.transform.position;
+                    _dummy.transform.position += Vector3.forward * 100;
+                    Physics.SyncTransforms();
+                    Require(!_controls.TryBasicAttack(_dummy.transform.position), "Out-of-range enemy never attacks");
+                    _dummy.transform.position = near;
+                    Physics.SyncTransforms();
                     Require(_controls.TryBasicAttack(_dummy.transform.position), "Basic attack accepted with zero mana");
                     Require(!_controls.TryBasicAttack(_dummy.transform.position), "Basic cadence enforced");
                     Next(2, .85); break;
@@ -107,7 +118,10 @@ public static class RunLoopValidation
                     Next(3, 2); break;
                 case 3:
                     Require(_holder.GetRemainingCooldown(0) > 0, "Skill remains on cooldown");
-                    Require(_controls.TryBasicAttack(_player.transform.position + Vector3.forward), "Basic works while skill cools down");
+                    // Advancing skills can leave the dummy behind; the next basic now requires a nearby enemy.
+                    _dummy.transform.position = _player.transform.position + _player.transform.forward * 1.4f + Vector3.up;
+                    Physics.SyncTransforms();
+                    Require(_controls.TryBasicAttack(_dummy.transform.position), "Basic works while skill cools down");
                     Object.Destroy(_dummy.gameObject);
                     _weaponIndex++;
                     if (_weaponIndex < 3) Next(0, 1);

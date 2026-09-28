@@ -1,7 +1,7 @@
 # Ataques básicos e incursões por salas
 
-- **Segurar o botão esquerdo:** atacar continuamente na direção do cursor, sem gastar mana. Funciona com manopla, arco e lança e enquanto Q/W/E/R estão em recarga.
-- **Botão direito:** mover. Shift + direito continua permitindo um ataque parado.
+- **Botão esquerdo:** selecionar um inimigo, aproximar-se e atacar automaticamente apenas dentro do alcance e com linha de visão. Clicar no chão cancela o alvo e move o personagem. Básicos não gastam mana e funcionam durante a recarga das skills.
+- **Botão direito:** também move/interage. Ataques no vazio foram removidos. Os dois comandos podem ser remapeados nas configurações.
 - **Q/W/E/R:** habilidades. Durante a execução de uma habilidade ou dash, o ataque básico aguarda; recarga de habilidade não bloqueia o básico.
 
 O FirstSector é a primeira fase, com **três salas fixas conectadas**: acesso, relé e guardião. Entrar em uma sala fecha as portas e ativa somente seus inimigos. Matar todos abre uma escolha de três bênçãos diferentes. A saída só abre após escolher uma delas, com clique ou teclas **1/2/3**. O portal final só libera após concluir a terceira sala e escolher a recompensa. Morte ou extração levam ao Nexus; os bônus e transformações são descartados, mas a arma escolhida no arsenal permanece salva.

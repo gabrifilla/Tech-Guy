@@ -18,6 +18,9 @@ public sealed class SkillSlotView : MonoBehaviour
 
     public void Present(Ability ability, string key, float remaining, float ratio, bool active, bool hasMana, bool requirement)
     {
+        _key.enableAutoSizing = true;
+        _key.fontSizeMin = 8;
+        _key.fontSizeMax = 16;
         _key.text = key;
         if (!ability)
         {

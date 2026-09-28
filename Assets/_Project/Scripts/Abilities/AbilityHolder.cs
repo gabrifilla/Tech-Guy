@@ -224,9 +224,12 @@ public class AbilityHolder : MonoBehaviour
         if (_breakerCombat && _breakerCombat.CanDodgeCancel && !BlocksWorldInput && isActiveAndEnabled &&
             playerActor && !playerActor.IsDead && playerActor.HasMana(dash.ManaCost) && Camera.main &&
             !dash.IsDashing(gameObject)) _breakerCombat.FinishForDodge();
-        if (!CheckUse(4, dash, KeyCode.Space)) return false;
+        if (!CheckUse(4, dash, GamePreferences.Binding(GameControl.Dash))) return false;
         if (!dash.TryActivate(gameObject)) return Reject(4, AbilityUseFailure.Requirement);
         AbilityUsed?.Invoke(4);
+        // R8.7: a dash succeeded — raise OnDash exactly once. The bus is reached through the
+        // RunBoons reference bound to this holder (no scene lookup) and is null outside a run.
+        if (_runBoons) _runBoons.Hooks?.RaiseDash();
         return true;
     }
 
@@ -264,38 +267,10 @@ public class AbilityHolder : MonoBehaviour
         }
     }
 
-    private bool IsAbilityKeyPressed(int index)
-    {
-        KeyCode keyCode = ResolveKey(index);
+    private bool IsAbilityKeyPressed(int index) => GamePreferences.WasPressed(ResolveKey(index));
 
-#if ENABLE_INPUT_SYSTEM
-        if (TryGetKey(keyCode, out Key key))
-        {
-            Keyboard keyboard = Keyboard.current;
-            if (keyboard is not null)
-            {
-                return keyboard[key].wasPressedThisFrame;
-            }
-        }
-#endif
-
-        return Input.GetKeyDown(keyCode);
-    }
-
-    private KeyCode ResolveKey(int index)
-    {
-        if (keys is not null && index < keys.Length && keys[index] != KeyCode.None)
-        {
-            return keys[index];
-        }
-
-        if (index < DefaultAbilityKeys.Length)
-        {
-            return DefaultAbilityKeys[index];
-        }
-
-        return KeyCode.None;
-    }
+    private KeyCode ResolveKey(int index) => index >= 0 && index < 4
+        ? GamePreferences.Binding((GameControl)((int)GameControl.Skill1 + index)) : KeyCode.None;
 
     private float GetCooldownDuration(Ability ability)
     {

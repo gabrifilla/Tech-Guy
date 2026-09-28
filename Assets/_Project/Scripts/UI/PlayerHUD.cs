@@ -101,7 +101,7 @@ public sealed class PlayerHUD : MonoBehaviour
             float ratio = i < 4 ? _holder.GetCooldownRatio(i) : remaining / Mathf.Max(.001f, ability ? ability.cooldownTime * _player.Stats.CooldownMultiplier : 1f);
             bool active = i < 4 ? _holder.IsAbilityActive(i) : ability is DashScript move && move.IsDashing(_player.gameObject);
             bool requirement = !(ability is BreakerGauntletAbility breakerAbility) || !breakerAbility.AsuraBurst || (hasAsura && _breaker.IsReady) || active;
-            _slots[i].Present(ability, i < 4 ? _holder.GetAbilityKey(i).ToString() : "SPACE", remaining, ratio,
+            _slots[i].Present(ability, i < 4 ? GamePreferences.KeyLabel(_holder.GetAbilityKey(i)) : GamePreferences.BindingLabel(GameControl.Dash), remaining, ratio,
                 active, ability && _player.HasMana(ability.ManaCost), requirement);
             if (ability && RectTransformUtility.RectangleContainsScreenPoint(_slots[i].Rect, pointer, null))
                 _tooltip.text = $"{ability.name}  ·  {ability.ManaCost:0} mana  ·  {ability.cooldownTime:0.#}s recarga";

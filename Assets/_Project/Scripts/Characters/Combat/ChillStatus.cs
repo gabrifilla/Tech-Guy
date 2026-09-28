@@ -9,7 +9,12 @@ using UnityEngine.AI;
 [DisallowMultipleComponent]
 public sealed class ChillStatus : StatusEffect
 {
-    private const float FreezeThreshold = 0.9f;
+    /// <summary>
+    /// Slow fraction at or above which the enemy is fully stopped (frozen). Exposed as
+    /// <c>internal</c> so freeze/shock checks (e.g. <c>PlayerOnHitEffects</c>) can gate on the
+    /// freeze condition without duplicating the literal.
+    /// </summary>
+    internal const float FreezeThreshold = 0.9f;
 
     private NavMeshAgent _agent;
     private float _baseSpeed;

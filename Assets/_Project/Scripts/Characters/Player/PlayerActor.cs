@@ -45,6 +45,12 @@ public class PlayerActor : Actor
     private AbilityHolder abilityHolder;
     private PlayerOnHitEffects onHitEffects;
     private RunBoons _runBoons;
+    // R8.6: controllers whose StanceBroken signal this player is watching, mapped to the exact
+    // handler delegate subscribed for each, so every subscription is added once and removed on
+    // teardown (no cross-run leak). StanceBroken is Action<Vector3> (break point only), so the
+    // per-controller handler is a closure that captures its controller to resolve the owning Actor.
+    private readonly Dictionary<CombatReactionController, System.Action<Vector3>> _watchedStanceControllers =
+        new Dictionary<CombatReactionController, System.Action<Vector3>>();
     public WeaponRunModifiers RunModifiers
     {
         get
@@ -52,6 +58,20 @@ public class PlayerActor : Actor
             if (!_runBoons) TryGetComponent(out _runBoons);
             return _runBoons && _runBoons.isActiveAndEnabled && CurrentWeapon == _runBoons.RunWeapon
                 ? _runBoons.WeaponModifiers : null;
+        }
+    }
+
+    /// <summary>
+    /// Per-run combat-event bus (R8), owned by <see cref="RunBoons"/>. Resolved through the same
+    /// run-scoped reference used for <see cref="RunModifiers"/> (RunBoons ownership, no scene
+    /// lookups). Null outside an active run so raise-sites must null-guard before use.
+    /// </summary>
+    public HookBus Hooks
+    {
+        get
+        {
+            if (!_runBoons) TryGetComponent(out _runBoons);
+            return _runBoons && _runBoons.isActiveAndEnabled ? _runBoons.Hooks : null;
         }
     }
     private float baseMaxHealth;
@@ -174,10 +194,10 @@ public class PlayerActor : Actor
         }
 
         float baseDamage = damageOverride > 0f ? damageOverride : weapon ? weapon.attackDamage : 0f;
-        float damage = RollAttackDamage(baseDamage).Amount;
-        if (damage <= 0f) return false;
+        AttackDamageRoll roll = RollAttackDamage(baseDamage);
+        if (roll.Amount <= 0f) return false;
 
-        DealResolvedAttackDamage(targetActor, damage);
+        DealResolvedAttackDamage(targetActor, roll.Amount, roll.IsCritical);
         return true;
     }
 
@@ -185,14 +205,19 @@ public class PlayerActor : Actor
     {
         if (!targetActor || targetActor == this || targetActor.IsDead) return false;
 
-        float damage = RollAttackDamage(weaponDamage, skillMultiplier, addedDamage).Amount;
-        if (damage <= 0f) return false;
+        AttackDamageRoll roll = RollAttackDamage(weaponDamage, skillMultiplier, addedDamage);
+        if (roll.Amount <= 0f) return false;
 
-        DealResolvedAttackDamage(targetActor, damage);
+        DealResolvedAttackDamage(targetActor, roll.Amount, roll.IsCritical);
         return true;
     }
 
     public void DealResolvedAttackDamage(Actor enemy, float damage)
+    {
+        DealResolvedAttackDamage(enemy, damage, false);
+    }
+
+    public void DealResolvedAttackDamage(Actor enemy, float damage, bool isCritical)
     {
         if (!enemy || enemy.IsDead || enemy is PlayerActor || damage <= 0f) return;
         WeaponRunModifiers modifiers = RunModifiers;
@@ -206,6 +231,19 @@ public class PlayerActor : Actor
         if (dealt > 0f && modifiers != null) RestoreMana(2f * modifiers.Rank(WeaponBoon.Siphon));
         if (dealt > 0f && onHitEffects && onHitEffects.HasAnyEffect)
             onHitEffects.ApplyTo(enemy, dealt);
+
+        // R8.2/R8.3: surface crit and kill through the per-run HookBus owned by RunBoons. The bus
+        // may be absent outside a run (bus null), so every raise is null-guarded; OnKill is deduped
+        // inside the bus so repeat notifications for the same enemy fire the hook only once.
+        if (dealt > 0f)
+        {
+            HookBus hooks = Hooks;
+            if (hooks != null)
+            {
+                if (isCritical) hooks.RaiseCrit(enemy, dealt);
+                if (enemy.IsDead) hooks.RaiseKill(enemy);
+            }
+        }
     }
 
     public AttackDamageRoll RollAttackDamage(float weaponDamage, float skillMultiplier = 1f, float addedDamage = 0f)
@@ -238,7 +276,7 @@ public class PlayerActor : Actor
         return TryApplyAreaDamage(origin, forward, range, boxSize, AreaHitShape.Box, 0f, targetLayers, weaponDamage, skillMultiplier, addedDamage, reactionRequest);
     }
 
-    public int TryApplyAreaDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize, AreaHitShape hitShape, float sphereRadius, LayerMask targetLayers, float weaponDamage, float skillMultiplier, float addedDamage, HitReactionRequest? reactionRequest, bool showEffect = true)
+    public int TryApplyAreaDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize, AreaHitShape hitShape, float sphereRadius, LayerMask targetLayers, float weaponDamage, float skillMultiplier, float addedDamage, HitReactionRequest? reactionRequest, bool showEffect = true, Color? effectColor = null)
     {
         if (range <= 0f || forward.sqrMagnitude <= Mathf.Epsilon) return 0;
 
@@ -253,19 +291,22 @@ public class PlayerActor : Actor
             center = origin + normalizedForward * range;
             center.y += resolvedRadius;
 
-            Vector3 effectOrigin = origin + normalizedForward * Mathf.Max(0f, range - resolvedRadius);
-            Vector3 effectSize = Vector3.one * (resolvedRadius * 2f);
-            if (showEffect) ShowAttackAreaSwoosh(effectOrigin, normalizedForward, resolvedRadius * 2f, effectSize);
+            if (showEffect && showAttackAreaSwoosh)
+                AttackAreaSwoosh.SpawnArea(center, normalizedForward, Vector3.one * resolvedRadius * 2,
+                    AreaHitShape.Sphere, resolvedRadius, transform.position.y,
+                    effectColor ?? attackAreaSwooshColor, Mathf.Max(.25f, attackAreaSwooshDuration));
 
             hits = Physics.OverlapSphere(center, resolvedRadius, mask, QueryTriggerInteraction.Collide);
         }
         else
         {
             Vector3 resolvedBoxSize = ResolveAttackBoxSize(range, boxSize);
-            if (showEffect) ShowAttackAreaSwoosh(origin, normalizedForward, range, resolvedBoxSize);
             center = origin + normalizedForward * (range * 0.5f);
             center.y += resolvedBoxSize.y * 0.5f;
 
+            if (showEffect && showAttackAreaSwoosh)
+                AttackAreaSwoosh.SpawnArea(center, normalizedForward, resolvedBoxSize, AreaHitShape.Box, 0,
+                    transform.position.y, effectColor ?? attackAreaSwooshColor, Mathf.Max(.25f, attackAreaSwooshDuration));
             hits = Physics.OverlapBox(center, resolvedBoxSize * 0.5f, Quaternion.LookRotation(normalizedForward), mask, QueryTriggerInteraction.Collide);
         }
 
@@ -327,6 +368,12 @@ public class PlayerActor : Actor
 
         if (!reactionController) return;
 
+        // R8.6: this reaction is player-caused, so watch the controller's StanceBroken signal and
+        // surface a stance break through the per-run HookBus. Subscribed once per controller (the
+        // handler resolves the owning Actor from the controller's GameObject) and unsubscribed on
+        // teardown so a break never fires into a stale handler after the run ends.
+        WatchStanceBreaks(reactionController);
+
         HitReactionRequest request = reactionRequest.Value;
         Vector3 hitDirection = request.HitDirection.sqrMagnitude > Mathf.Epsilon
             ? request.HitDirection
@@ -344,6 +391,45 @@ public class PlayerActor : Actor
             request.StunDuration,
             request.KnockUpHeight,
             request.KnockbackDistance));
+    }
+
+    /// <summary>
+    /// Subscribes once to a controller's <see cref="CombatReactionController.StanceBroken"/> so a
+    /// player-caused break is surfaced through the per-run <see cref="HookBus"/> (R8.6). Idempotent
+    /// per controller; the matching unsubscribe happens in <see cref="OnDestroy"/>.
+    /// </summary>
+    private void WatchStanceBreaks(CombatReactionController controller)
+    {
+        if (!controller || _watchedStanceControllers.ContainsKey(controller)) return;
+        System.Action<Vector3> handler = _ => RaiseStanceBreakFor(controller);
+        _watchedStanceControllers.Add(controller, handler);
+        controller.StanceBroken += handler;
+    }
+
+    /// <summary>
+    /// Resolves the owning <see cref="Actor"/> for a broken stance and raises OnStanceBreak(Actor)
+    /// on the per-run bus. The controller's <c>StanceBroken</c> payload is the break point (unused
+    /// here); we look the Actor up from the controller's GameObject. Null-guarded — the bus is
+    /// absent outside a run.
+    /// </summary>
+    private void RaiseStanceBreakFor(CombatReactionController controller)
+    {
+        if (!controller) return;
+        Actor broken = controller.GetComponentInParent<Actor>();
+        if (!broken) broken = controller.GetComponentInChildren<Actor>();
+        if (!broken) return;
+        Hooks?.RaiseStanceBreak(broken);
+    }
+
+    /// <summary>
+    /// Removes every StanceBroken subscription this player added (R8.6) so a break can never fire
+    /// into a stale handler after the player object is torn down at run end.
+    /// </summary>
+    private void OnDestroy()
+    {
+        foreach (var pair in _watchedStanceControllers)
+            if (pair.Key) pair.Key.StanceBroken -= pair.Value;
+        _watchedStanceControllers.Clear();
     }
 
     public void UseMana(float amount)

@@ -91,11 +91,49 @@ public static class WeaponModifierValidation
         var energy = new AsuraMomentum(); energy.AddEnergy(1000); Require(energy.IsReady && energy.Energy == 100, "Energy remains bounded");
         energy.TryConsume(); energy.AddEnergy(60); Require(energy.Energy == 60 && !energy.IsReady, "Asura reserve cannot self-loop");
         AsuraMomentumValidation.Run();
+        CheckAssetIsolation();
         foreach (string path in WeaponLoadout.ResourcePaths)
         {
             WeaponScript weapon = Resources.Load<WeaponScript>(path);
             Originals[weapon] = JsonUtility.ToJson(weapon) + string.Join("", weapon.abilities.Select(JsonUtility.ToJson));
         }
+    }
+
+    // R11.2/R11.6: assert no reward/modifier code path assigns into a source weapon/ability/status
+    // ScriptableObject. Statuses (BurnStatus/ChillStatus) are runtime MonoBehaviour components, not
+    // assets, so only the source WeaponScript + Ability assets loaded from Resources can be mutated.
+    // Snapshot every source asset (JSON), drive the reward-owned modifier plan path at maximum ranks
+    // across every arsenal slot for every family, then re-assert the sources are byte-for-byte
+    // unchanged. Uses the same JsonUtility snapshot mechanism as the end-of-run Originals check, but
+    // runs synchronously and isolates the WeaponRunModifiers.Plan reward path specifically.
+    private static void CheckAssetIsolation()
+    {
+        var before = new Dictionary<Object, string>();
+        foreach (string path in WeaponLoadout.ResourcePaths)
+        {
+            WeaponScript weapon = Resources.Load<WeaponScript>(path);
+            Require(weapon, "Source weapon asset loads: " + path);
+            before[weapon] = JsonUtility.ToJson(weapon);
+            foreach (Ability ability in weapon.abilities)
+                if (ability) before[ability] = JsonUtility.ToJson(ability);
+        }
+        for (int family = 0; family < WeaponLoadout.ResourcePaths.Length; family++)
+        {
+            WeaponScript weapon = Resources.Load<WeaponScript>(WeaponLoadout.ResourcePaths[family]);
+            var mods = new WeaponRunModifiers(WeaponRunModifiers.Identify(weapon));
+            foreach (var definition in WeaponRunModifiers.Catalog.Where(d => d.Family == mods.Family))
+                while (mods.Add(definition)) { }
+            for (int slot = 0; slot < weapon.abilities.Length; slot++)
+            {
+                // Build a per-cast plan (arsenal) or resolved hit steps (gauntlet) from the source
+                // asset at maximum ranks; the reward path must never write back into the shared asset.
+                if (weapon.abilities[slot] is ArsenalAbility arsenal) mods.Plan(arsenal, slot);
+                else if (weapon.abilities[slot] is BreakerGauntletAbility gauntlet) mods.GauntletSteps(gauntlet, slot);
+            }
+        }
+        foreach (var entry in before)
+            Require(JsonUtility.ToJson(entry.Key) == entry.Value,
+                "Source asset unchanged after reward/modifier application: " + entry.Key.name);
     }
     private static void Tick()
     {
@@ -157,7 +195,7 @@ public static class WeaponModifierValidation
                     foreach (var entry in Originals)
                         Require(entry.Value == JsonUtility.ToJson(entry.Key) + string.Join("", entry.Key.abilities.Select(JsonUtility.ToJson)), "Assets unchanged after all casts");
                     Require(_errors == 0, "No runtime errors");
-                    Debug.Log("WEAPON_MODIFIER_VALIDATION_SUCCESS: " + _checks + " checks; all 12 skills at maximum modifier ranks."); Finish(0);
+                    Debug.Log("WEAPON_MODIFIER_VALIDATION_SUCCESS: " + _checks + " checks; all 12 skills at maximum modifier ranks; source weapon/ability assets unchanged (R11.2)."); Finish(0);
                 }
                 else { _phase = 0; _next = EditorApplication.timeSinceStartup + .5; }
             }

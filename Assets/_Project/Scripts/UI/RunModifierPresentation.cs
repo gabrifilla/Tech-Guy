@@ -7,10 +7,20 @@ public sealed class RunModifierPresentation
     public string Category = "ATRIBUTO", Scope = "PERSONAGEM", Symbol = "+", Description;
     public Color Accent = new Color(.55f,.78f,.69f);
     public int MaxRank;
+    /// <summary>True when the offer belongs to the Rewrite category (ability-replacing modifiers such as <c>transform</c>).</summary>
+    public bool IsRewrite;
+    /// <summary>Classifies ability-replacing ids as Rewrite. Currently only <c>transform</c> qualifies.</summary>
+    public static bool IsRewriteId(string id) => id == "transform";
     private static readonly Regex Numbers = new Regex(@"([+−-]?\d+(?:[.,]\d+)?(?:%|m|s)?)");
     public static string Emphasize(string text) => Numbers.Replace(text, "<b><color=#F2DCA6>$1</color></b>");
     public static int Count(RunBoons run, string id)
     { int count = 0; foreach (var offer in run.Acquired) if (offer.Id == id) count++; return count; }
+    /// <summary>True when <paramref name="id"/> appears in the current offer set (the choices being presented this reward).</summary>
+    public static bool Offered(RunBoons run, string id)
+    { foreach (var offer in run.Choices) if (offer.Id == id) return true; return false; }
+    /// <summary>True when the partner modifier is already owned, or when this modifier and the partner co-appear in the current offer set.</summary>
+    private static bool Combined(RunBoons run, string selfId, string partnerId)
+    { return Count(run, partnerId) > 0 || (Offered(run, selfId) && Offered(run, partnerId)); }
     public static RunModifierPresentation For(RunBoons.Offer offer)
     {
         var view = new RunModifierPresentation { Description = offer.Description };
@@ -26,7 +36,7 @@ public sealed class RunModifierPresentation
         }
         switch (offer.Id)
         {
-            case "transform": view.Category = "TRANSFORMAÇÃO"; view.Scope = view.Symbol = "Q"; view.MaxRank = 1; view.Accent = new Color(.77f,.58f,1f); break;
+            case "transform": view.Category = "TRANSFORMAÇÃO"; view.Scope = view.Symbol = "Q"; view.MaxRank = 1; view.Accent = new Color(.77f,.58f,1f); view.IsRewrite = true; break;
             case "focus": view.Category = "HABILIDADE"; view.Scope = view.Symbol = "Q"; view.MaxRank = 1; break;
             case "ignite": view.Category = "ELEMENTO"; view.Scope = "ACERTOS"; view.Symbol = "F"; view.Accent = new Color(1f,.48f,.25f); view.Description = "Acertos aplicam queimadura por 4s. Cada cópia acrescenta 6 de dano por segundo; novos acertos renovam a duração."; break;
             case "frost": view.Category = "ELEMENTO"; view.Scope = "ACERTOS"; view.Symbol = "G"; view.Accent = new Color(.35f,.82f,1f); view.Description = "Acertos têm +35 pontos percentuais de chance de congelar por cópia, até 100%. Duração: 2,5s."; break;
@@ -49,7 +59,9 @@ public sealed class RunModifierPresentation
         if (id == "resonance") return (fire || frost) && (Count(run,"conductor") > 0 || Count(run,"detonation") > 0) ? "COMBINAÇÃO ATIVA · prepare os alvos com elementos." : "COMBINE · fogo/gelo + Bobina ou Reator de sucata.";
         if (id == "conductor") return fire || frost ? "COMBINAÇÃO ATIVA · elementos viajam nos saltos." : "COMBINE · fogo e gelo se espalham nas descargas.";
         if (id == "weapon_Affliction") return fire || frost ? "COMBINAÇÃO ATIVA · elementos amplificam os golpes." : "COMBINE · aplique fogo ou gelo antes de atacar.";
-        if (id == "weapon_Orbit") return Count(run,"weapon_TripleMoon") > 0 ? "COMBINAÇÃO ATIVA · luas avançam a cada pulso." : "COMBINE · Órbita das luas acrescenta pulsos ao W.";
+        if (id == "weapon_Orbit") return Combined(run,"weapon_Orbit","weapon_TripleMoon") ? "COMBINAÇÃO ATIVA · luas avançam a cada pulso." : "COMBINE · Órbita das luas acrescenta pulsos ao W.";
+        if (id == "haste") return Combined(run,"haste","weapon_ComboNova") ? "COMBINAÇÃO ATIVA · Ímpeto acelera a Nova de combo." : "COMBINE · Ímpeto acelera a cadência da Nova de combo.";
+        if (id == "weapon_ComboNova") return Combined(run,"weapon_ComboNova","haste") ? "COMBINAÇÃO ATIVA · Ímpeto acelera a Nova de combo." : "COMBINE · Ímpeto acelera a cadência da Nova de combo.";
         if (id == "weapon_RocketAdvance" && Count(run,"transform") > 0) return "ATENÇÃO · este avanço não se aplica ao Q transformado.";
         if (id == "weapon_TwinShot" || id == "weapon_WideVolley") return "COMBINE · perfuração e ricochete ampliam a cobertura.";
         return Count(run,id) > 0 ? "EVOLUÇÃO · reforça um modificador da sua build." : "NOVA AQUISIÇÃO · permanece até o fim desta run.";
@@ -59,12 +71,12 @@ public sealed class RunModifierPresentation
         switch (kind)
         {
             case WeaponBoon.RapidBurst: case WeaponBoon.RocketAdvance: return "Q";
-            case WeaponBoon.HeavyBolt: case WeaponBoon.TripleMoon: case WeaponBoon.Orbit: case WeaponBoon.FlurryEcho: return "W";
+            case WeaponBoon.HeavyBolt: case WeaponBoon.TripleMoon: case WeaponBoon.Orbit: case WeaponBoon.FlurryEcho: case WeaponBoon.MoonShard: return "W";
             case WeaponBoon.WideVolley: case WeaponBoon.Trident: case WeaponBoon.ShockRing: return "E";
-            case WeaponBoon.LongRain: case WeaponBoon.GuidedRain: case WeaponBoon.DragonWave: case WeaponBoon.AsuraEcho: case WeaponBoon.AsuraReserve: return "R";
+            case WeaponBoon.LongRain: case WeaponBoon.GuidedRain: case WeaponBoon.DragonWave: case WeaponBoon.AsuraEcho: case WeaponBoon.AsuraReserve: case WeaponBoon.ReturnWave: return "R";
             case WeaponBoon.Momentum: return "Q / W / E";
             case WeaponBoon.ComboNova: return "ATAQUE BÁSICO";
-            case WeaponBoon.EchoThrust: return "ESTOCADAS";
+            case WeaponBoon.EchoThrust: case WeaponBoon.PhantomSpear: case WeaponBoon.ChainThrust: return "ESTOCADAS";
             case WeaponBoon.StanceCrusher: return "HABILIDADES";
             case WeaponBoon.TwinShot: case WeaponBoon.Piercing: case WeaponBoon.Ricochet: case WeaponBoon.Homing: return "FLECHAS";
             default: return "BÁSICOS + SKILLS";

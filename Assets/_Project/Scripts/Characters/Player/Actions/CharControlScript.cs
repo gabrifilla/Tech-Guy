@@ -9,6 +9,13 @@ public class CharControlScript : MonoBehaviour
     private const string IDLE = "Idle";
     private const string WALK = "Walk";
 
+    // ComboNova proc gate (R6). The nova fires on exactly every third basic attack and no other:
+    // the gate is purely _runBasicCount % 3 == 0 with Rank(ComboNova) > 0, so the attack-speed
+    // multiplier (Haste) only changes proc frequency over time, never which basic procs.
+    private const int ComboNovaBasicInterval = 3;   // every third basic attack
+    private const float ComboNovaRadius = 2.5f;     // R6.1 area radius in meters
+    private const float ComboNovaDamagePerRank = .6f; // R6.1 damage = 0.6 x rank x weaponDamage
+
     [Header("Movement")]
     [SerializeField] private ParticleSystem clickEffect;
     [SerializeField] private LayerMask clickableLayers;
@@ -30,10 +37,6 @@ public class CharControlScript : MonoBehaviour
     [SerializeField] private Vector3 attackBoxSize = new Vector3(2f, 2f, 0f);
     [SerializeField] private LayerMask attackLayers;
 
-    [Header("Cursor Aim Assist")]
-    [SerializeField, Min(0f)] private float _aimAssistRadius = 90f;
-    private readonly Collider[] _aimCandidates = new Collider[128];
-
     [Header("Attack Reaction")]
     // Basic attacks only Push/Stagger and chip stance. They never stun or knock up directly;
     // hard CC only comes from a Stance Break, which basic swings leave to the finisher/skills.
@@ -49,7 +52,6 @@ public class CharControlScript : MonoBehaviour
 
     public bool isDashing = false;
 
-    private CustomActions input;
     private NavMeshAgent agent;
     private Animator animator;
     private Interactable target;
@@ -101,12 +103,6 @@ public class CharControlScript : MonoBehaviour
         baseAttackBusyDuration = attackBusyDuration;
         baseAttackHitboxDuration = attackHitboxDuration;
         baseAttackBoxSize = attackBoxSize;
-
-        input = new CustomActions();
-        input.Main.Move.performed += ctx =>
-        {
-            if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame) RequestMove();
-        };
     }
 
     private void Start()
@@ -118,11 +114,11 @@ public class CharControlScript : MonoBehaviour
         RefreshMovementStats();
     }
 
-    void OnEnable() => input.Enable();
-    void OnDisable() => input.Disable();
+    void OnDisable() { CancelCombo(); ClearTarget(); }
 
     void Update()
     {
+        if (!playerActor || playerActor.IsDead) return;
         RefreshWeaponStats();
         RefreshMovementStats();
 
@@ -134,77 +130,62 @@ public class CharControlScript : MonoBehaviour
 
         if (!isDashing)
         {
-            if (HandleBasicAttackInput()) return;
+            HandlePointerInput();
             HandleMovement();
             SetAnimations();
             HandleComboReset();
         }
     }
 
-    private bool HandleBasicAttackInput()
+    private void HandlePointerInput()
     {
-        Mouse mouse = Mouse.current;
-        if (mouse == null || !mouse.leftButton.isPressed) { _waitForAttackRelease = false; return false; }
-        if (_waitForAttackRelease || (_playerHUD && _playerHUD.BlocksPointer(GetPointerPosition()))) return false;
-        Camera aimCamera = mainCamera ? mainCamera : Camera.main;
-        if (!aimCamera) return false;
-        Vector3 pointer = GetPointerPosition();
-        Ray ray = aimCamera.ScreenPointToRay(pointer);
-        if (new Plane(Vector3.up, transform.position).Raycast(ray, out float distance))
-        {
-            Actor assistedTarget = ResolveAimTarget(aimCamera, pointer);
-            if (assistedTarget && assistedTarget.TryGetComponent(out EnemyCombatFeedback feedback))
-                feedback.ShowFocus();
-            TryBasicAttack(assistedTarget ? assistedTarget.transform.position : ray.GetPoint(distance));
-        }
-        return true;
+        bool primary = GamePreferences.IsHeld(GameControl.Primary);
+        if (!primary) _waitForAttackRelease = false;
+        if (_waitForAttackRelease) return;
+        if (GamePreferences.WasPressed(GameControl.Primary) || GamePreferences.WasPressed(GameControl.Move))
+            RequestMove();
     }
 
-    // Compare in screen space so tolerance follows the cursor, independent of camera angle.
-    private Actor ResolveAimTarget(Camera camera, Vector2 pointer)
+    private float EffectiveAttackRange => attackRange * (weapon && weapon.FiresArrows ? 1f : playerActor?.RunModifiers?.MeleeScale ?? 1f);
+
+    private bool CanReachTarget(Actor actor)
     {
-        if (_aimAssistRadius <= 0f) return null;
-        float range = Mathf.Max(.1f, attackRange * (playerActor.RunModifiers?.MeleeScale ?? 1f));
-        int mask = attackLayers.value != 0 ? attackLayers.value : Physics.DefaultRaycastLayers;
-        int count = Physics.OverlapSphereNonAlloc(transform.position, range, _aimCandidates,
-            mask, QueryTriggerInteraction.Collide);
-        float radius = _aimAssistRadius * Mathf.Clamp(Screen.height / 1080f, .5f, 2f);
-        float bestDistance = radius * radius;
-        Actor best = null;
-        Ray cursorRay = camera.ScreenPointToRay(pointer);
-        Actor direct = Physics.Raycast(cursorRay, out RaycastHit directHit, 100f,
-            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore)
-            ? directHit.collider.GetComponentInParent<Actor>() : null;
-        for (int i = 0; i < count; i++)
+        if (!actor || actor.IsDead || !actor.isActiveAndEnabled) return false;
+        Vector3 delta = actor.transform.position - transform.position;
+        if (Mathf.Abs(delta.y) > Mathf.Max(2f, attackBoxSize.y)) return false;
+        delta.y = 0;
+        if (delta.sqrMagnitude > EffectiveAttackRange * EffectiveAttackRange) return false;
+        Vector3 start = transform.position + Vector3.up;
+        Vector3 end = actor.transform.position + Vector3.up;
+        foreach (RaycastHit hit in Physics.RaycastAll(start, end - start, Vector3.Distance(start, end),
+            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
-            Collider candidate = _aimCandidates[i];
-            Actor actor = candidate.GetComponentInParent<Actor>();
-            if (!actor || actor is PlayerActor || actor.IsDead || !actor.isActiveAndEnabled) continue;
-            Vector3 point = candidate.bounds.center;
-            Vector3 screen = camera.WorldToScreenPoint(point);
-            if (screen.z <= 0 || !camera.pixelRect.Contains((Vector2)screen)) continue;
-            float score = actor == direct ? 0f : ((Vector2)screen - pointer).sqrMagnitude;
-            if (score > bestDistance) continue;
-            Vector3 sight = point - camera.transform.position;
-            if (Physics.Raycast(camera.transform.position, sight.normalized, out RaycastHit obstruction,
-                sight.magnitude, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore) &&
-                obstruction.collider.GetComponentInParent<Actor>() != actor) continue;
-            best = actor;
-            bestDistance = score;
+            Actor blocker = hit.collider.GetComponentInParent<Actor>();
+            if (blocker == playerActor || blocker == actor) continue;
+            if (!blocker) return false;
         }
-        return best;
+        return true;
     }
 
     public bool TryBasicAttack(Vector3 aimPoint)
     {
         RefreshWeaponStats();
+        Actor actor = target ? target.myActor ? target.myActor : target.GetComponentInParent<Actor>() : null;
+        if (!actor)
+        {
+            foreach (Collider candidate in Physics.OverlapSphere(aimPoint, .6f,
+                attackLayers.value != 0 ? attackLayers.value : Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
+            {
+                Actor found = candidate.GetComponentInParent<Actor>();
+                if (found && found != playerActor && CanReachTarget(found)) { actor = found; break; }
+            }
+        }
         if (!isActiveAndEnabled || !playerActor || playerActor.IsDead || !weapon || playerBusy ||
-            Time.time < nextAttackTime || isDashing ||
+            Time.time < nextAttackTime || isDashing || !CanReachTarget(actor) ||
             (_abilityHolder && (_abilityHolder.BlocksWorldInput || _abilityHolder.IsCasting))) return false;
-        ClearTarget();
         if (agent && agent.enabled && agent.isOnNavMesh) agent.ResetPath();
-        FacePosition(aimPoint);
-        Attack();
+        FacePosition(actor.transform.position);
+        PerformAttack(actor);
         return true;
     }
 
@@ -294,7 +275,7 @@ public class CharControlScript : MonoBehaviour
 
         if (target != null && agent != null && target.interactionType == InteractableType.Enemy)
         {
-            agent.stoppingDistance = attackRange;
+            agent.stoppingDistance = Mathf.Max(0f, EffectiveAttackRange - .1f);
         }
     }
 
@@ -320,31 +301,7 @@ public class CharControlScript : MonoBehaviour
         ClickToMove();
     }
 
-    private bool IsDashPressed()
-    {
-        bool pressed = Input.GetKeyDown(KeyCode.Space);
-#if ENABLE_INPUT_SYSTEM
-        Keyboard keyboard = Keyboard.current;
-        if (keyboard != null)
-        {
-            pressed |= keyboard.spaceKey.wasPressedThisFrame;
-        }
-#endif
-        return pressed;
-    }
-
-    private bool IsAttackModifierPressed()
-    {
-        bool pressed = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-#if ENABLE_INPUT_SYSTEM
-        Keyboard keyboard = Keyboard.current;
-        if (keyboard != null)
-        {
-            pressed |= keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed;
-        }
-#endif
-        return pressed;
-    }
+    private bool IsDashPressed() => GamePreferences.WasPressed(GameControl.Dash);
 
     private Vector3 GetPointerPosition()
     {
@@ -383,7 +340,7 @@ public class CharControlScript : MonoBehaviour
         }
 
         int mask = clickableLayers.value != 0 ? clickableLayers.value : Physics.DefaultRaycastLayers;
-        bool hitSomething = Physics.Raycast(cameraToUse.ScreenPointToRay(pointerPosition), out RaycastHit hit, 100, mask);
+        bool hitSomething = Physics.Raycast(cameraToUse.ScreenPointToRay(pointerPosition), out RaycastHit hit, 100, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
         if (!hitSomething && clickableLayers.value != 0)
         {
             hitSomething = Physics.Raycast(cameraToUse.ScreenPointToRay(pointerPosition), out hit, 100, Physics.DefaultRaycastLayers);
@@ -405,12 +362,6 @@ public class CharControlScript : MonoBehaviour
         if (hitSomething && hit.collider != null)
         {
             HandleClickEffect(hit);
-
-            if (IsAttackModifierPressed())
-            {
-                RequestStationaryAttack(hit.point);
-                return;
-            }
 
             Interactable interactable = hit.transform.GetComponentInParent<Interactable>();
             if (interactable != null)
@@ -517,10 +468,10 @@ public class CharControlScript : MonoBehaviour
 
     private void SetTarget(Interactable newTarget)
     {
-        if (newTarget == null || agent == null) return;
+        if (newTarget == null || agent == null || !agent.enabled || !agent.isOnNavMesh) return;
 
         target = newTarget;
-        agent.stoppingDistance = attackRange;
+        agent.stoppingDistance = Mathf.Max(0f, EffectiveAttackRange - .1f);
         agent.SetDestination(target.transform.position);
 
         Actor targetActor = target.myActor;
@@ -548,7 +499,8 @@ public class CharControlScript : MonoBehaviour
             }
             else
             {
-                interactable.Interact(gameObject); // Passa o jogador como parametro para o metodo Interact
+                MoveToPosition(hit.point);
+                interactable.Interact(gameObject);
             }
         }
         else
@@ -560,7 +512,7 @@ public class CharControlScript : MonoBehaviour
     private void MoveToPosition(Vector3 destination)
     {
         CancelCombo();
-        if (agent != null)
+        if (agent != null && agent.enabled && agent.isOnNavMesh)
         {
             agent.stoppingDistance = defaultStoppingDistance;
             agent.SetDestination(destination);
@@ -568,26 +520,9 @@ public class CharControlScript : MonoBehaviour
         ClearTarget();
     }
 
-    private void RequestStationaryAttack(Vector3 targetPoint)
-    {
-        ClearTarget();
-
-        if (agent != null)
-        {
-            agent.ResetPath();
-            agent.stoppingDistance = defaultStoppingDistance;
-        }
-
-        FacePosition(targetPoint);
-
-        if (Time.time < nextAttackTime) return;
-
-        Attack();
-    }
-
     private void FollowTarget()
     {
-        if (target == null || agent == null || agent.pathPending) return;
+        if (target == null || agent == null || !agent.enabled || !agent.isOnNavMesh) return;
 
         if (target.interactionType != InteractableType.Enemy)
         {
@@ -600,18 +535,23 @@ public class CharControlScript : MonoBehaviour
         {
             targetActor = target.GetComponentInParent<Actor>();
         }
-        if (targetActor == null || !targetActor.isActiveAndEnabled)
+        if (targetActor == null || targetActor.IsDead || !targetActor.isActiveAndEnabled)
         {
+            agent.ResetPath();
             ClearTarget();
             return;
         }
 
-        agent.SetDestination(target.transform.position);
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        if (playerBusy) return;
+        agent.stoppingDistance = Mathf.Max(0f, EffectiveAttackRange - .1f);
+        bool inRange = CanReachTarget(targetActor);
+        if (!inRange)
         {
-            agent.ResetPath();
-            TryAttackTarget();
+            agent.SetDestination(target.transform.position);
+            return;
         }
+        agent.ResetPath();
+        TryAttackTarget();
     }
 
     private void TryAttackTarget()
@@ -623,7 +563,7 @@ public class CharControlScript : MonoBehaviour
         direction.y = 0;
         FaceDirection(direction);
 
-        Attack();
+        TryBasicAttack(target.transform.position);
     }
 
     private void FacePosition(Vector3 targetPoint)
@@ -753,7 +693,12 @@ public class CharControlScript : MonoBehaviour
 
     public void Attack()
     {
-        if (!playerActor || playerActor.IsDead || isDashing || Time.time < nextAttackTime) return;
+        if (target) TryBasicAttack(target.transform.position);
+    }
+
+    private void PerformAttack(Actor victim)
+    {
+        if (!playerActor || playerActor.IsDead || !weapon || !CanReachTarget(victim) || isDashing || Time.time < nextAttackTime) return;
         if (_abilityHolder && _abilityHolder.BlocksWorldInput) return;
         if (_abilityHolder && _abilityHolder.IsCasting) return;
         if (playerBusy) return;
@@ -799,10 +744,7 @@ public class CharControlScript : MonoBehaviour
                 0f,
                 BuildBasicAttackReaction(attackIndex, range));
             _runBasicCount++;
-            int nova = playerActor.RunModifiers?.Rank(WeaponBoon.ComboNova) ?? 0;
-            if (nova > 0 && _runBasicCount % 3 == 0)
-                playerActor.TryApplyAreaDamage(transform.position + Vector3.up * (1f - 2.5f), transform.forward,
-                    .01f, Vector3.one, AreaHitShape.Sphere, 2.5f, attackLayers, weapon.attackDamage, .6f * nova, 0f, null);
+            TryProcComboNova();
         }
 
         if (attackAnimations != null && attackAnimations.Length > 0)
@@ -822,6 +764,33 @@ public class CharControlScript : MonoBehaviour
 
         attackBusyCoroutine = StartCoroutine(ClearBusyAfter(busyDuration));
         BasicAttackPerformed?.Invoke();
+    }
+
+    // ComboNova (R6): applies area damage on every third basic attack while ComboNova is owned.
+    // The proc is gated solely on the every-third-basic rule (_runBasicCount % 3 == 0) and a rank
+    // above 0. Rank 0 (not owned) fires no nova and leaves the basic outcome otherwise unchanged.
+    // Haste feeds this only indirectly: a shorter basic interval (base / AttackSpeedMultiplier, via
+    // PlayerActor.GetAttackInterval) means more basics per window, so more third-hits per window,
+    // without ever changing which basic attack triggers the nova.
+    private void TryProcComboNova()
+    {
+        int nova = playerActor.RunModifiers?.Rank(WeaponBoon.ComboNova) ?? 0;
+        if (nova <= 0 || _runBasicCount % ComboNovaBasicInterval != 0) return;
+
+        // Nova is centered on the player: pass a negligible reach so the sphere resolves around the
+        // caster, and let TryApplyAreaDamage resolve the ComboNovaRadius sphere.
+        playerActor.TryApplyAreaDamage(
+            transform.position + Vector3.up * (1f - ComboNovaRadius),
+            transform.forward,
+            .01f,
+            Vector3.one,
+            AreaHitShape.Sphere,
+            ComboNovaRadius,
+            attackLayers,
+            weapon.attackDamage,
+            ComboNovaDamagePerRank * nova,
+            0f,
+            null);
     }
 
     private HitReactionRequest BuildBasicAttackReaction(int attackIndex, float range)
