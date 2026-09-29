@@ -45,6 +45,15 @@ public class AbilityHolder : MonoBehaviour
 
     public bool IsCasting => (_breakerCombat && _breakerCombat.IsExecuting) ||
         (_arsenalCombat && _arsenalCombat.IsExecuting);
+
+    /// <summary>
+    /// True while the active cast permits the player to keep moving (R10.1): the Arco fires on the
+    /// move at a reduced speed instead of pinning the player. Melee (Manoplas/Lança) casts leave this
+    /// false so they keep their full stop. Consumers still treat this as casting for ability/attack
+    /// gating — it only unblocks locomotion.
+    /// </summary>
+    public bool MovementAllowedWhileCasting => _arsenalCombat && _arsenalCombat.IsExecuting &&
+        _arsenalCombat.AllowsMovementWhileFiring;
     public bool BlocksWorldInput => Time.timeScale <= 0f || (_pause && _pause.BlocksInput) || (_lobbyInteraction && _lobbyInteraction.IsPanelOpen) ||
         (_runBoons && _runBoons.IsChoosing);
 
@@ -185,9 +194,14 @@ public class AbilityHolder : MonoBehaviour
         RefreshWeaponAbilities(false);
         if (index < 0 || index >= activeAbilities.Length || !activeAbilities[index]) return false;
         Ability ability = activeAbilities[index];
+        // R13.3/R13.4 — a slot that is not Ready is on cooldown/active and cannot be re-activated.
+        // Kept as the first gate (and mirrored by AbilityActivationDecision) so the contract reads
+        // identically to the pure model that Properties 41–43 exercise.
         if (states[index] != AbilityState.Ready) return Reject(index, AbilityUseFailure.Cooldown);
         if (!CheckUse(index, ability, ResolveKey(index))) return false;
 
+        // R13.2 — ability.TryActivate deducts exactly ManaCost via PlayerActor.TrySpendMana; if the
+        // ability's own requirement fails the reserve is left untouched (R13.4).
         if (!ability.TryActivate(gameObject)) return Reject(index, AbilityUseFailure.Requirement);
         states[index] = AbilityState.Active;
         activeTimers[index] = Mathf.Max(0f, ability.activeTime);
@@ -196,6 +210,9 @@ public class AbilityHolder : MonoBehaviour
         if (ability is BreakerGauntletAbility && _breakerCombat)
             activeTimers[index] = Mathf.Max(activeTimers[index], _breakerCombat.ExecutionDuration);
 
+        // R13.2 — leaving Ready starts the recharge: slots with an active window run it down first
+        // (Active), the rest go straight to Cooldown. This transition matches
+        // AbilityActivationDecision.Evaluate's resulting state.
         if (activeTimers[index] <= 0f)
         {
             states[index] = AbilityState.Cooldown;

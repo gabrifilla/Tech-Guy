@@ -95,7 +95,19 @@ public sealed class ArsenalProjectile : MonoBehaviour
             if (actor)
             {
                 if (actor == _owner || actor.IsDead || !_hit.Add(actor)) continue;
-                if (_owner.TryApplyDamage(actor, _damage, _multiplier, 0f) &&
+
+                // Mirror frontal shield (R18): a player projectile striking from within the Mirror's
+                // frontal arc has at most 25% of its damage applied; hits from outside the arc apply
+                // full damage. Only projectiles are reduced here — area attacks flow through
+                // TryApplyAreaDamage and always deal full damage (R18.5). The reflector scales the base
+                // weapon damage this projectile carries before the normal crit / run-modifier roll, so
+                // no shared TakeDamage signature has to change and non-Mirror enemies are unaffected.
+                float reflectedDamage = _damage;
+                if (actor.TryGetComponent(out FrontalReflector reflector))
+                    reflectedDamage = reflector.ResolveIncomingDamage(_damage, transform.position,
+                        isPlayerProjectile: true, isAreaAttack: false);
+
+                if (_owner.TryApplyDamage(actor, reflectedDamage, _multiplier, 0f) &&
                     _owner.TryGetComponent(out AbilityHolder holder))
                     holder.NotifyAttackHits(_owner, new[] { actor });
 

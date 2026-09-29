@@ -62,14 +62,55 @@ public sealed class WeaponRunModifiers
         new Definition(WeaponBoon.ComboNova, RunWeaponFamily.Gauntlet, "Terceiro impacto", "Cada terceiro básico dispara uma nova de 2,5m com 60% do dano da arma por nível."),
         new Definition(WeaponBoon.Berserker, RunWeaponFamily.Gauntlet, "Motor em pane", "Abaixo de 40% da vida: acertos diretos causam +50% de dano por nível.")
     });
+    // Order-determinism contract (Requisito 12.7 / Property 39): ranks are stored per WeaponBoon in this
+    // dictionary, so Add only ever increments the rank of the acquired boon and never touches another.
+    // The final rank of each boon depends solely on how many times it was acquired, NOT on the order boons
+    // were acquired relative to one another. Because Plan/GauntletSteps read ranks exclusively through
+    // Rank(kind) while iterating the fixed Catalog + slot (see below), any acquisition permutation that
+    // yields the same rank multiset produces byte-identical snapshots. Keep ranks keyed by boon here; do
+    // not introduce order-sensitive state (insertion-ordered lists, running accumulators across boons).
     private readonly Dictionary<WeaponBoon, int> _ranks = new Dictionary<WeaponBoon, int>();
     public RunWeaponFamily Family { get; }
     public WeaponRunModifiers(RunWeaponFamily family) => Family = family;
     public int Rank(WeaponBoon kind) => _ranks.TryGetValue(kind, out int rank) ? rank : 0;
+
+    // Invalid-modifier gate (Requisito 12.8 / task 15.6 / Property 40): Add is the single entry point that
+    // records a run rank, so it is also the single point that must refuse — and *log* the refusal of — a
+    // modifier that is not catalogued for this family or whose resulting rank would fall outside
+    // [1; MaxRank]. A refused Add is a no-op: it never touches _ranks, so Plan/GauntletSteps read the same
+    // ranks as before and neither the Cast_Plan nor the source assets change because of the refused
+    // modifier. The refusal log uses the stable identifier (definition.Id when known, else the WeaponBoon
+    // enum name) plus the offending rank, per AGENTS.md (no magic strings). LogWarning (not LogError) keeps
+    // the fallback-and-continue contract: a bad modifier is ignored, the run keeps going, and it does not
+    // trip error-counting validators. Kept as a single gate to preserve the 15.1 immutability and 15.3
+    // monotonic/order contracts documented on Plan/GauntletSteps below.
     public bool Add(Definition definition)
     {
-        if (definition == null || definition.Family != Family || Rank(definition.Kind) >= definition.MaxRank) return false;
-        _ranks[definition.Kind] = Rank(definition.Kind) + 1; return true;
+        if (definition == null) { Debug.LogWarning("WeaponRunModifiers: ignored null Run_Modifier (no catalog definition; rank n/a)."); return false; }
+        // Uncatalogued: a Definition whose (Kind, Family, MaxRank) does not match the shared Catalog is not a
+        // real Run_Modifier for this run — ignore it and log the refused modifier + its attempted rank.
+        bool cataloged = false;
+        foreach (Definition entry in Catalog)
+            if (entry.Kind == definition.Kind && entry.Family == definition.Family && entry.MaxRank == definition.MaxRank) { cataloged = true; break; }
+        if (!cataloged)
+        {
+            Debug.LogWarning($"WeaponRunModifiers: ignored uncataloged Run_Modifier '{definition.Id}' (family {definition.Family}, maxRank {definition.MaxRank}); not present in Catalog.");
+            return false;
+        }
+        // Family mismatch: a boon from another weapon family is refused and logged (rank it would have taken).
+        if (definition.Family != Family)
+        {
+            Debug.LogWarning($"WeaponRunModifiers: ignored Run_Modifier '{definition.Id}' at rank {Rank(definition.Kind) + 1}; belongs to family {definition.Family}, run family is {Family}.");
+            return false;
+        }
+        // Rank ceiling: the next rank would leave the catalogued [1; MaxRank] range. Refuse and log.
+        int nextRank = Rank(definition.Kind) + 1;
+        if (nextRank < 1 || nextRank > definition.MaxRank)
+        {
+            Debug.LogWarning($"WeaponRunModifiers: ignored Run_Modifier '{definition.Id}' at rank {nextRank}; outside catalogued range [1; {definition.MaxRank}].");
+            return false;
+        }
+        _ranks[definition.Kind] = nextRank; return true;
     }
     public static RunWeaponFamily Identify(WeaponScript weapon)
     {
@@ -87,6 +128,23 @@ public sealed class WeaponRunModifiers
         if (playerHealthRatio < .4f) result *= 1f + .5f * Rank(WeaponBoon.Berserker);
         return result;
     }
+    // Immutability contract (Requisito 12.1/12.5/12.6): Plan builds a fresh ArsenalCastPlan snapshot
+    // per conjuration and mutates only that snapshot. The ArsenalCastPlan constructor copies value-type
+    // fields out of the ability and keeps NO reference to it, so no branch below can write back into the
+    // source ArsenalAbility/WeaponScript asset. The new reaction/displacement/grouping rules (SpearFlow,
+    // Mark, GauntletLoopSteps, SoftGroupingService) all consume this same snapshot / the same Catalog
+    // ranks — there is no parallel modifier catalog. Enforced by AssetIsolationTests.
+    //
+    // Monotonicity + order contract (Requisito 12.2/12.3/12.4/12.7; Properties 38/39): every branch below
+    // reads ranks through Rank(kind) and applies each cataloged modifier as a term that STRENGTHENS the
+    // affected quantity as the rank grows from 1 to MaxRank — additive counts scale with +k*Rank (Hits,
+    // Arrows, sweeps, pulses, echoes), size/damage/wave with *(1 + k*Rank), k > 0, and cadence via
+    // Interval /= (1 + k*Rank) (smaller interval = faster fire). EchoThrust divides per-hit Damage but the
+    // named monotone quantity is the echo count (Hits += Rank), which never decreases; ShardCount is
+    // Clamp(2*Rank, 0, 6) — non-decreasing then flat. Application order is fixed by the Catalog iteration
+    // and the slot/Kind checks, so the produced snapshot depends only on the final rank multiset, never on
+    // acquisition order. When adding a branch: make it a single expression per field keyed off Rank(kind),
+    // avoid subtracting from a strengthened quantity, and do not let one field's result feed another's.
     public ArsenalCastPlan Plan(ArsenalAbility ability, int slot)
     {
         var plan = new ArsenalCastPlan(ability);
@@ -121,10 +179,27 @@ public sealed class WeaponRunModifiers
         }
         return plan;
     }
+    // Immutability contract (Requisito 12.1/12.5/12.6): every returned AreaHitStep is a fresh deep copy
+    // of the asset's authored step (JsonUtility round-trip). AreaHitStep holds only value-type fields, so
+    // the round-trip is a genuine deep clone with no shared reference back into ability.HitSteps; the
+    // returned list never contains a reference into the source asset. Downstream loop rules
+    // (GauntletLoopSteps.Configure) and the Flurry/Asura soft-grouping therefore mutate clones only and
+    // move enemies through their own SoftGroupingService locomotion — no parallel movement channel and no
+    // parallel catalog. Enforced by AssetIsolationTests + GauntletStepsCloneIsolationTests.
+    //
+    // Monotonicity + order contract (Requisito 12.2/12.7; Properties 38/39): stanceDamage, pushDistance and
+    // the ShockRing sphereRadius all scale by *(1 + k*Rank) with k > 0, and the echo count is +k*Rank, so
+    // every affected quantity is non-decreasing as the rank grows from 1 to MaxRank. Steps are cloned in
+    // the ability's authored HitSteps order and echoes appended deterministically, so the result depends
+    // only on the final rank multiset, not on the order boons were acquired.
     public List<AreaHitStep> GauntletSteps(BreakerGauntletAbility ability, int slot)
     {
         var steps = new List<AreaHitStep>();
-        foreach (AreaHitStep source in ability.HitSteps)
+        // An ability with no authored steps (a fresh/placeholder asset) has a null HitSteps; treat it as
+        // an empty sequence so planning never throws (echoes below also no-op on an empty list).
+        if (ability == null || ability.HitSteps == null) return steps;
+        
+foreach (AreaHitStep source in ability.HitSteps)
         {
             if (source == null) continue;
             AreaHitStep step = JsonUtility.FromJson<AreaHitStep>(JsonUtility.ToJson(source));
@@ -159,6 +234,10 @@ public sealed class ArsenalCastPlan
     public float Windup, Interval, Range, Width, Damage, WaveMultiplier;
     public int Hits, Arrows, Directions = 1;
     public bool TrackCursor, Travel;
+    // Immutability invariant (Requisito 12.1/12.5): every field of this per-cast snapshot is a value type.
+    // The constructor below copies from the ability by value and stores NO reference to it, so mutating a
+    // plan can never reach the source asset. Keep it that way — do not add a reference-type field that
+    // aliases an asset (e.g. a shared list or a UnityEngine.Object handle) without cloning it here.
     // R7 transformative spear behaviors, set from ranks in WeaponRunModifiers.Plan (per-cast snapshot only).
     public float PhantomDelay;   // R7.2: 0 = off; 0.2-0.5 when PhantomSpear active
     public int ShardCount;       // R7.3: 0 = off; clamped 2-6 when MoonShard active

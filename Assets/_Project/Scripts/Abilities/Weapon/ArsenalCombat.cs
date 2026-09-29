@@ -10,7 +10,37 @@ public sealed class ArsenalCombat : MonoBehaviour
     private Coroutine _cast;
     private SkillAnimationPlayer _animation;
     private bool _locked, _wasStopped, _wasRotating;
-    private readonly Collider[] _overlap = new Collider[64]; // R7.5 ChainThrust enemy search buffer
+    private float _agentBaseSpeed;         // R10.1: the full move speed restored when a reduced-fire cast ends
+    private readonly Collider[] _overlap = new Collider[64]; // R7.5 ChainThrust / R7.4 sweep enemy search buffer
+
+    // R10.1: the Arco fires on the move. Instead of the full agent stop the Manoplas/Lança use, a Bow
+    // cast reduces the player's move speed to a fraction of full (strictly > 0 and < full) via the pure
+    // BowFireMovement, reusing the existing NavMeshAgent.speed the player already navigates with. The
+    // fraction is data (editable in the Inspector); the pure decision is injected so the MonoBehaviour
+    // stays thin (AGENTS.md) and Property 33 can test the reduced speed scene-free.
+    [Header("Arco — Movimento reduzido ao disparar (Requisito 10.1)")]
+    [SerializeField] private BowFireMovementConfig _bowFireMovementConfig = BowFireMovementConfig.Default;
+    private BowFireMovement _bowFireMovement;
+
+    // R10.5: base stance damage a Bow W (Flecha Pesada) hit chips, scaled by the slot's BowLoopSteps
+    // identity so a charged shot can crack a Heavy enemy's stance. Kept as data so numbers stay tunable.
+    [SerializeField, Min(0f)] private float _bowStanceDamage = 45f;
+
+    // True while a Bow cast is active. The player keeps moving (at reduced speed) during a Bow cast,
+    // so CharControlScript consults this to process movement instead of pinning the player (R10.1).
+    public bool AllowsMovementWhileFiring { get; private set; }
+
+    // R9.1/9.2: the Lança's Sweet Spot rewards a direct tip thrust with a stronger stance hit. The
+    // config is data (editable in the Inspector); the pure SweetSpot evaluator is injected here so the
+    // MonoBehaviour stays thin (AGENTS.md). Its bonus applies only to thrust hits (Requisito 9.2).
+    [Header("Lança — Sweet Spot (Requisito 9.1/9.2)")]
+    [SerializeField] private SweetSpotConfig _sweetSpotConfig = SweetSpotConfig.Default;
+    private SweetSpot _sweetSpot;
+
+    // R7.4: base stance damage a Lança hit chips. Scaled per slot by SpearLoopSteps.Reaction.StanceScale
+    // and by the Sweet Spot bonus on a tip thrust. Kept as data so numbers stay tunable.
+    [SerializeField, Min(0f)] private float _spearStanceDamage = 40f;
+
     public bool IsExecuting { get; private set; }
     public float ExecutionDuration { get; private set; }
 
@@ -19,6 +49,8 @@ public sealed class ArsenalCombat : MonoBehaviour
         _player = GetComponent<PlayerActor>();
         _agent = GetComponent<NavMeshAgent>();
         _animation = GetComponent<SkillAnimationPlayer>() ?? gameObject.AddComponent<SkillAnimationPlayer>();
+        _sweetSpot = new SweetSpot(_sweetSpotConfig);
+        _bowFireMovement = new BowFireMovement(_bowFireMovementConfig);
         _player.Died += OnDeath;
     }
 
@@ -49,14 +81,30 @@ public sealed class ArsenalCombat : MonoBehaviour
             if (new Plane(Vector3.up, origin).Raycast(ray, out float distance))
                 rainCenter = origin + Vector3.ClampMagnitude(ray.GetPoint(distance) - origin, plan.Range);
         }
+        bool bow = weapon.FiresArrows;
         _locked = _agent && _agent.enabled && _agent.isOnNavMesh;
         if (_locked)
         {
             _wasStopped = _agent.isStopped;
             _wasRotating = _agent.updateRotation;
-            _agent.ResetPath();
-            _agent.isStopped = true;
-            _agent.updateRotation = false;
+            if (bow)
+            {
+                // R10.1: the Arco fires on the move. Keep the agent navigating (never a full stop) but
+                // reduce its speed to the fraction of full the pure BowFireMovement decides — strictly
+                // > 0 and < full. We reuse the existing NavMeshAgent.speed rather than a parallel channel;
+                // the base speed is captured here and restored in Release. Rotation stays free so the
+                // player can keep facing the cursor while stepping.
+                _agentBaseSpeed = _agent.speed;
+                _agent.speed = _bowFireMovement.ReducedSpeed(_agentBaseSpeed);
+                _agent.isStopped = false;
+                AllowsMovementWhileFiring = true;
+            }
+            else
+            {
+                _agent.ResetPath();
+                _agent.isStopped = true;
+                _agent.updateRotation = false;
+            }
         }
         SkillMotion motion = weapon.FiresArrows ? (ability.Kind==ArsenalSkillKind.Rain ? SkillMotion.BowRain : SkillMotion.BowShot) :
             ability.Kind==ArsenalSkillKind.Thrust ? SkillMotion.SpearThrust :
@@ -86,6 +134,30 @@ public sealed class ArsenalCombat : MonoBehaviour
                         ArsenalProjectile.Fire(_player, origin + Vector3.up, aim, weapon.attackDamage,
                             plan.Damage, plan.Range, ability.Piercing, ability.AccentColor);
                     }
+
+                    // Per-slot Arco identity (Requisito 10.4–10.6). The arrows carry the damage; this
+                    // adds the identity a projectile alone can't express, built from data via the pure
+                    // BowLoopSteps. A non-Bow weapon never reaches this block.
+                    BowLoopSteps.Reaction bowId = BowLoopSteps.ReactionForSlot(slot, ability.Kind);
+
+                    // R10.5 / 11.2: W (Flecha Pesada) applies a Heavy/Breaker stance hit along the shot
+                    // line so a charged shot can crack a Heavy enemy's stance (KnockUp). Routed through
+                    // the shared area-damage path (cascade-bounded) with zero extra damage — the arrows
+                    // already dealt the damage; this hit only carries the stance reaction.
+                    if (bowId.AppliesStanceReaction)
+                    {
+                        HitReactionRequest heavy = new HitReactionRequest(_player,
+                            origin + direction.normalized * plan.Range, direction,
+                            bowId.ReactionType, bowId.Strength, _bowStanceDamage * bowId.StanceScale,
+                            bowId.BreakEffect, bowId.PushDistance, bowId.StunDuration, bowId.KnockUpHeight);
+                        _player.TryApplyAreaDamage(origin + Vector3.up, direction, plan.Range,
+                            new Vector3(plan.Width, 2f, plan.Range), AreaHitShape.Box, plan.Width,
+                            Physics.DefaultRaycastLayers, weapon.attackDamage, 0f, 0f, heavy, false, ability.AccentColor);
+                    }
+
+                    // R10.6: E (Leque Amplo) grants an emergency backstep after firing the cone, clamped
+                    // to the NavMesh so the recoil never leaves the navigable space.
+                    if (bowId.BackstepDistance > 0f) ApplyBackstep(direction, bowId.BackstepDistance);
                 }
                 else
                 {
@@ -100,9 +172,10 @@ public sealed class ArsenalCombat : MonoBehaviour
                     if (plan.Travel) center += direction * (i * 1.5f);
                     // Sphere helper raises its center by the radius; keep large sweeps at torso height.
                     center.y += radial ? 1f - plan.Width : 0f;
-                    // Q sweeps stagger and chip stance; breaking a weak mob's stance briefly stuns it.
-                    var reaction = new HitReactionRequest(_player, center, direction, HitReactionType.Stagger,
-                        HitStrength.Medium, 40f, StanceBreakEffect.Stun, 0.5f, 1f);
+                    // Per-slot Lança identity (Requisito 9.3–9.6): Q counter thrust, W anti-swarm sweep,
+                    // E Heavy/Breaker pierce that breaks Heavy (KnockUp), R Dragon Wave. Built from data
+                    // via the pure SpearLoopSteps; a non-Spear weapon keeps the neutral baseline.
+                    HitReactionRequest reaction = BuildSpearReaction(weapon, ability, slot, center, direction);
                     int primaryHits = 0;
                     for (int branch = 0; branch < plan.Directions; branch++)
                     {
@@ -112,6 +185,13 @@ public sealed class ArsenalCombat : MonoBehaviour
                             plan.Width, Physics.DefaultRaycastLayers, weapon.attackDamage, plan.Damage, 0f, reaction, true, ability.AccentColor);
 
                     }
+
+                    // R7.4/R9.4: the orbital sweep (W) nudges hit enemies along the sweep direction by a
+                    // LIMITED amount (<=1.5 m/s, <=0.75 m total), routed through each enemy's existing
+                    // locomotion means — never a hard knockback.
+                    if (radial && ability.Kind == ArsenalSkillKind.Sweep && primaryHits > 0)
+                        ApplySweepDisplacement(center, direction, plan);
+
                     if (plan.WaveMultiplier > 0)
                         // R7.4: ReturnWave flips the wave back toward the player at max range.
                         ArsenalProjectile.Fire(_player, origin + Vector3.up, direction, weapon.attackDamage,
@@ -138,6 +218,72 @@ public sealed class ArsenalCombat : MonoBehaviour
             }
         }
         finally { Release(); }
+    }
+
+    // Builds the per-hit reaction that carries the Lança's Q/W/E/R identity (Requisito 9.3–9.6). The
+    // reaction values come from the pure SpearLoopSteps; stance damage is the data-driven base scaled by
+    // the slot and by the Sweet Spot bonus on a direct tip thrust (Requisito 9.2). A non-Spear weapon
+    // keeps the neutral baseline (Medium/Stagger/Stun) this method's Generic stage produces.
+    private HitReactionRequest BuildSpearReaction(WeaponScript weapon, ArsenalAbility ability, int slot,
+        Vector3 center, Vector3 direction)
+    {
+        bool isSpear = WeaponRunModifiers.Identify(weapon) == RunWeaponFamily.Spear;
+        SpearLoopSteps.Reaction id = isSpear
+            ? SpearLoopSteps.ReactionForSlot(slot, ability.Kind)
+            : SpearLoopSteps.ReactionForStage(SpearLoopStage.Generic, ability.Kind);
+
+        float stance = _spearStanceDamage * id.StanceScale;
+
+        // R9.2: a direct thrust that lands in the tip Sweet Spot gets a strictly larger stance hit. The
+        // hit point straight ahead approximates the thrust contact; the sweep is not a tip thrust.
+        if (isSpear && id.IsThrust && _sweetSpot != null)
+        {
+            Vector3 tip = center + direction.normalized * ability.Range;
+            SweetSpot.Result sweet = _sweetSpot.Evaluate(tip, center, direction, ability.Range);
+            stance *= sweet.StanceMultiplier; // 1.0 outside, > 1.0 inside (Requisito 9.2)
+        }
+
+        return new HitReactionRequest(_player, center, direction, id.ReactionType, id.Strength,
+            stance, id.BreakEffect, id.PushDistance, id.StunDuration, id.KnockUpHeight);
+    }
+
+    // R7.4/R9.4: apply the LIMITED sweep displacement to enemies the orbital sweep hit. Each swept enemy
+    // is glided along the sweep direction by SpearSweepDisplacement (<=1.5 m/s, <=0.75 m total) through
+    // its own existing locomotion (SoftGroupingService), reusing that means instead of a parallel
+    // channel. Enemies without a SoftGroupingService are simply not displaced (no hard impulse).
+    private void ApplySweepDisplacement(Vector3 center, Vector3 direction, ArsenalCastPlan plan)
+    {
+        Vector3 sweepDir = direction; sweepDir.y = 0f;
+        if (sweepDir.sqrMagnitude < .001f) return;
+        sweepDir.Normalize();
+
+        float radius = Mathf.Max(.1f, plan.Width);
+        int count = Physics.OverlapSphereNonAlloc(center, radius, _overlap,
+            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
+        for (int i = 0; i < count; i++)
+        {
+            Actor enemy = _overlap[i].GetComponentInParent<Actor>();
+            if (!enemy || enemy == _player || enemy.IsDead || !enemy.isActiveAndEnabled) continue;
+            if (!enemy.TryGetComponent(out SoftGroupingService locomotion)) continue;
+            StartCoroutine(GlideSweptEnemy(locomotion, enemy, sweepDir));
+        }
+    }
+
+    // Glides a single swept enemy along the sweep direction over multiple frames, spending the 0.75 m
+    // total budget at no more than 1.5 m/s (R7.4) — never an instantaneous impulse past that limit. The
+    // per-frame step is decided by the pure SpearSweepDisplacement and moved through the enemy's own
+    // locomotion; the glide stops as soon as the total budget is spent or the enemy dies.
+    private IEnumerator GlideSweptEnemy(SoftGroupingService locomotion, Actor enemy, Vector3 sweepDir)
+    {
+        float moved = 0f;
+        while (moved < SpearSweepDisplacement.MaxTotalDisplacement)
+        {
+            if (!enemy || enemy.IsDead || !enemy.isActiveAndEnabled || !locomotion) yield break;
+            Vector3 delta = SpearSweepDisplacement.ComputeDisplacement(sweepDir, moved, Time.deltaTime);
+            if (delta == Vector3.zero) yield break;
+            moved += locomotion.ApplyExternalDisplacement(delta).magnitude;
+            yield return null;
+        }
     }
 
     // R7.3: launch the shard projectiles from the sweep extremities, fanned across the sweep arc.
@@ -218,6 +364,19 @@ public sealed class ArsenalCombat : MonoBehaviour
         return best;
     }
 
+    // R10.6: recoil the player straight back from the fired direction by up to backstepDistance,
+    // clamped to the NavMesh (reusing NavMesh.SamplePosition / agent.Warp) so the Leque Amplo's
+    // emergency step never lands the player off the navigable surface. No-op without a live agent.
+    private void ApplyBackstep(Vector3 fireDirection, float backstepDistance)
+    {
+        if (!_agent || !_agent.enabled || !_agent.isOnNavMesh) return;
+        Vector3 back = fireDirection; back.y = 0f;
+        if (back.sqrMagnitude < .001f) return;
+        Vector3 desired = transform.position - back.normalized * backstepDistance;
+        if (NavMesh.SamplePosition(desired, out NavMeshHit hit, backstepDistance + 1f, _agent.areaMask))
+            _agent.Warp(hit.position);
+    }
+
     public void Cancel()
     {
         if (_cast != null) StopCoroutine(_cast);
@@ -230,9 +389,13 @@ public sealed class ArsenalCombat : MonoBehaviour
         if (_animation) _animation.Release();
         if (_locked && _agent && _agent.enabled && _agent.isOnNavMesh)
         {
+            // R10.1: a Bow cast only reduced the speed (never stopped the agent), so restore the full
+            // move speed captured at cast start; a Manoplas/Lança cast restores the prior stop/rotation.
+            if (AllowsMovementWhileFiring && _agentBaseSpeed > 0f) _agent.speed = _agentBaseSpeed;
             _agent.isStopped = _wasStopped;
             _agent.updateRotation = _wasRotating;
         }
+        AllowsMovementWhileFiring = false;
         _locked = false;
         IsExecuting = false;
     }

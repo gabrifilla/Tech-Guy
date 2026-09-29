@@ -1,0 +1,1460 @@
+{
+  "pbtResults": {
+    "4.3 Escrever teste de propriedade para quebra de Elite por acúmulo ou força alta": {
+      "status": "not_run",
+      "lastRunTimestamp": 1790690596060
+    }
+  },
+  "executionHistory": {
+    "1.1 Inspecionar os sistemas de combate/arma/inimigo existentes e produzir o registro de inspeção": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688122072
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688140325
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688325511
+      }
+    ],
+    "2.1 Implementar `DisplacementTier` como validador puro compartilhado": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688122196
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688329883
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688560278
+      }
+    ],
+    "2.2 Escrever teste de propriedade para os limites por nível de deslocamento": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688122330
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688565460
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689131751
+      }
+    ],
+    "2.3 Escrever teste de propriedade para rebaixamento de deslocamento inválido": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688122484
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688566922
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689133112
+      }
+    ],
+    "2.4 Implementar `VulnerabilityWindow` como estado interno puro do controlador": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688122623
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688330952
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688560980
+      }
+    ],
+    "3.1 Preservar independência dos canais e clamps de legibilidade da reação imediata": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688122747
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688567944
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689134244
+      }
+    ],
+    "3.2 Escrever teste de propriedade para independência dos quatro canais": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688122871
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689138898
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689359703
+      }
+    ],
+    "3.3 Escrever teste de propriedade para o limite de legibilidade da reação imediata": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688122967
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689140167
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689360789
+      }
+    ],
+    "3.4 Preservar subtração de postura, quebra no mesmo quadro, imunidade e recuperação": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688123087
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689141575
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689358305
+      }
+    ],
+    "3.5 Escrever teste de propriedade para subtração de postura limitada": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688123185
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689369693
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690014577
+      }
+    ],
+    "3.6 Escrever teste de propriedade para quebra no mesmo quadro em que a reserva zera": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688123327
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689371144
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690015976
+      }
+    ],
+    "3.7 Escrever teste de propriedade para imunidade pós-quebra ignorar dano de postura": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688123420
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689372539
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690017376
+      }
+    ],
+    "3.8 Escrever teste de propriedade para restauração de postura e adiamento da recuperação": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688123520
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689373606
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690018512
+      }
+    ],
+    "3.9 Implementar o degradê determinístico de efeito por resistência (escada KnockUp→Stun)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688123628
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690024623
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690193883
+      }
+    ],
+    "3.10 Escrever teste de propriedade para o degradê determinístico de efeito": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688123714
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690393620
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690709096
+      }
+    ],
+    "3.11 Suprimir deslocamento adicional durante travamento de controle": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688123816
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689142589
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690013195
+      }
+    ],
+    "3.12 Escrever teste de propriedade para supressão de deslocamento em travamento": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688123918
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690025785
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690194935
+      }
+    ],
+    "4. Diferenciação de reação por raridade (dados + vulnerabilidade efetiva)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688124010
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699476864
+      }
+    ],
+    "4.1 Integrar a `VulnerabilityWindow` ao controlador rebaixando a raridade efetiva": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688124111
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690204489
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690385693
+      }
+    ],
+    "4.2 Escrever teste de propriedade para o rebaixamento de raridade efetiva": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688124218
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690394978
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690710166
+      }
+    ],
+    "4.3 Escrever teste de propriedade para quebra de Elite por acúmulo ou força alta": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688124327
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690396378
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690707718
+      }
+    ],
+    "4.4 Escrever teste de propriedade para Legendary sem stagger contínuo": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688124451
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690397326
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690706297
+      }
+    ],
+    "4.5 Escrever teste de propriedade para Boss suprimir reações convencionais": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688124553
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690398719
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690704903
+      }
+    ],
+    "4.6 Criar `RankReactionDefaults` e o fallback de configuração ausente por raridade": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688124648
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690720588
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691067193
+      }
+    ],
+    "4.7 Escrever teste (exemplo) para o fallback de configuração ausente por raridade": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688124742
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691072631
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691671944
+      }
+    ],
+    "5. Checkpoint — garantir que reação, deslocamento e raridade estão sólidos": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688124845
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699519093
+      }
+    ],
+    "6.1 Implementar `AttackSlotPool` (classe plana) e o `AttackSlotConfig`": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688124956
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691073903
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691669263
+      }
+    ],
+    "6.2 Escrever teste de propriedade para o limite de atacantes simultâneos": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688125064
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691682755
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692197717
+      }
+    ],
+    "6.3 Escrever teste de propriedade para devolução de slot restaurar capacidade": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688125159
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691684175
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692201890
+      }
+    ],
+    "6.4 Escrever teste (exemplo) para slot livre sem inimigo elegível": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688125252
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691685176
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692200453
+      }
+    ],
+    "6.5 Adicionar o `SwarmAttackCoordinator` (MonoBehaviour fino) e conectá-lo ao `EnemyAI`": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688125352
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691681313
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692199039
+      }
+    ],
+    "7.1 Implementar `PreferredDistanceProfile` e `PreferredDistanceLayer`": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688125465
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691075318
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691673145
+      }
+    ],
+    "7.2 Escrever teste de propriedade para distância preferida positiva e alvo de posicionamento": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688125567
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691686357
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692203273
+      }
+    ],
+    "7.3 Escrever teste (exemplo) para o fallback de distância por `CombatRole`": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688125653
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692209664
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692657432
+      }
+    ],
+    "8.1 Implementar o núcleo de cálculo do `SoftGroupingService` e o `SoftGroupingConfig`": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688125765
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691076421
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691670475
+      }
+    ],
+    "8.2 Escrever teste de propriedade para os limites do agrupamento suave": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688125869
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692210838
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692656028
+      }
+    ],
+    "8.3 Escrever teste de propriedade para o Arco não aplicar agrupamento": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688126048
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692213401
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692655232
+      }
+    ],
+    "8.4 Estender a interrupção condicionada à janela interrompível e o acúmulo por raridade": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688126198
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692214027
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692658805
+      }
+    ],
+    "8.5 Escrever teste de propriedade para a interrupção condicionada à janela": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688126289
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692668589
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692998702
+      }
+    ],
+    "8.6 Escrever teste de propriedade para o acúmulo de stagger por raridade": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688126385
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692669974
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692997281
+      }
+    ],
+    "9. Checkpoint — garantir que os serviços de enxame estão íntegros": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688126481
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699520538
+      }
+    ],
+    "10.1 Configurar o loop e os deslocamentos das Manoplas em `BreakerGauntletCombat`/`AreaHitStep`": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688126569
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692671369
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790693000553
+      }
+    ],
+    "10.2 Escrever teste de propriedade para o Avanço Relâmpago ficar na NavMesh": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688126679
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694029450
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694294458
+      }
+    ],
+    "10.3 Escrever teste de propriedade para o Flurry manter golpes e travamento": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688126763
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694029654
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694291684
+      }
+    ],
+    "10.4 Escrever teste de propriedade para o KnockUp manter juggle e restaurar controle": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688126855
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694030603
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694295836
+      }
+    ],
+    "10.5 Preservar as regras de ativação/ganho de Asura em `AsuraMomentum`/`BreakerGauntletCombat`": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688126948
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694026822
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694297119
+      }
+    ],
+    "10.6 Escrever teste de propriedade para R negar Asura quando a energia não está cheia": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688127039
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697315080
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697691152
+      }
+    ],
+    "10.7 Escrever teste de propriedade para o ganho de Asura por alternância de categoria": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688127128
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697316152
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697692262
+      }
+    ],
+    "11.1 Implementar `SweetSpot` (classe plana) e o `SweetSpotConfig`": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688127228
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692672767
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790693002957
+      }
+    ],
+    "11.2 Escrever teste de propriedade para o bônus do Sweet Spot ser estritamente maior": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688127329
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694031774
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694293058
+      }
+    ],
+    "11.3 Implementar `SpearFlow` (recurso opcional) sem interferir em quem não acumula": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688127418
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790693009264
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790693519633
+      }
+    ],
+    "11.4 Escrever teste de propriedade para Flow não interferir em quem não acumula": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688127518
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694303956
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697117349
+      }
+    ],
+    "11.5 Configurar as habilidades Q/W/E/R da Lança via dados de `ArsenalAbility`/`AreaHitStep`": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688127616
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790693010354
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790693520927
+      }
+    ],
+    "11.6 Escrever teste de propriedade para o deslocamento limitado da varredura": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688127719
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694305058
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697118662
+      }
+    ],
+    "12.1 Implementar `WeaponMark` (classe plana) reusando `PriorityTargetMarker`": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688127820
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692673790
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790693001976
+      }
+    ],
+    "12.2 Escrever teste de propriedade para a Marca reforçar comportamentos de prioridade": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688127920
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694306437
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697120051
+      }
+    ],
+    "12.3 Escrever teste de propriedade para prioridade sem Marca usar alvo padrão": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688128018
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694307713
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697121510
+      }
+    ],
+    "12.4 Configurar movimento reduzido ao disparar e as habilidades Q/W/E/R do Arco": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688128126
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790693526367
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694019478
+      }
+    ],
+    "12.5 Escrever teste de propriedade para a velocidade reduzida ao disparar o Arco": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688128234
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697129119
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697306323
+      }
+    ],
+    "12.6 Escrever teste de propriedade para a Chuva de Flechas respeitar o alcance": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688128336
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697130183
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697307497
+      }
+    ],
+    "13.1 Conectar a reaplicação de agrupamento pelo Flurry e a atração de Asura": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688128432
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790694308888
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697123594
+      }
+    ],
+    "13.2 Escrever teste de propriedade para a reaplicação de agrupamento pelo Flurry": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688128531
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697317560
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697688307
+      }
+    ],
+    "13.3 Escrever teste de propriedade para a atração de Asura limitada": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688128629
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697318856
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697689692
+      }
+    ],
+    "13.4 Escrever teste de propriedade para a ferramenta anti-Heavy usar força Heavy/Breaker": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688128846
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697701423
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697920720
+      }
+    ],
+    "14. Checkpoint — garantir que as três identidades de arma estão íntegras": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688128973
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699521786
+      }
+    ],
+    "15.1 Preservar a imutabilidade dos assets ao montar o Cast_Plan/GauntletSteps": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688129074
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697321221
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697687010
+      }
+    ],
+    "15.2 Escrever teste de propriedade para a imutabilidade dos assets ao planejar": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688129164
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698115121
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698476203
+      }
+    ],
+    "15.3 Garantir monotonicidade por rank e ordem determinística de aplicação": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688129256
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697700137
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697922156
+      }
+    ],
+    "15.4 Escrever teste de propriedade para a monotonicidade dos modificadores por rank": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688129354
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698116692
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698477314
+      }
+    ],
+    "15.5 Escrever teste de propriedade para a ordem determinística de aplicação": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688129464
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698117972
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698478661
+      }
+    ],
+    "15.6 Ignorar modificador inválido/não catalogado sem efeito colateral": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688129552
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697923348
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698108486
+      }
+    ],
+    "15.7 Escrever teste de propriedade para modificador inválido ignorado sem efeito colateral": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688129647
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698119357
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698479908
+      }
+    ],
+    "16.1 Criar o `WeaponEnemyMatrix` (ScriptableObject) mapeando (Arquétipo × Arma) para resposta": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688129737
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698120441
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698481319
+      }
+    ],
+    "16.2 Escrever teste (exemplo) de completude e fallback da matriz": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688129836
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698747749
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699059918
+      }
+    ],
+    "17.1 Preservar o kit de 12 habilidades, mana/recarga, exclusão mútua e exibição de Asura": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688129921
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698493053
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698741215
+      }
+    ],
+    "17.2 Escrever teste de propriedade para a dedução de mana e início de recarga": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688130033
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698749175
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699054703
+      }
+    ],
+    "17.3 Escrever teste de propriedade para a exclusão mútua durante a execução": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688130148
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698750618
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699055973
+      }
+    ],
+    "17.4 Escrever teste de propriedade para a ativação inválida preservar o estado": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688130257
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698751645
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699057377
+      }
+    ],
+    "17.5 Escrever teste de propriedade para Asura exibido sse e somente se Manoplas equipadas": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688130348
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698752878
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699058838
+      }
+    ],
+    "17.6 Validar integridade de referências e preservação de `.meta`/GUID": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688130447
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699066880
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699445506
+      }
+    ],
+    "18. Checkpoint final — garantir que todos os testes passam e as validações estão relatadas": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688130556
+      },
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699522890
+      }
+    ],
+    "1. Inspeção e registro do estado atual do projeto (pré-requisito de qualquer alteração)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790688325681
+      }
+    ],
+    "2. Contratos compartilhados de reação e deslocamento (base de todas as armas)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790689133227
+      }
+    ],
+    "3. Estender o `CombatReactionController` com os quatro canais legíveis, imunidade e vulnerabilidade": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790690709211
+      }
+    ],
+    "4.2b Aplicar as regras de quebra por raridade (Normal/Elite/Legendary/Boss)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790691672067
+      }
+    ],
+    "6. Serviço de slots de ataque do enxame (novo, desacoplado)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692202004
+      }
+    ],
+    "7. Distância preferida e formações emergentes (extensão do `EnemyAI`)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692657552
+      }
+    ],
+    "8. Agrupamento suave e regras de interrupção (novo serviço + reuso de interrupção)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790692998846
+      }
+    ],
+    "11. Identidade da Lança (Sweet Spot + Flow opcional + configuração de estocada/varredura)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697118776
+      }
+    ],
+    "12. Identidade do Arco (Marca + configuração de disparo/alcance)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697307665
+      }
+    ],
+    "10. Identidade das Manoplas (configuração + reuso de Avanço/Flurry/Asura)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697692375
+      }
+    ],
+    "13. Agrupamento aplicado pelas armas (Flurry / Asura) e ferramenta anti-Heavy compartilhada": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790697920968
+      }
+    ],
+    "15. Integração progressiva dos modificadores de run (imutabilidade / ordem / monotonicidade)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790698480108
+      }
+    ],
+    "16. Matriz Arma × Inimigo (somente dados + fallback)": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699060102
+      }
+    ],
+    "17. Preservação do kit/HUD e integridade de referências": [
+      {
+        "executionId": "2db6f71a-0ad6-4795-9b92-8ba0e40944f3",
+        "chatSessionId": "sess_3f0ec138-79b7-4075-90d1-4e130f86ff2f",
+        "timestamp": 1790699445691
+      }
+    ]
+  }
+}

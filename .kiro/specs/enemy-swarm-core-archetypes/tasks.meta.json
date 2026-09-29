@@ -1,0 +1,846 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Add `ArchetypeId` and `CombatRole` enums": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681586937
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681599980
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681685790
+      }
+    ],
+    "1.2 Extend `EnemyAttackKind` with new kinds": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681588018
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681601216
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681686653
+      }
+    ],
+    "1.3 Create `EnemyArchetype` ScriptableObject": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681588124
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681691331
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682122177
+      }
+    ],
+    "2.1 Add `Actor.Heal(float amount)` and shield hook in `TakeDamage`": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681588247
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681692579
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682123209
+      }
+    ],
+    "2.2 Create `Shield` companion component": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681588391
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682128514
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682455186
+      }
+    ],
+    "2.3 Write property test for Shield absorb + Heal clamp math": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681588476
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682461933
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682750413
+      }
+    ],
+    "3.1 Extract telegraph windup-clock and single-beat resolver into plain C#": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681588550
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681693702
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682124373
+      }
+    ],
+    "3.2 Write property tests for telegraph clock and beat resolver": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681588631
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682129903
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682456540
+      }
+    ],
+    "4.1 Implement `EnemyProjectile` (straight + arced) state machine": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681588750
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682463371
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682749160
+      }
+    ],
+    "4.2 Write property tests for projectile state machine": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681588823
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682758120
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683061509
+      }
+    ],
+    "5. Checkpoint — foundation primitives compile and pass": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681588895
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790686248492
+      }
+    ],
+    "6.1 Widen `EnemyAttackPatterns.Select` for archetype-scoped selection": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681588990
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682759555
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683058788
+      }
+    ],
+    "6.2 Add `AimedShot`, `SpreadShot`, `SniperShot` cases to `EnemyCombatActions.Perform`": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681589071
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683072281
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683541261
+      }
+    ],
+    "6.3 Add `LobShot` and `HazardPlace` cases to `EnemyCombatActions.Perform`": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681589165
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683542251
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683698984
+      }
+    ],
+    "6.4 Add `HookLine` case to `EnemyCombatActions.Perform`": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681589249
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683697852
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684090760
+      }
+    ],
+    "6.5 Write unit/example tests for attack-shape edge cases": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681589321
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684103195
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684350623
+      }
+    ],
+    "7.1 Implement abstract `ArchetypeBehavior` base": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681589394
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682130929
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682457583
+      }
+    ],
+    "7.2 Write property test for the control-lock gate predicate": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681589467
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682464235
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682751539
+      }
+    ],
+    "8.1 Implement `HazardZone` (fire / electric / slow)": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681589534
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682760967
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683062398
+      }
+    ],
+    "8.2 Write property test for hazard interval/slow model": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681589613
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683068807
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683315720
+      }
+    ],
+    "8.3 Implement `HazardCasterBehavior`": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681589709
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683704840
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684092076
+      }
+    ],
+    "8.4 Implement `HealerBehavior`": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681589879
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683706244
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684092788
+      }
+    ],
+    "8.5 Implement `ShieldSupportBehavior`": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681589947
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683707362
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684095071
+      }
+    ],
+    "8.6 Implement `SpawnerBehavior`": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590014
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683708246
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684096125
+      }
+    ],
+    "8.7 Write property test for spawner living-count model": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590082
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684355446
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684702489
+      }
+    ],
+    "8.8 Implement `FrontalReflector` (Mirror)": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590165
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682761944
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683057414
+      }
+    ],
+    "8.9 Write property test for frontal-arc reflection math": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590261
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683069688
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683314818
+      }
+    ],
+    "8.10 Implement `PriorityTargetMarker`": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590350
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682763078
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683060267
+      }
+    ],
+    "8.11 Write property test for priority-marker presence predicate": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590427
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683071132
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683313414
+      }
+    ],
+    "9.1 Add `PlayerActor.BeginExternalPull(target, maxDuration)`": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590500
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684103013
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684349652
+      }
+    ],
+    "9.2 Write property test for hook pull bound/tolerance model": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590568
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684356852
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684701105
+      }
+    ],
+    "10. Checkpoint — pipeline, behaviors, and pull compile and pass": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590644
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790686252817
+      }
+    ],
+    "11.1 Extend `EnemyVariant` to resolve `EnemyArchetype` and configure": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590715
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684357841
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684703471
+      }
+    ],
+    "11.2 Add unresolved/duplicate id safe-default fallback": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590787
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684712064
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684825020
+      }
+    ],
+    "12.1 Author melee-group profiles and archetype assets": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590918
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684710231
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685281418
+      }
+    ],
+    "12.2 Author ranged/control/support/swarm/special profiles and archetype assets": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681590986
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684711054
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685282382
+      }
+    ],
+    "12.3 Write property test for melee profile distinctness": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681591049
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685290753
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685598599
+      }
+    ],
+    "13.1 Wire melee archetypes (Rush, Grunt, Heavy, Charger)": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681591119
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685287242
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685600023
+      }
+    ],
+    "13.2 Wire ranged archetypes (Shooter, Spread_Shooter, Sniper, Bomber)": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681591196
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685288587
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685601408
+      }
+    ],
+    "13.3 Wire control, support, swarm, and special archetypes": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681591269
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685289880
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685602451
+      }
+    ],
+    "14.1 Write property test for interrupt cancellation": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681591334
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685607906
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685868811
+      }
+    ],
+    "14.2 Write remaining unit/example tests": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681591408
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685608883
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685870240
+      }
+    ],
+    "15.1 Verify end-to-end archetype configuration path": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681591467
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685609944
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685871063
+      }
+    ],
+    "15.2 Write PlayMode integration tests (representative examples)": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681591535
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685876014
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790686238136
+      }
+    ],
+    "16. Final checkpoint — full suite green": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790681591601
+      },
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790686257125
+      }
+    ],
+    "1. Foundation data identity types": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682122272
+      }
+    ],
+    "3. Telegraph clock and single-beat resolver (pure logic)": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682456622
+      }
+    ],
+    "2. Actor additive primitives (Heal + Shield)": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682750485
+      }
+    ],
+    "7. ArchetypeBehavior base and control-lock gate": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790682751604
+      }
+    ],
+    "4. Reusable EnemyProjectile": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790683061613
+      }
+    ],
+    "6. Attack pipeline extensions for new attack shapes": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684350796
+      }
+    ],
+    "9. Player-side hook pull": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684701355
+      }
+    ],
+    "8. Role behaviors and support components": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684702640
+      }
+    ],
+    "11. EnemyVariant archetype wiring": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790684825162
+      }
+    ],
+    "12. Author the 16 EnemyProfile + EnemyArchetype assets": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685598734
+      }
+    ],
+    "13. Per-archetype behavior wiring and tuning": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685602617
+      }
+    ],
+    "14. Property 3 interrupt coverage and remaining unit tests": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790685870359
+      }
+    ],
+    "15. Integration wiring and PlayMode tests": [
+      {
+        "executionId": "d007eb03-2310-49f6-9797-1b6dcb50aa8c",
+        "chatSessionId": "sess_3097d956-22c5-4637-8b8e-f7c1a5a5b305",
+        "timestamp": 1790686238271
+      }
+    ]
+  }
+}

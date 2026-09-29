@@ -27,6 +27,28 @@ public class EnemyRespawnPoint : MonoBehaviour
 
     private readonly List<Actor> activeEnemies = new List<Actor>();
 
+    // Feature: procedural-stage-room-generation (task 8.4). When true, a spawned enemy's death is
+    // NOT auto-respawned: the ProgressionDirector owns the room's alive-count / clear lifecycle
+    // (R3.5, R6.1) and re-populating the room would prevent it from ever reaching zero. Additive
+    // and opt-in — the legacy FirstSector authored respawn behavior is unchanged when left false.
+    private bool _respawnSuppressed;
+
+    /// <summary>
+    /// Injects the enemy prefab this point spawns and stops it from spawning on <c>Start</c>, so a
+    /// runtime-created spawn point (with no serialized prefab) can be driven programmatically by the
+    /// <c>ProgressionDirector</c>/<c>RoomCompositionResolver</c>. Also suppresses death-triggered
+    /// respawns so the owning director can track a room's alive count to zero (R3.5/R6.1). Purely
+    /// additive: existing serialized/authored spawn points are unaffected.
+    /// </summary>
+    /// <remarks>Feature: procedural-stage-room-generation. Requirements: 3.5, 5.4, 6.1.</remarks>
+    /// <param name="prefab">The enemy prefab to instantiate on each <see cref="SpawnEnemy"/>.</param>
+    public void ConfigurePrefab(GameObject prefab)
+    {
+        enemyPrefab = prefab;
+        spawnOnStart = false;
+        _respawnSuppressed = true;
+    }
+
     private void Start()
     {
         if (initialEnemy)
@@ -127,6 +149,10 @@ public class EnemyRespawnPoint : MonoBehaviour
     {
         enemy.Died -= OnEnemyDied;
         activeEnemies.Remove(enemy);
+
+        // When driven by the ProgressionDirector the room's clear lifecycle owns respawns, so a
+        // death must not silently re-populate the room (R3.5/R6.1).
+        if (_respawnSuppressed) return;
 
         StartCoroutine(RespawnAfterDelay());
     }

@@ -1,0 +1,1005 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Definir os enums `RoomType` e `Direction`": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703405706
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703419234
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703626882
+      }
+    ],
+    "1.2 Implementar `RoomComposition` e `ArchetypeSlot`": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703405794
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703423319
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703627918
+      }
+    ],
+    "1.3 Implementar `Room` e `RoomConnection`": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703405865
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703424566
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703629183
+      }
+    ],
+    "1.4 Implementar `RoomGraph` com `StructurallyEquals`": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703405947
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703425511
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703630620
+      }
+    ],
+    "1.5 Implementar `StageGenerationParams` com clamps e `OnValidate`": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406034
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703636284
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703763167
+      }
+    ],
+    "2.1 Criar a RNG isolada semeada pela Run_Seed": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406106
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703426587
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703631564
+      }
+    ],
+    "2.2 Implementar a derivação de próxima seed (splitmix64)": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406184
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703637062
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703763977
+      }
+    ],
+    "2.3 Escrever teste de propriedade: determinismo da próxima seed": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406272
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703776564
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703936499
+      }
+    ],
+    "3.1 Implementar orçamento de densidade escalado por profundidade": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406395
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703774206
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703937896
+      }
+    ],
+    "3.2 Implementar seleção de arquétipos e distribuição por variedade": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406466
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703775423
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703940048
+      }
+    ],
+    "3.3 Escrever teste de propriedade: densidade dentro do orçamento": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406532
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703945535
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704199527
+      }
+    ],
+    "3.4 Escrever teste de propriedade: densidade monótona por profundidade": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406611
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703946915
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704200552
+      }
+    ],
+    "3.5 Escrever teste de propriedade: variedade satisfeita": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406691
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703948217
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704202231
+      }
+    ],
+    "4.1 Criar o esqueleto do `StageGenerator` e o resultado de geração": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406773
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703949329
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704203239
+      }
+    ],
+    "4.2 Sortear contagens e presença de salas especiais": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406850
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704211603
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704503887
+      }
+    ],
+    "4.3 Construir o grafo conexo com crescimento semeado e não-sobreposição": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703406926
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704212814
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704505241
+      }
+    ],
+    "4.4 Atribuir tipos de sala e posicionar Treasure/Secret": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407001
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704214210
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704506668
+      }
+    ],
+    "4.5 Anexar composições e spawn points às Combat_Rooms": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407066
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704215317
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704508068
+      }
+    ],
+    "4.6 Marcar o chefe elegível e implementar retentativas/aborto": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407148
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704216378
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704509223
+      }
+    ],
+    "4.7 Escrever teste de propriedade: determinismo da geração": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407212
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704517454
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705157246
+      }
+    ],
+    "4.8 Escrever teste de propriedade: seeds diferentes divergem": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407292
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704518425
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705158297
+      }
+    ],
+    "4.9 Escrever teste de propriedade: conectividade Start → Boss": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407364
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704519786
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705159553
+      }
+    ],
+    "4.10 Escrever teste de propriedade: limites de contagem de salas": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407455
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704521245
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705160515
+      }
+    ],
+    "4.11 Escrever teste de propriedade: tipo único por sala": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407545
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704522149
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705162939
+      }
+    ],
+    "4.12 Escrever teste de propriedade: no máximo uma Treasure e uma Secret": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407643
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704523608
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705163280
+      }
+    ],
+    "4.13 Escrever teste de propriedade: probabilidade de especiais em [5%,95%] e reprodutível": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407733
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704524862
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705164715
+      }
+    ],
+    "4.14 Escrever teste de propriedade: Treasure acessível ou descartada": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407827
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704534208
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705165661
+      }
+    ],
+    "4.15 Escrever teste de propriedade: não-sobreposição de salas": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407910
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704535596
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705167249
+      }
+    ],
+    "4.16 Escrever teste de propriedade: um par de portas por conexão": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703407983
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704536558
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705168331
+      }
+    ],
+    "4.17 Escrever teste de propriedade: cada Combat_Room tem spawn point": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703408064
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704537956
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705173942
+      }
+    ],
+    "4.18 Escrever teste de propriedade: chefe único e elegível": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703408144
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704539362
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705174905
+      }
+    ],
+    "4.19 Escrever teste de propriedade: aleatoriedade isolada da RNG global": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703408215
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704540415
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705176301
+      }
+    ],
+    "4.20 Escrever testes de exemplo/edge do núcleo puro": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703408365
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704541750
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705177770
+      }
+    ],
+    "5. Checkpoint — validar o núcleo puro": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703408496
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790710579819
+      }
+    ],
+    "6.1 Adicionar a API por direção preservando a API legada": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703408589
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703777550
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703935075
+      }
+    ],
+    "6.2 Escrever testes EditMode da API direcional": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703408679
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703950305
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704204364
+      }
+    ],
+    "7.1 Amostrar NavMesh e instanciar inimigos por arquétipo": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703408779
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704542797
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705180310
+      }
+    ],
+    "7.2 Tratar descartes e avisos de composição": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703408876
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705187636
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705390326
+      }
+    ],
+    "7.3 Escrever testes EditMode dos avisos/descartes do resolver": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703408966
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705397950
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705767256
+      }
+    ],
+    "8.1 Criar o esqueleto com validação de dependências e estado somente leitura": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409067
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705188613
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705391532
+      }
+    ],
+    "8.2 Adquirir a Run_Seed com fallback e persistência/log": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409161
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705398881
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705768403
+      }
+    ],
+    "8.3 Materializar o grafo na cena": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409242
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705399965
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705769421
+      }
+    ],
+    "8.4 Implementar entrada em Combat_Room, selagem e ativação de composição": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409321
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705775764
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706103324
+      }
+    ],
+    "8.5 Implementar limpeza de sala, troféu e recompensa": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409395
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705776830
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706104542
+      }
+    ],
+    "8.6 Escrever teste de propriedade: idempotência de reentrada": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409477
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706114682
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706594180
+      }
+    ],
+    "8.7 Implementar Treasure_Room e Secret_Room em runtime": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409559
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706111249
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706591032
+      }
+    ],
+    "8.8 Implementar progressão de fase por derrota do chefe": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409631
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706112459
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706593385
+      }
+    ],
+    "8.9 Implementar encerramento da run por morte do jogador": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409711
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706113564
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706593671
+      }
+    ],
+    "9. Checkpoint — validar orquestração e EditMode": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409778
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790710584250
+      }
+    ],
+    "10.1 Testar ativação de sala e spawn de inimigos": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409854
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706600787
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790709432173
+      }
+    ],
+    "10.2 Testar selagem e abertura de portas": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703409936
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706602559
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790709428508
+      }
+    ],
+    "10.3 Testar fluxo de troféu e RunBoons": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703410000
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706603133
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790709429434
+      }
+    ],
+    "10.4 Testar morte do jogador e retorno ao Nexus": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703410086
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706604066
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790709432683
+      }
+    ],
+    "11.1 Autorar cena/prefab e conectar componentes via Unity_MCP": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703410169
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790709438483
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790709870596
+      }
+    ],
+    "11.2 Validar grafo e executar testes via Unity_MCP": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703410261
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790709875461
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790710568513
+      }
+    ],
+    "12. Checkpoint final — garantir que todos os testes passem": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703410350
+      },
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790710588890
+      }
+    ],
+    "1. Criar o modelo de dados puro do grafo de salas": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703763346
+      }
+    ],
+    "2. Implementar a RNG determinística e a derivação de próxima seed": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790703936573
+      }
+    ],
+    "3. Implementar o `RoomCompositionPlanner` (núcleo puro)": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704202315
+      }
+    ],
+    "6. Estender `EncounterGates` com API direcional aditiva": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790704204441
+      }
+    ],
+    "4. Implementar o `StageGenerator` (núcleo puro)": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705177878
+      }
+    ],
+    "7. Implementar o `RoomCompositionResolver` (orquestração de spawn)": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790705767371
+      }
+    ],
+    "8. Implementar o `ProgressionDirector` (MonoBehaviour de orquestração)": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790706594285
+      }
+    ],
+    "10. Escrever testes de integração PlayMode": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790709432810
+      }
+    ],
+    "11. Verificação in-Editor via Unity_MCP (Requisito 10)": [
+      {
+        "executionId": "8bfb0f4c-56bc-4f3a-a369-34e14edf0a12",
+        "chatSessionId": "sess_41be0cc7-3b1c-41d1-b387-5e142743d156",
+        "timestamp": 1790710568647
+      }
+    ]
+  }
+}

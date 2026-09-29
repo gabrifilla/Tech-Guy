@@ -51,6 +51,14 @@ public class Actor : MonoBehaviour
         if (IsDead) return;
         foreach (var modifier in _damageTakenModifiers)
             if (modifier.Key) amount *= modifier.Value;
+
+        // Offer incoming damage to an attached damage absorber (e.g. Shield) before it
+        // reaches health. The absorber consumes what it can and returns the leftover, which
+        // is the only portion that reduces health. When no absorber is present this is a
+        // no-op and existing behavior is preserved.
+        if (amount > 0f && TryGetComponent<IDamageAbsorber>(out var absorber))
+            amount = Mathf.Max(0f, absorber.Absorb(amount));
+
         float previousHealth = health;
         health = Mathf.Max(0f, health - amount);
         float actualDamage = previousHealth - health;
@@ -75,6 +83,26 @@ public class Actor : MonoBehaviour
         health = IsDead ? 0f : maxHealth * ratio;
         UpdateHealthBar();
         HealthChanged?.Invoke(this);
+    }
+
+    /// <summary>
+    /// Restores a fixed amount of health, clamped so it never exceeds <see cref="maxHealth"/>.
+    /// No-op when the actor is dead or when <paramref name="amount"/> is not positive.
+    /// </summary>
+    public void Heal(float amount)
+    {
+        if (IsDead || amount <= 0f) return;
+        float previousHealth = health;
+        health = HealMath.Clamp(health, maxHealth, amount);
+        if (health == previousHealth) return;
+        UpdateHealthBar();
+        HealthChanged?.Invoke(this);
+
+        EnemyTargetUI ui = EnemyTargetUI.Instance;
+        if (ui != null)
+        {
+            ui.NotifyHealthChanged(this);
+        }
     }
 
     public void RestoreHealthToMax()

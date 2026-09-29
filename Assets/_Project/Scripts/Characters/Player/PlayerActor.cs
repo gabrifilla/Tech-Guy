@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerActor : Actor
+public class PlayerActor : Actor, IExternalPullTarget
 {
     public float mana;
     public float maxMana { get; private set; }
@@ -421,12 +423,157 @@ public class PlayerActor : Actor
         Hooks?.RaiseStanceBreak(broken);
     }
 
+    // --- Hooker external pull (Requirement 12) ---------------------------------------------------
+    // The player is NavMeshAgent-driven (CharControlScript point-and-click). A hook connect displaces
+    // the player by suspending that controller's steering and moving the agent toward the Hooker over
+    // a bounded <=1.5s, then always restoring control. The bound/tolerance decisions live in the pure
+    // HookPullModel so task 9.2 can property-test them without a scene; this MonoBehaviour only maps
+    // those decisions onto Unity (suspend controller, agent.Warp, restore).
+
+    private NavMeshAgent _agent;
+    private CharControlScript _movementControl;
+    private Coroutine _externalPullCoroutine;
+
+    private NavMeshAgent Agent => _agent ? _agent : (_agent = GetComponent<NavMeshAgent>());
+    private CharControlScript MovementControl =>
+        _movementControl ? _movementControl : (_movementControl = GetComponent<CharControlScript>());
+
+    /// <summary>True while an external pull (a Hooker hook) is displacing this player.</summary>
+    public bool IsBeingPulled => _externalPullCoroutine != null;
+
+    /// <summary>
+    /// Begins a bounded pull of the player toward <paramref name="source"/> (the Hooker), suspending
+    /// <see cref="CharControlScript"/> agent steering, moving the player's <see cref="NavMeshAgent"/>
+    /// toward the source over <c>min(maxDuration, 1.5s)</c> using <c>agent.Warp</c> (never a raw
+    /// transform write, R20.1), then restoring control. Control is always restored via cleanup even if
+    /// the source dies mid-pull (R12.6), and the pull ends early if the source becomes control-locked
+    /// (R12.7). A pull already in progress is replaced so a fresh hook connect never stacks pulls.
+    /// </summary>
+    /// <param name="source">The Hooker the player is pulled toward.</param>
+    /// <param name="maxDuration">Upper bound on the pull duration in seconds (≤ 1.5s per R12.3/R12.6).</param>
+    public void BeginExternalPull(Transform source, float maxDuration)
+    {
+        if (IsDead || source == null || !isActiveAndEnabled) return;
+
+        // Replace any running pull so a second connect restarts cleanly (restores control first).
+        if (_externalPullCoroutine != null)
+        {
+            StopCoroutine(_externalPullCoroutine);
+            _externalPullCoroutine = null;
+            RestoreMovementControl();
+        }
+
+        _externalPullCoroutine = StartCoroutine(ExternalPullRoutine(source, maxDuration));
+    }
+
+    private IEnumerator ExternalPullRoutine(Transform source, float maxDuration)
+    {
+        var model = new HookPullModel(maxDuration);
+        // Resolve the source's control-lock state once; a Hooker owns a CombatReactionController.
+        CombatReactionController sourceReaction = source ? source.GetComponentInParent<CombatReactionController>() : null;
+
+        NavMeshAgent agent = Agent;
+        Vector3 start = agent && agent.enabled && agent.isOnNavMesh ? agent.nextPosition : transform.position;
+
+        SuspendMovementControl();
+        try
+        {
+            float elapsed = 0f;
+            while (true)
+            {
+                bool sourceAlive = source != null;
+                bool sourceLocked = sourceAlive && sourceReaction && sourceReaction.IsControlLocked;
+                PullStep step = model.Evaluate(elapsed, sourceAlive, sourceLocked);
+                if (step.Ended) break;
+
+                // Recompute the pull toward the source's live position; it may have moved.
+                float fraction = model.Fraction(elapsed);
+                Vector3 target = HookPullModel.PositionAt(start, source.position, fraction);
+                MoveAgentTo(target);
+
+                yield return null;
+                elapsed += Time.deltaTime;
+            }
+        }
+        finally
+        {
+            // ALWAYS restore control, even if the source died mid-pull or the coroutine was stopped
+            // (R12.6/R12.7). Reached on normal completion, early interrupt, and StopCoroutine.
+            _externalPullCoroutine = null;
+            RestoreMovementControl();
+        }
+    }
+
+    /// <summary>
+    /// Moves the player's agent to <paramref name="target"/> keeping it on the NavMesh. Uses
+    /// <c>agent.Warp</c> so displacement flows through the NavMeshAgent rather than a raw
+    /// <c>transform.position</c> write (R20.1); falls back to sampling a nearby NavMesh point so the
+    /// pull cannot warp the player off the mesh.
+    /// </summary>
+    private void MoveAgentTo(Vector3 target)
+    {
+        NavMeshAgent agent = Agent;
+        if (agent && agent.enabled && agent.isOnNavMesh)
+        {
+            Vector3 destination = target;
+            if (NavMesh.SamplePosition(target, out NavMeshHit hit, HookPullModel.StopDistance + 1f, agent.areaMask))
+                destination = hit.position;
+            agent.Warp(destination);
+        }
+    }
+
+    /// <summary>
+    /// Suspends point-and-click steering for the duration of the pull. Disabling
+    /// <see cref="CharControlScript"/> stops its Update-driven <c>SetDestination</c>/follow and, via
+    /// its <c>OnDisable</c>, cancels any in-flight combo and clears the current target so the player
+    /// is not simultaneously steered by two sources. The agent's own path is reset so no queued
+    /// destination fights the warp.
+    /// </summary>
+    private void SuspendMovementControl()
+    {
+        CharControlScript control = MovementControl;
+        if (control) control.enabled = false;
+
+        NavMeshAgent agent = Agent;
+        if (agent && agent.enabled && agent.isOnNavMesh)
+        {
+            agent.ResetPath();
+            agent.velocity = Vector3.zero;
+        }
+    }
+
+    /// <summary>
+    /// Returns movement control to the player after a pull ends (R12.6/R12.7). Re-enables
+    /// <see cref="CharControlScript"/> so click-to-move resumes and clears any residual agent velocity
+    /// so the player does not drift once control is handed back. Idempotent — safe to call from the
+    /// cleanup path even when control was never suspended.
+    /// </summary>
+    private void RestoreMovementControl()
+    {
+        NavMeshAgent agent = Agent;
+        if (agent && agent.enabled && agent.isOnNavMesh)
+        {
+            agent.ResetPath();
+            agent.velocity = Vector3.zero;
+        }
+
+        CharControlScript control = MovementControl;
+        if (control && !control.enabled && isActiveAndEnabled && !IsDead) control.enabled = true;
+    }
+
     /// <summary>
     /// Removes every StanceBroken subscription this player added (R8.6) so a break can never fire
-    /// into a stale handler after the player object is torn down at run end.
+    /// into a stale handler after the player object is torn down at run end. Also ends any in-flight
+    /// external pull so its cleanup restores control before teardown.
     /// </summary>
     private void OnDestroy()
     {
+        if (_externalPullCoroutine != null)
+        {
+            StopCoroutine(_externalPullCoroutine);
+            _externalPullCoroutine = null;
+        }
+
         foreach (var pair in _watchedStanceControllers)
             if (pair.Key) pair.Key.StanceBroken -= pair.Value;
         _watchedStanceControllers.Clear();

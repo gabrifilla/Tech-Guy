@@ -127,7 +127,10 @@ public class CharControlScript : MonoBehaviour
 
         isDashing = dashScript != null && dashScript.IsDashing(gameObject);
         HandleDashInput();
-        if (_abilityHolder && _abilityHolder.IsCasting) return;
+        // R10.1: a normal cast pins the player, but a Bow cast fires on the move — let movement keep
+        // running at the reduced speed the agent was set to. Basic attacks and new ability casts stay
+        // gated by their own IsCasting checks, so only locomotion is unblocked here.
+        if (_abilityHolder && _abilityHolder.IsCasting && !_abilityHolder.MovementAllowedWhileCasting) return;
 
         if (!isDashing)
         {
@@ -292,7 +295,9 @@ public class CharControlScript : MonoBehaviour
 
     private void RequestMove()
     {
-        if (_abilityHolder && (_abilityHolder.BlocksWorldInput || _abilityHolder.IsCasting)) return;
+        // R10.1: allow move orders during a Bow cast (fires on the move); block them for melee casts.
+        if (_abilityHolder && (_abilityHolder.BlocksWorldInput ||
+            (_abilityHolder.IsCasting && !_abilityHolder.MovementAllowedWhileCasting))) return;
         if (lastMoveRequestFrame == Time.frameCount)
         {
             return;
@@ -325,7 +330,8 @@ public class CharControlScript : MonoBehaviour
     {
         if (_abilityHolder && _abilityHolder.BlocksWorldInput) return;
         if (_playerHUD && _playerHUD.BlocksPointer(GetPointerPosition())) return;
-        if (_abilityHolder && _abilityHolder.IsCasting) return;
+        // R10.1: a Bow cast fires on the move, so it does not block a click-to-move; a melee cast does.
+        if (_abilityHolder && _abilityHolder.IsCasting && !_abilityHolder.MovementAllowedWhileCasting) return;
         if (isDashing)
         {
             if (debugClickLog) Debug.Log("ClickToMove: ignored because isDashing");
