@@ -1,6 +1,12 @@
 ﻿<Solution>
+  <Project Path="TechGuy.csproj" />
+  <Project Path="TechGuy.Editor.csproj" />
+  <Project Path="TechGuy.Tests.EditMode.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="TechGuy.Tests.PlayMode.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="FastScriptReload.Editor.csproj" />
   <Project Path="FastScriptReload.Runtime.csproj" />
+  <Project Path="QuickOutline.csproj" />
+  <Project Path="TechGuy.Tests.Support.csproj" />
 </Solution>

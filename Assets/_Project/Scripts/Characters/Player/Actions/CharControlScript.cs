@@ -24,6 +24,7 @@ public class CharControlScript : MonoBehaviour
     [SerializeField] private int clickEffectPoolSize = 8;
     [SerializeField] private Transform clickEffectPoolRoot;
     [SerializeField] private bool debugClickLog = false;
+    [SerializeField, Min(0f)] private float _movementClickDeadZone = .55f;
 
     [Header("Attack")]
     [SerializeField] private string[] attackAnimations = { "Attack1", "Attack2", "Attack3" };
@@ -340,11 +341,8 @@ public class CharControlScript : MonoBehaviour
         }
 
         int mask = clickableLayers.value != 0 ? clickableLayers.value : Physics.DefaultRaycastLayers;
-        bool hitSomething = Physics.Raycast(cameraToUse.ScreenPointToRay(pointerPosition), out RaycastHit hit, 100, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
-        if (!hitSomething && clickableLayers.value != 0)
-        {
-            hitSomething = Physics.Raycast(cameraToUse.ScreenPointToRay(pointerPosition), out hit, 100, Physics.DefaultRaycastLayers);
-        }
+        bool hitSomething = WorldClickResolver.TryResolve(cameraToUse.ScreenPointToRay(pointerPosition),
+            transform, mask, out RaycastHit hit, out bool crossedPlayer);
 
         if (debugClickLog)
         {
@@ -361,16 +359,21 @@ public class CharControlScript : MonoBehaviour
 
         if (hitSomething && hit.collider != null)
         {
-            HandleClickEffect(hit);
-
             Interactable interactable = hit.transform.GetComponentInParent<Interactable>();
             if (interactable != null)
             {
+                HandleClickEffect(hit);
                 HandleInteractable(hit);
                 return;
             }
 
-            MoveToPosition(hit.point);
+            // Clicking the avatar is not a new move order and must not cancel combat/selection.
+            if (crossedPlayer || WorldClickResolver.IsNearPlayer(hit.point, transform.position, _movementClickDeadZone)) return;
+            if (!agent || !agent.enabled || !agent.isOnNavMesh) return;
+            if (!NavMesh.SamplePosition(hit.point, out NavMeshHit destination, .75f, agent.areaMask)) return;
+            if (WorldClickResolver.IsNearPlayer(destination.position, transform.position, _movementClickDeadZone)) return;
+            HandleClickEffect(hit);
+            MoveToPosition(destination.position);
         }
     }
 

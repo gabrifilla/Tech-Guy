@@ -51,6 +51,8 @@ public class CombatReactionController : MonoBehaviour
     private float nextStanceRecoveryTime;
     private float breakImmuneUntil;
     private bool controlLocked;
+    private EnemyAI _enemyAI;
+    private SectorBoss _sectorBoss;
     private Coroutine controlLockCoroutine;
     private Coroutine pushCoroutine;
     private Coroutine airJuggleVisualCoroutine;
@@ -121,6 +123,8 @@ public class CombatReactionController : MonoBehaviour
     private void Awake()
     {
         currentStance = maxStance;
+        _enemyAI = GetComponent<EnemyAI>();
+        _sectorBoss = GetComponent<SectorBoss>();
         if (!animator) animator = GetComponent<Animator>();
         if (!agent) agent = GetComponent<NavMeshAgent>();
         if (!body) body = GetComponent<Rigidbody>();
@@ -208,6 +212,8 @@ public class CombatReactionController : MonoBehaviour
 
     private void TriggerStanceBreak(HitReactionRequest request)
     {
+        if (!_sectorBoss) _sectorBoss = GetComponent<SectorBoss>();
+        if (_sectorBoss) _sectorBoss.InterruptAttack();
         switch (request.BreakEffect)
         {
             case StanceBreakEffect.Stun:
@@ -245,8 +251,10 @@ public class CombatReactionController : MonoBehaviour
 
     private void InterruptCurrentAction()
     {
-        // A momentary agent stop makes EnemyAI drop its wind-up/attack without a full lock.
+        // Cancel the warning explicitly; ResetPath alone does not interrupt a coroutine.
         if (controlLocked) return;
+        if (_enemyAI) _enemyAI.InterruptAttack();
+        // Bosses ignore ordinary flinches; a stance break/control lock interrupts their patterns.
         PlayAnimation(flinchAnimation);
         if (agent && agent.enabled && agent.isOnNavMesh) agent.ResetPath();
     }
@@ -297,6 +305,9 @@ public class CombatReactionController : MonoBehaviour
     private IEnumerator ControlLockFor(float duration, bool airborne)
     {
         controlLocked = true;
+        if (_enemyAI) _enemyAI.InterruptAttack();
+        if (!_sectorBoss) _sectorBoss = GetComponent<SectorBoss>();
+        if (_sectorBoss) _sectorBoss.InterruptAttack();
         bool hadAgent = agent && agent.enabled;
         if (hadAgent)
         {

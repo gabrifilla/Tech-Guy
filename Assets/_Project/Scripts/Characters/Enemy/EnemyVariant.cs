@@ -71,11 +71,15 @@ public sealed class EnemyVariant : MonoBehaviour
             foreach (var prefab in _additionalAffixPrefabs) if (prefab) selected.Add(prefab);
         float movement = 1f, attackSpeed = 1f, damageTaken = 1f;
         var names = new List<string>();
+        EnemyAttackTraits traits = EnemyAttackTraits.None;
         foreach (var prefab in selected)
         {
-            if (prefab.GetComponentInChildren<EnemyFrostAura>(true)) names.Add("Gelo");
+            if (prefab.GetComponentInChildren<EnemyFrostAura>(true))
+            { names.Add("Gelo"); traits |= EnemyAttackTraits.Frost; }
             foreach (var affix in prefab.GetComponentsInChildren<EnemyStatAffix>(true))
             {
+                if (affix.MovementMultiplier > 1f || affix.AttackSpeedMultiplier > 1f) traits |= EnemyAttackTraits.Haste;
+                if (affix.DamageTakenMultiplier < 1f) traits |= EnemyAttackTraits.Guard;
                 movement *= affix.MovementMultiplier;
                 attackSpeed *= affix.AttackSpeedMultiplier;
                 damageTaken *= affix.DamageTakenMultiplier;
@@ -83,6 +87,7 @@ public sealed class EnemyVariant : MonoBehaviour
             }
         }
         AffixSummary = string.Join(" · ", names);
+        _ai.ConfigureAttackTraits(traits);
         ApplyStanceProfile();
         _actor.SetDamageTakenMultiplier(this, damageTaken);
         _actor.SetMaxHealth(_baseHealth * (_profile ? _profile.HealthMultiplier : 1f));

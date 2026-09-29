@@ -70,6 +70,7 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
             GUI.color = old;
         }
 
+        if (!_boss) _boss = GetComponent<SectorBoss>();
         if (!focused && !_boss) return;
         if (_label == null)
         {
@@ -89,6 +90,12 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
         _label.normal.textColor = Color.white;
         GUI.Label(new Rect(screen.x-90*scale,bar.y+16*scale,180*scale,21*scale),
             $"{Mathf.CeilToInt(_actor.health)} / {Mathf.CeilToInt(_actor.maxHealth)}",_label);
+        if (_boss && _boss.IsTelegraphing)
+        {
+            _label.normal.textColor = new Color(1f, .75f, .35f);
+            GUI.Label(new Rect(screen.x-220*scale,bar.y+38*scale,440*scale,22*scale),
+                _boss.CurrentAttackName,_label);
+        }
     }
     private void OnDestroy() { if (_actor) _actor.DamageReceived -= OnDamage; }
 }

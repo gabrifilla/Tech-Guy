@@ -25,6 +25,7 @@ public sealed class CombatGroundRing : MonoBehaviour
 
     public void Draw(Vector3 center, float radius, float width = 0.07f)
     {
+        _line.positionCount = _points.Length;
         _line.widthMultiplier = width;
         center.y += 0.07f;
         for (int i = 0; i < _points.Length; i++)
@@ -36,5 +37,11 @@ public sealed class CombatGroundRing : MonoBehaviour
     }
 
     public void SetColor(Color color) => _material.SetColor("_BaseColor", color);
+    public void DrawPath(Vector3[] points, float width = .07f)
+    {
+        _line.positionCount = points.Length;
+        _line.widthMultiplier = width;
+        for (int i = 0; i < points.Length; i++) _line.SetPosition(i, points[i] + Vector3.up * .07f);
+    }
     private void OnDestroy() { if (_material) Destroy(_material); }
 }

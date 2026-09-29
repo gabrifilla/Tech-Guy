@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf030a3974d13442b65d1f0b87d8ba5, type: 3}
+  m_Name: EnemyMotions
+  m_EditorClassIdentifier: TechGuy::SkillAnimationLibrary
+  _entries:
+  - motion: 1
+    clip: {fileID: 7400000, guid: 4b32ea970ead94b439f652fd18dff761, type: 2}
+    contact: 0.3333
+  - motion: 0
+    clip: {fileID: 7400000, guid: 89f3a9cedd9eb494f8ae77e76c385d5d, type: 2}
+    contact: 0.3333
+  - motion: 2
+    clip: {fileID: 7400000, guid: dea9de2404bb7ac4f9cd52bfb3387c4a, type: 2}
+    contact: 0.55

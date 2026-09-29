@@ -660,7 +660,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1168e32afd71ae2429be059220e06864, type: 2}
+  - {fileID: 2100000, guid: e7b1ef02079841644adbe1ba74a551fb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1335,7 +1335,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 569121128adea2f4bae22cdc2103c977, type: 2}
+  - {fileID: 2100000, guid: b98ea20aff97aba478f65e76baf9fa48, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1494,7 +1494,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0ceb6c10017a20a4ca6d5deac63a27d5, type: 2}
+  - {fileID: 2100000, guid: 412f7150361ee01419336eb6836ad712, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1910,7 +1910,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fdb6d59f107597b46879e75465bc2032, type: 2}
+  - {fileID: 2100000, guid: a450831cc2aac084e8b3ff73da59b762, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2061,6 +2061,7 @@ GameObject:
   - component: {fileID: 5490249463835784919}
   - component: {fileID: 3791035634892882559}
   - component: {fileID: 4184409271141845204}
+  - component: {fileID: 2080930570882739389}
   m_Layer: 10
   m_Name: Rare_Frost
   m_TagString: Interactable
@@ -2247,6 +2248,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombatReadabilityUI
   _camera: {fileID: 0}
+--- !u!114 &2080930570882739389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6008104418129475521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 351099994bd34b54fbb902863bcef7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::EnemyCombatActions
+  _motions: {fileID: 11400000, guid: 5aa51dfdd818e8b4a8b054723aff914d, type: 2}
 --- !u!1 &6206371509805166779
 GameObject:
   m_ObjectHideFlags: 0
@@ -2463,7 +2477,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: aa95169ca13c3ca4bb32864d67ce2067, type: 2}
+  - {fileID: 2100000, guid: db7dcbb5ae92af24ea7201c5cd115ce9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2717,7 +2731,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5864167e70592f34b861917f4933c3de, type: 2}
+  - {fileID: 2100000, guid: d4ed7b1e690ab174085455da59e67d6a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3299,7 +3313,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 011e4366d07931b46a2c1d49a5b5f0a9, type: 2}
+  - {fileID: 2100000, guid: 49d05a6da7c511844a90b757a092f136, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

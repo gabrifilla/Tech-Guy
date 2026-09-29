@@ -16,6 +16,7 @@ public sealed class SkillAnimationPlayer : MonoBehaviour
     public float NormalizedTime { get; private set; }
     private void Awake()
     { _animator=GetComponent<Animator>(); _library=Resources.Load<SkillAnimationLibrary>(SkillAnimationLibrary.ResourcePath); }
+    public void Configure(SkillAnimationLibrary library) { Release(); _library=library; }
 
     public void Strike(SkillMotion motion,float elapsed,float start,float impact,float end)
     {
