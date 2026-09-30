@@ -146,9 +146,27 @@ public class CharControlScript : MonoBehaviour
         bool primary = GamePreferences.IsHeld(GameControl.Primary);
         if (!primary) _waitForAttackRelease = false;
         if (_waitForAttackRelease) return;
+        if (IsDirectionalAttackGesturePressed())
+        {
+            TryDirectionalBasicAttackAtPointer();
+            return;
+        }
         if (GamePreferences.WasPressed(GameControl.Primary) || GamePreferences.WasPressed(GameControl.Move))
             RequestMove();
     }
+
+    public static bool IsDirectionalAttackGesturePressed()
+    {
+        Keyboard keyboard = Keyboard.current;
+        Mouse mouse = Mouse.current;
+        if (keyboard == null || mouse == null) return false;
+        bool shiftHeld = keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed;
+        return ShouldTriggerDirectionalBasicAttack(shiftHeld,
+            mouse.leftButton.wasPressedThisFrame, mouse.rightButton.wasPressedThisFrame);
+    }
+
+    public static bool ShouldTriggerDirectionalBasicAttack(bool shiftHeld, bool leftPressed, bool rightPressed) =>
+        shiftHeld && (leftPressed || rightPressed);
 
     private float EffectiveAttackRange => attackRange * (weapon && weapon.FiresArrows ? 1f : playerActor?.RunModifiers?.MeleeScale ?? 1f);
 
@@ -184,14 +202,32 @@ public class CharControlScript : MonoBehaviour
                 if (found && found != playerActor && CanReachTarget(found)) { actor = found; break; }
             }
         }
-        if (!isActiveAndEnabled || !playerActor || playerActor.IsDead || !weapon || playerBusy ||
-            Time.time < nextAttackTime || isDashing || !CanReachTarget(actor) ||
-            (_abilityHolder && (_abilityHolder.BlocksWorldInput || _abilityHolder.IsCasting))) return false;
+        if (!CanStartBasicAttack() || !CanReachTarget(actor)) return false;
         if (agent && agent.enabled && agent.isOnNavMesh) agent.ResetPath();
         FacePosition(actor.transform.position);
         PerformAttack(actor);
         return true;
     }
+
+    public bool TryDirectionalBasicAttack(Vector3 aimPoint)
+    {
+        Vector3 direction = aimPoint - transform.position;
+        direction.y = 0f;
+        if (direction.sqrMagnitude <= Mathf.Epsilon) return false;
+
+        ClearTarget();
+        if (agent && agent.enabled && agent.isOnNavMesh) agent.ResetPath();
+        RefreshWeaponStats();
+        if (!CanStartBasicAttack()) return false;
+
+        FaceDirection(direction);
+        PerformAttack(null);
+        return true;
+    }
+
+    private bool CanStartBasicAttack() => isActiveAndEnabled && playerActor && !playerActor.IsDead && weapon &&
+        !playerBusy && Time.time >= nextAttackTime && !isDashing &&
+        (!_abilityHolder || (!_abilityHolder.BlocksWorldInput && !_abilityHolder.IsCasting));
 
     // Método para validar componentes essenciais
     private void ValidateComponents()
@@ -324,6 +360,20 @@ public class CharControlScript : MonoBehaviour
         }
 #endif
         return position;
+    }
+
+    private void TryDirectionalBasicAttackAtPointer()
+    {
+        Vector3 pointerPosition = GetPointerPosition();
+        if (_playerHUD && _playerHUD.BlocksPointer(pointerPosition)) return;
+
+        Camera cameraToUse = mainCamera != null ? mainCamera : Camera.main;
+        if (cameraToUse == null) return;
+
+        Ray pointerRay = cameraToUse.ScreenPointToRay(pointerPosition);
+        var aimPlane = new Plane(Vector3.up, transform.position);
+        if (!aimPlane.Raycast(pointerRay, out float distance) || distance < 0f) return;
+        TryDirectionalBasicAttack(pointerRay.GetPoint(distance));
     }
 
     void ClickToMove()
@@ -707,10 +757,7 @@ public class CharControlScript : MonoBehaviour
 
     private void PerformAttack(Actor victim)
     {
-        if (!playerActor || playerActor.IsDead || !weapon || !CanReachTarget(victim) || isDashing || Time.time < nextAttackTime) return;
-        if (_abilityHolder && _abilityHolder.BlocksWorldInput) return;
-        if (_abilityHolder && _abilityHolder.IsCasting) return;
-        if (playerBusy) return;
+        if (!CanStartBasicAttack() || (victim && !CanReachTarget(victim))) return;
         nextAttackTime = Time.time + Mathf.Max(.05f, attackInterval);
 
         string attackName = null;

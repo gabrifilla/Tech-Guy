@@ -126,7 +126,7 @@ public sealed class StageGenerator
         // at (gx * width, gz * depth). Distinct cells therefore produce AABBs whose edges
         // touch with a gap of exactly 0 and never interpenetrate (R1.4). Non-overlap is
         // guaranteed by never placing two rooms in the same cell.
-        var builder = new GraphBuilder(RoomSize);
+        var builder = new GraphBuilder(parameters.RoomSize);
 
         // Start_Room at the grid origin (R4.2). It is depth 0 by construction.
         builder.AddStart(StartRoomId);
@@ -233,7 +233,13 @@ public sealed class StageGenerator
             return StageGenerationResult.Fail("Boss_Room has no eligible primary enemy to mark as SectorBoss.");
         }
 
-        builder.SetComposition(bossId, bossComposition);
+        // A stable heavy guardian with a small escort leaves room to read the boss telegraphs.
+        builder.SetComposition(bossId, new RoomComposition(new[]
+        {
+            new ArchetypeSlot(ArchetypeId.Heavy, 1),
+            new ArchetypeSlot(ArchetypeId.Grunt, 2),
+            new ArchetypeSlot(ArchetypeId.Shooter, 2)
+        }, 5));
 
         // ---- Materialize the immutable RoomGraph ----------------------------------------
         RoomGraph graph = builder.Build(StartRoomId, bossId);

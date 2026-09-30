@@ -36,162 +36,180 @@ public static class FirstSectorBuilder
 
     private static void Build(bool overwrite)
     {
-        if (File.Exists(ScenePath))
-        {
-            if (!overwrite) { Debug.Log("First sector already exists; preserving scene edits. Use 'Rebuild First Sector (overwrite)' to regenerate."); return; }
-            // Delete only the .unity file, keeping its .meta so the scene keeps its GUID and stays wired
-            // in Build Settings. Intentionally NOT calling AssetDatabase.Refresh here: that would let Unity
-            // clean up the now-orphaned .meta. SaveScene below rewrites the .unity at the same path and
-            // Unity re-associates it with the preserved .meta.
-            File.Delete(ScenePath);
-        }
+        if (File.Exists(ScenePath) && !overwrite) return;
         if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
-        Directory.CreateDirectory(Art); AssetDatabase.Refresh();
+        Directory.CreateDirectory(Art);
+        AssetDatabase.Refresh();
         Scene source = EditorSceneManager.OpenScene(CombatStudyBuilder.ScenePath);
         var roots = source.GetRootGameObjects();
         var player = Object.Instantiate(roots.SelectMany(r => r.GetComponentsInChildren<PlayerActor>()).Single()).gameObject;
         var camera = Object.Instantiate(roots.SelectMany(r => r.GetComponentsInChildren<Camera>()).First(c => c.CompareTag("MainCamera")));
         Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
-        SceneManager.MoveGameObjectToScene(player, scene); SceneManager.MoveGameObjectToScene(camera.gameObject, scene);
-        SceneManager.SetActiveScene(scene); EditorSceneManager.CloseScene(source, true);
-        player.name = "Player"; player.transform.position = new Vector3(0,.1f,-14);
-        var actor = player.GetComponent<PlayerActor>(); actor.healthBar = actor.manaBar = null;
-        var follow = camera.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>(); follow.m_Target = player.transform;
+        SceneManager.MoveGameObjectToScene(player, scene);
+        SceneManager.MoveGameObjectToScene(camera.gameObject, scene);
+        SceneManager.SetActiveScene(scene);
+        EditorSceneManager.CloseScene(source, true);
+        EnemyVariant[] prefabs = BuildArchetypePrefabs();
+        player.name = "Player";
+        player.transform.position = Vector3.zero;
+        var actor = player.GetComponent<PlayerActor>();
+        actor.healthBar = actor.manaBar = null;
+        camera.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>().m_Target = player.transform;
         var controls = new SerializedObject(player.GetComponent<CharControlScript>());
         controls.FindProperty("mainCamera").objectReferenceValue = camera;
         controls.ApplyModifiedPropertiesWithoutUndo();
-        camera.transform.position = player.transform.position + new Vector3(0,14,-12); camera.transform.LookAt(player.transform);
-        camera.clearFlags = CameraClearFlags.SolidColor; camera.backgroundColor = new Color(.015f,.024f,.043f);
+        camera.transform.position = new Vector3(0, 14, -12);
+        camera.transform.LookAt(player.transform);
+        camera.clearFlags = CameraClearFlags.SolidColor;
+        camera.backgroundColor = new Color(.015f, .024f, .043f);
 
-        Material floor = Mat("Basalt alloy",new Color(.095f,.135f,.17f));
-        Material panels = Mat("Floor panels",new Color(.18f,.23f,.27f));
-        Material dark = Mat("Graphite",new Color(.035f,.048f,.065f));
-        Material trim = Mat("Steel",new Color(.29f,.35f,.4f));
-        Material cyan = Mat("Guide cyan",new Color(.05f,.7f,.9f),true);
-        Material amber = Mat("Extraction gold",new Color(1,.52f,.09f),true);
-        Material corruption = Mat("Corrupted signal",new Color(.7f,.08f,.22f),true);
-        var environment = new GameObject("Sector 01 - Broken memory bridge").transform;
-        // Six rooms marching down +Z: five escalating fights then the guardian. Rooms alternate in X
-        // for variety; corridors between them are generated so the whole sector is one navmesh island.
-        Vector3[] centers =
-        {
-            new Vector3(0,0,0), new Vector3(6,0,26), new Vector3(-4,0,52),
-            new Vector3(5,0,78), new Vector3(-6,0,104), new Vector3(0,0,130)
-        };
-        Vector2[] sizes =
-        {
-            new Vector2(22,18), new Vector2(24,20), new Vector2(24,20),
-            new Vector2(26,22), new Vector2(26,22), new Vector2(30,26)
-        };
-        int roomCount = centers.Length;
-        int bossRoom = roomCount - 1;
-
-        // Entrance apron plus a connecting corridor floor between each pair of rooms.
-        Floor(environment,new Vector3(0,0,-12),new Vector2(10,12),floor);
-        for(int room=0;room<roomCount-1;room++)
-        {
-            Vector3 a=centers[room], b=centers[room+1];
-            Vector3 mid=(a+b)*0.5f;
-            Floor(environment,mid,new Vector2(8, Vector3.Distance(a,b)),floor);
-        }
-
-        for(int room=0;room<roomCount;room++)
-        {
-            Vector3 center = centers[room]; Vector2 size=sizes[room];
-            bool corrupted = room >= roomCount-2; // last two rooms read as corrupted
-            Floor(environment,center,size,floor);
-            for(float x=-size.x/2+2;x<size.x/2;x+=3)
-                for(float z=-size.y/2+2;z<size.y/2;z+=3)
-                    Box(environment,"Deck seam",center+new Vector3(x,.012f,z),new Vector3(2.94f,.02f,2.94f),panels,false);
-            foreach(int side in new[]{-1,1})
-            {
-                Box(environment,"Outer guard rail",center+new Vector3(side*size.x/2,.55f,0),new Vector3(.4f,1.1f,size.y),dark,true);
-                for(int j=-1;j<=1;j++)
-                {
-                    Vector3 point=center+new Vector3(side*(size.x/2-1.6f),0,j*6);
-                    Box(environment,"Memory bank",point+Vector3.up*1.65f,new Vector3(1.5f,3.3f,2),dark,true);
-                    Box(environment,"Bank cap",point+Vector3.up*3.35f,new Vector3(1.7f,.16f,2.2f),trim,false);
-                    for(int strip=0;strip<4;strip++)
-                        Box(environment,"Status light",point+new Vector3(-side*.78f,.8f+strip*.48f,0),new Vector3(.055f,.12f,1.6f),corrupted?corruption:cyan,false);
-                }
-            }
-            Label(environment,$"{room+1:00}",center+new Vector3(0,.04f,-size.y/2+2),5,cyan.color);
-        }
-        // Route markers follow the room chain from the entrance to just before the boss room.
-        float routeEndZ = centers[bossRoom].z - sizes[bossRoom].y/2;
-        for(float z=-15;z<routeEndZ;z+=3)
-        {
-            // Interpolate the guide x across the nearest room centers so markers hug the path.
-            float x = centers[0].x;
-            for(int room=0;room<roomCount-1;room++)
-                if(z>=centers[room].z){ float t=Mathf.InverseLerp(centers[room].z,centers[room+1].z,z); x=Mathf.Lerp(centers[room].x,centers[room+1].x,Mathf.Clamp01(t)); }
-            Box(environment,"Route marker",new Vector3(x,.04f,z),new Vector3(.45f,.04f,.8f),cyan,false);
-        }
-
-        var encounters = new FirstSectorDirector.Encounter[roomCount];
-        // Difficulty curve: more enemies and tougher archetypes deeper in; final room is the guardian.
-        string[][] types =
-        {
-            new[]{"Normal","Normal"},
-            new[]{"Normal","Normal","Normal"},
-            new[]{"Normal","Magic_Haste","Normal","Normal"},
-            new[]{"Magic_Haste","Normal","Normal","Magic_Haste"},
-            new[]{"Rare_Haste_Guard","Magic_Haste","Normal","Normal","Normal"},
-            new[]{"Rare_Haste_Guard","Magic_Haste","Magic_Haste"}
-        };
-        string[] titles = { "Limpe o acesso", "Recupere o rele", "Purgue a memoria", "Contenha a corrupcao", "Rompa a guarda", "Derrote o guardiao" };
-        var encounterRoot = new GameObject("Finite encounters").transform;
-        for(int room=0;room<roomCount;room++)
-        {
-            bool isBoss = room==bossRoom;
-            // Escalating stats: damage and health grow with room index; boss room is the toughest.
-            float roomDamage = 6f + room*1.5f;
-            float baseHealth = 45f + room*12f;
-            var center = new GameObject(titles[room]).transform; center.SetParent(encounterRoot); center.position=centers[room];
-            var enemies = new Actor[types[room].Length];
-            for(int i=0;i<enemies.Length;i++)
-            {
-                var prefab=AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/EnemyVariants/"+types[room][i]+".prefab");
-                var enemy=(GameObject)PrefabUtility.InstantiatePrefab(prefab,center);
-                enemy.transform.position=centers[room]+new Vector3((i-(enemies.Length-1)*.5f)*2.5f,.1f,2+(i%2)*2);
-                var ai=enemy.GetComponent<EnemyAI>(); ai.player=player.transform; ai.sightRange=30;
-                ai.attackDamage=isBoss?12:roomDamage; ai.timeBetweenAttacks=1.8f; ai.walkPointRange=0;
-                enemies[i]=enemy.GetComponent<Actor>();
-                enemies[i].health = isBoss && i==0 ? 140f : baseHealth;
-                enemy.SetActive(false);
-            }
-            encounters[room]=new FirstSectorDirector.Encounter {title=titles[room],center=center,enemies=enemies};
-        }
-        float exitZ = centers[bossRoom].z + sizes[bossRoom].y/2 + 5f;
-        var exit=new GameObject("Extraction portal").transform; exit.position=new Vector3(centers[bossRoom].x,0,exitZ);
-        // Short apron so the extraction portal sits on walkable navmesh past the boss room.
-        Floor(environment,new Vector3(centers[bossRoom].x,0,(centers[bossRoom].z+sizes[bossRoom].y/2+exitZ)*0.5f),new Vector2(10,exitZ-(centers[bossRoom].z+sizes[bossRoom].y/2)+4f),floor);
-        for(int side=-1;side<=1;side+=2)
-            Box(environment,"Extraction pylon",exit.position+new Vector3(side*2,1.6f,0),new Vector3(.6f,3.2f,.8f),trim,true);
-        var glow=new GameObject("Extraction active"); glow.transform.SetParent(exit,false);
-        for(int i=0;i<32;i++)
-        {
-            float a=i*Mathf.PI*2/32;
-            Box(glow.transform,"Portal ring",exit.position+new Vector3(Mathf.Cos(a)*1.45f,.09f,Mathf.Sin(a)*1.45f),new Vector3(.25f,.09f,.25f),amber,false);
-        }
-        glow.SetActive(false);
-        var surface=environment.gameObject.AddComponent<NavMeshSurface>(); surface.collectObjects=CollectObjects.Children;
-        surface.useGeometry=NavMeshCollectGeometry.PhysicsColliders; surface.BuildNavMesh();
-        AssetDatabase.CreateAsset(surface.navMeshData,Art+"/Navigation.asset");
-        var light=new GameObject("Cool overhead light").AddComponent<Light>(); light.type=LightType.Directional;
-        light.transform.rotation=Quaternion.Euler(52,-32,0);light.intensity=1.6f;light.shadows=LightShadows.Soft;
-        RenderSettings.ambientMode=UnityEngine.Rendering.AmbientMode.Flat;
-        RenderSettings.ambientLight=new Color(.32f,.39f,.48f);
+        var flow = new GameObject("First sector procedural flow");
+        flow.AddComponent<SwarmAttackCoordinator>();
+        var environment = flow.AddComponent<ProceduralStageEnvironment>();
+        var seed = flow.AddComponent<RunSeedSource>();
+        var seedData = new SerializedObject(seed);
+        seedData.FindProperty("_randomizeEachRun").boolValue = true;
+        seedData.FindProperty("_seed").stringValue = "1701";
+        seedData.ApplyModifiedPropertiesWithoutUndo();
+        var director = flow.AddComponent<ProgressionDirector>();
+        var data = new SerializedObject(director);
+        data.FindProperty("_player").objectReferenceValue = actor;
+        data.FindProperty("_seedSource").objectReferenceValue = seed;
+        data.FindProperty("_enemyPrefab").objectReferenceValue = prefabs.Single(p => p.ArchetypeId == ArchetypeId.Grunt).gameObject;
+        data.FindProperty("_environment").objectReferenceValue = environment;
+        data.FindProperty("_stageCount").intValue = 1;
+        data.FindProperty("_requiredBossAccessFragments").intValue = 3;
+        data.FindProperty("_returnScene").stringValue = "NexusLobby";
         SharedHudBuilder.InstallInScene(scene);
-        TMP_Text objective=CreateObjective();
-        new GameObject("First sector flow").AddComponent<FirstSectorDirector>().Configure(actor,encounters,exit,glow,objective);
-        EditorSceneManager.SaveScene(scene,ScenePath);
-        var paths=EditorBuildSettings.scenes.ToList(); if(paths.All(s=>s.path!=ScenePath))paths.Add(new EditorBuildSettingsScene(ScenePath,true));
-        EditorBuildSettings.scenes=paths.ToArray();
-        ValidatePaths(player.transform.position,centers.Concat(new[]{exit.position}).Concat(encounters.SelectMany(e=>e.enemies).Select(e=>e.transform.position)).ToArray());
-        CaptureOverview(camera);
-        ConnectLobby(); AssetDatabase.SaveAssets();
-        Debug.Log($"FIRST_SECTOR_BUILD_SUCCESS: {encounters.Length} finite encounters ({encounters.Sum(e=>e.enemies.Length)} enemies), guardian, extraction and lobby portal.");
+        data.FindProperty("_objective").objectReferenceValue = CreateObjective();
+        var parameters = data.FindProperty("_generationParams");
+        parameters.FindPropertyRelative("_minCombatRooms").intValue = 5;
+        parameters.FindPropertyRelative("_maxCombatRooms").intValue = 5;
+        parameters.FindPropertyRelative("_densityBudgetMin").intValue = 8;
+        parameters.FindPropertyRelative("_densityBudgetMax").intValue = 16;
+        parameters.FindPropertyRelative("_varietyTarget").intValue = 4;
+        parameters.FindPropertyRelative("_roomSize").vector2Value = new Vector2(24, 24);
+        parameters.FindPropertyRelative("_treasureProbability").floatValue = .5f;
+        parameters.FindPropertyRelative("_secretProbability").floatValue = .3f;
+        parameters.FindPropertyRelative("_generationRetryLimit").intValue = 50;
+        var catalog = data.FindProperty("_archetypeCatalog");
+        var prefabList = data.FindProperty("_archetypePrefabs");
+        catalog.arraySize = prefabList.arraySize = prefabs.Length;
+        for (int i = 0; i < prefabs.Length; i++)
+        {
+            catalog.GetArrayElementAtIndex(i).objectReferenceValue = prefabs[i].Archetype;
+            prefabList.GetArrayElementAtIndex(i).objectReferenceValue = prefabs[i];
+        }
+        data.ApplyModifiedPropertiesWithoutUndo();
+        var visuals = new SerializedObject(environment);
+        visuals.FindProperty("_director").objectReferenceValue = director;
+        visuals.FindProperty("_floor").objectReferenceValue = Mat("Basalt alloy", new Color(.095f,.135f,.17f));
+        visuals.FindProperty("_panels").objectReferenceValue = Mat("Floor panels", new Color(.18f,.23f,.27f));
+        visuals.FindProperty("_walls").objectReferenceValue = Mat("Graphite", new Color(.035f,.048f,.065f));
+        visuals.FindProperty("_cyan").objectReferenceValue = Mat("Guide cyan", new Color(.05f,.7f,.9f), true);
+        visuals.FindProperty("_corruption").objectReferenceValue = Mat("Corrupted signal", new Color(.7f,.08f,.22f), true);
+        visuals.FindProperty("_gold").objectReferenceValue = Mat("Extraction gold", new Color(1,.52f,.09f), true);
+        visuals.ApplyModifiedPropertiesWithoutUndo();
+
+        // Persist a representative layout for editing; runtime rebuilds it from the run's seed.
+        var settings = (StageGenerationParams)typeof(ProgressionDirector).GetField("_generationParams",
+            System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(director);
+        var graph = new StageGenerator().Generate(settings, 1701).Graph;
+        var surface = environment.Build(graph);
+        surface.navMeshData.name = "Navigation";
+        string navigationPath = Art + "/Navigation.asset";
+        var existingNavigation = AssetDatabase.LoadAssetAtPath<NavMeshData>(navigationPath);
+        if (existingNavigation)
+        {
+            EditorUtility.CopySerialized(surface.navMeshData, existingNavigation);
+            surface.RemoveData();
+            Object.DestroyImmediate(surface.navMeshData);
+            surface.navMeshData = existingNavigation;
+            surface.AddData();
+            EditorUtility.SetDirty(existingNavigation);
+        }
+        else AssetDatabase.CreateAsset(surface.navMeshData, navigationPath);
+        var light = new GameObject("Cool overhead light").AddComponent<Light>();
+        light.type = LightType.Directional;
+        light.transform.rotation = Quaternion.Euler(52, -32, 0);
+        light.intensity = 1.6f;
+        light.shadows = LightShadows.Soft;
+        RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+        RenderSettings.ambientLight = new Color(.32f, .39f, .48f);
+        ValidatePaths(Vector3.zero, graph.Rooms.Select(r => new Vector3(r.Center.x, 0, r.Center.y)).ToArray());
+        CaptureOverview(camera, graph);
+        EditorSceneManager.SaveScene(scene, ScenePath);
+        var paths = EditorBuildSettings.scenes.ToList();
+        if (paths.All(s => s.path != ScenePath)) paths.Add(new EditorBuildSettingsScene(ScenePath, true));
+        EditorBuildSettings.scenes = paths.ToArray();
+        ConnectLobby();
+        AssetDatabase.SaveAssets();
+        EditorSceneManager.OpenScene(ScenePath);
+        Debug.Log("FIRST_SECTOR_BUILD_SUCCESS: procedural stage, 5 distinct combat arenas, 3-fragment boss seal, guardian and 16 archetypes.");
+    }
+
+    private static EnemyVariant[] BuildArchetypePrefabs()
+    {
+        const string folder = "Assets/_Project/Prefabs/EnemyArchetypes";
+        Directory.CreateDirectory(folder);
+        AssetDatabase.Refresh();
+        var archetypes = AssetDatabase.FindAssets("t:EnemyArchetype", new[] { "Assets/_Project/ScriptableObjects/Enemies/Archetypes" })
+            .Select(g => AssetDatabase.LoadAssetAtPath<EnemyArchetype>(AssetDatabase.GUIDToAssetPath(g)))
+            .OrderBy(a => a.Id).ToArray();
+        if (archetypes.Length != 16 || archetypes.Select(a => a.Id).Distinct().Count() != 16 || archetypes.Any(a => !a.Profile))
+            throw new InvalidOperationException("Expected exactly 16 unique, valid enemy archetypes.");
+        var source = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/EnemyVariants/Normal.prefab");
+        var hazardObject = new GameObject("Corrupted memory hazard");
+        var hazardZone = hazardObject.AddComponent<HazardZone>();
+        var body = hazardObject.AddComponent<Rigidbody>();
+        body.isKinematic = true;
+        body.useGravity = false;
+        const string hazardPath = "Assets/_Project/Prefabs/FirstSectorHazard.prefab";
+        var hazardPrefab = PrefabUtility.SaveAsPrefabAsset(hazardObject, hazardPath).GetComponent<HazardZone>();
+        Object.DestroyImmediate(hazardObject);
+        var result = new System.Collections.Generic.List<EnemyVariant>();
+        // Swarm is authored before Spawner so its prefab dependency is serialized before Awake.
+        GameObject swarmPrefab = null;
+        foreach (var archetype in archetypes.OrderBy(a => a.Id == ArchetypeId.Swarm ? 0 : a.Id == ArchetypeId.Spawner ? 2 : 1))
+        {
+            var instance = Object.Instantiate(source);
+            instance.name = archetype.Id.ToString();
+            var variant = instance.GetComponent<EnemyVariant>();
+            variant.Configure(archetype);
+            if (!instance.GetComponent<EnemyCombatActions>()) instance.AddComponent<EnemyCombatActions>();
+            System.Type behavior = archetype.Id switch
+            {
+                ArchetypeId.Healer => typeof(HealerBehavior),
+                ArchetypeId.ShieldSupport => typeof(ShieldSupportBehavior),
+                ArchetypeId.Spawner => typeof(SpawnerBehavior),
+                ArchetypeId.HazardCaster => typeof(HazardCasterBehavior),
+                ArchetypeId.Mirror => typeof(FrontalReflector),
+                _ => null
+            };
+            if (behavior != null && !instance.GetComponent(behavior)) instance.AddComponent(behavior);
+            if (archetype.IsPriorityTarget && !instance.GetComponent<PriorityTargetMarker>()) instance.AddComponent<PriorityTargetMarker>();
+            if (archetype.Id == ArchetypeId.Spawner)
+            {
+                var spawner = new SerializedObject(instance.GetComponent<SpawnerBehavior>());
+                spawner.FindProperty("_swarmPrefab").objectReferenceValue = swarmPrefab;
+                spawner.FindProperty("_livingCap").intValue = 4;
+                spawner.FindProperty("_spawnInterval").floatValue = 5f;
+                spawner.ApplyModifiedPropertiesWithoutUndo();
+            }
+            if (archetype.Id == ArchetypeId.HazardCaster)
+            {
+                var caster = new SerializedObject(instance.GetComponent<HazardCasterBehavior>());
+                caster.FindProperty("_zonePrefab").objectReferenceValue = hazardPrefab;
+                caster.ApplyModifiedPropertiesWithoutUndo();
+            }
+            var prefab = PrefabUtility.SaveAsPrefabAsset(instance, folder + "/" + archetype.Id + ".prefab");
+            if (archetype.Id == ArchetypeId.Swarm) swarmPrefab = prefab;
+            result.Add(prefab.GetComponent<EnemyVariant>());
+            Object.DestroyImmediate(instance);
+        }
+        AssetDatabase.SaveAssets();
+        return archetypes.Select(a => AssetDatabase.LoadAssetAtPath<GameObject>(folder + "/" + a.Id + ".prefab")
+            .GetComponent<EnemyVariant>()).ToArray();
     }
 
     public static void ConnectLobby()
@@ -206,7 +224,7 @@ public static class FirstSectorBuilder
             var station=stations.GetArrayElementAtIndex(i);var destination=station.FindPropertyRelative("destinationScene");
             if(string.IsNullOrEmpty(destination.stringValue))continue;
             destination.stringValue="FirstSector";
-            station.FindPropertyRelative("description").stringValue="Setor 01: Memoria Corrompida. Avance pelas salas, derrote o guardiao e extraia pelo portal dourado.";
+            station.FindPropertyRelative("description").stringValue="Setor 01: Memoria Corrompida. Explore cinco salas de combate, recupere memorias e derrote o guardiao para retornar ao Nexus.";
             var anchor=(Transform)station.FindPropertyRelative("anchor").objectReferenceValue;
             var portal=anchor.parent.GetComponent<ScenePortal>()??anchor.parent.gameObject.AddComponent<ScenePortal>();
             portal.Configure(player.transform,"FirstSector");
@@ -224,7 +242,7 @@ public static class FirstSectorBuilder
         rect.anchoredPosition=new Vector2(0,-28);rect.sizeDelta=new Vector2(950,90);
         var text=obj.GetComponent<TextMeshProUGUI>();text.font=TMP_Settings.defaultFontAsset;text.fontSize=24;
         text.alignment=TextAlignmentOptions.Center;text.color=new Color(.9f,.8f,.59f);text.raycastTarget=false;
-        text.text="SETOR 01 / MEMORIA CORROMPIDA";return text;
+        text.text="SETOR 01 / MEMORIA CORROMPIDA\nExplore as salas | E: procurar memoria oculta";return text;
     }
     private static void Floor(Transform parent,Vector3 center,Vector2 size,Material material)=>Box(parent,"Walkable deck",center+Vector3.down*.3f,new Vector3(size.x,.6f,size.y),material,true);
     private static void Box(Transform parent,string name,Vector3 position,Vector3 scale,Material material,bool collider)
@@ -235,6 +253,8 @@ public static class FirstSectorBuilder
     }
     private static Material Mat(string name,Color color,bool emissive=false)
     {
+        var existing = AssetDatabase.LoadAssetAtPath<Material>(Art+"/"+name+".mat");
+        if (existing) return existing;
         var material=new Material(Shader.Find(emissive?"Universal Render Pipeline/Unlit":"Universal Render Pipeline/Lit"));
         material.SetColor("_BaseColor",color);AssetDatabase.CreateAsset(material,Art+"/"+name+".mat");return material;
     }
@@ -255,13 +275,26 @@ public static class FirstSectorBuilder
         }
         Debug.Log("FIRST_SECTOR_NAVIGATION_SUCCESS: "+targets.Length+" paths");
     }
-    private static void CaptureOverview(Camera camera)
+    private static void CaptureOverview(Camera gameplayCamera, RoomGraph graph)
     {
         ShaderUtil.allowAsyncCompilation=false;
-        camera.orthographic=true;camera.orthographicSize=47;camera.transform.position=new Vector3(38,78,-30);camera.transform.LookAt(new Vector3(0,0,23));
+        float minX = graph.Rooms.Min(r => r.Center.x - r.Size.x * .5f);
+        float maxX = graph.Rooms.Max(r => r.Center.x + r.Size.x * .5f);
+        float minZ = graph.Rooms.Min(r => r.Center.y - r.Size.y * .5f);
+        float maxZ = graph.Rooms.Max(r => r.Center.y + r.Size.y * .5f);
+        var camera = Object.Instantiate(gameplayCamera);
+        camera.name = "First sector overview camera";
+        var follow = camera.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>();
+        if (follow) follow.enabled = false;
+        var listener = camera.GetComponent<AudioListener>();
+        if (listener) listener.enabled = false;
+        camera.orthographic=true;
+        camera.orthographicSize=Mathf.Max(maxX-minX,maxZ-minZ)*.58f;
+        camera.transform.position=new Vector3((minX+maxX)*.5f,80,(minZ+maxZ)*.5f);
+        camera.transform.rotation=Quaternion.Euler(90,0,0);
         var target=new RenderTexture(1400,1400,24);camera.targetTexture=target;camera.Render();
         var old=RenderTexture.active;RenderTexture.active=target;var image=new Texture2D(1400,1400,TextureFormat.RGB24,false);
         image.ReadPixels(new Rect(0,0,1400,1400),0,0);image.Apply();Directory.CreateDirectory("Docs");File.WriteAllBytes("Docs/FirstSector-overview.png",image.EncodeToPNG());
-        camera.targetTexture=null;RenderTexture.active=old;target.Release();Object.DestroyImmediate(target);Object.DestroyImmediate(image);
+        camera.targetTexture=null;RenderTexture.active=old;target.Release();Object.DestroyImmediate(target);Object.DestroyImmediate(image);Object.DestroyImmediate(camera.gameObject);
     }
 }

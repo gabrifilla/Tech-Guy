@@ -61,6 +61,15 @@ public static class TutorialValidation
         _target = Components<TutorialTrainingTarget>().Single(); _controls = _player.GetComponent<CharControlScript>();
         _abilities = _player.GetComponent<AbilityHolder>();
     }
+    private static void AimAtTarget()
+    {
+        var follow = Camera.main.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>();
+        if (follow) typeof(TechGuy.Cameras.TG_TopDown_Camera)
+            .GetMethod("HandleCamera",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(follow,null);
+        if (Mouse.current == null) InputSystem.AddDevice<Mouse>();
+        Vector3 screenPoint = Camera.main.WorldToScreenPoint(_target.transform.position);
+        InputState.Change(Mouse.current,new MouseState { position = screenPoint });
+    }
     private static void Next(double delay=.4) { _phase++; _next = EditorApplication.timeSinceStartup+delay; }
     private static void Tick()
     {
@@ -72,10 +81,12 @@ public static class TutorialValidation
             {
                 case 0:
                     Resolve();
+                    TutorialDirector.Beat attackLesson = Field<TutorialDirector.Beat[]>("_beats")[(int)TutorialStage.BasicAttack];
                     Require(EditorBuildSettings.scenes.First(s=>s.enabled).path == MainMenuSceneBuilder.ScenePath,"Menu is first enabled scene");
                     Require(_tutorial.Stage == TutorialStage.Movement && !_target.gameObject.activeSelf,"Starts with movement, target gated");
                     Require(Components<EnemyAI>().All(e=>!e.gameObject.activeSelf),"Encounter cannot start early");
                     Require(_player.CurrentWeapon.abilities[0] is BreakerGauntletAbility,"Predictable tutorial loadout");
+                    Require(attackLesson.control.Contains("SHIFT") && attackLesson.instruction.Contains("esquerdo") && attackLesson.instruction.Contains("direito"),"Tutorial teaches directional basic attack on both mouse buttons");
                     Require(_player.GetComponent<NavMeshAgent>().Warp(Field<Transform>("_movementGoal").position),"Checkpoint navigable"); Next(); break;
                 case 1:
                     Require(_tutorial.Stage == TutorialStage.Dodge,"Movement progresses on proximity");
@@ -84,16 +95,16 @@ public static class TutorialValidation
                     Require(_tutorial.Stage == TutorialStage.BasicAttack,"Dash progresses lesson");
                     Require(_target.gameObject.activeSelf,"Target activated");
                     _player.GetComponent<NavMeshAgent>().Warp(new Vector3(0,.1f,1));
-                    Require(_controls.TryBasicAttack(_target.transform.position),"Basic one accepted"); Next(1); break;
-                case 3: Require(_controls.TryBasicAttack(_target.transform.position),"Basic two accepted"); Next(1); break;
-                case 4: Require(_controls.TryBasicAttack(_target.transform.position),"Basic three accepted"); Next(1); break;
+                    Require(_controls.TryDirectionalBasicAttack(_target.transform.position),"Directional basic one accepted without selecting a target"); Next(1); break;
+                case 3: Require(_controls.TryDirectionalBasicAttack(_target.transform.position),"Directional basic two accepted"); Next(1); break;
+                case 4: Require(_controls.TryDirectionalBasicAttack(_target.transform.position),"Directional basic three accepted"); Next(1); break;
                 case 5:
                     Require(_tutorial.Stage == TutorialStage.Skill && _tutorial.BasicHits == 3,"Three actual hits advance");
                     Require(!_target.IsDead,"Training target survives");
-                    if (Mouse.current == null) InputSystem.AddDevice<Mouse>();
-                    InputSystem.QueueStateEvent(Mouse.current,new MouseState { position = Camera.main.WorldToScreenPoint(new Vector3(0,.1f,3)) });
                     Next(); break;
-                case 6: Require(_abilities.TryUseAbility(0),"Real Q accepted"); Next(1.5); break;
+                case 6:
+                    AimAtTarget();
+                    Require(_abilities.TryUseAbility(0),"Real Q accepted"); Next(1.5); break;
                 case 7:
                     Require(_tutorial.Stage == TutorialStage.Encounter,"Skill must actually hit target");
                     Require(Components<EnemyAI>().All(e=>e.gameObject.activeSelf),"Encounter activated");

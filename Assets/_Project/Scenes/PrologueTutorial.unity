@@ -13229,12 +13229,12 @@ MonoBehaviour:
     onEnter:
       m_PersistentCalls:
         m_Calls: []
-  - title: Teste suas manoplas
-    control: "BOT\xC3O ESQUERDO"
-    instruction: "Aproxime-se do alvo e acerte 3 ataques b\xE1sicos. Mire perto dele:
-      o cursor ajuda a direcionar o golpe."
-    transmission: "Ataques b\xE1sicos n\xE3o gastam mana. Segure o bot\xE3o para
-      continuar atacando."
+  - title: Ataque livre
+    control: SHIFT + MOUSE ESQUERDO / DIREITO
+    instruction: "Segure Shift e clique com o bot\xE3o esquerdo ou direito mirando no alvo.
+      Acerte 3 ataques b\xE1sicos sem selecion\xE1-lo."
+    transmission: "O ataque sai na dire\xE7\xE3o do cursor e mant\xE9m sua posi\xE7\xE3o.
+      Solte Shift para voltar a selecionar ou mover."
     onEnter:
       m_PersistentCalls:
         m_Calls: []

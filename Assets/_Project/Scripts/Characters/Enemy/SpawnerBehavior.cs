@@ -45,6 +45,7 @@ public sealed class SpawnerBehavior : ArchetypeBehavior
 
     private SpawnerLivingCount _count;
     private Coroutine _spawnLoop;
+    public event System.Action<Actor> Produced;
 
     /// <summary>The Combat_Role the Spawner declares (R16.1). Priority-target status derives from this role.</summary>
     public CombatRole CombatRole => CombatRole.PriorityThreat;
@@ -113,7 +114,9 @@ public sealed class SpawnerBehavior : ArchetypeBehavior
             return;
         }
 
-        GameObject instance = Instantiate(_swarmPrefab, position, transform.rotation, _spawnedParent);
+        GameObject instance = Instantiate(_swarmPrefab, position, transform.rotation,
+            _spawnedParent ? _spawnedParent : transform.parent);
+        if (instance.TryGetComponent(out EnemyAI childAI)) childAI.player = GetComponent<EnemyAI>().player;
 
         if (instance.TryGetComponent(out NavMeshAgent spawnedAgent) && spawnedAgent.enabled)
         {
@@ -131,6 +134,7 @@ public sealed class SpawnerBehavior : ArchetypeBehavior
 
         _count.RecordSpawn();
         spawnedActor.Died += OnProducedSwarmDied;
+        Produced?.Invoke(spawnedActor);
     }
 
     /// <summary>

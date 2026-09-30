@@ -10,6 +10,11 @@ public enum TutorialStage { Movement, Dodge, BasicAttack, Skill, Encounter, Rewa
 /// <summary>Scene-owned onboarding; editable beats and hooks can later drive the prologue.</summary>
 public sealed class TutorialDirector : MonoBehaviour
 {
+    public const string BasicAttackTitle = "Ataque livre";
+    public const string BasicAttackControl = "SHIFT + MOUSE ESQUERDO / DIREITO";
+    public const string BasicAttackInstruction = "Segure Shift e clique com o botão esquerdo ou direito mirando no alvo. Acerte 3 ataques básicos sem selecioná-lo.";
+    public const string BasicAttackTransmission = "O ataque sai na direção do cursor e mantém sua posição. Solte Shift para voltar a selecionar ou mover.";
+
     [Serializable]
     public sealed class Beat
     {
@@ -34,7 +39,7 @@ public sealed class TutorialDirector : MonoBehaviour
     {
         new Beat("Reconecte os movimentos", "BOTÃO DIREITO", "Clique no chão e caminhe até o marcador azul.", "Sistemas em calibração. Siga as luzes para acessar o Nexus."),
         new Beat("Saia da linha de perigo", "ESPAÇO", "Aponte para uma área livre e execute uma esquiva.", "Esquivar reposiciona você. Observe a recarga na barra inferior."),
-        new Beat("Teste suas manoplas", "BOTÃO ESQUERDO", "Aproxime-se do alvo e acerte 3 ataques básicos. Mire perto dele: o cursor ajuda a direcionar o golpe.", "Ataques básicos não gastam mana. Segure o botão para continuar atacando."),
+        new Beat(BasicAttackTitle, BasicAttackControl, BasicAttackInstruction, BasicAttackTransmission),
         new Beat("Libere uma habilidade", "Q", "Aponte para o alvo e acerte com Q. Observe o gasto de mana e a recarga.", "Q, W e E são suas habilidades. Alterne golpes para carregar Asura, usada com R."),
         new Beat("Complete a simulação", "ATAQUE + ESQUIVA", "Derrote os dois drones. Saia das áreas marcadas antes dos impactos.", "Combine ataques e habilidades. Os drones desta calibração causam pouco dano."),
         new Beat("Escolha sua evolução", "1 / 2 / 3", "Escolha um dos três modificadores. Leia o efeito e a habilidade afetada.", "Nas incursões, as escolhas se acumulam e criam novas combinações. Elas duram somente aquela run."),
@@ -53,6 +58,17 @@ public sealed class TutorialDirector : MonoBehaviour
     public bool RewardVisible => _boons && _boons.IsChoosing;
     public bool IsLeaving => _leaving;
     public event Action<TutorialStage> StageChanged;
+
+    public void RefreshBasicAttackLesson()
+    {
+        int index = (int)TutorialStage.BasicAttack;
+        if (_beats == null || index >= _beats.Length || _beats[index] == null) return;
+        Beat beat = _beats[index];
+        beat.title = BasicAttackTitle;
+        beat.control = BasicAttackControl;
+        beat.instruction = BasicAttackInstruction;
+        beat.transmission = BasicAttackTransmission;
+    }
 
     public void Configure(PlayerActor player, WeaponScript weapon, TutorialTrainingTarget target, Actor[] enemies,
         Transform movementGoal, Transform exit, GameObject marker, GameObject exitLight)

@@ -103,6 +103,23 @@ public static class TutorialSceneBuilder
         EditorSceneManager.SaveScene(scene,ScenePath); RegisterEntry(); AssetDatabase.SaveAssets();
         Debug.Log("TUTORIAL_BUILD_SUCCESS: seven steps, navigation, HUD and tutorial-first build order.");
     }
+
+    [MenuItem("Tools/Tech Guy/Tutorial/Update Tutorial Content")]
+    public static void UpdateContent()
+    {
+        if (!File.Exists(ScenePath)) { Build(); return; }
+        if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+
+        Scene scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        TutorialDirector director = scene.GetRootGameObjects()
+            .SelectMany(root => root.GetComponentsInChildren<TutorialDirector>(true)).Single();
+        director.RefreshBasicAttackLesson();
+        EditorUtility.SetDirty(director);
+        EditorSceneManager.SaveScene(scene);
+        RegisterEntry();
+        AssetDatabase.SaveAssets();
+        Debug.Log("TUTORIAL_CONTENT_UPDATE_SUCCESS: Shift plus either mouse button teaches directional basic attacks.");
+    }
     private static void RegisterEntry()
     {
         EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(ScenePath,true) }

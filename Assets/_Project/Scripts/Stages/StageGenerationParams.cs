@@ -45,6 +45,8 @@ public sealed class StageGenerationParams
     [SerializeField, Range(SpecialProbabilityFloor, SpecialProbabilityCeiling)] private float _treasureProbability = 0.35f;
     [SerializeField, Range(SpecialProbabilityFloor, SpecialProbabilityCeiling)] private float _secretProbability = 0.25f;
     [SerializeField, Min(1)] private int _generationRetryLimit = 50;
+    [SerializeField] private Vector2 _roomSize = new Vector2(10f, 10f);
+    public Vector2 RoomSize => _roomSize;
 
     /// <summary>Minimum number of Combat_Rooms to generate (at least 1). See R1.1.</summary>
     public int MinCombatRooms => _minCombatRooms;
@@ -79,6 +81,7 @@ public sealed class StageGenerationParams
     /// </summary>
     public void Validate()
     {
+        _roomSize = new Vector2(Mathf.Max(10f, _roomSize.x), Mathf.Max(10f, _roomSize.y));
         // Combat-room count: min >= 1, max in [min, ceiling].
         _minCombatRooms = Mathf.Max(1, _minCombatRooms);
         if (_minCombatRooms > MaxCombatRoomCeiling)

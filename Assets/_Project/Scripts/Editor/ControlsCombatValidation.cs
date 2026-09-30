@@ -26,6 +26,14 @@ public static class ControlsCombatValidation
         EditorApplication.playModeStateChanged += OnPlayMode;
         EditorApplication.EnterPlaymode();
     }
+
+    public static void RunBatch()
+    {
+        int code = 0;
+        try { Check(); }
+        catch (Exception error) { Debug.LogException(error); code = 1; }
+        if (Application.isBatchMode) EditorApplication.Exit(code);
+    }
     private static void OnPlayMode(PlayModeStateChange state)
     {
         if (state != PlayModeStateChange.EnteredPlayMode) return;
@@ -75,6 +83,15 @@ public static class ControlsCombatValidation
             InputSystem.Update();
             Require(GamePreferences.IsHeld(GameControl.Skill1), "Mouse binding activates skill");
 
+            Require(CharControlScript.ShouldTriggerDirectionalBasicAttack(true, true, false),
+                "Left mouse plus left Shift requests a directional basic attack");
+            Require(CharControlScript.ShouldTriggerDirectionalBasicAttack(true, false, true),
+                "Right mouse plus right Shift requests a directional basic attack");
+            Require(!CharControlScript.ShouldTriggerDirectionalBasicAttack(false, true, false),
+                "A mouse click without Shift keeps its normal action");
+            Require(!CharControlScript.ShouldTriggerDirectionalBasicAttack(true, false, false),
+                "Shift without a mouse click does not attack");
+
             var build = typeof(AttackAreaSwoosh).GetMethod("BuildBoundary", BindingFlags.Static | BindingFlags.NonPublic);
             var box = (Mesh)build.Invoke(null, new object[] { new Vector3(3, 2, 8), AreaHitShape.Box, 0f });
             Require(Vector3.Distance(box.bounds.size, new Vector3(3, 0, 8)) < .001f, "Box footprint dimensions");
@@ -87,7 +104,7 @@ public static class ControlsCombatValidation
             var stats = new PlayerArpgStats();
             stats.AddModifier(new PlayerStatModifier(PlayerStatType.MovementSpeedMultiplier, PlayerStatModifierMode.IncreasedPercent, 20));
             Require(Mathf.Abs(stats.MovementSpeedMultiplier - 1.2f) < .001f, "Movement boon gives twenty percent");
-            Debug.Log("CONTROLS_COMBAT_VALIDATION_PASS: binding persistence, keyboard/mouse input, isolated drafts, reserved keys, box/circle geometry and movement bonus");
+            Debug.Log("CONTROLS_COMBAT_VALIDATION_PASS: bindings, Shift directional attacks on both mouse buttons, isolated drafts, reserved keys, box/circle geometry and movement bonus");
         }
         finally
         {

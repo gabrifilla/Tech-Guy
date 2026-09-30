@@ -42,9 +42,10 @@ public class EnemyRespawnPoint : MonoBehaviour
     /// </summary>
     /// <remarks>Feature: procedural-stage-room-generation. Requirements: 3.5, 5.4, 6.1.</remarks>
     /// <param name="prefab">The enemy prefab to instantiate on each <see cref="SpawnEnemy"/>.</param>
-    public void ConfigurePrefab(GameObject prefab)
+    public void ConfigurePrefab(GameObject prefab, Transform parent = null)
     {
         enemyPrefab = prefab;
+        if (parent) spawnedParent = parent;
         spawnOnStart = false;
         _respawnSuppressed = true;
     }

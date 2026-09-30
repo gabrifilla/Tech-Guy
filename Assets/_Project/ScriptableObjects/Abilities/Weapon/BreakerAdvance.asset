@@ -26,7 +26,7 @@ MonoBehaviour:
   _animationSpeed: 1.8
   _effectColor: {r: 1, g: 0.65, b: 0.15, a: 0.8}
   _hitSteps:
-  - delay: 0.18
+  - delay: 0.08
     rangeOverride: 2.6
     hitShape: 0
     boxSize: {x: 1.6, y: 2, z: 0}

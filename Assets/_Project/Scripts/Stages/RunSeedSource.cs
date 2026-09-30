@@ -22,6 +22,7 @@ using UnityEngine;
 /// </remarks>
 public sealed class RunSeedSource : MonoBehaviour
 {
+    [SerializeField] private bool _randomizeEachRun;
     [SerializeField, Tooltip("Optional fixed Run_Seed as an unsigned 64-bit integer. Leave blank for a random seed.")]
     private string _seed = string.Empty;
 
@@ -35,6 +36,11 @@ public sealed class RunSeedSource : MonoBehaviour
     /// <returns><c>true</c> when a valid seed was provided; otherwise <c>false</c>.</returns>
     public bool TryGetSeed(out ulong seed)
     {
+        if (_randomizeEachRun)
+        {
+            seed = System.BitConverter.ToUInt64(System.Guid.NewGuid().ToByteArray(), 0);
+            return true;
+        }
         if (!string.IsNullOrWhiteSpace(_seed) && ulong.TryParse(_seed.Trim(), out seed))
         {
             return true;

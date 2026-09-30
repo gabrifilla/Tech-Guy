@@ -97,7 +97,8 @@ public sealed class RoomCompositionResolver
         IReadOnlyList<EnemyRespawnPoint> spawnPoints,
         IReadOnlyList<EnemyArchetype> archetypeCatalog,
         Transform spawnParent = null,
-        PlayerActor player = null)
+        PlayerActor player = null,
+        IReadOnlyList<EnemyVariant> archetypePrefabs = null)
     {
         var spawned = new List<Actor>();
         var warnings = new List<string>();
@@ -145,6 +146,13 @@ public sealed class RoomCompositionResolver
                     continue;
                 }
 
+                if (archetypePrefabs != null)
+                    foreach (EnemyVariant prefab in archetypePrefabs)
+                        if (prefab && prefab.ArchetypeId == slot.ArchetypeId)
+                        {
+                            spawnPoint.ConfigurePrefab(prefab.gameObject, spawnParent);
+                            break;
+                        }
                 Actor actor = SpawnAt(spawnPoint, position);
                 if (actor == null)
                 {
@@ -153,6 +161,13 @@ public sealed class RoomCompositionResolver
                 }
 
                 ApplyArchetype(actor, archetype);
+                if (spawnParent) actor.transform.SetParent(spawnParent, true);
+                if (player && actor.TryGetComponent(out EnemyAI ai))
+                {
+                    ai.player = player.transform;
+                    ai.sightRange = Mathf.Max(room.Size.x, room.Size.y) * 2f;
+                    ai.walkPointRange = 0f;
+                }
                 spawned.Add(actor);
             }
         }

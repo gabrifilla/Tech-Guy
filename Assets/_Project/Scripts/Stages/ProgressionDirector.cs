@@ -43,8 +43,16 @@ public sealed class ProgressionDirector : MonoBehaviour
     [SerializeField] private RunSeedSource _seedSource;
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private EnemyArchetype[] _archetypeCatalog;
+    [SerializeField] private EnemyVariant[] _archetypePrefabs;
     [SerializeField] private string _returnScene = "NexusLobby";
     [SerializeField] private TMP_Text _objective;
+    [SerializeField] private ProceduralStageEnvironment _environment;
+    [Header("Boss access")]
+    [SerializeField, Min(1)] private int _requiredBossAccessFragments = 3;
+    public RoomGraph CurrentGraph => _graph;
+    public int BossAccessFragments => _bossAccessFragments;
+    public int RequiredBossAccessFragments => Mathf.Max(1, _requiredBossAccessFragments);
+    public bool HasBossAccess => _bossAccessFragments >= RequiredBossAccessFragments;
 
     /// <summary>
     /// Total number of Stages this Run is configured to play before it concludes and returns to
@@ -109,6 +117,7 @@ public sealed class ProgressionDirector : MonoBehaviour
     /// <summary>Maps each spawned enemy to the room id it belongs to, so its <c>Died</c> event decrements the
     /// right room's alive count regardless of how many rooms are active concurrently.</summary>
     private readonly Dictionary<Actor, int> _roomByActor = new();
+    private readonly Dictionary<SpawnerBehavior, Action<Actor>> _spawnHandlers = new();
 
     /// <summary>Runtime spawn points created per activated room, kept so they can be destroyed with the Stage.</summary>
     private readonly List<EnemyRespawnPoint> _spawnPoints = new();
@@ -131,6 +140,7 @@ public sealed class ProgressionDirector : MonoBehaviour
     /// <summary>Enemies still alive in the Boss_Room, or -1 while no Boss_Room is active. The Boss_Room
     /// reaching zero is treated as the boss defeat that releases the Stage transition (R7.3/R7.4).</summary>
     private int _bossRoomId = -1;
+    private int _bossAccessFragments;
 
     /// <summary>True once the boss has been defeated and the Stage transition released (R7.4). Guards the
     /// transition so it is never released while the boss is alive (R7.3) and never fires twice.</summary>
@@ -274,10 +284,12 @@ public sealed class ProgressionDirector : MonoBehaviour
 
         _graph = result.Graph;
         IndexRooms(_graph);
+        if (_environment) _environment.Build(_graph);
         MaterializeGates(_graph);
         PositionPlayerAtStart(_graph);
         OpenStartRoomDoors(_graph);
         _stageBuilt = true;
+        UpdateExplorationObjective();
     }
 
     /// <summary>Rebuilds the <see cref="_roomsById"/> lookup for the given graph.</summary>
@@ -314,15 +326,21 @@ public sealed class ProgressionDirector : MonoBehaviour
             var gateObject = new GameObject($"Gate {connection.RoomAId}->{connection.RoomBId} ({connection.SideFromA})");
             gateObject.transform.SetParent(transform, false);
             var gates = gateObject.AddComponent<EncounterGates>();
-            gates.ConfigureDirectional(ToWorld(roomA.Center), roomA.Size);
+            gates.ConfigureDirectional(ToWorld(roomA.Center), roomA.Size,
+                _environment ? ProceduralStageEnvironment.DoorWidth : 0f);
 
             Direction sideFromA = connection.SideFromA;
             gates.AddDoor(sideFromA); // Starts sealed per EncounterGates' directional contract.
+            if (IsBossConnection(connection))
+            {
+                gates.ConfigureBossSeal(sideFromA, RequiredBossAccessFragments);
+                gates.SetBossSealProgress(_bossAccessFragments);
+            }
 
             _gatesByConnection[connection] = gates;
             RegisterRoomGate(connection.RoomAId, sideFromA, gates);
             // Register the mirrored side against room B so it can also seal/open this shared door.
-            RegisterRoomGate(connection.RoomBId, Opposite(sideFromA), gates);
+            RegisterRoomGate(connection.RoomBId, sideFromA, gates);
         }
     }
 
@@ -448,12 +466,14 @@ public sealed class ProgressionDirector : MonoBehaviour
                 continue;
             }
 
-            if (HorizontalDistance(playerPosition, ToWorld(room.Center)) > RoomEntryDistance)
+            Vector3 offset = playerPosition - ToWorld(room.Center);
+            if (Mathf.Abs(offset.x) > room.Size.x * .5f - 1.5f ||
+                Mathf.Abs(offset.z) > room.Size.y * .5f - 1.5f)
             {
                 continue;
             }
 
-            if (room.Type == RoomType.Treasure)
+            if (room.Type == RoomType.Treasure || room.Type == RoomType.Secret)
             {
                 EnterTreasureRoom(room);
             }
@@ -496,18 +516,21 @@ public sealed class ProgressionDirector : MonoBehaviour
     {
         room.Visited = true;
         SealRoomDoors(room.Id);
+        if (_objective) _objective.text = room.Type == RoomType.Boss
+            ? "SETOR 01 / DERROTE O GUARDIAO DO NUCLEO"
+            : $"SETOR 01 / MEMORIA {room.Id:00}\nElimine os inimigos e recupere o fragmento.";
 
         IReadOnlyList<EnemyRespawnPoint> spawnPoints = CreateSpawnPoints(room);
         // Boss_Rooms hand the player through so the resolver can mark the SectorBoss (R7.1); Combat_Rooms
         // pass null. The Boss_Room is tracked so its clear is recognized as the boss defeat that releases
         // the Stage transition (task 8.8, R7.3/R7.4).
-        PlayerActor bossPlayer = room.Type == RoomType.Boss ? _player : null;
+        PlayerActor bossPlayer = _player;
         if (room.Type == RoomType.Boss)
         {
             _bossRoomId = room.Id;
         }
 
-        RoomActivationResult activation = _compositionResolver.Activate(room, spawnPoints, _archetypeCatalog, transform, bossPlayer);
+        RoomActivationResult activation = _compositionResolver.Activate(room, spawnPoints, _archetypeCatalog, transform, bossPlayer, _archetypePrefabs);
 
         int alive = 0;
         foreach (Actor actor in activation.SpawnedActors)
@@ -519,6 +542,12 @@ public sealed class ProgressionDirector : MonoBehaviour
 
             _roomByActor[actor] = room.Id;
             actor.Died += OnEnemyDied;
+            if (actor.TryGetComponent(out SpawnerBehavior spawner))
+            {
+                Action<Actor> handler = child => RegisterProducedEnemy(child, room.Id);
+                _spawnHandlers[spawner] = handler;
+                spawner.Produced += handler;
+            }
             alive++;
         }
 
@@ -546,10 +575,25 @@ public sealed class ProgressionDirector : MonoBehaviour
         spawnObject.transform.position = ToWorld(room.Center);
 
         var spawnPoint = spawnObject.AddComponent<EnemyRespawnPoint>();
-        spawnPoint.ConfigurePrefab(_enemyPrefab);
+        spawnPoint.ConfigurePrefab(_enemyPrefab, transform);
         _spawnPoints.Add(spawnPoint);
 
         return new[] { spawnPoint };
+    }
+
+    private void RegisterProducedEnemy(Actor actor, int roomId)
+    {
+        if (!actor || IsRunComplete || !_aliveByRoom.ContainsKey(roomId)) return;
+        _roomByActor[actor] = roomId;
+        _aliveByRoom[roomId]++;
+        actor.Died += OnEnemyDied;
+    }
+
+    private void UnsubscribeSpawners()
+    {
+        foreach (var pair in _spawnHandlers)
+            if (pair.Key) pair.Key.Produced -= pair.Value;
+        _spawnHandlers.Clear();
     }
 
     /// <summary>Seals every door the given room owns, containing combat inside it (R3.4).</summary>
@@ -625,7 +669,8 @@ public sealed class ProgressionDirector : MonoBehaviour
             return;
         }
 
-        ClearedRooms++;
+        if (room.Type == RoomType.Combat) ClearedRooms++;
+        if (_objective) _objective.text = "MEMORIA RECUPERADA\nRecolha o fragmento e escolha uma bencao.";
 
         // Hold this room's exits sealed until its reward is claimed and a boon is chosen (R6.5/R6.6).
         _rewardRoomId = room.Id;
@@ -730,8 +775,18 @@ public sealed class ProgressionDirector : MonoBehaviour
             return;
         }
 
-        OpenEligibleExits(_rewardRoomId);
+        int resolvedRoomId = _rewardRoomId;
+        if (_roomsById.TryGetValue(resolvedRoomId, out Room resolvedRoom) &&
+            resolvedRoom.Type == RoomType.Combat && !HasBossAccess)
+        {
+            _bossAccessFragments++;
+            UpdateBossSealProgress();
+        }
+
+        OpenEligibleExits(resolvedRoomId);
+        if (HasBossAccess) TryUnlockBossConnections();
         _rewardRoomId = -1;
+        UpdateExplorationObjective();
     }
 
     /// <summary>
@@ -743,7 +798,8 @@ public sealed class ProgressionDirector : MonoBehaviour
     {
         foreach (RoomConnection connection in _graph.Connections)
         {
-            if (connection.Hidden)
+            if (connection.Hidden &&
+                !(_roomsById[connection.RoomAId].Revealed || _roomsById[connection.RoomBId].Revealed))
             {
                 continue;
             }
@@ -762,9 +818,16 @@ public sealed class ProgressionDirector : MonoBehaviour
                 continue;
             }
 
+            if (_roomsById.TryGetValue(neighborId, out Room destination) &&
+                destination.Type == RoomType.Boss && !HasBossAccess)
+            {
+                connection.Open = false;
+                continue;
+            }
+
             // Eligible = leads to a room not yet visited (R6.7). Already-visited neighbors keep their
             // current gate state so re-entry stays idempotent (R3.3).
-            if (_roomsById.TryGetValue(neighborId, out Room neighbor) && neighbor.Visited)
+            if (_roomsById.TryGetValue(neighborId, out Room neighbor) && neighbor.Visited && !neighbor.Cleared && neighbor.Type != RoomType.Start)
             {
                 continue;
             }
@@ -775,6 +838,43 @@ public sealed class ProgressionDirector : MonoBehaviour
                 connection.Open = true;
             }
         }
+    }
+
+    private bool IsBossConnection(RoomConnection connection)
+    {
+        return _roomsById.TryGetValue(connection.RoomAId, out Room a) && a.Type == RoomType.Boss ||
+               _roomsById.TryGetValue(connection.RoomBId, out Room b) && b.Type == RoomType.Boss;
+    }
+
+    private void UpdateBossSealProgress()
+    {
+        foreach (RoomConnection connection in _graph.Connections)
+            if (IsBossConnection(connection) && _gatesByConnection.TryGetValue(connection, out EncounterGates gates) && gates)
+                gates.SetBossSealProgress(_bossAccessFragments);
+    }
+
+    private void TryUnlockBossConnections()
+    {
+        foreach (RoomConnection connection in _graph.Connections)
+        {
+            if (!IsBossConnection(connection) || !_gatesByConnection.TryGetValue(connection, out EncounterGates gates) || !gates)
+                continue;
+            int approachId = _roomsById[connection.RoomAId].Type == RoomType.Boss
+                ? connection.RoomBId : connection.RoomAId;
+            if (!_roomsById.TryGetValue(approachId, out Room approach) || (!approach.Cleared && approach.Type != RoomType.Start))
+                continue;
+            gates.SetBossSealProgress(_bossAccessFragments);
+            gates.OpenDoor(connection.SideFromA);
+            connection.Open = true;
+        }
+    }
+
+    private void UpdateExplorationObjective()
+    {
+        if (!_objective) return;
+        _objective.text = HasBossAccess
+            ? "SELO DO GUARDIAO ABERTO\nEncontre a arena e derrote o Guardiao do Nucleo."
+            : $"FRAGMENTOS DE ACESSO {_bossAccessFragments}/{RequiredBossAccessFragments}\nExplore as salas | E: procurar memoria oculta";
     }
 
     /// <summary>
@@ -798,7 +898,8 @@ public sealed class ProgressionDirector : MonoBehaviour
     /// </remarks>
     public void TryDiscoverSecret()
     {
-        if (!_stageBuilt || _graph == null || IsRunComplete || !_player || _player.IsDead)
+        if (!_stageBuilt || _graph == null || IsRunComplete || !_player || _player.IsDead ||
+            _aliveByRoom.Count > 0 || _rewardRoomId >= 0)
         {
             return;
         }
@@ -856,6 +957,7 @@ public sealed class ProgressionDirector : MonoBehaviour
     private void RevealSecret(Room secret, RoomConnection connection)
     {
         secret.Revealed = true;
+        if (_environment) _environment.SetRevealed(secret.Id, true);
 
         if (_gatesByConnection.TryGetValue(connection, out EncounterGates gates) && gates)
         {
@@ -878,12 +980,14 @@ public sealed class ProgressionDirector : MonoBehaviour
     {
         Vector3 playerPosition = _player.transform.position;
         Room nearest = null;
-        float nearestDistance = RoomEntryDistance;
+        float nearestDistance = float.PositiveInfinity;
 
         foreach (Room room in _graph.Rooms)
         {
             float distance = HorizontalDistance(playerPosition, ToWorld(room.Center));
-            if (distance <= nearestDistance)
+            Vector3 offset = playerPosition - ToWorld(room.Center);
+            if (Mathf.Abs(offset.x) <= room.Size.x * .5f &&
+                Mathf.Abs(offset.z) <= room.Size.y * .5f && distance <= nearestDistance)
             {
                 nearestDistance = distance;
                 nearest = room;
@@ -908,6 +1012,7 @@ public sealed class ProgressionDirector : MonoBehaviour
 
         _bossDefeated = true;
         _bossRoomId = -1;
+        _bossAccessFragments = 0;
         Debug.Log($"ProgressionDirector recorded the boss defeat in Room #{bossRoom.Id}; releasing the Stage transition.", this);
         StartCoroutine(ReleaseStageTransition());
     }
@@ -967,6 +1072,7 @@ public sealed class ProgressionDirector : MonoBehaviour
     /// </summary>
     private void TearDownCurrentStage()
     {
+        UnsubscribeSpawners();
         foreach (Actor actor in _roomByActor.Keys)
         {
             if (actor)
@@ -1150,10 +1256,12 @@ public sealed class ProgressionDirector : MonoBehaviour
 
         _graph = result.Graph;
         IndexRooms(_graph);
+        if (_environment) _environment.Build(_graph);
         MaterializeGates(_graph);
         PositionPlayerAtStart(_graph);
         OpenStartRoomDoors(_graph);
         _stageBuilt = true;
+        UpdateExplorationObjective();
     }
 
     /// <summary>Horizontal (XZ) distance between two world points, ignoring height.</summary>
@@ -1275,6 +1383,7 @@ public sealed class ProgressionDirector : MonoBehaviour
     /// </summary>
     private void OnDestroy()
     {
+        UnsubscribeSpawners();
         if (_boons)
         {
             _boons.RewardChosen -= OnRewardChosen;

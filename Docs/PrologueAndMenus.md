@@ -6,13 +6,15 @@ O jogo abre em `MainMenu`. Na primeira jornada, **Iniciar jornada** abre `Prolog
 
 1. Caminhar até o marcador azul clicando no chão com o botão esquerdo ou direito (padrões).
 2. Executar uma esquiva com Espaço.
-3. Acertar três ataques básicos no alvo de treinamento.
+3. Segurar Shift e clicar com o botão esquerdo ou direito na direção do alvo para acertar três ataques básicos sem selecioná-lo.
 4. Acertar a habilidade Q no alvo.
 5. Derrotar dois drones de treinamento.
 6. Escolher um modificador real usando a mesma interface das runs.
 7. Testar a escolha no alvo, se desejar, e atravessar a saída dourada até o Nexus.
 
 Esc abre o menu de pausa, onde é possível continuar, voltar ao menu inicial, sair do jogo ou pular o tutorial para o Nexus. Morrer reinicia o tutorial. A manopla de treinamento e o modificador escolhido são locais à cena: o equipamento salvo permanece intacto. Os drones não concedem moedas.
+
+Durante o jogo, **Shift + botão esquerdo ou direito** executa um ataque básico parado na direção do cursor. O comando não seleciona inimigos nem cria uma ordem de movimento; sem Shift, os cliques mantêm as ações normais configuradas.
 
 ## Preparação para a história
 
