@@ -535,6 +535,8 @@ GameObject:
   - component: {fileID: 1098432089713366135}
   - component: {fileID: 3483448960127172442}
   - component: {fileID: 8720722565386681155}
+  - component: {fileID: 5174808309336597610}
+  - component: {fileID: 5978156145250965104}
   m_Layer: 10
   m_Name: Healer
   m_TagString: Interactable
@@ -775,6 +777,38 @@ MonoBehaviour:
   _roleActionCueRadius: 1.15
   _markerColor: {r: 1, g: 0.85, b: 0.15, a: 1}
   _roleActionCueColor: {r: 0.2, g: 0.9, b: 1, a: 1}
+--- !u!114 &5174808309336597610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126346926043812644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d172a30c461540058a4a0735df02faf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::SoftGroupingService
+  config:
+    maxSpeed: 1
+    radius: 3
+    maxDisplacementPerApplication: 0.5
+  agent: {fileID: 0}
+  characterController: {fileID: 0}
+--- !u!114 &5978156145250965104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126346926043812644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e376c54f78f4f67b0cac57bd823877f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::PreferredDistanceLayer
+  _profile: {fileID: 11400000, guid: d741c4c54ef63484d9d228d7cd7ceebc, type: 2}
+  _arriveTolerance: 0.5
 --- !u!1 &1190673748169733417
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,8 @@ public sealed class MainMenuUI : MonoBehaviour
     private GamePreferences.Options _draft, _saved;
     private readonly List<Vector2Int> _resolutions = new List<Vector2Int>();
     private GUIStyle _logo, _heading, _body, _small, _button, _value;
-    private int _selected, _tab;
+    private readonly MainMenuFocus _focus = new MainMenuFocus();
+    private int _tab;
     private bool _loading, _confirmDisplay;
     private float _displayDeadline;
     private string _message;
@@ -53,9 +54,9 @@ public sealed class MainMenuUI : MonoBehaviour
             return;
         }
         if (_page != Page.Home) return;
-        if (key.downArrowKey.wasPressedThisFrame) _selected = (_selected + 1) % 5;
-        if (key.upArrowKey.wasPressedThisFrame) _selected = (_selected + 4) % 5;
-        if (key.enterKey.wasPressedThisFrame) Activate(_selected);
+        if (key.downArrowKey.wasPressedThisFrame) _focus.MoveDown();
+        if (key.upArrowKey.wasPressedThisFrame) _focus.MoveUp();
+        if (key.enterKey.wasPressedThisFrame) Activate(_focus.Selected);
     }
     public void Open(Page page)
     {
@@ -74,13 +75,13 @@ public sealed class MainMenuUI : MonoBehaviour
     }
     private void Activate(int index)
     {
-        switch (index)
+        switch (MainMenuFocus.ActionFor(index))
         {
-            case 0: StartJourney(); break;
-            case 1: StartJourney(true); break;
-            case 2: Open(Page.Settings); break;
-            case 3: Open(Page.Controls); break;
-            case 4: Open(Page.Quit); break;
+            case MainMenuAction.StartJourney: StartJourney(); break;
+            case MainMenuAction.ReplayPrologue: StartJourney(true); break;
+            case MainMenuAction.OpenSettings: Open(Page.Settings); break;
+            case MainMenuAction.OpenControls: Open(Page.Controls); break;
+            case MainMenuAction.Quit: Open(Page.Quit); break;
         }
     }
     public void ApplySettings()
@@ -120,9 +121,30 @@ public sealed class MainMenuUI : MonoBehaviour
     private bool Button(Rect rect, string text, bool highlighted = false)
     {
         bool hover = rect.Contains(Event.current.mousePosition);
-        Fill(rect, highlighted || hover ? new Color(.1f,.25f,.32f) : new Color(.06f,.1f,.14f));
-        Fill(new Rect(rect.x,rect.y,highlighted || hover ? 4 : 1,rect.height),highlighted || hover ? Cyan : new Color(.18f,.29f,.35f));
-        Label(rect,text,_button,highlighted || hover ? Color.white : new Color(.73f,.81f,.85f));
+        // Portal 2 style focus: the focused row slides right, fills with a bright cyan wash and a
+        // thick accent bar, and reads in near-black for maximum contrast; idle rows stay dim so the
+        // focused option is unmistakable over the live scene background.
+        float shift = highlighted ? 14 : (hover ? 8 : 0);
+        var body = new Rect(rect.x + shift, rect.y, rect.width - shift, rect.height);
+        if (highlighted)
+        {
+            Fill(new Rect(body.x - 6, body.y - 3, body.width + 6, body.height + 6), new Color(0f,0f,0f,.55f));
+            Fill(body, new Color(.24f,.86f,1f,.92f));
+            Fill(new Rect(body.x, body.y, 8, body.height), Color.white);
+        }
+        else if (hover)
+        {
+            Fill(new Rect(body.x - 6, body.y - 3, body.width + 6, body.height + 6), new Color(0f,0f,0f,.5f));
+            Fill(body, new Color(.1f,.3f,.4f,.82f));
+            Fill(new Rect(body.x, body.y, 5, body.height), Cyan);
+        }
+        else
+        {
+            Fill(new Rect(body.x - 6, body.y - 3, body.width + 6, body.height + 6), new Color(0f,0f,0f,.42f));
+            Fill(body, new Color(.05f,.09f,.13f,.72f));
+            Fill(new Rect(body.x, body.y, 2, body.height), new Color(.2f,.34f,.4f,.9f));
+        }
+        Label(body, text, _button, highlighted ? new Color(.02f,.05f,.08f) : (hover ? Color.white : new Color(.78f,.86f,.9f)));
         return GUI.Button(rect, GUIContent.none, GUIStyle.none);
     }
     private void OnGUI()
@@ -133,8 +155,11 @@ public sealed class MainMenuUI : MonoBehaviour
         GUI.depth = -10;
         try
         {
-            Fill(new Rect(-Screen.width/scale,-Screen.height/scale,Screen.width/scale*3,Screen.height/scale*3),Ink);
-            DrawBackdrop();
+            // No opaque screen fill and no procedural grid: the live Nexus background is rendered by
+            // the scene camera (MainMenuSceneBuilder) and OnGUI draws only the UI on top of it. Each
+            // panel/list supplies its own local darkening for legibility (see DrawHome/Panel), which
+            // also serves as a legible fallback if the background does not render (headless/no GPU).
+            DrawFrame();
             bool wasEnabled = GUI.enabled;
             GUI.enabled = wasEnabled && !_confirmDisplay && !_loading;
             if (_page == Page.Home) DrawHome();
@@ -147,10 +172,12 @@ public sealed class MainMenuUI : MonoBehaviour
         }
         finally { GUI.matrix = old; GUI.color = color; GUI.depth = depth; }
     }
-    private void DrawBackdrop()
+    private void DrawFrame()
     {
-        for (int i=0; i<24; i++) Fill(new Rect(0,i*32,1280,1),new Color(.09f,.18f,.23f,.22f));
-        for (int i=0; i<40; i++) Fill(new Rect(i*32,0,1,720),new Color(.09f,.18f,.23f,.16f));
+        // Thin cinematic letterbox bands + corner labels over the live scene background — no grid,
+        // no opaque fill. Gives structure/legibility for the corner text without hiding the Nexus.
+        Fill(new Rect(0,0,1280,64),new Color(0f,0f,0f,.4f));
+        Fill(new Rect(0,668,1280,52),new Color(0f,0f,0f,.4f));
         Fill(new Rect(64,48,38,3),Cyan);
         Label(new Rect(113,38,800,30),"NEXUS  /  PROTOCOLO DE CONEXÃO",_small,Muted);
         Label(new Rect(64,677,880,24),"TECH GUY   •   EM DESENVOLVIMENTO",_small,Muted);
@@ -158,31 +185,29 @@ public sealed class MainMenuUI : MonoBehaviour
     }
     private void DrawHome()
     {
+        // Left-anchored option column over the live Nexus view (Portal 2 layout). A soft vertical
+        // gradient of translucent panels sits behind the title + list only, so the text stays legible
+        // over any background and remains readable even if the scene camera renders nothing
+        // (headless/no GPU) — without the old full-screen opaque fill.
+        Fill(new Rect(0,84,560,150),new Color(.02f,.045f,.07f,.62f));
+        Fill(new Rect(0,270,540,340),new Color(.02f,.045f,.07f,.5f));
+        Fill(new Rect(0,84,4,526),Cyan);
         Label(new Rect(64,107,600,100),"TECH GUY",_logo,Color.white);
         Label(new Rect(69,207,490,48),"Prepare seu arsenal. Descubra novas combinações.",_body,Muted);
         string[] choices = { GamePreferences.TutorialSeen ? "Continuar no Nexus" : "Iniciar jornada", "Repetir prólogo", "Configurações", "Controles", "Sair do jogo" };
         for (int i=0;i<choices.Length;i++)
         {
             var rect = new Rect(70,291+i*62,420,52);
-            if (Event.current.type == EventType.MouseMove && rect.Contains(Event.current.mousePosition)) _selected = i;
-            if (Button(rect,choices[i],_selected==i)) Activate(i);
+            if (Event.current.type == EventType.MouseMove && rect.Contains(Event.current.mousePosition)) _focus.PointTo(i);
+            if (Button(rect,choices[i],_focus.Selected==i)) Activate(i);
         }
-        Vector2 center = new Vector2(924,324);
-        for (int ring=0;ring<3;ring++)
-        {
-            float radius = 92 + ring*36;
-            for (int i=0;i<48;i++)
-            {
-                if (i%12>8) continue;
-                float angle = i*7.5f + Time.unscaledTime*(ring==1 ? -3 : 2);
-                Matrix4x4 before = GUI.matrix; GUIUtility.RotateAroundPivot(angle,center);
-                Fill(new Rect(center.x+radius,center.y,ring==1 ? 12 : 4,8),new Color(Cyan.r,Cyan.g,Cyan.b,.4f+ring*.2f)); GUI.matrix = before;
-            }
-        }
-        Label(new Rect(861,298,160,64),"N / 01",_heading,Cyan);
-        Fill(new Rect(710,532,428,2),new Color(.18f,.38f,.45f));
-        Label(new Rect(710,551,428,28),GamePreferences.TutorialSeen ? "CONEXÃO RESTABELECIDA" : "CALIBRAÇÃO PENDENTE",_small,Cyan);
-        Label(new Rect(710,585,428,66),GamePreferences.TutorialSeen ? "Seu próximo destino é o Nexus. O prólogo pode ser revisitado a qualquer momento." : "Aprenda a se mover, lutar e escolher modificadores antes de acessar o Nexus.",_body,Muted);
+        // Right-side status card, now backed by its own darkening panel instead of the animated ring.
+        Fill(new Rect(704,286,436,372),new Color(.02f,.045f,.07f,.52f));
+        Fill(new Rect(704,286,436,3),Cyan);
+        Label(new Rect(730,306,160,64),"N / 01",_heading,Cyan);
+        Fill(new Rect(730,532,384,2),new Color(.18f,.38f,.45f));
+        Label(new Rect(730,551,384,28),GamePreferences.TutorialSeen ? "CONEXÃO RESTABELECIDA" : "CALIBRAÇÃO PENDENTE",_small,Cyan);
+        Label(new Rect(730,585,384,66),GamePreferences.TutorialSeen ? "Seu próximo destino é o Nexus. O prólogo pode ser revisitado a qualquer momento." : "Aprenda a se mover, lutar e escolher modificadores antes de acessar o Nexus.",_body,Muted);
         if (!string.IsNullOrEmpty(_message)) Label(new Rect(70,618,560,40),_message,_small,new Color(1,.7f,.4f));
     }
     private void Panel(string title, string subtitle)

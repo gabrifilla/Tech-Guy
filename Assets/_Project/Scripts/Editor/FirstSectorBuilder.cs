@@ -54,12 +54,17 @@ public static class FirstSectorBuilder
         player.transform.position = Vector3.zero;
         var actor = player.GetComponent<PlayerActor>();
         actor.healthBar = actor.manaBar = null;
-        camera.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>().m_Target = player.transform;
+        var follow = camera.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>();
+        follow.m_Target = player.transform;
+        // Pull the top-down camera back for combat readability (starting point; tuned in Play).
+        var cameraData = new SerializedObject(follow);
+        cameraData.FindProperty("m_Height").floatValue = 16f;
+        cameraData.FindProperty("m_Distance").floatValue = 16f;
+        cameraData.FindProperty("m_Angle").floatValue = 0f;
+        cameraData.ApplyModifiedPropertiesWithoutUndo();
         var controls = new SerializedObject(player.GetComponent<CharControlScript>());
         controls.FindProperty("mainCamera").objectReferenceValue = camera;
         controls.ApplyModifiedPropertiesWithoutUndo();
-        camera.transform.position = new Vector3(0, 14, -12);
-        camera.transform.LookAt(player.transform);
         camera.clearFlags = CameraClearFlags.SolidColor;
         camera.backgroundColor = new Color(.015f, .024f, .043f);
 

@@ -3252,6 +3252,8 @@ GameObject:
   - component: {fileID: 5684290852439933121}
   - component: {fileID: 7809624587587810808}
   - component: {fileID: 4010941433767353991}
+  - component: {fileID: 6459332463049229099}
+  - component: {fileID: 8910954007971527899}
   m_Layer: 10
   m_Name: HazardCaster
   m_TagString: Interactable
@@ -3468,6 +3470,38 @@ MonoBehaviour:
   _initialDelay: 1
   _zonePrefab: {fileID: 5584604618142788012, guid: 01f30d5452569a84999c49d51f9ba473,
     type: 3}
+--- !u!114 &6459332463049229099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8887830604270616557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d172a30c461540058a4a0735df02faf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::SoftGroupingService
+  config:
+    maxSpeed: 1
+    radius: 3
+    maxDisplacementPerApplication: 0.5
+  agent: {fileID: 0}
+  characterController: {fileID: 0}
+--- !u!114 &8910954007971527899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8887830604270616557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e376c54f78f4f67b0cac57bd823877f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::PreferredDistanceLayer
+  _profile: {fileID: 11400000, guid: d741c4c54ef63484d9d228d7cd7ceebc, type: 2}
+  _arriveTolerance: 0.5
 --- !u!1 &9129677574295089836
 GameObject:
   m_ObjectHideFlags: 0

@@ -52,11 +52,14 @@ public static class WeaponModifierValidation
     }
     private static void CheckRules()
     {
-        Require(WeaponRunModifiers.Catalog.Count == 30, "Exactly 30 unique modifiers");
-        Require(WeaponRunModifiers.Catalog.Select(d => d.Id).Distinct().Count() == 30, "Unique reward ids");
+        // impactful-weapon-boons added 6 family boons (2 Bow, 2 Spear, 2 Gauntlet), taking the catalog
+        // from 30 (10/family) to 36 (12/family). The cross-family Elemental Overflow is an inline offer,
+        // not a catalogued WeaponBoon, so it does not count here.
+        Require(WeaponRunModifiers.Catalog.Count == 36, "Exactly 36 unique modifiers");
+        Require(WeaponRunModifiers.Catalog.Select(d => d.Id).Distinct().Count() == 36, "Unique reward ids");
         foreach (RunWeaponFamily family in Enum.GetValues(typeof(RunWeaponFamily)))
         {
-            Require(WeaponRunModifiers.Catalog.Count(d => d.Family == family) == 10, "Ten modifiers per weapon");
+            Require(WeaponRunModifiers.Catalog.Count(d => d.Family == family) == 12, "Twelve modifiers per weapon");
             var fresh = new WeaponRunModifiers(family);
             foreach (var definition in WeaponRunModifiers.Catalog)
             {

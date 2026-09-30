@@ -49,6 +49,9 @@ public sealed class ProgressionDirector : MonoBehaviour
     [SerializeField] private ProceduralStageEnvironment _environment;
     [Header("Boss access")]
     [SerializeField, Min(1)] private int _requiredBossAccessFragments = 3;
+    [Tooltip("Max melee enemies per combat room that may attack the player at once (R5.1). Each room gets its own SwarmAttackCoordinator seeded with this limit.")]
+    [SerializeField, Min(1)] private int _maxConcurrentMeleePerRoom = 3;
+
     public RoomGraph CurrentGraph => _graph;
     public int BossAccessFragments => _bossAccessFragments;
     public int RequiredBossAccessFragments => Mathf.Max(1, _requiredBossAccessFragments);
@@ -120,6 +123,9 @@ public sealed class ProgressionDirector : MonoBehaviour
     private readonly Dictionary<SpawnerBehavior, Action<Actor>> _spawnHandlers = new();
 
     /// <summary>Runtime spawn points created per activated room, kept so they can be destroyed with the Stage.</summary>
+    /// <summary>The current combat room's root (hosts its SwarmAttackCoordinator); enemies spawn under it so each encounter has its own attack-slot pool.</summary>
+    private Transform _currentRoomRoot;
+
     private readonly List<EnemyRespawnPoint> _spawnPoints = new();
 
     /// <summary>The room id whose reward is currently being awaited/selected, or -1 when none. While set, that
@@ -530,7 +536,7 @@ public sealed class ProgressionDirector : MonoBehaviour
             _bossRoomId = room.Id;
         }
 
-        RoomActivationResult activation = _compositionResolver.Activate(room, spawnPoints, _archetypeCatalog, transform, bossPlayer, _archetypePrefabs);
+        RoomActivationResult activation = _compositionResolver.Activate(room, spawnPoints, _archetypeCatalog, _currentRoomRoot, bossPlayer, _archetypePrefabs);
 
         int alive = 0;
         foreach (Actor actor in activation.SpawnedActors)
@@ -570,12 +576,23 @@ public sealed class ProgressionDirector : MonoBehaviour
     /// </summary>
     private IReadOnlyList<EnemyRespawnPoint> CreateSpawnPoints(Room room)
     {
+        // Each combat room owns its own SwarmAttackCoordinator (R5): enemies spawned into the room are
+        // parented under this root, so EnemyAI.GetComponentInParent<SwarmAttackCoordinator>() resolves the
+        // per-encounter attack-slot pool. The root also owns the spawn point, so destroying it with the
+        // Stage tears down the whole encounter.
+        var roomRoot = new GameObject($"CombatRoom (Room {room.Id})");
+        roomRoot.transform.SetParent(transform, false);
+        roomRoot.transform.position = ToWorld(room.Center);
+        SwarmAttackCoordinator coordinator = roomRoot.AddComponent<SwarmAttackCoordinator>();
+        coordinator.ConfigureCapacity(_maxConcurrentMeleePerRoom);
+        _currentRoomRoot = roomRoot.transform;
+
         var spawnObject = new GameObject($"SpawnPoint (Room {room.Id})");
-        spawnObject.transform.SetParent(transform, false);
+        spawnObject.transform.SetParent(roomRoot.transform, false);
         spawnObject.transform.position = ToWorld(room.Center);
 
         var spawnPoint = spawnObject.AddComponent<EnemyRespawnPoint>();
-        spawnPoint.ConfigurePrefab(_enemyPrefab, transform);
+        spawnPoint.ConfigurePrefab(_enemyPrefab, roomRoot.transform);
         _spawnPoints.Add(spawnPoint);
 
         return new[] { spawnPoint };
@@ -745,6 +762,37 @@ public sealed class ProgressionDirector : MonoBehaviour
         }
 
         return center;
+    }
+
+    /// <summary>
+    /// Materializes the Extraction_Portal inside the Boss_Room once the boss is defeated (R8.2/R8.3). The
+    /// portal is a runtime-built <see cref="ScenePortal"/> — no serialized prefab — mirroring how gates and
+    /// the Reward_Trophy are materialized on demand. Its spawn position reuses the exact same
+    /// <see cref="FindReachableSpot"/> the Reward_Trophy uses (bounds-clamped ring sampling +
+    /// <see cref="NavMesh.CalculatePath"/>, with a nearest-to-center fallback), so the portal lands on a
+    /// reachable NavMesh point the player can walk into. The portal GameObject is parented to this director,
+    /// and <see cref="ScenePortal.Configure"/> is called in the SAME frame as <c>AddComponent</c> so the
+    /// destination is set before the portal's <c>Start</c> coroutine begins polling player distance. The
+    /// destination comes from the serialized <see cref="_returnScene"/> (the Nexus) — never a magic string.
+    /// </summary>
+    /// <remarks>Feature: playable-procedural-run. Requirements: 8.2, 8.3.</remarks>
+    private void MaterializeExtractionPortal(Room bossRoom)
+    {
+        Vector3 spot = FindReachableSpot(bossRoom);
+
+        var portalObject = new GameObject("Extraction_Portal");
+        portalObject.transform.SetParent(transform, false);
+        portalObject.transform.position = spot;
+
+        var portal = portalObject.AddComponent<ScenePortal>();
+        // Configure in the same frame as AddComponent: ScenePortal.Start() begins its distance-polling
+        // coroutine as soon as the component exists, so the player + destination must be set before then.
+        portal.Configure(_player.transform, _returnScene);
+
+        // R8.2: point the HUD objective at the extraction portal now that it exists (same TMP write pattern
+        // as UpdateExplorationObjective). The display string is HUD copy, not a scene destination magic
+        // string — the portal's destination comes from the serialized _returnScene above.
+        if (_objective) _objective.text = "SETOR PURIFICADO\nEntre no portal de extração para retornar ao Nexus.";
     }
 
     /// <summary>
@@ -1048,10 +1096,28 @@ public sealed class ProgressionDirector : MonoBehaviour
         bool hasNextStage = CurrentStageIndex + 1 < _stageCount;
         if (!hasNextStage)
         {
-            // R7.6: no next Stage -> conclude the Run and return to the Nexus via the shared flow.
-            Debug.Log("ProgressionDirector: boss defeated with no next Stage configured; concluding the Run.", this);
+            // R8.1/R8.2: no next Stage (single-Stage Run) -> the boss is already defeated (_bossDefeated set
+            // in OnBossDefeated), so materialize the Extraction_Portal on a reachable NavMesh spot inside the
+            // Boss_Room instead of returning to the Nexus instantly. The ScenePortal loads the Nexus on its
+            // own when the player walks into its radius (guarded by Application.CanStreamedLevelBeLoaded,
+            // R8.4/R8.5), so ReturnToNexus() is NOT called on this victory path. The one-way _leaving guard
+            // belongs to ReturnToNexus (the death path) and is deliberately left unset here; _bossDefeated
+            // guarantees this branch materializes the portal exactly once (R8.1).
+            Room bossRoom = ResolveBossRoom();
+            if (bossRoom == null)
+            {
+                // No Boss_Room in the graph (should not happen): fall back to the shared return flow rather
+                // than leaving the Run without an exit.
+                Debug.LogWarning("ProgressionDirector: boss defeated but no Boss_Room found in the graph; returning to the Nexus directly.", this);
+                IsRunComplete = true;
+                ReturnToNexus();
+                return;
+            }
+
+            Debug.Log("ProgressionDirector: boss defeated with no next Stage configured; materializing the Extraction_Portal.", this);
+            MaterializeExtractionPortal(bossRoom);
+            // The Run is logically complete; the player only needs to walk into the portal.
             IsRunComplete = true;
-            ReturnToNexus();
             return;
         }
 
@@ -1062,6 +1128,23 @@ public sealed class ProgressionDirector : MonoBehaviour
         _bossDefeated = false;
         Debug.Log($"ProgressionDirector advancing to Stage index {CurrentStageIndex} with derived seed {nextSeed}.", this);
         MaterializeStageWithSeed(nextSeed);
+    }
+
+    /// <summary>
+    /// Resolves the Boss_Room from the current graph. Used at the Extraction_Portal materialization site
+    /// because <see cref="OnBossDefeated"/> resets <see cref="_bossRoomId"/> to -1 before the transition is
+    /// released, so the Boss_Room is identified by <see cref="RoomType.Boss"/> rather than the cached id.
+    /// </summary>
+    /// <remarks>Feature: playable-procedural-run. Requirements: 8.1, 8.2.</remarks>
+    private Room ResolveBossRoom()
+    {
+        if (_graph == null) return null;
+        foreach (Room room in _graph.Rooms)
+        {
+            if (room.Type == RoomType.Boss) return room;
+        }
+
+        return null;
     }
 
     /// <summary>

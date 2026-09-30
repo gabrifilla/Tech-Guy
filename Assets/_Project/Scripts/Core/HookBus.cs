@@ -16,6 +16,13 @@ using UnityEngine;
 /// </summary>
 public sealed class HookBus
 {
+    /// <summary>
+    /// Raised on every direct hit that dealt damage, with the struck actor and damage dealt.
+    /// A Direct_Hit is a basic attack, area, or projectile hit resolved through the player's
+    /// damage pipeline (not a discharge, explosion, ricochet, or cascade secondary hit).
+    /// </summary>
+    public event Action<Actor, float> OnHit;
+
     /// <summary>Raised after a critical hit is applied, with the struck actor and damage dealt.</summary>
     public event Action<Actor, float> OnCrit;
 
@@ -39,6 +46,9 @@ public sealed class HookBus
 
     /// <summary>Enemies already reported dead this run, so <see cref="OnKill"/> fires once each.</summary>
     private readonly HashSet<Actor> _killed = new HashSet<Actor>();
+
+    /// <summary>Raises <see cref="OnHit"/> for a direct hit that dealt damage.</summary>
+    public void RaiseHit(Actor actor, float damage) => Dispatch(OnHit, actor, damage);
 
     /// <summary>Raises <see cref="OnCrit"/> for a critical hit.</summary>
     public void RaiseCrit(Actor actor, float damage) => Dispatch(OnCrit, actor, damage);
@@ -75,6 +85,7 @@ public sealed class HookBus
     /// </summary>
     public void Clear()
     {
+        OnHit = null;
         OnCrit = null;
         OnKill = null;
         OnFreeze = null;

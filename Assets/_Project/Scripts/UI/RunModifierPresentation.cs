@@ -41,6 +41,8 @@ public sealed class RunModifierPresentation
             case "ignite": view.Category = "ELEMENTO"; view.Scope = "ACERTOS"; view.Symbol = "F"; view.Accent = new Color(1f,.48f,.25f); view.Description = "Acertos aplicam queimadura por 4s. Cada cópia acrescenta 6 de dano por segundo; novos acertos renovam a duração."; break;
             case "frost": view.Category = "ELEMENTO"; view.Scope = "ACERTOS"; view.Symbol = "G"; view.Accent = new Color(.35f,.82f,1f); view.Description = "Acertos têm +35 pontos percentuais de chance de congelar por cópia, até 100%. Duração: 2,5s."; break;
             case "conductor": case "detonation": case "reactor": case "resonance": view.Category = "SINERGIA"; view.Scope = "ACERTOS"; view.Symbol = offer.Id == "conductor" ? ">>" : offer.Id == "detonation" ? "*" : offer.Id == "reactor" ? "F+" : "FG"; view.Accent = new Color(.77f,.58f,1f); break;
+            // impactful-weapon-boons R8: cross-family Elemental Overflow card (category ELEMENTO, scope ACERTOS).
+            case "overflow": view.Category = "ELEMENTO"; view.Scope = "ACERTOS"; view.Symbol = "FG+"; view.Accent = new Color(1f,.62f,.4f); break;
             case "vitality": view.Scope = "VIDA"; view.MaxRank = 1; break;
             case "recharge": view.Scope = "RECARGAS"; view.MaxRank = 1; break;
             case "haste": view.Scope = "ATAQUE BÁSICO"; view.Symbol = ">>"; break;
@@ -63,6 +65,11 @@ public sealed class RunModifierPresentation
         if (id == "haste") return Combined(run,"haste","weapon_ComboNova") ? "COMBINAÇÃO ATIVA · Ímpeto acelera a Nova de combo." : "COMBINE · Ímpeto acelera a cadência da Nova de combo.";
         if (id == "weapon_ComboNova") return Combined(run,"weapon_ComboNova","haste") ? "COMBINAÇÃO ATIVA · Ímpeto acelera a Nova de combo." : "COMBINE · Ímpeto acelera a cadência da Nova de combo.";
         if (id == "weapon_RocketAdvance" && Count(run,"transform") > 0) return "ATENÇÃO · este avanço não se aplica ao Q transformado.";
+        // impactful-weapon-boons R9.3: combination hints for the new boons.
+        if (id == "weapon_ChargedShot") return Combined(run,"weapon_ChargedShot","weapon_Piercing") || Combined(run,"weapon_ChargedShot","weapon_Sniper") ? "COMBINAÇÃO ATIVA · tiro carregado atravessa a fila." : "COMBINE · perfuração faz o tiro carregado varar inimigos.";
+        if (id == "weapon_SplitArrow") return Combined(run,"weapon_SplitArrow","weapon_TwinShot") ? "COMBINAÇÃO ATIVA · mais flechas, mais fragmentos." : "COMBINE · Tiro duplo multiplica os fragmentos ao abater.";
+        if (id == "weapon_MomentumStrike") return Combined(run,"weapon_MomentumStrike","bulwark") || Combined(run,"weapon_MomentumStrike","vitality") ? "COMBINAÇÃO ATIVA · sobreviver mantém as pilhas." : "COMBINE · defesa evita perder as pilhas ao levar dano.";
+        if (id == "overflow") return fire || frost ? "COMBINAÇÃO ATIVA · consome fogo/gelo para um burst." : "COMBINE · aplique fogo ou gelo antes de acertar.";
         if (id == "weapon_TwinShot" || id == "weapon_WideVolley") return "COMBINE · perfuração e ricochete ampliam a cobertura.";
         return Count(run,id) > 0 ? "EVOLUÇÃO · reforça um modificador da sua build." : "NOVA AQUISIÇÃO · permanece até o fim desta run.";
     }
@@ -75,10 +82,12 @@ public sealed class RunModifierPresentation
             case WeaponBoon.WideVolley: case WeaponBoon.Trident: case WeaponBoon.ShockRing: return "E";
             case WeaponBoon.LongRain: case WeaponBoon.GuidedRain: case WeaponBoon.DragonWave: case WeaponBoon.AsuraEcho: case WeaponBoon.AsuraReserve: case WeaponBoon.ReturnWave: return "R";
             case WeaponBoon.Momentum: return "Q / W / E";
-            case WeaponBoon.ComboNova: return "ATAQUE BÁSICO";
-            case WeaponBoon.EchoThrust: case WeaponBoon.PhantomSpear: case WeaponBoon.ChainThrust: return "ESTOCADAS";
-            case WeaponBoon.StanceCrusher: return "HABILIDADES";
-            case WeaponBoon.TwinShot: case WeaponBoon.Piercing: case WeaponBoon.Ricochet: case WeaponBoon.Homing: return "FLECHAS";
+            case WeaponBoon.ComboNova: case WeaponBoon.MomentumStrike: return "ATAQUE BÁSICO";
+            case WeaponBoon.EchoThrust: case WeaponBoon.PhantomSpear: case WeaponBoon.ChainThrust:
+            case WeaponBoon.PerfectSpacing: case WeaponBoon.ImpalingLine: return "ESTOCADAS";
+            case WeaponBoon.StanceCrusher: case WeaponBoon.Shockwave: return "HABILIDADES";
+            case WeaponBoon.TwinShot: case WeaponBoon.Piercing: case WeaponBoon.Ricochet: case WeaponBoon.Homing:
+            case WeaponBoon.SplitArrow: case WeaponBoon.ChargedShot: return "FLECHAS";
             default: return "BÁSICOS + SKILLS";
         }
     }

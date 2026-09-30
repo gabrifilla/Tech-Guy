@@ -947,6 +947,8 @@ GameObject:
   - component: {fileID: 9145776820878489900}
   - component: {fileID: 8487133203557412891}
   - component: {fileID: 1376476759137668807}
+  - component: {fileID: 6171365411314250091}
+  - component: {fileID: 6548140340564691391}
   m_Layer: 10
   m_Name: ShieldSupport
   m_TagString: Interactable
@@ -1185,6 +1187,38 @@ MonoBehaviour:
   _roleActionCueRadius: 1.15
   _markerColor: {r: 1, g: 0.85, b: 0.15, a: 1}
   _roleActionCueColor: {r: 0.2, g: 0.9, b: 1, a: 1}
+--- !u!114 &6171365411314250091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303656694767955852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d172a30c461540058a4a0735df02faf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::SoftGroupingService
+  config:
+    maxSpeed: 1
+    radius: 3
+    maxDisplacementPerApplication: 0.5
+  agent: {fileID: 0}
+  characterController: {fileID: 0}
+--- !u!114 &6548140340564691391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3303656694767955852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e376c54f78f4f67b0cac57bd823877f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::PreferredDistanceLayer
+  _profile: {fileID: 11400000, guid: d741c4c54ef63484d9d228d7cd7ceebc, type: 2}
+  _arriveTolerance: 0.5
 --- !u!1 &3454408414955748369
 GameObject:
   m_ObjectHideFlags: 0

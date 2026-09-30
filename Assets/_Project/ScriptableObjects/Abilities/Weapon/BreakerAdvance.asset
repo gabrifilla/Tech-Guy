@@ -34,7 +34,7 @@ MonoBehaviour:
     targetLayers:
       serializedVersion: 2
       m_Bits: 0
-    damageMultiplier: 0.55
+    damageMultiplier: 0.7
     bonusDamage: 0
     localOffset: {x: 0, y: 0, z: 0}
     reactionType: 1
@@ -53,7 +53,7 @@ MonoBehaviour:
     targetLayers:
       serializedVersion: 2
       m_Bits: 0
-    damageMultiplier: 0.85
+    damageMultiplier: 1.1
     bonusDamage: 0
     localOffset: {x: 0, y: 0, z: 0}
     reactionType: 1

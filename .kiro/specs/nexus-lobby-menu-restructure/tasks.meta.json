@@ -1,0 +1,354 @@
+{
+  "pbtResults": {
+    "1.2* Escrever teste de propriedade para o estado \"equipada\" exclusivo": {
+      "status": "passed",
+      "lastRunTimestamp": 1790787892214
+    },
+    "3.1* Escrever teste de propriedade para o conteúdo do cartão": {
+      "status": "passed",
+      "lastRunTimestamp": 1790788825633
+    }
+  },
+  "executionHistory": {
+    "1. Estado puro do pedestal e ação de interação": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787618537
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788882850
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789132101
+      }
+    ],
+    "1.1* Escrever teste de propriedade para a resolução de ação do pedestal": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787618671
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788902520
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789131060
+      }
+    ],
+    "1.2* Escrever teste de propriedade para o estado \"equipada\" exclusivo": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787618765
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787654620
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788857038
+      }
+    ],
+    "2. Seleção por proximidade (lógica pura)": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787618847
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788884156
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788894145
+      }
+    ],
+    "2.1* Escrever teste de propriedade para a seleção por proximidade": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787618937
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787656012
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788858061
+      }
+    ],
+    "3. Conteúdo do cartão de arma (montagem de texto pura)": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787619011
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788885220
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788895632
+      }
+    ],
+    "3.1* Escrever teste de propriedade para o conteúdo do cartão": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787619086
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787656971
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788859396
+      }
+    ],
+    "4. Desenho do cartão estilo Hades (`WeaponCardView`, IMGUI)": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787619165
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788903938
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789128219
+      }
+    ],
+    "5. Componente de runtime `LobbyArsenal` (pedestais, cartão e equipar/desbloquear)": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787619244
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789163989
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789477761
+      }
+    ],
+    "6. Remover o painel único de seleção de arma de `LobbyInteraction`": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787619314
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789482915
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789633001
+      }
+    ],
+    "7. Training Dummy passivo (`TrainingDummy : Actor`)": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787619420
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788886298
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788896800
+      }
+    ],
+    "7.1* Escrever teste PlayMode para o Training Dummy": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787619531
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787658369
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788860758
+      }
+    ],
+    "8. Geração: três pedestais + Training Dummy no `LobbySceneBuilder`": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787619671
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789637585
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789997194
+      }
+    ],
+    "9. Layout estilo Hades e validação de navegação no `LobbyCompactLayout`": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787619751
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790790009461
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790790284996
+      }
+    ],
+    "9.1* Validação de Editor para o layout do lobby": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787619832
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790790290961
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790790619608
+      }
+    ],
+    "10. Ajustar `ArsenalBuilder`/`ArsenalValidation` para os pedestais": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787619918
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790790010677
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790790283464
+      }
+    ],
+    "11. Fundo ao vivo do Nexus no menu (`MainMenuSceneBuilder`, estilo Portal 2)": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787620002
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787659797
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788862015
+      }
+    ],
+    "12. Reorganização visual do `MainMenuUI` (mantendo IMGUI)": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787620072
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789165213
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789477936
+      }
+    ],
+    "12.1* Escrever teste de propriedade para o foco do menu": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787620146
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790788904694
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790789129719
+      }
+    ],
+    "13. Integração final e verificação": [
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790787620217
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790790624367
+      },
+      {
+        "executionId": "905ff905-d8d2-4814-8bde-6cdeecca1c99",
+        "chatSessionId": "sess_026b6137-8128-454c-99a8-8ea85995dcb2",
+        "timestamp": 1790790842887
+      }
+    ]
+  }
+}

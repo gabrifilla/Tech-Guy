@@ -82,11 +82,22 @@ public static class ArsenalValidation
                     ResolvePlayer();
                     Require(_player.CurrentWeapon == Resources.Load<WeaponScript>(WeaponLoadout.ResourcePaths[0]), "Default gauntlet");
                     Require(_holder.ActiveAbilities.Count == 4, "Gauntlet skills retained");
+                    // The single "ARSENAL / ARMAS" panel was replaced by three physical pedestals
+                    // (Task 6/8): validate the LobbyArsenal component exposes exactly three pedestals
+                    // with weapon indices 0/1/2 and reachable interaction anchors, instead of a
+                    // LobbyInteraction station carrying the removed "weaponSelection" flag.
+                    var arsenal = Object.FindFirstObjectByType<LobbyArsenal>();
+                    Require(arsenal, "Arsenal pedestals present");
+                    var arsenalData = new SerializedObject(arsenal);
+                    var pedestals = arsenalData.FindProperty("_pedestals");
+                    Require(pedestals != null && pedestals.arraySize == 3, "Three weapon pedestals serialized");
+                    for (int p = 0; p < 3; p++)
+                    {
+                        SerializedProperty pedestal = pedestals.GetArrayElementAtIndex(p);
+                        Require(pedestal.FindPropertyRelative("weaponIndex").intValue == p, "Pedestal weapon index " + p);
+                        Require(pedestal.FindPropertyRelative("anchor").objectReferenceValue is Transform, "Pedestal " + p + " anchor assigned");
+                    }
                     var guide = Object.FindFirstObjectByType<LobbyInteraction>();
-                    var guideData = new SerializedObject(guide);
-                    var stations = guideData.FindProperty("_stations");
-                    Require(Enumerable.Range(0, stations.arraySize).Any(i => stations.GetArrayElementAtIndex(i)
-                        .FindPropertyRelative("weaponSelection").boolValue), "Arsenal station serialized");
                     FieldInfo panel = typeof(LobbyInteraction).GetField("_showDetails", BindingFlags.Instance | BindingFlags.NonPublic);
                     panel.SetValue(guide, true);
                     Require(_holder.BlocksWorldInput && !_holder.TryUseAbility(0), "Open panel blocks attacks and skills");
@@ -162,7 +173,7 @@ public static class ArsenalValidation
                 case 8:
                     ResolvePlayer();
                     Require(_player.CurrentWeapon.weaponName == Resources.Load<WeaponScript>(WeaponLoadout.ResourcePaths[2]).weaponName, "Spear persists into FirstSector");
-                    Require(_holder.ActiveAbilities.Count == 4 && _holder.ActiveAbilities[0] is ArsenalAbility, "Incursion skill bar matches selection");
+                    Require(_holder.ActiveAbilities.Count == 4 && _holder.ActiveAbilities[0] is ArsenalAbility, "Skill bar matches selection after FirstSector load");
                     Require(WeaponLoadout.Select(_player, 0), "Return to gauntlet");
                     _phase++;
                     break;

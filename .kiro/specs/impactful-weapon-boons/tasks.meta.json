@@ -1,0 +1,311 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Catalog + offer/presentation wiring for all new boons": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778826367
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778835916
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779434352
+      }
+    ],
+    "2. R2 - Split Arrow (bow, on kill)": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778826488
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779453599
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779928300
+      }
+    ],
+    "2.1* Write property test for split generation bound": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778826574
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780348805
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780854304
+      }
+    ],
+    "2.2* Write property test for split count and damage": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778826655
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780349769
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780855378
+      }
+    ],
+    "3. R3 - Charged Shot (bow, hold-to-overpower)": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778826730
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779454968
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779929154
+      }
+    ],
+    "3.1* Write property test for the charge threshold": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778826799
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779944702
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780337370
+      }
+    ],
+    "4. R4 - Perfect Spacing (spear, distance-band reward)": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778826874
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779455923
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779930549
+      }
+    ],
+    "4.1* Write property test for the spacing band": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778826986
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779944950
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780338252
+      }
+    ],
+    "5. R5 - Impaling Line (spear, pierce-and-pull thrust)": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778827099
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779457306
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779932000
+      }
+    ],
+    "5.1* Write property test for pierce and pull": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778827168
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780351156
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780856378
+      }
+    ],
+    "6. R6 - Momentum Strike (gauntlet, aggression stacks)": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778827243
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779458509
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779933011
+      }
+    ],
+    "6.1* Write property test for stack and damage": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778827317
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779945557
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780339197
+      }
+    ],
+    "7. R7 - Shockwave Finisher (gauntlet, combo end burst)": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778827406
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779941406
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780340603
+      }
+    ],
+    "7.1* Write property test for the shockwave append": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778827538
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780352108
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780857724
+      }
+    ],
+    "8. R8 - Elemental Overflow (cross-family, spend status for a burst)": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778827666
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790779942282
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780342000
+      }
+    ],
+    "8.1* Write property test for the overflow gate": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778827754
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780353093
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780858663
+      }
+    ],
+    "9. Cross-cutting guarantees and offer/presentation verification": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778827833
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790780869562
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790781018013
+      }
+    ],
+    "9.1* Write property tests for the cross-cutting guarantees": [
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790778827924
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790781018780
+      },
+      {
+        "executionId": "b4c288ef-2f52-4308-ac84-62f05358f38c",
+        "chatSessionId": "sess_69ce558e-0abb-488c-adcb-420d2328b505",
+        "timestamp": 1790781702586
+      }
+    ]
+  }
+}

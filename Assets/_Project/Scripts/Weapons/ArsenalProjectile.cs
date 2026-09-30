@@ -85,7 +85,10 @@ public sealed class ArsenalProjectile : MonoBehaviour
             }
         }
         float distance = Mathf.Min(_remaining, 24f * Time.deltaTime);
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, .12f, transform.forward,
+        // R1.1/R1.4: sweep radius comes from the central config (default 0.35 m — larger than the old
+        // 0.12 m) so arrows reliably register grazing hits; missing config falls back to that default.
+        float sweepRadius = CombatBalance.Current?.ProjectileSweepRadius ?? 0.35f;
+        RaycastHit[] hits = Physics.SphereCastAll(transform.position, sweepRadius, transform.forward,
             distance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
         Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
         foreach (RaycastHit hit in hits)
@@ -157,7 +160,9 @@ public sealed class ArsenalProjectile : MonoBehaviour
     // R1: is there an un-hit live enemy on the current straight-line heading?
     private bool HasInlineTarget()
     {
-        RaycastHit[] ahead = Physics.SphereCastAll(transform.position, .12f, transform.forward,
+        // R1.3: pierce uses the same configured sweep radius as the damage sweep for consistency.
+        float sweepRadius = CombatBalance.Current?.ProjectileSweepRadius ?? 0.35f;
+        RaycastHit[] ahead = Physics.SphereCastAll(transform.position, sweepRadius, transform.forward,
             _remaining, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
         Array.Sort(ahead, (a, b) => a.distance.CompareTo(b.distance));
         foreach (RaycastHit h in ahead)

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Rajada Asura
   cooldownTime: 16
-  activeTime: 2.9
-  _manaCost: 280
+  activeTime: 2
+  _manaCost: 210
   _displayName: Asura
   _glyph: 3
   _accentColor: {r: 1, g: 0.33, b: 0.17, a: 1}
@@ -26,7 +26,7 @@ MonoBehaviour:
   _animationSpeed: 2.8
   _effectColor: {r: 1, g: 0.22, b: 0.08, a: 0.9}
   _hitSteps:
-  - delay: 0.16
+  - delay: 0.115
     rangeOverride: 3
     hitShape: 0
     boxSize: {x: 1.8, y: 2, z: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
-  - delay: 0.285
+  - delay: 0.205
     rangeOverride: 3
     hitShape: 0
     boxSize: {x: 1.8, y: 2, z: 0}
@@ -64,7 +64,7 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
-  - delay: 0.41
+  - delay: 0.295
     rangeOverride: 3
     hitShape: 0
     boxSize: {x: 1.8, y: 2, z: 0}
@@ -83,7 +83,7 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
-  - delay: 0.535
+  - delay: 0.385
     rangeOverride: 3
     hitShape: 0
     boxSize: {x: 1.8, y: 2, z: 0}
@@ -102,7 +102,7 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
-  - delay: 0.66
+  - delay: 0.475
     rangeOverride: 3
     hitShape: 0
     boxSize: {x: 1.8, y: 2, z: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
-  - delay: 0.785
+  - delay: 0.565
     rangeOverride: 3
     hitShape: 0
     boxSize: {x: 1.8, y: 2, z: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
-  - delay: 0.91
+  - delay: 0.655
     rangeOverride: 3
     hitShape: 0
     boxSize: {x: 1.8, y: 2, z: 0}
@@ -159,7 +159,7 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
-  - delay: 1.035
+  - delay: 0.745
     rangeOverride: 3
     hitShape: 0
     boxSize: {x: 1.8, y: 2, z: 0}
@@ -178,7 +178,83 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
-  - delay: 1.16
+  - delay: 0.835
+    rangeOverride: 3
+    hitShape: 0
+    boxSize: {x: 1.8, y: 2, z: 0}
+    sphereRadius: 1.5
+    targetLayers:
+      serializedVersion: 2
+      m_Bits: 0
+    damageMultiplier: 0.42
+    bonusDamage: 0
+    localOffset: {x: -0.22, y: 0, z: 0}
+    reactionType: 1
+    hitStrength: 0
+    poiseDamage: 3
+    stunDuration: 0.12
+    knockbackForce: 0
+    launchForce: 0
+    canAirJuggle: 0
+    canRagdoll: 0
+  - delay: 0.925
+    rangeOverride: 3
+    hitShape: 0
+    boxSize: {x: 1.8, y: 2, z: 0}
+    sphereRadius: 1.5
+    targetLayers:
+      serializedVersion: 2
+      m_Bits: 0
+    damageMultiplier: 0.42
+    bonusDamage: 0
+    localOffset: {x: 0.22, y: 0, z: 0}
+    reactionType: 1
+    hitStrength: 0
+    poiseDamage: 3
+    stunDuration: 0.12
+    knockbackForce: 0
+    launchForce: 0
+    canAirJuggle: 0
+    canRagdoll: 0
+  - delay: 1.015
+    rangeOverride: 3
+    hitShape: 0
+    boxSize: {x: 1.8, y: 2, z: 0}
+    sphereRadius: 1.5
+    targetLayers:
+      serializedVersion: 2
+      m_Bits: 0
+    damageMultiplier: 0.42
+    bonusDamage: 0
+    localOffset: {x: -0.22, y: 0, z: 0}
+    reactionType: 1
+    hitStrength: 0
+    poiseDamage: 3
+    stunDuration: 0.12
+    knockbackForce: 0
+    launchForce: 0
+    canAirJuggle: 0
+    canRagdoll: 0
+  - delay: 1.105
+    rangeOverride: 3
+    hitShape: 0
+    boxSize: {x: 1.8, y: 2, z: 0}
+    sphereRadius: 1.5
+    targetLayers:
+      serializedVersion: 2
+      m_Bits: 0
+    damageMultiplier: 0.42
+    bonusDamage: 0
+    localOffset: {x: 0.22, y: 0, z: 0}
+    reactionType: 1
+    hitStrength: 0
+    poiseDamage: 3
+    stunDuration: 0.12
+    knockbackForce: 0
+    launchForce: 0
+    canAirJuggle: 0
+    canRagdoll: 0
+  - delay: 1.195
     rangeOverride: 3
     hitShape: 0
     boxSize: {x: 1.8, y: 2, z: 0}
@@ -216,7 +292,7 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
-  - delay: 1.41
+  - delay: 1.375
     rangeOverride: 3
     hitShape: 0
     boxSize: {x: 1.8, y: 2, z: 0}
@@ -235,7 +311,7 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
-  - delay: 1.535
+  - delay: 1.465
     rangeOverride: 3
     hitShape: 0
     boxSize: {x: 1.8, y: 2, z: 0}
@@ -254,83 +330,7 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
-  - delay: 1.66
-    rangeOverride: 3
-    hitShape: 0
-    boxSize: {x: 1.8, y: 2, z: 0}
-    sphereRadius: 1.5
-    targetLayers:
-      serializedVersion: 2
-      m_Bits: 0
-    damageMultiplier: 0.42
-    bonusDamage: 0
-    localOffset: {x: -0.22, y: 0, z: 0}
-    reactionType: 1
-    hitStrength: 0
-    poiseDamage: 3
-    stunDuration: 0.12
-    knockbackForce: 0
-    launchForce: 0
-    canAirJuggle: 0
-    canRagdoll: 0
-  - delay: 1.785
-    rangeOverride: 3
-    hitShape: 0
-    boxSize: {x: 1.8, y: 2, z: 0}
-    sphereRadius: 1.5
-    targetLayers:
-      serializedVersion: 2
-      m_Bits: 0
-    damageMultiplier: 0.42
-    bonusDamage: 0
-    localOffset: {x: 0.22, y: 0, z: 0}
-    reactionType: 1
-    hitStrength: 0
-    poiseDamage: 3
-    stunDuration: 0.12
-    knockbackForce: 0
-    launchForce: 0
-    canAirJuggle: 0
-    canRagdoll: 0
-  - delay: 1.91
-    rangeOverride: 3
-    hitShape: 0
-    boxSize: {x: 1.8, y: 2, z: 0}
-    sphereRadius: 1.5
-    targetLayers:
-      serializedVersion: 2
-      m_Bits: 0
-    damageMultiplier: 0.42
-    bonusDamage: 0
-    localOffset: {x: -0.22, y: 0, z: 0}
-    reactionType: 1
-    hitStrength: 0
-    poiseDamage: 3
-    stunDuration: 0.12
-    knockbackForce: 0
-    launchForce: 0
-    canAirJuggle: 0
-    canRagdoll: 0
-  - delay: 2.035
-    rangeOverride: 3
-    hitShape: 0
-    boxSize: {x: 1.8, y: 2, z: 0}
-    sphereRadius: 1.5
-    targetLayers:
-      serializedVersion: 2
-      m_Bits: 0
-    damageMultiplier: 0.42
-    bonusDamage: 0
-    localOffset: {x: 0.22, y: 0, z: 0}
-    reactionType: 1
-    hitStrength: 0
-    poiseDamage: 3
-    stunDuration: 0.12
-    knockbackForce: 0
-    launchForce: 0
-    canAirJuggle: 0
-    canRagdoll: 0
-  - delay: 2.5
+  - delay: 1.8
     rangeOverride: 3.6
     hitShape: 0
     boxSize: {x: 2.8, y: 2, z: 0}

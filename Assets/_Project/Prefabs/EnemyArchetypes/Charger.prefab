@@ -818,6 +818,8 @@ GameObject:
   - component: {fileID: 8740627500809281554}
   - component: {fileID: 8224865864329774068}
   - component: {fileID: 3953557131905106554}
+  - component: {fileID: 8040767060572134930}
+  - component: {fileID: 38584598537076439}
   m_Layer: 10
   m_Name: Charger
   m_TagString: Interactable
@@ -1018,6 +1020,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TechGuy::EnemyCombatActions
   _motions: {fileID: 11400000, guid: 5aa51dfdd818e8b4a8b054723aff914d, type: 2}
+--- !u!114 &8040767060572134930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3677911842052207528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d172a30c461540058a4a0735df02faf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::SoftGroupingService
+  config:
+    maxSpeed: 1
+    radius: 3
+    maxDisplacementPerApplication: 0.5
+  agent: {fileID: 0}
+  characterController: {fileID: 0}
+--- !u!114 &38584598537076439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3677911842052207528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e376c54f78f4f67b0cac57bd823877f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::PreferredDistanceLayer
+  _profile: {fileID: 11400000, guid: d741c4c54ef63484d9d228d7cd7ceebc, type: 2}
+  _arriveTolerance: 0.5
 --- !u!1 &3778130296837019570
 GameObject:
   m_ObjectHideFlags: 0

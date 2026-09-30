@@ -10,7 +10,7 @@ public class Ability : ScriptableObject
     [SerializeField] private SkillGlyphKind _glyph;
     [SerializeField] private Color _accentColor = new Color(0.85f, 0.64f, 0.33f);
 
-    public float ManaCost => Mathf.Max(0f, _manaCost);
+    public virtual float ManaCost => Mathf.Max(0f, _manaCost);
     public string DisplayName => string.IsNullOrEmpty(_displayName) ? name : _displayName;
     public SkillGlyphKind Glyph => _glyph;
     public Color AccentColor => _accentColor;

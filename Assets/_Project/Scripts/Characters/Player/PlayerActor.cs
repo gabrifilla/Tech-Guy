@@ -88,6 +88,7 @@ public class PlayerActor : Actor, IExternalPullTarget
         base.Awake();
         baseMaxHealth = maxHealth;
         baseMaxMana = mana;
+        ApplyStartingStatOverrides();
         RefreshResourceStats(fillToMax: true);
 
         if (healthBar)
@@ -110,6 +111,38 @@ public class PlayerActor : Actor, IExternalPullTarget
                 ? weapon
                 : Resources.Load<WeaponScript>("Weapons/Melee/Gauntlet/Gauntlet");
         EquipWeapon(WeaponLoadout.LoadSelected() ?? weaponToEquip);
+    }
+
+    /// <summary>
+    /// Applies the player's starting-stat overrides from the central <see cref="CombatBalanceConfig"/>
+    /// (R4.1) over the prefab-authored <see cref="PlayerArpgStats"/>/health, running in
+    /// <see cref="Awake"/> after <c>baseMaxHealth</c> is captured and before
+    /// <see cref="RefreshResourceStats(bool)"/> so the refreshed <c>maxHealth</c> picks up the
+    /// override. Semantics (R4.3): a config field of 0 (or omitted) means "keep the authored value",
+    /// so each stat is only overridden when its config getter yields a meaningful (&gt; 0) value.
+    /// When the config asset is absent, nothing changes (R5.3). The mitigation formula and the shape
+    /// of the damage roll are untouched (R4.2); the config getters already clamp, keeping health
+    /// strictly positive and armor non-negative (R4.4).
+    /// </summary>
+    private void ApplyStartingStatOverrides()
+    {
+        CombatBalanceConfig cfg = CombatBalance.Current;
+        if (cfg == null) return;
+
+        // baseDamage: 0/omitted = keep authored (R4.3). StartingBaseDamage returns the authored
+        // config value untouched, so only override on a strictly positive value.
+        if (cfg.StartingBaseDamage > 0f)
+            Stats.baseDamage = cfg.StartingBaseDamage;
+
+        // armor: authored default is 0 and 0 is also the neutral/"keep authored" value, so only
+        // override when the config asks for a positive armor. StartingArmor is clamped >= 0.
+        if (cfg.StartingArmor > 0f)
+            Stats.armor = cfg.StartingArmor;
+
+        // base health: StartingHealth returns 0 for "keep authored" (R4.3), else a clamped > 0 value
+        // (R4.4). Feed it into baseMaxHealth so RefreshResourceStats computes maxHealth from it.
+        if (cfg.StartingHealth > 0f)
+            baseMaxHealth = cfg.StartingHealth;
     }
 
     private void Update()
@@ -242,6 +275,8 @@ public class PlayerActor : Actor, IExternalPullTarget
             HookBus hooks = Hooks;
             if (hooks != null)
             {
+                // Direct_Hit: every basic/area/projectile hit that dealt damage routes through here.
+                hooks.RaiseHit(enemy, dealt);
                 if (isCritical) hooks.RaiseCrit(enemy, dealt);
                 if (enemy.IsDead) hooks.RaiseKill(enemy);
             }

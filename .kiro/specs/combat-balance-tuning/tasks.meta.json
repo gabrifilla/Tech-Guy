@@ -1,0 +1,396 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Criar `CombatBalanceBounds` (classe estática pura) com os clamps": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793416095
+      },
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793425872
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794953639
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794960350
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794965714
+      }
+    ],
+    "1.2 Criar o `CombatBalanceConfig` (ScriptableObject) e o acessor `CombatBalance.Current`": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793416197
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794953773
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794975631
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795114283
+      }
+    ],
+    "2.1 Substituir o raio de sweep fixo por valor do config": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793416299
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794953885
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795130359
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795228296
+      }
+    ],
+    "3.1 Unificar a definição de acerto do básico": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793416413
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794953960
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795238921
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795442764
+      }
+    ],
+    "4.1 Aplicar o multiplicador global de custo de mana": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793416533
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794954036
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795451969
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795645394
+      }
+    ],
+    "4.2 Reautorar as skills mais problemáticas (dados)": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793416626
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794954120
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795650577
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795993172
+      }
+    ],
+    "5.1 Aplicar overrides de stats iniciais do config": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793416721
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794954201
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795998748
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796109698
+      }
+    ],
+    "6.1 Evento `DamageAbsorbed` em `Actor.TakeDamage`": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793416806
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794954279
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796114872
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796221569
+      }
+    ],
+    "6.2 Gerar o sprite do ícone de escudo": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793416875
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794954355
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796225763
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796470453
+      }
+    ],
+    "6.3 Criar o componente `ProtectionIndicator`": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793416938
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794954430
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796477081
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796677911
+      }
+    ],
+    "6.4 Anexar o indicador aos inimigos protegidos": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793417016
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794954513
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796683721
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796755150
+      }
+    ],
+    "6.5 Integração opcional com o Mirror": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793417091
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794954592
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796760486
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796972736
+      }
+    ],
+    "7.1 Definir e registrar os valores de partida": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793417177
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794954663
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796978197
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790797167125
+      }
+    ],
+    "8.1 Testes EditMode": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793417291
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794954746
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790797173362
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790797468489
+      }
+    ],
+    "8.2 Não-regressão e defaults": [
+      {
+        "executionId": "95b8163e-a7a4-4fb3-8dbf-c5263aab2c51",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790793417367
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790794954816
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790797474176
+      },
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790797880308
+      }
+    ],
+    "1. Camada central de balanceamento": [
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795114495
+      }
+    ],
+    "2. Hitbox do projétil do arco": [
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795228437
+      }
+    ],
+    "3. Hitbox do golpe básico da manopla": [
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795442922
+      }
+    ],
+    "4. Skills base da manopla": [
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790795993343
+      }
+    ],
+    "5. Stats iniciais do player": [
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796109818
+      }
+    ],
+    "6. Indicador de proteção": [
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790796972802
+      }
+    ],
+    "7. Calibragem dos números-alvo": [
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790797167261
+      }
+    ],
+    "8. Testes e verificação": [
+      {
+        "executionId": "dd29fc56-78f2-4fb8-a3ec-d9a4485101f0",
+        "chatSessionId": "sess_b103df34-4c5d-413a-93cd-2b7201629b8f",
+        "timestamp": 1790797880514
+      }
+    ]
+  }
+}

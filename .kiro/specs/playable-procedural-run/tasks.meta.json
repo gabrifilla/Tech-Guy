@@ -1,0 +1,262 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Implementar `MaterializeExtractionPortal(Room bossRoom)`": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770628372
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770639659
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770730762
+      }
+    ],
+    "1.2 Alterar o ramo `!hasNextStage` de `AdvanceToNextStageOrConclude` para materializar o portal": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770629419
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770739112
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770881585
+      }
+    ],
+    "1.3 Definir o objetivo do HUD ao materializar o portal": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770629504
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770891518
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790771064489
+      }
+    ],
+    "1.4 Garantir que o ramo de morte permanece inalterado": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770629629
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770892465
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790771065695
+      }
+    ],
+    "2.1 Teste: portal materializa exatamente uma vez, na Boss_Room, com destino Nexus": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770629697
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770893858
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790771067133
+      }
+    ],
+    "2.2 Teste: morte não materializa portal, mas ainda retorna": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770629765
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770894906
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790771068936
+      }
+    ],
+    "3.1 Configurar os campos serializados de `TG_TopDown_Camera` na autoração": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770629823
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770640508
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770732170
+      }
+    ],
+    "3.2 Teste EditMode: enquadramento afastado na cena autorada": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770629932
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770740072
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770882971
+      }
+    ],
+    "4.1 Deletar `FirstSectorValidation.cs` e seu `.meta`": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770629997
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770641963
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770733066
+      }
+    ],
+    "4.2 Desacoplar `ArsenalValidation.cs` da moldura de missão linear": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770630057
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770643020
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770734499
+      }
+    ],
+    "4.3 Confirmar compilação e testes verdes após a retirada": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770630203
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770741069
+      },
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770885740
+      }
+    ],
+    "5. Checkpoint — reautorar a cena e validar": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770630249
+      }
+    ],
+    "6.1 Screenshot de NavMesh + enquadramento afastado": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770630294
+      }
+    ],
+    "6.2 Play ponta a ponta até o portal e morte → Nexus": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770630424
+      }
+    ],
+    "6.3 Ler o console e rodar EditMode + PlayMode": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770630484
+      }
+    ],
+    "6.4 Ajuste fino de diversão (tuning em Play)": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770630548
+      }
+    ],
+    "7. Checkpoint final — run jogável, divertida, testes verdes": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770630624
+      }
+    ],
+    "3. Afastamento de câmera no FirstSectorBuilder (B)": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770883067
+      }
+    ],
+    "4. Aposentar/desacoplar os validadores da missão linear (C)": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790770885792
+      }
+    ],
+    "1. Materializar o Extraction_Portal no ProgressionDirector (A)": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790771065773
+      }
+    ],
+    "2. Testes EditMode do portal de extração (estender `FirstSectorProceduralTests`)": [
+      {
+        "executionId": "575f3a6d-6d38-47ef-96fe-43ba87df18cb",
+        "chatSessionId": "sess_ce19a461-a9db-448b-8c76-f88f344ef843",
+        "timestamp": 1790771069018
+      }
+    ]
+  }
+}

@@ -38,6 +38,15 @@ public sealed class RunBoons : MonoBehaviour
     // run's subscribers never fire later. Reached by collaborators through this getter (RunBoons
     // ownership), never via scene lookups.
     public HookBus Hooks { get; private set; }
+    // impactful-weapon-boons R2: the run-scoped Split Arrow coordinator, created lazily the first time
+    // the boon is chosen and reconfigured (never re-added) on later picks so its rank tracks the catalog.
+    // Its HookBus.OnKill subscription is dropped by Hooks.Clear() at run end (R1.4).
+    private SplitArrowCoordinator _splitArrow;
+    // impactful-weapon-boons R6: the run-scoped Momentum Strike stack holder, created lazily the first
+    // time the boon is chosen and reconfigured (never re-added) on later picks so its rank tracks the
+    // catalog. Its HookBus.OnHit subscription is dropped by Hooks.Clear() at run end; its stat modifier
+    // is tagged with this RunBoons instance so OnDestroy's RemoveModifiersFrom(this) removes it (R6.5).
+    private MomentumStacks _momentum;
 
     private void Awake()
     {
@@ -84,6 +93,9 @@ public sealed class RunBoons : MonoBehaviour
             new Offer("detonation", "Reator de sucata", "Mortes por impacto explodem: 75% do dano em 3,5m. Cópias: +25 pontos percentuais e +0,5m. Explosões continuam a cadeia."),
             new Offer("reactor", "Combustível instável", "Com fogo adquirido, sua queimadura ganha por segundo +12% do dano do acerto por cópia. Combine com críticos e descargas."),
             new Offer("resonance", "Ressonância térmica", "Descargas e explosões: +40% de dano por efeito de fogo/gelo já presente no alvo, por cópia. Prepare a horda com elementos!"),
+            // impactful-weapon-boons R8: cross-family Elemental Overflow. Offered regardless of family, so it
+            // lives in the inline pool next to the other synergy/element offers rather than the family catalog.
+            new Offer("overflow", "Sobrecarga elemental", "Acertos em alvos com fogo/gelo ativo disparam um burst de 50% do dano do golpe por cópia, sem remover o efeito."),
             new Offer("power", "Núcleo de força", "+25% de dano em ataques básicos e habilidades."),
             new Offer("haste", "Mãos velozes", "+25% de velocidade dos ataques básicos."),
             new Offer("recharge", "Fluxo arcano", "+15 pontos percentuais de redução de recarga."),
@@ -146,11 +158,39 @@ public sealed class RunBoons : MonoBehaviour
             default:
                 foreach (var definition in WeaponRunModifiers.Catalog)
                     if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                // impactful-weapon-boons R4.3: on the first Perfect Spacing pick, attach the cosmetic
+                // streak feedback. It subscribes to the resolved-hit channel and never gates the
+                // rank-keyed damage term (that lives in WeaponRunModifiers.DirectDamageMultiplier).
+                if (offer.Id == WeaponRunModifiers.CatalogId(WeaponBoon.PerfectSpacing))
+                    EnsurePerfectSpacingFeedback();
+                break;
+            // impactful-weapon-boons R2: Split Arrow is a catalogued Bow WeaponBoon, so its rank is applied
+            // through the same WeaponModifiers.Add gate as every other family boon. On top of that it needs a
+            // run-scoped coordinator that reacts to kills. Create it once and reconfigure it (with the new rank)
+            // on every pick so higher ranks fan more arrows; Configure re-subscribes idempotently.
+            case "weapon_SplitArrow":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                if (!_splitArrow) _splitArrow = gameObject.AddComponent<SplitArrowCoordinator>();
+                _splitArrow.Configure(_player, Hooks, WeaponModifiers.Rank(WeaponBoon.SplitArrow));
+                break;
+            // impactful-weapon-boons R6: MomentumStrike is a catalogued Gauntlet WeaponBoon, applied through
+            // the same WeaponModifiers.Add gate. It also needs a run-scoped stack holder that reacts to
+            // direct hits and to taking damage. Create it once and reconfigure it (with the new rank) on every
+            // pick; Configure re-subscribes idempotently. Pass `this` (RunBoons) as the stat source so the
+            // momentum stat modifier is torn down by OnDestroy's RemoveModifiersFrom(this) (R6.5).
+            case "weapon_MomentumStrike":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                if (!_momentum) _momentum = gameObject.AddComponent<MomentumStacks>();
+                _momentum.Configure(_player, Hooks, WeaponModifiers.Rank(WeaponBoon.MomentumStrike), this);
                 break;
             case "conductor": _player.OnHitEffects.Synergies.Add(RunSynergy.Conductor); break;
             case "detonation": _player.OnHitEffects.Synergies.Add(RunSynergy.Detonation); break;
             case "reactor": _player.OnHitEffects.Synergies.Add(RunSynergy.Reactor); break;
             case "resonance": _player.OnHitEffects.Synergies.Add(RunSynergy.Resonance); break;
+            // impactful-weapon-boons R8: each pick raises the overflow rank on the element registry (repeatable).
+            case "overflow": _player.OnHitEffects.EnableElementalOverflow(); break;
             case "power": AddStat(PlayerStatType.IncreasedDamagePercent, 25); break;
             case "haste": AddStat(PlayerStatType.AttackSpeedMultiplier, .25f); break;
             case "recharge": AddStat(PlayerStatType.CooldownReductionPercent, 15); break;
@@ -196,6 +236,17 @@ public sealed class RunBoons : MonoBehaviour
         _choices.Clear();
         RewardChosen?.Invoke();
         return true;
+    }
+
+    // impactful-weapon-boons R4.3: add the cosmetic Perfect Spacing streak feedback once and bind it to
+    // the run-scoped player/holder (no scene lookup). Repeated picks (higher ranks) reuse the same
+    // component. The feedback is purely presentational and never affects the damage term.
+    private void EnsurePerfectSpacingFeedback()
+    {
+        if (!_player) return;
+        if (!_player.TryGetComponent(out PerfectSpacingFeedback feedback))
+            feedback = _player.gameObject.AddComponent<PerfectSpacingFeedback>();
+        feedback.Configure(_player, _holder);
     }
 
     private void AddStat(PlayerStatType stat, float value, PlayerStatModifierMode mode = PlayerStatModifierMode.Flat) =>

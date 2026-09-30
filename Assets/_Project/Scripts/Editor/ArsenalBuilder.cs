@@ -55,7 +55,7 @@ public static class ArsenalBuilder
         EditorUtility.SetDirty(spear);
         AssetDatabase.SaveAssets();
         InstallLobby();
-        Debug.Log("ARSENAL_BUILD_SUCCESS: three weapons, eight new skills, lobby selection installed.");
+        Debug.Log("ARSENAL_BUILD_SUCCESS: three weapons, eight new skills, lobby pedestals verified.");
     }
 
     private static ArsenalAbility Skill(string id, string title, string description, ArsenalSkillKind kind,
@@ -139,49 +139,41 @@ public static class ArsenalBuilder
         segment.GetComponent<Renderer>().sharedMaterial = material;
     }
 
+    /// <summary>
+    /// Verifies the lobby arsenal after building the weapon assets. The single "ARSENAL / ARMAS"
+    /// selection bench was removed (Task 6); the three physical pedestals and their
+    /// <see cref="LobbyArsenal"/> component are now created and wired by <see cref="LobbySceneBuilder"/>
+    /// (Task 8). This step therefore no longer mutates a <c>weaponSelection</c> station (the field is
+    /// gone) — it confirms the arsenal exposes exactly three pedestals with weapon indices 0/1/2 and
+    /// reachable interaction anchors, failing with a clear message if the lobby needs regenerating.
+    /// </summary>
     public static void InstallLobby()
     {
         Scene scene = SceneManager.GetSceneByPath(LobbySceneBuilder.ScenePath);
         bool opened = !scene.isLoaded;
-        if (!opened && scene.isDirty) throw new InvalidOperationException("Save the lobby scene before installing the arsenal.");
+        if (!opened && scene.isDirty) throw new InvalidOperationException("Save the lobby scene before verifying the arsenal.");
         if (opened) scene = EditorSceneManager.OpenScene(LobbySceneBuilder.ScenePath, OpenSceneMode.Additive);
         try
         {
-            LobbyInteraction guide = scene.GetRootGameObjects().SelectMany(root => root.GetComponentsInChildren<LobbyInteraction>(true)).Single();
-            var data = new SerializedObject(guide);
-            SerializedProperty stations = data.FindProperty("_stations");
-            bool found = false;
-            for (int i = 0; i < stations.arraySize; i++)
+            LobbyArsenal arsenal = scene.GetRootGameObjects()
+                .SelectMany(root => root.GetComponentsInChildren<LobbyArsenal>(true))
+                .SingleOrDefault();
+            if (!arsenal)
+                throw new InvalidOperationException(
+                    "LobbyArsenal not found in the lobby scene. Regenerate it via LobbySceneBuilder before verifying the arsenal.");
+
+            var data = new SerializedObject(arsenal);
+            SerializedProperty pedestals = data.FindProperty("_pedestals");
+            if (pedestals == null || pedestals.arraySize != 3)
+                throw new InvalidOperationException("LobbyArsenal must expose exactly three weapon pedestals.");
+            for (int i = 0; i < pedestals.arraySize; i++)
             {
-                var station = stations.GetArrayElementAtIndex(i);
-                string title = station.FindPropertyRelative("title").stringValue;
-                if (!title.Contains("MANOPLA") && !title.Contains("ARSENAL")) continue;
-                found = true;
-                station.FindPropertyRelative("weaponSelection").boolValue = true;
-                station.FindPropertyRelative("title").stringValue = "ARSENAL / ARMAS";
-                station.FindPropertyRelative("description").stringValue = "Escolha manopla, arco e flecha ou lança antes da incursão.";
-                var anchor = (Transform)station.FindPropertyRelative("anchor").objectReferenceValue;
-                Transform workshop = anchor.parent;
-                foreach (TextMesh label in workshop.GetComponentsInChildren<TextMesh>())
-                    if (label.text.Contains("NEURAL") || label.text.Contains("MANOPLA")) label.text = "ARSENAL / ARMAS";
-                if (!workshop.Find("Arsenal displays"))
-                {
-                    var displays = new GameObject("Arsenal displays");
-                    displays.transform.SetParent(workshop, false);
-                    for (int j = 0; j < 2; j++)
-                    {
-                        var model = AssetDatabase.LoadAssetAtPath<GameObject>(Prefabs + (j == 0 ? "/NexusBow.prefab" : "/NexusSpear.prefab"));
-                        var display = (GameObject)PrefabUtility.InstantiatePrefab(model, displays.transform);
-                        display.transform.localPosition = new Vector3(j == 0 ? -1.7f : 1.7f, 2.5f, 0);
-                        display.transform.localRotation = Quaternion.Euler(j == 0 ? 0 : -70, 0, 0);
-                        display.AddComponent<LobbyCoreMotion>();
-                    }
-                }
+                SerializedProperty pedestal = pedestals.GetArrayElementAtIndex(i);
+                if (pedestal.FindPropertyRelative("weaponIndex").intValue != i)
+                    throw new InvalidOperationException("Pedestal " + i + " must map to weapon index " + i + ".");
+                if (!(pedestal.FindPropertyRelative("anchor").objectReferenceValue is Transform))
+                    throw new InvalidOperationException("Pedestal " + i + " is missing its interaction anchor.");
             }
-            if (!found) throw new InvalidOperationException("Lobby workbench station not found.");
-            data.ApplyModifiedPropertiesWithoutUndo();
-            EditorSceneManager.MarkSceneDirty(scene);
-            EditorSceneManager.SaveScene(scene);
         }
         finally { if (opened) EditorSceneManager.CloseScene(scene, true); }
     }

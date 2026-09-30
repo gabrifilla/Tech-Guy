@@ -20,6 +20,10 @@ public sealed class PlayerOnHitEffects : MonoBehaviour
     private float _chillChance;
     private RunSynergyEffects _synergies;
 
+    // impactful-weapon-boons R8: Elemental Overflow rank (0 = off). Raised once per pick by RunBoons.Choose.
+    // Task 1 wires the enable/teardown seam; the burst trigger (TryElementalOverflow) is added in Task 8.
+    private int _overflowRank;
+
     // Per-run combat-event bus (R8): owned and cleared by RunBoons, which lives on this same
     // GameObject (RunBoons requires PlayerActor/AbilityHolder). Reached through RunBoons ownership
     // via TryGetComponent — the same pattern PlayerActor uses for its cached _runBoons reference —
@@ -60,7 +64,14 @@ public sealed class PlayerOnHitEffects : MonoBehaviour
     public RunSynergyEffects Synergies => _synergies ? _synergies :
         (_synergies = GetComponent<RunSynergyEffects>() ?? gameObject.AddComponent<RunSynergyEffects>());
 
-    public bool HasAnyEffect => _burnEnabled || _chillEnabled || (_synergies && _synergies.HasModifiers);
+    public bool HasAnyEffect => _burnEnabled || _chillEnabled || _overflowRank > 0 || (_synergies && _synergies.HasModifiers);
+
+    /// <summary>
+    /// impactful-weapon-boons R8: raises the Elemental Overflow rank by one (repeatable pick). Enables the
+    /// cross-family burst that spends an enemy's active burn/chill for extra damage. The burst trigger is
+    /// implemented in Task 8; this method exists so RunBoons.Choose can wire the reward in Task 1.
+    /// </summary>
+    public void EnableElementalOverflow() => _overflowRank++;
 
     /// <summary>Enables/strengthens burn on hit. Repeated calls add damage and extend duration.</summary>
     public void EnableBurn(float damagePerSecond, float duration)
@@ -85,6 +96,34 @@ public sealed class PlayerOnHitEffects : MonoBehaviour
         if (!enemy || enemy is PlayerActor) return;
         ApplyElements(enemy, damageDealt);
         if (_synergies && damageDealt > 0f) _synergies.Resolve(enemy, damageDealt, this);
+        TryElementalOverflow(enemy, damageDealt);
+    }
+
+    /// <summary>
+    /// impactful-weapon-boons R8: Elemental Overflow. On a Direct_Hit that dealt damage, when the boon is
+    /// active (<see cref="_overflowRank"/> &gt; 0) and the enemy already carries an active
+    /// <see cref="BurnStatus"/> or <see cref="ChillStatus"/>, spends that status setup for one extra burst of
+    /// <c>damageDealt * .5 * rank</c> (R8.1/R8.2). The burst is a single bounded impact routed through
+    /// <see cref="RunSynergyEffects.ReportImpact"/> so it is Resonance-eligible and cannot exceed the cascade's
+    /// per-frame <c>MaxSecondaryHits</c> budget (R8.3); it falls back to a plain <see cref="Actor.TakeDamage"/>
+    /// when Resonance is inactive. The burst is instantaneous damage only — it never removes or refreshes the
+    /// underlying status (R8.2). No-op when the enemy carries neither status (R8.4). Composes with Thermal Shock:
+    /// a hit can produce both a shock and an overflow burst as two distinct bounded impacts under one budget.
+    /// </summary>
+    private void TryElementalOverflow(Actor enemy, float damageDealt)
+    {
+        if (_overflowRank <= 0 || !enemy || enemy.IsDead || damageDealt <= 0f) return;
+        bool burning = enemy.GetComponent<BurnStatus>();
+        bool frozen = enemy.GetComponent<ChillStatus>();
+        if (!burning && !frozen) return;                 // R8.4: no status -> no burst.
+        float amount = damageDealt * .5f * _overflowRank; // R8.2
+
+        // R8.3: prefer the Resonance-amplified bounded-impact path (also bounded by MaxSecondaryHits);
+        // fall back to a plain bounded hit when Resonance is inactive (ReportImpact is a no-op without it)
+        // or no synergies component exists. Neither path touches the burn/chill timers, so the status
+        // remains (R8.2).
+        if (_synergies && _synergies.Rank(RunSynergy.Resonance) > 0) _synergies.ReportImpact(enemy, amount, this);
+        else enemy.TakeDamage(amount);
     }
 
     /// <summary>Sets the Thermal Shock damage multiple (clamped to be non-negative). See <see cref="ApplyElements"/>.</summary>
@@ -162,6 +201,7 @@ public sealed class PlayerOnHitEffects : MonoBehaviour
     {
         _burnEnabled = false; _burnDps = 0f; _burnDuration = 0f;
         _chillEnabled = false; _chillSlow = 0f; _chillDuration = 0f; _chillChance = 0f;
+        _overflowRank = 0; // impactful-weapon-boons R8: reset overflow so it never leaks into a later run.
         if (_synergies) _synergies.Clear();
     }
 }

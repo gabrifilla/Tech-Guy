@@ -200,6 +200,13 @@ public sealed class ShieldSupportBehavior : ArchetypeBehavior
             var shield = ally.GetComponent<Shield>();
             if (!shield) shield = ally.gameObject.AddComponent<Shield>();
             shield.Configure(_shieldCapacity, _shieldDurationSeconds);
+
+            // Attach the protection indicator so the shielded ally reads as protected (R6.1, R6.2).
+            // The indicator is self-sufficient (resolves Actor/Shield via GetComponent) and auto-hides
+            // when the Shield self-destroys, so it needs no removal here. It is DisallowMultipleComponent,
+            // so guard with TryGetComponent to reuse the existing one and avoid a duplicate warning.
+            if (!ally.TryGetComponent<ProtectionIndicator>(out _))
+                ally.gameObject.AddComponent<ProtectionIndicator>();
         }
     }
 

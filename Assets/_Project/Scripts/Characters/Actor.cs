@@ -13,6 +13,7 @@ public class Actor : MonoBehaviour
 
     public event Action<Actor> HealthChanged;
     public event Action<Actor, float> DamageReceived;
+    public event Action<Actor> DamageAbsorbed;
     public event Action<Actor> Died;
     public bool IsDead { get; private set; }
     private readonly Dictionary<UnityEngine.Object, float> _damageTakenModifiers = new Dictionary<UnityEngine.Object, float>();
@@ -56,13 +57,24 @@ public class Actor : MonoBehaviour
         // reaches health. The absorber consumes what it can and returns the leftover, which
         // is the only portion that reduces health. When no absorber is present this is a
         // no-op and existing behavior is preserved.
+        bool fullyAbsorbed = false;
         if (amount > 0f && TryGetComponent<IDamageAbsorber>(out var absorber))
+        {
+            float absorberInput = amount;
             amount = Mathf.Max(0f, absorber.Absorb(amount));
+            fullyAbsorbed = WasFullyAbsorbed(absorberInput, amount);
+        }
 
         float previousHealth = health;
         health = Mathf.Max(0f, health - amount);
         float actualDamage = previousHealth - health;
         if (actualDamage > 0f) DamageReceived?.Invoke(this, actualDamage);
+        // A hit was fully absorbed when the absorber received a positive amount and left
+        // nothing to reach health. This is distinct from a reduction via
+        // _damageTakenModifiers (which scales amount before the absorber) and from a plain
+        // zero-damage hit with no absorber, so ProtectionIndicator only reacts to real
+        // absorption (R6.3, R6.8).
+        if (fullyAbsorbed) DamageAbsorbed?.Invoke(this);
         UpdateHealthBar();
         HealthChanged?.Invoke(this);
 
@@ -74,6 +86,17 @@ public class Actor : MonoBehaviour
 
         if (health <= 0)
         { Death(); }
+    }
+
+    /// <summary>
+    /// Pure decision for whether an incoming hit was fully absorbed: the absorber received a
+    /// positive <paramref name="absorberInput"/> and returned a non-positive
+    /// <paramref name="leftover"/> (nothing reached health). Kept static and side-effect free so it
+    /// can be property-tested without a scene.
+    /// </summary>
+    public static bool WasFullyAbsorbed(float absorberInput, float leftover)
+    {
+        return absorberInput > 0f && leftover <= 0f;
     }
 
     public void SetMaxHealth(float value)

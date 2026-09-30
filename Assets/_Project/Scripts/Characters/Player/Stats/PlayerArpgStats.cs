@@ -44,9 +44,9 @@ public class PlayerArpgStats
     /// </summary>
     internal void SetCritRollForTests(Func<float> roll) => critRoll = roll;
 
-    public void AddModifier(PlayerStatModifier modifier, UnityEngine.Object source = null)
+    public PlayerStatModifier AddModifier(PlayerStatModifier modifier, UnityEngine.Object source = null)
     {
-        if (modifier == null) return;
+        if (modifier == null) return null;
 
         PlayerStatModifier runtimeModifier = new PlayerStatModifier(
             modifier.statType,
@@ -54,6 +54,19 @@ public class PlayerArpgStats
             modifier.value,
             source != null ? source : modifier.source);
         runtimeModifiers.Add(runtimeModifier);
+        return runtimeModifier;
+    }
+
+    /// <summary>
+    /// Removes a single runtime modifier instance (the exact object returned by
+    /// <see cref="AddModifier"/>). Used by run-scoped holders that rescale one specific modifier in
+    /// place without disturbing other modifiers that share the same source tag (e.g. Momentum Strike
+    /// rescaling its damage bonus while other RunBoons stat picks remain).
+    /// </summary>
+    public void RemoveModifier(PlayerStatModifier modifier)
+    {
+        if (modifier == null) return;
+        runtimeModifiers.Remove(modifier);
     }
 
     public void AddModifiers(IEnumerable<PlayerStatModifier> modifiers, UnityEngine.Object source = null)

@@ -26,8 +26,13 @@ using UnityEngine;
 /// world position and whether it is a projectile / area attack calls this to obtain the already-reduced
 /// damage it should pass to <see cref="Actor.TakeDamage"/>. When the target has no reflector the source
 /// applies full damage as before, so every non-Mirror enemy is unaffected.
+///
+/// Protection icon (combat-balance-tuning task 6.5): the Mirror reuses the shared
+/// <see cref="ProtectionIndicator"/> in icon-only mode so the same shield icon appears above its head
+/// while <see cref="ShieldActive"/>, without duplicating a ground aura on top of its frontal arc
+/// (R6.4). The reflection math and the arc visual below are unchanged.
 /// </summary>
-/// <remarks>Feature: enemy-swarm-core-archetypes, task 8.8. Requirements: 18.2, 18.3, 18.4, 18.5, 18.6, 18.7, 18.8.</remarks>
+/// <remarks>Feature: enemy-swarm-core-archetypes, task 8.8; combat-balance-tuning, task 6.5. Requirements: 18.2, 18.3, 18.4, 18.5, 18.6, 18.7, 18.8, 6.4.</remarks>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Actor))]
 public sealed class FrontalReflector : MonoBehaviour
@@ -61,12 +66,33 @@ public sealed class FrontalReflector : MonoBehaviour
     /// </summary>
     public bool ShieldActive => _shieldActive;
 
+    private ProtectionIndicator _protectionIndicator;
+
     private void Awake()
     {
         _owner = GetComponent<Actor>();
         _reaction = GetComponent<CombatReactionController>();
         if (!_owner)
             Debug.LogError($"{nameof(FrontalReflector)} on '{name}' requires an {nameof(Actor)}; the frontal shield is disabled.", this);
+
+        EnsureProtectionIndicator();
+    }
+
+    /// <summary>
+    /// Ensures a <see cref="ProtectionIndicator"/> on this Mirror and drives it in icon-only mode
+    /// (task 6.5). The Mirror already owns a ground visual (its frontal arc), so the shared indicator
+    /// shows only the shield icon while <see cref="ShieldActive"/> and its ground aura is suppressed to
+    /// avoid duplicating a ring on top of the arc (R6.4). The indicator itself honours
+    /// <c>ProtectionIconEnabled</c> from the config, so nothing extra shows when the icon is disabled.
+    /// </summary>
+    private void EnsureProtectionIndicator()
+    {
+        // ProtectionIndicator is DisallowMultipleComponent, so reuse an existing one (e.g. granted by a
+        // ShieldSupportBehavior) rather than adding a duplicate.
+        if (!TryGetComponent(out _protectionIndicator))
+            _protectionIndicator = gameObject.AddComponent<ProtectionIndicator>();
+
+        _protectionIndicator.ConfigureExternalSource(() => _shieldActive, suppressAura: true);
     }
 
     private void OnValidate()

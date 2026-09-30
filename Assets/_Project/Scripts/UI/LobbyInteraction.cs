@@ -14,7 +14,6 @@ public sealed class LobbyInteraction : MonoBehaviour
         [TextArea] public string description;
         [Tooltip("Empty for an informational station.")]
         public string destinationScene;
-        public bool weaponSelection;
     }
 
     [SerializeField] private Transform _player;
@@ -26,8 +25,6 @@ public sealed class LobbyInteraction : MonoBehaviour
     private bool _loading;
     private GUIStyle _heading, _body, _hint;
     private Texture2D _panel;
-    private WeaponScript[] _weapons;
-    private int _previewWeapon;
     public bool IsPanelOpen => _showDetails || _loading;
 
     public void ReturnToMainMenu()
@@ -62,7 +59,6 @@ public sealed class LobbyInteraction : MonoBehaviour
             Debug.LogError("LobbyInteraction requires a player reference.", this);
             enabled = false;
         }
-        _weapons = Array.ConvertAll(WeaponLoadout.ResourcePaths, path => Resources.Load<WeaponScript>(path));
     }
 
     private void Update()
@@ -96,11 +92,6 @@ public sealed class LobbyInteraction : MonoBehaviour
         if (_showDetails && _player.TryGetComponent(out UnityEngine.AI.NavMeshAgent agent) && agent.isOnNavMesh)
             agent.ResetPath();
         if (_showDetails && _player.TryGetComponent(out CharControlScript control)) control.CancelCombo();
-        if (_showDetails && _nearest.weaponSelection && _player.TryGetComponent(out PlayerActor actor))
-        {
-            int equipped = Array.IndexOf(_weapons, actor.CurrentWeapon);
-            _previewWeapon = equipped >= 0 ? equipped : 0;
-        }
     }
 
     private void OnGUI()
@@ -129,12 +120,6 @@ public sealed class LobbyInteraction : MonoBehaviour
             GamePreferences.BindingLabel(GameControl.Primary) + ": selecionar / mover · " + GamePreferences.BindingLabel(GameControl.Skill3) + ": interagir · Esc: pausar", _hint);
         if (_nearest != null)
         {
-            if (_showDetails && _nearest.weaponSelection)
-            {
-                DrawArsenal(width, height);
-                GUI.matrix = oldMatrix;
-                return;
-            }
             float panelHeight = _showDetails ? 180 : 84;
             Rect box = new Rect((width - 540) / 2, height - panelHeight - 190, 540, panelHeight);
             GUI.DrawTexture(box, _panel);
@@ -144,65 +129,6 @@ public sealed class LobbyInteraction : MonoBehaviour
                 string.IsNullOrEmpty(_nearest.destinationScene) ? "[" + GamePreferences.BindingLabel(GameControl.Skill3) + "] Acessar terminal" : "[" + GamePreferences.BindingLabel(GameControl.Skill3) + "] Iniciar incursão", _body);
         }
         GUI.matrix = oldMatrix;
-    }
-
-    private void DrawArsenal(float width, float height)
-    {
-        Rect box = new Rect((width - 860) / 2, (height - 420) / 2 - 30, 860, 420);
-        GUI.DrawTexture(box, _panel);
-        GUI.Label(new Rect(box.x + 24, box.y + 18, 500, 30), "ARSENAL / PREPARAR INCURSÃO", _heading);
-        GUI.Label(new Rect(box.xMax - 320, box.y + 20, 240, 26), $"MOEDAS: {CurrencyWallet.Balance}", _heading);
-        if (GUI.Button(new Rect(box.xMax - 85, box.y + 18, 65, 28), "Fechar")) _showDetails = false;
-        string[] titles = { "MANOPLA", "ARCO E FLECHA", "LANÇA" };
-        string[] styles = { "Principal · Combos e energia Asura", "Precisão · Projéteis e controle de área", "Alcance · Estocadas e varreduras" };
-        var actor = _player.GetComponent<PlayerActor>();
-        for (int i = 0; i < titles.Length; i++)
-        {
-            bool equipped = actor && actor.CurrentWeapon == _weapons[i];
-            bool unlocked = WeaponLoadout.IsUnlocked(i);
-            GUI.backgroundColor = _previewWeapon == i ? new Color(.25f, .65f, .85f) :
-                unlocked ? Color.white : new Color(.45f, .45f, .5f);
-            string caption = titles[i] + (equipped ? "  ·  EQUIPADA" : unlocked ? "" : $"  ·  {WeaponLoadout.GetCost(i)} moedas");
-            if (GUI.Button(new Rect(box.x + 24 + i * 274, box.y + 62, 262, 60), caption)) _previewWeapon = i;
-        }
-        GUI.backgroundColor = Color.white;
-        GUI.Label(new Rect(box.x + 24, box.y + 137, 810, 28), styles[_previewWeapon], _body);
-        WeaponScript selected = _weapons[_previewWeapon];
-        if (selected && selected.abilities != null)
-            for (int i = 0; i < Mathf.Min(4, selected.abilities.Length); i++)
-            {
-                Ability skill = selected.abilities[i];
-                if (!skill) continue;
-                string detail = skill is ArsenalAbility arsenal ? arsenal.Description :
-                    new[] { "Avanço e dois socos · Impulso", "Sequência de socos e finalizador · Impulso",
-                        "Dois impactos com dano de postura · Choque", "100 energia · 85% proteção · Espaço antecipa o finalizador" }[i];
-                GUI.Label(new Rect(box.x + 24, box.y + 179 + i * 42, 810, 22),
-                    $"[{GamePreferences.BindingLabel((GameControl)((int)GameControl.Skill1+i))}]  {skill.DisplayName}   ·   {skill.ManaCost:0} mana   ·   {skill.cooldownTime:0.#}s", _body);
-                GUI.Label(new Rect(box.x + 60, box.y + 201 + i * 42, 775, 20), detail, _hint);
-            }
-        bool alreadyEquipped = actor && selected && actor.CurrentWeapon == selected;
-        bool previewUnlocked = WeaponLoadout.IsUnlocked(_previewWeapon);
-        var actionRect = new Rect(box.xMax - 270, box.yMax - 54, 245, 34);
-        if (!previewUnlocked)
-        {
-            int cost = WeaponLoadout.GetCost(_previewWeapon);
-            bool canAfford = CurrencyWallet.CanAfford(cost);
-            GUI.enabled = selected && canAfford;
-            if (GUI.Button(actionRect, $"LIBERAR · {cost} moedas") && WeaponLoadout.TryUnlock(_previewWeapon))
-                WeaponLoadout.Select(actor, _previewWeapon);
-            GUI.enabled = true;
-            GUI.Label(new Rect(box.x + 24, box.yMax - 48, 640, 28),
-                canAfford ? "Junte moedas nas incursões para liberar novas armas.  ·  " + GamePreferences.BindingLabel(GameControl.Skill3) + " para fechar"
-                          : $"Moedas insuficientes ({CurrencyWallet.Balance}/{cost}).  Derrote inimigos para juntar mais.", _hint);
-        }
-        else
-        {
-            GUI.enabled = selected && !alreadyEquipped;
-            if (GUI.Button(actionRect, alreadyEquipped ? "EQUIPADA" : "EQUIPAR " + titles[_previewWeapon]))
-                WeaponLoadout.Select(actor, _previewWeapon);
-            GUI.enabled = true;
-            GUI.Label(new Rect(box.x + 24, box.yMax - 48, 520, 28), "Seleção salva para as próximas incursões.  ·  " + GamePreferences.BindingLabel(GameControl.Skill3) + " para fechar", _hint);
-        }
     }
 
     private void OnDestroy()

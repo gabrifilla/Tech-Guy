@@ -8,7 +8,11 @@ public enum WeaponBoon
     TwinShot, Piercing, Ricochet, Homing, HeavyBolt, RapidBurst, WideVolley, LongRain, GuidedRain, Sniper,
     LongReach, EchoThrust, TripleMoon, Trident, DragonWave, Affliction, SpearTip, Execution, Orbit, Siphon,
     LongFists, RocketAdvance, FlurryEcho, ShockRing, AsuraEcho, Momentum, AsuraReserve, StanceCrusher, ComboNova, Berserker,
-    PhantomSpear, MoonShard, ReturnWave, ChainThrust
+    PhantomSpear, MoonShard, ReturnWave, ChainThrust,
+    // impactful-weapon-boons: new playstyle-changing boons. SplitArrow/ChargedShot (Bow),
+    // PerfectSpacing/ImpalingLine (Spear), MomentumStrike/Shockwave (Gauntlet). MomentumStrike is
+    // named to avoid colliding with the existing Momentum (Asura energy) boon above.
+    SplitArrow, ChargedShot, PerfectSpacing, ImpalingLine, MomentumStrike, Shockwave
 }
 
 /// <summary>Run-owned ranks and cast snapshots; never writes to weapon/ability assets.</summary>
@@ -20,10 +24,12 @@ public sealed class WeaponRunModifiers
         public readonly RunWeaponFamily Family;
         public readonly string Title, Description;
         public readonly int MaxRank;
-        public string Id => "weapon_" + Kind;
+        public string Id => CatalogId(Kind);
         public Definition(WeaponBoon kind, RunWeaponFamily family, string title, string description, int maxRank = 3)
         { Kind = kind; Family = family; Title = title; Description = description; MaxRank = maxRank; }
     }
+    /// <summary>Stable catalog id for a boon (the same id used by offers/presentation), avoiding magic strings.</summary>
+    public static string CatalogId(WeaponBoon kind) => "weapon_" + kind;
     public static readonly IReadOnlyList<Definition> Catalog = Array.AsReadOnly(new[]
     {
         new Definition(WeaponBoon.TwinShot, RunWeaponFamily.Bow, "Corda tripla", "Todas as flechas: +2 projéteis por nível, com dano individual dividido por 1 + 0,5 × nível."),
@@ -36,6 +42,9 @@ public sealed class WeaponRunModifiers
         new Definition(WeaponBoon.LongRain, RunWeaponFamily.Bow, "Monção", "R: +3 pulsos e +20% de raio por nível."),
         new Definition(WeaponBoon.GuidedRain, RunWeaponFamily.Bow, "Nuvem obediente", "R acompanha o cursor a cada pulso, respeitando o alcance.", 1),
         new Definition(WeaponBoon.Sniper, RunWeaponFamily.Bow, "Horizonte mortal", "Acertos diretos: até +60% de dano por nível aos 12m de distância do jogador."),
+        // impactful-weapon-boons: Bow playstyle boons (R2/R3).
+        new Definition(WeaponBoon.SplitArrow, RunWeaponFamily.Bow, "Flecha estilhaçante", "Ao matar com uma flecha, dispara +1 flecha por nível a partir do alvo, em direções distintas, com 50% do dano."),
+        new Definition(WeaponBoon.ChargedShot, RunWeaponFamily.Bow, "Tiro carregado", "Segure o ataque por 0,6s para disparar uma flecha perfurante com +75% de dano por nível."),
         new Definition(WeaponBoon.LongReach, RunWeaponFamily.Spear, "Haste impossível", "Básicos e habilidades: +30% de alcance e raio por nível."),
         new Definition(WeaponBoon.EchoThrust, RunWeaponFamily.Spear, "Estocada ecoante", "Habilidades de estocada: +1 repetição por nível; dano de cada golpe dividido por 1 + 0,2 × nível."),
         new Definition(WeaponBoon.TripleMoon, RunWeaponFamily.Spear, "Órbita das luas", "W: +2 varreduras por nível."),
@@ -51,6 +60,9 @@ public sealed class WeaponRunModifiers
         new Definition(WeaponBoon.MoonShard, RunWeaponFamily.Spear, "Lua partida", "Varreduras lançam projéteis a partir das extremidades."),
         new Definition(WeaponBoon.ReturnWave, RunWeaponFamily.Spear, "Retorno de pacote", "Ondas retornam ao jogador ao atingir o alcance.", 1),
         new Definition(WeaponBoon.ChainThrust, RunWeaponFamily.Spear, "Encadeamento", "Estocadas encadeiam uma estocada curta a um inimigo próximo.", 1),
+        // impactful-weapon-boons: Spear playstyle boons (R4/R5).
+        new Definition(WeaponBoon.PerfectSpacing, RunWeaponFamily.Spear, "Espaçamento perfeito", "Acertos diretos entre 3,5m e 6,5m do jogador: +35% de dano por nível."),
+        new Definition(WeaponBoon.ImpalingLine, RunWeaponFamily.Spear, "Linha empalada", "A estocada atinge todos os inimigos na linha e os puxa para o jogador. Alcance da puxada cresce por nível."),
         new Definition(WeaponBoon.LongFists, RunWeaponFamily.Gauntlet, "Punhos titânicos", "Básicos e habilidades: +25% de alcance, largura e raio por nível."),
         new Definition(WeaponBoon.RocketAdvance, RunWeaponFamily.Gauntlet, "Propulsor de combate", "Q: +70% de avanço por nível; respeita os limites navegáveis."),
         new Definition(WeaponBoon.FlurryEcho, RunWeaponFamily.Gauntlet, "Mil punhos", "W: repete o último golpe +2 vezes por nível, a 55% do dano e postura."),
@@ -60,7 +72,11 @@ public sealed class WeaponRunModifiers
         new Definition(WeaponBoon.AsuraReserve, RunWeaponFamily.Gauntlet, "Reserva divina", "Após consumir Asura, conserva 20 de energia por nível."),
         new Definition(WeaponBoon.StanceCrusher, RunWeaponFamily.Gauntlet, "Demolidor", "Habilidades originais: +75% de dano de postura e +30% de empurrão por nível."),
         new Definition(WeaponBoon.ComboNova, RunWeaponFamily.Gauntlet, "Terceiro impacto", "Cada terceiro básico dispara uma nova de 2,5m com 60% do dano da arma por nível."),
-        new Definition(WeaponBoon.Berserker, RunWeaponFamily.Gauntlet, "Motor em pane", "Abaixo de 40% da vida: acertos diretos causam +50% de dano por nível.")
+        new Definition(WeaponBoon.Berserker, RunWeaponFamily.Gauntlet, "Motor em pane", "Abaixo de 40% da vida: acertos diretos causam +50% de dano por nível."),
+        // impactful-weapon-boons: Gauntlet playstyle boons (R6/R7). MomentumStrike is the aggression-stack
+        // boon (distinct from the existing Momentum/Asura boon); Shockwave is a combo-finisher burst.
+        new Definition(WeaponBoon.MomentumStrike, RunWeaponFamily.Gauntlet, "Golpe de ímpeto", "Cada acerto direto acumula uma pilha (até 10) que aumenta seu dano em 2% por nível por pilha. Sofrer dano zera as pilhas."),
+        new Definition(WeaponBoon.Shockwave, RunWeaponFamily.Gauntlet, "Onda de choque", "O golpe final do combo libera uma onda esférica ao redor do jogador. Raio base de 3m, +20% por nível.")
     });
     // Order-determinism contract (Requisito 12.7 / Property 39): ranks are stored per WeaponBoon in this
     // dictionary, so Add only ever increments the rank of the acquired boon and never touches another.
@@ -124,6 +140,10 @@ public sealed class WeaponRunModifiers
         float result = 1f + .6f * Rank(WeaponBoon.Sniper) * Mathf.Clamp01(distance / 12f);
         result *= 1f + .25f * Rank(WeaponBoon.Affliction) * elements;
         if (distance >= 3f) result *= 1f + .45f * Rank(WeaponBoon.SpearTip);
+        // impactful-weapon-boons R4 (Perfect Spacing): reward a mid-range band rather than "farther is
+        // better". Pure and rank-keyed, so it multiplies cleanly with Sniper/SpearTip and never writes
+        // back to any source asset. Non-decreasing with rank; exactly 1x outside the [3.5, 6.5]m band.
+        if (distance >= 3.5f && distance <= 6.5f) result *= 1f + .35f * Rank(WeaponBoon.PerfectSpacing);
         if (targetHealthRatio < .3f) result *= 1f + .6f * Rank(WeaponBoon.Execution);
         if (playerHealthRatio < .4f) result *= 1f + .5f * Rank(WeaponBoon.Berserker);
         return result;
@@ -163,6 +183,11 @@ public sealed class WeaponRunModifiers
                 plan.Hits += Rank(WeaponBoon.EchoThrust); plan.Damage /= 1 + .2f * Rank(WeaponBoon.EchoThrust);
                 plan.PhantomDelay = Rank(WeaponBoon.PhantomSpear) > 0 ? .35f : 0f; // R7.2: within 0.2-0.5s
                 plan.ChainThrust = Rank(WeaponBoon.ChainThrust) > 0;               // R7.5/R7.6
+                // impactful-weapon-boons R5 (Impaling Line): pierce the whole line and pull connected
+                // enemies toward the player. Non-decreasing with rank; per-cast snapshot only (R5.4).
+                int impale = Rank(WeaponBoon.ImpalingLine);
+                plan.ImpaleLine = impale > 0;        // R5.1
+                plan.ImpalePull = .75f * impale;     // R5.2
             }
             if (ability.Kind == ArsenalSkillKind.Sweep)
                 plan.ShardCount = Mathf.Clamp(2 * Rank(WeaponBoon.MoonShard), 0, 6); // R7.3: between 2 and 6
@@ -225,6 +250,26 @@ foreach (AreaHitStep source in ability.HitSteps)
                 echo.stanceDamage *= slot == 1 ? .55f : .65f; steps.Add(echo);
             }
         }
+        // impactful-weapon-boons R7 (Shockwave Finisher): after the combo's final resolved step (echoes
+        // included), release one spherical burst centered on the player. Built as a JsonUtility deep clone
+        // of the final step, so the source ability's authored HitSteps are never mutated (R7.4) and the
+        // clone carries the finisher's inherited stanceDamage/pushDistance (already StanceCrusher-scaled in
+        // the loop above) so the wave applies stance and outward push through the same AreaHitStep channel
+        // (R7.3) — StanceCrusher/ShockRing interact with it without any special casing. Radius grows with
+        // rank (R7.2, monotonic). Appended last so it lands after the final step (R7.1).
+        int shock = Rank(WeaponBoon.Shockwave);
+        if (shock > 0 && steps.Count > 0)
+        {
+            AreaHitStep finisher = steps[steps.Count - 1];
+            AreaHitStep wave = JsonUtility.FromJson<AreaHitStep>(JsonUtility.ToJson(finisher));
+            wave.hitShape = AreaHitShape.Sphere;
+            wave.sphereRadius = 3f * (1 + .2f * shock);                   // R7.2: base 3m, +20% per rank
+            wave.localOffset = new Vector3(0, 1f - wave.sphereRadius, 0); // center on the player (ShockRing pattern)
+            wave.rangeOverride = .01f;
+            wave.damageMultiplier *= .6f;                                 // R7.2: a fraction of the finisher's damage
+            wave.delay += .08f;                                           // resolve just after the final step
+            steps.Add(wave);
+        }
         return steps;
     }
 }
@@ -243,6 +288,10 @@ public sealed class ArsenalCastPlan
     public int ShardCount;       // R7.3: 0 = off; clamped 2-6 when MoonShard active
     public bool ReturnWave;      // R7.4
     public bool ChainThrust;     // R7.5/R7.6
+    // impactful-weapon-boons R5 (Impaling Line): value types, so the immutability invariant above holds
+    // (no reference aliases an asset). Set from ImpalingLine rank in WeaponRunModifiers.Plan.
+    public bool ImpaleLine;      // R5.1: thrust damages every enemy along the line
+    public float ImpalePull;     // R5.2: metres each connected enemy is pulled toward the player (0 = off)
     public ArsenalCastPlan(ArsenalAbility ability)
     {
         Windup = ability.Windup; Interval = ability.Interval; Range = ability.Range;

@@ -137,4 +137,46 @@ public sealed class PlayerHUD : MonoBehaviour
         _feedback.color = color;
         _feedbackUntil = Time.unscaledTime + 1.6f;
     }
+
+    /// <summary>
+    /// Charged Shot (R3.4): present the current charge as a 0..1 ratio while the player holds the
+    /// basic-attack input. The cue reaches its full state exactly when <c>ratio</c> hits 1 (at
+    /// <see cref="ChargedShot.ChargeTime"/>); passing 0 clears it. Purely cosmetic and never gates
+    /// the shot, so it is safe to no-op when the feedback label is missing.
+    /// </summary>
+    public void SetChargeIndicator(float ratio)
+    {
+        if (!_feedback) return;
+        ratio = Mathf.Clamp01(ratio);
+        if (ratio <= 0f)
+        {
+            _feedback.text = "";
+            return;
+        }
+        bool full = ratio >= 1f;
+        _feedback.text = full ? "TIRO CARREGADO" : $"CARREGANDO  {Mathf.RoundToInt(ratio * 100f)}%";
+        _feedback.color = full ? new Color(1f, .8f, .3f) : new Color(.6f, .85f, 1f);
+        // Keep the cue alive only as long as the caller keeps pushing updates while holding.
+        _feedbackUntil = Time.unscaledTime + .1f;
+    }
+
+    /// <summary>
+    /// Momentum Strike (R6.4): present the current aggression stack count. Purely cosmetic and
+    /// never gates the damage bonus. A count of zero clears the indicator so the HUD shows nothing
+    /// once stacks are lost. Reuses the shared feedback text channel; safe to no-op when the
+    /// feedback label is missing.
+    /// </summary>
+    public void ShowMomentumStacks(int stacks)
+    {
+        if (!_feedback) return;
+        if (stacks <= 0)
+        {
+            _feedback.text = "";
+            _feedbackUntil = 0f;
+            return;
+        }
+        _feedback.text = $"ÍMPETO  x{stacks}";
+        _feedback.color = new Color(1f, .62f, .25f);
+        _feedbackUntil = Time.unscaledTime + 1.6f;
+    }
 }

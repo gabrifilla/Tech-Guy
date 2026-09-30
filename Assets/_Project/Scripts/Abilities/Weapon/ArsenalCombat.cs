@@ -176,11 +176,15 @@ public sealed class ArsenalCombat : MonoBehaviour
                     // E Heavy/Breaker pierce that breaks Heavy (KnockUp), R Dragon Wave. Built from data
                     // via the pure SpearLoopSteps; a non-Spear weapon keeps the neutral baseline.
                     HitReactionRequest reaction = BuildSpearReaction(weapon, ability, slot, center, direction);
+                    // R5.1 (Impaling Line): keep the thrust box at the full plan.Range so
+                    // TryApplyAreaDamage damages every enemy along the line, not just the first. This is
+                    // the existing box length, so behavior is unchanged when ImpaleLine is false.
+                    float thrustReach = radial ? .01f : plan.Range;
                     int primaryHits = 0;
                     for (int branch = 0; branch < plan.Directions; branch++)
                     {
                         Vector3 aim = Quaternion.AngleAxis((branch - (plan.Directions - 1) * .5f) * 25f, Vector3.up) * direction;
-                        primaryHits += _player.TryApplyAreaDamage(center, aim, radial ? .01f : plan.Range,
+                        primaryHits += _player.TryApplyAreaDamage(center, aim, thrustReach,
                             new Vector3(plan.Width, 2f, plan.Range), radial ? AreaHitShape.Sphere : AreaHitShape.Box,
                             plan.Width, Physics.DefaultRaycastLayers, weapon.attackDamage, plan.Damage, 0f, reaction, true, ability.AccentColor);
 
@@ -200,6 +204,12 @@ public sealed class ArsenalCombat : MonoBehaviour
                     // R7.3: MoonShard launches ShardCount (2-6) projectiles from the sweep extremities.
                     if (radial && ability.Kind == ArsenalSkillKind.Sweep && plan.ShardCount > 0)
                         FireMoonShards(center, direction, plan, weapon, ability);
+
+                    // impactful-weapon-boons R5.2/R5.3 (Impaling Line): on a connecting thrust, pull each
+                    // connected enemy with locomotion toward the player by up to plan.ImpalePull metres,
+                    // through its own SoftGroupingService — never a hard impulse or teleport.
+                    if (!radial && plan.ImpalePull > 0f && primaryHits > 0)
+                        ApplyImpalePull(center, direction, plan);
 
                     // R7.5/R7.6: on a connecting thrust, chain exactly one short thrust to a different nearby enemy.
                     if (!radial && plan.ChainThrust && primaryHits > 0)
@@ -281,6 +291,63 @@ public sealed class ArsenalCombat : MonoBehaviour
             if (!enemy || enemy.IsDead || !enemy.isActiveAndEnabled || !locomotion) yield break;
             Vector3 delta = SpearSweepDisplacement.ComputeDisplacement(sweepDir, moved, Time.deltaTime);
             if (delta == Vector3.zero) yield break;
+            moved += locomotion.ApplyExternalDisplacement(delta).magnitude;
+            yield return null;
+        }
+    }
+
+    // impactful-weapon-boons R5.2/R5.3 (Impaling Line): pull each enemy connected by the thrust toward
+    // the player by up to plan.ImpalePull metres. Enemies are searched along the thrust line and glided
+    // through their own SoftGroupingService (the same locomotion channel the sweep push reuses), so an
+    // enemy without that service is simply not pulled (no hard impulse) and nothing teleports through
+    // scenery. Driven entirely off the per-cast plan snapshot (R5.4); the source asset is never touched.
+    private void ApplyImpalePull(Vector3 center, Vector3 direction, ArsenalCastPlan plan)
+    {
+        Vector3 lineDir = direction; lineDir.y = 0f;
+        if (lineDir.sqrMagnitude < .001f) return;
+        lineDir.Normalize();
+
+        // Search a sphere that covers the whole thrust line, then filter to enemies inside the line box.
+        float halfLine = Mathf.Max(.1f, plan.Range * .5f);
+        Vector3 lineMid = center + lineDir * halfLine;
+        float searchRadius = halfLine + Mathf.Max(.1f, plan.Width);
+        int count = Physics.OverlapSphereNonAlloc(lineMid, searchRadius, _overlap,
+            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
+        float halfWidth = Mathf.Max(.1f, plan.Width);
+        for (int i = 0; i < count; i++)
+        {
+            Actor enemy = _overlap[i].GetComponentInParent<Actor>();
+            if (!enemy || enemy == _player || enemy.IsDead || !enemy.isActiveAndEnabled) continue;
+            Vector3 delta = enemy.transform.position - center; delta.y = 0f;
+            float along = Vector3.Dot(delta, lineDir);
+            if (along < 0f || along > plan.Range) continue;                 // outside the thrust line
+            float lateral = (delta - lineDir * along).magnitude;
+            if (lateral > halfWidth) continue;                              // outside the line width
+            if (!enemy.TryGetComponent(out SoftGroupingService locomotion)) continue; // R5.3: locomotion only
+            StartCoroutine(GlideImpaledEnemy(locomotion, enemy, plan.ImpalePull));
+        }
+    }
+
+    // Glides a single impaled enemy toward the player over multiple frames, spending the plan.ImpalePull
+    // budget (0.75 m per ImpalingLine rank) at no more than SpearSweepDisplacement.MaxSpeed, recomputing
+    // the toward-player heading each frame so the enemy tracks the player through its own locomotion. The
+    // glide stops as soon as the budget is spent, the enemy dies, or it reaches the player (R5.2/R5.3).
+    private IEnumerator GlideImpaledEnemy(SoftGroupingService locomotion, Actor enemy, float pull)
+    {
+        float moved = 0f;
+        while (moved < pull)
+        {
+            if (!enemy || enemy.IsDead || !enemy.isActiveAndEnabled || !locomotion || !_player) yield break;
+            Vector3 toPlayer = _player.transform.position - enemy.transform.position; toPlayer.y = 0f;
+            float distance = toPlayer.magnitude;
+            if (distance < .001f) yield break;                              // already at the player
+            // Per-step magnitude: the smaller of the speed cap, the remaining pull budget, and the
+            // distance left to the player. This keeps the pull smooth (no hard impulse) while letting a
+            // higher ImpalingLine rank pull farther (up to 0.75 * rank) since the budget scales with rank.
+            float step = Mathf.Min(SpearSweepDisplacement.MaxSpeed * Time.deltaTime,
+                Mathf.Min(pull - moved, distance));
+            if (step <= 0f) yield break;
+            Vector3 delta = toPlayer / distance * step;
             moved += locomotion.ApplyExternalDisplacement(delta).magnitude;
             yield return null;
         }

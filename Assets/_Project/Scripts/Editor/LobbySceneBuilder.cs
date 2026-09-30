@@ -42,6 +42,77 @@ public static class LobbySceneBuilder
         SceneManager.MoveGameObjectToScene(player, scene);
         SceneManager.SetActiveScene(scene);
         EditorSceneManager.CloseScene(source, true);
+        BuildInto(scene, player);
+        LobbyCompactLayout.Apply();
+        Debug.Log("NEXUS_LOBBY_SUCCESS: scene saved, environment prefab saved, navigation to all stations validated.");
+    }
+
+    /// <summary>
+    /// Regenerates the Nexus lobby <b>in place</b> when the scene already exists, so the new
+    /// Hades-style arsenal (three pedestals + one training dummy) replaces an older structure without
+    /// ever deleting <c>NexusLobby.unity</c> or <c>NexusEnvironment.prefab</c>. Because both files are
+    /// overwritten (never deleted/recreated), their <c>.meta</c> GUIDs are preserved (Requisito 5.5 /
+    /// Property 9): <see cref="EditorSceneManager.SaveScene(Scene,string)"/> rewrites the existing
+    /// <c>.unity</c> contents and <see cref="PrefabUtility.SaveAsPrefabAsset(GameObject,string)"/>
+    /// rewrites the existing prefab, both keeping the original asset identity.
+    ///
+    /// This is the entry point <see cref="LobbyLayoutValidation"/> uses to make the layout validation
+    /// meaningful: the on-disk scene may still carry the removed <c>ARSENAL / ARMAS</c> panel, and the
+    /// compact layout throws "Lobby group missing: 04 - Weapon pedestals" until the scene is rebuilt.
+    /// </summary>
+    [MenuItem("Tools/Tech Guy/Lobby/Rebuild Nexus Lobby (in place)")]
+    public static void Rebuild()
+    {
+        if (EditorApplication.isPlayingOrWillChangePlaymode) return;
+        if (!File.Exists(ScenePath))
+        {
+            Create();
+            return;
+        }
+        if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+        EnsureFolder("Assets/_Project/Art");
+        EnsureFolder(ArtPath);
+        EnsureFolder(ArtPath + "/Materials");
+
+        // Clone the configured player from the existing lobby scene (kept in place), falling back to
+        // the Playground source if the lobby somehow lacks one, so no external state is assumed.
+        Scene existing = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Single);
+        PlayerActor lobbyPlayer = existing.GetRootGameObjects()
+            .SelectMany(root => root.GetComponentsInChildren<PlayerActor>(true)).FirstOrDefault();
+        GameObject sourcePlayer = lobbyPlayer ? lobbyPlayer.gameObject : null;
+        Scene playgroundSource = default;
+        if (!sourcePlayer)
+        {
+            playgroundSource = EditorSceneManager.OpenScene(SourceScene, OpenSceneMode.Additive);
+            sourcePlayer = playgroundSource.GetRootGameObjects()
+                .SelectMany(root => root.GetComponentsInChildren<PlayerActor>(true)).FirstOrDefault()?.gameObject;
+            if (!sourcePlayer) throw new InvalidOperationException("No configured PlayerActor found in lobby or Playground.");
+        }
+        GameObject player = Object.Instantiate(sourcePlayer);
+        player.name = "Player - Nexus";
+
+        // Build the regenerated content in a scratch scene, then hand it to BuildInto which saves it
+        // over the existing NexusLobby.unity path (preserving the GUID). The scratch scene is discarded.
+        Scene scratch = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+        SceneManager.MoveGameObjectToScene(player, scratch);
+        SceneManager.SetActiveScene(scratch);
+        if (playgroundSource.IsValid()) EditorSceneManager.CloseScene(playgroundSource, true);
+        EditorSceneManager.CloseScene(existing, true);
+
+        BuildInto(scratch, player);
+        LobbyCompactLayout.Apply();
+        Debug.Log("NEXUS_LOBBY_REBUILD_SUCCESS: lobby regenerated in place; scene and prefab GUIDs preserved.");
+    }
+
+    /// <summary>
+    /// Shared construction body used by both <see cref="Create"/> (fresh scene) and
+    /// <see cref="Rebuild"/> (in-place regeneration). It builds the full environment (platform, core,
+    /// portals, archive, arsenal pedestals + training dummy, arrival, background, lighting, camera),
+    /// bakes/saves the NavMesh, saves the environment prefab and the scene at <see cref="ScenePath"/>,
+    /// and validates navigation to every station. Saving to the existing paths preserves GUIDs.
+    /// </summary>
+    private static void BuildInto(Scene scene, GameObject player)
+    {
         player.transform.SetPositionAndRotation(new Vector3(0, 0.1f, -12), Quaternion.identity);
         PlayerActor actor = player.GetComponent<PlayerActor>();
         actor.healthBar = null;
@@ -55,7 +126,6 @@ public static class LobbySceneBuilder
         BuildPortal(new Vector3(0, 0, 16), _cyan, "01 / INCURSAO", "SANDBOX", stations, true);
         BuildPortal(new Vector3(-13, 0, 13), _pink, "02 / FRAGMENTO", "SEM SINAL", stations, false);
         BuildPortal(new Vector3(13, 0, 13), _gold, "03 / ORIGEM", "ACESSO NEGADO", stations, false);
-        BuildWorkshop(stations);
         BuildArchive(stations);
         BuildArrival();
         BuildBackground();
@@ -63,6 +133,11 @@ public static class LobbySceneBuilder
         SetupLighting();
         Camera camera = SetupCamera(player.transform);
         SetupPlayer(player, camera);
+        // The arsenal replaces the single weapon-selection bench: three physical pedestals plus one
+        // training dummy. It needs the player and lobby camera to inject into the LobbyArsenal
+        // component (no scene lookups at runtime), so it is built after the camera exists.
+        BuildArsenal(actor, camera);
+        BuildTrainingDummy();
         new GameObject("Lobby Guide").AddComponent<LobbyInteraction>().Configure(player.transform, stations.ToArray());
 
         NavMeshSurface surface = _environment.gameObject.AddComponent<NavMeshSurface>();
@@ -88,8 +163,6 @@ public static class LobbySceneBuilder
         if (!buildScenes.Any(entry => entry.path == ScenePath)) buildScenes.Add(new EditorBuildSettingsScene(ScenePath, true));
         EditorBuildSettings.scenes = buildScenes.ToArray();
         AssetDatabase.SaveAssets();
-        LobbyCompactLayout.Apply();
-        Debug.Log("NEXUS_LOBBY_SUCCESS: scene saved, environment prefab saved, navigation to all stations validated.");
     }
 
     private static void CreateMaterials()
@@ -282,34 +355,136 @@ public static class LobbySceneBuilder
             destinationScene = unlocked ? "FirstSector" : "" });
     }
 
-    private static void BuildWorkshop(List<LobbyInteraction.Station> stations)
+    /// <summary>
+    /// Builds the Hades-style arsenal: three physical weapon pedestals (0 Manopla, 1 Arco, 2 Lança),
+    /// each with a decorative model/marker, a floor label and an "Interaction point" anchor, plus a
+    /// <see cref="LobbyArsenal"/> component configured with the pedestals, the player and the lobby
+    /// camera. Replaces the former single weapon-selection bench (Requisitos 1.1, 1.3, 1.4).
+    /// </summary>
+    private static void BuildArsenal(PlayerActor player, Camera camera)
     {
-        Transform workshop = Group("04 - Neural gauntlet workbench", new Vector3(-13, 0, -3));
-        Box(workshop, "Workbench", new Vector3(0, 0.7f, 0), new Vector3(6, 1.4f, 2.5f), _metal, true);
-        Box(workshop, "Amber rim", new Vector3(0, 1.44f, 0), new Vector3(6.1f, 0.08f, 2.6f), _gold);
-        Box(workshop, "Work surface", new Vector3(0, 1.51f, 0), new Vector3(5.7f, 0.08f, 2.3f), _panel);
-        Shape(workshop, "Gauntlet mount", PrimitiveType.Cylinder, new Vector3(0, 1.75f, 0), new Vector3(1.8f, 0.2f, 1.8f), _metal);
-        Transform gauntlet = new GameObject("Stylized neural gauntlet display").transform;
-        gauntlet.SetParent(workshop, false);
-        gauntlet.localPosition = new Vector3(0, 2.6f, 0);
-        gauntlet.localRotation = Quaternion.Euler(-20, 0, -20);
-        Box(gauntlet, "Armored cuff", Vector3.zero, new Vector3(0.9f, 0.6f, 1.1f), _panel);
-        Box(gauntlet, "Neural core", new Vector3(0, 0.33f, 0), new Vector3(0.48f, 0.08f, 0.65f), _gold);
+        Transform arsenal = Group("04 - Weapon pedestals", new Vector3(-13, 0, -3));
+        var pedestals = new LobbyArsenal.Pedestal[3];
+        // Weapon models are procedurally built and expressive per weapon; the emissive accent mirrors
+        // the Nexus palette (cyan / amber / magenta) so the arsenal keeps the lobby's visual identity.
+        pedestals[0] = BuildPedestal(arsenal, 0, new Vector3(-4.2f, 0, 0), "MANOPLA / NEURAL LINK", _gold, BuildGauntletModel);
+        pedestals[1] = BuildPedestal(arsenal, 1, new Vector3(0f, 0, 0), "ARCO / DISPARO", _cyan, BuildBowModel);
+        pedestals[2] = BuildPedestal(arsenal, 2, new Vector3(4.2f, 0, 0), "LANÇA / ESTOCADA", _pink, BuildSpearModel);
+        Label(arsenal, "ARSENAL / ALTARES", new Vector3(0, 3.6f, 0), 0.16f, new Color(0.8f, 0.86f, 0.92f));
+
+        var host = new GameObject("Lobby Arsenal");
+        host.transform.SetParent(_environment, false);
+        host.AddComponent<LobbyArsenal>().Configure(player, camera, pedestals);
+    }
+
+    /// <summary>
+    /// Creates a single weapon pedestal (base, mount, spinning weapon model, floor label and an
+    /// "Interaction point" anchor) and returns the serialized pedestal data for the arsenal.
+    /// </summary>
+    private static LobbyArsenal.Pedestal BuildPedestal(Transform parent, int weaponIndex, Vector3 position,
+        string label, Material accent, Action<Transform, Material> buildModel)
+    {
+        Transform pedestal = new GameObject("Pedestal " + weaponIndex).transform;
+        pedestal.SetParent(parent, false);
+        pedestal.localPosition = position;
+
+        Shape(pedestal, "Pedestal base", PrimitiveType.Cylinder, new Vector3(0, 0.15f, 0), new Vector3(1.9f, 0.15f, 1.9f), _metal, true);
+        Shape(pedestal, "Pedestal column", PrimitiveType.Cylinder, new Vector3(0, 0.75f, 0), new Vector3(1.1f, 0.55f, 1.1f), _panel, true);
+        Shape(pedestal, "Pedestal cap", PrimitiveType.Cylinder, new Vector3(0, 1.34f, 0), new Vector3(1.5f, 0.06f, 1.5f), _metal, true);
+        Ring(pedestal, "Accent ring", new Vector3(0, 1.42f, 0), 0.82f, accent, 0.06f);
+        Box(pedestal, "Accent beacon", new Vector3(0, 1.42f, 0), Vector3.one * 0.12f, accent);
+
+        Transform display = new GameObject("Weapon display").transform;
+        display.SetParent(pedestal, false);
+        display.localPosition = new Vector3(0, 2.15f, 0);
+        buildModel(display, accent);
+        display.gameObject.AddComponent<LobbyCoreMotion>();
+
+        Label(pedestal, label, new Vector3(0, 0.06f, -2.3f), 0.1f, Color.white, true);
+
+        Transform anchor = new GameObject("Interaction point").transform;
+        anchor.SetParent(pedestal, false);
+        anchor.localPosition = new Vector3(0, 0, -2.4f);
+
+        return new LobbyArsenal.Pedestal { anchor = anchor, weaponIndex = weaponIndex, proximityRange = 3.5f };
+    }
+
+    private static void BuildGauntletModel(Transform display, Material accent)
+    {
+        display.localRotation = Quaternion.Euler(-20, 0, -20);
+        Box(display, "Armored cuff", Vector3.zero, new Vector3(0.9f, 0.6f, 1.1f), _panel);
+        Box(display, "Neural core", new Vector3(0, 0.33f, 0), new Vector3(0.48f, 0.08f, 0.65f), accent);
         for (int i = 0; i < 4; i++)
-            Box(gauntlet, "Finger armor", new Vector3(-0.34f + i * 0.23f, 0, 0.78f), new Vector3(0.18f, 0.42f, 0.58f), _panel);
-        Box(gauntlet, "Thumb armor", new Vector3(0.57f, -0.1f, 0.35f), new Vector3(0.35f, 0.32f, 0.45f), _panel);
-        gauntlet.gameObject.AddComponent<LobbyCoreMotion>();
-        Box(workshop, "Terminal screen", new Vector3(-2, 2.1f, 0.65f), new Vector3(1.1f, 0.7f, 0.12f), _cyan);
-        Label(workshop, "NEURAL / LINK", new Vector3(0, 3.8f, 0), 0.23f, new Color(1, 0.7f, 0.2f));
-        Label(workshop, "MANOPLA  //  PRIMEIRO CONTATO", new Vector3(0, 0.06f, -2.5f), 0.1f, Color.white, true);
-        AddStation(workshop, stations, "MANOPLA / NEURAL LINK",
-            "Uma arma, uma conexão... e uma voz. A manopla traduz impulsos nervosos em combate.\n\n\"Você programa. Eu cuido da parte em que a gente não morre.\"\n\nEstação de preparação — melhorias serão conectadas aqui.");
-        for (int i = 0; i < 3; i++)
+            Box(display, "Finger armor", new Vector3(-0.34f + i * 0.23f, 0, 0.78f), new Vector3(0.18f, 0.42f, 0.58f), _panel);
+        Box(display, "Thumb armor", new Vector3(0.57f, -0.1f, 0.35f), new Vector3(0.35f, 0.32f, 0.45f), _panel);
+    }
+
+    private static void BuildBowModel(Transform display, Material accent)
+    {
+        display.localRotation = Quaternion.Euler(0, 90, 0);
+        // Curved limbs approximated by short segments, plus a thin bowstring, in the weapon's accent.
+        Vector3 previous = new Vector3(0, -0.9f, 0);
+        for (int i = 1; i <= 8; i++)
         {
-            Vector3 p = new Vector3(-3.6f, 0.5f + i * 0.8f, 1.5f);
-            Box(workshop, "Equipment case", p, new Vector3(1.2f, 0.75f, 1.1f), _panel, true);
-            Box(workshop, "Case latch", p + new Vector3(0, 0, -0.56f), new Vector3(0.3f, 0.12f, 0.05f), _gold);
+            float angle = i / 8f * Mathf.PI;
+            Vector3 next = new Vector3(0, -Mathf.Cos(angle) * 0.9f, Mathf.Sin(angle) * 0.42f);
+            Segment(display, "Bow limb", previous, next, 0.06f, _panel);
+            previous = next;
         }
+        Segment(display, "Bowstring", new Vector3(0, -0.9f, 0), new Vector3(0, 0.9f, 0), 0.015f, accent);
+    }
+
+    private static void BuildSpearModel(Transform display, Material accent)
+    {
+        display.localRotation = Quaternion.Euler(35, 0, 0);
+        Segment(display, "Spear shaft", new Vector3(0, -1.2f, 0), new Vector3(0, 1.1f, 0), 0.05f, _panel);
+        GameObject blade = Box(display, "Spear blade", new Vector3(0, 1.35f, 0), new Vector3(0.16f, 0.5f, 0.05f), accent);
+        blade.transform.localRotation = Quaternion.Euler(0, 0, 45);
+    }
+
+    /// <summary>Draws a capsule/cylinder segment between two local points (decorative, no collider).</summary>
+    private static void Segment(Transform parent, string name, Vector3 from, Vector3 to, float radius, Material material)
+    {
+        var segment = Shape(parent, name, PrimitiveType.Cylinder, (from + to) * 0.5f,
+            new Vector3(radius * 2f, Vector3.Distance(from, to) * 0.5f, radius * 2f), material);
+        segment.transform.localRotation = Quaternion.FromToRotation(Vector3.up, to - from);
+    }
+
+    /// <summary>
+    /// Creates exactly one passive <see cref="TrainingDummy"/> next to the pedestals so the player can
+    /// test the equipped weapon's abilities. The dummy carries a solid capsule collider on the Default
+    /// layer (player attacks resolve against any <see cref="Actor"/> via OverlapSphere), a high health
+    /// pool for continuous use, and a small decorative stand (Requisitos 4.1).
+    /// </summary>
+    private static void BuildTrainingDummy()
+    {
+        Transform group = Group("08 - Training dummy", new Vector3(-13, 0, 3));
+        Shape(group, "Dummy pad", PrimitiveType.Cylinder, new Vector3(0, 0.08f, 0), new Vector3(2.2f, 0.08f, 2.2f), _panel, true);
+        Ring(group, "Dummy ring", new Vector3(0, 0.14f, 0), 1.05f, _cyan, 0.05f);
+
+        var dummyObject = new GameObject("Training Dummy");
+        dummyObject.transform.SetParent(group, false);
+        dummyObject.transform.localPosition = new Vector3(0, 0, 0);
+        // Configure serialized fields before the Actor.Awake runs at play time; a capsule body gives
+        // the dummy a hittable volume without a special layer (combat uses DefaultRaycastLayers).
+        var body = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+        body.name = "Dummy body";
+        body.transform.SetParent(dummyObject.transform, false);
+        body.transform.localPosition = new Vector3(0, 1.1f, 0);
+        body.transform.localScale = new Vector3(0.9f, 1.1f, 0.9f);
+        body.GetComponent<Renderer>().sharedMaterial = _metal;
+        // Keep the capsule collider (used to receive hits); it must NOT be on the Ground layer so it
+        // is excluded from NavMesh geometry and never obstructs walking to the anchor.
+        Box(dummyObject.transform, "Dummy head accent", new Vector3(0, 2.0f, 0), Vector3.one * 0.45f, _cyan);
+
+        var dummy = dummyObject.AddComponent<TrainingDummy>();
+        dummy.health = 1000f;
+
+        Label(group, "TREINO / ALVO", new Vector3(0, 0.06f, -1.7f), 0.09f, Color.white, true);
+
+        Transform anchor = new GameObject("Interaction point").transform;
+        anchor.SetParent(group, false);
+        anchor.localPosition = new Vector3(0, 0, -1.8f);
     }
 
     private static void BuildArchive(List<LobbyInteraction.Station> stations)

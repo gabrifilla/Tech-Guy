@@ -63,18 +63,28 @@ public static class LobbyCompactLayout
         AssetDatabase.SaveAssets();
         Capture(camera, "Docs/NexusLobby-gameplay.png", false);
         Capture(camera, "Docs/NexusLobby-preview.png", true);
-        Debug.Log("NEXUS_COMPACT_SUCCESS: scene, prefab, saved NavMesh and five station paths validated.");
+        Debug.Log("NEXUS_COMPACT_SUCCESS: scene, prefab, saved NavMesh and all station paths (portals, pedestals, dummy) validated.");
     }
 
     private static void ApplyEnvironment(Transform root)
     {
         Place(root, "01 - Suspended motherboard plaza", Vector3.zero, new Vector3(0.72f, 0.85f, 0.68f));
         Place(root, "02 - The system heart", new Vector3(-1, 0, 5), Vector3.one * 0.62f);
-        Place(root, "01 / INCURSAO", new Vector3(8.5f, 0, 7), Vector3.one * 0.76f);
-        Place(root, "02 / FRAGMENTO", new Vector3(-9, 0, 7), Vector3.one * 0.62f);
-        Place(root, "03 / ORIGEM", new Vector3(-3, 0, 10.5f), Vector3.one * 0.62f);
-        Place(root, "04 - Neural gauntlet workbench", new Vector3(-8, 0, -1), Vector3.one * 0.78f);
-        Place(root, "05 - System archive", new Vector3(8, 0, -2), Vector3.one * 0.72f);
+        // Hades-style layout: arrival to the south, weapon pedestals and the training dummy lined up
+        // along the west flank, the incursion portal highlighted to the east, and the central plaza
+        // kept clear so the player can circulate freely between arrival and the exits (Requisito 1.2,
+        // 5.1). The incursion portal (the main exit) sits east and forward; the other portals fan out
+        // to the north so the middle stays navigable.
+        Place(root, "01 / INCURSAO", new Vector3(9.5f, 0, 7.5f), Vector3.one * 0.8f);
+        Place(root, "02 / FRAGMENTO", new Vector3(-2, 0, 11), Vector3.one * 0.62f);
+        Place(root, "03 / ORIGEM", new Vector3(4.5f, 0, 11), Vector3.one * 0.62f);
+        // The arsenal group holds three pedestals at local X offsets (-4.2 / 0 / +4.2); placing the
+        // group on the south-west flank lines them up along the west edge with the center left open.
+        Place(root, "04 - Weapon pedestals", new Vector3(-8.5f, 0, -1.5f), Vector3.one * 0.86f);
+        // The training dummy sits just north of the pedestals on the same west flank, close enough to
+        // test the equipped weapon and far enough to leave the arrival path clear.
+        Place(root, "08 - Training dummy", new Vector3(-11.5f, 0, 4.5f), Vector3.one * 0.95f);
+        Place(root, "05 - System archive", new Vector3(9, 0, -2), Vector3.one * 0.72f);
         Place(root, "06 - Arrival and rest", new Vector3(-3, 0, -10), Vector3.one * 0.75f);
         Place(root, "07 - Data skyline", Vector3.zero, new Vector3(0.82f, 0.85f, 0.82f));
 
@@ -115,9 +125,14 @@ public static class LobbyCompactLayout
     {
         if (!NavMesh.SamplePosition(spawn, out NavMeshHit start, 0.5f, NavMesh.AllAreas))
             throw new InvalidOperationException("Compact lobby spawn is not on the NavMesh.");
+        // Every station exposes a child named "Interaction point" (the three portals, the archive,
+        // the three weapon pedestals and the training dummy). The former fixed "exactly five" check no
+        // longer holds now that the arsenal is three pedestals plus a dummy, so instead of asserting a
+        // count we require that each anchor is reachable by NavMesh from the spawn (Requisito 5.3).
+        // Exact child names are part of the editor-generated scene structure, never runtime lookups.
         Transform[] anchors = environment.GetComponentsInChildren<Transform>()
             .Where(item => item.name == "Interaction point").ToArray();
-        if (anchors.Length != 5) throw new InvalidOperationException("Expected five lobby stations.");
+        if (anchors.Length == 0) throw new InvalidOperationException("No lobby stations found to validate.");
         foreach (Transform anchor in anchors)
         {
             var path = new NavMeshPath();

@@ -6,6 +6,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 
 namespace TechGuy.Tests
 {
@@ -56,6 +57,30 @@ namespace TechGuy.Tests
                     Assert.That(result.Graph.Rooms.Single(r => r.Type == RoomType.Boss).Composition.Slots[0].ArchetypeId,
                         Is.EqualTo(ArchetypeId.Heavy));
                 }
+            }
+            finally { if (opened) EditorSceneManager.CloseScene(scene, true); }
+        }
+
+        [Test]
+        public void AuthoredFirstSector_PullsTopDownCameraBackFromTheDefaultFraming()
+        {
+            Scene scene = SceneManager.GetSceneByPath(ScenePath);
+            bool opened = !scene.isLoaded;
+            if (opened) scene = EditorSceneManager.OpenScene(ScenePath, OpenSceneMode.Additive);
+            try
+            {
+                var roots = scene.GetRootGameObjects();
+                var camera = roots
+                    .SelectMany(r => r.GetComponentsInChildren<TechGuy.Cameras.TG_TopDown_Camera>(true))
+                    .Single(c => c.m_Target != null);
+                var player = roots.SelectMany(r => r.GetComponentsInChildren<PlayerActor>(true)).Single();
+                Assert.That(camera.m_Target, Is.EqualTo(player.transform),
+                    "The gameplay top-down camera must track the player actor.");
+                var data = new SerializedObject(camera);
+                Assert.That(data.FindProperty("m_Height").floatValue, Is.GreaterThan(9f),
+                    "The combat camera must sit higher than the default framing for readability.");
+                Assert.That(data.FindProperty("m_Distance").floatValue, Is.GreaterThan(10f),
+                    "The combat camera must pull further back than the default framing for readability.");
             }
             finally { if (opened) EditorSceneManager.CloseScene(scene, true); }
         }
@@ -119,6 +144,71 @@ namespace TechGuy.Tests
         }
 
         [Test]
+        public void BossDefeatWithNoNextStage_MaterializesExactlyOneExtractionPortalInTheBossRoomBoundToTheNexus()
+        {
+            // Property 1: the Extraction_Portal is materialized exactly once, only on the boss defeat with no
+            // next Stage; while the boss is not defeated no portal exists (R8.1/R8.2).
+            // Property 2: the materialized portal's destination is the Nexus (R8.3).
+            var host = new GameObject("Extraction portal regression");
+            host.SetActive(false);
+            var playerObject = new GameObject("Player stand-in");
+            playerObject.SetActive(false);
+            try
+            {
+                var director = host.AddComponent<ProgressionDirector>();
+                var player = playerObject.AddComponent<PlayerActor>();
+
+                // A Start_Room reaching a Boss_Room, mirroring the sibling directional-graph setup.
+                var start = new Room(1, RoomType.Start, Vector2.zero, new Vector2(24, 24), 1)
+                    { Visited = true, Cleared = true };
+                var boss = new Room(2, RoomType.Boss, new Vector2(24, 0), new Vector2(24, 24), 2);
+                var edge = new RoomConnection(1, 2, Direction.East);
+                var graph = new RoomGraph(new List<Room> { start, boss },
+                    new List<RoomConnection> { edge }, 1, 2);
+
+                typeof(ProgressionDirector).GetField("_graph", PrivateInstance).SetValue(director, graph);
+                typeof(ProgressionDirector).GetField("_stageCount", PrivateInstance).SetValue(director, 1);
+                typeof(ProgressionDirector).GetField("_player", PrivateInstance).SetValue(director, player);
+                Invoke(director, "IndexRooms", graph);
+                Invoke(director, "MaterializeGates", graph);
+
+                // Property 1 (before defeat): no Extraction_Portal exists until the boss is defeated (R8.1).
+                Assert.That(host.GetComponentsInChildren<ScenePortal>(true), Is.Empty,
+                    "No Extraction_Portal must exist before the boss is defeated.");
+
+                // Drive the boss-defeat conclusion directly (the single-Stage, no-next-Stage branch).
+                Invoke(director, "AdvanceToNextStageOrConclude");
+
+                // Property 1 (after defeat): exactly one Extraction_Portal materialized as a director child.
+                var portals = host.GetComponentsInChildren<ScenePortal>(true);
+                Assert.That(portals.Length, Is.EqualTo(1),
+                    "Defeating the boss with no next Stage must materialize exactly one Extraction_Portal.");
+                var portal = portals[0];
+                Assert.That(portal.transform.parent, Is.EqualTo(director.transform),
+                    "The Extraction_Portal must be parented to the director.");
+
+                // The portal sits within the Boss_Room's XZ bounds (world center (24,0,0), half-extents 12).
+                Vector3 bossCenter = new Vector3(boss.Center.x, 0f, boss.Center.y);
+                Vector3 position = portal.transform.position;
+                Assert.That(Mathf.Abs(position.x - bossCenter.x), Is.LessThanOrEqualTo(boss.Size.x * 0.5f),
+                    "The Extraction_Portal must materialize within the Boss_Room bounds on X.");
+                Assert.That(Mathf.Abs(position.z - bossCenter.z), Is.LessThanOrEqualTo(boss.Size.y * 0.5f),
+                    "The Extraction_Portal must materialize within the Boss_Room bounds on Z.");
+
+                // Property 2: the destination is the Nexus, from the serialized _returnScene (default NexusLobby).
+                Assert.That(portal.Destination, Is.EqualTo("NexusLobby"),
+                    "The Extraction_Portal's destination must be the Nexus.");
+                Assert.That(director.IsRunComplete, Is.True,
+                    "Materializing the portal marks the Run logically complete.");
+            }
+            finally
+            {
+                Object.DestroyImmediate(host);
+                Object.DestroyImmediate(playerObject);
+            }
+        }
+
+        [Test]
         public void EnteringFromRoomB_SealsSharedDoorAndClearRestoresBacktracking()
         {
             var host = new GameObject("Director regression");
@@ -143,6 +233,50 @@ namespace TechGuy.Tests
                 Assert.That(gates.IsDoorSealed(Direction.East), Is.False, "The cleared room behind us must remain accessible.");
             }
             finally { Object.DestroyImmediate(host); }
+        }
+
+        // Property 4 (playable-procedural-run design): a player death returns to the Nexus through the
+        // death flow WITHOUT materializing or depending on the Extraction_Portal. Driving OnPlayerDied by
+        // reflection must flip IsRunComplete true (the death handler marks the Run ended within its first
+        // statements) while creating zero ScenePortal objects — neither as a child of the director nor
+        // anywhere in the scene. ReturnToNexus may attempt a guarded scene load, but in EditMode the coroutine
+        // never ticks, so the test only asserts portal absence + IsRunComplete. (R8.6)
+        [Test]
+        public void PlayerDeath_ReturnsToNexusWithoutMaterializingAnExtractionPortal()
+        {
+            var host = new GameObject("Player death regression");
+            host.SetActive(false);
+            try
+            {
+                var director = host.AddComponent<ProgressionDirector>();
+                Assert.That(director.IsRunComplete, Is.False,
+                    "The Run must not be complete before the player dies.");
+                Assert.That(host.GetComponentsInChildren<ScenePortal>(true), Is.Empty,
+                    "No Extraction_Portal must exist before the player dies.");
+
+                // OnPlayerDied ignores its Actor argument, so null exercises the death flow without dragging
+                // in a full PlayerActor. StartCoroutine logs on the inactive host; the death flow sets
+                // IsRunComplete before it and never materializes a portal, so tolerate that message.
+                LogAssert.ignoreFailingMessages = true;
+                try
+                {
+                    typeof(ProgressionDirector)
+                        .GetMethod("OnPlayerDied", PrivateInstance)
+                        .Invoke(director, new object[] { null });
+                }
+                finally { LogAssert.ignoreFailingMessages = false; }
+
+                Assert.That(director.IsRunComplete, Is.True,
+                    "The death flow must mark the Run complete so it returns to the Nexus (R8.6).");
+                Assert.That(host.GetComponentsInChildren<ScenePortal>(true), Is.Empty,
+                    "Death must not materialize an Extraction_Portal as a child of the director (R8.6).");
+                Assert.That(Object.FindObjectsOfType<ScenePortal>(), Is.Empty,
+                    "The death flow must not create any ScenePortal in the scene (R8.6).");
+            }
+            finally
+            {
+                Object.DestroyImmediate(host);
+            }
         }
 
         [TestCase(Direction.East)]

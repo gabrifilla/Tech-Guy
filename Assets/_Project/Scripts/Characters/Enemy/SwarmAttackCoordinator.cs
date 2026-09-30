@@ -46,6 +46,20 @@ public sealed class SwarmAttackCoordinator : MonoBehaviour
     }
 
     /// <summary>
+    /// Sets the concurrent-attacker limit at runtime before enemies request slots (used by the
+    /// procedural director, which materializes one coordinator per combat room). Rebuilds the pool so
+    /// the new capacity takes effect; a non-positive value is clamped up to 1 (R5.1).
+    /// </summary>
+    /// <param name="maxConcurrentMelee">Desired simultaneous melee attackers for this encounter.</param>
+    public void ConfigureCapacity(int maxConcurrentMelee)
+    {
+        _maxConcurrentMelee = maxConcurrentMelee;
+        _pool = null;
+        EnsurePool();
+    }
+
+
+    /// <summary>
     /// Requests an attack token for <paramref name="enemy"/> before it starts its telegraphed attack
     /// (R5.2). Returns true when a slot was granted; false when the encounter is at its limit, in which
     /// case the enemy is held in the waiting queue and should keep its position instead of attacking.

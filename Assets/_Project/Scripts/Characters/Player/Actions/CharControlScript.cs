@@ -60,6 +60,13 @@ public class CharControlScript : MonoBehaviour
     private AbilityHolder _abilityHolder;
     [SerializeField] private PlayerHUD _playerHUD;
 
+    /// <summary>
+    /// The scene HUD explicitly bound to this player (may be null in headless/test scenes).
+    /// Exposed so run-scoped feedback holders (e.g. Momentum Strike) can push cosmetic cues
+    /// through the same serialized reference instead of a scene lookup.
+    /// </summary>
+    public PlayerHUD HUD => _playerHUD;
+
     private float baseAttackRange;
     private float baseAttackInterval;
     private float baseAttackBusyDuration;
@@ -84,6 +91,11 @@ public class CharControlScript : MonoBehaviour
     private int lastMoveRequestFrame = -1;
     private bool _waitForAttackRelease;
     private int _runBasicCount;
+    // Charged Shot (R3): how long the primary attack input has been continuously held while the boon
+    // is active and the weapon fires arrows. Consumed when a bow basic resolves into an arrow to pick
+    // between a charged (piercing, boosted) and a normal shot, and pushed to the HUD as a charge ratio.
+    private float _primaryHeldSeconds;
+    private bool _primaryHeldLast;
     public event System.Action BasicAttackPerformed;
     public void RequireAttackRelease() => _waitForAttackRelease = true;
 
@@ -122,6 +134,7 @@ public class CharControlScript : MonoBehaviour
         if (!playerActor || playerActor.IsDead) return;
         RefreshWeaponStats();
         RefreshMovementStats();
+        TrackChargedShot();
 
         if (_abilityHolder && _abilityHolder.BlocksWorldInput) return;
 
@@ -169,6 +182,11 @@ public class CharControlScript : MonoBehaviour
         shiftHeld && (leftPressed || rightPressed);
 
     private float EffectiveAttackRange => attackRange * (weapon && weapon.FiresArrows ? 1f : playerActor?.RunModifiers?.MeleeScale ?? 1f);
+
+    // Charged Shot (R3): the boon only applies while a bow is equipped and the run modifier is owned.
+    // Rank 0 means the boon is absent, so charging is inert and basic arrows behave normally (R3.3).
+    private int ChargedShotRank => weapon && weapon.FiresArrows
+        ? playerActor?.RunModifiers?.Rank(WeaponBoon.ChargedShot) ?? 0 : 0;
 
     private bool CanReachTarget(Actor actor)
     {
@@ -782,18 +800,34 @@ public class CharControlScript : MonoBehaviour
 
         if (playerActor != null && weapon && weapon.FiresArrows)
         {
+            // Charged Shot (R3): when the boon is owned, the held duration decides the shot. A hold of at
+            // least ChargeTime fires a piercing arrow with (1 + 0.75 * rank) damage (R3.1/R3.2); a shorter
+            // hold (or no boon) fires the normal arrow with multiplier 1 and no piercing (R3.3).
+            int chargedRank = ChargedShotRank;
+            bool charged = chargedRank > 0 && ChargedShot.IsCharged(_primaryHeldSeconds);
+            float multiplier = charged ? ChargedShot.DamageMultiplier(chargedRank) : 1f;
+            Color arrowColor = charged ? new Color(1f, .8f, .3f) : new Color(.25f, .85f, 1f);
             ArsenalProjectile.Fire(playerActor, transform.position + Vector3.up, transform.forward,
-                weapon.attackDamage, 1f, attackRange, false, new Color(.25f, .85f, 1f));
+                weapon.attackDamage, multiplier, attackRange, charged, arrowColor);
+            // Consume the charge so a follow-up basic in the same hold starts fresh rather than
+            // firing a second charged arrow off the same accumulated time.
+            _primaryHeldSeconds = 0f;
         }
         else if (playerActor != null)
         {
-            float range = attackRange > 0f ? attackRange : defaultStoppingDistance;
+            float authoredRange = attackRange > 0f ? attackRange : defaultStoppingDistance;
+            // R2.5: the unified basic-swing volume comes from the central config when present, so the
+            // box/reach match one coherent definition (R2.1); missing config falls back to the volume
+            // authored on the weapon asset (attackBoxSize) and its attackDistance-derived range.
+            CombatBalanceConfig balance = CombatBalance.Current;
+            float range = balance != null ? balance.GauntletBasicReach : authoredRange;
+            Vector3 basicBoxSize = balance != null ? balance.GauntletBasicBoxSize : attackBoxSize;
             float scale = playerActor.RunModifiers?.MeleeScale ?? 1f;
             playerActor.TryApplyAreaDamage(
                 transform.position,
                 transform.forward,
                 range * scale,
-                attackBoxSize * scale,
+                basicBoxSize * scale,
                 attackLayers,
                 weapon ? weapon.attackDamage : -1f,
                 1f,
@@ -847,6 +881,30 @@ public class CharControlScript : MonoBehaviour
             ComboNovaDamagePerRank * nova,
             0f,
             null);
+    }
+
+    // Charged Shot (R3): accumulate how long the primary attack input has been held while the boon is
+    // active and a bow is equipped, and surface the charge ratio to the HUD. The held time only decides
+    // whether the *next* resolved bow arrow is charged; it never fires an arrow itself (PerformAttack
+    // owns the cadence). Releasing the input, switching off the boon, or unequipping the bow resets it.
+    private void TrackChargedShot()
+    {
+        bool primary = ChargedShotRank > 0 && GamePreferences.IsHeld(GameControl.Primary);
+        if (primary)
+        {
+            // Reset the accumulator on a fresh press so each hold is measured from zero (R3.1/R3.3).
+            if (!_primaryHeldLast) _primaryHeldSeconds = 0f;
+            _primaryHeldSeconds += Time.deltaTime;
+            // R3.4: the indicator reaches full exactly at ChargeTime.
+            float ratio = Mathf.Clamp01(_primaryHeldSeconds / ChargedShot.ChargeTime);
+            if (_playerHUD) _playerHUD.SetChargeIndicator(ratio);
+        }
+        else
+        {
+            _primaryHeldSeconds = 0f;
+            if (_primaryHeldLast && _playerHUD) _playerHUD.SetChargeIndicator(0f);
+        }
+        _primaryHeldLast = primary;
     }
 
     private HitReactionRequest BuildBasicAttackReaction(int attackIndex, float range)

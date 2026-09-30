@@ -42,6 +42,11 @@ public class AbilityHolder : MonoBehaviour
     [SerializeField] private LobbyInteraction _lobbyInteraction;
     public event Action<int> AbilityUsed;
     public event Action<int, AbilityUseFailure> AbilityRejected;
+    // Resolved-hit notification (impactful-weapon-boons R4.3): raised right after the passive
+    // AttackPassiveAbility dispatch in NotifyAttackHits, carrying the same owner + damaged-actor list.
+    // Lets run-scoped cosmetic components (e.g. PerfectSpacingFeedback) subscribe to the resolved-hit
+    // channel without a scene lookup or touching any source asset. Cosmetic subscribers only.
+    public event Action<PlayerActor, IReadOnlyList<Actor>> AttackHitsResolved;
 
     public bool IsCasting => (_breakerCombat && _breakerCombat.IsExecuting) ||
         (_arsenalCombat && _arsenalCombat.IsExecuting);
@@ -141,6 +146,8 @@ public class AbilityHolder : MonoBehaviour
                 attackPassive.OnAfterAttackHits(owner, damagedActors);
             }
         }
+
+        AttackHitsResolved?.Invoke(owner, damagedActors);
     }
 
     private void RefreshWeaponAbilities(bool force)

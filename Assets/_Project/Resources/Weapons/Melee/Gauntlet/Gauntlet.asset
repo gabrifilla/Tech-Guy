@@ -22,7 +22,7 @@ MonoBehaviour:
   attackDistance: 2.2
   attackDelay: 1
   attackRadius: 0
-  attackBoxSize: {x: 1.25, y: 1.8, z: 1.6}
+  attackBoxSize: {x: 1.6, y: 1.9, z: 1.9}
   hitEffectName: HitEffect
   hitbox: {fileID: 2599738818665923750, guid: 83d04be508d466248a9267697cb142ec, type: 3}
   abilities:
