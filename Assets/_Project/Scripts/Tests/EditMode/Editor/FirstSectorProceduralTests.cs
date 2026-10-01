@@ -270,7 +270,7 @@ namespace TechGuy.Tests
                     "The death flow must mark the Run complete so it returns to the Nexus (R8.6).");
                 Assert.That(host.GetComponentsInChildren<ScenePortal>(true), Is.Empty,
                     "Death must not materialize an Extraction_Portal as a child of the director (R8.6).");
-                Assert.That(Object.FindObjectsOfType<ScenePortal>(), Is.Empty,
+                Assert.That(Object.FindObjectsByType<ScenePortal>(FindObjectsSortMode.None), Is.Empty,
                     "The death flow must not create any ScenePortal in the scene (R8.6).");
             }
             finally

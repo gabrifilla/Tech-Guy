@@ -51,7 +51,7 @@ namespace TechGuy.Tests
         [TearDown]
         public void TearDown()
         {
-            foreach (ArsenalProjectile stray in Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None))
+            foreach (ArsenalProjectile stray in Object.FindObjectsByType<ArsenalProjectile>())
                 if (stray) Object.DestroyImmediate(stray.gameObject);
             foreach (GameObject go in _extra) if (go) Object.DestroyImmediate(go);
             _extra.Clear();
@@ -175,12 +175,12 @@ namespace TechGuy.Tests
         }
 
         private static HashSet<ArsenalProjectile> SnapshotArrows() =>
-            new HashSet<ArsenalProjectile>(Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None));
+            new HashSet<ArsenalProjectile>(Object.FindObjectsByType<ArsenalProjectile>());
 
         private int ArrowsSpawnedSince(HashSet<ArsenalProjectile> before)
         {
             int spawned = 0;
-            foreach (ArsenalProjectile p in Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None))
+            foreach (ArsenalProjectile p in Object.FindObjectsByType<ArsenalProjectile>())
             {
                 if (before.Contains(p)) continue;
                 spawned++;
@@ -191,7 +191,7 @@ namespace TechGuy.Tests
 
         private void CleanupEnemiesAndArrows()
         {
-            foreach (ArsenalProjectile stray in Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None))
+            foreach (ArsenalProjectile stray in Object.FindObjectsByType<ArsenalProjectile>())
                 if (stray) Object.DestroyImmediate(stray.gameObject);
             foreach (GameObject go in _extra) if (go) Object.DestroyImmediate(go);
             _extra.Clear();

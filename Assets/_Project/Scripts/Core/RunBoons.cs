@@ -47,6 +47,66 @@ public sealed class RunBoons : MonoBehaviour
     // catalog. Its HookBus.OnHit subscription is dropped by Hooks.Clear() at run end; its stat modifier
     // is tagged with this RunBoons instance so OnDestroy's RemoveModifiersFrom(this) removes it (R6.5).
     private MomentumStacks _momentum;
+    // gauntlet-boon-playstyle-overhaul R6: the run-scoped Hungry Combo tracker, created lazily the first
+    // time the boon is chosen and reconfigured (never re-added) on later picks so its rank tracks the
+    // catalog. Its HookBus.OnBasicHit subscription is dropped by Hooks.Clear() at run end (R6.4); it holds
+    // no stat modifier, so it only needs the subscription teardown.
+    private HungryComboTracker _hungryCombo;
+    // gauntlet-boon-playstyle-overhaul R4: the run-scoped Asura Fist coordinator, created lazily the first
+    // time the boon is chosen and reconfigured (never re-added) on later picks so its rank tracks the
+    // catalog. Its HookBus.OnBasicHit subscription is dropped by Hooks.Clear() at run end (R4.4); it holds
+    // no stat modifier, so it only needs the subscription teardown.
+    private AsuraSurge _asuraSurge;
+    // gauntlet-boon-playstyle-overhaul R5: the run-scoped Guard Breaker tracker, created lazily the first
+    // time the boon is chosen and reconfigured (never re-added) on later picks so its rank tracks the
+    // catalog. Its HookBus.OnBasicHit and AbilityHolder.AbilityUsed subscriptions are dropped by the
+    // tracker's OnDestroy and (for the basic channel) by Hooks.Clear() at run end (R5.5); it holds no stat
+    // modifier, so it only needs the subscription teardown.
+    private ImpactGuardTracker _guardBreaker;
+    // gauntlet-boon-playstyle-overhaul R8: the run-scoped Kiting Step coordinator, created lazily the first
+    // time the Bow boon is chosen and reconfigured (never re-added) on later picks so its rank tracks the
+    // catalog. It subscribes to CharControlScript.BasicAttackPerformed and repositions the player via the
+    // player's NavMeshAgent; the subscription is dropped by the coordinator's OnDestroy when the run (and
+    // this GameObject) is torn down (R8.5). It holds no stat modifier, so it only needs that teardown.
+    private KitingStepCoordinator _kitingStep;
+    // gauntlet-boon-playstyle-overhaul R9: the run-scoped Adaptive Cadence tracker, created lazily the
+    // first time the boon is chosen and reconfigured (never re-added) on later picks so its rank tracks
+    // the catalog. Its HookBus.OnBasicHit subscription is dropped by Hooks.Clear() at run end; its stat
+    // modifier is tagged with this RunBoons instance so OnDestroy's RemoveModifiersFrom(this) removes it (R9.4).
+    private AdaptiveCadenceTracker _adaptiveCadence;
+    // gauntlet-boon-playstyle-overhaul R10: the run-scoped Rain Mark registry, created lazily the first
+    // time the Bow ultimate boon is chosen and reconfigured (never re-added) on later picks so its
+    // amplify/slow track the catalog rank. It holds no HookBus subscription or stat modifier; its own
+    // OnDestroy clears every mark and restores any pending slow at run end (R10.3/R10.4). The direct-damage
+    // pipeline and the rain pulse reach it through the RainMarks accessor below (no scene lookup).
+    private RainMarkRegistry _rainMark;
+    /// <summary>
+    /// The run-scoped Rain Mark registry, or null when the Bow ultimate boon was never chosen this run.
+    /// Consulted by the direct-damage pipeline (amplifier, R10.2) and the rain pulse resolution (mark,
+    /// R10.1). Every caller null-guards it since it only exists after the boon is picked.
+    /// </summary>
+    public RainMarkRegistry RainMarks => _rainMark;
+    // gauntlet-boon-playstyle-overhaul R13: the run-scoped Edge Strike vulnerability registry, created
+    // lazily the first time the Spear edge boon is chosen and reconfigured (never re-added) on later picks
+    // so its rank tracks the catalog. It subscribes to AbilityHolder.AttackHitsResolved (dropped by its own
+    // OnDestroy) and holds no stat modifier; its OnDestroy clears every open window at run end (R13.4). The
+    // direct-damage pipeline reaches it through the EdgeVulnerabilities accessor below (no scene lookup).
+    private EdgeVulnerabilityRegistry _edgeVuln;
+    /// <summary>
+    /// The run-scoped Edge Strike vulnerability registry, or null when the Spear edge boon was never
+    /// chosen this run. Consulted by the direct-damage pipeline (amplifier, R13.2). Every caller
+    /// null-guards it since it only exists after the boon is picked.
+    /// </summary>
+    public EdgeVulnerabilityRegistry EdgeVulnerabilities => _edgeVuln;
+    // gauntlet-boon-playstyle-overhaul R2: the family boons retired from the offer composition. "Retire"
+    // means skip in OfferReward's family gate, NOT delete from the Catalog, so runs/saves that already
+    // acquired them keep working (R2.5/R2.6). Preserved family boons and inline gameplay boons are untouched.
+    private static readonly HashSet<WeaponBoon> RetiredFamilyBoons = new HashSet<WeaponBoon>
+    {
+        WeaponBoon.LongFists, WeaponBoon.StanceCrusher, WeaponBoon.Berserker,   // Gauntlet (R2.2)
+        WeaponBoon.HeavyBolt, WeaponBoon.Sniper,        WeaponBoon.LongRain,    // Bow (R2.2)
+        WeaponBoon.LongReach, WeaponBoon.TripleMoon,    WeaponBoon.Affliction   // Spear (R2.2)
+    };
 
     private void Awake()
     {
@@ -96,16 +156,8 @@ public sealed class RunBoons : MonoBehaviour
             // impactful-weapon-boons R8: cross-family Elemental Overflow. Offered regardless of family, so it
             // lives in the inline pool next to the other synergy/element offers rather than the family catalog.
             new Offer("overflow", "Sobrecarga elemental", "Acertos em alvos com fogo/gelo ativo disparam um burst de 50% do dano do golpe por cópia, sem remover o efeito."),
-            new Offer("power", "Núcleo de força", "+25% de dano em ataques básicos e habilidades."),
-            new Offer("haste", "Mãos velozes", "+25% de velocidade dos ataques básicos."),
-            new Offer("recharge", "Fluxo arcano", "+15 pontos percentuais de redução de recarga."),
             new Offer("vitality", "Coração de ferro", "+100 de vida máxima e recuperação completa de vida."),
             new Offer("focus", "Foco eficiente", "Q custa 25% menos mana e recarrega 35% mais rápido."),
-            // Repeatable stat scaling.
-            new Offer("crit", "Olho preciso", "+15% de chance e +40% de dano crítico."),
-            new Offer("brutal", "Golpe brutal", "+8 de dano fixo somado a cada golpe."),
-            new Offer("bulwark", "Placa reforçada", "+40 de armadura, reduzindo o dano recebido."),
-            new Offer("swift", "Passo veloz", "+20% de velocidade de movimento."),
             // Bizarre property-changing modifiers: they alter what basic attacks DO.
             new Offer("ignite", "Lâmina incandescente", "BIZARRO: seus ataques agora causam QUEIMADURA, dano contínuo por 4s. Acumula."),
             new Offer("frost", "Toque glacial", "BIZARRO: seus ataques agora CONGELAM — chance de imobilizar e lentidão pesada por 2.5s."),
@@ -114,7 +166,9 @@ public sealed class RunBoons : MonoBehaviour
                 "TRANSFORMA Q: troca o avanço/estocada por uma explosão circular de 4m. Não gera Asura.")
         };
         foreach (var definition in WeaponRunModifiers.Catalog)
-            if (definition.Family == WeaponModifiers.Family && WeaponModifiers.Rank(definition.Kind) < definition.MaxRank)
+            if (definition.Family == WeaponModifiers.Family
+                && !RetiredFamilyBoons.Contains(definition.Kind)                   // gauntlet-boon-playstyle-overhaul R2.2: skip retired family boons
+                && WeaponModifiers.Rank(definition.Kind) < definition.MaxRank)
                 pool.Add(new Offer(definition.Id, definition.Title, "Nível " + (WeaponModifiers.Rank(definition.Kind) + 1) + "/" + definition.MaxRank + "\n" + definition.Description));
         // Only single-use boons are removed once taken; repeatable ones (stats + elemental) stay in the pool.
         pool.RemoveAll(offer => IsSingleUse(offer.Id) && _acquired.Exists(owned => owned.Id == offer.Id));
@@ -184,6 +238,128 @@ public sealed class RunBoons : MonoBehaviour
                     if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
                 if (!_momentum) _momentum = gameObject.AddComponent<MomentumStacks>();
                 _momentum.Configure(_player, Hooks, WeaponModifiers.Rank(WeaponBoon.MomentumStrike), this);
+                break;
+            // gauntlet-boon-playstyle-overhaul R6: HungryCombo is a catalogued Gauntlet WeaponBoon, applied
+            // through the same WeaponModifiers.Add gate. It also needs a run-scoped tracker that reduces
+            // live skill cooldowns on each basic hit. Create it once and reconfigure it (with the new rank)
+            // on every pick so higher ranks cut more; Configure re-subscribes idempotently.
+            case "weapon_HungryCombo":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                if (!_hungryCombo) _hungryCombo = gameObject.AddComponent<HungryComboTracker>();
+                _hungryCombo.Configure(_player, Hooks, _holder, WeaponModifiers.Rank(WeaponBoon.HungryCombo));
+                break;
+            // gauntlet-boon-playstyle-overhaul R7: SeismicFist is a catalogued Gauntlet WeaponBoon, applied
+            // through the same WeaponModifiers.Add gate. Its skill-side behavior is purely snapshot-driven
+            // (WeaponRunModifiers.GauntletSteps declares Knockback with (1 + 0.3R) distance on the per-cast
+            // clones), so nothing beyond the Add is needed there. For the Basic_Attack, the live basic
+            // hitbox opts into the deliberate Stance_Break Knockback: when the hitbox exists we declare
+            // StanceBreakEffect.Knockback on it (the per-hit pushDistance stays zeroed — the hard throw
+            // comes only from the stance break). The source asset is never touched (R7.4); the hitbox is a
+            // runtime instance owned by the player (R7.1/R7.2).
+            case "weapon_SeismicFist":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                if (_player.CurrentHitbox && _player.CurrentHitbox.TryGetComponent(out HitboxDamage seismicHitbox))
+                    seismicHitbox.SetStanceBreakEffect(StanceBreakEffect.Knockback);
+                break;
+            // gauntlet-boon-playstyle-overhaul R4: AsuraFist is a catalogued Gauntlet WeaponBoon, applied
+            // through the same WeaponModifiers.Add gate. It also needs a run-scoped coordinator that charges
+            // the Manopla's Asura meter on each basic hit. Create it once and reconfigure it (with the new
+            // rank) on every pick so higher ranks charge faster; Configure re-subscribes idempotently. The
+            // BreakerGauntletCombat is resolved from the player component (data-driven, no scene lookup).
+            case "weapon_AsuraFist":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                if (!_asuraSurge) _asuraSurge = gameObject.AddComponent<AsuraSurge>();
+                _player.TryGetComponent(out BreakerGauntletCombat breakerCombat);
+                _asuraSurge.Configure(_player, Hooks, breakerCombat, WeaponModifiers.Rank(WeaponBoon.AsuraFist));
+                break;
+            // gauntlet-boon-playstyle-overhaul R5: GuardBreaker is a catalogued Gauntlet WeaponBoon, applied
+            // through the same WeaponModifiers.Add gate. It also needs a run-scoped tracker that counts three
+            // consecutive basic hits and, on the third, breaks the enemy's guard with a scaled stance hit and
+            // a deliberate Knockback. Create it once and reconfigure it (with the new rank) on every pick so
+            // higher ranks break harder; Configure re-subscribes idempotently.
+            case "weapon_GuardBreaker":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                if (!_guardBreaker) _guardBreaker = gameObject.AddComponent<ImpactGuardTracker>();
+                _guardBreaker.Configure(_player, Hooks, _holder, WeaponModifiers.Rank(WeaponBoon.GuardBreaker));
+                break;
+            // gauntlet-boon-playstyle-overhaul R8: KitingStep is a catalogued Bow WeaponBoon, applied through
+            // the same WeaponModifiers.Add gate. The offer only surfaces while the equipped family is Bow
+            // (the family gate in OfferReward), so this case runs only WHILE Bow (R8.5). It also needs a
+            // run-scoped coordinator that gives the player a navmesh-routed reposition impulse when firing a
+            // basic while retreating. Create it once and reconfigure it (with the new rank) on every pick so
+            // higher ranks push farther; Configure re-subscribes idempotently. The CharControlScript and the
+            // player's NavMeshAgent are resolved from the player component (data-driven, no scene lookup).
+            case "weapon_KitingStep":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                if (WeaponModifiers.Family == RunWeaponFamily.Bow)
+                {
+                    if (!_kitingStep) _kitingStep = gameObject.AddComponent<KitingStepCoordinator>();
+                    _player.TryGetComponent(out CharControlScript kitingControls);
+                    _player.TryGetComponent(out NavMeshAgent kitingAgent);
+                    _kitingStep.Configure(_player, kitingControls, kitingAgent, WeaponModifiers.Rank(WeaponBoon.KitingStep));
+                }
+                break;
+            // gauntlet-boon-playstyle-overhaul R9: AdaptiveCadence is a catalogued Bow WeaponBoon, applied
+            // through the same WeaponModifiers.Add gate. It also needs a run-scoped tracker that keeps an
+            // AttackSpeedMultiplier modifier on while basic hits land at >= 6m and removes it on a closer
+            // hit. Create it once and reconfigure it (with the new rank) on every pick so higher ranks
+            // accelerate more; Configure re-subscribes idempotently. Pass `this` (RunBoons) as the stat
+            // source so the cadence modifier is torn down by OnDestroy's RemoveModifiersFrom(this) (R9.4).
+            case "weapon_AdaptiveCadence":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                if (!_adaptiveCadence) _adaptiveCadence = gameObject.AddComponent<AdaptiveCadenceTracker>();
+                _adaptiveCadence.Configure(_player, Hooks, WeaponModifiers.Rank(WeaponBoon.AdaptiveCadence), this);
+                break;
+            // gauntlet-boon-playstyle-overhaul R11: SpacingRecoil is a catalogued Spear WeaponBoon whose
+            // whole effect is snapshot-driven (WeaponRunModifiers.Plan sets the Cast_Plan.SpacingRecoil flag
+            // from the rank, and ArsenalCombat reads the live rank to step the player back via the NavMesh
+            // when a thrust connects). Like StanceCrusher/PikeWall it needs nothing beyond the Add gate — no
+            // run-scoped coordinator, stat modifier, or hitbox configuration. Kept as an explicit case to
+            // mirror the other weapon_ cases and document the snapshot-only wiring.
+            case "weapon_SpacingRecoil":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                break;
+            // gauntlet-boon-playstyle-overhaul R12: PikeWall is a catalogued Spear WeaponBoon whose entire
+            // behavior is snapshot-driven — WeaponRunModifiers.Plan sets plan.ControlZone/ZonePush on the
+            // per-cast Cast_Plan from its rank, and ArsenalCombat reads those to push caught enemies outward
+            // through their own SoftGroupingService. So, like StanceCrusher/SpacingRecoil, the pick only
+            // needs to raise the rank through the shared WeaponModifiers.Add gate; no run-scoped coordinator.
+            case "weapon_PikeWall":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                break;
+            // gauntlet-boon-playstyle-overhaul R10: RainMark is a catalogued Bow WeaponBoon, applied through
+            // the same WeaponModifiers.Add gate. Its per-cast behavior (which pulses mark, how much they
+            // amplify/slow) is snapshot-driven via WeaponRunModifiers.Plan's MarkOnPulse/MarkAmplify/MarkSlow
+            // flags; on top of that it needs a run-scoped registry that holds the live marks, applies the
+            // slow, and answers the amplifier. Create it once and reconfigure it (with the new rank's
+            // amplify/slow) on every pick so higher ranks amplify more; Configure only updates the amounts.
+            case "weapon_RainMark":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                if (!_rainMark) _rainMark = gameObject.AddComponent<RainMarkRegistry>();
+                int rainRank = WeaponModifiers.Rank(WeaponBoon.RainMark);
+                _rainMark.Configure(0.2f * rainRank, rainRank > 0 ? 0.4f : 0f);
+                break;
+            // gauntlet-boon-playstyle-overhaul R13: EdgeStrike is a catalogued Spear WeaponBoon, applied
+            // through the same WeaponModifiers.Add gate. On top of the catalog rank it needs a run-scoped
+            // registry that watches the resolved-hit channel: an edge-of-reach hit requests extra stance
+            // (via ApplyHitReactionTo) and opens a vulnerability window whose AmplifierFor amplifies the
+            // enemy's subsequent direct hits (consulted by DealResolvedAttackDamage through the
+            // EdgeVulnerabilities accessor). Create it once and reconfigure it (with the new rank) on every
+            // pick so higher ranks break harder; Configure re-subscribes idempotently.
+            case "weapon_EdgeStrike":
+                foreach (var definition in WeaponRunModifiers.Catalog)
+                    if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
+                if (!_edgeVuln) _edgeVuln = gameObject.AddComponent<EdgeVulnerabilityRegistry>();
+                _edgeVuln.Configure(_player, _holder, WeaponModifiers.Rank(WeaponBoon.EdgeStrike));
                 break;
             case "conductor": _player.OnHitEffects.Synergies.Add(RunSynergy.Conductor); break;
             case "detonation": _player.OnHitEffects.Synergies.Add(RunSynergy.Detonation); break;

@@ -1,0 +1,776 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Implement `EnemyFacing` pure turn-step resolver": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859691033
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859704370
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859872874
+      }
+    ],
+    "1.2 Write property test for `EnemyFacing`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859691514
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860020156
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860424414
+      }
+    ],
+    "1.3 Implement `ReactionGate` pure reaction-delay/sight-loss-reset state": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859691677
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859705761
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859874242
+      }
+    ],
+    "1.4 Write property test for `ReactionGate`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859691932
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860021249
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860423013
+      }
+    ],
+    "1.5 Implement `CadenceJitter` pure jittered-interval resolver": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859692016
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859707161
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859875716
+      }
+    ],
+    "1.6 Write property test for `CadenceJitter`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859692097
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860022596
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860426404
+      }
+    ],
+    "1.7 Implement `ApproachOffset` pure bounded-displacement resolver": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859692185
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859708564
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859877097
+      }
+    ],
+    "1.8 Write property test for `ApproachOffset`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859692269
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860024506
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860421709
+      }
+    ],
+    "1.9 Implement `PatrolPause` pure idle-timer": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859692354
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859709443
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859877965
+      }
+    ],
+    "1.10 Write property test for `PatrolPause`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859692421
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860024827
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860425354
+      }
+    ],
+    "1.11 Implement `MovementBlend` pure speed-normalization": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859692559
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859882605
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860010739
+      }
+    ],
+    "1.12 Write property test for `MovementBlend`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859692646
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860431020
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860741180
+      }
+    ],
+    "2. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859692750
+      }
+    ],
+    "3.1 Implement `KiteController` pure window/cooldown state machine": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859692828
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859884001
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860013388
+      }
+    ],
+    "3.2 Write property test for `KiteController`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859692920
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860432408
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860739996
+      }
+    ],
+    "3.3 Implement `RetreatCadence` pure speed + standoff resolver": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693017
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859885442
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860012132
+      }
+    ],
+    "3.4 Write property test for `RetreatCadence` speed multiplier": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693099
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860435284
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860737653
+      }
+    ],
+    "3.5 Write property test for `RetreatCadence` standoff distance/margin": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693168
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860433860
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860736273
+      }
+    ],
+    "4.1 Extend `TelegraphBeat.cs` with `TelegraphFill`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693246
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859886442
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860014521
+      }
+    ],
+    "4.2 Write property test for `TelegraphFill.ProgressAt`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693323
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860436145
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860738596
+      }
+    ],
+    "4.3 Write property test for red base color, windup floor, and single-beat preservation": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693414
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860746195
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861048768
+      }
+    ],
+    "4.4 Write determinism property test across all pure logic": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693491
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860747127
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861046059
+      }
+    ],
+    "5. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693565
+      }
+    ],
+    "6.1 Create `CombatGroundFill` MonoBehaviour helper": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693642
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860748663
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861050164
+      }
+    ],
+    "6.2 Write example test for `CombatGroundFill` mesh-per-shape": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693722
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861058848
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861394745
+      }
+    ],
+    "7.1 Add serialized `KitingConfig`/`NaturalBehaviorConfig` and `OnValidate` clamping": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693795
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860749923
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861051589
+      }
+    ],
+    "7.2 Add per-enemy runtime state and seeded RNG in `Awake`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693884
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861057802
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861395788
+      }
+    ],
+    "7.3 Store chase speed on `EnemyVariant` for retreat restore": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859693970
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860752275
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861047378
+      }
+    ],
+    "8.1 Wire `EnemyFacing` into `FacePlayer()` and `ReactionGate` into `Update()`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694050
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861405198
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861620726
+      }
+    ],
+    "8.2 Write example tests for reaction-delay==0 and facing gate pass-through": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694134
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862312441
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862571217
+      }
+    ],
+    "8.3 Wire `ApproachOffset` into `ChasePlayer()`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694203
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861628478
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861715824
+      }
+    ],
+    "8.4 Write example test for approach magnitude==0 beeline and off-mesh fallback": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694348
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862313894
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862568628
+      }
+    ],
+    "8.5 Wire `PatrolPause` into `Patrol()`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694433
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861716821
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861835599
+      }
+    ],
+    "8.6 Write example test for patrol max==0 no pause": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694508
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862314858
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862570108
+      }
+    ],
+    "8.7 Wire `CadenceJitter` into `TelegraphedAttack()` and `MovementBlend` into `SetMovementAnimation()`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694579
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861834576
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861985029
+      }
+    ],
+    "8.8 Write example tests for jitter==0 deterministic cadence and animation guard": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694655
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862316249
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862565853
+      }
+    ],
+    "9.1 Wire `KiteController` + `RetreatCadence` + `EnemyVariant` speed into `TryMaintainStandoff()`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694738
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861983941
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862306829
+      }
+    ],
+    "9.2 Write example tests for kiting speed swap/restore and non-ranged pass-through": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694837
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862317495
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862567726
+      }
+    ],
+    "10. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694921
+      }
+    ],
+    "11.1 Wire `CombatGroundFill` + red base into `EnemyAttackExecution.Execute(...)`": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859694990
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861406597
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861622231
+      }
+    ],
+    "11.2 Write example test for forced telegraph coverage and same-frame clear": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859695063
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862575835
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790863197447
+      }
+    ],
+    "11.3 Recolor `EnemyProjectile` approach telegraph to the shared red base": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859695159
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861407999
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861623455
+      }
+    ],
+    "12.1 Compile and run EditMode tests": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859695247
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790863202108
+      },
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790863318701
+      }
+    ],
+    "12.2 Optional PlayMode smoke test": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859695320
+      }
+    ],
+    "12.3 Optional visual telegraph validation": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790859695391
+      }
+    ],
+    "3. Kiting / standoff pure logic (window/cooldown + speed/standoff math)": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860740125
+      }
+    ],
+    "1. Natural-behavior pure logic (facing, reaction, cadence, approach, patrol, blend)": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790860741350
+      }
+    ],
+    "4. Telegraph pure logic (fill progress + shared red base)": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861048883
+      }
+    ],
+    "6. Implement `CombatGroundFill` filled-surface renderer": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861394904
+      }
+    ],
+    "7. `EnemyAI` configuration and per-enemy state": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790861395909
+      }
+    ],
+    "9. `EnemyAI` kiting / standoff integration": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862567802
+      }
+    ],
+    "8. `EnemyAI` natural-behavior integration": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790862571291
+      }
+    ],
+    "11. Telegraph integration (red fill in execution + projectile recolor)": [
+      {
+        "executionId": "9e866de7-b432-4738-9bb0-fc5120bcc653",
+        "chatSessionId": "sess_d1ea2733-b9f5-4418-aa7c-ca0e695075b4",
+        "timestamp": 1790863197553
+      }
+    ]
+  }
+}

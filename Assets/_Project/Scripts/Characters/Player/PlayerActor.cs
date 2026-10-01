@@ -76,6 +76,36 @@ public class PlayerActor : Actor, IExternalPullTarget
             return _runBoons && _runBoons.isActiveAndEnabled ? _runBoons.Hooks : null;
         }
     }
+
+    /// <summary>
+    /// Per-run Rain Mark registry (R10), owned by <see cref="RunBoons"/>. Resolved through the same
+    /// run-scoped reference used for <see cref="RunModifiers"/>/<see cref="Hooks"/> (RunBoons ownership,
+    /// no scene lookups). Null outside an active run or when the Bow ultimate boon was never chosen, so
+    /// callers must null-guard before use.
+    /// </summary>
+    public RainMarkRegistry RainMarks
+    {
+        get
+        {
+            if (!_runBoons) TryGetComponent(out _runBoons);
+            return _runBoons && _runBoons.isActiveAndEnabled ? _runBoons.RainMarks : null;
+        }
+    }
+
+    /// <summary>
+    /// Per-run Edge Strike vulnerability registry (R13), owned by <see cref="RunBoons"/>. Resolved
+    /// through the same run-scoped reference used for <see cref="RunModifiers"/>/<see cref="Hooks"/>
+    /// (RunBoons ownership, no scene lookups). Null outside an active run or when the Spear edge boon
+    /// was never chosen, so callers must null-guard before use.
+    /// </summary>
+    public EdgeVulnerabilityRegistry EdgeVulnerabilities
+    {
+        get
+        {
+            if (!_runBoons) TryGetComponent(out _runBoons);
+            return _runBoons && _runBoons.isActiveAndEnabled ? _runBoons.EdgeVulnerabilities : null;
+        }
+    }
     private float baseMaxHealth;
     private float baseMaxMana;
 
@@ -260,6 +290,19 @@ public class PlayerActor : Actor, IExternalPullTarget
             damage *= modifiers.DirectDamageMultiplier(Vector3.Distance(transform.position, enemy.transform.position),
                 enemy.health / Mathf.Max(1f, enemy.maxHealth), health / Mathf.Max(1f, maxHealth),
                 (enemy.GetComponent<BurnStatus>() ? 1 : 0) + (enemy.GetComponent<ChillStatus>() ? 1 : 0));
+        // R10.2 (RainMark): a direct hit on a marked enemy is amplified by (1 + 0.2*R) while the mark
+        // lasts. AmplifierFor returns 1 for unmarked/expired enemies, so this is a clean no-op without the
+        // boon or outside the mark. Composes multiplicatively with DirectDamageMultiplier above and writes
+        // no asset — the registry only reads its run-scoped mark state.
+        RainMarkRegistry rainMarks = RainMarks;
+        if (rainMarks != null) damage *= rainMarks.AmplifierFor(enemy);
+        // R13.2 (EdgeStrike): a direct hit on an enemy whose vulnerability window is open (opened by a
+        // prior edge-of-reach hit) is amplified while the window lasts. AmplifierFor returns 1 for enemies
+        // with no open window, so this is a clean no-op without the boon or outside the window. Composes
+        // multiplicatively with DirectDamageMultiplier and the RainMark amplifier above and writes no
+        // asset — the registry only reads its run-scoped window state.
+        EdgeVulnerabilityRegistry edgeVuln = EdgeVulnerabilities;
+        if (edgeVuln != null) damage *= edgeVuln.AmplifierFor(enemy);
         float before = enemy.health;
         enemy.TakeDamage(damage);
         float dealt = before - enemy.health;
@@ -281,6 +324,23 @@ public class PlayerActor : Actor, IExternalPullTarget
                 if (enemy.IsDead) hooks.RaiseKill(enemy);
             }
         }
+    }
+
+    /// <summary>
+    /// Surfaces a Basic_Attack direct hit on the per-run <see cref="HookBus"/>'s dedicated basic
+    /// channel (R3.1/R3.2). Called <b>only</b> from the <c>HitboxDamage</c> path, so the basic
+    /// channel never fires for skill hits (R3.3). <paramref name="dealt"/> is the damage actually
+    /// applied (measured by the caller); the kill is read from the enemy's post-damage state. Does
+    /// NOT re-raise the generic <c>OnHit</c>/<c>OnKill</c> events (R3.4) — <see cref="DealResolvedAttackDamage(Actor,float)"/>
+    /// already raised those for this hit. The bus is absent outside a run, so it is null-guarded.
+    /// </summary>
+    public void RaiseBasicAttackHit(Actor enemy, float dealt)
+    {
+        if (!enemy || dealt <= 0f) return;
+        HookBus hooks = Hooks;
+        if (hooks == null) return;
+        hooks.RaiseBasicHit(enemy, dealt);
+        if (enemy.IsDead) hooks.RaiseBasicKill(enemy);
     }
 
     public AttackDamageRoll RollAttackDamage(float weaponDamage, float skillMultiplier = 1f, float addedDamage = 0f)
@@ -601,8 +661,10 @@ public class PlayerActor : Actor, IExternalPullTarget
     /// into a stale handler after the player object is torn down at run end. Also ends any in-flight
     /// external pull so its cleanup restores control before teardown.
     /// </summary>
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
+
         if (_externalPullCoroutine != null)
         {
             StopCoroutine(_externalPullCoroutine);
@@ -696,6 +758,13 @@ public class PlayerActor : Actor, IExternalPullTarget
 
         hbDamage.Configure(this, newWeapon.attackDamage, newWeapon.HitEffectResourcePath);
 
+        // Gauntlet (Manopla) basic swings must not shove the enemy: when the equipped weapon is the
+        // Gauntlet family (identified by carrying a BreakerGauntletAbility, so no name/ordering coupling),
+        // zero the basic hitbox's push so the swing lands in place while keeping its stagger/stance
+        // reaction. Other weapons keep their authored push. Mirrors the per-step push zeroing applied to
+        // the Gauntlet skills in BreakerGauntletCombat.
+        if (WeaponUsesGauntletBasic(newWeapon)) hbDamage.SetPushDistance(0f);
+
         Collider[] colliders = hitboxInstance.GetComponentsInChildren<Collider>();
         if (colliders.Length == 0)
         {
@@ -717,6 +786,20 @@ public class PlayerActor : Actor, IExternalPullTarget
 
         rb.isKinematic = true;
         rb.useGravity = false;
+    }
+
+    /// <summary>
+    /// True when <paramref name="weapon"/> is a Gauntlet-family weapon, detected by carrying at least one
+    /// <see cref="BreakerGauntletAbility"/> in its skill list. Used to make the Gauntlet's basic swing land
+    /// without a push nudge (its skills are handled in <c>BreakerGauntletCombat</c>). Data-driven so it does
+    /// not couple to a weapon name or component initialization order.
+    /// </summary>
+    private static bool WeaponUsesGauntletBasic(WeaponScript weapon)
+    {
+        if (!weapon || weapon.abilities == null) return false;
+        foreach (Ability ability in weapon.abilities)
+            if (ability is BreakerGauntletAbility) return true;
+        return false;
     }
 
     private void UpdateManaBar()

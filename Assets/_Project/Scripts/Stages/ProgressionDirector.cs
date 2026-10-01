@@ -550,6 +550,9 @@ public sealed class ProgressionDirector : MonoBehaviour
             actor.Died += OnEnemyDied;
             if (actor.TryGetComponent(out SpawnerBehavior spawner))
             {
+                // Confine this Spawner's produced Swarms to the sealed arena so they never spawn in a
+                // doorway/corridor outside the room (bug fix): inject the room's world center + size.
+                spawner.ConfigureArenaBounds(ToWorld(room.Center), room.Size);
                 Action<Actor> handler = child => RegisterProducedEnemy(child, room.Id);
                 _spawnHandlers[spawner] = handler;
                 spawner.Produced += handler;
@@ -710,6 +713,14 @@ public sealed class ProgressionDirector : MonoBehaviour
         float halfX = Mathf.Max(1f, room.Size.x * 0.5f - 1.5f);
         float halfZ = Mathf.Max(1f, room.Size.y * 0.5f - 1.5f);
 
+        // Prefer a spot right beside the player (R6.2): ring-sample a small radius AROUND THE PLAYER
+        // rather than the room center, so the reward (and the extraction portal) appears next to where
+        // the player actually is. Candidates are still clamped to the room bounds so nothing lands past
+        // a sealed door or inside a wall, snapped to the NavMesh, and required to be reachable by a
+        // complete path. Mirrors the FirstSectorDirector FindReachableSpot pattern.
+        float maxRingRadius = Mathf.Max(2f, Mathf.Min(halfX, halfZ));
+        float minRingRadius = Mathf.Min(2f, maxRingRadius);
+
         Vector3 nearestReachable = center;
         float nearestSqr = float.PositiveInfinity;
         bool hasReachable = false;
@@ -717,8 +728,8 @@ public sealed class ProgressionDirector : MonoBehaviour
         for (int attempt = 0; attempt < TrophyPlacementAttempts; attempt++)
         {
             float angle = UnityEngine.Random.value * Mathf.PI * 2f;
-            float radius = UnityEngine.Random.Range(1.5f, Mathf.Min(halfX, halfZ));
-            Vector3 candidate = center + new Vector3(Mathf.Cos(angle) * radius, 0f, Mathf.Sin(angle) * radius);
+            float radius = UnityEngine.Random.Range(minRingRadius, maxRingRadius);
+            Vector3 candidate = playerPosition + new Vector3(Mathf.Cos(angle) * radius, 0f, Mathf.Sin(angle) * radius);
             candidate.x = Mathf.Clamp(candidate.x, center.x - halfX, center.x + halfX);
             candidate.z = Mathf.Clamp(candidate.z, center.z - halfZ, center.z + halfZ);
 
@@ -732,7 +743,8 @@ public sealed class ProgressionDirector : MonoBehaviour
                 && path.status == NavMeshPathStatus.PathComplete;
             if (reachable)
             {
-                float sqr = (hit.position - center).sqrMagnitude;
+                // Reachable AND near the player satisfies R6.2 directly; return the first such spot.
+                float sqr = (hit.position - playerPosition).sqrMagnitude;
                 if (sqr < nearestSqr)
                 {
                     nearestSqr = sqr;
@@ -740,7 +752,6 @@ public sealed class ProgressionDirector : MonoBehaviour
                     hasReachable = true;
                 }
 
-                // A reachable spot inside the room satisfies R6.2 directly.
                 return hit.position;
             }
         }
@@ -750,10 +761,10 @@ public sealed class ProgressionDirector : MonoBehaviour
             return nearestReachable;
         }
 
-        // R6.3 fallback: no reachable candidate after the attempt budget. Snap toward the nearest NavMesh
-        // point to the room center, log the diagnostic, and keep the room cleared.
+        // R6.3 fallback: no reachable candidate near the player after the attempt budget. Snap toward the
+        // nearest NavMesh point to the room center, log the diagnostic, and keep the room cleared.
         Debug.LogWarning(
-            $"ProgressionDirector could not place a reachable Reward_Trophy in Room #{room.Id} after "
+            $"ProgressionDirector could not place a reachable Reward_Trophy near the player in Room #{room.Id} after "
             + $"{TrophyPlacementAttempts} attempts; using the nearest NavMesh point to the room center (R6.3).",
             this);
         if (NavMesh.SamplePosition(center, out NavMeshHit centerHit, Mathf.Max(halfX, halfZ), NavMesh.AllAreas))
@@ -780,18 +791,17 @@ public sealed class ProgressionDirector : MonoBehaviour
     {
         Vector3 spot = FindReachableSpot(bossRoom);
 
-        var portalObject = new GameObject("Extraction_Portal");
-        portalObject.transform.SetParent(transform, false);
-        portalObject.transform.position = spot;
+        // Build a VISIBLE portal (glowing golden gate + light) via ScenePortal.Spawn rather than an
+        // empty GameObject, so the player can actually see where to extract. Spawn parents nothing and
+        // Configures the player + destination in the same frame the component is added, before the
+        // portal's Start() polling begins. The portal is re-parented under this director so it is torn
+        // down with the Stage. The destination comes from the serialized _returnScene (never a magic
+        // string).
+        ScenePortal portal = ScenePortal.Spawn(spot, _player.transform, _returnScene);
+        portal.transform.SetParent(transform, true);
 
-        var portal = portalObject.AddComponent<ScenePortal>();
-        // Configure in the same frame as AddComponent: ScenePortal.Start() begins its distance-polling
-        // coroutine as soon as the component exists, so the player + destination must be set before then.
-        portal.Configure(_player.transform, _returnScene);
-
-        // R8.2: point the HUD objective at the extraction portal now that it exists (same TMP write pattern
-        // as UpdateExplorationObjective). The display string is HUD copy, not a scene destination magic
-        // string — the portal's destination comes from the serialized _returnScene above.
+        // R8.2: point the HUD objective at the extraction portal now that it exists (same TMP write
+        // pattern as UpdateExplorationObjective).
         if (_objective) _objective.text = "SETOR PURIFICADO\nEntre no portal de extração para retornar ao Nexus.";
     }
 

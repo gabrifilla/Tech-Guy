@@ -86,7 +86,7 @@ public static class ArsenalValidation
                     // (Task 6/8): validate the LobbyArsenal component exposes exactly three pedestals
                     // with weapon indices 0/1/2 and reachable interaction anchors, instead of a
                     // LobbyInteraction station carrying the removed "weaponSelection" flag.
-                    var arsenal = Object.FindFirstObjectByType<LobbyArsenal>();
+                    var arsenal = Object.FindAnyObjectByType<LobbyArsenal>();
                     Require(arsenal, "Arsenal pedestals present");
                     var arsenalData = new SerializedObject(arsenal);
                     var pedestals = arsenalData.FindProperty("_pedestals");
@@ -97,7 +97,7 @@ public static class ArsenalValidation
                         Require(pedestal.FindPropertyRelative("weaponIndex").intValue == p, "Pedestal weapon index " + p);
                         Require(pedestal.FindPropertyRelative("anchor").objectReferenceValue is Transform, "Pedestal " + p + " anchor assigned");
                     }
-                    var guide = Object.FindFirstObjectByType<LobbyInteraction>();
+                    var guide = Object.FindAnyObjectByType<LobbyInteraction>();
                     FieldInfo panel = typeof(LobbyInteraction).GetField("_showDetails", BindingFlags.Instance | BindingFlags.NonPublic);
                     panel.SetValue(guide, true);
                     Require(_holder.BlocksWorldInput && !_holder.TryUseAbility(0), "Open panel blocks attacks and skills");
@@ -189,7 +189,7 @@ public static class ArsenalValidation
 
     private static void ResolvePlayer()
     {
-        _player = Object.FindFirstObjectByType<PlayerActor>();
+        _player = Object.FindAnyObjectByType<PlayerActor>();
         Require(_player && _player.HandTransform, "Player equipped dependencies");
         _holder = _player.GetComponent<AbilityHolder>();
     }

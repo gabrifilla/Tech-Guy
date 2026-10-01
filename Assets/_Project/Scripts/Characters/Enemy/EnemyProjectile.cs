@@ -33,6 +33,35 @@ public sealed class EnemyProjectile : MonoBehaviour
 
     private const string UnlitShader = "Universal Render Pipeline/Unlit";
     private const float GeometryProbeRadius = 0.2f;
+    private const string PoolRootName = "EnemyProjectile";
+
+    /// <summary>
+    /// Shared pool backing <see cref="Spawn"/>. Reuses an inactive projectile instance instead of
+    /// <c>new GameObject</c> per shot (R3.2); the factory creates the GameObject + component once per
+    /// instance and parents it under the lazy "EnemyProjectilePool" root, mirroring
+    /// <c>HitboxDamage.EnsureEffectPoolRoot</c> (R3.5). An empty pool expands by creating a new
+    /// instance, so a shot is never dropped (R3.7). The full acquire-time reset and the
+    /// <c>Destroy</c> → <c>ReleaseToPool</c> swap are task 4.2; today <see cref="Configure"/> still
+    /// runs on every acquire exactly as before.
+    /// </summary>
+    private static ComponentPool<EnemyProjectile> _pool;
+
+    static EnemyProjectile()
+    {
+        // The pool is static, so its contents would otherwise survive between Play sessions in the
+        // Editor and reference destroyed GameObjects. Drop it at the start of each play / on domain
+        // reload so the next play rebuilds it fresh (same pattern as CombatBalance).
+        PoolResetRegistry.Register(() => _pool = null);
+    }
+
+    private static ComponentPool<EnemyProjectile> Pool =>
+        _pool ??= new ComponentPool<EnemyProjectile>(CreatePooledInstance, reset: null, rootName: PoolRootName);
+
+    private static EnemyProjectile CreatePooledInstance()
+    {
+        var go = new GameObject("Enemy projectile");
+        return go.AddComponent<EnemyProjectile>();
+    }
 
     private ProjectileMotion _motion;
     private Actor _owner;
@@ -90,6 +119,14 @@ public sealed class EnemyProjectile : MonoBehaviour
         _color = color;
         _motion = new ProjectileMotion(range);
 
+        // task 4.2: Configure runs on every pool acquire, so clear everything that persists between
+        // uses before re-arming. A reused instance must behave exactly like a freshly created one
+        // (R3.4). Clear a stale impact telegraph from a previous arced flight, reset the arced-flight
+        // clock, and re-subscribe the (possibly new) owner from a clean state.
+        ClearImpactTelegraph();
+        _flightElapsed = 0f;
+        UnsubscribeOwner();
+
         BuildVisual();
         SubscribeOwner();
 
@@ -119,24 +156,30 @@ public sealed class EnemyProjectile : MonoBehaviour
         _flightElapsed = 0f;
 
         // Ground-area impact telegraph, shown for the full flight and intensifying on approach (R10.4-adjacent).
-        _impactTelegraph = CombatGroundRing.Create(null, "Bomber impact", _color);
+        // The telegraph base is the shared red danger-zone color, independent of the projectile tint,
+        // so every attack telegraph reads the same (R5.1, R5.2); it intensifies toward impact in StepArced (R7.3).
+        _impactTelegraph = CombatGroundRing.Create(null, "Bomber impact", TelegraphFill.RedBase);
         _impactTelegraph.Draw(_groundPoint, _groundImpactRadius, 0.12f);
     }
 
     private void BuildVisual()
     {
-        _renderer = GetComponent<Renderer>();
+        // task 4.2: build the mesh child and the runtime material once per pooled instance and reuse
+        // them on every acquire (R3.8). On reuse we only re-tint the existing material and re-apply
+        // the current radius, never allocating a new Material/mesh per shot.
         if (_renderer == null)
         {
             var mesh = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             var col = mesh.GetComponent<Collider>();
             if (col) Destroy(col); // collision handled analytically; no physics trigger needed
             mesh.transform.SetParent(transform, false);
-            mesh.transform.localScale = Vector3.one * (_radius * 2f);
             _renderer = mesh.GetComponent<Renderer>();
         }
 
-        _runtimeMaterial = new Material(Shader.Find(UnlitShader));
+        if (_renderer) _renderer.transform.localScale = Vector3.one * (_radius * 2f);
+
+        if (_runtimeMaterial == null)
+            _runtimeMaterial = new Material(Shader.Find(UnlitShader));
         _runtimeMaterial.SetColor("_BaseColor", _color);
         if (_renderer) _renderer.sharedMaterial = _runtimeMaterial;
     }
@@ -158,9 +201,11 @@ public sealed class EnemyProjectile : MonoBehaviour
 
     private void OnOwnerDied(Actor owner)
     {
-        // Owner death cascades to this in-flight projectile: stop, no further damage (R19.6).
+        // Owner death cascades to this in-flight projectile: stop, no further damage (R19.6). The
+        // cascade behaviour is unchanged — only the teardown is now a pool release instead of a
+        // Destroy, so the instance can be reused (R3.2/R3.6).
         _motion?.MarkOwnerGone();
-        Destroy(gameObject);
+        ReleaseToPool();
     }
 
     private void Update()
@@ -171,7 +216,7 @@ public sealed class EnemyProjectile : MonoBehaviour
         if (_ownerSubscribed && !_owner)
         {
             _motion.MarkOwnerGone();
-            Destroy(gameObject);
+            ReleaseToPool();
             return;
         }
 
@@ -205,7 +250,7 @@ public sealed class EnemyProjectile : MonoBehaviour
             _target.TakeDamage(_damage);
 
         if (result.ShouldDestroy)
-            Destroy(gameObject);
+            ReleaseToPool();
     }
 
     private void StepArced()
@@ -221,8 +266,9 @@ public sealed class EnemyProjectile : MonoBehaviour
         float height = _arcHeight * Mathf.Sin(t * Mathf.PI);
         transform.position = ground + Vector3.up * height;
 
-        // Intensify the ground telegraph toward its impact appearance as the projectile approaches (R10.4).
-        if (_impactTelegraph) _impactTelegraph.SetColor(Color.Lerp(_color, Color.white, 0.65f * t));
+        // Intensify the ground telegraph toward its impact appearance as the projectile approaches,
+        // lerping from the shared red base toward white and reaching max intensity at impact (R7.3).
+        if (_impactTelegraph) _impactTelegraph.SetColor(Color.Lerp(TelegraphFill.RedBase, Color.white, 0.65f * t));
 
         if (t < 1f) return;
 
@@ -234,7 +280,7 @@ public sealed class EnemyProjectile : MonoBehaviour
         if (applied && _target && !_target.IsDead)
             _target.TakeDamage(_damage);
 
-        Destroy(gameObject); // projectile + its impact telegraph removed on land (R10.5)
+        ReleaseToPool(); // projectile + its impact telegraph removed on land (R10.5)
     }
 
     /// <summary>
@@ -262,17 +308,46 @@ public sealed class EnemyProjectile : MonoBehaviour
         _motion?.MarkOwnerGone();
     }
 
-    private void OnDestroy()
+    /// <summary>
+    /// task 4.2: terminal teardown for a pooled projectile. Returns the instance to the pool for
+    /// reuse instead of destroying it. It performs the same observable cleanup <see cref="OnDestroy"/>
+    /// did — unsubscribe the owner and hide/clear the impact telegraph — but preserves the reusable
+    /// <see cref="_runtimeMaterial"/> (and its mesh) so nothing is reallocated on the next shot
+    /// (R3.8). The owner-death cascade and the "no further damage" guarantee are unchanged (R3.6):
+    /// callers still mark the motion gone before releasing, and <see cref="ComponentPool{T}.Release"/>
+    /// deactivates the instance, which trips <see cref="OnDisable"/> exactly as before.
+    /// </summary>
+    private void ReleaseToPool()
     {
-        // Release everything created at runtime within the same frame the projectile is destroyed,
-        // leaving no orphaned material or effect instance (R19.5).
         UnsubscribeOwner();
+        ClearImpactTelegraph();
+        _configured = false;
+        Pool.Release(this);
+    }
+
+    /// <summary>
+    /// Hides and destroys the arced-path ground telegraph (a separate runtime GameObject recreated by
+    /// <see cref="SetupArced"/> on each arced flight), mirroring the telegraph cleanup
+    /// <see cref="OnDestroy"/> performed. The projectile's own reusable material is intentionally left
+    /// untouched here.
+    /// </summary>
+    private void ClearImpactTelegraph()
+    {
         if (_impactTelegraph)
         {
             _impactTelegraph.gameObject.SetActive(false);
             Destroy(_impactTelegraph.gameObject);
             _impactTelegraph = null;
         }
+    }
+
+    private void OnDestroy()
+    {
+        // Release everything created at runtime when the instance is finally destroyed (scene unload /
+        // domain reload), leaving no orphaned material or effect instance (R19.5). During gameplay the
+        // projectile is now returned to the pool via ReleaseToPool instead of being destroyed.
+        UnsubscribeOwner();
+        ClearImpactTelegraph();
         if (_runtimeMaterial)
         {
             Destroy(_runtimeMaterial);
@@ -289,12 +364,17 @@ public sealed class EnemyProjectile : MonoBehaviour
         float damage, float speed, float range, float radius, PathKind path, Color color,
         float groundImpactRadius = 1f)
     {
-        var go = new GameObject("Enemy projectile");
-        go.transform.position = origin;
-        if (direction.sqrMagnitude > 0.0001f)
-            go.transform.rotation = Quaternion.LookRotation(direction.normalized);
+        // Acquire a (reused or freshly created) instance from the pool instead of allocating a new
+        // GameObject per shot (R3.2/R3.7). The acquire activates the instance; we then place it and
+        // call Configure(...) exactly as before — no call-site changes (EnemyCombatActions,
+        // HazardCasterBehavior).
+        var projectile = Pool.Acquire();
 
-        var projectile = go.AddComponent<EnemyProjectile>();
+        Transform t = projectile.transform;
+        t.position = origin;
+        if (direction.sqrMagnitude > 0.0001f)
+            t.rotation = Quaternion.LookRotation(direction.normalized);
+
         projectile.Configure(owner, target, damage, speed, range, radius, path, color, groundImpactRadius);
         return projectile;
     }

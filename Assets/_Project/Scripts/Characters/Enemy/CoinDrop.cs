@@ -97,7 +97,21 @@ public sealed class CoinDrop : MonoBehaviour
     {
         Vector3 offset = Random.insideUnitSphere * _scatterRadius;
         offset.y = 0f;
-        CoinPickup pickup = Instantiate(prefab, origin + offset, Quaternion.Euler(0f, Random.value * 360f, 0f));
+        Vector3 position = origin + offset;
+        Quaternion rotation = Quaternion.Euler(0f, Random.value * 360f, 0f);
+
+        // Acquire from the shared coin pool instead of Instantiate per coin. A per-enemy prefab
+        // override (or an empty pool that failed to load) falls back to the current Instantiate path.
+        CoinPickup pickup = _coinPrefab ? null : CoinPickup.Acquire();
+        if (pickup)
+        {
+            pickup.transform.SetPositionAndRotation(position, rotation);
+        }
+        else
+        {
+            pickup = Instantiate(prefab, position, rotation);
+        }
+
         pickup.SetValue(coins);
         Transform player = ResolvePlayer();
         if (player) pickup.SetPlayer(player);

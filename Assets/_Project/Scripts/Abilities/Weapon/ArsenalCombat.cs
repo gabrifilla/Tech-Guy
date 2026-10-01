@@ -196,6 +196,21 @@ public sealed class ArsenalCombat : MonoBehaviour
                     if (radial && ability.Kind == ArsenalSkillKind.Sweep && primaryHits > 0)
                         ApplySweepDisplacement(center, direction, plan);
 
+                    // R12.1/R12.2/R12.3 (PikeWall): while the sweep runs and the plan declares a control
+                    // zone, push each caught enemy OUTWARD from the zone centre through its own
+                    // SoftGroupingService (never a teleport). Reuses the ApplySweepDisplacement pattern but
+                    // inverts the direction to point outward from the centre, scaled by plan.ZonePush.
+                    if (radial && ability.Kind == ArsenalSkillKind.Sweep && plan.ControlZone)
+                        ApplyZonePush(center, plan);
+
+                    // R10.1 (RainMark): each resolved rain pulse marks the enemies it caught. The per-cast
+                    // plan declares MarkOnPulse from the boon rank, so this only runs for the Bow R while the
+                    // boon is active. Marking goes through the run-scoped RainMarkRegistry (resolved from the
+                    // player, no scene lookup); the registry applies the slow and answers the amplifier. The
+                    // source ability asset is never touched (R10.4).
+                    if (radial && ability.Kind == ArsenalSkillKind.Rain && plan.MarkOnPulse)
+                        MarkRainPulse(center, plan);
+
                     if (plan.WaveMultiplier > 0)
                         // R7.4: ReturnWave flips the wave back toward the player at max range.
                         ArsenalProjectile.Fire(_player, origin + Vector3.up, direction, weapon.attackDamage,
@@ -210,6 +225,16 @@ public sealed class ArsenalCombat : MonoBehaviour
                     // through its own SoftGroupingService — never a hard impulse or teleport.
                     if (!radial && plan.ImpalePull > 0f && primaryHits > 0)
                         ApplyImpalePull(center, direction, plan);
+
+                    // gauntlet-boon-playstyle-overhaul R11 (SpacingRecoil, "Recuo controlado"): on a
+                    // CONNECTING thrust only (primaryHits > 0, R11.1/R11.4), step the player back toward the
+                    // ideal spacing band. The backward step comes from the pure SpacingBand (scaled by rank,
+                    // clamped to the band's upper edge, R11.2) and the move is routed through the player's own
+                    // NavMeshAgent (Raycast + Move) so it respects the navmesh and never crosses scenery
+                    // (R11.3). A whiff (primaryHits == 0) does nothing.
+                    if (!radial && plan.SpacingRecoil && primaryHits > 0)
+                        ApplySpacingRecoil(center, direction, plan,
+                            _player.RunModifiers != null ? _player.RunModifiers.Rank(WeaponBoon.SpacingRecoil) : 0);
 
                     // R7.5/R7.6: on a connecting thrust, chain exactly one short thrust to a different nearby enemy.
                     if (!radial && plan.ChainThrust && primaryHits > 0)
@@ -293,6 +318,74 @@ public sealed class ArsenalCombat : MonoBehaviour
             if (delta == Vector3.zero) yield break;
             moved += locomotion.ApplyExternalDisplacement(delta).magnitude;
             yield return null;
+        }
+    }
+
+    // R12.1/R12.2/R12.3 (PikeWall): push each enemy caught by the control-zone sweep OUTWARD from the
+    // zone centre. Mirrors ApplySweepDisplacement, but each enemy is glided along the centre->enemy
+    // heading (outward) rather than along the sweep direction, with the magnitude scaled by
+    // plan.ZonePush (the +30%-per-rank term). The push is routed through each enemy's own
+    // SoftGroupingService (R12.3) — the same bounded-displacement locomotion channel the sweep reuses —
+    // so an enemy without that service is simply not pushed (no hard impulse, nothing teleports through
+    // scenery). Driven entirely off the per-cast plan snapshot (R12.4); the source asset is never touched.
+    private void ApplyZonePush(Vector3 center, ArsenalCastPlan plan)
+    {
+        float radius = Mathf.Max(.1f, plan.Width);
+        int count = Physics.OverlapSphereNonAlloc(center, radius, _overlap,
+            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
+        for (int i = 0; i < count; i++)
+        {
+            Actor enemy = _overlap[i].GetComponentInParent<Actor>();
+            if (!enemy || enemy == _player || enemy.IsDead || !enemy.isActiveAndEnabled) continue;
+            if (!enemy.TryGetComponent(out SoftGroupingService locomotion)) continue;
+            StartCoroutine(GlidePushedEnemy(locomotion, enemy, center, plan.ZonePush));
+        }
+    }
+
+    // Glides a single caught enemy outward from the zone centre over multiple frames. The outward
+    // heading (centre->enemy) is recomputed each frame so the push always points away from the centre,
+    // and the magnitude is scaled by (1 + zonePush): the sweep's budget/speed caps grow by the
+    // +30%-per-rank factor so a higher PikeWall rank pushes farther (R12.2). The step is moved through
+    // the enemy's own locomotion (R12.3); the glide stops as soon as the scaled total budget is spent,
+    // the enemy dies, or the heading becomes degenerate (enemy exactly on the centre).
+    private IEnumerator GlidePushedEnemy(SoftGroupingService locomotion, Actor enemy, Vector3 center, float zonePush)
+    {
+        float scale = 1f + Mathf.Max(0f, zonePush);
+        float budget = SpearSweepDisplacement.MaxTotalDisplacement * scale;
+        float moved = 0f;
+        while (moved < budget)
+        {
+            if (!enemy || enemy.IsDead || !enemy.isActiveAndEnabled || !locomotion) yield break;
+            Vector3 outward = enemy.transform.position - center; outward.y = 0f;
+            if (outward.sqrMagnitude < .0001f) yield break; // degenerate: enemy sits on the centre
+            outward.Normalize();
+            // Per-step magnitude mirrors SpearSweepDisplacement's clamp (speed cap x deltaTime, bounded by
+            // the remaining budget), with the whole budget scaled by the rank factor so the outward push
+            // reaches 0.75 * (1 + 0.3R) m total at <= 1.5 * (1 + 0.3R) m/s — never an instantaneous impulse.
+            float step = Mathf.Min(SpearSweepDisplacement.MaxSpeed * scale * Time.deltaTime, budget - moved);
+            if (step <= 0f) yield break;
+            moved += locomotion.ApplyExternalDisplacement(outward * step).magnitude;
+            yield return null;
+        }
+    }
+
+    // R10.1 (RainMark): mark every enemy caught by a resolved rain pulse. The pulse hits a sphere at
+    // `center` with radius plan.Width (the same radial sphere the pulse's TryApplyAreaDamage used), so we
+    // overlap that sphere and feed each live enemy to the run-scoped RainMarkRegistry — resolved from the
+    // player (RunBoons ownership, no scene lookup) and null outside an active run / without the boon. The
+    // registry owns the mark duration, the slow, and the amplifier; this method only reports who was hit.
+    private void MarkRainPulse(Vector3 center, ArsenalCastPlan plan)
+    {
+        RainMarkRegistry registry = _player ? _player.RainMarks : null;
+        if (registry == null) return;
+        float radius = Mathf.Max(.1f, plan.Width);
+        int count = Physics.OverlapSphereNonAlloc(center, radius, _overlap,
+            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
+        for (int i = 0; i < count; i++)
+        {
+            Actor enemy = _overlap[i].GetComponentInParent<Actor>();
+            if (!enemy || enemy == _player || enemy.IsDead || !enemy.isActiveAndEnabled) continue;
+            registry.Mark(enemy);
         }
     }
 
@@ -442,6 +535,42 @@ public sealed class ArsenalCombat : MonoBehaviour
         Vector3 desired = transform.position - back.normalized * backstepDistance;
         if (NavMesh.SamplePosition(desired, out NavMeshHit hit, backstepDistance + 1f, _agent.areaMask))
             _agent.Warp(hit.position);
+    }
+
+    // gauntlet-boon-playstyle-overhaul R11 (SpacingRecoil, "Recuo controlado"): step the player straight
+    // back (away from the thrust direction) to settle into the ideal spacing band after a thrust connects.
+    // The backward step is decided by the pure SpacingBand from the current distance to the thrust target
+    // and the SpacingRecoil rank (resolved from WeaponRunModifiers at the call site and passed in), clamped
+    // so the player never leaves the band's upper edge (R11.2). The move is routed through the player's own
+    // NavMeshAgent (Raycast to clamp to the mesh, then Move) exactly like the Manopla advance, so it respects
+    // the navmesh and never crosses scenery (R11.3). It is a no-op without a live agent, without a resolvable
+    // target, or when the rank/step collapses to zero. The caller only invokes it on a connecting thrust
+    // (primaryHits > 0), so a whiff never steps back (R11.4).
+    private void ApplySpacingRecoil(Vector3 center, Vector3 direction, ArsenalCastPlan plan, int rank)
+    {
+        if (!_agent || !_agent.enabled || !_agent.isOnNavMesh) return;        // never teleport without a live agent
+        if (rank <= 0) return;
+
+        // The thrust connects with the enemy straight ahead; measure the current spacing to that target so
+        // SpacingBand knows how far to step back. Without a resolvable target there is nothing to space from.
+        Actor target = FindNearbyEnemy(center, Mathf.Max(.1f, plan.Range), direction, plan.Range);
+        if (!target) return;
+        Vector3 toTarget = target.transform.position - transform.position; toTarget.y = 0f;
+        float currentDistance = toTarget.magnitude;
+        if (currentDistance < .001f) return;
+
+        float step = SpacingBand.StepBack(currentDistance, rank);
+        if (step <= 0f) return;
+
+        Vector3 back = direction; back.y = 0f;
+        if (back.sqrMagnitude < .001f) return;
+        back.Normalize();
+
+        // Clamp the destination to the navmesh (Raycast returns the mesh edge when the straight-line step
+        // would leave the navigable area) and move via the agent so the recoil never tunnels through walls.
+        Vector3 destination = transform.position - back * step;
+        if (_agent.Raycast(destination, out NavMeshHit edge)) destination = edge.position;
+        _agent.Move(destination - transform.position);
     }
 
     public void Cancel()

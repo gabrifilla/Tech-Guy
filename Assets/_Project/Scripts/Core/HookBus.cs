@@ -29,6 +29,20 @@ public sealed class HookBus
     /// <summary>Raised at most once per enemy when it dies (deduped by <see cref="_killed"/>).</summary>
     public event Action<Actor> OnKill;
 
+    /// <summary>
+    /// Raised on every Basic_Attack direct hit that dealt damage, with the struck actor and
+    /// damage dealt. Fired <b>only</b> by the <c>HitboxDamage</c> path, so subscribers react to
+    /// the basic attack and never to skill hits. Additional to <see cref="OnHit"/>, which still
+    /// fires for the same hit.
+    /// </summary>
+    public event Action<Actor, float> OnBasicHit;
+
+    /// <summary>
+    /// Raised at most once per enemy when a Basic_Attack direct hit kills it (deduped by
+    /// <see cref="_basicKilled"/>). Fired only by the <c>HitboxDamage</c> path.
+    /// </summary>
+    public event Action<Actor> OnBasicKill;
+
     /// <summary>Raised when an actor becomes frozen (chill at or above the freeze threshold).</summary>
     public event Action<Actor> OnFreeze;
 
@@ -47,6 +61,12 @@ public sealed class HookBus
     /// <summary>Enemies already reported dead this run, so <see cref="OnKill"/> fires once each.</summary>
     private readonly HashSet<Actor> _killed = new HashSet<Actor>();
 
+    /// <summary>
+    /// Enemies already reported dead via the basic-hit channel this run, so <see cref="OnBasicKill"/>
+    /// fires once each. Kept separate from <see cref="_killed"/> so the two channels dedup independently.
+    /// </summary>
+    private readonly HashSet<Actor> _basicKilled = new HashSet<Actor>();
+
     /// <summary>Raises <see cref="OnHit"/> for a direct hit that dealt damage.</summary>
     public void RaiseHit(Actor actor, float damage) => Dispatch(OnHit, actor, damage);
 
@@ -62,6 +82,21 @@ public sealed class HookBus
         if (actor == null) return;
         if (!_killed.Add(actor)) return;
         Dispatch(OnKill, actor);
+    }
+
+    /// <summary>Raises <see cref="OnBasicHit"/> for a Basic_Attack direct hit that dealt damage.</summary>
+    public void RaiseBasicHit(Actor actor, float damage) => Dispatch(OnBasicHit, actor, damage);
+
+    /// <summary>
+    /// Raises <see cref="OnBasicKill"/> the first time an actor is reported killed by a Basic_Attack;
+    /// repeat notifications for the same actor are ignored. Null actors are ignored. Mirrors
+    /// <see cref="RaiseKill"/>/<see cref="_killed"/> with its own dedup set.
+    /// </summary>
+    public void RaiseBasicKill(Actor actor)
+    {
+        if (actor == null) return;
+        if (!_basicKilled.Add(actor)) return;
+        Dispatch(OnBasicKill, actor);
     }
 
     /// <summary>Raises <see cref="OnFreeze"/> for a frozen actor.</summary>
@@ -88,12 +123,15 @@ public sealed class HookBus
         OnHit = null;
         OnCrit = null;
         OnKill = null;
+        OnBasicHit = null;
+        OnBasicKill = null;
         OnFreeze = null;
         OnBurn = null;
         OnStanceBreak = null;
         OnDash = null;
         OnExplosion = null;
         _killed.Clear();
+        _basicKilled.Clear();
     }
 
     private static void Dispatch(Action handler)

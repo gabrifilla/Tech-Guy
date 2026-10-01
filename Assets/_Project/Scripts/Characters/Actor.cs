@@ -40,11 +40,23 @@ public class Actor : MonoBehaviour
             gameObject.AddComponent<EnemyCombatFeedback>();
         if (!(this is PlayerActor) && !TryGetComponent<CoinDrop>(out _))
             gameObject.AddComponent<CoinDrop>();
+
+        // Drive the health bar by event instead of per-frame (R4.2/R4.4). The actor already fires
+        // HealthChanged at every health-mutation point (TakeDamage/SetMaxHealth/Heal/
+        // RestoreHealthToMax), so subscribing here keeps the bar identical without the per-frame
+        // UpdateHealthBar cost that previously ran for every actor each frame.
+        HealthChanged += OnHealthChangedUpdateBar;
     }
 
-    void Update()
+    private void OnHealthChangedUpdateBar(Actor _)
     {
         UpdateHealthBar();
+    }
+
+    protected virtual void OnDestroy()
+    {
+        // Unsubscribe to avoid leaking the handler across destroyed actors.
+        HealthChanged -= OnHealthChangedUpdateBar;
     }
 
     public virtual void TakeDamage(float amount)
@@ -140,9 +152,20 @@ public class Actor : MonoBehaviour
     {
         if (healthBar != null)
         {
-            float resolvedMaxHealth = Mathf.Max(maxHealth, 0.0001f);
-            healthBar.fillAmount = Mathf.Clamp01(health / resolvedMaxHealth);
+            healthBar.fillAmount = HealthBarFill(health, maxHealth);
         }
+    }
+
+    /// <summary>
+    /// Pure fill computation for the health bar: <c>clamp01(health / max)</c>, with the same guard
+    /// against a non-positive <paramref name="maxHealth"/> the per-instance code used. Kept static and
+    /// side-effect free so it can be property-tested without a scene (Property 5), while the on-screen
+    /// result stays identical to the previous inline formula.
+    /// </summary>
+    public static float HealthBarFill(float health, float maxHealth)
+    {
+        float resolvedMaxHealth = Mathf.Max(maxHealth, 0.0001f);
+        return Mathf.Clamp01(health / resolvedMaxHealth);
     }
 
     protected virtual void Death()

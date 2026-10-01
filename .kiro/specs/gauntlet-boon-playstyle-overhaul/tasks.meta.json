@@ -1,0 +1,819 @@
+{
+  "pbtResults": {
+    "9.1 Write property test for the guard-break streak": {
+      "status": "passed",
+      "lastRunTimestamp": 1790877364919
+    },
+    "6.6 Write property test for the spacing band": {
+      "status": "passed",
+      "lastRunTimestamp": 1790882843698
+    }
+  },
+  "executionHistory": {
+    "1.1 Add the basic-hit channel to `HookBus`": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874444096
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874457425
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874580725
+      }
+    ],
+    "1.2 Fire the basic-hit channel from the hitbox path": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874444215
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874603125
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874749884
+      }
+    ],
+    "1.3 Write property test for the basic-hit channel routing": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874444331
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874771297
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875315027
+      }
+    ],
+    "1.4 Add `AbilityHolder.ReduceCooldowns`": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874444467
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874461397
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874581636
+      }
+    ],
+    "1.5 Write property test for `ReduceCooldowns`": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874444566
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874772088
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875316423
+      }
+    ],
+    "1.6 Add `BreakerGauntletCombat.AddAsuraEnergy` and `HitboxDamage.SetStanceBreakEffect`": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874444639
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874462634
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874583480
+      }
+    ],
+    "1.7 Add the value-type flags to `ArsenalCastPlan`": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874444748
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874463796
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874584319
+      }
+    ],
+    "2. Checkpoint - Ensure the project compiles and shared-infra tests pass": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874444866
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790883569778
+      }
+    ],
+    "3.1 Write example tests for catalog structure": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874444976
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875324646
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875591942
+      }
+    ],
+    "3.2 Write property tests for asset isolation, monotonicity, and order independence": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874445076
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875326042
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875592876
+      }
+    ],
+    "4.1 Write property tests for the retirement and offer composition": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874445181
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875766689
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790876123373
+      }
+    ],
+    "4.2 Write example tests for preserved boons staying offerable": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874445297
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875767571
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790876124410
+      }
+    ],
+    "5. Checkpoint - Ensure the project compiles and catalog/retirement tests pass": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874445432
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790883571186
+      }
+    ],
+    "6.1 Add `ConsecutiveHitCounter`": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874445590
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874604449
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874752229
+      }
+    ],
+    "6.2 Write property test for the consecutive-hit counter": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874445723
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875326981
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790876122144
+      }
+    ],
+    "6.3 Add `KitingImpulse`": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874445857
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874605338
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874753194
+      }
+    ],
+    "6.4 Write property test for the kiting impulse decision": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874445965
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875328444
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875594081
+      }
+    ],
+    "6.5 Add `SpacingBand`": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874446101
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874606653
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874755576
+      }
+    ],
+    "6.6 Write property test for the spacing band": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874446242
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875329250
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875590547
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882759607
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882862674
+      }
+    ],
+    "6.7 Add `EdgeBand`": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874446424
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874768452
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875313786
+      }
+    ],
+    "6.8 Write property test for the edge band": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874446510
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875598928
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875755751
+      }
+    ],
+    "7. Checkpoint - Ensure the project compiles and pure-class tests pass": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874446593
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790883572616
+      }
+    ],
+    "8.1 Write property test for Asura generation": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874446694
+      },
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877103529
+      },
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877518514
+      }
+    ],
+    "9.1 Write property test for the guard-break streak": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874446805
+      },
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877104381
+      },
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877520621
+      }
+    ],
+    "9.2 Write a PlayMode integration test for the knockback displacement": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874446954
+      },
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877105806
+      },
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877521170
+      }
+    ],
+    "10.1 Write example tests for the hungry-combo wiring": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874447057
+      },
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877107181
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790883590911
+      }
+    ],
+    "11.1 Write property test for the opt-in knockback": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874447160
+      },
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877108317
+      },
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877521978
+      }
+    ],
+    "12.1 Write a PlayMode integration test for the reposition impulse": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874447253
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882869422
+      }
+    ],
+    "13.1 Write property test for the adaptive cadence band": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874447333
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882863674
+      }
+    ],
+    "14.1 Write property test for the mark amplifier and slow round-trip": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874447464
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882784705
+      }
+    ],
+    "15.1 Write a PlayMode integration test for the step-back": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874447616
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882783785
+      }
+    ],
+    "16.1 Write property test for the outward push": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874447723
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882783504
+      }
+    ],
+    "16.2 Write a PlayMode integration test for the displacement channel": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874447858
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882781224
+      }
+    ],
+    "17.1 Write property test for the vulnerability window": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874447965
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882779973
+      }
+    ],
+    "18. Checkpoint - Ensure the project compiles and all boon tests pass": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874448050
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790883574022
+      }
+    ],
+    "19.1 Write property test for impactful family variety": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874448163
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790883521543
+      }
+    ],
+    "19.2 Write example tests for presentation": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874448277
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790883522958
+      }
+    ],
+    "20.1 Write property test for run-end teardown": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874448401
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882878612
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790883523896
+      }
+    ],
+    "20.2 Ensure all tests pass, ask the user if questions arise.": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874448503
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790883574936
+      }
+    ],
+    "3. Catalog registration for the ten new boons": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874602118
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874750964
+      }
+    ],
+    "4. Retirement filter in the offer composition": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790874769910
+      },
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875317379
+      }
+    ],
+    "1. Shared infrastructure: basic-hit channel, seam methods, and `Cast_Plan` flags": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790875316505
+      }
+    ],
+    "6. Pure decision classes with property tests": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790876122242
+      }
+    ],
+    "8. R4 - Asura Fist (gauntlet, basics charge Asura)": [
+      {
+        "executionId": "29ab7251-b426-4220-a1db-e373da3aa2e2",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790876142821
+      },
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877518604
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790879979459
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790880689560
+      }
+    ],
+    "9. R5 - Guard Breaker (gauntlet, 3 basics break stance + knockback)": [
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877521267
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790879980823
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790880690967
+      }
+    ],
+    "11. R7 - Seismic Fist (gauntlet, opt-in deliberate knockback)": [
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790877522060
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790879982161
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790880693756
+      }
+    ],
+    "10. R6 - Hungry Combo (gauntlet, basics cut skill cooldowns)": [
+      {
+        "executionId": "b823269c-e4d3-408b-97d1-8c048e38f8ab",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790878291663
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790880293995
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790880692404
+      }
+    ],
+    "12. R8 - Kiting Step (bow, fire-while-retreating reposition)": [
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790880720970
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882331895
+      }
+    ],
+    "13. R9 - Adaptive Cadence (bow, distance-driven firing cadence)": [
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790880721780
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882329056
+      }
+    ],
+    "14. R10 - Rain Mark (bow, ultimate marks + amplifies + slows)": [
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790880723186
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882332980
+      }
+    ],
+    "15. R11 - Spacing Recoil (spear, thrust settles into the ideal band)": [
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790880725061
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882330439
+      }
+    ],
+    "16. R12 - Pike Wall (spear, sweep control zone pushes enemies out)": [
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790880726036
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882327794
+      }
+    ],
+    "17. R13 - Edge Strike (spear, edge-of-reach reward)": [
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882339478
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882758634
+      }
+    ],
+    "19. Offer variety and presentation": [
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790882877789
+      },
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790883523101
+      }
+    ],
+    "20. Final checkpoint - Ensure the project compiles and run `TechGuy.Tests.EditMode`": [
+      {
+        "executionId": "4f848aff-2733-4d4b-8cfa-e5e4a1664008",
+        "chatSessionId": "sess_d8e7cb87-6f4f-48b2-ab0a-e3a8e04a9cb6",
+        "timestamp": 1790883575049
+      }
+    ]
+  }
+}

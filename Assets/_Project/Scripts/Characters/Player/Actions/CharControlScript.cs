@@ -99,6 +99,24 @@ public class CharControlScript : MonoBehaviour
     public event System.Action BasicAttackPerformed;
     public void RequireAttackRelease() => _waitForAttackRelease = true;
 
+    /// <summary>
+    /// gauntlet-boon-playstyle-overhaul R8: the player's already-computed locomotion direction, read
+    /// straight off the <see cref="NavMeshAgent"/>'s current velocity (horizontal, normalized). This is a
+    /// thin, read-only view of the movement the agent is already performing — no new movement logic is
+    /// introduced. <see cref="Vector3.zero"/> when standing still or when the agent is unavailable, so the
+    /// Kiting Step boon grants no impulse unless the player is actually moving (R8.1/R8.4).
+    /// </summary>
+    public Vector3 CurrentMoveDirection
+    {
+        get
+        {
+            if (agent == null) return Vector3.zero;
+            Vector3 velocity = agent.velocity;
+            velocity.y = 0f;
+            return velocity.sqrMagnitude > Mathf.Epsilon ? velocity.normalized : Vector3.zero;
+        }
+    }
+
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();

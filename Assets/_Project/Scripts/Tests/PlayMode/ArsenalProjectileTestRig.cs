@@ -121,10 +121,10 @@ namespace TechGuy.Tests
             // Fire the real projectile, then locate the newly spawned "Energy arrow" (the static Fire
             // does not return a handle) and tune the R1 knobs (bounce count / multiplier) that come
             // from run modifiers in production. The rig fires without TwinShot, so exactly one spawns.
-            var before = new HashSet<ArsenalProjectile>(Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None));
+            var before = new HashSet<ArsenalProjectile>(Object.FindObjectsByType<ArsenalProjectile>());
             ArsenalProjectile.Fire(Owner, origin, direction, Weapon.attackDamage, multiplier, range, piercing, Color.white);
             ArsenalProjectile arrow = null;
-            foreach (ArsenalProjectile candidate in Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None))
+            foreach (ArsenalProjectile candidate in Object.FindObjectsByType<ArsenalProjectile>())
                 if (!before.Contains(candidate)) { arrow = candidate; break; }
             if (arrow)
             {
@@ -148,10 +148,10 @@ namespace TechGuy.Tests
         /// </summary>
         public ArsenalProjectile FireHomingArrow(Vector3 origin, Vector3 direction, float range)
         {
-            var before = new HashSet<ArsenalProjectile>(Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None));
+            var before = new HashSet<ArsenalProjectile>(Object.FindObjectsByType<ArsenalProjectile>());
             ArsenalProjectile.Fire(Owner, origin, direction, Weapon.attackDamage, 1f, range, false, Color.white);
             ArsenalProjectile arrow = null;
-            foreach (ArsenalProjectile candidate in Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None))
+            foreach (ArsenalProjectile candidate in Object.FindObjectsByType<ArsenalProjectile>())
                 if (!before.Contains(candidate)) { arrow = candidate; break; }
             if (arrow)
             {

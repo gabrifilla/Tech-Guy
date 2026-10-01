@@ -18,6 +18,6 @@ MonoBehaviour:
   skillManaCostMultiplier: 0.7
   startingBaseDamage: 5
   startingArmor: 0
-  startingHealth: 0
+  startingHealth: 1000
   protectionIconEnabled: 1
   protectionAuraColor: {r: 0.4, g: 0.9, b: 1, a: 1}

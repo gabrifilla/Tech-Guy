@@ -5,6 +5,15 @@
       "type": "http",
       "env": {},
       "disabled": false
-    }
+    },
+     "blender": {
+			"command": "uv",
+			"args": [
+				"--directory",
+				"C:\\blender_mcp\\mcp",
+				"run",
+				"blender-mcp"
+			]
+		}
   }
 }

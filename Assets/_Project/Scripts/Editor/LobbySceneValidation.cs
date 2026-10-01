@@ -57,9 +57,9 @@ public static class LobbySceneValidation
             if (elapsed < 3) return;
             if (!_moving)
             {
-                PlayerActor[] players = UnityEngine.Object.FindObjectsByType<PlayerActor>(FindObjectsSortMode.None);
+                PlayerActor[] players = UnityEngine.Object.FindObjectsByType<PlayerActor>();
                 Require(players.Length == 1, "Expected exactly one player.");
-                Require(UnityEngine.Object.FindObjectsByType<EnemyAI>(FindObjectsSortMode.None).Length == 0, "Safe zone contains enemies.");
+                Require(UnityEngine.Object.FindObjectsByType<EnemyAI>().Length == 0, "Safe zone contains enemies.");
                 PlayerActor player = players[0];
                 Require(player.HandTransform && player.CurrentWeapon, "Player weapon setup did not survive scene cloning.");
                 Require(Camera.main, "Main camera missing.");

@@ -200,13 +200,13 @@ namespace TechGuy.Tests
         }
 
         private static HashSet<ArsenalProjectile> Snapshot() =>
-            new HashSet<ArsenalProjectile>(Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None));
+            new HashSet<ArsenalProjectile>(Object.FindObjectsByType<ArsenalProjectile>());
 
         /// <summary>Counts (and records for teardown) the ArsenalProjectiles spawned since the snapshot.</summary>
         private int SpawnedSince(HashSet<ArsenalProjectile> before)
         {
             int spawned = 0;
-            foreach (ArsenalProjectile p in Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None))
+            foreach (ArsenalProjectile p in Object.FindObjectsByType<ArsenalProjectile>())
             {
                 if (before.Contains(p)) continue;
                 spawned++;

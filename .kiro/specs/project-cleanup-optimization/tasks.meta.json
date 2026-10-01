@@ -1,0 +1,725 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Capturar e registrar o baseline do Profiler num artefato da spec": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853327611
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853340114
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853434699
+      }
+    ],
+    "2.1 Criar `SimpleObjectPool<T>` (classe pura) em `Assets/_Project/Scripts/Core/Pooling/`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853328563
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853341127
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853435584
+      }
+    ],
+    "2.2 Criar `ComponentPool<T> where T : Component` (adaptador Unity) na mesma pasta": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853328691
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853439546
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853597794
+      }
+    ],
+    "2.3 Adicionar reset de caches/pools estáticos entre plays": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853328806
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853440938
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853598647
+      }
+    ],
+    "2.4 Property test do núcleo de pool": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853328881
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853441958
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853599633
+      }
+    ],
+    "3.1 Introduzir o pool estático atrás de `Fire`/`FireSingle`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853328958
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853604772
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853963208
+      }
+    ],
+    "3.2 Implementar `ResetForReuse(...)` e trocar `Destroy` por `ReleaseToPool()`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329032
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854331063
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854548729
+      }
+    ],
+    "3.3 Property test de reset (sobre estado puro que espelha o projétil)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329113
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854754168
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854991457
+      }
+    ],
+    "4.1 Introduzir o pool estático atrás de `Spawn`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329200
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853605784
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853964555
+      }
+    ],
+    "4.2 Completar o reset no acquire e trocar `Destroy` por `ReleaseToPool()`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329317
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854331184
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854549834
+      }
+    ],
+    "5.1 Introduzir o pool estático de moedas na fábrica `SpawnCoin`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329437
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853607103
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853965946
+      }
+    ],
+    "5.2 Implementar `ResetForReuse` e trocar `Destroy` por `ReleaseToPool()`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329506
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854332188
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854544674
+      }
+    ],
+    "6. Checkpoint — pooling completo": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329589
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855473195
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855585194
+      }
+    ],
+    "7.1 Dirty-tracking no `PlayerHUD`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329659
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853608141
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853966901
+      }
+    ],
+    "7.2 Dirty-tracking no `RunRewardUI` (IMGUI) e no `CombatReadabilityUI`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329727
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853609311
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853968366
+      }
+    ],
+    "7.3 Property test da decisão de dirty (UI)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329793
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854554893
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854744826
+      }
+    ],
+    "7.4 Property test da formatação (UI)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329860
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854556104
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854746084
+      }
+    ],
+    "8.1 Barra de vida do `Actor` por evento": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853329937
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853979867
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854131254
+      }
+    ],
+    "8.2 `OutlineScript` — cache de câmera/componentes + throttle de raycast": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330007
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853979035
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854130395
+      }
+    ],
+    "8.3 Cachear `GetComponent` por frame nos candidatos da investigação": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330080
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853977613
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854129002
+      }
+    ],
+    "8.4 Property test da barra de vida": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330151
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854557053
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854747065
+      }
+    ],
+    "8.5 Property test do throttle": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330232
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854558469
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854748431
+      }
+    ],
+    "9.1 `WeaponCache` estático em `WeaponLoadout`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330302
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853976221
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854127633
+      }
+    ],
+    "9.2 Warm-up do efeito de `HitboxDamage` no boot": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330374
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853975282
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854126188
+      }
+    ],
+    "9.3 Property test do cache de armas": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330456
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854559293
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854749264
+      }
+    ],
+    "10.1 Passada de import settings sobre as texturas mais pesadas": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330531
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854138813
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854323085
+      }
+    ],
+    "11.1 `AssetReferenceScanner` (lógica pura) em `Assets/_Project/Scripts/Editor/Cleanup/`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330602
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854137774
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854324041
+      }
+    ],
+    "11.2 `OrphanClassifier` com guardas de `Resources` e whitelist": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330672
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854333578
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854545979
+      }
+    ],
+    "11.3 `ProjectCleanupReport` (janela/menu de Editor) — só relatório": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330741
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854334579
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854547329
+      }
+    ],
+    "11.4 Property test do detector de órfão": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330814
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854755119
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854989090
+      }
+    ],
+    "11.5 Property test da guarda de `Resources`": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853330889
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854756538
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854990524
+      }
+    ],
+    "11.6 Example/edge tests da ferramenta e dos fallbacks": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853331010
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854757450
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854988150
+      }
+    ],
+    "12. Checkpoint — UI, hot paths, resources, import e ferramenta de limpeza": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853331080
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855589675
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855699522
+      }
+    ],
+    "13.1 Implementar o passo de remoção item-a-item, confirmado": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853331145
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854998560
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855181475
+      }
+    ],
+    "14.1 Correlacionar o auto-reload com stutter e propor config sob confirmação": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853331216
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854997437
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855181997
+      }
+    ],
+    "15.1 Rodar a suíte EditMode completa e comparar Profiler antes/depois": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853331286
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855186935
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855332570
+      }
+    ],
+    "15.2 Verificação por inspeção e resumo de validação transparente": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853331356
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855336844
+      },
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855462092
+      }
+    ],
+    "1. Baseline de performance mensurável (§1)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853434779
+      }
+    ],
+    "2. Núcleo de pooling puro e adaptador Unity (§2)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790853599678
+      }
+    ],
+    "10. Import de texturas e assets (§9)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854323214
+      }
+    ],
+    "5. Pooling de moedas — `CoinPickup` + `CoinDrop` (§5)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854544785
+      }
+    ],
+    "4. Pooling do projétil de inimigo — `EnemyProjectile` (§4)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854549957
+      }
+    ],
+    "7. HUD/UI sem alocação por frame (§6)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854746186
+      }
+    ],
+    "8. Hot paths mais baratos (§7)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854748522
+      }
+    ],
+    "9. Preload/cache de `Resources` (§8)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854749316
+      }
+    ],
+    "11. Ferramenta de Editor: identificação segura de órfãos (§10)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854990604
+      }
+    ],
+    "3. Pooling do projétil do player — `ArsenalProjectile` (§3)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790854991527
+      }
+    ],
+    "13. Remoção gated de assets (identificar → confirmar → remover) (§10)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855181571
+      }
+    ],
+    "14. Revisão do FastScriptReload (config-only, gated) (§11)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855182053
+      }
+    ],
+    "15. Validação final e resumo (§1/§10 — R10)": [
+      {
+        "executionId": "98d0dda7-935f-452b-a76c-312e82ba1c6f",
+        "chatSessionId": "sess_8c293c87-51b1-41e3-8adc-c2ad3079dc54",
+        "timestamp": 1790855462207
+      }
+    ]
+  }
+}

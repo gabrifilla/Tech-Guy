@@ -42,7 +42,7 @@ namespace TechGuy.Tests
         {
             // Destroy any split arrows the coordinator spawned during a case (the rig only tracks the
             // objects it created explicitly), then tear the rig down.
-            foreach (ArsenalProjectile stray in Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None))
+            foreach (ArsenalProjectile stray in Object.FindObjectsByType<ArsenalProjectile>())
                 if (stray) Object.DestroyImmediate(stray.gameObject);
             _rig?.TearDown();
         }
@@ -78,13 +78,13 @@ namespace TechGuy.Tests
 
                 // Snapshot the projectiles that already exist, then raise the kill on this frame.
                 var before = new HashSet<ArsenalProjectile>(
-                    Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None));
+                    Object.FindObjectsByType<ArsenalProjectile>());
 
                 hooks.RaiseKill(victim);
 
                 // Collect exactly the projectiles the kill spawned (same frame, before Update runs).
                 var spawned = new List<ArsenalProjectile>();
-                foreach (ArsenalProjectile candidate in Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None))
+                foreach (ArsenalProjectile candidate in Object.FindObjectsByType<ArsenalProjectile>())
                     if (!before.Contains(candidate)) spawned.Add(candidate);
 
                 // R2.1: exactly `rank` arrows spawn.

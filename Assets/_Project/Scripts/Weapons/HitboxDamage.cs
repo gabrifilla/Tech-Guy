@@ -20,6 +20,38 @@ public class HitboxDamage : MonoBehaviour
     private static readonly Dictionary<string, List<ParticleSystem>> effectPools = new Dictionary<string, List<ParticleSystem>>();
     private static Transform effectPoolRoot;
 
+    /// <summary>
+    /// Primes the hit-effect pool once at boot so the first combat hit does not pay a synchronous
+    /// <see cref="Resources.Load"/> from disk mid-fight (Requisito 5.2). The pool itself already exists;
+    /// this just creates the first pooled instance ahead of time by loading each equippable weapon's
+    /// hit effect through the normal <see cref="GetEffectInstance"/> path, so observable behavior is
+    /// unchanged (Requisito 5.3). If an effect cannot be preloaded, it logs a clear warning and leaves
+    /// the on-demand path intact, without breaking combat (Requisito 5.5).
+    /// </summary>
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void WarmUpHitEffects()
+    {
+        string[] weaponPaths = WeaponLoadout.ResourcePaths;
+        if (weaponPaths == null) return;
+
+        for (int i = 0; i < weaponPaths.Length; i++)
+        {
+            WeaponScript weapon = Resources.Load<WeaponScript>(weaponPaths[i]);
+            if (weapon == null) continue;
+
+            string effectPath = weapon.HitEffectResourcePath;
+            if (string.IsNullOrEmpty(effectPath)) continue;
+
+            // Mirrors the on-demand call used in combat; priming it now moves the disk load to boot.
+            if (GetEffectInstance(effectPath) == null)
+            {
+                Debug.LogWarning(
+                    $"HitboxDamage: could not warm up hit effect at Resources path '{effectPath}'. " +
+                    "Falling back to on-demand loading on first use.");
+            }
+        }
+    }
+
     private void OnEnable()
     {
         hitActors.Clear();
@@ -33,10 +65,28 @@ public class HitboxDamage : MonoBehaviour
     public void Configure(Actor newOwner, float newDamage, string newHitEffectResourcePath)
     {
         owner = newOwner;
-        damage = newDamage;
         hitEffectResourcePath = newHitEffectResourcePath;
+        damage = newDamage;
         hitActors.Clear();
     }
+
+    /// <summary>
+    /// Overrides the basic-swing push distance (metres). Used to make a weapon's basic attack land in
+    /// place with no shove (e.g. the Gauntlet/Manopla), while keeping its stagger/stance reaction. The
+    /// value is clamped non-negative; it does not affect any Stance_Break Knockback, which is a separate
+    /// deliberate effect.
+    /// </summary>
+    public void SetPushDistance(float value)
+    {
+        pushDistance = Mathf.Max(0f, value);
+    }
+
+    /// <summary>
+    /// Configures the basic swing's stance-break effect (e.g. a deliberate Knockback opt-in boon).
+    /// This is the break effect applied only when a basic hit actually breaks stance; it does not
+    /// change the per-hit <see cref="SetPushDistance"/> shove (Requisitos 7.1/7.4).
+    /// </summary>
+    public void SetStanceBreakEffect(StanceBreakEffect effect) => breakEffect = effect;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -66,7 +116,16 @@ public class HitboxDamage : MonoBehaviour
             Debug.Log($"HitboxDamage: {owner.name} hit {actor.name} for {finalDamage}");
         }
 
-        if (owner is PlayerActor attacker) attacker.DealResolvedAttackDamage(actor, finalDamage);
+        if (owner is PlayerActor attacker)
+        {
+            // Only the hitbox (Basic_Attack) path raises the dedicated basic-hit channel. Measure the
+            // damage actually dealt around DealResolvedAttackDamage (which already raises the generic
+            // OnHit/OnKill — R3.4) and surface it as a basic hit (R3.1/R3.2). Skill hits never reach
+            // this branch, so they never fire the basic channel (R3.3).
+            float before = actor.health;
+            attacker.DealResolvedAttackDamage(actor, finalDamage);
+            attacker.RaiseBasicAttackHit(actor, before - actor.health);
+        }
         else actor.TakeDamage(finalDamage);
 
         // Basic swings apply crowd-control too, so weak mobs get pushed back / staggered

@@ -147,3 +147,28 @@ public sealed class SingleBeatResolver
     /// <summary>Resets the resolver so it can be reused for a fresh attack.</summary>
     public void Reset() => _beatResolved = false;
 }
+
+/// <summary>
+/// Pure, scene-free telegraph fill logic: maps the windup fraction to a monotonic 0->1
+/// <see cref="EnemyAttackArea"/> fill progress, and exposes the single predefined red base color
+/// shared by every attack telegraph. Added beside <see cref="TelegraphWindupClock"/> and
+/// <see cref="TelegraphIntensity"/> so the same property-test style applies; contains no Unity scene
+/// dependency so the fill invariants can be verified without a live scene.
+/// </summary>
+/// <remarks>Feature: ranged-kiting-and-attack-telegraph-overhaul. Requirements: 5.1, 5.2, 6.2, 6.4, 8.4, 8.5, 9.2, 9.3, 9.5.</remarks>
+public readonly struct TelegraphFill
+{
+    /// <summary>
+    /// The single predefined red base color applied to every attack danger-zone telegraph,
+    /// independent of attack type (R5.1, R5.2). Lerped toward white by the windup fraction via
+    /// <see cref="TelegraphIntensity.ColorAt(Color, float)"/>.
+    /// </summary>
+    public static readonly Color RedBase = new Color(0.9f, 0.1f, 0.1f, 1f);
+
+    /// <summary>
+    /// The fill progress at the given windup fraction: the fraction clamped to [0, 1] (R8.4, R9.5).
+    /// Equal to the clamped fraction so it is monotonically non-decreasing as the windup advances and
+    /// reaches 1 at impact when the fraction is at or beyond 1 (R6.2, R6.4, R8.5, R9.3).
+    /// </summary>
+    public static float ProgressAt(float fraction) => Mathf.Clamp01(fraction);
+}

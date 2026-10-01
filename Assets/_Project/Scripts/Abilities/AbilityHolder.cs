@@ -266,6 +266,22 @@ public class AbilityHolder : MonoBehaviour
     public float GetRemainingCooldown(int index) =>
         index >= 0 && index < cooldownTimers.Length ? Mathf.Max(0f, cooldownTimers[index]) : 0f;
 
+    /// <summary>
+    /// Reduces the remaining cooldown of every slot currently in Cooldown by <paramref name="seconds"/>,
+    /// clamped at zero. Acts only on the live run-scoped cooldownTimers; never reads or writes the source
+    /// ability's authored cooldownTime (R6.2). A non-positive value is a no-op (R6.1), and slots that are
+    /// Ready or Active are left untouched (R6.3).
+    /// </summary>
+    public void ReduceCooldowns(float seconds)
+    {
+        if (seconds <= 0f) return;                                      // R6.1
+        for (int i = 0; i < cooldownTimers.Length; i++)
+        {
+            if (states[i] != AbilityState.Cooldown) continue;           // R6.3
+            cooldownTimers[i] = Mathf.Max(0f, cooldownTimers[i] - seconds); // R6.2
+        }
+    }
+
     public KeyCode GetAbilityKey(int index) => ResolveKey(index);
     public float GetCooldownRatio(int index) => index >= 0 && index < activeAbilities.Length
         ? Mathf.Clamp01(GetRemainingCooldown(index) / Mathf.Max(0.001f, GetCooldownDuration(activeAbilities[index]))) : 0f;

@@ -10,6 +10,7 @@ public sealed class ArsenalProjectile : MonoBehaviour
     private bool _piercing;
     private readonly HashSet<Actor> _hit = new HashSet<Actor>();
     private Material _material;
+    private LineRenderer _line;
     private int _bounces;
     private bool _homing;
     private bool _returning;      // R7.4: flip heading back toward the player once, at max range
@@ -24,6 +25,45 @@ public sealed class ArsenalProjectile : MonoBehaviour
     private const float SeekRadius = 7f;       // R4.2 search radius
     private const float SeekConeDeg = 50f;     // R4.2 forward half-angle (via FindNextTarget forwardOnly)
     private const float TurnRateDeg = 180f;    // R4.2 max turn rate
+
+    // R3.1/R3.5/R3.8: arrows are pooled behind the static Fire/FireSingle API so no call-site
+    // (ArsenalCombat, SplitArrowCoordinator, ArsenalValidation) changes. The factory builds the
+    // GameObject + ArsenalProjectile + LineRenderer + ONE Material once per instance; the Material and
+    // LineRenderer are reused across firings instead of being created/destroyed per shot.
+    private static ComponentPool<ArsenalProjectile> _pool;
+
+    // R3.8: cache the Shader.Find lookup in a static so the per-instance factory never repeats it.
+    private static Shader _unlitShader;
+
+    static ArsenalProjectile()
+    {
+        // task 2.3: drop the pool at the start of each play so the static state cannot leak pooled
+        // instances (referencing destroyed GameObjects) between Editor plays.
+        PoolResetRegistry.Register(() => _pool = null);
+    }
+
+    private static ComponentPool<ArsenalProjectile> Pool =>
+        _pool ??= new ComponentPool<ArsenalProjectile>(CreateArrow, rootName: "Arrow");
+
+    private static ArsenalProjectile CreateArrow()
+    {
+        var go = new GameObject("Energy arrow");
+        var arrow = go.AddComponent<ArsenalProjectile>();
+
+        var line = go.AddComponent<LineRenderer>();
+        line.useWorldSpace = false;
+        line.positionCount = 4;
+        line.SetPositions(new[] { new Vector3(0, 0, -.65f), Vector3.zero, new Vector3(-.12f, 0, -.2f), Vector3.zero });
+        line.startWidth = line.endWidth = .065f;
+
+        if (_unlitShader == null) _unlitShader = Shader.Find("Universal Render Pipeline/Unlit");
+        var material = new Material(_unlitShader);
+        line.sharedMaterial = material;
+
+        arrow._line = line;
+        arrow._material = material;
+        return arrow;
+    }
 
     public static void Fire(PlayerActor owner, Vector3 origin, Vector3 direction, float damage,
         float multiplier, float range, bool piercing, Color color, bool returning = false)
@@ -40,34 +80,54 @@ public sealed class ArsenalProjectile : MonoBehaviour
     private static void FireSingle(PlayerActor owner, Vector3 origin, Vector3 direction, float damage,
         float multiplier, float range, bool piercing, Color color, WeaponRunModifiers mods, bool returning = false)
     {
-        var go = new GameObject("Energy arrow");
-        go.transform.SetPositionAndRotation(origin, Quaternion.LookRotation(direction));
-        var arrow = go.AddComponent<ArsenalProjectile>();
-        arrow._owner = owner;
-        arrow._damage = damage;
-        arrow._multiplier = multiplier;
-        arrow._remaining = range;
-        arrow._piercing = piercing || (mods?.Rank(WeaponBoon.Piercing) ?? 0) > 0;
-        arrow._bounces = 2 * (mods?.Rank(WeaponBoon.Ricochet) ?? 0);
-        arrow._homing = (mods?.Rank(WeaponBoon.Homing) ?? 0) > 0;
+        // R3.1: acquire a pooled instance (expands if empty) instead of `new GameObject`; the pooled
+        // instance already owns its reused LineRenderer + Material created once by the factory.
+        ArsenalProjectile arrow = Pool.Acquire();
+        arrow.ResetForReuse(owner, origin, direction, damage, multiplier, range, piercing, color, mods, returning);
+    }
+
+    /// <summary>
+    /// Returns a pooled arrow to its "just fired" state (task 3.1 hook; full field coverage lives in
+    /// task 3.2). Reassigns the per-shot fields that <c>FireSingle</c> used to set inline and tints the
+    /// reused Material — never creating a new Material/LineRenderer per shot (R3.8).
+    /// </summary>
+    private void ResetForReuse(PlayerActor owner, Vector3 origin, Vector3 direction, float damage,
+        float multiplier, float range, bool piercing, Color color, WeaponRunModifiers mods, bool returning)
+    {
+        transform.SetPositionAndRotation(origin, Quaternion.LookRotation(direction));
+        _owner = owner;
+        _damage = damage;
+        _multiplier = multiplier;
+        _remaining = range;
+        _piercing = piercing || (mods?.Rank(WeaponBoon.Piercing) ?? 0) > 0;
+        _bounces = 2 * (mods?.Rank(WeaponBoon.Ricochet) ?? 0);
+        _homing = (mods?.Rank(WeaponBoon.Homing) ?? 0) > 0;
         // R4.1: schedule the first seek one interval out so the launch frame applies no homing
         // correction and the initial heading equals the assigned fan heading.
-        arrow._nextSeek = Time.time + SeekInterval;
-        arrow._returning = returning; // R7.4: ReturnWave flips this arrow back toward the player at max range
-        arrow._weapon = owner.CurrentWeapon;
-        var line = go.AddComponent<LineRenderer>();
-        line.useWorldSpace = false;
-        line.positionCount = 4;
-        line.SetPositions(new[] { new Vector3(0,0,-.65f), Vector3.zero, new Vector3(-.12f,0,-.2f), Vector3.zero });
-        line.startWidth = line.endWidth = .065f;
-        arrow._material = new Material(Shader.Find("Universal Render Pipeline/Unlit"));
-        arrow._material.color = color;
-        line.sharedMaterial = arrow._material;
+        _nextSeek = Time.time + SeekInterval;
+        _returning = returning; // R7.4: ReturnWave flips this arrow back toward the player at max range
+        _returned = false;
+        _seekTarget = null;
+        _hit.Clear();
+        _weapon = owner.CurrentWeapon;
+        _material.color = color;
+    }
+
+    /// <summary>
+    /// R3.1/R3.8: terminal path for a spent arrow — deactivate and return the instance to the pool
+    /// instead of <c>Destroy(gameObject)</c>. The reused LineRenderer/Material stay with the pooled
+    /// instance (no per-shot create/destroy), so <see cref="OnDestroy"/> — which frees the Material —
+    /// never runs on this normal release path, only on real play teardown.
+    /// </summary>
+    private void ReleaseToPool()
+    {
+        gameObject.SetActive(false);
+        Pool.Release(this);
     }
 
     private void Update()
     {
-        if (!_owner || _owner.IsDead || _owner.CurrentWeapon != _weapon || _remaining <= 0f) { Destroy(gameObject); return; }
+        if (!_owner || _owner.IsDead || _owner.CurrentWeapon != _weapon || _remaining <= 0f) { ReleaseToPool(); return; }
         if (_homing)
         {
             if (Time.time >= _nextSeek)
@@ -133,7 +193,7 @@ public sealed class ArsenalProjectile : MonoBehaviour
                 if (_piercing) continue; // R1.1 fallback: pierce even when no ricochet target is available
             }
             else if (hit.collider.isTrigger) continue;
-            Destroy(gameObject);
+            ReleaseToPool();
             return;
         }
         transform.position += transform.forward * distance;
@@ -154,7 +214,7 @@ public sealed class ArsenalProjectile : MonoBehaviour
                     return;
                 }
             }
-            Destroy(gameObject);
+            ReleaseToPool();
         }
     }
     // R1: is there an un-hit live enemy on the current straight-line heading?

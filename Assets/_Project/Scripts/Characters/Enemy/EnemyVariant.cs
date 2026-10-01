@@ -15,6 +15,7 @@ public sealed class EnemyVariant : MonoBehaviour
     private EnemyAI _ai;
     private NavMeshAgent _agent;
     private float _baseHealth, _baseDamage, _baseSpeed, _baseInterval;
+    private float _chaseSpeed;
     private bool _started;
     private Vector3 _baseScale;
     public float VisualScaleMultiplier => EnemyVisualStyle.SizeMultiplier(_profile ? _profile.Rarity : EnemyRarity.Normal, GetComponent<SectorBoss>());
@@ -22,6 +23,15 @@ public sealed class EnemyVariant : MonoBehaviour
 
     public EnemyProfile Profile => _profile;
     public string AffixSummary { get; private set; } = "";
+
+    /// <summary>
+    /// The resolved chase (non-kiting) <see cref="NavMeshAgent.speed"/> computed in
+    /// <see cref="ApplyProfile"/> from the base speed, profile movement multiplier, and affix movement
+    /// bonuses. The ranged kiting layer reads this to restore <c>agent.speed = ChaseSpeed</c> within one
+    /// frame on kite exit after temporarily lowering it to the retreat speed (R1.2/R1.4). Zero when the
+    /// enemy has no <see cref="NavMeshAgent"/>.
+    /// </summary>
+    public float ChaseSpeed => _chaseSpeed;
 
     /// <summary>The assigned core archetype, or null when this enemy is not archetype-driven.</summary>
     public EnemyArchetype Archetype => _archetype;
@@ -132,7 +142,10 @@ public sealed class EnemyVariant : MonoBehaviour
         _actor.SetMaxHealth(_baseHealth * (_profile ? _profile.HealthMultiplier : 1f));
         _ai.ConfigureAttack(_baseDamage * (_profile ? _profile.DamageMultiplier : 1f),
             _baseInterval / ((_profile ? _profile.AttackSpeedMultiplier : 1f) * attackSpeed));
-        if (_agent) _agent.speed = _baseSpeed * (_profile ? _profile.MovementMultiplier : 1f) * movement;
+        // Resolve and store the chase (non-kiting) speed so the ranged kiting layer can restore
+        // agent.speed = ChaseSpeed on kite exit after lowering it to the retreat speed (R1.2/R1.4).
+        _chaseSpeed = _baseSpeed * (_profile ? _profile.MovementMultiplier : 1f) * movement;
+        if (_agent) _agent.speed = _chaseSpeed;
 
         // Archetype identity extras: record the Combat_Role, seed archetype attack traits, ensure the
         // role-behavior component exists for non-attack roles, and add a priority marker when required.

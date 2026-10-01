@@ -27,6 +27,14 @@ public sealed class PlayerHUD : MonoBehaviour
     private float _nextRefresh;
     private bool _bound;
 
+    // Dirty-tracking caches (R2.1): rebuild/reassign a TMP only when its source value changes, so an
+    // unchanged frame allocates no interpolated string. Formats are preserved via HudFormatter (R2.6).
+    private readonly UiValueCache<string> _healthCache = new UiValueCache<string>();
+    private readonly UiValueCache<string> _manaCache = new UiValueCache<string>();
+    private readonly UiValueCache<string> _asuraCache = new UiValueCache<string>();
+    private readonly UiValueCache<string> _tooltipCache = new UiValueCache<string>();
+    private readonly UiValueCache<string> _feedbackCache = new UiValueCache<string>();
+
     public PlayerActor Player => _player;
     public Image HealthFill => _healthFill;
     public Image ManaFill => _manaFill;
@@ -70,8 +78,10 @@ public sealed class PlayerHUD : MonoBehaviour
         if (!_player) return;
         _healthFill.fillAmount = Mathf.Clamp01(_player.health / Mathf.Max(1f,_player.maxHealth));
         _manaFill.fillAmount = Mathf.Clamp01(_player.mana / Mathf.Max(1f,_player.maxMana));
-        _healthValue.text = $"{Mathf.CeilToInt(_player.health)} / {Mathf.CeilToInt(_player.maxHealth)}";
-        _manaValue.text = $"{Mathf.CeilToInt(_player.mana)} / {Mathf.CeilToInt(_player.maxMana)}";
+        string health = HudFormatter.Resource(_player.health, _player.maxHealth);
+        if (_healthCache.HasChanged(health)) _healthValue.text = health;
+        string mana = HudFormatter.Resource(_player.mana, _player.maxMana);
+        if (_manaCache.HasChanged(mana)) _manaValue.text = mana;
     }
 
     private void Update()
@@ -85,7 +95,8 @@ public sealed class PlayerHUD : MonoBehaviour
         if (hasAsura)
         {
             _asuraFill.fillAmount = _breaker.Energy/100f;
-            _asuraLabel.text = _breaker.IsReady ? "ASURA PRONTO" : $"ASURA   {_breaker.Energy} / 100";
+            string asura = HudFormatter.Asura(_breaker.IsReady, _breaker.Energy);
+            if (_asuraCache.HasChanged(asura)) _asuraLabel.text = asura;
         }
         Vector2 pointer = Vector2.zero;
 #if ENABLE_INPUT_SYSTEM
@@ -93,7 +104,7 @@ public sealed class PlayerHUD : MonoBehaviour
 #else
         pointer = Input.mousePosition;
 #endif
-        _tooltip.text = "";
+        string tooltip = "";
         for (int i = 0; i < _slots.Length; i++)
         {
             Ability ability = i < 4 ? (i < _holder.ActiveAbilities.Count ? _holder.ActiveAbilities[i] : null) : _controls ? _controls.dashScript : null;
@@ -104,9 +115,10 @@ public sealed class PlayerHUD : MonoBehaviour
             _slots[i].Present(ability, i < 4 ? GamePreferences.KeyLabel(_holder.GetAbilityKey(i)) : GamePreferences.BindingLabel(GameControl.Dash), remaining, ratio,
                 active, ability && _player.HasMana(ability.ManaCost), requirement);
             if (ability && RectTransformUtility.RectangleContainsScreenPoint(_slots[i].Rect, pointer, null))
-                _tooltip.text = $"{ability.name}  ·  {ability.ManaCost:0} mana  ·  {ability.cooldownTime:0.#}s recarga";
+                tooltip = HudFormatter.Tooltip(ability.name, ability.ManaCost, ability.cooldownTime);
         }
-        if (Time.unscaledTime >= _feedbackUntil) _feedback.text = "";
+        if (_tooltipCache.HasChanged(tooltip)) _tooltip.text = tooltip;
+        if (Time.unscaledTime >= _feedbackUntil) SetFeedbackText("");
     }
 
     private void OnUsed(int index)
@@ -133,9 +145,19 @@ public sealed class PlayerHUD : MonoBehaviour
 
     private void ShowFeedback(string message, Color color)
     {
-        _feedback.text = message;
+        SetFeedbackText(message);
         _feedback.color = color;
         _feedbackUntil = Time.unscaledTime + 1.6f;
+    }
+
+    /// <summary>
+    /// Writes the feedback label through the dirty cache so every writer (Update's per-frame clear,
+    /// ShowFeedback, charge indicator, momentum stacks) keeps the cache in sync. The TMP is only
+    /// reassigned when the string actually changes, preventing redundant text churn (R2.1/R2.2).
+    /// </summary>
+    private void SetFeedbackText(string message)
+    {
+        if (_feedbackCache.HasChanged(message)) _feedback.text = message;
     }
 
     /// <summary>
@@ -150,11 +172,11 @@ public sealed class PlayerHUD : MonoBehaviour
         ratio = Mathf.Clamp01(ratio);
         if (ratio <= 0f)
         {
-            _feedback.text = "";
+            SetFeedbackText("");
             return;
         }
         bool full = ratio >= 1f;
-        _feedback.text = full ? "TIRO CARREGADO" : $"CARREGANDO  {Mathf.RoundToInt(ratio * 100f)}%";
+        SetFeedbackText(full ? "TIRO CARREGADO" : $"CARREGANDO  {Mathf.RoundToInt(ratio * 100f)}%");
         _feedback.color = full ? new Color(1f, .8f, .3f) : new Color(.6f, .85f, 1f);
         // Keep the cue alive only as long as the caller keeps pushing updates while holding.
         _feedbackUntil = Time.unscaledTime + .1f;
@@ -171,11 +193,11 @@ public sealed class PlayerHUD : MonoBehaviour
         if (!_feedback) return;
         if (stacks <= 0)
         {
-            _feedback.text = "";
+            SetFeedbackText("");
             _feedbackUntil = 0f;
             return;
         }
-        _feedback.text = $"ÍMPETO  x{stacks}";
+        SetFeedbackText($"ÍMPETO  x{stacks}");
         _feedback.color = new Color(1f, .62f, .25f);
         _feedbackUntil = Time.unscaledTime + 1.6f;
     }

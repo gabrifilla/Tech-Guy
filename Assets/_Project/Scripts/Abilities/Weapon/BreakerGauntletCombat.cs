@@ -53,6 +53,13 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         _player.Died += OnDeath;
     }
 
+    /// <summary>
+    /// Adds Asura energy from an external source (e.g. a basic-hit boon), delegating to
+    /// <see cref="AsuraMomentum.AddEnergy"/> which already clamps to [0, Maximum]. Thin delegate only
+    /// (Requisitos 4.1/4.2).
+    /// </summary>
+    public void AddAsuraEnergy(int amount) => _momentum.AddEnergy(amount);
+
     public void Configure(WeaponScript weapon)
     {
         if (_weapon == weapon) return;
@@ -110,6 +117,13 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         // each usable on its own (Requisito 8.1).
         var steps = mods != null ? mods.GauntletSteps(ability, slot) : CloneSteps(ability.HitSteps);
         GauntletLoopSteps.Configure(steps, slot);
+        // Gauntlet (Manopla) basic/skill hits must NOT shove the enemy: zero the per-step push nudge so
+        // every blow lands in place (dano, stance damage, stagger e rotação de reação são preservados; só
+        // o deslocamento imediato é removido). Operates on the per-cast clone, never the source asset, so
+        // other weapons (Arco/Lança) are untouched. Strong displacement stays available as a deliberate
+        // Stance_Break Knockback (e.g. a future boon/skill), which these steps do not request.
+        foreach (AreaHitStep gauntletStep in steps)
+            if (gauntletStep != null) gauntletStep.pushDistance = 0f;
         _activeSteps = steps;
         float advance = ability.AdvanceDistance * (1 + .7f * (mods?.Rank(WeaponBoon.RocketAdvance) ?? 0));
         _agentLocked = _agent && _agent.enabled && _agent.isOnNavMesh;

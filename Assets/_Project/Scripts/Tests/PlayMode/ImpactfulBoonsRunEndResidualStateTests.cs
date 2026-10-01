@@ -175,10 +175,10 @@ namespace TechGuy.Tests
 
                 // R1.4: the SplitArrow OnKill subscription is dropped — a post-clear kill spawns no arrows.
                 var beforeSplit = new System.Collections.Generic.HashSet<ArsenalProjectile>(
-                    Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None));
+                    Object.FindObjectsByType<ArsenalProjectile>());
                 hooks.RaiseKill(enemy);
                 int spawned = 0;
-                foreach (ArsenalProjectile pr in Object.FindObjectsByType<ArsenalProjectile>(FindObjectsSortMode.None))
+                foreach (ArsenalProjectile pr in Object.FindObjectsByType<ArsenalProjectile>())
                     if (!beforeSplit.Contains(pr)) { spawned++; Object.DestroyImmediate(pr.gameObject); }
                 Assert.AreEqual(0, spawned,
                     $"case {c}: SplitArrow spawned {spawned} arrows on a post-clear kill (OnKill sub not dropped)");

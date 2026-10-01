@@ -50,6 +50,13 @@ public sealed class SpawnerBehavior : ArchetypeBehavior
     /// <summary>The Combat_Role the Spawner declares (R16.1). Priority-target status derives from this role.</summary>
     public CombatRole CombatRole => CombatRole.PriorityThreat;
 
+    /// <summary>Metres trimmed off each arena half-extent when clamping a spawn candidate, keeping produced Swarms clear of the walls (mirrors RoomCompositionResolver's bounds inset).</summary>
+    private const float ArenaBoundsInset = 1.5f;
+
+    private Vector3 _arenaCenter;
+    private Vector2 _arenaSize;
+    private bool _hasArenaBounds;
+
     /// <summary>Whether the Spawner is a priority target (R16.1). Always true for this role.</summary>
     public bool IsPriorityTarget => true;
 
@@ -147,6 +154,18 @@ public sealed class SpawnerBehavior : ArchetypeBehavior
         Vector3 candidate = transform.position + Random.insideUnitSphere * Mathf.Max(0f, _spawnRadius);
         candidate.y = transform.position.y;
 
+        // Confine the candidate to the sealed arena before sampling so a Spawner standing near a wall or
+        // doorway cannot fling produced Swarms out of the room (into a corridor / past a sealed door).
+        // The arena bounds are injected by the director that owns the encounter; when they are absent
+        // (e.g. a non-arena spawner) sampling is unconstrained, preserving the previous behavior.
+        if (_hasArenaBounds)
+        {
+            float halfX = Mathf.Max(0.5f, _arenaSize.x * 0.5f - ArenaBoundsInset);
+            float halfZ = Mathf.Max(0.5f, _arenaSize.y * 0.5f - ArenaBoundsInset);
+            candidate.x = Mathf.Clamp(candidate.x, _arenaCenter.x - halfX, _arenaCenter.x + halfX);
+            candidate.z = Mathf.Clamp(candidate.z, _arenaCenter.z - halfZ, _arenaCenter.z + halfZ);
+        }
+
         if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, Mathf.Max(0.1f, _spawnRadius), NavMesh.AllAreas))
         {
             position = hit.position;
@@ -155,6 +174,20 @@ public sealed class SpawnerBehavior : ArchetypeBehavior
 
         position = candidate;
         return false;
+    }
+
+    /// <summary>
+    /// Constrains produced Swarms to the sealed arena the Spawner fights in (R16.8). The owning director
+    /// injects the room's world-space center and XZ size on activation; <see cref="TrySampleSpawnPosition"/>
+    /// then clamps each sampled point to these (inset) bounds so a Swarm never spawns outside the arena —
+    /// e.g. in a doorway or corridor — even when the Spawner stands near an edge. Mirrors the bounds-clamp
+    /// in <c>RoomCompositionResolver.TrySampleNavMeshPoint</c>.
+    /// </summary>
+    public void ConfigureArenaBounds(Vector3 center, Vector2 size)
+    {
+        _arenaCenter = center;
+        _arenaSize = size;
+        _hasArenaBounds = size.x > 0f && size.y > 0f;
     }
 
     /// <summary>Decrements the living count when a produced Swarm dies, exactly once per death (R16.5).</summary>

@@ -11,6 +11,23 @@ public sealed class RunRewardUI : MonoBehaviour
     private readonly List<RunBoons.Offer> _owned = new List<RunBoons.Offer>();
     private readonly Dictionary<string, RunModifierPresentation> _presentation = new Dictionary<string, RunModifierPresentation>();
     private Vector2 _lastPointer;
+
+    // Dirty-tracking (R2.3/R2.6): IMGUI rebuilds the same reward strings every frame. Reuse the shared
+    // pure dirty-tracker (UiValueCache, task 7.1) to rebuild them only when the underlying reward data
+    // changes. The drawn layout/rects are untouched; only the string construction moves behind these
+    // dirty gates, so the visuals stay identical.
+    // Choices-screen gate, keyed by (RewardRoom, Acquired.Count, choices count). Choices only change on
+    // OfferReward, which also bumps RewardRoom, so this triple fully captures when a rebuild is needed.
+    private readonly UiValueCache<(int room, int acquired, int choices)> _choiceGate = new UiValueCache<(int, int, int)>();
+    private string _roomHeader = "";
+    private string _acquiredFooter = "";
+    private string[] _cardLevels = System.Array.Empty<string>();
+    private string[] _cardHints = System.Array.Empty<string>();
+    private string[] _cardActions = System.Array.Empty<string>();
+    // Build-screen caches, keyed by Acquired.Count (the only thing that changes the owned list, ranks
+    // and header). Rebuilt alongside the owned-list rebuild that already gates on _knownCount.
+    private string _buildHeader = "";
+    private string[] _tileLevels = System.Array.Empty<string>();
     private static readonly Color Ink = new Color(.035f,.045f,.065f,.98f);
     private static readonly Color Muted = new Color(.6f,.67f,.75f);
     public void Bind(RunBoons run) => _run = run;
@@ -76,11 +93,38 @@ public sealed class RunRewardUI : MonoBehaviour
         }
         finally { GUI.matrix = previous; GUI.color = oldColor; }
     }
+    // Rebuilds the choices-screen string cache only when the reward data changes (R2.3): the room
+    // header, the acquired-count footer, and the per-card level/hint/action strings + rank. These
+    // depend solely on RewardRoom, the current choice set and Acquired.Count — none of which change
+    // between frames while a choice screen is open. Produces the exact same strings as before (R2.6).
+    private void RebuildChoiceCache()
+    {
+        int count = _run.Choices.Count;
+        _roomHeader = "RECOMPENSA DE SALA  /  " + _run.RewardRoom.ToString("00");
+        _acquiredFooter = _run.Acquired.Count + " modificadores adquiridos nesta run";
+        if (_cardLevels.Length != count)
+        {
+            _cardLevels = new string[count];
+            _cardHints = new string[count];
+            _cardActions = new string[count];
+        }
+        for (int i = 0; i < count; i++)
+        {
+            var offer = _run.Choices[i];
+            var view = Present(offer);
+            int rank = RunModifierPresentation.Count(_run, offer.Id);
+            _cardLevels[i] = view.MaxRank == 1 ? "ÚNICO" : "NÍVEL " + (rank + 1) + (view.MaxRank > 0 ? "/" + view.MaxRank : "");
+            _cardHints[i] = RunModifierPresentation.Hint(_run, offer.Id);
+            _cardActions[i] = "[" + (i + 1) + "]   " + (rank > 0 ? "MELHORAR" : "ADQUIRIR");
+        }
+    }
     private void DrawChoices(float width, float height)
     {
+        if (_choiceGate.HasChanged((_run.RewardRoom, _run.Acquired.Count, _run.Choices.Count)))
+            RebuildChoiceCache();
         Fill(new Rect(0,0,width,height), new Color(.012f,.018f,.03f,.97f));
         float left = (width - 1100) * .5f, top = (height - 650) * .5f;
-        Text(new Rect(left,top+4,700,22), "RECOMPENSA DE SALA  /  " + _run.RewardRoom.ToString("00"), _small, new Color(.9f,.73f,.43f));
+        Text(new Rect(left,top+4,700,22), _roomHeader, _small, new Color(.9f,.73f,.43f));
         GUI.Label(new Rect(left,top+33,1000,50), "Escolha sua próxima evolução", _heading);
         Text(new Rect(left,top+91,1000,28), "Uma escolha. Novas combinações. Os efeitos duram até o fim desta run.", _body, Muted);
         bool pointerMoved = Event.current.mousePosition != _lastPointer;
@@ -92,7 +136,7 @@ public sealed class RunRewardUI : MonoBehaviour
             if (DrawCard(rect, _run.Choices[i], i)) { _run.Choose(i); break; }
         }
         Text(new Rect(left,top+610,1100,24), "[1] [2] [3] escolher     •     ← → navegar + Enter     •     ou clique no cartão", _body, Muted);
-        Text(new Rect(left,top+646,1100,20), _run.Acquired.Count + " modificadores adquiridos nesta run", _small, Muted);
+        Text(new Rect(left,top+646,1100,20), _acquiredFooter, _small, Muted);
     }
     private bool DrawCard(Rect rect, RunBoons.Offer offer, int index)
     {
@@ -104,9 +148,7 @@ public sealed class RunRewardUI : MonoBehaviour
         Fill(new Rect(rect.x+2,rect.y+2,rect.width-4,4), view.Accent);
         float x = rect.x + 24, y = rect.y + 24, w = rect.width - 48;
         Text(new Rect(x,y,w-80,20), view.Category, _small, view.Accent);
-        int rank = RunModifierPresentation.Count(_run,offer.Id);
-        string level = view.MaxRank == 1 ? "ÚNICO" : "NÍVEL " + (rank + 1) + (view.MaxRank > 0 ? "/" + view.MaxRank : "");
-        Text(new Rect(x+w-90,y,90,20), level, _badge, view.Accent);
+        Text(new Rect(x+w-90,y,90,20), _cardLevels[index], _badge, view.Accent);
         Fill(new Rect(x,y+35,60,60), new Color(view.Accent.r,view.Accent.g,view.Accent.b,.12f));
         Text(new Rect(x,y+35,60,60), view.Symbol, _symbol, view.Accent);
         Text(new Rect(x+76,y+38,w-76,20), "AFETA", _small, Muted);
@@ -114,9 +156,9 @@ public sealed class RunRewardUI : MonoBehaviour
         GUI.Label(new Rect(x,y+113,w,60), offer.Title, _title);
         Fill(new Rect(x,y+184,w,1), new Color(.2f,.26f,.34f));
         Description(new Rect(x,y+199,w,100), view.Description);
-        Text(new Rect(x,y+304,w,44), RunModifierPresentation.Hint(_run, offer.Id), _small, Muted);
+        Text(new Rect(x,y+304,w,44), _cardHints[index], _small, Muted);
         Fill(new Rect(x,rect.yMax-54,w,32), active ? view.Accent : new Color(.12f,.16f,.22f));
-        Text(new Rect(x,rect.yMax-54,w,32), "[" + (index+1) + "]   " + (rank > 0 ? "MELHORAR" : "ADQUIRIR"), _badge, active ? Ink : Color.white);
+        Text(new Rect(x,rect.yMax-54,w,32), _cardActions[index], _badge, active ? Ink : Color.white);
         return GUI.Button(rect, GUIContent.none, GUIStyle.none);
     }
     private void DrawBuild(float width, float height)
@@ -126,10 +168,16 @@ public sealed class RunRewardUI : MonoBehaviour
             _owned.Clear(); var seen = new HashSet<string>();
             foreach (var offer in _run.Acquired) if (seen.Add(offer.Id)) _owned.Add(offer);
             _knownCount = _run.Acquired.Count;
+            // Rebuild the build-strip strings in the same gate (R2.3): the header and the per-tile
+            // level labels change only when the acquired set changes. Same strings as before (R2.6).
+            _buildHeader = "SUA BUILD  /  " + _run.Acquired.Count + " AQUISIÇÕES   ·   passe o mouse para detalhes";
+            if (_tileLevels.Length != _owned.Count) _tileLevels = new string[_owned.Count];
+            for (int i = 0; i < _owned.Count; i++)
+                _tileLevels[i] = "NÍVEL " + RunModifierPresentation.Count(_run, _owned[i].Id);
         }
         if (_owned.Count == 0) return;
         float x = 24, y = BuildTop;
-        Text(new Rect(x,y,480,18), "SUA BUILD  /  " + _run.Acquired.Count + " AQUISIÇÕES   ·   passe o mouse para detalhes", _small, Muted);
+        Text(new Rect(x,y,480,18), _buildHeader, _small, Muted);
         RunBoons.Offer hovered = null; Rect hoveredRect = default;
         int columns = 3;
         for (int i = 0; i < _owned.Count; i++)
@@ -139,7 +187,7 @@ public sealed class RunRewardUI : MonoBehaviour
             Fill(tile, view.Accent); Fill(new Rect(tile.x+1,tile.y+1,148,48), Ink);
             Text(new Rect(tile.x,tile.y,36,50), view.Symbol, _badge, view.Accent);
             GUI.Label(new Rect(tile.x+38,tile.y+5,106,28), offer.Title, _small);
-            Text(new Rect(tile.x+38,tile.y+33,106,14), "NÍVEL " + RunModifierPresentation.Count(_run,offer.Id), _small, view.Accent);
+            Text(new Rect(tile.x+38,tile.y+33,106,14), _tileLevels[i], _small, view.Accent);
             if (tile.Contains(Event.current.mousePosition)) { hovered = offer; hoveredRect = tile; }
         }
         if (hovered == null) return;
@@ -148,8 +196,17 @@ public sealed class RunRewardUI : MonoBehaviour
         float tooltipY = Mathf.Min(hoveredRect.yMax+12, height - 250);
         var panel = new Rect(tooltipX,tooltipY,340,230);
         Fill(panel, data.Accent); Fill(new Rect(panel.x+1,panel.y+1,338,228), Ink);
-        Text(new Rect(panel.x+18,panel.y+16,304,20), data.Category + "  /  " + data.Scope, _small, data.Accent);
+        Text(new Rect(panel.x+18,panel.y+16,304,20), TooltipHeader(hovered.Id, data), _small, data.Accent);
         GUI.Label(new Rect(panel.x+18,panel.y+46,304,55), hovered.Title, _title);
         Description(new Rect(panel.x+18,panel.y+110,304,100), data.Description);
+    }
+    // Caches the tooltip header string for the hovered tile (R2.3): rebuilt only when the hovered item
+    // changes, not every frame the pointer rests on it. Same "Category  /  Scope" text as before (R2.6).
+    private readonly UiValueCache<string> _tooltipGate = new UiValueCache<string>();
+    private string _tooltipHeader = "";
+    private string TooltipHeader(string id, RunModifierPresentation data)
+    {
+        if (_tooltipGate.HasChanged(id)) _tooltipHeader = data.Category + "  /  " + data.Scope;
+        return _tooltipHeader;
     }
 }

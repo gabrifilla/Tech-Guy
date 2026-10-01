@@ -71,6 +71,20 @@ public sealed class RunModifierPresentation
         if (id == "weapon_MomentumStrike") return Combined(run,"weapon_MomentumStrike","bulwark") || Combined(run,"weapon_MomentumStrike","vitality") ? "COMBINAÇÃO ATIVA · sobreviver mantém as pilhas." : "COMBINE · defesa evita perder as pilhas ao levar dano.";
         if (id == "overflow") return fire || frost ? "COMBINAÇÃO ATIVA · consome fogo/gelo para um burst." : "COMBINE · aplique fogo ou gelo antes de acertar.";
         if (id == "weapon_TwinShot" || id == "weapon_WideVolley") return "COMBINE · perfuração e ricochete ampliam a cobertura.";
+        // gauntlet-boon-playstyle-overhaul R15.3: combination hints for the ten new boons. Each surfaces the
+        // partner that turns the boon into a loop — Asura basics feed the Asura finishers, hungry basics bring
+        // the skills back, the marking rain pairs with the cursor-guided rain, and the pike wall holds the
+        // space the moon orbit controls.
+        if (id == "weapon_AsuraFist") return Combined(run,"weapon_AsuraFist","weapon_AsuraEcho") || Combined(run,"weapon_AsuraFist","weapon_AsuraReserve") ? "COMBINAÇÃO ATIVA · básicos enchem o Asura mais rápido." : "COMBINE · básicos carregam as skills de Asura.";
+        if (id == "weapon_HungryCombo") return Combined(run,"weapon_HungryCombo","weapon_FlurryEcho") ? "COMBINAÇÃO ATIVA · básicos trazem as skills de volta." : "COMBINE · básicos reduzem a recarga das skills.";
+        if (id == "weapon_RainMark") return Combined(run,"weapon_RainMark","weapon_GuidedRain") ? "COMBINAÇÃO ATIVA · a nuvem persegue e marca." : "COMBINE · guie a chuva para manter os alvos marcados.";
+        if (id == "weapon_PikeWall") return Combined(run,"weapon_PikeWall","weapon_Orbit") ? "COMBINAÇÃO ATIVA · a zona segura o espaço à frente." : "COMBINE · Órbita das luas controla a zona de hastes.";
+        if (id == "weapon_GuardBreaker") return Combined(run,"weapon_GuardBreaker","weapon_SeismicFist") ? "COMBINAÇÃO ATIVA · a quebra arremessa com mais força." : "COMBINE · Punho sísmico arremessa ao quebrar a guarda.";
+        if (id == "weapon_SeismicFist") return Combined(run,"weapon_SeismicFist","weapon_GuardBreaker") ? "COMBINAÇÃO ATIVA · a quebra arremessa com mais força." : "COMBINE · Guarda partida rompe a postura para arremessar.";
+        if (id == "weapon_AdaptiveCadence") return Combined(run,"weapon_AdaptiveCadence","weapon_KitingStep") ? "COMBINAÇÃO ATIVA · recuar mantém a cadência acelerada." : "COMBINE · Disparo em recuo mantém a distância da cadência.";
+        if (id == "weapon_KitingStep") return Combined(run,"weapon_KitingStep","weapon_AdaptiveCadence") ? "COMBINAÇÃO ATIVA · recuar mantém a cadência acelerada." : "COMBINE · Cadência adaptativa recompensa manter a distância.";
+        if (id == "weapon_EdgeStrike") return Combined(run,"weapon_EdgeStrike","weapon_SpacingRecoil") ? "COMBINAÇÃO ATIVA · o recuo mantém você na borda do alcance." : "COMBINE · Recuo controlado assenta você no ponto cego.";
+        if (id == "weapon_SpacingRecoil") return Combined(run,"weapon_SpacingRecoil","weapon_EdgeStrike") ? "COMBINAÇÃO ATIVA · o recuo mantém você na borda do alcance." : "COMBINE · Ponto cego premia acertar na ponta do alcance.";
         return Count(run,id) > 0 ? "EVOLUÇÃO · reforça um modificador da sua build." : "NOVA AQUISIÇÃO · permanece até o fim desta run.";
     }
     private static string ScopeFor(WeaponBoon kind)
@@ -88,6 +102,16 @@ public sealed class RunModifierPresentation
             case WeaponBoon.StanceCrusher: case WeaponBoon.Shockwave: return "HABILIDADES";
             case WeaponBoon.TwinShot: case WeaponBoon.Piercing: case WeaponBoon.Ricochet: case WeaponBoon.Homing:
             case WeaponBoon.SplitArrow: case WeaponBoon.ChargedShot: return "FLECHAS";
+            // gauntlet-boon-playstyle-overhaul R15.2/R15.4: scope the ten new boons by the playstyle they
+            // change. Gauntlet basic-driven boons read on the ATAQUE BÁSICO; SeismicFist touches both the
+            // basic and the skills; the Bow repositioning/cadence boons read as KITING; RainMark lives on
+            // the R; the Spear boons read on their estocadas (thrust) or on the W sweep.
+            case WeaponBoon.AsuraFist: case WeaponBoon.GuardBreaker: case WeaponBoon.HungryCombo: return "ATAQUE BÁSICO";
+            case WeaponBoon.SeismicFist: return "BÁSICOS + SKILLS";
+            case WeaponBoon.KitingStep: case WeaponBoon.AdaptiveCadence: return "KITING";
+            case WeaponBoon.RainMark: return "R";
+            case WeaponBoon.SpacingRecoil: case WeaponBoon.EdgeStrike: return "ESTOCADAS";
+            case WeaponBoon.PikeWall: return "W";
             default: return "BÁSICOS + SKILLS";
         }
     }

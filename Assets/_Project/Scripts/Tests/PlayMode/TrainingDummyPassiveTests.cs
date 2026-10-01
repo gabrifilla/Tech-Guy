@@ -118,7 +118,7 @@ namespace TechGuy.Tests
         {
             // Coins are the only side effect a CoinDrop would produce; count them directly rather
             // than relying on wallet state, since CoinDrop instantiates pickups on death.
-            return Object.FindObjectsByType<CoinPickup>(FindObjectsSortMode.None).Length;
+            return Object.FindObjectsByType<CoinPickup>().Length;
         }
     }
 }

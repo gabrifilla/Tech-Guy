@@ -12,7 +12,13 @@ public enum WeaponBoon
     // impactful-weapon-boons: new playstyle-changing boons. SplitArrow/ChargedShot (Bow),
     // PerfectSpacing/ImpalingLine (Spear), MomentumStrike/Shockwave (Gauntlet). MomentumStrike is
     // named to avoid colliding with the existing Momentum (Asura energy) boon above.
-    SplitArrow, ChargedShot, PerfectSpacing, ImpalingLine, MomentumStrike, Shockwave
+    SplitArrow, ChargedShot, PerfectSpacing, ImpalingLine, MomentumStrike, Shockwave,
+    // gauntlet-boon-playstyle-overhaul: ten impactful substitutes appended (inédito names; NEVER remove
+    // the retired values above — LongFists/StanceCrusher/Berserker/HeavyBolt/Sniper/LongRain/LongReach/
+    // TripleMoon/Affliction stay for run/save compatibility, R2.5/R2.6). One family each, MaxRank = 3.
+    AsuraFist, GuardBreaker, HungryCombo, SeismicFist,       // Gauntlet (R4..R7)
+    KitingStep, AdaptiveCadence, RainMark,                   // Bow (R8..R10)
+    SpacingRecoil, PikeWall, EdgeStrike                      // Spear (R11..R13)
 }
 
 /// <summary>Run-owned ranks and cast snapshots; never writes to weapon/ability assets.</summary>
@@ -76,7 +82,20 @@ public sealed class WeaponRunModifiers
         // impactful-weapon-boons: Gauntlet playstyle boons (R6/R7). MomentumStrike is the aggression-stack
         // boon (distinct from the existing Momentum/Asura boon); Shockwave is a combo-finisher burst.
         new Definition(WeaponBoon.MomentumStrike, RunWeaponFamily.Gauntlet, "Golpe de ímpeto", "Cada acerto direto acumula uma pilha (até 10) que aumenta seu dano em 2% por nível por pilha. Sofrer dano zera as pilhas."),
-        new Definition(WeaponBoon.Shockwave, RunWeaponFamily.Gauntlet, "Onda de choque", "O golpe final do combo libera uma onda esférica ao redor do jogador. Raio base de 3m, +20% por nível.")
+        new Definition(WeaponBoon.Shockwave, RunWeaponFamily.Gauntlet, "Onda de choque", "O golpe final do combo libera uma onda esférica ao redor do jogador. Raio base de 3m, +20% por nível."),
+        // gauntlet-boon-playstyle-overhaul: ten impactful substitutes (one family each, MaxRank = 3).
+        // Titles/descriptions in PT, phrased in terms of the PLAYSTYLE each boon changes (R15.4). Values
+        // are adjustable starting points. These enter OfferReward automatically via the family/rank gate.
+        new Definition(WeaponBoon.AsuraFist,       RunWeaponFamily.Gauntlet, "Punho de Asura",      "Seus básicos carregam o finalizador: cada acerto básico gera +2 de energia Asura por nível."),
+        new Definition(WeaponBoon.GuardBreaker,    RunWeaponFamily.Gauntlet, "Guarda partida",      "A cada 3 básicos seguidos, o terceiro racha a postura (+50% de dano de postura por nível) e arremessa ao quebrar a guarda."),
+        new Definition(WeaponBoon.HungryCombo,     RunWeaponFamily.Gauntlet, "Combo faminto",       "Tecer básicos acelera suas skills: cada acerto básico reduz a recarga das habilidades em 0,3s por nível."),
+        new Definition(WeaponBoon.SeismicFist,     RunWeaponFamily.Gauntlet, "Punho sísmico",       "OPCIONAL: reinstaura o arremesso. Ao quebrar a guarda (básico ou skill), empurra o inimigo, +30% de distância por nível."),
+        new Definition(WeaponBoon.KitingStep,      RunWeaponFamily.Bow,      "Disparo em recuo",    "Atirar recuando dá um impulso curto de reposicionamento, +25% de distância por nível. O kiting vira ritmo ativo."),
+        new Definition(WeaponBoon.AdaptiveCadence, RunWeaponFamily.Bow,      "Cadência adaptativa", "Manter 6m ou mais acelera seu disparo básico em +15% por nível; aproximar-se do alvo zera o bônus."),
+        new Definition(WeaponBoon.RainMark,        RunWeaponFamily.Bow,      "Chuva marcadora",     "O R marca e lentifica inimigos sob a chuva; acertos em marcados causam +20% de dano por nível enquanto a marca durar."),
+        new Definition(WeaponBoon.SpacingRecoil,   RunWeaponFamily.Spear,    "Recuo controlado",    "Uma estocada que conecta recua você até a distância ideal, +20% de recuo por nível, sem sair da banda."),
+        new Definition(WeaponBoon.PikeWall,        RunWeaponFamily.Spear,    "Muralha de hastes",   "O W cria uma zona de hastes que empurra inimigos para fora do seu alcance de perigo, +30% de empurrão por nível."),
+        new Definition(WeaponBoon.EdgeStrike,      RunWeaponFamily.Spear,    "Ponto cego",          "Acertar na ponta do alcance racha a postura (+40% por nível) e abre uma janela de vulnerabilidade ao quebrar a guarda.")
     });
     // Order-determinism contract (Requisito 12.7 / Property 39): ranks are stored per WeaponBoon in this
     // dictionary, so Add only ever increments the rank of the acquired boon and never touches another.
@@ -174,7 +193,18 @@ public sealed class WeaponRunModifiers
             if (slot == 0) { plan.Hits += 2 * Rank(WeaponBoon.RapidBurst); plan.Interval /= 1 + .25f * Rank(WeaponBoon.RapidBurst); }
             if (slot == 1) { plan.Damage *= 1 + .6f * Rank(WeaponBoon.HeavyBolt); plan.Windup *= 1 + .25f * Rank(WeaponBoon.HeavyBolt); }
             if (slot == 2) plan.Arrows += 4 * Rank(WeaponBoon.WideVolley);
-            if (slot == 3) { plan.Hits += 3 * Rank(WeaponBoon.LongRain); plan.Width *= 1 + .2f * Rank(WeaponBoon.LongRain); plan.TrackCursor = Rank(WeaponBoon.GuidedRain) > 0; }
+            if (slot == 3)
+            {
+                plan.Hits += 3 * Rank(WeaponBoon.LongRain); plan.Width *= 1 + .2f * Rank(WeaponBoon.LongRain); plan.TrackCursor = Rank(WeaponBoon.GuidedRain) > 0;
+                // gauntlet-boon-playstyle-overhaul R10 (RainMark, "Chuva marcadora"): the Rain ultimate's
+                // pulses mark the enemies they hit, slow them, and amplify subsequent direct hits. Value-
+                // type flags on the per-cast snapshot only (R10.4); non-decreasing with rank (R10.2). The
+                // retired LongRain scaling above stays harmless since LongRain is never acquired (R2.5/R2.6).
+                int mark = Rank(WeaponBoon.RainMark);
+                plan.MarkOnPulse = mark > 0;              // R10.1: each resolved pulse marks the hit enemy
+                plan.MarkAmplify = .2f * mark;            // R10.2: +20% direct damage per rank while marked
+                plan.MarkSlow = mark > 0 ? .4f : 0f;      // R10.3: movement slow applied while marked
+            }
         }
         if (Family == RunWeaponFamily.Spear)
         {
@@ -188,9 +218,25 @@ public sealed class WeaponRunModifiers
                 int impale = Rank(WeaponBoon.ImpalingLine);
                 plan.ImpaleLine = impale > 0;        // R5.1
                 plan.ImpalePull = .75f * impale;     // R5.2
+                // gauntlet-boon-playstyle-overhaul R11 (SpacingRecoil, "Recuo controlado"): a connecting
+                // thrust steps the player back toward the ideal band. The flag is value-type, so the
+                // immutability invariant holds (no reference aliases an asset); the recoil distance is
+                // computed from SpacingBand in ArsenalCombat using the live SpacingRecoil rank, and the
+                // actual step-back only fires when the thrust connects (primaryHits > 0). (R11.1)
+                plan.SpacingRecoil = Rank(WeaponBoon.SpacingRecoil) > 0;
             }
             if (ability.Kind == ArsenalSkillKind.Sweep)
+            {
                 plan.ShardCount = Mathf.Clamp(2 * Rank(WeaponBoon.MoonShard), 0, 6); // R7.3: between 2 and 6
+                // gauntlet-boon-playstyle-overhaul R12 (PikeWall, "Muralha de hastes"): the W sweep forms a
+                // control zone that pushes caught enemies OUTWARD from the zone centre. Snapshot-only value
+                // flags read from the PikeWall rank; the outward displacement is applied in ArsenalCombat
+                // through each enemy's own SoftGroupingService (never a teleport). Monotonic in rank, exactly
+                // off (ControlZone false, ZonePush 0) when the boon is not acquired.
+                int wall = Rank(WeaponBoon.PikeWall);
+                plan.ControlZone = wall > 0;        // R12.1: zone active for the sweep duration
+                plan.ZonePush = 0.3f * wall;         // R12.2: +30% outward push per rank (0 = off)
+            }
             if (slot == 1)
             {
                 // TripleMoon + Orbit orbital core (R5). Applied to the fresh per-cast snapshot only (R5.5);
@@ -231,6 +277,19 @@ foreach (AreaHitStep source in ability.HitSteps)
             step.rangeOverride *= MeleeScale; step.boxSize *= MeleeScale; step.sphereRadius *= MeleeScale;
             step.stanceDamage *= 1 + .75f * Rank(WeaponBoon.StanceCrusher);
             step.pushDistance *= 1 + .3f * Rank(WeaponBoon.StanceCrusher);
+            // gauntlet-boon-playstyle-overhaul R7 (SeismicFist, "Punho sísmico"): opt-in deliberate
+            // knockback. When the boon is active, the cloned step declares StanceBreakEffect.Knockback and
+            // scales knockbackDistance by (1 + 0.3 * rank); the per-hit pushDistance is left untouched (the
+            // hard displacement comes only from the Stance_Break knockback, resolved through the enemy's
+            // locomotion). At rank 0 nothing here runs, so the baseline no-push behavior and the source's
+            // authored breakEffect/knockbackDistance are unchanged (R7.3). The scaling lands on the per-cast
+            // JsonUtility clone only, so the source asset is never mutated (R7.4). Monotonic in rank (R7.1).
+            int seismic = Rank(WeaponBoon.SeismicFist);
+            if (seismic > 0)
+            {
+                step.breakEffect = StanceBreakEffect.Knockback;
+                step.knockbackDistance *= 1 + .3f * seismic;
+            }
             if (slot == 2 && Rank(WeaponBoon.ShockRing) > 0)
             {
                 step.hitShape = AreaHitShape.Sphere;
@@ -292,6 +351,14 @@ public sealed class ArsenalCastPlan
     // (no reference aliases an asset). Set from ImpalingLine rank in WeaponRunModifiers.Plan.
     public bool ImpaleLine;      // R5.1: thrust damages every enemy along the line
     public float ImpalePull;     // R5.2: metres each connected enemy is pulled toward the player (0 = off)
+    // gauntlet-boon-playstyle-overhaul: value-type flags, so the immutability invariant above holds (no
+    // reference aliases an asset). Set from ranks in WeaponRunModifiers.Plan (per-cast snapshot only).
+    public bool MarkOnPulse;     // R10.1 (RainMark): the ultimate's pulse marks the enemy it hits
+    public float MarkAmplify;    // R10.2 (RainMark): extra damage fraction while marked (0.2 x rank; 0 = off)
+    public float MarkSlow;       // R10.3 (RainMark): movement slow applied on mark (0 = off)
+    public bool SpacingRecoil;   // R11.1 (SpacingRecoil): a connecting thrust steps the player back into the band
+    public bool ControlZone;     // R12.1 (PikeWall): the sweep forms a control zone that pushes enemies outward
+    public float ZonePush;       // R12.2 (PikeWall): outward push magnitude scale (0.3 x rank; 0 = off)
     public ArsenalCastPlan(ArsenalAbility ability)
     {
         Windup = ability.Windup; Interval = ability.Interval; Range = ability.Range;
