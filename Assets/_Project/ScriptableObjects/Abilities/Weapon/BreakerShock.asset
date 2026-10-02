@@ -64,3 +64,36 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
+  _combatProfile:
+    startupEnd: 0.28
+    activeEnd: 0.72
+    commitment: 1
+    channelTermination: 0
+    startupMoveFraction: 0.1
+    activeMoveFraction: 0
+    recoveryMoveFraction: 1
+    cancelRules:
+    - target: 0
+      start: 0.74
+      end: 1
+    - target: 2
+      start: 0.82
+      end: 1
+    impactEvents:
+    - index: 0
+      at: 0.34
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 0
+    - index: 1
+      at: 0.64
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 1
+      areaHitStepIndex: 1
+    hitStopProfiles:
+    - duration: 0.04
+      hitStopClass: 0
+    - duration: 0.12
+      hitStopClass: 1

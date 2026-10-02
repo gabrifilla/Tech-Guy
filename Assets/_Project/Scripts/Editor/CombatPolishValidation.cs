@@ -107,10 +107,16 @@ public static class CombatPolishValidation
                     // Asura is paid with earned energy, even with an empty mana pool.
                     Charge(); _player.mana=0; _beforeHits=_hits;
                     Require(_holder.TryUseAbility(3),"Charged Asura starts at zero mana");
-                    Require(!_holder.TryUseDash(_player.GetComponent<CharControlScript>().dashScript),"First quarter-second cannot be cancelled");
+                    // Task 15.3 (R3.8): the Asura dash-cancel window is now governed by its authored Dash
+                    // CancelRule (start 0.05) resolved through the shared CancelResolver, not the former
+                    // hidden _elapsed >= 0.25 s exception. At the very first tick (progress < 0.05) the
+                    // Dash rule is still closed, so CanDodgeCancel — which now reflects the authored rule,
+                    // not a 0.25 s gate — reports false. (Avoid calling TryUseDash here: a temporal miss
+                    // buffers the intent, which would fire into the next phase.)
+                    Require(_breaker.IsAsuraActive && !_breaker.CanDodgeCancel,"Startup cannot be dash-cancelled before the authored Dash window opens");
                     Next(.35); break;
                 case 4:
-                    Require(_breaker.IsAsuraActive && _breaker.CanDodgeCancel,"Asura dodge window opens");
+                    Require(_breaker.IsAsuraActive && _breaker.CanDodgeCancel,"Asura dodge window opens (authored Dash rule governs it)");
                     _player.RestoreHealthToMax(); _health=_player.health;
                     float expected=_player.Stats.ReduceIncomingDamage(50)*.15f;
                     _player.TakeDamage(50); Near(_health-_player.health,expected,"Asura reduces damage by 85 percent");

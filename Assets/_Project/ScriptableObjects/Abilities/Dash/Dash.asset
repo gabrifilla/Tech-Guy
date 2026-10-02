@@ -22,3 +22,20 @@ MonoBehaviour:
   dashVelocity: 20
   dashTime: 0.25
   dashAnimation: Dash
+  _combatProfile:
+    startupEnd: 0.05
+    activeEnd: 0.7
+    commitment: 0
+    channelTermination: 0
+    startupMoveFraction: 1
+    activeMoveFraction: 1
+    recoveryMoveFraction: 1
+    cancelRules:
+    - target: 1
+      start: 0.6
+      end: 1
+    - target: 2
+      start: 0.6
+      end: 1
+    impactEvents: []
+    hitStopProfiles: []

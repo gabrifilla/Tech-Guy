@@ -349,3 +349,129 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
+  _combatProfile:
+    startupEnd: 0.05
+    activeEnd: 0.95
+    commitment: 2
+    channelTermination: 1
+    startupMoveFraction: 0.1
+    activeMoveFraction: 0
+    recoveryMoveFraction: 1
+    cancelRules:
+    - target: 0
+      start: 0.05
+      end: 1
+    impactEvents:
+    - index: 0
+      at: 0.058
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 0
+    - index: 1
+      at: 0.103
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 1
+    - index: 2
+      at: 0.148
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 2
+    - index: 3
+      at: 0.193
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 3
+    - index: 4
+      at: 0.238
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 4
+    - index: 5
+      at: 0.283
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 5
+    - index: 6
+      at: 0.328
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 6
+    - index: 7
+      at: 0.373
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 7
+    - index: 8
+      at: 0.418
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 8
+    - index: 9
+      at: 0.463
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 9
+    - index: 10
+      at: 0.508
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 10
+    - index: 11
+      at: 0.553
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 11
+    - index: 12
+      at: 0.598
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 12
+    - index: 13
+      at: 0.643
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 13
+    - index: 14
+      at: 0.688
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 14
+    - index: 15
+      at: 0.733
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 15
+    - index: 16
+      at: 0.733
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 16
+    - index: 17
+      at: 0.9
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 1
+      areaHitStepIndex: 17
+    hitStopProfiles:
+    - duration: 0
+      hitStopClass: 2
+    - duration: 0.14
+      hitStopClass: 1

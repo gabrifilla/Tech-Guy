@@ -30,3 +30,31 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d1bff7393a5345b7a9f607cebd345fb1, type: 2}
   - {fileID: 11400000, guid: cd462492dd554c3d985f61d363b8a234, type: 2}
   - {fileID: 11400000, guid: 3d3c58db237147dfb57c99ae2aafc52c, type: 2}
+  _basicProfile:
+    startupEnd: 0.3
+    activeEnd: 0.6
+    commitment: 0
+    channelTermination: 0
+    startupMoveFraction: 0.25
+    activeMoveFraction: 0
+    recoveryMoveFraction: 1
+    cancelRules:
+    - target: 0
+      start: 0.45
+      end: 1
+    - target: 1
+      start: 0.6
+      end: 1
+    - target: 2
+      start: 0.6
+      end: 1
+    impactEvents:
+    - index: 0
+      at: 0.4
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 0
+    hitStopProfiles:
+    - duration: 0.05
+      hitStopClass: 0

@@ -1,0 +1,883 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1. Criar a pasta do Núcleo_Compartilhado e o enum base de fases": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949131718
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949144533
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949253216
+      }
+    ],
+    "2.1 Implementar `ActionTimeline` (duração fixa)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949131807
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949262377
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949374655
+      }
+    ],
+    "2.2 Implementar `ChannelProgress` (duração variável)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949131871
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949271002
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949378872
+      }
+    ],
+    "2.3 Escrever `ActionTimelinePropertyTests` (EditMode)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949131936
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949387442
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949547763
+      }
+    ],
+    "3.1 Implementar o modelo de compromisso": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949132016
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949394832
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949552235
+      }
+    ],
+    "3.2 Escrever `CommitmentRulesPropertyTests` (EditMode)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949132072
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949557451
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949755240
+      }
+    ],
+    "4.1 Implementar `CancelRule` e `CancelRuleSet`": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949132134
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949564881
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949756153
+      }
+    ],
+    "4.2 Implementar `CancelResolver` (único, compartilhado)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949132249
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949573436
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950187044
+      }
+    ],
+    "4.3 Escrever `CancelRulePropertyTests` (EditMode)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949132311
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949762009
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950187949
+      }
+    ],
+    "4.4 Escrever `CancelResolverPropertyTests` (EditMode)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949132495
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949770584
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950295394
+      }
+    ],
+    "5. Checkpoint — garantir que os testes das classes puras de fase/compromisso/cancelamento passam": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949132639
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950302729
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950443232
+      }
+    ],
+    "6.1 Implementar `CommandIntent`": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949132803
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950449033
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950549460
+      }
+    ],
+    "6.2 Implementar `InputBuffer` (slot único)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949132895
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950552713
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950729036
+      }
+    ],
+    "6.3 Escrever `InputBufferPropertyTests` (EditMode)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949132993
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950560017
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950899367
+      }
+    ],
+    "7.1 Implementar `BasicAttackDriver`": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949133107
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950567249
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950730006
+      }
+    ],
+    "7.2 Escrever `BasicAttackDriverPropertyTests` (EditMode)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949133215
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950573848
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950900327
+      }
+    ],
+    "8.1 Implementar identidade e ledger de impacto": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949133322
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950734436
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950901317
+      }
+    ],
+    "8.2 Escrever `ExecutionImpactLedgerPropertyTests` (EditMode)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949133425
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950905899
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951030242
+      }
+    ],
+    "9.1 Implementar a decisão de hit-stop": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949133503
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950912166
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951029248
+      }
+    ],
+    "9.2 Escrever `HitStopPropertyTests` (EditMode)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949133608
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950919952
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951149124
+      }
+    ],
+    "10. Checkpoint — garantir que todos os testes de classes puras passam": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949133708
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951154237
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951426214
+      }
+    ],
+    "11. Auditar e documentar o contrato de eventos/APIs antes de qualquer refactor": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949133799
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951161202
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951427179
+      }
+    ],
+    "12.1 Implementar o bloco serializável `CombatActionProfile`": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949133880
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951432575
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951673791
+      }
+    ],
+    "12.2 Expor o perfil nos assets existentes com default retrocompatível": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949133984
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951678099
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951802503
+      }
+    ],
+    "12.3 Autorar os 5 perfis da Manopla + dash": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949134073
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951807460
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790952056645
+      }
+    ],
+    "12.4 Escrever teste de smoke/exemplo dos perfis (EditMode)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949134156
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790952060390
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790955929764
+      }
+    ],
+    "13.1 Remover o auto-combate persistente em `CharControlScript`": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949134231
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790955937040
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790956263603
+      }
+    ],
+    "13.2 Ligar os três comandos e a Zona_Morta_de_Movimento": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949134339
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790956267233
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790956411966
+      }
+    ],
+    "13.3 Alimentar tap/hold reaproveitando o hold-tracking existente": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949134449
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790956415430
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790956611699
+      }
+    ],
+    "13.4 Substituir o bloqueio total de `CheckUse` pelo `CancelResolver`": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949134537
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790956615353
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790956997331
+      }
+    ],
+    "13.5 Rotear `TryUseDash` pelo `CancelResolver`": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949134612
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790957000938
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790957511122
+      }
+    ],
+    "13.6 Escrever testes de integração PlayMode para R1": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949134691
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790957515500
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790958483801
+      }
+    ],
+    "13.7 Escrever testes de integração PlayMode para R4/R6 (dash)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949134775
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790957522526
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790958483097
+      }
+    ],
+    "14. Checkpoint — ataque básico + dash da Manopla jogáveis e testados": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949134874
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790958488692
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790958600077
+      }
+    ],
+    "15.1 Fonte única de avanço + sincronização de animação": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949134976
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790958605642
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790959455902
+      }
+    ],
+    "15.2 Reportar `(ActionPhase, localProgress)` dos executores ao núcleo": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949135183
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790959460378
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790959798142
+      }
+    ],
+    "15.3 Terminação de Channel (Hold) e preservação da Rajada Asura": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949135295
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790959801937
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790960652617
+      }
+    ],
+    "15.4 Escrever testes de integração PlayMode para R2/R3 e o kit da Manopla": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949135388
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790960656555
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790961526571
+      }
+    ],
+    "16.1 Implementar `HitStopRunner` (MonoBehaviour fino) e ligá-lo aos ImpactEvents": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949135475
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790961531637
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790962410916
+      }
+    ],
+    "16.2 Ligar a Reação_de_Acerto_Básica cosmética": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949135567
+      },
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790962414801
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790963496642
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790963759481
+      }
+    ],
+    "16.3 Escrever testes de integração PlayMode para R7": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949135672
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790963763209
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790964177473
+      }
+    ],
+    "17. Checkpoint — garantir que básico, dash, kit e feedback passam nos testes": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949135764
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790964182281
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790964631937
+      }
+    ],
+    "18.1 Adaptador_de_Compatibilidade onde o núcleo interage com Arco/Lança": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949135862
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790964641715
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790965765084
+      }
+    ],
+    "18.2 Garantir não duplicação de custos e projétil pós-cancel": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949135948
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790965769813
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790966680886
+      }
+    ],
+    "18.3 Escrever testes de regressão/compatibilidade (PlayMode)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949136027
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790966684736
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790967516733
+      }
+    ],
+    "19. Validação — compilar e rodar os testes EditMode + PlayMode": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949136111
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790967521226
+      },
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790968078047
+      }
+    ],
+    "20. Gate manual de conclusão — playtest da Manopla sem boons (não automatizado)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949136209
+      }
+    ],
+    "2. Implementar `ActionTimeline` e `ChannelProgress` (fases puras) com testes": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949547884
+      }
+    ],
+    "3. Implementar `CommitmentCategory` + `CommitmentRules` com testes": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790949755403
+      }
+    ],
+    "4. Implementar `CancelRule` + `CancelRuleSet` + `CancelResolver` com testes": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950295494
+      }
+    ],
+    "6. Implementar `CommandIntent` + `InputBuffer` com testes": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950899507
+      }
+    ],
+    "7. Implementar `BasicAttackDriver` (sem auto-combate) com testes": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790950900441
+      }
+    ],
+    "8. Implementar `ExecutionId` + `ExecutionImpactLedger` (dedup) com testes": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951030401
+      }
+    ],
+    "9. Implementar `HitStop` + `HitStopGrouping` (decisão pura) com testes": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790951149343
+      }
+    ],
+    "12. Adicionar o modelo de dados `CombatActionProfile` e autorar os perfis da Manopla": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790955929886
+      }
+    ],
+    "13. Integração — ataque básico + dash da Manopla (primeiro incremento jogável)": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790958483878
+      }
+    ],
+    "15. Integração — kit Q/W/E/R da Manopla via ImpactEvent/ImpactWindow": [
+      {
+        "executionId": "bc2f845f-dc08-4715-96c6-3313e652e8ed",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790961526734
+      }
+    ],
+    "16. Integração — fundação de feedback de acerto (hit-stop + reação básica)": [
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790964177612
+      }
+    ],
+    "18. Verificação de compatibilidade de Arco/Lança e não duplicação": [
+      {
+        "executionId": "a974bac9-3d71-4d27-ad76-8c69ed250c5d",
+        "chatSessionId": "sess_fdc5c13f-ebf1-4892-9e63-1639358abe80",
+        "timestamp": 1790967516875
+      }
+    ]
+  }
+}

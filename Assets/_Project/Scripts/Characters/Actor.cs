@@ -17,6 +17,22 @@ public class Actor : MonoBehaviour
     public event Action<Actor> Died;
     public bool IsDead { get; private set; }
     private readonly Dictionary<UnityEngine.Object, float> _damageTakenModifiers = new Dictionary<UnityEngine.Object, float>();
+    // Full damage-immunity sources, keyed by source like _damageTakenModifiers (R6.9). This is the
+    // SAME immunity channel the damage-taken multiplier uses (source-keyed, applied in TakeDamage),
+    // not a parallel system — but it grants TRUE immunity, which SetDamageTakenMultiplier cannot
+    // express because it clamps its multiplier to a 0.1 floor (90% reduction, never 0). The dash's
+    // i-frame window (DashScript) adds itself here on start and removes itself on every exit path
+    // (window elapsed / cancel / death / room change / end of displacement) so no residual immunity
+    // can linger (R6.8). A HashSet keeps add/remove idempotent and order-independent.
+    private readonly HashSet<UnityEngine.Object> _damageImmunitySources = new HashSet<UnityEngine.Object>();
+
+    /// <summary>
+    /// True while at least one source has granted full damage immunity via
+    /// <see cref="AddDamageImmunity"/> (R6.9). While true, <see cref="TakeDamage"/> ignores incoming
+    /// damage entirely (not merely reduced). Exposed read-only for callers that need to observe the
+    /// i-frame state without mutating it.
+    /// </summary>
+    public bool IsDamageImmune => _damageImmunitySources.Count > 0;
 
     public void SetDamageTakenMultiplier(UnityEngine.Object source, float multiplier)
     {
@@ -26,6 +42,26 @@ public class Actor : MonoBehaviour
     public void RemoveDamageTakenMultiplier(UnityEngine.Object source)
     {
         if (source) _damageTakenModifiers.Remove(source);
+    }
+
+    /// <summary>
+    /// Grants full damage immunity from <paramref name="source"/> (R6.9). Multiple sources are
+    /// tracked independently; immunity lasts until every source has called
+    /// <see cref="RemoveDamageImmunity"/>. Idempotent per source.
+    /// </summary>
+    public void AddDamageImmunity(UnityEngine.Object source)
+    {
+        if (source) _damageImmunitySources.Add(source);
+    }
+
+    /// <summary>
+    /// Removes the immunity previously granted by <paramref name="source"/> (R6.8). Once no source
+    /// remains, <see cref="IsDamageImmune"/> returns to false with no residual immunity. Safe to
+    /// call even if the source never added immunity.
+    /// </summary>
+    public void RemoveDamageImmunity(UnityEngine.Object source)
+    {
+        if (source) _damageImmunitySources.Remove(source);
     }
 
     public virtual void Awake()
@@ -62,6 +98,11 @@ public class Actor : MonoBehaviour
     public virtual void TakeDamage(float amount)
     {
         if (IsDead) return;
+        // Full i-frame immunity (R6.9): a damage-immune actor ignores the hit entirely — no health
+        // loss, no DamageReceived, no absorber consumption. This precedes the damage-taken
+        // multipliers because immunity is absolute, not a scaling. The dash arms/disarms this through
+        // Add/RemoveDamageImmunity around its i-frame window.
+        if (IsDamageImmune) return;
         foreach (var modifier in _damageTakenModifiers)
             if (modifier.Key) amount *= modifier.Value;
 

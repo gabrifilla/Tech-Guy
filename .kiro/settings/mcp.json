@@ -6,14 +6,15 @@
       "env": {},
       "disabled": false
     },
-     "blender": {
-			"command": "uv",
-			"args": [
-				"--directory",
-				"C:\\blender_mcp\\mcp",
-				"run",
-				"blender-mcp"
-			]
-		}
+    "blender": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\blender_mcp\\mcp",
+        "run",
+        "blender-mcp"
+      ],
+      "disabled": true
+    }
   }
 }

@@ -10,6 +10,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     private PlayerActor _player;
     private AbilityHolder _holder;
     private SkillAnimationPlayer _animation;
+    private HitStopRunner _hitStop;
     private NavMeshAgent _agent;
     private WeaponScript _weapon;
     private Coroutine _cast;
@@ -17,6 +18,16 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     private System.Collections.Generic.IReadOnlyList<AreaHitStep> _activeSteps;
     private float _elapsed;
     private bool _finisherApplied;
+
+    // Single advance source for the active execution's ImpactEvents (task 15.1). The ledger dedups
+    // every emission by (ExecutionId, ImpactEvent.Index) so the logical clock advanced in FixedUpdate
+    // and any Animation Event signal collapse to one impact (R8.9); the scheduler decides, from the
+    // ability's authored CombatProfile.ImpactEvents, when each impact fires / each window opens/closes
+    // across Startup→Active→Recovery (R2.4–R2.6). It is null for abilities with no authored profile,
+    // in which case the coroutine keeps its legacy per-step impact loop so Arco/Lança and any
+    // unauthored asset never regress.
+    private readonly ExecutionImpactLedger _ledger = new ExecutionImpactLedger();
+    private ActionImpactScheduler _scheduler;
     private bool _savedStopped;
     private bool _savedRotation;
     private bool _agentLocked;
@@ -37,9 +48,141 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         = new System.Collections.Generic.Dictionary<SoftGroupingService, float>();
 
     public bool IsExecuting { get; private set; }
-    public bool CanDodgeCancel => IsExecuting && _activeAbility && _activeAbility.AsuraBurst && _elapsed >= .25f;
     public bool IsAsuraActive => IsExecuting && _activeAbility && _activeAbility.AsuraBurst;
     public float ExecutionDuration { get; private set; }
+
+    /// <summary>
+    /// Whether the active cast's authored Dash <see cref="CancelRule"/> is open at the current
+    /// progress (R3.8). This is a <em>read-only reflection</em> of the authored rule resolved through
+    /// the shared <see cref="CancelResolver"/> — it is <strong>not</strong> an authorization shortcut:
+    /// the actual dash-cancel decision is made by <see cref="AbilityHolder"/> via
+    /// <c>ResolveCancel(CancelTarget.Dash)</c>, and <see cref="FinishForDodge"/> is only the cancel
+    /// EXECUTION. Task 15.3 removed the old hidden <c>_elapsed &gt;= .25f</c> exception that gated the
+    /// Asura dash-cancel independently of its authored rule; the window is now governed solely by the
+    /// authored Dash rule covering Active. Returns <c>false</c> when nothing is executing or the active
+    /// ability authors no Dash rule.
+    /// </summary>
+    public bool CanDodgeCancel
+    {
+        get
+        {
+            if (!IsExecuting || !_activeAbility) return false;
+            CombatActionProfile profile = _activeAbility.CombatProfile;
+            if (profile == null) return false;
+            CancelRuleSet rules = profile.BuildCancelRuleSet();
+            if (!rules.TryGet(CancelTarget.Dash, out CancelRule dash)) return false;
+            float progress = Mathf.Clamp01(_elapsed / Mathf.Max(0.0001f, ExecutionDuration));
+            return dash.IsOpenAt(progress);
+        }
+    }
+
+    /// <summary>
+    /// Seconds already elapsed in the current cast (0 when idle). Exposed read-only so the
+    /// shared cancel pipeline in <see cref="AbilityHolder"/> can compute the normalized progress
+    /// used by <see cref="CancelResolver"/> without reaching into the coroutine's private state
+    /// (R4.6/R4.7). Mirrors the private <c>_elapsed</c> the <c>Execute</c> loop advances.
+    /// </summary>
+    public float Elapsed => _elapsed;
+
+    /// <summary>
+    /// The ability currently being cast, or <c>null</c> when idle. Exposed read-only so the shared
+    /// cancel pipeline in <see cref="AbilityHolder"/> can read the active action's authored
+    /// <see cref="Ability.CombatProfile"/> to build its <see cref="CancelRuleSet"/> (R4.4/R4.6).
+    /// </summary>
+    public BreakerGauntletAbility ActiveAbility => _activeAbility;
+
+    /// <summary>
+    /// Reports the active action's unified <c>(ActionPhase, localProgress)</c> to the
+    /// Núcleo_Compartilhado (task 15.2, R2.5/R8.8), computed from the ability's authored
+    /// <see cref="CombatActionProfile"/>. On the fixed-duration path the global progress is
+    /// <c>Clamp01(Elapsed / ExecutionDuration)</c>, the phase is <see cref="ActionTimeline.PhaseOf"/>
+    /// and the local progress is <see cref="ActionTimeline.LocalProgressOf"/> (progress mapped into
+    /// the current phase's sub-range → <c>[0, 1]</c>). A <see cref="CommitmentCategory.Channel"/>
+    /// action (e.g. the Asura R) reports the same phase + phase-local progress expressed as a
+    /// <see cref="ChannelProgress"/>, which carries no dependency on a total duration and prepares the
+    /// Channel-Hold termination of task 15.3. Returns <c>false</c> (phase <see cref="ActionPhase.Startup"/>,
+    /// localProgress <c>0</c>) when nothing is executing or the active ability authors no profile, so
+    /// the core can treat "no report" distinctly from a real Startup report.
+    /// </summary>
+    /// <param name="phase">The current phase of the active action.</param>
+    /// <param name="localProgress">Progress within <paramref name="phase"/>, in <c>[0, 1]</c>.</param>
+    /// <returns><c>true</c> when an authored action is executing and a report was produced.</returns>
+    public bool TryGetActionProgress(out ActionPhase phase, out float localProgress)
+    {
+        phase = ActionPhase.Startup;
+        localProgress = 0f;
+        if (!IsExecuting || !_activeAbility) return false;
+
+        CombatActionProfile profile = _activeAbility.CombatProfile;
+        if (profile == null) return false;
+
+        ActionTimeline timeline = profile.BuildTimeline();
+        float globalProgress = Mathf.Clamp01(_elapsed / Mathf.Max(0.0001f, ExecutionDuration));
+        phase = timeline.PhaseOf(globalProgress);
+        float phaseLocal = timeline.LocalProgressOf(globalProgress);
+
+        // A Channel action (e.g. Asura R) is reported through ChannelProgress semantics so the report
+        // never depends on a known total duration (R3.7); the phase + phase-local progress are the same
+        // pair the fixed-duration path produces, which is all the Núcleo_Compartilhado's CancelRules
+        // need and what task 15.3's Hold termination consumes.
+        if (profile.ResolveCommitment(out _) == CommitmentCategory.Channel)
+        {
+            ChannelProgress channel = new ChannelProgress(phase, phaseLocal);
+            phase = channel.Phase;
+            localProgress = channel.LocalProgress;
+            return true;
+        }
+
+        localProgress = phaseLocal;
+        return true;
+    }
+
+    /// <summary>
+    /// Reports the active action's resolved <see cref="CommitmentCategory"/> to the core through the
+    /// single <see cref="CommitmentRules.Resolve"/> path (task 15.2, R3.1/R3.2), reading the
+    /// authored <see cref="CombatActionProfile.Commitment"/>. Returns <c>false</c> when nothing is
+    /// executing or the active ability authors no profile, so the core can gate movement fractions
+    /// only when an authored commitment is available (the per-phase movement fraction read stays
+    /// non-behavioral here, honoring contract-audit O-9).
+    /// </summary>
+    /// <param name="commitment">The resolved commitment category of the active action.</param>
+    /// <returns><c>true</c> when an authored action is executing and a commitment was resolved.</returns>
+    public bool TryGetCommitment(out CommitmentCategory commitment)
+    {
+        commitment = CommitmentRules.Default;
+        if (!IsExecuting || !_activeAbility) return false;
+
+        CombatActionProfile profile = _activeAbility.CombatProfile;
+        if (profile == null) return false;
+
+        commitment = profile.ResolveCommitment(out _);
+        return true;
+    }
+
+    /// <summary>
+    /// Supplies the shared cancel pipeline in <see cref="AbilityHolder"/> with everything it needs to
+    /// evaluate a cancel against the active action in ONE call (task 15.2): the active ability's
+    /// authored <see cref="CombatActionProfile"/> and the <em>global</em> normalized progress
+    /// (<c>Clamp01(Elapsed / ExecutionDuration)</c>) that the authored CancelRules are expressed over.
+    /// Centralizing this read in the executor means the holder no longer recomputes
+    /// <c>Elapsed / ExecutionDuration</c> itself — the single progress computation lives here, next to
+    /// the unified <see cref="TryGetActionProgress"/> report. Returns <c>false</c> (profile <c>null</c>,
+    /// progress <c>0</c>) when nothing is executing, so the holder treats "not casting" distinctly.
+    /// </summary>
+    /// <param name="profile">The active ability's authored profile, or <c>null</c> when unauthored.</param>
+    /// <param name="globalProgress">The global normalized progress of the active cast, in <c>[0, 1]</c>.</param>
+    /// <returns><c>true</c> when an action is executing (even with a <c>null</c> profile).</returns>
+    public bool TryGetCancelContext(out CombatActionProfile profile, out float globalProgress)
+    {
+        profile = null;
+        globalProgress = 0f;
+        if (!IsExecuting || !_activeAbility) return false;
+
+        profile = _activeAbility.CombatProfile;
+        globalProgress = Mathf.Clamp01(_elapsed / Mathf.Max(0.0001f, ExecutionDuration));
+        return true;
+    }
+
     public int Energy => _momentum.Energy;
     public bool IsReady => _momentum.IsReady;
     public bool IsEquipped => _weapon && _player && !_player.IsDead && _player.CurrentWeapon == _weapon;
@@ -49,6 +192,10 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         _player = GetComponent<PlayerActor>();
         _holder = GetComponent<AbilityHolder>();
         _animation = GetComponent<SkillAnimationPlayer>() ?? gameObject.AddComponent<SkillAnimationPlayer>();
+        // The thin hit-stop runtime lives on the player GameObject (same get-or-add pattern as the
+        // SkillAnimationPlayer above). It is driven once per resolved ImpactEvent by EmitAuthoredImpact
+        // (task 16.1); the pure HitStop/HitStopGrouping decision stays in the Núcleo_Compartilhado.
+        _hitStop = GetComponent<HitStopRunner>() ?? gameObject.AddComponent<HitStopRunner>();
         _agent = GetComponent<NavMeshAgent>();
         _player.Died += OnDeath;
     }
@@ -136,6 +283,28 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
             _agent.updateRotation = false;
         }
 
+        // Task 15.3 (R3.6): generic Channel-Hold termination. When the active ability authors a
+        // Channel commitment with ChannelTermination == Hold, the Active phase is SUSTAINED while the
+        // triggering control is held and ends — transitioning to Recovery per the action's authored
+        // Recovery rule — the moment that control is released. This is a weapon-generic mechanism: it
+        // reads only the authored CombatActionProfile and the slot's bound control, so ANY future
+        // Channel+Hold Manopla action is hold-terminated without a bespoke code path. It is dormant for
+        // every shipped action here — the Rajada Asura authors Timed termination (its fixed-duration
+        // sequence is its current control, preserved verbatim per R3.9), and the other skills are not
+        // Channel — so no observable behavior of the shipped kit changes. The triggering control is the
+        // skill slot's binding (GameControl.Skill1 + slot); dash (slot < 0) and any unmapped slot are
+        // never hold-sustained.
+        CombatActionProfile holdProfile = ability ? ability.CombatProfile : null;
+        bool holdSustained = holdProfile != null &&
+            holdProfile.ResolveCommitment(out _) == CommitmentCategory.Channel &&
+            holdProfile.ChannelTermination == ChannelTerminationMode.Hold &&
+            slot >= 0 && slot < 4;
+        GameControl holdControl = holdSustained
+            ? (GameControl)((int)GameControl.Skill1 + slot) : GameControl.Skill1;
+        // The normalized end of Active comes from the authored timeline; releasing the control jumps the
+        // cast to this instant so the remaining loop plays out Recovery exactly as a natural end would.
+        float holdActiveEnd = holdSustained ? holdProfile.BuildTimeline().ActiveEnd : 1f;
+
         try
         {
             float elapsed = 0f;
@@ -143,6 +312,14 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
             foreach (AreaHitStep step in steps)
                 if (step != null) duration = Mathf.Max(duration, step.delay + 0.18f);
             ExecutionDuration = duration;
+            // Task 15.1: when the ability authors a CombatProfile with ImpactEvents, the single
+            // advance source (FixedUpdate → scheduler) owns impact emission. The scheduler maps each
+            // authored ImpactEvent's AreaHitStepIndex back to this per-cast step clone and emits
+            // through Impact(...) exactly once per (ExecutionId, Index) via the shared ledger. The
+            // coroutine's own applied[] loop is suppressed in that case to avoid double-counting; it
+            // stays as the fallback for abilities with no authored ImpactEvents.
+            BuildImpactScheduler(ability, steps);
+            bool schedulerOwnsImpacts = _scheduler != null;
             var applied = new bool[steps.Count];
             int animatedStep = 0;
             while (elapsed < duration)
@@ -175,17 +352,35 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
                     ApplyFlurryRegroup(delta);                            // R7.2
                 elapsed += delta;
                 _elapsed = elapsed;
+                // R3.6: a hold-sustained Channel ends its Active phase the moment the triggering control
+                // is released. Only acts once Active has begun (progress >= holdActiveEnd's startup side
+                // is irrelevant — we only cut Active short, never Startup) and only while still inside
+                // Active (elapsed < Recovery start); on release we jump elapsed to the Active→Recovery
+                // boundary so the remaining loop plays Recovery per the authored Recovery rule and
+                // returns control, instead of running the fixed sequence to completion. Dormant unless
+                // holdSustained (shipped actions never enter here — see holdSustained setup above).
+                if (holdSustained && elapsed < holdActiveEnd * duration &&
+                    elapsed >= holdProfile.BuildTimeline().StartupEnd * duration &&
+                    !GamePreferences.IsHeld(holdControl))
+                {
+                    elapsed = holdActiveEnd * duration;
+                    _elapsed = elapsed;
+                }
                 while (animatedStep+1 < steps.Count && elapsed > steps[animatedStep].delay + Mathf.Min(.04f,(steps[animatedStep+1].delay-steps[animatedStep].delay)*.25f)) animatedStep++;
                 float start = animatedStep == 0 ? 0 : steps[animatedStep-1].delay + Mathf.Min(.04f,(steps[animatedStep].delay-steps[animatedStep-1].delay)*.25f);
                 float end = animatedStep+1 < steps.Count ? steps[animatedStep].delay + Mathf.Min(.04f,(steps[animatedStep+1].delay-steps[animatedStep].delay)*.25f) : duration;
                 _animation.Strike(Motion(ability,animatedStep),elapsed,start,steps[animatedStep].delay,end);
-                for (int i = 0; i < applied.Length; i++)
-                {
-                    AreaHitStep step = steps[i];
-                    if (applied[i] || step == null || elapsed < step.delay) continue;
-                    applied[i] = true;
-                    Impact(ability,step,i);
-                }
+                // Legacy per-step impact fallback — only when no authored ImpactEvent scheduler owns
+                // emission (task 15.1). When a scheduler is active, FixedUpdate advances it and it
+                // emits each impact once through the ledger, so this loop stays idle to avoid duplicates.
+                if (!schedulerOwnsImpacts)
+                    for (int i = 0; i < applied.Length; i++)
+                    {
+                        AreaHitStep step = steps[i];
+                        if (applied[i] || step == null || elapsed < step.delay) continue;
+                        applied[i] = true;
+                        Impact(ability,step,i);
+                    }
                 yield return null;
             }
         }
@@ -212,22 +407,120 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         return clones;
     }
 
+    /// <summary>
+    /// The single advance source for the active execution's ImpactEvents (task 15.1, R2.5–R2.7).
+    /// Driven once per Quadro_de_Simulacao (<c>FixedUpdate</c>), it advances the scheduler's logical
+    /// clock to the current normalized progress so each authored ImpactEvent emits — and each window
+    /// opens/closes — within one FixedUpdate of its configured instant, and so entry into Recovery
+    /// closes windows and stops emissions. The scheduler dedups through the shared ledger, so the
+    /// Animation Event path never double-counts an impact already emitted here (R8.9).
+    /// </summary>
+    private void FixedUpdate()
+    {
+        if (_scheduler == null || !IsExecuting) return;
+        float duration = ExecutionDuration;
+        float progress = duration > 0f ? Mathf.Clamp01(_elapsed / duration) : 1f;
+        _scheduler.Advance(progress);
+    }
+
+    /// <summary>
+    /// Builds the per-execution <see cref="ActionImpactScheduler"/> when <paramref name="ability"/>
+    /// authors a <see cref="CombatActionProfile"/> with at least one ImpactEvent; otherwise clears it
+    /// so the coroutine's legacy per-step impact loop stays in charge (keeping unauthored assets and
+    /// Arco/Lança unchanged). A fresh <see cref="ExecutionId.Next"/> is assigned per execution, and the
+    /// emit callback maps each ImpactEvent's <see cref="ImpactEvent.AreaHitStepIndex"/> back to this
+    /// cast's step clone, routing it through the existing <see cref="Impact"/> path — the damage
+    /// channel is unchanged (task 15.1 governs the advance source + dedup only, not which channel
+    /// fires).
+    /// </summary>
+    private void BuildImpactScheduler(BreakerGauntletAbility ability,
+        System.Collections.Generic.IReadOnlyList<AreaHitStep> steps)
+    {
+        _scheduler = null;
+        CombatActionProfile profile = ability ? ability.CombatProfile : null;
+        if (profile == null || profile.ImpactEvents == null || profile.ImpactEvents.Count == 0) return;
+
+        ActionTimeline timeline = profile.BuildTimeline();
+        _scheduler = new ActionImpactScheduler(
+            ExecutionId.Next(),
+            _ledger,
+            timeline,
+            profile.ImpactEvents,
+            impact => EmitAuthoredImpact(ability, steps, impact),
+            impact => EmitAuthoredImpact(ability, steps, impact));
+    }
+
+    /// <summary>
+    /// Applies the <see cref="AreaHitStep"/> referenced by an authored <see cref="ImpactEvent"/>
+    /// through the existing <see cref="Impact"/> path (task 15.1). The scheduler has already gated
+    /// this call through the ledger, so it runs at most once per <c>(ExecutionId, Index)</c>; an
+    /// out-of-range or missing step index is a no-op so a mis-authored profile never throws.
+    /// </summary>
+    private void EmitAuthoredImpact(BreakerGauntletAbility ability,
+        System.Collections.Generic.IReadOnlyList<AreaHitStep> steps, ImpactEvent impact)
+    {
+        if (steps == null) return;
+        int stepIndex = impact.AreaHitStepIndex;
+        if (stepIndex < 0 || stepIndex >= steps.Count) return;
+        AreaHitStep step = steps[stepIndex];
+        if (step == null) return;
+        int enemiesDamaged = Impact(ability, step, stepIndex);
+        ApplyHitStopForImpact(ability, impact, enemiesDamaged);
+    }
+
+    /// <summary>
+    /// Applies the ImpactEvent's authored hit-stop EXACTLY ONCE for this ImpactEvent, independent of how
+    /// many enemies it hit (R7.1, R7.3). The ledger-gated scheduler already guarantees
+    /// <see cref="EmitAuthoredImpact"/> runs at most once per <c>(ExecutionId, ImpactEvent.Index)</c>, so
+    /// this is one Apply per ImpactEvent, never per enemy. The duration is the ImpactEvent's
+    /// <see cref="ImpactEvent.HitStopProfileIndex"/> into the ability's authored
+    /// <see cref="CombatActionProfile.HitStopProfiles"/>; the pure <see cref="HitStop.ShouldApply"/>
+    /// decides from the clamped duration + enemy count whether a pause happens at all. A profile authored
+    /// with duration <c>0</c> (e.g. the Asura burst pulses, HitStopClass Secondary) yields
+    /// <c>ShouldApply == false</c> and never touches the time scale (R7.2); zero damage likewise never
+    /// pauses (R7.8). When multiple ImpactEvents resolve on the same frame, each still produces at most
+    /// one pause of its own profile — the simultaneous "max, never sum" grouping is expressed by
+    /// <see cref="HitStopGrouping.Combine"/>, which <see cref="HitStopRunner.Apply"/>'s overlap policy
+    /// honors by keeping the longest in-flight pause rather than stacking them.
+    /// </summary>
+    private void ApplyHitStopForImpact(BreakerGauntletAbility ability, ImpactEvent impact, int enemiesDamaged)
+    {
+        if (_hitStop == null) return;
+        CombatActionProfile profile = ability ? ability.CombatProfile : null;
+        if (profile == null) return;
+
+        System.Collections.Generic.IReadOnlyList<HitStopProfile> profiles = profile.HitStopProfiles;
+        int hitStopIndex = impact.HitStopProfileIndex;
+        if (profiles == null || hitStopIndex < 0 || hitStopIndex >= profiles.Count) return;
+
+        float duration = profiles[hitStopIndex].ClampedDuration;
+        if (HitStop.ShouldApply(duration, enemiesDamaged))
+        {
+            _hitStop.Apply(duration);
+        }
+    }
+
     private static SkillMotion Motion(BreakerGauntletAbility ability,int index)
     {
         if (ability.ShockSkill && index >= ability.HitSteps.Count-1) return SkillMotion.Slam;
         return index%2==0 ? SkillMotion.PunchLeft : SkillMotion.PunchRight;
     }
-    private void Impact(BreakerGauntletAbility ability,AreaHitStep step,int index)
+    // Returns the number of enemies this impact resolved damage on, so the authored-ImpactEvent path
+    // (EmitAuthoredImpact) can feed HitStop.ShouldApply and apply a hit-stop once per ImpactEvent
+    // regardless of how many enemies were hit (R7.1, R7.3). The legacy per-step fallback loop ignores
+    // the value — it never carried a hit-stop profile — so its behavior is unchanged.
+    private int Impact(BreakerGauntletAbility ability,AreaHitStep step,int index)
     {
         bool finisher=index>=ability.HitSteps.Count-1;
         if (finisher) _finisherApplied=true;
         _animation.Contact(Motion(ability,index));
-        SequencedAreaAttackAbility.ApplyHitStep(transform,_player,_weapon,step,true,ability.EffectColor);
+        int enemiesDamaged=SequencedAreaAttackAbility.ApplyHitStep(transform,_player,_weapon,step,true,ability.EffectColor);
         bool radial=step.hitShape==AreaHitShape.Sphere;
         Vector3 origin=transform.TransformPoint(step.localOffset)+(radial ? Vector3.up*(step.sphereRadius-1f) : Vector3.zero);
         GauntletImpactVfx.Spawn(origin,transform.forward,
             step.hitShape==AreaHitShape.Sphere ? step.sphereRadius*2 : step.rangeOverride,
             radial ? step.sphereRadius*2 : step.boxSize.x,ability.EffectColor,ability.ShockSkill && finisher,ability.AsuraBurst && finisher,index%2==0 ? -1 : 1,radial);
+        return enemiesDamaged;
     }
     // R7.2: while W (Flurry) runs, reapply soft grouping to the struck target so it is kept within
     // 2.0 m of the chaining point. The chaining point is captured the first frame a target is locked;
@@ -311,16 +604,57 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         return best;
     }
 
+    /// <summary>
+    /// Executes a dash-cancel of the active cast: cashes the main finisher once, then ends the cast
+    /// (R3.8). This is the cancel EXECUTION only — authorization is the shared
+    /// <see cref="CancelResolver"/>'s job in <see cref="AbilityHolder"/>, which has already tested the
+    /// authored Dash <see cref="CancelRule"/> at the current progress before calling here. Task 15.3
+    /// removed the former hidden <c>CanDodgeCancel</c> (<c>_elapsed &gt;= .25f</c>) gate that lived here,
+    /// so there is no longer a controller-side exception overriding the authored window; the method is a
+    /// no-op only when nothing is executing (a defensive guard, not an authorization rule).
+    /// </summary>
     public void FinishForDodge()
     {
-        if (!CanDodgeCancel) return;
+        if (!IsExecuting || !_activeAbility) return;
         // Cash out the main finisher once; optional echoes are traded for an immediate escape.
         if (!_finisherApplied && _activeSteps!=null)
         {
             int index=_activeAbility.HitSteps.Count-1;
-            Impact(_activeAbility,_activeSteps[index],index);
+            // When the single advance source is active, cash the finisher through the scheduler's
+            // ledger (task 15.1): if the FixedUpdate clock already emitted that index it is a no-op,
+            // so the dodge-cancel never double-applies an impact the Active phase already fired.
+            if (_scheduler != null)
+            {
+                if (!TryEmitFinisherThroughScheduler(index))
+                    Impact(_activeAbility, _activeSteps[index], index);
+            }
+            else
+            {
+                Impact(_activeAbility,_activeSteps[index],index);
+            }
         }
         CancelCast();
+    }
+
+    /// <summary>
+    /// Routes the dodge-cancel finisher through the scheduler's ledger so it is counted at most once
+    /// across the logical clock and this early cash-out (task 15.1, R8.9). Finds the authored
+    /// ImpactEvent whose <see cref="ImpactEvent.AreaHitStepIndex"/> matches the finisher step and
+    /// signals it; returns <c>true</c> when a matching authored event was handled (emitted or already
+    /// emitted), <c>false</c> when the profile authors no event for that step so the caller falls back
+    /// to a direct <see cref="Impact"/>.
+    /// </summary>
+    private bool TryEmitFinisherThroughScheduler(int finisherStepIndex)
+    {
+        CombatActionProfile profile = _activeAbility ? _activeAbility.CombatProfile : null;
+        if (profile == null || profile.ImpactEvents == null) return false;
+        for (int i = 0; i < profile.ImpactEvents.Count; i++)
+        {
+            if (profile.ImpactEvents[i].AreaHitStepIndex != finisherStepIndex) continue;
+            _scheduler.Signal(i); // ledger-gated: emits once or no-ops if the clock beat us to it
+            return true;
+        }
+        return false;
     }
 
     private void RestoreCastState()
@@ -335,6 +669,9 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         }
         _agentLocked = false;
         IsExecuting = false;
+        // Close any ImpactWindow still open and release the single advance source so a cancelled or
+        // finished execution never leaves a window alive or a stale scheduler ticking (task 15.1, R2.6).
+        if (_scheduler != null) { _scheduler.StopAndCloseWindows(); _scheduler = null; }
         _activeAbility = null; _activeSteps = null;
         _flurryTarget = null; _asuraPulled.Clear();
     }

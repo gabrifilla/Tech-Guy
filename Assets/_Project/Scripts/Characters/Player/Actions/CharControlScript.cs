@@ -39,9 +39,14 @@ public class CharControlScript : MonoBehaviour
     [SerializeField] private LayerMask attackLayers;
 
     [Header("Attack Reaction")]
-    // Basic attacks only Push/Stagger and chip stance. They never stun or knock up directly;
-    // hard CC only comes from a Stance Break, which basic swings leave to the finisher/skills.
-    [SerializeField] private HitReactionType defaultAttackReaction = HitReactionType.Stagger;
+    // The basic attack reaction is purely COSMETIC (combat-foundation-rework task 16.2, R7.6-R7.9/R7.11):
+    // Push nudges the enemy a little and plays the flinch animation but, unlike Stagger, never calls
+    // InterruptCurrentAction (no EnemyAI.InterruptAttack / NavMeshAgent.ResetPath / control lock), so a
+    // basic hit does NOT interrupt the enemy's AI/attack on any rank (common, elite or boss). Hard CC and
+    // mechanical interruption stay with the Stance Break channel and authored skill reactions (e.g. the
+    // E/BreakerShock AreaHitStep Stagger+stun), which this basic path leaves untouched. defaultAttackBreakEffect
+    // stays None so single swings never request a stance-break effect.
+    [SerializeField] private HitReactionType defaultAttackReaction = HitReactionType.Push;
     [SerializeField] private HitStrength defaultAttackStrength = HitStrength.Light;
     [SerializeField, Min(0f)] private float defaultAttackStanceDamage = 12f;
     [SerializeField, Min(0f)] private float defaultAttackPushDistance = 0.35f;
@@ -59,6 +64,13 @@ public class CharControlScript : MonoBehaviour
     private WeaponScript weapon;
     private AbilityHolder _abilityHolder;
     [SerializeField] private PlayerHUD _playerHUD;
+
+    // combat-foundation-rework R1 (task 13.1): decides, as pure logic, how many basic attacks the
+    // player's input authorizes. Removing the persistent auto-combat means the mere existence of an
+    // Alvo_Interno (target) no longer authorizes an attack (R1.6/R1.7/R1.12); only an explicit
+    // Toque_de_Ataque (QueueTap) or Segurar_Ataque (SetHold) does. Tap/hold feeding is wired in a
+    // later subtask (13.3), so until then no attack is authorized while following a target.
+    private readonly BasicAttackDriver _basicAttackDriver = new BasicAttackDriver();
 
     /// <summary>
     /// The scene HUD explicitly bound to this player (may be null in headless/test scenes).
@@ -548,6 +560,10 @@ public class CharControlScript : MonoBehaviour
 
     private void ClearTarget()
     {
+        // The Alvo_Interno is gone, so the attack authorization tied to it must go too: wipe the driver
+        // so a stale pending tap / hold never fires at the next target, and never pick another enemy by
+        // proximity (R1.12). This covers every target-loss path (follow loss, Ordem_de_Movimento, disable).
+        _basicAttackDriver.Clear();
         target = null;
         if (agent != null)
         {
@@ -589,7 +605,14 @@ public class CharControlScript : MonoBehaviour
         {
             if (interactable.interactionType == InteractableType.Enemy)
             {
+                // Ataque_Alvo (R1.1): the enemy is the one explicitly UNDER THE CURSOR (the pointer
+                // raycast in ClickToMove resolved this Interactable), never one chosen by proximity
+                // (R1.11). Selecting it as the Alvo_Interno approaches to range (FollowTarget) while a
+                // single QueueTap authorizes exactly one attack once reachable (TryAttackTarget). The
+                // driver gate means target existence alone still never attacks (R1.6/R1.7); only this
+                // explicit tap does. Hold/repeat tracking is out of scope here (task 13.3).
                 SetTarget(interactable);
+                _basicAttackDriver.QueueTap();
                 interactable.Interact(gameObject); // Exibe barra de vida/feedback
             }
             else
@@ -621,6 +644,8 @@ public class CharControlScript : MonoBehaviour
 
         if (target.interactionType != InteractableType.Enemy)
         {
+            // Target ineligible: ClearTarget wipes both the attack authorization and the Alvo_Interno,
+            // and does not pick another enemy by proximity (R1.12).
             ClearTarget();
             return;
         }
@@ -632,6 +657,7 @@ public class CharControlScript : MonoBehaviour
         }
         if (targetActor == null || targetActor.IsDead || !targetActor.isActiveAndEnabled)
         {
+            // Target died or became inactive: ClearTarget clears the authorization and the Alvo_Interno (R1.12).
             agent.ResetPath();
             ClearTarget();
             return;
@@ -642,6 +668,8 @@ public class CharControlScript : MonoBehaviour
         bool inRange = CanReachTarget(targetActor);
         if (!inRange)
         {
+            // Keep closing to EffectiveAttackRange, but no longer attack from here. Following toward a
+            // target is movement only; it must not trigger a basic on its own (R1.6/R1.7).
             agent.SetDestination(target.transform.position);
             return;
         }
@@ -649,14 +677,19 @@ public class CharControlScript : MonoBehaviour
         TryAttackTarget();
     }
 
+    // The Alvo_Interno is used only for facing/aim here. An attack is executed solely when the
+    // BasicAttackDriver authorizes it (an explicit Toque_de_Ataque or active Segurar_Ataque), never
+    // because a target merely exists and is in range (R1.6/R1.7). The tap/hold feeding that authorizes
+    // the driver is wired in task 13.3; until then this stays a no-op while a target is followed.
     private void TryAttackTarget()
     {
         if (target == null) return;
-        if (Time.time < nextAttackTime) return;
 
         Vector3 direction = target.transform.position - transform.position;
         direction.y = 0;
         FaceDirection(direction);
+
+        if (!_basicAttackDriver.TryTakeAttack(Time.unscaledTime, attackInterval)) return;
 
         TryBasicAttack(target.transform.position);
     }
@@ -905,10 +938,16 @@ public class CharControlScript : MonoBehaviour
     // active and a bow is equipped, and surface the charge ratio to the HUD. The held time only decides
     // whether the *next* resolved bow arrow is charged; it never fires an arrow itself (PerformAttack
     // owns the cadence). Releasing the input, switching off the boon, or unequipping the bow resets it.
+    //
+    // combat-foundation-rework (task 13.3): the RAW primary-held signal (and its fresh-press edge via
+    // _primaryHeldLast) is tracked here once per frame and reused by FeedTargetedTapHold below to drive
+    // the BasicAttackDriver's Segurar_Ataque. Charged-shot accumulation stays gated by ChargedShotRank,
+    // but _primaryHeldLast now reflects the raw button state so the hold feeding shares the same edge.
     private void TrackChargedShot()
     {
-        bool primary = ChargedShotRank > 0 && GamePreferences.IsHeld(GameControl.Primary);
-        if (primary)
+        bool primaryHeld = GamePreferences.IsHeld(GameControl.Primary);
+        bool charging = ChargedShotRank > 0 && primaryHeld;
+        if (charging)
         {
             // Reset the accumulator on a fresh press so each hold is measured from zero (R3.1/R3.3).
             if (!_primaryHeldLast) _primaryHeldSeconds = 0f;
@@ -920,9 +959,49 @@ public class CharControlScript : MonoBehaviour
         else
         {
             _primaryHeldSeconds = 0f;
-            if (_primaryHeldLast && _playerHUD) _playerHUD.SetChargeIndicator(0f);
+            // Clear the indicator only on the raw release edge while the boon was charging last frame.
+            if (_primaryHeldLast && ChargedShotRank > 0 && _playerHUD) _playerHUD.SetChargeIndicator(0f);
         }
-        _primaryHeldLast = primary;
+
+        FeedTargetedTapHold(primaryHeld);
+        _primaryHeldLast = primaryHeld;
+    }
+
+    // combat-foundation-rework R1.3/R1.4/R1.5/R5.11 (task 13.3): translate the raw primary-held signal
+    // into the BasicAttackDriver's Segurar_Ataque, reusing the same held state and fresh-press edge that
+    // TrackChargedShot reads. This feeds only the HOLD side — the targeted tap is already queued once per
+    // explicit enemy-click in HandleInteractable (task 13.2), so we never QueueTap here and never double
+    // the same press into a backlog.
+    //
+    // Hold is enabled only while there is a valid targeted-attack intent: an enemy Alvo_Interno exists
+    // AND the primary is held. While held, SetHold(true) lets TryTakeAttack authorize one attack per
+    // attackInterval once the target is reachable (R1.3). On the raw release edge we call ReleaseHold()
+    // so future repeats stop WITHOUT cutting an already-started hit (R1.4/R5.11); a release after only a
+    // tap keeps the pending/executed tap intact because ReleaseHold() leaves the pending tap untouched
+    // (R1.5). The Shift directional path never reaches here with a target (TryDirectionalBasicAttack
+    // clears the target), so it is not treated as a targeted hold. O-10: while _waitForAttackRelease is
+    // armed we do not open a new hold, matching HandlePointerInput's early-return on the release gate.
+    private void FeedTargetedTapHold(bool primaryHeld)
+    {
+        bool releaseGate = primaryHeld && _waitForAttackRelease;
+        bool hasEnemyTarget = target != null && target.interactionType == InteractableType.Enemy;
+        bool holdActive = primaryHeld && hasEnemyTarget && !releaseGate;
+
+        if (holdActive)
+        {
+            _basicAttackDriver.SetHold(true);
+        }
+        else if (_primaryHeldLast && !primaryHeld)
+        {
+            // Raw release edge: stop hold repeats without cutting an already-authorized hit (R1.4/R5.11).
+            _basicAttackDriver.ReleaseHold();
+        }
+        else if (!hasEnemyTarget || releaseGate)
+        {
+            // Held but no valid targeted intent (or release-gated): keep hold off so target existence or
+            // a resume-click never authorizes repeats on its own (R1.6/R1.7, O-10).
+            _basicAttackDriver.SetHold(false);
+        }
     }
 
     private HitReactionRequest BuildBasicAttackReaction(int attackIndex, float range)

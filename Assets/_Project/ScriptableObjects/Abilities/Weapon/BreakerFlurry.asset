@@ -159,3 +159,66 @@ MonoBehaviour:
     launchForce: 0
     canAirJuggle: 0
     canRagdoll: 0
+  _combatProfile:
+    startupEnd: 0.1
+    activeEnd: 0.9
+    commitment: 1
+    channelTermination: 0
+    startupMoveFraction: 0.2
+    activeMoveFraction: 0.1
+    recoveryMoveFraction: 1
+    cancelRules:
+    - target: 0
+      start: 0.9
+      end: 1
+    - target: 2
+      start: 0.92
+      end: 1
+    impactEvents:
+    - index: 0
+      at: 0.12
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 0
+    - index: 1
+      at: 0.23
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 1
+    - index: 2
+      at: 0.34
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 2
+    - index: 3
+      at: 0.46
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 3
+    - index: 4
+      at: 0.57
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 4
+    - index: 5
+      at: 0.68
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 0
+      areaHitStepIndex: 5
+    - index: 6
+      at: 0.86
+      opensWindow: 0
+      windowEnd: 0
+      hitStopProfileIndex: 1
+      areaHitStepIndex: 6
+    hitStopProfiles:
+    - duration: 0.03
+      hitStopClass: 0
+    - duration: 0.1
+      hitStopClass: 1

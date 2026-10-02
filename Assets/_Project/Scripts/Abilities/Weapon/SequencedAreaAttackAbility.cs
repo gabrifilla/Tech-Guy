@@ -84,7 +84,16 @@ public abstract class SequencedAreaAttackAbility : Ability
         return appliedCount;
     }
 
-    internal static void ApplyHitStep(Transform ownerTransform, PlayerActor playerActor, WeaponScript weapon, AreaHitStep hitStep, bool showEffect = true, Color? effectColor = null)
+    /// <summary>
+    /// Resolves one <see cref="AreaHitStep"/> through <see cref="PlayerActor.TryApplyAreaDamage"/> and
+    /// returns the number of enemies that <em>effectively</em> took damage. Changing the former
+    /// <c>void</c> return to <c>int</c> is non-breaking (existing callers simply ignore the value); the
+    /// count is surfaced so <see cref="BreakerGauntletCombat"/> can feed <see cref="HitStop.ShouldApply"/>
+    /// and apply a hit-stop exactly once per ImpactEvent, independent of how many enemies were hit
+    /// (R7.1, R7.3). The damage channel itself is unchanged.
+    /// </summary>
+    /// <returns>The number of enemies the hit step resolved damage on (0 when it hit nothing).</returns>
+    internal static int ApplyHitStep(Transform ownerTransform, PlayerActor playerActor, WeaponScript weapon, AreaHitStep hitStep, bool showEffect = true, Color? effectColor = null)
     {
         float range = hitStep.rangeOverride > 0f
             ? hitStep.rangeOverride
@@ -113,7 +122,7 @@ public abstract class SequencedAreaAttackAbility : Ability
             hitStep.knockUpHeight,
             hitStep.knockbackDistance);
 
-        playerActor.TryApplyAreaDamage(
+        return playerActor.TryApplyAreaDamage(
             origin,
             ownerTransform.forward,
             range,

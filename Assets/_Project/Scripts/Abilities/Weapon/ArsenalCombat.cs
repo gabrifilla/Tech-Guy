@@ -44,6 +44,24 @@ public sealed class ArsenalCombat : MonoBehaviour
     public bool IsExecuting { get; private set; }
     public float ExecutionDuration { get; private set; }
 
+    // The ArsenalAbility currently being cast (null when idle), tracked only so the unified
+    // (ActionPhase, localProgress) report below can read its authored CombatActionProfile. Arco/Lança
+    // abilities are NOT authored with a CombatActionProfile in this phase — the full Arco adapter that
+    // translates the legacy executor state into the Núcleo_Compartilhado's phase model is task 18.1 —
+    // so TryGetActionProgress returns false ("no profile") for every shipped Arco/Lança ability today.
+    // Keeping the field + report here (rather than in AbilityHolder) centralizes the "read the profile
+    // to build the phase report" decision in the executor, matching BreakerGauntletCombat, so when 18.1
+    // authors Arco/Lança profiles the core consumes them through the exact same single path.
+    private ArsenalAbility _activeAbility;
+
+    // Seconds elapsed in the current cast, mirrored from Execute's local loop clock so the unified
+    // report has a progress source without changing the coroutine's own timing. Only read by
+    // TryGetActionProgress (which no shipped ability reaches, since none author a profile yet).
+    private float _elapsedForReport;
+
+    /// <summary>Seconds elapsed in the current cast (0 when idle), used only by the phase report.</summary>
+    private float ElapsedForReport => _elapsedForReport;
+
     private void Awake()
     {
         _player = GetComponent<PlayerActor>();
@@ -63,9 +81,123 @@ public sealed class ArsenalCombat : MonoBehaviour
         if (CanUse(ability)) _cast = StartCoroutine(Execute(ability));
     }
 
+    /// <summary>
+    /// Reports the active Arco/Lança action's unified <c>(ActionPhase, localProgress)</c> to the
+    /// Núcleo_Compartilhado (task 15.2, R2.5/R8.8) from the active ability's authored
+    /// <see cref="CombatActionProfile"/>, mirroring <see cref="BreakerGauntletCombat.TryGetActionProgress"/>
+    /// so the core consumes one path. The shipped Arco/Lança abilities author <strong>no</strong>
+    /// profile in this phase (the full Arco Adaptador_de_Compatibilidade is task 18.1), so this
+    /// returns <c>false</c> ("no profile") for them today and the holder keeps the legacy total block
+    /// for the Arco — deliberately deferred. When a profile IS present it computes the global progress
+    /// as <c>Clamp01(Elapsed / ExecutionDuration)</c> and derives phase + phase-local progress through
+    /// the shared <see cref="ActionTimeline"/>, Channel actions reported via <see cref="ChannelProgress"/>.
+    /// </summary>
+    /// <param name="phase">The current phase of the active action.</param>
+    /// <param name="localProgress">Progress within <paramref name="phase"/>, in <c>[0, 1]</c>.</param>
+    /// <returns><c>true</c> when an authored action is executing and a report was produced.</returns>
+    public bool TryGetActionProgress(out ActionPhase phase, out float localProgress)
+    {
+        phase = ActionPhase.Startup;
+        localProgress = 0f;
+        if (!IsExecuting || !_activeAbility) return false;
+
+        CombatActionProfile profile = _activeAbility.CombatProfile;
+        if (profile == null) return false; // deferred to task 18.1 — Arco/Lança author no profile yet
+
+        ActionTimeline timeline = profile.BuildTimeline();
+        float globalProgress = Mathf.Clamp01(ElapsedForReport / Mathf.Max(0.0001f, ExecutionDuration));
+        phase = timeline.PhaseOf(globalProgress);
+        float phaseLocal = timeline.LocalProgressOf(globalProgress);
+
+        if (profile.ResolveCommitment(out _) == CommitmentCategory.Channel)
+        {
+            ChannelProgress channel = new ChannelProgress(phase, phaseLocal);
+            phase = channel.Phase;
+            localProgress = channel.LocalProgress;
+            return true;
+        }
+
+        localProgress = phaseLocal;
+        return true;
+    }
+
+    // ---------------------------------------------------------------------------------------------
+    // Adaptador_de_Compatibilidade — Arco/Lança ⇄ Núcleo_Compartilhado (task 18.1, R8.4/R8.6)
+    //
+    // The two methods below are a THIN, READ-ONLY translation layer that lets the shared cancel
+    // pipeline in AbilityHolder treat an in-progress Arco/Lança action through the exact same single
+    // path it already uses for the Manopla (BreakerGauntletCombat.TryGetCancelContext/TryGetCommitment),
+    // instead of the ad-hoc "null-profile" assumption the holder carried as a deferral. They do NOT
+    // change any Arco/Lança gameplay: firing-on-the-move, AttackHitsResolved emission/ordering,
+    // projectile behavior, OnBasicHit, damage and timing are all untouched. IsCasting /
+    // MovementAllowedWhileFiring keep their current values (contract-audit O-9) — the adapter only
+    // answers the core's cancel/commitment queries by reflecting what the legacy executor really does.
+    //
+    // Because the shipped Arco/Lança abilities author NO CombatActionProfile, both methods report
+    // "no authored profile" today: TryGetCancelContext hands the core a null profile (so the core
+    // builds no CancelRuleSet and the CancelResolver returns DeniedWindowClosed ⇒ the legacy total
+    // block — Busy — preserved exactly, O-9), and TryGetCommitment resolves the absent category
+    // through CommitmentRules.Resolve(null, …) ⇒ Committed + warning (R3.10). The deferral is thus
+    // made EXPLICIT and routed through the single core path rather than hidden in a holder null check.
+    // When a future Arco/Lança ability authors a profile, the core consumes it through this same path
+    // with zero further wiring — the adapter is the one place that reads the legacy executor state.
+    // ---------------------------------------------------------------------------------------------
+
+    /// <summary>
+    /// Supplies the shared cancel pipeline in <see cref="AbilityHolder"/> with the active Arco/Lança
+    /// action's authored <see cref="CombatActionProfile"/> and the <em>global</em> normalized progress
+    /// (<c>Clamp01(Elapsed / ExecutionDuration)</c>) in ONE call, mirroring
+    /// <see cref="BreakerGauntletCombat.TryGetCancelContext"/> so the core has a single cancel-context
+    /// source for both executors (R8.4/R8.6). Returns <c>false</c> (profile <c>null</c>, progress
+    /// <c>0</c>) when nothing is executing, so the holder treats "not casting" distinctly. Shipped
+    /// Arco/Lança abilities author no profile, so this returns <c>true</c> with a <c>null</c> profile
+    /// while a cast runs — which the <see cref="CancelResolver"/> reads as
+    /// <see cref="CancelDecision.DeniedWindowClosed"/>, reproducing today's legacy total block for the
+    /// Arco/Lança with no change in observable behavior.
+    /// </summary>
+    /// <param name="profile">The active ability's authored profile, or <c>null</c> when unauthored.</param>
+    /// <param name="globalProgress">The global normalized progress of the active cast, in <c>[0, 1]</c>.</param>
+    /// <returns><c>true</c> when an action is executing (even with a <c>null</c> profile).</returns>
+    public bool TryGetCancelContext(out CombatActionProfile profile, out float globalProgress)
+    {
+        profile = null;
+        globalProgress = 0f;
+        if (!IsExecuting || !_activeAbility) return false;
+
+        profile = _activeAbility.CombatProfile; // null for the shipped Arco/Lança (legacy total block)
+        globalProgress = Mathf.Clamp01(ElapsedForReport / Mathf.Max(0.0001f, ExecutionDuration));
+        return true;
+    }
+
+    /// <summary>
+    /// Reports the active Arco/Lança action's resolved <see cref="CommitmentCategory"/> to the core
+    /// through the single <see cref="CommitmentRules.Resolve"/> path (R3.1/R3.2/R3.10), mirroring
+    /// <see cref="BreakerGauntletCombat.TryGetCommitment"/>. Reads the authored
+    /// <see cref="CombatActionProfile.Commitment"/>; when the ability authors no profile (every shipped
+    /// Arco/Lança today) the absent category resolves to <see cref="CommitmentRules.Default"/>
+    /// (<see cref="CommitmentCategory.Committed"/>) with the backward-compatibility warning flagged.
+    /// Returns <c>false</c> when nothing is executing. Pure read: it never mutates the design asset or
+    /// the cast, so exposing the commitment to the core has no observable side effect (O-9).
+    /// </summary>
+    /// <param name="commitment">The resolved commitment category of the active action.</param>
+    /// <returns><c>true</c> when an action is executing and a commitment was resolved.</returns>
+    public bool TryGetCommitment(out CommitmentCategory commitment)
+    {
+        commitment = CommitmentRules.Default;
+        if (!IsExecuting || !_activeAbility) return false;
+
+        CombatActionProfile profile = _activeAbility.CombatProfile;
+        commitment = profile != null
+            ? profile.ResolveCommitment(out _)
+            : CommitmentRules.Resolve(null, out _); // absent ⇒ Committed + warning (R3.10)
+        return true;
+    }
+
     private IEnumerator Execute(ArsenalAbility ability)
     {
         IsExecuting = true;
+        _activeAbility = ability;
+        _elapsedForReport = 0f;
         WeaponScript weapon = _player.CurrentWeapon;
         int slot = System.Array.IndexOf(weapon.abilities, ability);
         ArsenalCastPlan plan = _player.RunModifiers?.Plan(ability, slot) ?? new ArsenalCastPlan(ability);
@@ -122,6 +254,7 @@ public sealed class ArsenalCombat : MonoBehaviour
                     _animation.Strike(motion,elapsed,start,impact,end);
                     yield return null;
                     elapsed += Time.deltaTime;
+                    _elapsedForReport = elapsed; // mirror the loop clock for the phase report (task 15.2)
                 }
                 if (_player.IsDead || _player.CurrentWeapon != weapon) yield break;
                 _animation.Contact(motion);
@@ -248,6 +381,7 @@ public sealed class ArsenalCombat : MonoBehaviour
                 {
                     yield return null;
                     elapsed += Time.deltaTime;
+                    _elapsedForReport = elapsed; // mirror the loop clock for the phase report (task 15.2)
                     _animation.Strike(motion,elapsed,start,impact,end);
                 }
             }
@@ -594,6 +728,8 @@ public sealed class ArsenalCombat : MonoBehaviour
         AllowsMovementWhileFiring = false;
         _locked = false;
         IsExecuting = false;
+        _activeAbility = null;
+        _elapsedForReport = 0f;
     }
     private void OnDeath(Actor actor) => Cancel();
     private void OnDisable() => Cancel();
