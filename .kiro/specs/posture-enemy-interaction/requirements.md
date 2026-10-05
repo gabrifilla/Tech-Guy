@@ -149,7 +149,7 @@ As mudanças desta fase **integram-se** aos canais de evento e APIs existentes *
 6. WHERE o inimigo exibe Barra_de_Postura (Elite/boss, categoria de rank diferente de Normal), THE Posture_System SHALL emitir um sinal observável de início e de fim da janela de stagger/vulnerabilidade, para comunicar ao jogador quando a abertura começa e termina.
 7. WHERE o inimigo exibe Barra_de_Postura (categoria de rank diferente de Normal), THE Posture_System SHALL apresentar ao jogador o popup de quebra anunciada, ancorado no ponto de impacto no mundo, com tempo de vida entre 1,0 s e 1,2 s.
 8. WHEN um ou mais Stance_Break e acertos ocorrem no mesmo impacto/grupo, THE Posture_System SHALL agrupar o hit-stop por impacto/grupo (incluindo múltiplas quebras simultâneas), compor uma **decisão conjunta** para o hit-stop do acerto e da quebra por prioridade/máximo (não soma por alvo), aplicar uma única vez ao `HitStopRunner` para o grupo, preservar a pausa e os demais modificadores de tempo ao final, e restaurar a escala original sem acúmulo, reutilizando a fundação da Fase 1 (`HitStop`/`HitStopGrouping` aplicada pelo `HitStopRunner`), sem instanciar um mecanismo de hit-stop paralelo.
-9. IF um alvo do grupo está morto ou desabilitado quando o hit-stop resolve, THEN THE Posture_System SHALL excluí-lo da aplicação do efeito e restaurar a escala de tempo original ao final do grupo sem acúmulo.
+9. IF um alvo do grupo está morto ou desabilitado quando o hit-stop resolve, THEN THE Posture_System SHALL excluí-lo dos efeitos locais que exigem um alvo vivo/ativo, preservando a contribuição global de hit-stop registrada quando o impacto resolveu dano válido, inclusive letal; contatos sem dano resolvido não se tornam candidatos por estarem vivos. A escala de tempo original SHALL ser restaurada ao final do grupo sem acúmulo.
 10. IF um acerto básico da Fase 1 não reduz a postura do inimigo a zero (ou seja, não causa Stance_Break), THEN THE Posture_System SHALL NOT emitir `CombatReactionController.StanceBroken`, propagar `HookBus.OnStanceBreak`, acionar o flash/pop de quebra, emitir o som/VFX de quebra, exibir o popup de quebra, nem acionar hit-stop de ênfase de quebra, mantendo o feedback de quebra separado do feedback de acerto básico.
 
 ### Requirement 6: Durações, recuperação da IA e regeneração de postura
@@ -166,7 +166,7 @@ As mudanças desta fase **integram-se** aos canais de evento e APIs existentes *
 6. WHILE o inimigo está em Controle_Travado, THE Posture_System SHALL suprimir, via `ControlLockGate`, todo Micro_Deslocamento e Push adicional proveniente de acertos subsequentes, preservando o feedback de flinch/interrupção.
 7. WHEN um Controle_Travado termina (sem outro bloqueio ativo), THE Posture_System SHALL voltar a permitir, via `ControlLockGate`, o Micro_Deslocamento e o Push de acertos subsequentes.
 8. WHEN um Dano_de_Postura quebra a postura e solicita um efeito de hard CC (Stun, KnockUp ou Knockback), THE Posture_System SHALL resolver o efeito aplicado de forma determinística pela resistência por canal do inimigo: aplicar o efeito solicitado quando a resistência correspondente for menor que 1.0; caso contrário, rebaixar pela escada de severidade KnockUp -> Stun até o primeiro efeito permitido cuja resistência seja menor que 1.0.
-9. IF o inimigo possui resistência igual ou maior que 1.0 em todos os canais aplicáveis da escada de rebaixamento, THEN THE Posture_System SHALL resolver o hard CC como None (sem hard CC) e não entrar em Controle_Travado; a ausência de hard CC **não** autoriza implicitamente interrupção, e qualquer Stagger_Mecânico separado permanece sujeito à Categoria_de_Reação e à Janela_Interrompível.
+9. IF o inimigo possui resistência igual ou maior que 1.0 em todos os canais aplicáveis da escada de rebaixamento, THEN THE Posture_System SHALL resolver o hard CC como None e não criar bloqueio pertencente a esse hard CC; a restrição independente da abertura de Elite/Legendary/Boss SHALL permanecer. `IsControlLocked` representa a união dos bloqueios de hard CC e de abertura, e `IsStunned` representa somente hard CC físico ativo. Ausência de hard CC não autoriza interrupção comum.
 
 ### Requirement 7: Prevenção de interrupção permanente por acertos repetidos
 
@@ -184,6 +184,8 @@ As mudanças desta fase **integram-se** aos canais de evento e APIs existentes *
 8. WHILE nenhum acerto contribui para o acumulador por uma duração configurável do Relógio_de_Gameplay entre 0,5 s e 5,0 s, THE Posture_System SHALL decair/reiniciar o valor acumulado de interrupção, medindo o intervalo **desde o último acerto que contribuiu para o acumulador** (distinto de "desde a última interrupção aplicada"); este decaimento é uma **adição intencional da Fase 2** (observado: `RankInterruptStagger` hoje só possui `Reset()`, sem decaimento), declarada explicitamente, não "reuso".
 9. THE Posture_System SHALL garantir, para Elite e boss, uma oportunidade real de ação após a recuperação **sem** impor cooldowns universais arbitrários: pressão contínua de acertos comuns SHALL NOT manter um Elite ou boss perpetuamente incapaz de agir; mobs pequenos PODEM permitir combos/juggle conforme a intenção de jogo, sem receber automaticamente a proteção de nível de boss.
 10. THE Posture_System SHALL preservar o comportamento mecânico existente da habilidade E da Manopla (Stance Breaker — Heavy/Breaker com `StanceBreakEffect.KnockUp` abrindo o juggle) nos alvos elegíveis, **sem** permitir que E ignore silenciosamente a política de boss; qualquer adaptação categórica necessária dessa habilidade às regras desta fase SHALL ser declarada explicitamente como mudança intencional da Fase 2 nesta especificação antes de ser aplicada, nunca removida silenciosamente.
+11. THE Posture_System SHALL proteger Elite/Legendary/Boss contra novas quebras durante a abertura e seus hard CC e durante uma oportunidade de retomada após esses bloqueios terminarem: nesse período, ignorar dano de postura e contribuições de interrupção, sem armazená-los, sem alterar HP/eventos de acerto e sem anunciar quebras que não ocorreram. A proteção de retomada SHALL terminar na conclusão da primeira ação ofensiva válida, na ausência de alvo/alcance/caminho/ação elegível, no cancelamento externo, no lifecycle ou em timeout de segurança configurável de no máximo 10 s de gameplay após a recuperação; SHALL NOT rearmar automaticamente sem nova quebra. Essa proteção é distinta da Imunidade_de_Quebra temporal de R4.6; toda quebra efetivamente detectada continua abrindo sua janela conforme R4.5.
+12. THE Posture_System SHALL integrar a intenção e contribuição de stagger do básico real da Manopla aos gates de categoria, estado, limiar e janela, migrando explicitamente os dados serializados pertinentes; Push isolado SHALL continuar sem interrupção. O básico SHALL interromper mob pequeno em janela elegível, produzir resposta limitada no médio e não cancelar acerto comum de boss fora da abertura. Rank real Boss SHALL manter essa proteção mesmo com categoria de perfil incoerente.
 
 ### Requirement 8: Preservação dos contratos de dano, evento e boon
 
@@ -241,13 +243,18 @@ Consumidores que dependem destes contratos (blast radius a preservar): `HitboxDa
 5. **Resolução de reação no Stance Break — DECISÃO ADOTADA: híbrida.** Ordem explícita: detectar quebra → efeito explícito do acerto → fallback por Categoria_de_Reação/perfil quando ausente → permissões/imunidades + fallback do alvo → feedback/eventos uma vez (R4.2). Knockback forte permanece propriedade explícita do acerto, nunca fallback genérico.
 6. **Resistência de hard CC — DECISÃO ADOTADA: BINÁRIA inicialmente.** Mantém-se o contrato binário por canal (>=1.0 = imune) com escada KnockUp→Stun→None (R6.8). Os valores observados `0.25`/`0.7` etc. **não** representam redução parcial de duração; o diferenciador real entre categorias é a resistência de **stagger/postura** e o `maxStance`, não escala de duração de CC.
 
-### Pontos ainda em aberto
+### Consolidação documental após revisão do design
 
-- **Representação técnica de Knockdown.** Extensão aditiva do enum `StanceBreakEffect` **versus** camada de apresentação sobre um efeito existente — a decidir no design, respeitando R2.4/R8.2.
-- **Campo de categoria no `EnemyProfile`.** Formato exato do campo de Categoria_de_Reação e a tabela de fallback Rank → Categoria — a detalhar no design.
-- **Políticas por categoria de reaplicação de CC** (ignorar/substituir/estender/limitar) e os valores concretos das janelas por categoria — a confirmar no design/balanceamento (R7.7).
+A revisão de design fecha a distinção entre hard CC e abertura (R6.9), preserva hit-stop global de impacto letal (R5.9) e declara proteção de postura/retomada e migração do básico (R7.11–R7.12). Essas escolhas são contratos documentais da proposta revisada, não comportamento implementado ou gameplay validado. O `design.md` detalha prioridade de movimento, fechamento de grupos, defaults e migração. Política binária também substitui a escala contínua codificada na spec `enemy-swarm-core-archetypes` R17.4 para Fragile; esse impacto cruzado deve ser reconciliado antes da implementação, sem alegar preservação simultânea dos dois contratos.
 
-## Verificação Unity (PENDENTE — etapa somente de requisitos)
+### Balanceamento ainda a validar
+
+- **Representação e categoria detalhadas no design:** Knockdown aditivo com ciclo próprio; categoria Unspecified com fallback determinístico. Nenhum desses dados foi implementado ou migrado nesta etapa.
+- **Balanceamento:** validar durações, limites de reaplicação, watchdog de retomada e apresentação previstos no design. Reconciliar o contrato cruzado de Fragile antes de gerar tasks executáveis.
+
+## Verificação Unity (registro da etapa original de requisitos)
+
+A inspeção somente de leitura realizada na revisão posterior está registrada em `design.md`, seção Decisions and Handoff. O relato abaixo descreve a etapa original; testes e validação de runtime continuam pendentes.
 
 Esta etapa produziu **apenas** o documento de requisitos. Nenhuma mudança de código ou asset foi feita e **nada foi executado** nesta etapa.
 
@@ -267,4 +274,4 @@ Esta etapa produziu **apenas** o documento de requisitos. Nenhuma mudança de c�
   11. **Arco e Lança** e boons afetados (`AsuraSurge`, `HungryComboTracker`, `ImpactGuardTracker`/GuardBreaker, `AdaptiveCadenceTracker`): payload/granularidade/ordenação de eventos e timing de arma preservados fora das mudanças planejadas.
 - **Gate de playtest manual (PENDENTE — não satisfeito por compilação):** com a Manopla e **sem boons**, enfrentar mob pequeno, mob médio, elite e boss; o jogador deve distinguir visualmente as categorias e perceber a quebra **sem** ler a Barra_de_Postura. Registrar condições, resultados e pendências. Compilação e testes automatizados **não** satisfazem este gate.
 
-Nenhum Play Mode, teste ou playtest foi executado nesta etapa.
+Registro histórico da elaboração dos requisitos: nenhum Play Mode, teste ou playtest havia sido executado naquela etapa. A implementação posterior, os testes efetivamente executados e as pendências atuais estão em `validation.md` e `tasks.md`. O gate de aceitação humana continua separado da validação técnica.

@@ -43,6 +43,7 @@ namespace TechGuy.Tests
         // then ricochets to reach an off-axis enemy — and never double-hits any enemy.
         // Validates: Requirements 1.1
         [UnityTest]
+        [Timeout(600000)] // Preserve 100 generated real-time projectile cases under grouped hit-stop.
         public IEnumerator PierceThenRicochet_PiercesInlineFirstThenRedirects()
         {
             const int cases = 30; // integration sweep over generated layouts
@@ -72,24 +73,22 @@ namespace TechGuy.Tests
                     piercing: true, ricochetBounces: startingBounces);
                 Assert.IsNotNull(arrow, $"case {c}: arrow failed to spawn");
 
-                int bouncesWhileInlineRemained = startingBounces;
+
                 int framesInlineExhausted = -1;
 
-                for (int frame = 0; frame < 400 && arrow; frame++)
+                for (int frame = 0; frame < 400 && arrow && arrow.isActiveAndEnabled; frame++)
                 {
                     yield return null;
                     if (!arrow) break;
 
+                    if (!AllHit(_rig.HitSet(arrow), inline)) Assert.AreEqual(startingBounces, _rig.Bounces(arrow), "No bounce before the last in-line target");
                     if (framesInlineExhausted < 0 && AllHit(_rig.HitSet(arrow), inline))
                     {
                         framesInlineExhausted = frame;
-                        bouncesWhileInlineRemained = _rig.Bounces(arrow);
+
                     }
                 }
 
-                // Pierce-first: no bounce consumed while in-line enemies still remained un-hit.
-                Assert.AreEqual(startingBounces, bouncesWhileInlineRemained,
-                    $"case {c}: a bounce was consumed before all in-line enemies were pierced");
 
                 // Every in-line enemy was pierced.
                 foreach (Actor e in inline)
@@ -114,6 +113,7 @@ namespace TechGuy.Tests
         // -> ricochet handoff yields a genuine ricochet, not a continued pierce.
         // Validates: Requirements 1.1
         [UnityTest]
+        [Timeout(600000)] // Preserve 100 generated real-time projectile cases under grouped hit-stop.
         public IEnumerator PierceThenRicochet_RicochetPhaseDecaysMultiplier()
         {
             _rig.BuildOwner();
@@ -131,10 +131,10 @@ namespace TechGuy.Tests
             int startBounces = _rig.Bounces(arrow);
             bool sawRedirect = false;
 
-            for (int frame = 0; frame < 400 && arrow; frame++)
+            for (int frame = 0; frame < 400 && arrow && arrow.isActiveAndEnabled; frame++)
             {
                 yield return null;
-                if (!arrow) break;
+                if (!arrow || !arrow.isActiveAndEnabled) break;
 
                 int consumed = startBounces - _rig.Bounces(arrow);
                 if (consumed > 0)

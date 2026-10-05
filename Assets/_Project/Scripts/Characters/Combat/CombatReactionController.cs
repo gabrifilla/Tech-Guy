@@ -2,20 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-/// <summary>
-/// Lost Ark-style Stance/Stagger controller.
-///
-/// Every hit applies stance damage and an immediate reaction (Push or Stagger). Push is a small
-/// physical nudge that keeps the enemy near the player; Stagger briefly interrupts its action.
-/// Hard crowd-control (Stun / KnockUp / Knockback) only happens on a Stance Break — when the stance
-/// pool is depleted — and only if the hit requests that effect and the enemy is not resistant/immune.
-///
-/// Control is locked (the NavMeshAgent is stopped, which EnemyAI already treats as "cannot act")
-/// during Stun and while airborne from a KnockUp, and restored when the effect ends. While control
-/// is locked, additional immediate displacement (Micro_Displacement / Push) from subsequent hits is
-/// suppressed via the pure <see cref="ControlLockGate"/> and re-allowed once the lock ends
-/// (Requisito 4.5).
-/// </summary>
+/// <summary>Coordinates the pure posture model, bounded movement and independent presentation owners.</summary>
 public class CombatReactionController : MonoBehaviour
 {
     [Header("Rank")]
@@ -57,561 +44,400 @@ public class CombatReactionController : MonoBehaviour
     [SerializeField] private Rigidbody body;
     [SerializeField] private CharacterController characterController;
 
-    private float currentStance;
-    private float nextStanceRecoveryTime;
-    private float breakImmuneUntil;
-    private bool controlLocked;
-    // Post-break vulnerability window (Requisito 3.3-3.5): all the timing/downgrade logic lives in the
-    // pure VulnerabilityWindow so this MonoBehaviour stays thin. It opens on a stance break and closes
-    // by time; while open the enemy is treated as one rarity lower via EffectiveRank.
-    private readonly VulnerabilityWindow vulnerabilityWindow = new VulnerabilityWindow();
-    // Rank-resisted interruption-stagger accumulator (Requisito 7.8 / Property 24): interruption
-    // abilities do not stagger/break outright — their stagger value is accumulated here and a stagger
-    // or stance break only fires once the running total reaches the rank threshold (derived from the
-    // enemy's rank and stance resistance). Below the threshold the enemy's state is preserved. All the
-    // accumulation/threshold logic lives in the pure RankInterruptStagger so it stays scene-free.
-    private readonly RankInterruptStagger interruptStagger = new RankInterruptStagger();
+
+    [SerializeField] private ReactionCategory _reactionCategory;
+    [SerializeField] private ReactionAuthoring _reactionAuthoring = new ReactionAuthoring();
+    [SerializeField] private HitStopRunner _hitStopRunner;
+    private PostureReactionState _state;
+    private readonly RankInterruptStagger _interruptStagger = new RankInterruptStagger();
+    private Actor _owner;
     private EnemyAI _enemyAI;
     private SectorBoss _sectorBoss;
-    private Coroutine controlLockCoroutine;
-    private Coroutine pushCoroutine;
-    private Coroutine airJuggleVisualCoroutine;
-    private Quaternion originalVisualLocalRotation;
-
+    private bool _ownsAgentStop, _savedAgentRotation, _ownsAgentRotation;
+    private int _motionToken, _motionGeneration;
+    private float _motionHeight, _motionDistance, _motionTravelled;
+    private bool _motionWasKnockback;
+    private Vector3 _motionDirection, _lastPoseOffset;
+    private Quaternion _poseBaseRotation;
+    private Transform _poseTarget;
+    private Vector3 _pushDirection;
+    private float _pushStart, _pushDistance, _pushTravelled;
+    private Coroutine _breakFlash;
+    private Transform _flashTarget;
+    private Vector3 _flashBaseScale;
+    private string _warnedMissingConfig;
     public EnemyRank Rank => rank;
-    /// <summary>
-    /// The rank the enemy currently reacts as: one step lower while the post-break vulnerability
-    /// window is open (Elite→Normal etc.), otherwise the real <see cref="Rank"/> (Requisito 3.3).
-    /// Rank-differentiated logic (Legendary R3.4, Boss R3.5) should consult this, not <see cref="Rank"/>,
-    /// so a broken enemy exposes the intended opening.
-    /// </summary>
-    public EnemyRank EffectiveRank => vulnerabilityWindow.EffectiveRank;
-    /// <summary>True while the post-break vulnerability window is open (Requisito 3.3).</summary>
-    public bool IsVulnerable => vulnerabilityWindow.IsOpen;
-    public float CurrentStance => currentStance;
-    public float MaxStance => maxStance;
-    public float StanceRatio => maxStance > 0f ? Mathf.Clamp01(currentStance / maxStance) : 0f;
-    /// <summary>True while the enemy is stunned or airborne and cannot act.</summary>
-    public bool IsControlLocked => controlLocked;
-    /// <summary>True while a stun/knock-up lock is active (used to draw the dizzy stars overlay).</summary>
-    public bool IsStunned => controlLocked;
-    /// <summary>Only tougher enemies show a stance bar; trash mobs break too fast to bother.</summary>
-    public bool ShouldShowStanceBar => rank != EnemyRank.Normal;
-    /// <summary>Raised the moment stance is broken, for feedback (popup, flash). Passes the world hit point.</summary>
+    public ReactionCategory Category => State.Configuration.Category;
+    public EnemyRank EffectiveRank => State.EffectiveRank;
+    public bool IsVulnerable => State.IsVulnerable;
+    public float CurrentStance => State.CurrentStance;
+    public float MaxStance => State.MaxStance;
+    public float StanceRatio => MaxStance > 0f ? Mathf.Clamp01(CurrentStance / MaxStance) : 0f;
+    public bool IsControlLocked => State.IsControlLocked;
+    public bool IsStunned => State.IsStunned;
+    public bool IsResumeProtected => State.IsResumeProtected;
+    public bool ShouldShowStanceBar => rank != EnemyRank.Normal || Category >= ReactionCategory.MediumMob;
+    public float GameplayTime => State.Now;
+    public Actor LastBreakAttacker { get; private set; }
+    private long _breakSequence;
+    public long ConfirmedBreakSequence => _breakSequence;
+    public KnockdownPhase KnockdownPhase => State.CurrentKnockdownPhase;
     public event System.Action<Vector3> StanceBroken;
-
-    /// <summary>Legacy entry point. Rank-only config derives sensible stance defaults per rank.</summary>
-    public void ConfigureRank(EnemyRank newRank, bool bossAirJuggle = false, bool bossRagdoll = false)
+    public event System.Action<bool> VulnerabilityChanged;
+    private bool Alive => isActiveAndEnabled && (!_owner || !_owner.IsDead);
+    private PostureReactionState State
     {
-        rank = newRank;
-        ApplyRankDefaults(newRank);
-        vulnerabilityWindow.SetBaseRank(newRank);
-        // Keep the interruption-stagger threshold in sync with the rank + stagger resistance (R7.8).
-        interruptStagger.Configure(newRank, staggerResistance);
-        currentStance = maxStance;
+        get
+        {
+            if (_state == null) RebuildState(new ReactionConfiguration(rank, _reactionCategory, _reactionAuthoring, stunResistance, vulnerabilityWindowSeconds, breakImmunityDuration));
+            return _state;
+        }
     }
-
-    /// <summary>Full stance configuration, typically sourced from an <see cref="EnemyProfile"/>.</summary>
-    public void ConfigureStance(EnemyRank newRank, float newMaxStance, float newStanceDamageMultiplier,
-        float newRecoveryPerSecond, float newRecoveryDelay,
-        float newStaggerResistance, float newStunResistance, float newKnockUpResistance, float newKnockbackResistance)
-    {
-        rank = newRank;
-        maxStance = Mathf.Max(1f, newMaxStance);
-        // Stance-break channel values are pinned to their data-driven ranges regardless of the profile
-        // source: multiplier in [0, 5] (Requisito 2.4), recovery delay in [0, 10] s (Requisito 2.7).
-        stanceDamageMultiplier = StanceBreakBounds.ClampStanceDamageMultiplier(newStanceDamageMultiplier);
-        stanceRecoveryPerSecond = Mathf.Max(0f, newRecoveryPerSecond);
-        stanceRecoveryDelay = StanceBreakBounds.ClampRecoveryDelaySeconds(newRecoveryDelay);
-        staggerResistance = Mathf.Clamp01(newStaggerResistance);
-        stunResistance = Mathf.Clamp01(newStunResistance);
-        knockUpResistance = Mathf.Clamp01(newKnockUpResistance);
-        knockbackResistance = Mathf.Clamp01(newKnockbackResistance);
-        vulnerabilityWindow.SetBaseRank(newRank);
-        // The interruption-stagger threshold scales with the rank and the (clamped) stagger resistance (R7.8).
-        interruptStagger.Configure(newRank, staggerResistance);
-        currentStance = maxStance;
-    }
-
-    private void ApplyRankDefaults(EnemyRank newRank)
-    {
-        // Data-driven per-rank defaults (Requisito 3.6): the stance pool, stance-damage multiplier,
-        // recovery and the four crowd-control resistances all come from the shared RankReactionDefaults
-        // table (higher ranks are naturally harder to stagger and progressively immune to hard CC),
-        // plus the post-break vulnerability window (> 0, R3.3) and immunity window (0.1–10.0 s, R2.6).
-        // The table already pins every value to its shared valid range, so this applies them directly.
-        RankReactionDefaults.Defaults defaults = RankReactionDefaults.For(newRank);
-        maxStance = defaults.MaxStance;
-        stanceDamageMultiplier = defaults.StanceDamageMultiplier;
-        stanceRecoveryPerSecond = defaults.StanceRecoveryPerSecond;
-        stanceRecoveryDelay = defaults.StanceRecoveryDelay;
-        staggerResistance = defaults.StaggerResistance;
-        stunResistance = defaults.StunResistance;
-        knockUpResistance = defaults.KnockUpResistance;
-        knockbackResistance = defaults.KnockbackResistance;
-        vulnerabilityWindowSeconds = defaults.VulnerabilityWindowSeconds;
-        breakImmunityDuration = defaults.BreakImmunitySeconds;
-        // Sync the interruption-stagger threshold to the rank defaults' rank + stagger resistance (R7.8).
-        interruptStagger.Configure(newRank, staggerResistance);
-    }
-
     private void Awake()
     {
-        currentStance = maxStance;
-        // Sync the vulnerability window with the Inspector-configured rank so EffectiveRank is correct
-        // before any stance break (e.g. enemies placed directly in a scene without ConfigureRank).
-        vulnerabilityWindow.SetBaseRank(rank);
-        // Seed the interruption-stagger threshold from the Inspector-configured rank + stagger
-        // resistance so it is correct for enemies placed directly in a scene without ConfigureRank (R7.8).
-        interruptStagger.Configure(rank, staggerResistance);
+        _owner = GetComponent<Actor>();
         _enemyAI = GetComponent<EnemyAI>();
         _sectorBoss = GetComponent<SectorBoss>();
-        if (!animator) animator = GetComponent<Animator>();
+        if (!animator) animator = GetComponentInChildren<Animator>();
         if (!agent) agent = GetComponent<NavMeshAgent>();
         if (!body) body = GetComponent<Rigidbody>();
         if (!characterController) characterController = GetComponent<CharacterController>();
         if (!visualRoot && animator && animator.transform != transform) visualRoot = animator.transform;
-        if (visualRoot) originalVisualLocalRotation = visualRoot.localRotation;
+        if (_owner) _owner.Died += OnDeath;
+        if (_state == null) RebuildState(new ReactionConfiguration(rank, _reactionCategory, _reactionAuthoring, stunResistance, vulnerabilityWindowSeconds, breakImmunityDuration));
     }
-
-    /// <summary>
-    /// Pins the stance-break channel values to their data-driven ranges when edited in the Inspector
-    /// (Requisitos 2.4, 2.6, 2.7): multiplier in [0, 5], immunity window in [0.1, 10] s, recovery
-    /// delay in [0, 10] s. The Range attributes already gate the sliders; this guards values set
-    /// programmatically or via serialization so the runtime invariants always hold.
-    /// </summary>
-    private void OnValidate()
+    public void ConfigureRank(EnemyRank newRank, bool bossAirJuggle = false, bool bossRagdoll = false)
     {
-        stanceDamageMultiplier = StanceBreakBounds.ClampStanceDamageMultiplier(stanceDamageMultiplier);
-        breakImmunityDuration = StanceBreakBounds.ClampBreakImmunitySeconds(breakImmunityDuration);
-        stanceRecoveryDelay = StanceBreakBounds.ClampRecoveryDelaySeconds(stanceRecoveryDelay);
-        // The vulnerability window must stay a real, > 0 opening (Requisito 3.3).
-        vulnerabilityWindowSeconds = VulnerabilityWindowBounds.ClampSeconds(vulnerabilityWindowSeconds);
+        rank = newRank;
+        var d = RankReactionDefaults.For(newRank);
+        maxStance = d.MaxStance; stanceDamageMultiplier = d.StanceDamageMultiplier;
+        stanceRecoveryPerSecond = d.StanceRecoveryPerSecond; stanceRecoveryDelay = d.StanceRecoveryDelay;
+        staggerResistance = d.StaggerResistance; stunResistance = d.StunResistance;
+        knockUpResistance = d.KnockUpResistance; knockbackResistance = d.KnockbackResistance;
+        vulnerabilityWindowSeconds = d.VulnerabilityWindowSeconds; breakImmunityDuration = d.BreakImmunitySeconds;
+        RebuildState(new ReactionConfiguration(newRank, _reactionCategory, _reactionAuthoring, stunResistance, vulnerabilityWindowSeconds, breakImmunityDuration));
     }
-
-    private void Update()
+    public void ConfigureStance(EnemyRank newRank, float newMaxStance, float newStanceDamageMultiplier,
+        float newRecoveryPerSecond, float newRecoveryDelay, float newStaggerResistance,
+        float newStunResistance, float newKnockUpResistance, float newKnockbackResistance)
     {
-        RecoverStance();
-        // Close the vulnerability window once its configured duration has elapsed, restoring the
-        // effective rank to the enemy's real rank (Requisito 3.3). Driven by the controller's own
-        // clock (Time.time) so the pure VulnerabilityWindow stays scene-free.
-        vulnerabilityWindow.Update(Time.time);
+        rank = newRank;
+        maxStance = ReactionNumeric.Safe(newMaxStance, 1f, float.MaxValue, RankReactionDefaults.For(rank).MaxStance);
+        stanceDamageMultiplier = ReactionNumeric.Safe(newStanceDamageMultiplier, 0f, 5f, 1f);
+        stanceRecoveryPerSecond = ReactionNumeric.Safe(newRecoveryPerSecond, 0f, float.MaxValue, 25f);
+        stanceRecoveryDelay = ReactionNumeric.Safe(newRecoveryDelay, 0f, 10f, 2.5f);
+        staggerResistance = SafeResistance(newStaggerResistance); stunResistance = SafeResistance(newStunResistance);
+        knockUpResistance = SafeResistance(newKnockUpResistance); knockbackResistance = SafeResistance(newKnockbackResistance);
+        RebuildState(new ReactionConfiguration(rank, _reactionCategory, _reactionAuthoring, stunResistance, vulnerabilityWindowSeconds, breakImmunityDuration));
     }
-
-    public void ApplyReaction(HitReactionRequest request)
+    private static float SafeResistance(float value) => ReactionNumeric.Safe(value, 0f, 1f, 1f);
+    public void ConfigureProfile(EnemyProfile profile)
     {
-        // The four reaction channels are processed independently and none reads another's state
-        // (Requisito 2.1 / Property 1): (1) life damage lives outside this component; (2) the
-        // immediate reaction below; (3) stance damage in ApplyStanceDamage; (4) the Stance Break in
-        // TriggerStanceBreak. Neutralising one channel (ReactionType=None, StanceDamage=0 or
-        // BreakEffect=None) leaves the others' observable outcome unchanged.
-
-        // Channel 2 — immediate reaction (never hard CC): Push nudges, Stagger briefly interrupts.
-        // The displacement is clamped for readability (<= 0.5 m, <= 15 deg per hit, Requisito 2.2);
-        // a None reaction produces no displacement/rotation/interruption (Requisito 2.3).
-        //
-        // WHILE the enemy is control-locked (stunned or airborne), additional Micro_Displacement and
-        // Push from the immediate reaction are suppressed so it is not shoved out of the readable
-        // stun/juggle; the pure ControlLockGate makes that decision and re-allows displacement once
-        // the lock ends (Requisito 4.5). The flinch/interruption feedback still plays — only the
-        // displacement is gated. Launch (hard CC) is a separate channel resolved on Stance Break.
-        bool allowDisplacement = ControlLockGate.AllowsImmediateDisplacement(controlLocked);
-        switch (request.ReactionType)
+        if (!profile)
         {
-            case HitReactionType.Push:
-                if (allowDisplacement) ApplyImmediateReaction(request.ReactionType, request.HitDirection, request.PushDistance);
-                PlayAnimation(flinchAnimation);
-                break;
-            case HitReactionType.Stagger:
-                if (staggerResistance < 1f)
-                {
-                    if (allowDisplacement) ApplyImmediateReaction(request.ReactionType, request.HitDirection, request.PushDistance);
-                    PlayAnimation(flinchAnimation);
-                    InterruptCurrentAction();
-                }
-                break;
-            case HitReactionType.None:
-            default:
-                // No displacement, rotation nor interruption for this channel (Requisito 2.3).
-                break;
-        }
-
-        // Channel 3 (+ possible channel 4) — stance damage and Stance Break.
-        if (request.StanceDamage > 0f) ApplyStanceDamage(request);
-    }
-
-    /// <summary>
-    /// Applies an interruption ability to this enemy, combining the interruptible-window gate with the
-    /// rank-resisted stagger accumulation (Requisitos 7.6, 7.7, 7.8 / Properties 23-24). Reuses the
-    /// existing interruption hooks — it never introduces a parallel damage/CC channel.
-    ///
-    /// The window decision is owned by <see cref="EnemyAI.TryInterruptAttack"/> (pure
-    /// <see cref="InterruptWindowGate"/>): if the enemy is inside its interruptible window the ability
-    /// cancels the attack and suppresses its pending beat in the same frame (Requisito 7.6). If it is
-    /// not (no attack in progress, or the beat already resolved) the attack/beat is preserved and the
-    /// result reports a no-interruption reaction for feedback (Requisito 7.7).
-    ///
-    /// Independently, the interruption's <paramref name="staggerValue"/> is accumulated through the
-    /// pure <see cref="RankInterruptStagger"/>: stagger or a stance break is applied only once the
-    /// running total reaches the rank threshold; below it the enemy's state is preserved (Requisito
-    /// 7.8). When the threshold fires this drives the same <see cref="ApplyStanceDamage"/> /
-    /// <see cref="TriggerStanceBreak"/> path a normal stance hit uses, so resistances and the
-    /// same-frame break rule (Requisito 2.5/2.8) still apply. A threshold-firing interruption that
-    /// carries no stance-break request resolves as a plain interrupt (stagger).
-    /// </summary>
-    /// <param name="request">The interruption hit (its stance damage/break drive a threshold-triggered break).</param>
-    /// <param name="staggerValue">The interruption's stagger contribution toward the rank threshold (R7.8).</param>
-    /// <returns>What the interruptible-window gate decided this frame (Requisito 7.6/7.7).</returns>
-    public InterruptWindowGate.Decision ApplyInterruptStagger(HitReactionRequest request, float staggerValue)
-    {
-        // (1) Interruptible-window gate (R7.6/R7.7): reuse EnemyAI's conditional interrupt so the
-        // cancel + same-frame beat suppression flows through the one CancelAttack choke point.
-        InterruptWindowGate.Decision decision = _enemyAI
-            ? _enemyAI.TryInterruptAttack()
-            : InterruptWindowGate.Resolve(false);
-
-        // (2) Rank-resisted accumulation (R7.8): stagger/break only once the total meets the threshold;
-        // below it the state is preserved. A post-break immune enemy still accumulates but the break
-        // itself is gated by the same immunity window ApplyStanceDamage enforces.
-        if (interruptStagger.Accumulate(staggerValue) == RankInterruptStagger.Outcome.StaggerOrBreak)
-        {
-            if (request.StanceDamage > 0f || request.BreakEffect != StanceBreakEffect.None)
-            {
-                // Route through the normal stance path so the break (if any) resolves in the same
-                // frame and through the enemy's resistances (R2.5/R2.8).
-                ApplyStanceDamage(request);
-            }
-            else if (!controlLocked)
-            {
-                // No stance-break payload: the threshold-reached interruption is a plain stagger.
-                InterruptCurrentAction();
-            }
-        }
-
-        return decision;
-    }
-
-    /// <summary>
-    /// Applies the immediate reaction nudge with the shared readability clamp (Requisito 2.2): the
-    /// resulting displacement is at most <see cref="ImmediateReactionClamp.MaxDisplacementMeters"/> and
-    /// any facing change at most <see cref="ImmediateReactionClamp.MaxRotationDegrees"/> per hit,
-    /// regardless of the requested <paramref name="requestedDistance"/>. A None reaction never reaches
-    /// here, so it produces no displacement or rotation (Requisito 2.3).
-    /// </summary>
-    private void ApplyImmediateReaction(HitReactionType reactionType, Vector3 direction, float requestedDistance)
-    {
-        float clampedDistance = ImmediateReactionClamp.ClampPush(reactionType, requestedDistance);
-        if (clampedDistance > 0f) ApplyPush(direction, clampedDistance);
-        ApplyReactionRotation(reactionType, direction);
-    }
-
-    /// <summary>
-    /// Turns the enemy a little towards the hit direction, clamped to the readability rotation limit
-    /// (Requisito 2.2). The facing delta between the current forward and the hit direction is capped at
-    /// <see cref="ImmediateReactionClamp.MaxRotationDegrees"/> so a single hit never spins the enemy.
-    /// </summary>
-    private void ApplyReactionRotation(HitReactionType reactionType, Vector3 direction)
-    {
-        if (!ImmediateReactionClamp.ProducesReaction(reactionType)) return;
-
-        Vector3 flat = direction; flat.y = 0f;
-        if (flat.sqrMagnitude <= Mathf.Epsilon) return;
-
-        Transform target = visualRoot ? visualRoot : transform;
-        Vector3 desiredForward = flat.normalized;
-        float signedDelta = Vector3.SignedAngle(target.forward, desiredForward, Vector3.up);
-        float clampedDelta = ImmediateReactionClamp.ClampRotation(reactionType, signedDelta);
-        if (Mathf.Approximately(clampedDelta, 0f)) return;
-
-        target.rotation = Quaternion.AngleAxis(clampedDelta, Vector3.up) * target.rotation;
-    }
-
-    private void ApplyStanceDamage(HitReactionRequest request)
-    {
-        // Post-break immunity window (Requisito 2.6): while immune, ignore ALL additional stance
-        // damage so a broken enemy isn't instantly re-broken. The window length is clamped to
-        // [0.1, 10] s wherever breakImmuneUntil is armed below.
-        if (Time.time < breakImmuneUntil) return;
-
-        // Stance subtraction (Requisito 2.4): max(0, current − StanceDamage × multiplier), with the
-        // multiplier held in [0, 5] by the shared bounds. The reserve never drops below 0.
-        currentStance = StanceBreakBounds.SubtractStance(currentStance, request.StanceDamage, stanceDamageMultiplier);
-        nextStanceRecoveryTime = Time.time + StanceBreakBounds.ClampRecoveryDelaySeconds(stanceRecoveryDelay);
-
-        if (currentStance > 0f) return;
-
-        // Stance Break feedback (popup + flash + event). Tougher enemies get the announced break.
-        Vector3 breakPoint = transform.position + Vector3.up * 2f;
-        StanceBroken?.Invoke(breakPoint);
-        if (ShouldShowStanceBar) StanceBreakPopup.Show(breakPoint);
-        PlayBreakFlash();
-
-        // Stance Break resolved in the SAME step the reserve hits 0 (Requisito 2.5): apply the
-        // attack's chosen hard CC, gated by this enemy's resistances.
-        TriggerStanceBreak(request);
-
-        // On break, restore the reserve to max and defer recovery (Requisito 2.7). Immunity and
-        // recovery-delay windows are pinned to their ranges ([0.1, 10] s and [0, 10] s) so a broken
-        // enemy gets a readable, bounded opening (Requisito 2.6 / 2.7).
-        currentStance = maxStance;
-        breakImmuneUntil = Time.time + StanceBreakBounds.ClampBreakImmunitySeconds(breakImmunityDuration);
-        nextStanceRecoveryTime = Time.time + StanceBreakBounds.ClampRecoveryDelaySeconds(stanceRecoveryDelay);
-    }
-
-    private Coroutine breakFlashCoroutine;
-
-    /// <summary>A quick punchy scale-pop of the visual to sell the stance break.</summary>
-    private void PlayBreakFlash()
-    {
-        Transform target = visualRoot ? visualRoot : transform;
-        if (breakFlashCoroutine != null) StopCoroutine(breakFlashCoroutine);
-        breakFlashCoroutine = StartCoroutine(BreakFlash(target));
-    }
-
-    private IEnumerator BreakFlash(Transform target)
-    {
-        Vector3 baseScale = target.localScale;
-        float elapsed = 0f;
-        const float duration = 0.25f;
-        while (elapsed < duration && target)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-            // Pop out then settle back.
-            float pop = 1f + 0.25f * Mathf.Sin(t * Mathf.PI);
-            target.localScale = baseScale * pop;
-            yield return null;
-        }
-        if (target) target.localScale = baseScale;
-        breakFlashCoroutine = null;
-    }
-
-    private void TriggerStanceBreak(HitReactionRequest request)
-    {
-        if (!_sectorBoss) _sectorBoss = GetComponent<SectorBoss>();
-        if (_sectorBoss) _sectorBoss.InterruptAttack();
-
-        // Open the post-break vulnerability window (Requisito 3.3-3.5): for the configured (> 0)
-        // duration the enemy reacts as one rarity lower (Elite→Normal, Legendary→Elite, Boss→
-        // Legendary) via EffectiveRank, giving the player a readable opening. The window closes by
-        // time in Update. It opens on the break itself, independent of how the hard-CC effect below
-        // resolves against resistances — a broken enemy is exposed even if it resisted the CC.
-        vulnerabilityWindow.SetBaseRank(rank);
-        vulnerabilityWindow.Open(Time.time, VulnerabilityWindowBounds.ClampSeconds(vulnerabilityWindowSeconds));
-
-        // Resolve the actually-applied effect through the deterministic degrade ladder
-        // (Requisito 2.8 / Property 7): the requested effect when not fully immune to it, otherwise
-        // the lowest-severity effect down the KnockUp→Stun ladder the enemy is not fully immune to,
-        // or None. The pure BreakEffectResistance helper owns that decision so it can be exercised
-        // scene-free; this method only carries out the resolved effect.
-        StanceBreakEffect effect = BreakEffectResistance.Resolve(
-            request.BreakEffect, stunResistance, knockUpResistance, knockbackResistance);
-
-        switch (effect)
-        {
-            case StanceBreakEffect.Stun:
-                // Reached either by a requested Stun or by a KnockUp degraded to Stun; the airborne
-                // lock window uses the same duration scaled by the stun resistance.
-                StartControlLock(ScaleDuration(request.StunDuration, stunResistance), airborne: false);
-                break;
-
-            case StanceBreakEffect.KnockUp:
-                StartKnockUp(request);
-                break;
-
-            case StanceBreakEffect.Knockback:
-                float distance = request.KnockbackDistance * (1f - knockbackResistance);
-                ApplyPush(request.HitDirection, distance, 0.28f);
-                PlayAnimation(flinchAnimation);
-                break;
-
-            case StanceBreakEffect.None:
-            default:
-                // Fully immune (or no effect requested): a plain interrupt, no hard CC.
-                InterruptCurrentAction();
-                break;
-        }
-    }
-
-    private static float ScaleDuration(float duration, float resistance) => duration * (1f - resistance);
-
-    // --- Immediate reactions -------------------------------------------------
-
-    private void InterruptCurrentAction()
-    {
-        // Cancel the warning explicitly; ResetPath alone does not interrupt a coroutine.
-        if (controlLocked) return;
-        if (_enemyAI) _enemyAI.InterruptAttack();
-        // Bosses ignore ordinary flinches; a stance break/control lock interrupts their patterns.
-        PlayAnimation(flinchAnimation);
-        if (agent && agent.enabled && agent.isOnNavMesh) agent.ResetPath();
-    }
-
-    private void ApplyPush(Vector3 direction, float distance, float duration = 0.14f)
-    {
-        if (distance <= 0f) return;
-        Vector3 flat = direction; flat.y = 0f;
-        if (flat.sqrMagnitude <= Mathf.Epsilon) return;
-
-        if (body && !body.isKinematic)
-        {
-            body.AddForce(flat.normalized * distance, ForceMode.Impulse);
+            string id = RankReactionDefaults.MissingConfigId(rank);
+            if (_warnedMissingConfig != id) { _warnedMissingConfig = id; Debug.LogWarning(id + ": using complete reaction defaults.", this); }
+            ConfigureRank(rank);
             return;
         }
-        if (pushCoroutine != null) StopCoroutine(pushCoroutine);
-        pushCoroutine = StartCoroutine(PushOverTime(flat.normalized * distance, duration));
+        _reactionCategory = profile.ReactionCategory;
+        ConfigureStance(rank, profile.MaxStance, profile.StanceDamageMultiplier, profile.StanceRecoveryPerSecond,
+            profile.StanceRecoveryDelay, profile.StaggerResistance, profile.StunResistance, profile.KnockUpResistance, profile.KnockbackResistance);
+        RebuildState(profile.ResolveReaction(rank));
     }
-
-    private IEnumerator PushOverTime(Vector3 offset, float duration)
+    public void ConfigureReaction(ReactionConfiguration configuration)
     {
-        float distance = offset.magnitude;
-        Vector3 dir = offset / distance;
-        float elapsed = 0f, travelled = 0f;
-        bool pausedAgent = agent && agent.enabled && agent.isOnNavMesh;
-        if (pausedAgent) agent.isStopped = true;
-        while (elapsed < duration)
+        rank = configuration.Rank;
+        RebuildState(configuration);
+    }
+    public void BindGameplayClock(HitStopRunner runner) { if (runner) _hitStopRunner = runner; }
+    private void RebuildState(ReactionConfiguration configuration)
+    {
+        CleanupOwnedPresentation();
+        ReleaseAgentStop();
+        _state = new PostureReactionState(configuration, maxStance, stanceDamageMultiplier, stanceRecoveryPerSecond, stanceRecoveryDelay);
+        _interruptStagger.Configure(configuration.Rank, staggerResistance); _interruptStagger.Reset();
+    }
+    private void OnValidate()
+    {
+        var errors = new System.Collections.Generic.List<string>();
+        ReactionNumeric.Validate(errors, nameof(maxStance), maxStance, 1f, float.MaxValue);
+        ReactionNumeric.Validate(errors, nameof(stanceDamageMultiplier), stanceDamageMultiplier, 0f, 5f);
+        ReactionNumeric.Validate(errors, nameof(stanceRecoveryPerSecond), stanceRecoveryPerSecond, 0f, float.MaxValue);
+        ReactionNumeric.Validate(errors, nameof(stanceRecoveryDelay), stanceRecoveryDelay, 0f, 10f);
+        ReactionNumeric.Validate(errors, nameof(breakImmunityDuration), breakImmunityDuration, 0.1f, 10f);
+        ReactionNumeric.Validate(errors, nameof(vulnerabilityWindowSeconds), vulnerabilityWindowSeconds, 0.01f, 10f);
+        foreach (float value in new[] { staggerResistance, stunResistance, knockUpResistance, knockbackResistance })
+            ReactionNumeric.Validate(errors, "CC resistance", value, 0f, 1f);
+        _reactionAuthoring?.Validate(errors);
+        foreach (string error in errors) Debug.LogError("CombatReactionController '" + name + "': " + error, this);
+    }
+    private void Update()
+    {
+        if (!Alive) return;
+        bool windowWasOpen = State.IsVulnerable;
+        State.Advance(Time.deltaTime, Time.timeScale <= 0f, _hitStopRunner && _hitStopRunner.IsActive);
+        _interruptStagger.Decay(State.Now, State.Configuration.DecaySeconds);
+        if (windowWasOpen != State.IsVulnerable) VulnerabilityChanged?.Invoke(State.IsVulnerable);
+        SynchronizeControl();
+        TickPush();
+        if (State.ResumeWatchdogExpired && !_watchdogReported)
         {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / duration);
-            float target = distance * (1f - (1f - t) * (1f - t));
-            MoveStep(dir * (target - travelled));
-            travelled = target;
-            yield return null;
+            _watchdogReported = true;
+            Debug.LogWarning("Reaction resume watchdog expired on '" + name + "'. Check offensive action eligibility.", this);
         }
-        if (pausedAgent && agent && !controlLocked) agent.isStopped = false;
-        pushCoroutine = null;
     }
-
-    // --- Hard CC: stun / knock-up -------------------------------------------
-
-    private void StartControlLock(float duration, bool airborne)
+    private bool _watchdogReported;
+    private void LateUpdate() { if (Alive) TickMotion(); }
+    public void EvaluateResumeEligibility(bool eligible) => State.EvaluateResumeEligibility(eligible);
+    public void BeginOffensiveAction(long execution) => State.BeginOffensiveAction(execution);
+    public void EndOffensiveAction(long execution) => State.EndOffensiveAction(execution);
+    public void CancelOffensiveActionExternally() => State.CancelOffensiveActionExternally();
+    public void ApplyReaction(HitReactionRequest request)
     {
-        if (controlLockCoroutine != null) StopCoroutine(controlLockCoroutine);
-        controlLockCoroutine = StartCoroutine(ControlLockFor(Mathf.Max(0.1f, duration), airborne));
+        if (!Alive) return;
+        if (request.Attacker) BindGameplayClock(request.Attacker.GetComponent<HitStopRunner>());
+        bool breakWillOccur = !State.IsBreakImmune && request.StanceDamage > 0f
+            && (double)request.StanceDamage * stanceDamageMultiplier >= CurrentStance;
+        // One cancellation authority: a breaking hit resolves its break instead of an immediate stagger.
+        if (!breakWillOccur)
+        {
+            if (request.ReactionType == HitReactionType.Push && ControlLockGate.AllowsImmediateDisplacement(IsControlLocked))
+                StartPush(request.HitDirection, ImmediateReactionClamp.ClampPush(request.ReactionType, request.PushDistance));
+            if (request.ReactionType == HitReactionType.Stagger)
+                ResolveInterrupt(request.InterruptContribution);
+        }
+        if (request.ReactionType != HitReactionType.None) PlayAnimation(flinchAnimation);
+        ResolvePosture(request);
     }
-
-    private IEnumerator ControlLockFor(float duration, bool airborne)
+    public InterruptWindowGate.Decision ApplyInterruptStagger(HitReactionRequest request, float staggerValue)
     {
-        controlLocked = true;
+        if (!Alive) return InterruptWindowGate.NotInterrupted;
+        if (request.Attacker) BindGameplayClock(request.Attacker.GetComponent<HitStopRunner>());
+        bool breaking = !State.IsBreakImmune && request.StanceDamage > 0f
+            && (double)request.StanceDamage * stanceDamageMultiplier >= CurrentStance;
+        var decision = breaking ? InterruptWindowGate.NotInterrupted : ResolveInterrupt(staggerValue);
+        ResolvePosture(request);
+        return decision;
+    }
+    private InterruptWindowGate.Decision ResolveInterrupt(float contribution)
+    {
+        if (!ReactionNumeric.IsFinite(contribution) || contribution <= 0f)
+            return InterruptWindowGate.NotInterrupted;
+        if (!_enemyAI) TryGetComponent(out _enemyAI);
+        var config = State.Configuration;
+        bool threshold = false;
+        if (ReactionPolicy.CanContribute(config, IsControlLocked, IsResumeProtected, staggerResistance))
+            threshold = _interruptStagger.Accumulate(contribution, State.Now, config.DecaySeconds) == RankInterruptStagger.Outcome.StaggerOrBreak;
+        bool inWindow = _enemyAI && _enemyAI.IsWindingUp;
+        var decision = ReactionPolicy.ResolveInterrupt(config, IsControlLocked, IsResumeProtected, inWindow, threshold, staggerResistance);
+        if (decision.CancelsAttack) _enemyAI.TryInterruptAttack();
+        return decision;
+    }
+    private void ResolvePosture(HitReactionRequest request)
+    {
+        if (!State.ApplyStanceDamage(request.StanceDamage)) return;
+        // Runtime spawners may add offensive components after this controller's Awake.
+        if (!_enemyAI) TryGetComponent(out _enemyAI);
+        if (!_sectorBoss) TryGetComponent(out _sectorBoss);
+        _watchdogReported = false;
+        LastBreakAttacker = request.Attacker;
+        _breakSequence = checked(_breakSequence + 1);
+        _interruptStagger.Reset();
+        _pushDistance = 0f;
         if (_enemyAI) _enemyAI.InterruptAttack();
-        if (!_sectorBoss) _sectorBoss = GetComponent<SectorBoss>();
         if (_sectorBoss) _sectorBoss.InterruptAttack();
-        bool hadAgent = agent && agent.enabled;
-        if (hadAgent)
+        var config = State.Configuration;
+        var effect = ReactionPolicy.ResolveBreak(config, request.BreakEffect, stunResistance, knockUpResistance, knockbackResistance);
+        StartPhysical(effect, request);
+        SynchronizeControl();
+        Vector3 point = ReactionNumeric.IsFinite(request.HitPoint) ? request.HitPoint : transform.position + Vector3.up * 2f;
+        // The break is already committed. Retain its candidate even when a public subscriber throws.
+        if (request.Attacker is PlayerActor player) player.ConfirmStanceBreakFeedback();
+        // State, immunity, physical ownership and opening are committed before reentrant subscribers.
+        System.Action notify = () => { VulnerabilityChanged?.Invoke(true); StanceBroken?.Invoke(point); };
+        if (!(request.Attacker is PlayerActor attacker) || !attacker.CaptureGauntletBreak(_owner, _breakSequence, notify)) notify();
+        if (!Alive) return;
+        if (ShouldShowStanceBar) StanceBreakPopup.Show(point);
+        PlayBreakFlash();
+        var presentation = GetComponent<StanceBreakPresentation>() ?? gameObject.AddComponent<StanceBreakPresentation>();
+        presentation.Show(point);
+    }
+    private void StartPhysical(StanceBreakEffect effect, HitReactionRequest request)
+    {
+        var config = State.Configuration;
+        if (effect == StanceBreakEffect.KnockUp)
         {
-            if (agent.isOnNavMesh) agent.ResetPath();
-            agent.isStopped = true;
+            float height = ReactionNumeric.Safe(request.KnockUpHeight, 0.01f, DisplacementTier.KnockUpMax, config.LaunchHeight);
+            if (HasObstruction(Vector3.up, height))
+                effect = ReactionPolicy.ResolvePhysical(config, StanceBreakEffect.Stun, stunResistance, knockUpResistance, knockbackResistance);
         }
-        PlayAnimation(string.IsNullOrWhiteSpace(stunAnimation) ? flinchAnimation : stunAnimation);
-        if (airborne) StartAirJuggleVisual(duration);
-
-        yield return new WaitForSeconds(duration);
-
-        if (hadAgent && agent) agent.isStopped = false;
-        controlLocked = false;
-        controlLockCoroutine = null;
-    }
-
-    private void StartKnockUp(HitReactionRequest request)
-    {
-        float airTime = ScaleDuration(request.StunDuration > 0f ? request.StunDuration : 1f, knockUpResistance);
-        float height = request.KnockUpHeight * (1f - knockUpResistance);
-        StartControlLock(airTime, airborne: true);
-        if (height > 0f) StartCoroutine(HopArc(height, airTime));
-    }
-
-    private IEnumerator HopArc(float height, float duration)
-    {
-        // A simple parabolic hop of the visual so the enemy visibly leaves the ground and lands.
-        Transform hop = visualRoot ? visualRoot : transform;
-        Vector3 baseLocal = hop.localPosition;
-        float elapsed = 0f;
-        while (elapsed < duration)
+        if (effect == StanceBreakEffect.None) return;
+        float duration = effect == StanceBreakEffect.Knockdown ? config.FallSeconds + config.GroundSeconds + config.RecoverSeconds
+            : ReactionNumeric.Safe(request.StunDuration, 0.01f, 10f,
+                effect == StanceBreakEffect.KnockUp ? config.LaunchSeconds : config.StunSeconds);
+        if (effect == StanceBreakEffect.Knockback) duration = 0.28f;
+        int token = State.StartEffect(effect, duration);
+        if (token == 0) return;
+        _pushDistance = 0f;
+        if (effect != StanceBreakEffect.Stun)
         {
-            elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / duration);
-            float y = 4f * height * t * (1f - t); // peaks at mid-flight, returns to 0 on land
-            hop.localPosition = baseLocal + Vector3.up * y;
-            yield return null;
+            RestorePose();
+            _motionToken = token; _motionGeneration = State.Generation;
+            _motionWasKnockback = effect == StanceBreakEffect.Knockback;
+            _motionHeight = ReactionNumeric.Safe(request.KnockUpHeight, 0.01f, DisplacementTier.KnockUpMax, config.LaunchHeight);
+            _motionDistance = ReactionNumeric.Safe(request.KnockbackDistance, 0f, DisplacementTier.KnockbackMax, 4f);
+            _motionDirection = FlatDirection(request.HitDirection);
+            _motionTravelled = 0f;
+            _poseTarget = visualRoot ? visualRoot : transform;
+            _poseBaseRotation = _poseTarget.localRotation;
         }
-        hop.localPosition = baseLocal;
+        PlayAnimation(stunAnimation);
     }
-
-    private void StartAirJuggleVisual(float duration)
+    private bool HasObstruction(Vector3 direction, float distance)
     {
-        if (!forceHorizontalVisualOnLaunch || !visualRoot || visualRoot == transform) return;
-        if (airJuggleVisualCoroutine != null) StopCoroutine(airJuggleVisualCoroutine);
-        airJuggleVisualCoroutine = StartCoroutine(ForceVisualRotationFor(duration));
+        foreach (var hit in Physics.SphereCastAll(transform.position + Vector3.up * 0.5f, 0.25f, direction,
+            distance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+            if (hit.collider && !hit.collider.transform.IsChildOf(transform) && hit.distance > 0.001f) return true;
+        return false;
     }
-
-    private IEnumerator ForceVisualRotationFor(float duration)
+    private void TickMotion()
     {
-        Quaternion targetRotation = originalVisualLocalRotation * Quaternion.Euler(horizontalVisualEuler);
-        float endTime = Time.time + Mathf.Max(0.05f, duration);
-        while (Time.time < endTime)
+        if (_motionToken == 0) return;
+        if (!State.Owns(_motionToken, _motionGeneration))
         {
-            if (visualRoot) visualRoot.localRotation = targetRotation;
-            yield return null;
+            if (_motionGeneration == State.Generation && _motionWasKnockback)
+                MoveStep(_motionDirection * Mathf.Max(0f, _motionDistance - _motionTravelled));
+            RestorePose(); return;
         }
-        if (visualRoot) visualRoot.localRotation = originalVisualLocalRotation;
-        airJuggleVisualCoroutine = null;
+        float t = State.Progress(_motionToken);
+        var effect = State.ActiveMotion;
+        if (effect == StanceBreakEffect.Knockback)
+        {
+            float target = _motionDistance * (1f - (1f - t) * (1f - t));
+            MoveStep(_motionDirection * (target - _motionTravelled));
+            _motionTravelled = target;
+        }
+        else if (_poseTarget)
+        {
+            Vector3 offset = effect == StanceBreakEffect.KnockUp ? Vector3.up * (4f * _motionHeight * t * (1f - t)) : Vector3.zero;
+            _poseTarget.localPosition += offset - _lastPoseOffset; _lastPoseOffset = offset;
+            float pose = effect == StanceBreakEffect.KnockUp ? (forceHorizontalVisualOnLaunch ? 1f : 0f)
+                : KnockdownPose(t);
+            _poseTarget.localRotation = _poseBaseRotation * Quaternion.Slerp(Quaternion.identity, Quaternion.Euler(horizontalVisualEuler), pose);
+        }
     }
-
-    // --- Stance recovery & movement -----------------------------------------
-
-    private void RecoverStance()
+    private float KnockdownPose(float t)
     {
-        if (currentStance >= maxStance || Time.time < nextStanceRecoveryTime) return;
-        currentStance = Mathf.Min(maxStance, currentStance + stanceRecoveryPerSecond * Time.deltaTime);
+        var c = State.Configuration;
+        float elapsed = t * (c.FallSeconds + c.GroundSeconds + c.RecoverSeconds);
+        return elapsed < c.FallSeconds ? elapsed / c.FallSeconds
+            : elapsed < c.FallSeconds + c.GroundSeconds ? 1f
+            : 1f - Mathf.Clamp01((elapsed - c.FallSeconds - c.GroundSeconds) / c.RecoverSeconds);
     }
-
+    private void SynchronizeControl()
+    {
+        if (IsControlLocked)
+        {
+            if (agent && agent.enabled && agent.isOnNavMesh)
+            {
+                if (!_ownsAgentRotation) { _savedAgentRotation = agent.updateRotation; _ownsAgentRotation = true; agent.updateRotation = false; }
+                if (!agent.isStopped) { _ownsAgentStop = true; agent.isStopped = true; }
+            }
+        }
+        else ReleaseAgentStop();
+    }
+    private void ReleaseAgentStop()
+    {
+        if (_ownsAgentRotation && agent) agent.updateRotation = _savedAgentRotation;
+        _ownsAgentRotation = false;
+        if (_ownsAgentStop && Alive && agent && agent.enabled && agent.isOnNavMesh && !(_state?.IsControlLocked ?? false))
+            agent.isStopped = false;
+        _ownsAgentStop = false;
+    }
+    private static Vector3 FlatDirection(Vector3 direction)
+    {
+        if (!ReactionNumeric.IsFinite(direction)) return Vector3.forward;
+        direction.y = 0f;
+        return direction.sqrMagnitude > 0.00001f ? direction.normalized : Vector3.forward;
+    }
+    private void StartPush(Vector3 direction, float distance)
+    {
+        if (!ReactionNumeric.IsFinite(distance) || distance <= 0f) return;
+        _pushDirection = FlatDirection(direction); _pushStart = State.Now;
+        _pushDistance = distance; _pushTravelled = 0f;
+        Transform target = visualRoot ? visualRoot : transform;
+        float angle = Vector3.SignedAngle(target.forward, _pushDirection, Vector3.up);
+        target.rotation = Quaternion.AngleAxis(ImmediateReactionClamp.ClampRotation(HitReactionType.Push, angle), Vector3.up) * target.rotation;
+    }
+    private void TickPush()
+    {
+        if (IsControlLocked) { _pushDistance = 0f; return; }
+        if (_pushDistance <= 0f) return;
+        float t = Mathf.Clamp01((State.Now - _pushStart) / 0.14f);
+        float target = _pushDistance * (1f - (1f - t) * (1f - t));
+        MoveStep(_pushDirection * (target - _pushTravelled)); _pushTravelled = target;
+        if (t >= 1f) _pushDistance = 0f;
+    }
     private void MoveStep(Vector3 delta)
     {
-        if (agent && agent.enabled && agent.isOnNavMesh) { agent.Move(delta); return; }
-        if (characterController && characterController.enabled) { characterController.Move(delta); return; }
-        transform.position += delta;
+        if (!Alive || !ReactionNumeric.IsFinite(delta) || delta.sqrMagnitude <= 0f) return;
+        float distance = delta.magnitude;
+        Vector3 direction = delta / distance;
+        foreach (var hit in Physics.SphereCastAll(transform.position + Vector3.up * 0.5f, 0.25f, direction,
+            distance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+            if (hit.collider && !hit.collider.transform.IsChildOf(transform))
+                distance = Mathf.Min(distance, Mathf.Max(0f, hit.distance - 0.01f));
+        delta = direction * distance;
+        if (agent && agent.enabled && agent.isOnNavMesh) agent.Move(delta);
+        else if (characterController && characterController.enabled) characterController.Move(delta);
+        else if (body && !body.isKinematic) body.position += delta;
+        else transform.position += delta;
     }
-
     private void PlayAnimation(string stateName)
     {
-        if (animator && !string.IsNullOrWhiteSpace(stateName)) animator.Play(stateName);
+        if (animator && animator.runtimeAnimatorController && !string.IsNullOrWhiteSpace(stateName)
+            && animator.HasState(0, Animator.StringToHash(stateName))) animator.Play(stateName);
     }
-
-    // --- Dizzy stars overlay while stunned ----------------------------------
-
-    private Camera _uiCamera;
-    private GUIStyle _starStyle;
-
-    private void OnGUI()
+    private void PlayBreakFlash()
     {
-        if (!controlLocked) return;
-        if (!_uiCamera) _uiCamera = Camera.main;
-        if (!_uiCamera) return;
-
-        // Anchor the stars just above the enemy's head, following its scale.
-        float headHeight = 2.9f * Mathf.Max(0.2f, transform.lossyScale.y);
-        Vector3 world = transform.position + Vector3.up * headHeight;
-        Vector3 screen = _uiCamera.WorldToScreenPoint(world);
-        if (screen.z <= 0f) return;
-
-        if (_starStyle == null)
-        {
-            _starStyle = new GUIStyle(GUI.skin.label) { alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold };
-        }
-        float scale = Mathf.Clamp(Screen.height / 900f, 0.8f, 1.5f);
-        _starStyle.fontSize = Mathf.RoundToInt(20 * scale);
-        _starStyle.normal.textColor = new Color(1f, 0.9f, 0.35f);
-
-        Vector2 center = new Vector2(screen.x, Screen.height - screen.y);
-        // Three stars orbiting the head, spinning over time.
-        const int stars = 3;
-        float radius = 18f * scale;
-        float spin = Time.time * 320f;
-        for (int i = 0; i < stars; i++)
-        {
-            float ang = (spin + i * (360f / stars)) * Mathf.Deg2Rad;
-            var pos = new Vector2(center.x + Mathf.Cos(ang) * radius, center.y + Mathf.Sin(ang) * radius * 0.45f);
-            GUI.Label(new Rect(pos.x - 12 * scale, pos.y - 12 * scale, 24 * scale, 24 * scale), "\u2605", _starStyle);
-        }
+        RestoreFlash();
+        _flashTarget = visualRoot ? visualRoot : transform; _flashBaseScale = _flashTarget.localScale;
+        _breakFlash = StartCoroutine(BreakFlash());
     }
+    private IEnumerator BreakFlash()
+    {
+        float elapsed = 0f;
+        while (elapsed < 0.25f && _flashTarget)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            _flashTarget.localScale = _flashBaseScale * (1f + 0.25f * Mathf.Sin(Mathf.Clamp01(elapsed / 0.25f) * Mathf.PI));
+            yield return null;
+        }
+        RestoreFlash();
+    }
+    private void RestoreFlash()
+    {
+        if (_breakFlash != null) StopCoroutine(_breakFlash);
+        _breakFlash = null;
+        if (_flashTarget) _flashTarget.localScale = _flashBaseScale;
+        _flashTarget = null;
+    }
+    private void RestorePose()
+    {
+        if (_poseTarget) { _poseTarget.localPosition -= _lastPoseOffset; _poseTarget.localRotation = _poseBaseRotation; }
+        _lastPoseOffset = Vector3.zero; _poseTarget = null; _motionToken = 0;
+    }
+    private void CleanupOwnedPresentation() { RestorePose(); RestoreFlash(); _pushDistance = 0f; }
+    private void OnDeath(Actor actor) => ResetLifecycle();
+    private void OnDisable() => ResetLifecycle();
+    private void OnEnable() { if (_state != null) _state.Reset(); _watchdogReported = false; }
+    private void ResetLifecycle()
+    {
+        bool wasOpen = _state != null && _state.IsVulnerable;
+        CleanupOwnedPresentation(); _state?.Reset(); _interruptStagger.Reset(); ReleaseAgentStop();
+        LastBreakAttacker = null;
+        if (wasOpen) VulnerabilityChanged?.Invoke(false);
+    }
+    private void OnDestroy() { if (_owner) _owner.Died -= OnDeath; }
 }

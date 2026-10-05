@@ -33,6 +33,18 @@ public readonly struct HitReactionRequest
     public float KnockUpHeight { get; }
     /// <summary>Metres the enemy is thrown on a Knockback break.</summary>
     public float KnockbackDistance { get; }
+    public float InterruptContribution { get; }
+
+    public HitReactionRequest WithInterruptContribution(float contribution) => new HitReactionRequest(this, contribution);
+    private HitReactionRequest(HitReactionRequest source, float contribution)
+    {
+        Attacker = source.Attacker; HitPoint = source.HitPoint; HitDirection = source.HitDirection;
+        ReactionType = source.ReactionType; Strength = source.Strength; StanceDamage = source.StanceDamage;
+        BreakEffect = source.BreakEffect; PushDistance = source.PushDistance; StunDuration = source.StunDuration;
+        KnockUpHeight = source.KnockUpHeight; KnockbackDistance = source.KnockbackDistance;
+        InterruptContribution = ReactionType == HitReactionType.Stagger
+            ? ReactionNumeric.Safe(contribution, 0f, float.MaxValue, 0f) : 0f;
+    }
 
     public HitReactionRequest(
         Actor attacker,
@@ -49,7 +61,7 @@ public readonly struct HitReactionRequest
     {
         Attacker = attacker;
         HitPoint = hitPoint;
-        HitDirection = hitDirection.sqrMagnitude > Mathf.Epsilon ? hitDirection.normalized : Vector3.forward;
+        HitDirection = ReactionNumeric.IsFinite(hitDirection) && hitDirection.sqrMagnitude > Mathf.Epsilon ? hitDirection.normalized : Vector3.forward;
         ReactionType = reactionType;
         Strength = strength;
         StanceDamage = Mathf.Max(0f, stanceDamage);
@@ -58,5 +70,6 @@ public readonly struct HitReactionRequest
         StunDuration = Mathf.Max(0f, stunDuration);
         KnockUpHeight = Mathf.Max(0f, knockUpHeight);
         KnockbackDistance = Mathf.Max(0f, knockbackDistance);
+        InterruptContribution = reactionType == HitReactionType.Stagger ? 1f : 0f;
     }
 }

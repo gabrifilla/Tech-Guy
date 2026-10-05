@@ -256,15 +256,18 @@ public class EnemyAI : MonoBehaviour
         if (Time.timeScale <= 0f) return;
         if (agent == null || !agent.enabled || !agent.isOnNavMesh || player == null || (_owner && _owner.IsDead))
         {
+            if (_reaction) _reaction.EvaluateResumeEligibility(false);
             CancelAttack();
             SetMovementAnimation();
             return;
         }
 
-        if (agent.isStopped || (_reaction && _reaction.IsControlLocked)) { CancelAttack(); return; }
+        if (agent.isStopped && _reaction && !_reaction.IsControlLocked) _reaction.EvaluateResumeEligibility(false);
+        if (agent.isStopped || (_reaction && _reaction.IsControlLocked) || ProtocolElementQuery.IsFrozen(_owner)) { CancelAttack(); return; }
         if (_attackRoutine != null) return;
 
         UpdatePerception();
+        if (_reaction) _reaction.EvaluateResumeEligibility(CanAttack() && playerInAttackRange && ResolvePlayerActor() && !ResolvePlayerActor().IsDead);
 
         // Perception reaction delay (R11): tick the gate right after UpdatePerception() with the
         // existing in-sight signal, so the delay is an *additional* gate on beginning chase/attack and
@@ -638,10 +641,12 @@ public class EnemyAI : MonoBehaviour
 
     private bool CanAttack() => isActiveAndEnabled && _owner && !_owner.IsDead &&
         player && player.gameObject.activeInHierarchy && agent && agent.enabled && agent.isOnNavMesh &&
-        !agent.isStopped && (!_reaction || !_reaction.IsControlLocked);
+        !agent.isStopped && (!_reaction || !_reaction.IsControlLocked) && !ProtocolElementQuery.IsFrozen(_owner);
 
     private IEnumerator TelegraphedAttack()
     {
+        long reactionExecution = ++_reactionExecution;
+        if (_reaction) _reaction.BeginOffensiveAction(reactionExecution);
         Actor target = ResolvePlayerActor();
         float distance = Vector3.Distance(transform.position, player.position);
         ArchetypeId? archetype = ResolveArchetypeId();
@@ -660,6 +665,7 @@ public class EnemyAI : MonoBehaviour
         float cadenceBase = Mathf.Max(_attackRecovery, timeBetweenAttacks);
         nextAttackTime = Time.time + CadenceJitter.Effective(cadenceBase, _natural.CadenceJitter, cadenceBase, _rng);
         yield return new WaitForSeconds(Mathf.Max(.1f, _attackRecovery));
+        if (_reaction) _reaction.EndOffensiveAction(reactionExecution);
         _attackRoutine = null;
 
         // Release the swarm slot when the attack completes so the pool can rotate to a waiting enemy
@@ -698,6 +704,7 @@ public class EnemyAI : MonoBehaviour
 
     private void CancelAttack()
     {
+        if (_attackRoutine != null && _reaction) _reaction.CancelOffensiveActionExternally();
         if (_attackRoutine != null)
         {
             StopCoroutine(_attackRoutine);
@@ -744,6 +751,7 @@ public class EnemyAI : MonoBehaviour
     }
 
     private void OnDisable() => CancelAttack();
+    private long _reactionExecution;
 
     private Actor ResolvePlayerActor()
     {

@@ -21,6 +21,28 @@ public sealed class ScenePortal : MonoBehaviour
     [SerializeField, Min(.2f)] private float _radius = 1.25f;
 
     public string Destination => _destination;
+    private System.Func<bool> _entryGuard;
+    private System.Action _acceptedEntry;
+    private bool _entered;
+
+    public void ConfigureEntryGuard(System.Func<bool> guard, System.Action acceptedEntry)
+    { _entryGuard = guard; _acceptedEntry = acceptedEntry; }
+
+    public bool TryEnter()
+    {
+        if (_entered || !_player) return false;
+        Vector3 offset = _player.position - transform.position;
+        offset.y = 0;
+        if (offset.sqrMagnitude >= _radius * _radius) return false;
+        if (_entryGuard != null && !_entryGuard()) return false;
+        if (_acceptedEntry != null)
+        { _entered = true; _acceptedEntry(); return true; }
+        if (!Application.CanStreamedLevelBeLoaded(_destination))
+        { Debug.LogError("Portal destination is missing from Build Settings: " + _destination, this); return false; }
+        _entered = true;
+        SceneManager.LoadSceneAsync(_destination);
+        return true;
+    }
 
     public void Configure(Transform player, string destination) { _player = player; _destination = destination; }
 
@@ -120,14 +142,12 @@ public sealed class ScenePortal : MonoBehaviour
         var interval = new WaitForSeconds(.15f);
         while (_player)
         {
-            Vector3 offset = _player.position - transform.position;
-            offset.y = 0;
-            if (offset.sqrMagnitude < _radius * _radius)
+            if (TryEnter()) yield break;
+            // Preserve the legacy terminal missing-destination behavior; a guarded run owns its retry.
+            if (_entryGuard == null && _player)
             {
-                if (!Application.CanStreamedLevelBeLoaded(_destination))
-                { Debug.LogError("Portal destination is missing from Build Settings: " + _destination, this); yield break; }
-                SceneManager.LoadSceneAsync(_destination);
-                yield break;
+                Vector3 offset = _player.position - transform.position; offset.y = 0;
+                if (offset.sqrMagnitude < _radius * _radius && !Application.CanStreamedLevelBeLoaded(_destination)) yield break;
             }
             yield return interval;
         }

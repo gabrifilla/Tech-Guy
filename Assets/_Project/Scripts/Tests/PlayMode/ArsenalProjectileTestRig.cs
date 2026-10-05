@@ -38,6 +38,16 @@ namespace TechGuy.Tests
 
         private readonly List<GameObject> _spawned = new List<GameObject>();
 
+        public ArsenalProjectileTestRig()
+        {
+            // Independent fixtures destroy their arrows. Drop only this pool's stale references
+            // before building another case; production pooling remains untouched.
+            ResetArrowPoolReferences();
+        }
+
+        public static void ResetArrowPoolReferences() =>
+            typeof(ArsenalProjectile).GetField("_pool", BindingFlags.Static | BindingFlags.NonPublic).SetValue(null, null);
+
         public PlayerActor Owner { get; private set; }
         public WeaponScript Weapon { get; private set; }
 
@@ -93,12 +103,14 @@ namespace TechGuy.Tests
 
             var col = go.AddComponent<BoxCollider>();
             col.size = size ?? Vector3.one;
+            col.center = Vector3.up * (col.size.y * 0.5f); // Actor roots are feet; homing aims one metre above them.
 
             var actor = go.AddComponent<Actor>();
             actor.health = health;
             go.SetActive(true); // Awake -> maxHealth = health
 
             actor.DamageReceived += (a, _) => DamageEvents.Add(a);
+            Physics.SyncTransforms();
             return actor;
         }
 

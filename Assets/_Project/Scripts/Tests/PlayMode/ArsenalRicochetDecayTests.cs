@@ -25,6 +25,7 @@ namespace TechGuy.Tests
         // multiplier equals its initial multiplier * 0.75^k.
         // Validates: Requirements 1.3
         [UnityTest]
+        [Timeout(600000)] // Preserve 100 generated real-time projectile cases under grouped hit-stop.
         public IEnumerator Property2_MultiplierEqualsInitialTimesPointSevenFivePowK()
         {
             const int cases = 100;
@@ -56,10 +57,10 @@ namespace TechGuy.Tests
                 float lastMultiplier = _rig.Multiplier(arrow);
                 int observedRedirects = 0;
 
-                for (int frame = 0; frame < 400 && arrow; frame++)
+                for (int frame = 0; frame < 400 && arrow && arrow.isActiveAndEnabled; frame++)
                 {
                     yield return null;
-                    if (!arrow) break;
+                    if (!arrow || !arrow.isActiveAndEnabled) break;
 
                     int consumed = startBounces - _rig.Bounces(arrow);
                     if (consumed > observedRedirects)

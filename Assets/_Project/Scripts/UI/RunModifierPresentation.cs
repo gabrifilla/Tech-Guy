@@ -14,7 +14,19 @@ public sealed class RunModifierPresentation
     private static readonly Regex Numbers = new Regex(@"([+−-]?\d+(?:[.,]\d+)?(?:%|m|s)?)");
     public static string Emphasize(string text) => Numbers.Replace(text, "<b><color=#F2DCA6>$1</color></b>");
     public static int Count(RunBoons run, string id)
-    { int count = 0; foreach (var offer in run.Acquired) if (offer.Id == id) count++; return count; }
+    {
+        if (run.Protocols != null && ProtocolInventory.TryKind(id, out var protocol)) return run.Protocols.Rank(protocol);
+        if (run.WeaponModifiers != null && run.WeaponModifiers.Family == RunWeaponFamily.Gauntlet)
+        {
+            if (GauntletContentAuthoring.TryMutation(id, out var mutation))
+                return run.WeaponModifiers.GauntletMutations.TryGet(GauntletMutationSelection.SlotOf(mutation), out var selected)
+                    && selected == mutation ? 1 : 0;
+            if (WeaponRunModifiers.TryDefinition(id, out var definition) && definition.Family == run.WeaponModifiers.Family)
+                return definition.Kind == WeaponBoon.ShockRing
+                    ? (run.WeaponModifiers.Rank(definition.Kind) > 0 ? 1 : 0) : run.WeaponModifiers.Rank(definition.Kind);
+        }
+        int count = 0; foreach (var offer in run.Acquired) if (offer.Id == id) count++; return count;
+    }
     /// <summary>True when <paramref name="id"/> appears in the current offer set (the choices being presented this reward).</summary>
     public static bool Offered(RunBoons run, string id)
     { foreach (var offer in run.Choices) if (offer.Id == id) return true; return false; }
@@ -24,12 +36,37 @@ public sealed class RunModifierPresentation
     public static RunModifierPresentation For(RunBoons.Offer offer)
     {
         var view = new RunModifierPresentation { Description = offer.Description };
+        if (ProtocolInventory.TryKind(offer.Id, out var protocol))
+        {
+            view.Category = "PROTOCOL"; view.Scope = "COMBATE"; view.MaxRank = 3;
+            view.Symbol = protocol == ProtocolKind.Ignite ? "F" : protocol == ProtocolKind.Frost ? "G" :
+                protocol == ProtocolKind.Conductor ? ">>" : protocol == ProtocolKind.Detonation ? "*" :
+                protocol == ProtocolKind.Reactor ? "F+" : protocol == ProtocolKind.Resonance ? "FG" : "FG+";
+            view.Accent = protocol == ProtocolKind.Ignite ? new Color(1f,.48f,.25f) :
+                protocol == ProtocolKind.Frost ? new Color(.35f,.82f,1f) : new Color(.77f,.58f,1f);
+            return view;
+        }
+        if (GauntletContentAuthoring.TryMutation(offer.Id, out var mutation))
+        {
+            view.Category = "MUTATION";
+            view.Scope = view.Symbol = GauntletMutationSelection.SlotOf(mutation).ToString();
+            view.MaxRank = 1;
+            view.Accent = new Color(.77f, .58f, 1f);
+            return view;
+        }
         foreach (var definition in WeaponRunModifiers.Catalog)
         {
             if (definition.Id != offer.Id) continue;
             view.Category = definition.Family == RunWeaponFamily.Bow ? "ARCO" : definition.Family == RunWeaponFamily.Spear ? "LANÇA" : "MANOPLAS";
+            if (definition.Family == RunWeaponFamily.Gauntlet && GauntletContentAuthoring.IsSelectedTechnique(definition.Kind))
+                view.Category = "TECHNIQUE";
             view.Accent = definition.Family == RunWeaponFamily.Bow ? new Color(.34f,.8f,1f) : definition.Family == RunWeaponFamily.Spear ? new Color(1f,.53f,.4f) : new Color(1f,.73f,.32f);
             view.Description = definition.Description; view.MaxRank = definition.MaxRank;
+            if (definition.Kind == WeaponBoon.ShockRing)
+            {
+                view.Category = "MUTATION"; view.MaxRank = 1;
+                view.Description = "Epicentro legado (ShockRing): mantém o rank e o raio originais. Não acumula com outra seleção de Epicentro.";
+            }
             view.Scope = ScopeFor(definition.Kind);
             view.Symbol = view.Scope.Length == 1 ? view.Scope : definition.Family == RunWeaponFamily.Bow ? ">>" : definition.Family == RunWeaponFamily.Spear ? "/" : "III";
             return view;
@@ -56,6 +93,11 @@ public sealed class RunModifierPresentation
     }
     public static string Hint(RunBoons run, string id)
     {
+        if (id == WeaponRunModifiers.CatalogId(WeaponBoon.ShockRing) && run.WeaponModifiers != null)
+            return "EPICENTRO LEGADO · rank " + run.WeaponModifiers.Rank(WeaponBoon.ShockRing)
+                + ": +" + (20 * run.WeaponModifiers.Rank(WeaponBoon.ShockRing)) + "% de raio preservado; seleção única de E.";
+        if (GauntletContentAuthoring.TryMutation(id, out var mutation))
+            return GauntletContentAuthoring.MutationDescription(mutation);
         bool fire = Count(run,"ignite") > 0, frost = Count(run,"frost") > 0;
         if (id == "reactor") return fire ? "COMBINAÇÃO ATIVA · queimadura escala com o golpe." : "PRECISA DE FOGO · obtenha Lâmina incandescente.";
         if (id == "resonance") return (fire || frost) && (Count(run,"conductor") > 0 || Count(run,"detonation") > 0) ? "COMBINAÇÃO ATIVA · prepare os alvos com elementos." : "COMBINE · fogo/gelo + Bobina ou Reator de sucata.";
@@ -64,12 +106,14 @@ public sealed class RunModifierPresentation
         if (id == "weapon_Orbit") return Combined(run,"weapon_Orbit","weapon_TripleMoon") ? "COMBINAÇÃO ATIVA · luas avançam a cada pulso." : "COMBINE · Órbita das luas acrescenta pulsos ao W.";
         if (id == "haste") return Combined(run,"haste","weapon_ComboNova") ? "COMBINAÇÃO ATIVA · Ímpeto acelera a Nova de combo." : "COMBINE · Ímpeto acelera a cadência da Nova de combo.";
         if (id == "weapon_ComboNova") return Combined(run,"weapon_ComboNova","haste") ? "COMBINAÇÃO ATIVA · Ímpeto acelera a Nova de combo." : "COMBINE · Ímpeto acelera a cadência da Nova de combo.";
-        if (id == "weapon_RocketAdvance" && Count(run,"transform") > 0) return "ATENÇÃO · este avanço não se aplica ao Q transformado.";
+        if (id == "weapon_RocketAdvance" && Count(run,"transform") > 0
+            && (run.WeaponModifiers == null || !run.WeaponModifiers.GauntletMutations.TryGet(GauntletActionSlot.Q, out _)))
+            return "ATENÇÃO · este avanço não se aplica ao Q transformado.";
         // impactful-weapon-boons R9.3: combination hints for the new boons.
         if (id == "weapon_ChargedShot") return Combined(run,"weapon_ChargedShot","weapon_Piercing") || Combined(run,"weapon_ChargedShot","weapon_Sniper") ? "COMBINAÇÃO ATIVA · tiro carregado atravessa a fila." : "COMBINE · perfuração faz o tiro carregado varar inimigos.";
         if (id == "weapon_SplitArrow") return Combined(run,"weapon_SplitArrow","weapon_TwinShot") ? "COMBINAÇÃO ATIVA · mais flechas, mais fragmentos." : "COMBINE · Tiro duplo multiplica os fragmentos ao abater.";
         if (id == "weapon_MomentumStrike") return Combined(run,"weapon_MomentumStrike","bulwark") || Combined(run,"weapon_MomentumStrike","vitality") ? "COMBINAÇÃO ATIVA · sobreviver mantém as pilhas." : "COMBINE · defesa evita perder as pilhas ao levar dano.";
-        if (id == "overflow") return fire || frost ? "COMBINAÇÃO ATIVA · consome fogo/gelo para um burst." : "COMBINE · aplique fogo ou gelo antes de acertar.";
+        if (id == "overflow") return fire || frost ? "COMBINAÇÃO ATIVA · burst sem consumir Burn/Chill." : "PRECISA DE ELEMENTO · Ignite ou Frost.";
         if (id == "weapon_TwinShot" || id == "weapon_WideVolley") return "COMBINE · perfuração e ricochete ampliam a cobertura.";
         // gauntlet-boon-playstyle-overhaul R15.3: combination hints for the ten new boons. Each surfaces the
         // partner that turns the boon into a loop — Asura basics feed the Asura finishers, hungry basics bring

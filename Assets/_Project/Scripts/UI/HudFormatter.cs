@@ -25,6 +25,18 @@ public static class HudFormatter
     public static string Asura(bool ready, int energy)
         => ready ? "ASURA PRONTO" : $"ASURA   {energy} / 100";
 
+    public static string Asura(int energy, AbilityUseFailure? unavailable, bool active, bool waiting)
+    {
+        if (active) return waiting ? "ASURA · AGUARDA R" : "ASURA · EM USO";
+        if (energy < AsuraMomentum.Maximum) return Asura(false, energy);
+        if (!unavailable.HasValue) return Asura(true, energy);
+        string reason = unavailable == AbilityUseFailure.NotEnoughMana ? "SEM MANA"
+            : unavailable == AbilityUseFailure.Cooldown ? "RECARGA"
+            : unavailable == AbilityUseFailure.Busy ? "AGUARDE"
+            : unavailable == AbilityUseFailure.Interaction ? "BLOQUEADO" : "INDISPONÍVEL";
+        return "ASURA CHEIO · " + reason;
+    }
+
     /// <summary>
     /// Ability tooltip: "<c>{name}  ·  {manaCost:0} mana  ·  {cooldown:0.#}s recarga</c>", matching
     /// the current inline string (two spaces around each middle dot).

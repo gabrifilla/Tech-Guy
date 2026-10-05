@@ -18,6 +18,7 @@ public sealed class SectorBoss : MonoBehaviour
     private EnemyCombatActions _actions;
     private Coroutine _routine;
     private bool _interrupted;
+    private long _reactionExecution;
     public string DisplayName => "GUARDIÃO DO NÚCLEO";
     public float MaximumHealth => _maximumHealth;
     public bool IsEnraged => _actor && _actor.health <= _actor.maxHealth*.5f;
@@ -57,8 +58,9 @@ public sealed class SectorBoss : MonoBehaviour
         while(Alive)
         {
             while(Alive && _reaction.IsControlLocked) yield return null;
-            if(!Alive) yield break;
+            if(!Alive) { _reaction.EvaluateResumeEligibility(false); yield break; }
             _interrupted=false;
+            _reaction.EvaluateResumeEligibility(Alive && CanAttack());
             bool enraged=IsEnraged;
             // Walk into threat range before punching; never punch the air from the far end of the room.
             yield return Approach(8f);
@@ -78,6 +80,8 @@ public sealed class SectorBoss : MonoBehaviour
             }
             if(!CanAttack()) continue;
             sequence++;
+            long reactionExecution = ++_reactionExecution;
+            _reaction.BeginOffensiveAction(reactionExecution);
             yield return _actions.Perform(move,_player,move==EnemyAttackKind.DoublePunch ? _bombDamage : _slamDamage,CanAttack,true);
             if(enraged && CanAttack() && _actions.Completed)
             {
@@ -100,7 +104,9 @@ public sealed class SectorBoss : MonoBehaviour
                 }
             }
             yield return new WaitForSeconds(enraged ? .9f : 1.4f);
+            _reaction.EndOffensiveAction(reactionExecution);
         }
+        _reaction.EvaluateResumeEligibility(false);
     }
     private IEnumerator Approach(float range)
     {
@@ -114,7 +120,7 @@ public sealed class SectorBoss : MonoBehaviour
         }
         if(_agent && _agent.enabled && _agent.isOnNavMesh) _agent.ResetPath();
     }
-    public void InterruptAttack() { _interrupted=true; if(_actions) _actions.Cancel(); }
+    public void InterruptAttack() { _interrupted=true; if (_reaction) _reaction.CancelOffensiveActionExternally(); if(_actions) _actions.Cancel(); }
     public static bool Contains(Vector3 point,Vector3 center,float radius) =>
         new EnemyAttackArea(EnemyAttackShape.Circle,center,Vector3.forward,radius).Contains(point);
     private void OnDeath(Actor actor) => StopFight();

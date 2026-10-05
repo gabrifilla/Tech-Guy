@@ -28,12 +28,21 @@ namespace TechGuy.Tests
         private const float TurnRateDeg = 180f;
 
         private ArsenalProjectileTestRig _rig;
+        private float _savedCaptureDeltaTime;
 
         [SetUp]
-        public void SetUp() => _rig = new ArsenalProjectileTestRig();
+        public void SetUp()
+        {
+            _savedCaptureDeltaTime = Time.captureDeltaTime;
+            _rig = new ArsenalProjectileTestRig();
+        }
 
         [TearDown]
-        public void TearDown() => _rig?.TearDown();
+        public void TearDown()
+        {
+            Time.captureDeltaTime = _savedCaptureDeltaTime;
+            _rig?.TearDown();
+        }
 
         // Feature: modifier-synergies-theme17, Property 13
         // R4.1: on the launch frame the arrow applies zero homing correction, so its initial forward
@@ -42,6 +51,9 @@ namespace TechGuy.Tests
         [UnityTest]
         public IEnumerator Property13_LaunchFrameAppliesZeroCorrection()
         {
+            // A slow Editor frame can exceed the 0.1s seek interval. Keep the simulated first
+            // frame below that deadline instead of relying on wall-clock rendering speed.
+            Time.captureDeltaTime = 1f / 60f;
             const int cases = 100;
             var rng = new System.Random(PropertyCheck.DefaultSeed + 13);
 

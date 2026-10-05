@@ -54,6 +54,7 @@ public sealed class InputBuffer
     /// <see cref="Expire"/> or <see cref="TryConsume"/> to prune an expired one.
     /// </summary>
     public bool HasPending => _hasPending;
+    public void Discard() => Clear();
 
     /// <summary>
     /// Builds a buffer with the default <c>120 ms</c> <see cref="BufferDuration"/> (R5.1).

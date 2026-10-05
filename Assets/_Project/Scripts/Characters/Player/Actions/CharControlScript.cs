@@ -259,6 +259,7 @@ public class CharControlScript : MonoBehaviour
 
     public bool TryDirectionalBasicAttack(Vector3 aimPoint)
     {
+        if (_abilityHolder && _abilityHolder.BlocksWorldInput) return false;
         Vector3 direction = aimPoint - transform.position;
         direction.y = 0f;
         if (direction.sqrMagnitude <= Mathf.Epsilon) return false;
@@ -274,8 +275,8 @@ public class CharControlScript : MonoBehaviour
     }
 
     private bool CanStartBasicAttack() => isActiveAndEnabled && playerActor && !playerActor.IsDead && weapon &&
-        !playerBusy && Time.time >= nextAttackTime && !isDashing &&
-        (!_abilityHolder || (!_abilityHolder.BlocksWorldInput && !_abilityHolder.IsCasting));
+        !playerActor.IsResolvingGauntletImpact && !playerBusy && Time.time >= nextAttackTime && !isDashing &&
+        (!_abilityHolder || (!_abilityHolder.BlocksWorldInput && (!_abilityHolder.IsCasting || _abilityHolder.IsCadencedWaiting)));
 
     // Método para validar componentes essenciais
     private void ValidateComponents()
@@ -305,6 +306,7 @@ public class CharControlScript : MonoBehaviour
 
     private void RefreshWeaponStats()
     {
+        if (!_abilityHolder) _abilityHolder = GetComponent<AbilityHolder>();
         WeaponScript currentWeapon = playerActor != null ? playerActor.CurrentWeapon : null;
         float currentAttackSpeedMultiplier = playerActor != null && playerActor.Stats != null
             ? playerActor.Stats.AttackSpeedMultiplier
@@ -819,6 +821,11 @@ public class CharControlScript : MonoBehaviour
         }
     }
 
+    public void StopEncounterOffense()
+    {
+        CancelCombo(); ClearTarget(); RequireAttackRelease();
+    }
+
     public void Attack()
     {
         if (target) TryBasicAttack(target.transform.position);
@@ -827,6 +834,7 @@ public class CharControlScript : MonoBehaviour
     private void PerformAttack(Actor victim)
     {
         if (!CanStartBasicAttack() || (victim && !CanReachTarget(victim))) return;
+        if (_abilityHolder) _abilityHolder.EndCadencedForBasic();
         nextAttackTime = Time.time + Mathf.Max(.05f, attackInterval);
 
         string attackName = null;
@@ -874,7 +882,10 @@ public class CharControlScript : MonoBehaviour
             float range = balance != null ? balance.GauntletBasicReach : authoredRange;
             Vector3 basicBoxSize = balance != null ? balance.GauntletBasicBoxSize : attackBoxSize;
             float scale = playerActor.RunModifiers?.MeleeScale ?? 1f;
-            playerActor.TryApplyAreaDamage(
+            if (weapon && WeaponRunModifiers.Identify(weapon) == RunWeaponFamily.Gauntlet)
+                playerActor.TryApplyGauntletBasicDamage(transform.position, transform.forward, range * scale,
+                    basicBoxSize * scale, attackLayers, weapon.attackDamage, BuildBasicAttackReaction(attackIndex, range));
+            else playerActor.TryApplyAreaDamage(
                 transform.position,
                 transform.forward,
                 range * scale,
@@ -1006,7 +1017,8 @@ public class CharControlScript : MonoBehaviour
 
     private HitReactionRequest BuildBasicAttackReaction(int attackIndex, float range)
     {
-        HitReactionType reactionType = GetComboValue(comboReactions, attackIndex, defaultAttackReaction);
+        HitReactionType reactionType = GetComboValue(comboReactions, attackIndex,
+            weapon && weapon.OverridesBasicReaction ? weapon.BasicReaction : defaultAttackReaction);
         HitStrength strength = GetComboValue(comboStrengths, attackIndex, defaultAttackStrength);
         float stanceDamage = GetComboValue(comboStanceDamage, attackIndex, defaultAttackStanceDamage);
 
@@ -1018,7 +1030,8 @@ public class CharControlScript : MonoBehaviour
             strength,
             stanceDamage,
             defaultAttackBreakEffect,
-            defaultAttackPushDistance);
+            defaultAttackPushDistance).WithInterruptContribution(weapon && weapon.OverridesBasicReaction
+                ? weapon.BasicInterruptContribution(attackIndex) : reactionType == HitReactionType.Stagger ? 1f : 0f);
     }
 
     private static T GetComboValue<T>(IReadOnlyList<T> values, int index, T fallback)

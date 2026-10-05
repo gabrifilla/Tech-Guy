@@ -50,11 +50,15 @@ public sealed class AsuraSurge : MonoBehaviour
     private void Subscribe() { if (_hooks != null) _hooks.OnBasicHit += OnBasicHit; }   // R4.3: only the basic channel
 
     private void Unsubscribe() { if (_hooks != null) _hooks.OnBasicHit -= OnBasicHit; }
+    private void OnDisable() => Unsubscribe();
+    private void OnEnable() { Unsubscribe(); Subscribe(); }
 
     // R4.1/R4.2: a basic hit adds (2 * rank) Asura; AddAsuraEnergy delegates to AddEnergy, which clamps
     // to [0, Maximum], so an overflowing hit lands at the cap and a full meter stays there.
     private void OnBasicHit(Actor victim, float damage)
     {
+        // The contextual pipeline already committed this bonus with native energy, once per execution.
+        if (_player && _player.IsResolvingGauntletImpact) return;
         if (_rank <= 0 || !_combat) return;
         _combat.AddAsuraEnergy(EnergyPerRankPerHit * _rank);
     }

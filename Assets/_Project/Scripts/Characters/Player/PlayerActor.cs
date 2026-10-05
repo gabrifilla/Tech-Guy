@@ -6,6 +6,45 @@ using System.Collections.Generic;
 
 public class PlayerActor : Actor, IExternalPullTarget
 {
+    private ImpactFeedbackScope _feedbackScope;
+    private HitStopRunner _reactionHitStop;
+    internal bool IsCombatHitStopped => _reactionHitStop && _reactionHitStop.IsActive;
+    internal bool HasOpenImpactFeedback => _feedbackScope != null;
+    public sealed class FeedbackLease : System.IDisposable
+    {
+        private readonly PlayerActor _owner;
+        private readonly ImpactFeedbackScope _previous;
+        private bool _disposed;
+        public ImpactFeedbackScope Scope { get; }
+        public FeedbackLease(PlayerActor owner, ImpactFeedbackScope previous, ImpactFeedbackScope scope)
+        { _owner = owner; _previous = previous; Scope = scope; }
+        public void Dispose()
+        {
+            if (_disposed) return;
+            _disposed = true;
+            _owner._feedbackScope = _previous;
+            Scope.Dispose();
+        }
+    }
+    public FeedbackLease BeginImpactFeedback(float? duration = null, long execution = 0, int impactIndex = -1)
+    {
+        var previous = _feedbackScope;
+        if (previous == null)
+        {
+            if (!_reactionHitStop) _reactionHitStop = GetComponent<HitStopRunner>() ?? gameObject.AddComponent<HitStopRunner>();
+            _feedbackScope = new ImpactFeedbackScope(value => { if (_reactionHitStop) _reactionHitStop.Apply(value); }, duration ?? DefaultCommonHitStop(), execution, impactIndex);
+        }
+        else _feedbackScope = previous.Child(duration, execution, impactIndex);
+        return new FeedbackLease(this, previous, _feedbackScope);
+    }
+    private float DefaultCommonHitStop()
+    {
+        // Preserve ordinary Bow/Spear timing. Their explicit impact scopes can still author feedback,
+        // and a genuine posture break contributes its own emphasis for any weapon.
+        if (!WeaponUsesGauntletBasic(weapon)) return 0f;
+        var profiles = weapon.BasicProfile?.HitStopProfiles;
+        return profiles != null && profiles.Count > 0 ? profiles[0].ClampedDuration : 0.035f;
+    }
     public float mana;
     public float maxMana { get; private set; }
 
@@ -47,6 +86,21 @@ public class PlayerActor : Actor, IExternalPullTarget
     private AbilityHolder abilityHolder;
     private PlayerOnHitEffects onHitEffects;
     private RunBoons _runBoons;
+    private GauntletImpactTransaction _gauntletImpact;
+    public bool IsResolvingGauntletImpact => _gauntletImpact != null;
+    internal GauntletImpactContext CurrentGauntletImpactContext => _gauntletImpact?.Context;
+    public bool IsContextualGauntletBasic => _gauntletImpact != null
+        && _gauntletImpact.Context.Slot == GauntletActionSlot.Basic
+        && _gauntletImpact.Context.Origin == GauntletImpactOrigin.Direct;
+
+    internal bool CaptureGauntletBreak(Actor target, long sequence, System.Action notification)
+    {
+        if (_gauntletImpact == null || !_gauntletImpact.IsCollecting || !target || _gauntletImpact.Context.TargetId != EntityId.ToULong(target.GetEntityId())
+            || _gauntletImpact.Context.TargetGeneration != target.CombatGeneration) return false;
+        _gauntletImpact.ConfirmBreak(sequence);
+        _gauntletImpact.Notify(notification);
+        return true;
+    }
     // R8.6: controllers whose StanceBroken signal this player is watching, mapped to the exact
     // handler delegate subscribed for each, so every subscription is added once and removed on
     // teardown (no cross-run leak). StanceBroken is Action<Vector3> (break point only), so the
@@ -193,6 +247,8 @@ public class PlayerActor : Actor, IExternalPullTarget
             return null;
         }
 
+        if (TryGetComponent(out RunBoons activeRun) && !activeRun.TryPrepareManualWeapon(newWeapon, out newWeapon)) return null;
+
         WeaponScript previousWeapon = weapon;
         if (TryGetComponent(out ArsenalCombat arsenal)) arsenal.Cancel();
         if (TryGetComponent(out CharControlScript control)) control.CancelCombo();
@@ -208,6 +264,8 @@ public class PlayerActor : Actor, IExternalPullTarget
         }
 
         weapon = newWeapon;
+        if (previousWeapon != newWeapon && TryGetComponent(out BreakerGauntletCombat gauntletCombat))
+            gauntletCombat.Configure(WeaponRunModifiers.Identify(newWeapon) == RunWeaponFamily.Gauntlet ? newWeapon : null);
         currentWeaponInstance = null;
         hitbox = null;
 
@@ -262,8 +320,7 @@ public class PlayerActor : Actor, IExternalPullTarget
         AttackDamageRoll roll = RollAttackDamage(baseDamage);
         if (roll.Amount <= 0f) return false;
 
-        DealResolvedAttackDamage(targetActor, roll.Amount, roll.IsCritical);
-        return true;
+        return ResolveAttackDamage(targetActor, roll.Amount, roll.IsCritical) > 0f;
     }
 
     public bool TryApplyDamage(Actor targetActor, float weaponDamage, float skillMultiplier, float addedDamage)
@@ -273,8 +330,7 @@ public class PlayerActor : Actor, IExternalPullTarget
         AttackDamageRoll roll = RollAttackDamage(weaponDamage, skillMultiplier, addedDamage);
         if (roll.Amount <= 0f) return false;
 
-        DealResolvedAttackDamage(targetActor, roll.Amount, roll.IsCritical);
-        return true;
+        return ResolveAttackDamage(targetActor, roll.Amount, roll.IsCritical) > 0f;
     }
 
     public void DealResolvedAttackDamage(Actor enemy, float damage)
@@ -283,13 +339,26 @@ public class PlayerActor : Actor, IExternalPullTarget
     }
 
     public void DealResolvedAttackDamage(Actor enemy, float damage, bool isCritical)
+    { ResolveAttackDamage(enemy, damage, isCritical); }
+
+    internal float ResolveAttackDamage(Actor enemy, float damage, bool isCritical)
+        => ResolveAttackDamage(enemy, damage, isCritical, null);
+
+    private float ResolveAttackDamage(Actor enemy, float damage, bool isCritical, GauntletImpactTransaction transaction)
     {
-        if (!enemy || enemy.IsDead || enemy is PlayerActor || damage <= 0f) return;
+        using (BeginImpactFeedback())
+        {
+        if (!enemy || enemy.IsDead || enemy is PlayerActor || !ReactionNumeric.IsFinite(damage) || damage <= 0f) return 0f;
+        TryGetComponent(out ProtocolRuntime protocols);
+        ProtocolRootContext protocolRoot = null;
+        using (protocols ? protocols.BeginImpactScope(transaction?.Context, out protocolRoot) : null)
+        {
+        var protocolBefore = protocols ? protocols.CaptureSnapshot(enemy) : default;
         WeaponRunModifiers modifiers = RunModifiers;
         if (modifiers != null)
             damage *= modifiers.DirectDamageMultiplier(Vector3.Distance(transform.position, enemy.transform.position),
                 enemy.health / Mathf.Max(1f, enemy.maxHealth), health / Mathf.Max(1f, maxHealth),
-                (enemy.GetComponent<BurnStatus>() ? 1 : 0) + (enemy.GetComponent<ChillStatus>() ? 1 : 0));
+                (ProtocolElementQuery.HasBurn(enemy) ? 1 : 0) + (ProtocolElementQuery.HasChill(enemy) ? 1 : 0));
         // R10.2 (RainMark): a direct hit on a marked enemy is amplified by (1 + 0.2*R) while the mark
         // lasts. AmplifierFor returns 1 for unmarked/expired enemies, so this is a clean no-op without the
         // boon or outside the mark. Composes multiplicatively with DirectDamageMultiplier above and writes
@@ -303,26 +372,63 @@ public class PlayerActor : Actor, IExternalPullTarget
         // asset — the registry only reads its run-scoped window state.
         EdgeVulnerabilityRegistry edgeVuln = EdgeVulnerabilities;
         if (edgeVuln != null) damage *= edgeVuln.AmplifierFor(enemy);
-        float before = enemy.health;
-        enemy.TakeDamage(damage);
-        float dealt = before - enemy.health;
+        var protocolProducer = transaction != null ? ProtocolRuntime.ProducerFor(transaction.Context) :
+            protocols ? protocols.ScopedProducer : ProtocolProducer.Direct;
+        int protocolDepth = transaction != null ? protocolProducer == ProtocolProducer.Direct ? 0 : 1 :
+            protocols ? protocols.ScopedDepth : 0;
+        if (protocolRoot != null && protocolDepth > 0 && !protocolRoot.ReserveImpact(protocolDepth)) protocolRoot = null;
+        if (protocols) damage = protocols.AmplifyChild(protocolRoot, protocolProducer, protocolBefore, damage);
+        float dealt = 0f;
+        using (enemy.CaptureNextDamage(actual =>
+        {
+            dealt = actual;
+            transaction?.ConfirmHp(actual);
+            transaction?.HoldProtocolBatch(protocolRoot);
+            _feedbackScope.ConfirmDamage(true);
+        }, transaction == null ? null : transaction.Notify)) enemy.TakeDamage(damage);
         if (dealt > 0f && modifiers != null) RestoreMana(2f * modifiers.Rank(WeaponBoon.Siphon));
-        if (dealt > 0f && onHitEffects && onHitEffects.HasAnyEffect)
-            onHitEffects.ApplyTo(enemy, dealt);
+        if (dealt > 0f && protocols)
+        {
+            float confirmed = dealt;
+            var producer = protocolProducer;
+            System.Action notification = () => {
+                if (protocols) protocols.SubmitConfirmedImpact(protocolRoot, enemy, protocolBefore, confirmed, producer, protocolDepth);
+            };
+            if (transaction != null) transaction.Notify(notification); else notification();
+        }
+        else if (dealt > 0f && onHitEffects && onHitEffects.HasAnyEffect)
+        {
+            float confirmed = dealt;
+            if (transaction != null) transaction.Notify(() => { if (onHitEffects) onHitEffects.ApplyTo(enemy, confirmed); });
+            else onHitEffects.ApplyTo(enemy, dealt);
+        }
 
         // R8.2/R8.3: surface crit and kill through the per-run HookBus owned by RunBoons. The bus
         // may be absent outside a run (bus null), so every raise is null-guarded; OnKill is deduped
         // inside the bus so repeat notifications for the same enemy fire the hook only once.
-        if (dealt > 0f)
+        if (dealt > 0f && (!protocols || protocolProducer == ProtocolProducer.Direct))
         {
             HookBus hooks = Hooks;
             if (hooks != null)
             {
                 // Direct_Hit: every basic/area/projectile hit that dealt damage routes through here.
-                hooks.RaiseHit(enemy, dealt);
-                if (isCritical) hooks.RaiseCrit(enemy, dealt);
-                if (enemy.IsDead) hooks.RaiseKill(enemy);
+                float confirmed = dealt;
+                bool killed = protocols ? protocolBefore.IsLethal(dealt) : enemy.IsDead;
+                System.Action notification = () =>
+                {
+                    using (protocols ? protocols.OpenCallbackScope(protocolRoot, protocolDepth) : null)
+                    {
+                    hooks.RaiseHit(enemy, confirmed);
+                    if (isCritical) hooks.RaiseCrit(enemy, confirmed);
+                    if (killed) hooks.RaiseKill(enemy);
+                    }
+                };
+                if (transaction != null) transaction.Notify(notification); else notification();
             }
+        }
+
+            return dealt;
+        }
         }
     }
 
@@ -330,17 +436,17 @@ public class PlayerActor : Actor, IExternalPullTarget
     /// Surfaces a Basic_Attack direct hit on the per-run <see cref="HookBus"/>'s dedicated basic
     /// channel (R3.1/R3.2). Called <b>only</b> from the <c>HitboxDamage</c> path, so the basic
     /// channel never fires for skill hits (R3.3). <paramref name="dealt"/> is the damage actually
-    /// applied (measured by the caller); the kill is read from the enemy's post-damage state. Does
+    /// applied; nativeLethal preserves the basic's causality when a later Protocol burst kills. Does
     /// NOT re-raise the generic <c>OnHit</c>/<c>OnKill</c> events (R3.4) — <see cref="DealResolvedAttackDamage(Actor,float)"/>
     /// already raised those for this hit. The bus is absent outside a run, so it is null-guarded.
     /// </summary>
-    public void RaiseBasicAttackHit(Actor enemy, float dealt)
+    public void RaiseBasicAttackHit(Actor enemy, float dealt, bool? nativeLethal = null)
     {
         if (!enemy || dealt <= 0f) return;
         HookBus hooks = Hooks;
         if (hooks == null) return;
         hooks.RaiseBasicHit(enemy, dealt);
-        if (enemy.IsDead) hooks.RaiseBasicKill(enemy);
+        if (nativeLethal ?? enemy.IsDead) hooks.RaiseBasicKill(enemy);
     }
 
     public AttackDamageRoll RollAttackDamage(float weaponDamage, float skillMultiplier = 1f, float addedDamage = 0f)
@@ -374,7 +480,38 @@ public class PlayerActor : Actor, IExternalPullTarget
     }
 
     public int TryApplyAreaDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize, AreaHitShape hitShape, float sphereRadius, LayerMask targetLayers, float weaponDamage, float skillMultiplier, float addedDamage, HitReactionRequest? reactionRequest, bool showEffect = true, Color? effectColor = null)
+        => ResolveAreaDamage(origin, forward, range, boxSize, hitShape, sphereRadius, targetLayers,
+            weaponDamage, skillMultiplier, addedDamage, reactionRequest, showEffect, effectColor, null, null, 0);
+
+    internal int TryApplyGauntletAreaDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize,
+        AreaHitShape hitShape, float sphereRadius, LayerMask targetLayers, float weaponDamage,
+        float skillMultiplier, float addedDamage, HitReactionRequest? reactionRequest, bool showEffect,
+        Color? effectColor, GauntletImpactContext context, GauntletEnergyPolicy policy, int impactIndex)
+        => ResolveAreaDamage(origin, forward, range, boxSize, hitShape, sphereRadius, targetLayers,
+            weaponDamage, skillMultiplier, addedDamage, reactionRequest, showEffect, effectColor, context, policy, impactIndex);
+
+    internal int TryApplyGauntletBasicDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize,
+        LayerMask layers, float damage, HitReactionRequest reaction)
     {
+        if (IsResolvingGauntletImpact) return 0;
+        var combat = GetComponent<BreakerGauntletCombat>() ?? gameObject.AddComponent<BreakerGauntletCombat>();
+        combat.Configure(CurrentWeapon);
+        var context = combat.BeginBasicExecution();
+        if (context == null) return 0;
+        try { return TryApplyGauntletAreaDamage(origin, forward, range, boxSize, AreaHitShape.Box, 0f,
+            layers, damage, 1f, 0f, reaction, true, null, context, combat.EnergyPolicy, 0); }
+        finally { combat.EnergyPolicy.Close(context); }
+    }
+
+    private int ResolveAreaDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize,
+        AreaHitShape hitShape, float sphereRadius, LayerMask targetLayers, float weaponDamage,
+        float skillMultiplier, float addedDamage, HitReactionRequest? reactionRequest, bool showEffect,
+        Color? effectColor, GauntletImpactContext context, GauntletEnergyPolicy policy, int impactIndex)
+    {
+        TryGetComponent(out ProtocolRuntime areaProtocols);
+        using (areaProtocols ? areaProtocols.BeginAreaScope(context) : null)
+        using (BeginImpactFeedback())
+        {
         if (range <= 0f || forward.sqrMagnitude <= Mathf.Epsilon) return 0;
 
         Vector3 normalizedForward = forward.normalized;
@@ -408,30 +545,82 @@ public class PlayerActor : Actor, IExternalPullTarget
         }
 
         int damageCount = 0;
+        MomentumStacks momentum = null;
+        if (context != null) TryGetComponent(out momentum);
+        int momentumRank = context?.Snapshot?.Rank(WeaponBoon.MomentumStrike) ?? 0;
+        var damageBatch = Stats.CaptureAttackDamage(
+            weaponDamage > 0f ? weaponDamage : weapon ? weapon.attackDamage : 0f,
+            skillMultiplier, addedDamage, momentum ? momentum.Modifier : null,
+            momentum && momentum.isActiveAndEnabled ? momentum.BatchMultiplier(momentumRank) : 1f);
+        int confirmedDirectHp = 0;
+        long momentumVersion = momentum ? momentum.ResetVersion : 0;
         HashSet<Actor> resolvedActors = new HashSet<Actor>();
         List<Actor> damagedActors = new List<Actor>();
+        if (context != null && context.Slot == GauntletActionSlot.Basic && context.Origin == GauntletImpactOrigin.Direct &&
+            reactionRequest.HasValue && reactionRequest.Value.BreakEffect == StanceBreakEffect.Knockback)
+        {
+            var request = reactionRequest.Value;
+            int seismic = context.Snapshot?.Rank(WeaponBoon.SeismicFist) ?? 0;
+            if (seismic > 0)
+                reactionRequest = new HitReactionRequest(request.Attacker, request.HitPoint, request.HitDirection,
+                    request.ReactionType, request.Strength, request.StanceDamage, request.BreakEffect,
+                    request.PushDistance, request.StunDuration, request.KnockUpHeight,
+                    Mathf.Min(DisplacementTier.KnockbackMax, request.KnockbackDistance * (1f + .3f * seismic)))
+                    .WithInterruptContribution(request.InterruptContribution);
+        }
         foreach (Collider hit in hits)
         {
+            if (context != null && !policy.IsLive(context)) break;
             Actor actor = ResolveActor(hit);
             if (!actor || actor == this || !resolvedActors.Add(actor)) continue;
 
-            bool damaged = weaponDamage <= 0f && Mathf.Approximately(skillMultiplier, 1f) && Mathf.Approximately(addedDamage, 0f)
-                ? TryApplyDamage(actor)
-                : TryApplyDamage(actor, weaponDamage, skillMultiplier, addedDamage);
+            bool damaged;
+            if (context != null && policy != null)
+            {
+                var previous = _gauntletImpact;
+                var targetContext = context.ForImpact(impactIndex, EntityId.ToULong(actor.GetEntityId()), actor.CombatGeneration);
+                using (var transaction = new GauntletImpactTransaction(policy, targetContext, () => _gauntletImpact = previous))
+                {
+                    _gauntletImpact = transaction;
+                    var roll = Stats.RollAttackDamage(damageBatch);
+                    float healthBefore = actor.health;
+                    float dealt = ResolveAttackDamage(actor, roll.Amount, roll.IsCritical, transaction);
+                    damaged = dealt > 0f;
+                    if (damaged && policy.ConfirmDirectHpOnce(targetContext))
+                    {
+                        if (momentum && momentum.ResetVersion != momentumVersion)
+                        { momentumVersion = momentum.ResetVersion; confirmedDirectHp = 0; }
+                        confirmedDirectHp++;
+                    }
+                    if (damaged && context.Slot == GauntletActionSlot.Basic && context.Origin == GauntletImpactOrigin.Direct)
+                        transaction.Notify(() => RaiseBasicAttackHit(actor, dealt, healthBefore > 0 && dealt >= healthBefore));
+                    // Posture confirmation is independent from the HP-immunity channel for this weapon.
+                    ApplyHitReaction(actor, reactionRequest, hit.ClosestPoint(center), normalizedForward);
+                    if (damaged && TryGetComponent(out ImpactGuardTracker guard) && guard.isActiveAndEnabled)
+                        guard.ConfirmBasic(targetContext, actor, transaction);
+                }
+            }
+            else
+                damaged = weaponDamage <= 0f && Mathf.Approximately(skillMultiplier, 1f) && Mathf.Approximately(addedDamage, 0f)
+                    ? TryApplyDamage(actor) : TryApplyDamage(actor, weaponDamage, skillMultiplier, addedDamage);
             if (damaged)
             {
-                ApplyHitReaction(actor, reactionRequest, hit.ClosestPoint(center), normalizedForward);
+                if (context == null) ApplyHitReaction(actor, reactionRequest, hit.ClosestPoint(center), normalizedForward);
                 damageCount++;
                 damagedActors.Add(actor);
             }
         }
 
+        if (momentum && momentumRank > 0 && policy.IsLive(context)) momentum.ConfirmBatch(confirmedDirectHp, momentumVersion);
+        if (!abilityHolder) TryGetComponent(out abilityHolder);
         if (damageCount > 0 && abilityHolder)
         {
             abilityHolder.NotifyAttackHits(this, damagedActors);
         }
 
         return damageCount;
+
+        }
     }
 
     /// <summary>
@@ -442,6 +631,8 @@ public class PlayerActor : Actor, IExternalPullTarget
     public void ApplyHitReactionTo(Actor targetActor, HitReactionType reactionType, HitStrength strength,
         float stanceDamage, StanceBreakEffect breakEffect, float pushDistance)
     {
+        using (BeginImpactFeedback())
+        {
         if (!targetActor || targetActor == this) return;
 
         Vector3 away = targetActor.transform.position - transform.position;
@@ -451,6 +642,8 @@ public class PlayerActor : Actor, IExternalPullTarget
         var request = new HitReactionRequest(this, targetActor.transform.position, direction,
             reactionType, strength, stanceDamage, breakEffect, pushDistance);
         ApplyHitReaction(targetActor, request, targetActor.transform.position, direction);
+
+        }
     }
 
     private void ApplyHitReaction(Actor targetActor, HitReactionRequest? reactionRequest, Vector3 hitPoint, Vector3 fallbackDirection)
@@ -487,7 +680,33 @@ public class PlayerActor : Actor, IExternalPullTarget
             request.PushDistance,
             request.StunDuration,
             request.KnockUpHeight,
-            request.KnockbackDistance));
+            request.KnockbackDistance).WithInterruptContribution(request.InterruptContribution));
+    }
+
+    public void ApplyHitReactionTo(Actor targetActor, HitReactionRequest request)
+    {
+        using (BeginImpactFeedback())
+        {
+        if (!targetActor) return;
+        ApplyHitReaction(targetActor, request, targetActor.transform.position, transform.forward);
+
+        }
+    }
+
+    internal void ApplyGuardImpact(Actor target, GauntletImpactContext parent, GauntletImpactTransaction transaction,
+        float stance, float distance)
+    {
+        var combat = GetComponent<BreakerGauntletCombat>();
+        var child = combat.BeginGuardImpact(parent).ForImpact(parent.ImpactIndex, parent.TargetId, parent.TargetGeneration);
+        var previous = _gauntletImpact;
+        using (var impact = new GauntletImpactTransaction(combat.EnergyPolicy, child,
+            () => _gauntletImpact = previous, transaction))
+        {
+            _gauntletImpact = impact;
+            ApplyHitReactionTo(target, new HitReactionRequest(this, target.transform.position,
+                target.transform.position - transform.position, HitReactionType.Stagger, HitStrength.Heavy,
+                stance, StanceBreakEffect.Knockback, 0f, knockbackDistance: distance));
+        }
     }
 
     /// <summary>
@@ -498,10 +717,12 @@ public class PlayerActor : Actor, IExternalPullTarget
     private void WatchStanceBreaks(CombatReactionController controller)
     {
         if (!controller || _watchedStanceControllers.ContainsKey(controller)) return;
-        System.Action<Vector3> handler = _ => RaiseStanceBreakFor(controller);
+        System.Action<Vector3> handler = _ => { if (controller.LastBreakAttacker == this) RaiseStanceBreakFor(controller); };
         _watchedStanceControllers.Add(controller, handler);
         controller.StanceBroken += handler;
     }
+
+    internal void ConfirmStanceBreakFeedback() => _feedbackScope?.ConfirmBreak(true, 0.09f);
 
     /// <summary>
     /// Resolves the owning <see cref="Actor"/> for a broken stance and raises OnStanceBreak(Actor)
@@ -685,6 +906,9 @@ public class PlayerActor : Actor, IExternalPullTarget
         !float.IsInfinity(amount) && mana >= Mathf.Max(0f, amount);
 
     public bool TrySpendMana(float amount)
+        => TrySpendMana(amount, null);
+
+    internal bool TrySpendMana(float amount, System.Action<System.Action> publish)
     {
         if (!HasMana(amount)) return false;
         amount = Mathf.Max(0f, amount);
@@ -692,7 +916,8 @@ public class PlayerActor : Actor, IExternalPullTarget
         mana = Mathf.Clamp(mana - amount, 0f, maxMana);
         _manaRegenerationAt = Time.time + _manaRegenerationDelay;
         UpdateManaBar();
-        ManaChanged?.Invoke(this);
+        if (publish != null) publish(() => ManaChanged?.Invoke(this));
+        else ManaChanged?.Invoke(this);
         return true;
     }
 
@@ -715,8 +940,13 @@ public class PlayerActor : Actor, IExternalPullTarget
         }
     }
 
-    public void RefreshResourceStats(bool fillToMax = false)
+    public void RefreshResourceStats(bool fillToMax = false) => RefreshResourceStats(fillToMax, false);
+
+    public void RefreshResourceStatsPreservingAmounts() => RefreshResourceStats(false, true);
+
+    private void RefreshResourceStats(bool fillToMax, bool preserveAbsoluteAmounts)
     {
+        float previousHealth = health, previousMana = mana;
         float healthRatio = maxHealth > 0f ? Mathf.Clamp01(health / maxHealth) : 1f;
         float manaRatio = maxMana > 0f ? Mathf.Clamp01(mana / maxMana) : 1f;
 
@@ -730,8 +960,8 @@ public class PlayerActor : Actor, IExternalPullTarget
         }
         else
         {
-            health = Mathf.Min(maxHealth, maxHealth * healthRatio);
-            mana = Mathf.Min(maxMana, maxMana * manaRatio);
+            health = preserveAbsoluteAmounts ? Mathf.Clamp(previousHealth, 0f, maxHealth) : Mathf.Min(maxHealth, maxHealth * healthRatio);
+            mana = preserveAbsoluteAmounts ? Mathf.Clamp(previousMana, 0f, maxMana) : Mathf.Min(maxMana, maxMana * manaRatio);
         }
 
         UpdateHealthBar();

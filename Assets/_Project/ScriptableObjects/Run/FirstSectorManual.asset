@@ -1,0 +1,327 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ecfa965826d02e4a83e1a8a6b6d79b9, type: 3}
+  m_Name: FirstSectorManual
+  m_EditorClassIdentifier: TechGuy::ManualRunDefinition
+  _version: 1
+  _definitionId: first-sector-manual-v1
+  _family: 0
+  _startNode: 0
+  _bossNode: 10
+  _nodes:
+  - _id: 0
+    _label: S
+    _kind: 0
+    _reward: 0
+    _acquisitions: 0
+    _center: {x: 500, y: 0, z: 0}
+    _arenaSize: {x: 24, y: 20}
+    _repairFraction: 0
+    _spawns: []
+    _rewardSteps: []
+  - _id: 1
+    _label: C1
+    _kind: 1
+    _reward: 1
+    _acquisitions: 1
+    _center: {x: 500, y: 0, z: 40}
+    _arenaSize: {x: 24, y: 20}
+    _repairFraction: 0
+    _spawns:
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: -4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: -4}
+      _rank: 0
+    _rewardSteps:
+    - _kind: 1
+      _quantity: 1
+    - _kind: 2
+      _quantity: 1
+  - _id: 2
+    _label: C2
+    _kind: 1
+    _reward: 1
+    _acquisitions: 1
+    _center: {x: 500, y: 0, z: 80}
+    _arenaSize: {x: 24, y: 20}
+    _repairFraction: 0
+    _spawns:
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: -4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: -4}
+      _rank: 0
+    _rewardSteps:
+    - _kind: 1
+      _quantity: 1
+    - _kind: 2
+      _quantity: 1
+  - _id: 3
+    _label: RP
+    _kind: 3
+    _reward: 0
+    _acquisitions: 0
+    _center: {x: 460, y: 0, z: 120}
+    _arenaSize: {x: 24, y: 20}
+    _repairFraction: 0.35
+    _spawns: []
+    _rewardSteps: []
+  - _id: 4
+    _label: C3
+    _kind: 1
+    _reward: 1
+    _acquisitions: 1
+    _center: {x: 540, y: 0, z: 120}
+    _arenaSize: {x: 24, y: 20}
+    _repairFraction: 0
+    _spawns:
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: -4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: -4}
+      _rank: 0
+    _rewardSteps: []
+  - _id: 5
+    _label: C4
+    _kind: 1
+    _reward: 3
+    _acquisitions: 1
+    _center: {x: 500, y: 0, z: 160}
+    _arenaSize: {x: 32, y: 20}
+    _repairFraction: 0
+    _spawns:
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: -4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: -4}
+      _rank: 0
+    _rewardSteps: []
+  - _id: 6
+    _label: C5
+    _kind: 1
+    _reward: 2
+    _acquisitions: 1
+    _center: {x: 460, y: 0, z: 220}
+    _arenaSize: {x: 24, y: 20}
+    _repairFraction: 0
+    _spawns:
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: -4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: -4}
+      _rank: 0
+    _rewardSteps: []
+  - _id: 7
+    _label: E1
+    _kind: 2
+    _reward: 1
+    _acquisitions: 2
+    _center: {x: 540, y: 0, z: 200}
+    _arenaSize: {x: 24, y: 20}
+    _repairFraction: 0
+    _spawns:
+    - _prefab: {fileID: 1998223512859658206, guid: 7ad64f0969af38949ae2fecd537e32ae,
+        type: 3}
+      _offset: {x: 0, y: 0, z: 3}
+      _rank: 1
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: -4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: -4}
+      _rank: 0
+    _rewardSteps: []
+  - _id: 8
+    _label: E2
+    _kind: 1
+    _reward: 2
+    _acquisitions: 1
+    _center: {x: 540, y: 0, z: 240}
+    _arenaSize: {x: 24, y: 20}
+    _repairFraction: 0
+    _spawns:
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: -5, y: 0, z: -4}
+      _rank: 0
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+        type: 3}
+      _offset: {x: 5, y: 0, z: -4}
+      _rank: 0
+    _rewardSteps:
+    - _kind: 2
+      _quantity: 2
+  - _id: 9
+    _label: C6
+    _kind: 1
+    _reward: 1
+    _acquisitions: 1
+    _center: {x: 500, y: 0, z: 280}
+    _arenaSize: {x: 24, y: 20}
+    _repairFraction: 0
+    _spawns:
+    - _prefab: {fileID: 1008936893400956933, guid: 5403a846fcc86a644a4a480b2a86fd54,
+        type: 3}
+      _offset: {x: -5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 1008936893400956933, guid: 5403a846fcc86a644a4a480b2a86fd54,
+        type: 3}
+      _offset: {x: 5, y: 0, z: 4}
+      _rank: 0
+    - _prefab: {fileID: 1008936893400956933, guid: 5403a846fcc86a644a4a480b2a86fd54,
+        type: 3}
+      _offset: {x: -5, y: 0, z: -4}
+      _rank: 0
+    - _prefab: {fileID: 1008936893400956933, guid: 5403a846fcc86a644a4a480b2a86fd54,
+        type: 3}
+      _offset: {x: 5, y: 0, z: -4}
+      _rank: 0
+    _rewardSteps:
+    - _kind: 1
+      _quantity: 1
+    - _kind: 2
+      _quantity: 1
+  - _id: 10
+    _label: B
+    _kind: 4
+    _reward: 0
+    _acquisitions: 0
+    _center: {x: 500, y: 0, z: 320}
+    _arenaSize: {x: 24, y: 20}
+    _repairFraction: 0
+    _spawns:
+    - _prefab: {fileID: 1008936893400956933, guid: 5403a846fcc86a644a4a480b2a86fd54,
+        type: 3}
+      _offset: {x: 0, y: 0, z: 0}
+      _rank: 3
+    _rewardSteps: []
+  _connections:
+  - _id: 0
+    _from: 0
+    _to: 1
+  - _id: 1
+    _from: 1
+    _to: 2
+  - _id: 2
+    _from: 2
+    _to: 3
+  - _id: 3
+    _from: 2
+    _to: 4
+  - _id: 4
+    _from: 3
+    _to: 5
+  - _id: 5
+    _from: 4
+    _to: 5
+  - _id: 6
+    _from: 5
+    _to: 6
+  - _id: 7
+    _from: 5
+    _to: 7
+  - _id: 8
+    _from: 6
+    _to: 9
+  - _id: 9
+    _from: 7
+    _to: 8
+  - _id: 10
+    _from: 8
+    _to: 9
+  - _id: 11
+    _from: 9
+    _to: 10
+  _groups:
+  - _id: A
+    _decisionNode: 2
+    _firstBranch: 03000000
+    _secondBranch: 04000000
+  - _id: B
+    _decisionNode: 5
+    _firstBranch: 06000000
+    _secondBranch: 0700000008000000
+  _protocolCatalog: {fileID: 11400000, guid: 9754c0d8aad625149bb72e2d08bae82c, type: 2}

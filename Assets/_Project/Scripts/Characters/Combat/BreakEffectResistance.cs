@@ -30,7 +30,7 @@ public static class BreakEffectResistance
     public const float FullImmunity = 1f;
 
     /// <summary>Whether <paramref name="resistance"/> denotes full immunity (Requisito 2.8).</summary>
-    public static bool IsFullyImmune(float resistance) => resistance >= FullImmunity;
+    public static bool IsFullyImmune(float resistance) => !ReactionNumeric.IsFinite(resistance) || resistance < 0f || resistance >= FullImmunity;
 
     /// <summary>
     /// Resolves the effect that a Stance Break actually applies, degrading the requested
@@ -50,9 +50,16 @@ public static class BreakEffectResistance
         float stunResistance,
         float knockUpResistance,
         float knockbackResistance)
+        => Resolve(requested, stunResistance, knockUpResistance, knockbackResistance, stunResistance);
+
+    public static StanceBreakEffect Resolve(StanceBreakEffect requested, float stunResistance,
+        float knockUpResistance, float knockbackResistance, float knockdownResistance)
     {
         switch (requested)
         {
+            case StanceBreakEffect.Knockdown:
+                if (!IsFullyImmune(knockdownResistance)) return StanceBreakEffect.Knockdown;
+                return IsFullyImmune(stunResistance) ? StanceBreakEffect.None : StanceBreakEffect.Stun;
             case StanceBreakEffect.KnockUp:
                 // Requested launch: apply it unless fully immune, then step down to Stun, then None.
                 if (!IsFullyImmune(knockUpResistance)) return StanceBreakEffect.KnockUp;

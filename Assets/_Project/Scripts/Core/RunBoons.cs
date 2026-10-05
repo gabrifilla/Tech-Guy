@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 /// <summary>Player-owned upgrades. All modified weapons and skills are isolated runtime copies.</summary>
 [RequireComponent(typeof(PlayerActor), typeof(AbilityHolder))]
-public sealed class RunBoons : MonoBehaviour
+public sealed partial class RunBoons : MonoBehaviour
 {
     public sealed class Offer
     {
@@ -24,6 +24,8 @@ public sealed class RunBoons : MonoBehaviour
     private PlayerActor _player;
     private AbilityHolder _holder;
     private WeaponScript _weapon;
+    private BreakerGauntletAbility _baseGauntletQ;
+    private bool _baseGauntletQFocused;
     private NavMeshAgent _agent;
     public bool IsChoosing { get; private set; }
     public int RewardRoom { get; private set; }
@@ -114,11 +116,14 @@ public sealed class RunBoons : MonoBehaviour
         _holder = GetComponent<AbilityHolder>();
         _agent = GetComponent<NavMeshAgent>();
         _holder.BindRun(this);
-        gameObject.AddComponent<RunRewardUI>().Bind(this);
+        var rewards = GetComponent<RunRewardUI>() ?? gameObject.AddComponent<RunRewardUI>();
+        rewards.Bind(this);
     }
 
     private void Start()
     {
+        if (!InitializeProtocolInventory()) { enabled = false; return; }
+        BindProtocolRuntime();
         if (!_player.CurrentWeapon) { Debug.LogError("Run requires an equipped weapon.", this); enabled = false; return; }
         _weapon = Instantiate(_player.CurrentWeapon);
         WeaponModifiers = new WeaponRunModifiers(WeaponRunModifiers.Identify(_weapon));
@@ -131,6 +136,8 @@ public sealed class RunBoons : MonoBehaviour
             _weapon.abilities[i] = Instantiate(source[i]);
             _owned.Add(_weapon.abilities[i]);
         }
+        if (WeaponModifiers.Family == RunWeaponFamily.Gauntlet && _weapon.abilities.Length > 0)
+            _baseGauntletQ = _weapon.abilities[0] as BreakerGauntletAbility;
         _player.EquipWeapon(_weapon);
         _holder.RefreshLoadout();
         // A fresh escalation state per run; recomputed from Acquired whenever a reward is chosen (R10.5/R11.4).
@@ -145,6 +152,7 @@ public sealed class RunBoons : MonoBehaviour
 
     public void OfferReward(int room)
     {
+        if (_manualRewards != null) return;
         if (IsChoosing || !_weapon || !_player || _player.IsDead) return;
         RewardRoom = room;
         var pool = new List<Offer>
@@ -165,13 +173,34 @@ public sealed class RunBoons : MonoBehaviour
                 _weapon.FiresArrows ? "TRANSFORMA Q: troca o disparo duplo por cinco flechas perfurantes em leque." :
                 "TRANSFORMA Q: troca o avanço/estocada por uma explosão circular de 4m. Não gera Asura.")
         };
+        if (WeaponModifiers.Family == RunWeaponFamily.Gauntlet)
+        {
+            pool.RemoveAll(offer => offer.Id == "transform");
+            foreach (GauntletMutation mutation in Enum.GetValues(typeof(GauntletMutation)))
+            {
+                int slot = (int)GauntletMutationSelection.SlotOf(mutation);
+                if (WeaponModifiers.GauntletMutations.TryGet((GauntletActionSlot)slot, out _)
+                    || (mutation == GauntletMutation.Epicenter && WeaponModifiers.Rank(WeaponBoon.ShockRing) > 0)
+                    || _weapon.abilities == null || slot >= _weapon.abilities.Length
+                    || !HasMutationTarget(mutation)) continue;
+                string description = GauntletContentAuthoring.MutationDescription(mutation);
+                if (mutation == GauntletMutation.DemolishingAdvance && _weapon.abilities[slot] is ArsenalAbility)
+                    description += " SUBSTITUI EXPLICITAMENTE o Q legado Nova de impacto; o registro antigo permanece na build.";
+                pool.Add(new Offer(GauntletContentAuthoring.ForMutation(mutation).Id,
+                    GauntletContentAuthoring.MutationTitle(mutation), description));
+            }
+        }
         foreach (var definition in WeaponRunModifiers.Catalog)
             if (definition.Family == WeaponModifiers.Family
+                && (definition.Family != RunWeaponFamily.Gauntlet || GauntletContentAuthoring.IsSelectedTechnique(definition.Kind))
                 && !RetiredFamilyBoons.Contains(definition.Kind)                   // gauntlet-boon-playstyle-overhaul R2.2: skip retired family boons
                 && WeaponModifiers.Rank(definition.Kind) < definition.MaxRank)
                 pool.Add(new Offer(definition.Id, definition.Title, "Nível " + (WeaponModifiers.Rank(definition.Kind) + 1) + "/" + definition.MaxRank + "\n" + definition.Description));
         // Only single-use boons are removed once taken; repeatable ones (stats + elemental) stay in the pool.
         pool.RemoveAll(offer => IsSingleUse(offer.Id) && _acquired.Exists(owned => owned.Id == offer.Id));
+        pool.RemoveAll(offer => ProtocolInventory.TryKind(offer.Id, out var kind) && !Protocols.CanAcquire(kind));
+        for (int i = 0; i < pool.Count; i++)
+            if (ProtocolInventory.TryKind(pool[i].Id, out var protocol)) pool[i] = ProtocolOfferPresentation.Create(Protocols, protocol);
         // Rewrite category (R9): exclude every Rewrite when no valid target ability exists (R9.5),
         // and gate its appearance behind a <= 20% roll per offer set (R9.3). At most one Rewrite is
         // ever added because only ability-replacing ids are classified as Rewrite and each is unique here.
@@ -183,7 +212,8 @@ public sealed class RunBoons : MonoBehaviour
         // A Rewrite (when allowed) fills the skill slot; otherwise fall back to the focus upgrade.
         Offer skillOffer = pool.Find(offer => RunModifierPresentation.IsRewriteId(offer.Id)) ?? pool.Find(offer => offer.Id == "focus");
         if (skillOffer != null) { _choices.Add(skillOffer); pool.Remove(skillOffer); }
-        var weaponOffers = pool.FindAll(offer => offer.Id.StartsWith("weapon_", StringComparison.Ordinal));
+        var weaponOffers = pool.FindAll(offer => offer.Id.StartsWith("weapon_", StringComparison.Ordinal)
+            || GauntletContentAuthoring.TryMutation(offer.Id, out _));
         if (weaponOffers.Count > 0)
         {
             Offer weaponOffer = weaponOffers[_random.Next(weaponOffers.Count)];
@@ -204,12 +234,31 @@ public sealed class RunBoons : MonoBehaviour
 
     public bool Choose(int index)
     {
+        if (_manualRewards != null) return ChooseManual(index);
         if (Time.timeScale <= 0f || !IsChoosing || !_player || _player.IsDead || index < 0 || index >= _choices.Count || _holder.IsCasting) return false;
         if (_player.TryGetComponent(out PauseMenuUI pause) && pause.BlocksInput) return false;
         Offer offer = _choices[index];
+        return ApplyOffer(offer, true);
+    }
+
+    private bool ApplyOfferCore(Offer offer, bool legacy)
+    {
         switch (offer.Id)
         {
             default:
+                if (GauntletContentAuthoring.TryMutation(offer.Id, out var mutation))
+                {
+                    int slot = (int)GauntletMutationSelection.SlotOf(mutation);
+                    if (WeaponModifiers.Family != RunWeaponFamily.Gauntlet
+                        || _weapon.abilities == null || slot >= _weapon.abilities.Length
+                        || !HasMutationTarget(mutation)
+                        || (mutation == GauntletMutation.Epicenter && WeaponModifiers.Rank(WeaponBoon.ShockRing) > 0)
+                        || WeaponModifiers.GauntletMutations.TryGet((GauntletActionSlot)slot, out _)
+                        || !WeaponModifiers.GauntletMutations.Select(mutation)) return false;
+                    if (mutation == GauntletMutation.DemolishingAdvance && _weapon.abilities[slot] is ArsenalAbility)
+                        RestoreGauntletQ();
+                    break;
+                }
                 foreach (var definition in WeaponRunModifiers.Catalog)
                     if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
                 // impactful-weapon-boons R4.3: on the first Perfect Spacing pick, attach the cosmetic
@@ -236,8 +285,9 @@ public sealed class RunBoons : MonoBehaviour
             case "weapon_MomentumStrike":
                 foreach (var definition in WeaponRunModifiers.Catalog)
                     if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
-                if (!_momentum) _momentum = gameObject.AddComponent<MomentumStacks>();
+                if (!_momentum) _momentum = GetComponent<MomentumStacks>() ?? gameObject.AddComponent<MomentumStacks>();
                 _momentum.Configure(_player, Hooks, WeaponModifiers.Rank(WeaponBoon.MomentumStrike), this);
+                _momentum.enabled = true;
                 break;
             // gauntlet-boon-playstyle-overhaul R6: HungryCombo is a catalogued Gauntlet WeaponBoon, applied
             // through the same WeaponModifiers.Add gate. It also needs a run-scoped tracker that reduces
@@ -246,22 +296,14 @@ public sealed class RunBoons : MonoBehaviour
             case "weapon_HungryCombo":
                 foreach (var definition in WeaponRunModifiers.Catalog)
                     if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
-                if (!_hungryCombo) _hungryCombo = gameObject.AddComponent<HungryComboTracker>();
+                if (!_hungryCombo) _hungryCombo = GetComponent<HungryComboTracker>() ?? gameObject.AddComponent<HungryComboTracker>();
                 _hungryCombo.Configure(_player, Hooks, _holder, WeaponModifiers.Rank(WeaponBoon.HungryCombo));
+                _hungryCombo.enabled = true;
                 break;
-            // gauntlet-boon-playstyle-overhaul R7: SeismicFist is a catalogued Gauntlet WeaponBoon, applied
-            // through the same WeaponModifiers.Add gate. Its skill-side behavior is purely snapshot-driven
-            // (WeaponRunModifiers.GauntletSteps declares Knockback with (1 + 0.3R) distance on the per-cast
-            // clones), so nothing beyond the Add is needed there. For the Basic_Attack, the live basic
-            // hitbox opts into the deliberate Stance_Break Knockback: when the hitbox exists we declare
-            // StanceBreakEffect.Knockback on it (the per-hit pushDistance stays zeroed — the hard throw
-            // comes only from the stance break). The source asset is never touched (R7.4); the hitbox is a
-            // runtime instance owned by the player (R7.1/R7.2).
+            // Phase 3: snapshot scaling preserves the hitbox's authored break effect.
             case "weapon_SeismicFist":
                 foreach (var definition in WeaponRunModifiers.Catalog)
                     if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
-                if (_player.CurrentHitbox && _player.CurrentHitbox.TryGetComponent(out HitboxDamage seismicHitbox))
-                    seismicHitbox.SetStanceBreakEffect(StanceBreakEffect.Knockback);
                 break;
             // gauntlet-boon-playstyle-overhaul R4: AsuraFist is a catalogued Gauntlet WeaponBoon, applied
             // through the same WeaponModifiers.Add gate. It also needs a run-scoped coordinator that charges
@@ -271,9 +313,10 @@ public sealed class RunBoons : MonoBehaviour
             case "weapon_AsuraFist":
                 foreach (var definition in WeaponRunModifiers.Catalog)
                     if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
-                if (!_asuraSurge) _asuraSurge = gameObject.AddComponent<AsuraSurge>();
+                if (!_asuraSurge) _asuraSurge = GetComponent<AsuraSurge>() ?? gameObject.AddComponent<AsuraSurge>();
                 _player.TryGetComponent(out BreakerGauntletCombat breakerCombat);
                 _asuraSurge.Configure(_player, Hooks, breakerCombat, WeaponModifiers.Rank(WeaponBoon.AsuraFist));
+                _asuraSurge.enabled = true;
                 break;
             // gauntlet-boon-playstyle-overhaul R5: GuardBreaker is a catalogued Gauntlet WeaponBoon, applied
             // through the same WeaponModifiers.Add gate. It also needs a run-scoped tracker that counts three
@@ -283,8 +326,9 @@ public sealed class RunBoons : MonoBehaviour
             case "weapon_GuardBreaker":
                 foreach (var definition in WeaponRunModifiers.Catalog)
                     if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
-                if (!_guardBreaker) _guardBreaker = gameObject.AddComponent<ImpactGuardTracker>();
+                if (!_guardBreaker) _guardBreaker = GetComponent<ImpactGuardTracker>() ?? gameObject.AddComponent<ImpactGuardTracker>();
                 _guardBreaker.Configure(_player, Hooks, _holder, WeaponModifiers.Rank(WeaponBoon.GuardBreaker));
+                _guardBreaker.enabled = true;
                 break;
             // gauntlet-boon-playstyle-overhaul R8: KitingStep is a catalogued Bow WeaponBoon, applied through
             // the same WeaponModifiers.Add gate. The offer only surfaces while the equipped family is Bow
@@ -391,7 +435,8 @@ public sealed class RunBoons : MonoBehaviour
             case "focus":
                 Ability q = _weapon.abilities[0];
                 q.cooldownTime *= .65f;
-                q.ConfigureRunPresentation(q.DisplayName, q.ManaCost * .75f, q.Glyph);
+                q.ScaleRunManaCost(.75f);
+                if (q == _baseGauntletQ) _baseGauntletQFocused = true;
                 break;
             case "transform":
                 var skill = ScriptableObject.CreateInstance<ArsenalAbility>();
@@ -399,19 +444,25 @@ public sealed class RunBoons : MonoBehaviour
                 if (_acquired.Exists(owned => owned.Id == "focus"))
                 {
                     skill.cooldownTime *= .65f;
-                    skill.ConfigureRunPresentation(skill.DisplayName, skill.ManaCost * .75f, skill.Glyph);
+                    skill.ScaleRunManaCost(.75f);
                 }
                 _owned.Add(skill); _weapon.abilities[0] = skill;
                 break;
         }
+        CompleteOffer(offer, legacy);
+        return true;
+    }
+
+    private void CompleteOffer(Offer offer, bool legacy)
+    {
         _acquired.Add(offer);
         _holder.RefreshLoadout();
         IsChoosing = false;
-        if (_agent && _agent.enabled && _agent.isOnNavMesh) _agent.isStopped = false;
+        if (legacy && _agent && _agent.enabled && _agent.isOnNavMesh) _agent.isStopped = false;
         if (TryGetComponent(out CharControlScript controls)) controls.RequireAttackRelease();
         _choices.Clear();
-        RewardChosen?.Invoke();
-        return true;
+        if (legacy) RewardChosen?.Invoke();
+        else EvaluateSystemBreak();
     }
 
     // impactful-weapon-boons R4.3: add the cosmetic Perfect Spacing streak feedback once and bind it to
@@ -434,6 +485,86 @@ public sealed class RunBoons : MonoBehaviour
     // A Rewrite replaces the slot-1 (Q) ability via a runtime copy, so it needs a live ability to rewrite (R9.5).
     private bool HasRewriteTarget() => _weapon && _weapon.abilities != null && _weapon.abilities.Length > 0 && _weapon.abilities[0];
 
+    private bool HasMutationTarget(GauntletMutation mutation)
+    {
+        int slot = (int)GauntletMutationSelection.SlotOf(mutation);
+        if (!_weapon || _weapon.abilities == null || slot >= _weapon.abilities.Length) return false;
+        if (_weapon.abilities[slot] is BreakerGauntletAbility) return true;
+        if (mutation != GauntletMutation.DemolishingAdvance || !(_weapon.abilities[slot] is ArsenalAbility)) return false;
+        return _baseGauntletQ || ResolveBaseGauntletQ();
+    }
+
+    private static BreakerGauntletAbility ResolveBaseGauntletQ()
+    {
+        var weapon = Resources.Load<WeaponScript>("Weapons/Melee/Gauntlet/Gauntlet");
+        return weapon && weapon.abilities != null && weapon.abilities.Length > 0
+            ? weapon.abilities[0] as BreakerGauntletAbility : null;
+    }
+
+    private void RestoreGauntletQ()
+    {
+        // The old Arsenal instance stays in _owned until teardown; its acquired record is not removed.
+        if (!_baseGauntletQ)
+        {
+            _baseGauntletQ = Instantiate(ResolveBaseGauntletQ());
+            _owned.Add(_baseGauntletQ);
+        }
+        if (!_baseGauntletQFocused && _acquired.Exists(owned => owned.Id == "focus"))
+        {
+            _baseGauntletQ.cooldownTime *= .65f;
+            _baseGauntletQ.ScaleRunManaCost(.75f);
+            _baseGauntletQFocused = true;
+        }
+        _weapon.abilities[0] = _baseGauntletQ;
+    }
+
+    /// <summary>Adapter for legacy rank records; does not rewrite saved Q abilities or source assets.</summary>
+    public bool ImportLegacyGauntletRanks(IEnumerable<WeaponRunModifiers.LegacyRankRecord> records)
+    {
+        if (records == null || WeaponModifiers == null || WeaponModifiers.Family != RunWeaponFamily.Gauntlet) return false;
+        bool appliedAll = true;
+        foreach (var record in records)
+        {
+            bool applied = WeaponModifiers.ImportLegacyGauntletRank(record);
+            appliedAll &= applied;
+            if (record == null || !applied || _acquired.Exists(offer => offer.Id == record.Id)) continue;
+            WeaponRunModifiers.TryDefinition(record.Id, out var definition);
+            _acquired.Add(new Offer(record.Id, definition.Title, definition.Description));
+        }
+        ConfigureImportedGauntletTrackers();
+        EvaluateSystemBreak();
+        return appliedAll;
+    }
+
+    private void ConfigureImportedGauntletTrackers()
+    {
+        int rank = WeaponModifiers.Rank(WeaponBoon.MomentumStrike);
+        if (rank > 0)
+        {
+            if (!_momentum) _momentum = GetComponent<MomentumStacks>() ?? gameObject.AddComponent<MomentumStacks>();
+            _momentum.Configure(_player, Hooks, rank, this); _momentum.enabled = true;
+        }
+        rank = WeaponModifiers.Rank(WeaponBoon.HungryCombo);
+        if (rank > 0)
+        {
+            if (!_hungryCombo) _hungryCombo = GetComponent<HungryComboTracker>() ?? gameObject.AddComponent<HungryComboTracker>();
+            _hungryCombo.Configure(_player, Hooks, _holder, rank); _hungryCombo.enabled = true;
+        }
+        rank = WeaponModifiers.Rank(WeaponBoon.GuardBreaker);
+        if (rank > 0)
+        {
+            if (!_guardBreaker) _guardBreaker = GetComponent<ImpactGuardTracker>() ?? gameObject.AddComponent<ImpactGuardTracker>();
+            _guardBreaker.Configure(_player, Hooks, _holder, rank); _guardBreaker.enabled = true;
+        }
+        rank = WeaponModifiers.Rank(WeaponBoon.AsuraFist);
+        if (rank > 0)
+        {
+            if (!_asuraSurge) _asuraSurge = GetComponent<AsuraSurge>() ?? gameObject.AddComponent<AsuraSurge>();
+            _player.TryGetComponent(out BreakerGauntletCombat combat);
+            _asuraSurge.Configure(_player, Hooks, combat, rank); _asuraSurge.enabled = true;
+        }
+    }
+
     private void OnDestroy()
     {
         // Lifecycle unbinding first: remove stat modifiers and detach from the holder / escalation
@@ -454,6 +585,8 @@ public sealed class RunBoons : MonoBehaviour
     // leak into a later run.
     private void ClearRunState()
     {
+        Protocols?.EndSession();
+        if (_protocolRuntime) _protocolRuntime.EndOwnedState();
         // PlayerOnHitEffects.Clear() cascades to RunSynergyEffects.Clear() (it calls _synergies.Clear()),
         // so this single call empties both the element registry and the cascade ranks.
         if (_player && _player.TryGetComponent(out PlayerOnHitEffects effects)) effects.Clear();
@@ -461,5 +594,16 @@ public sealed class RunBoons : MonoBehaviour
         Hooks?.Clear();
         // Reset the escalation tier (R10.5).
         _systemBreak?.Reset();
+        if (WeaponModifiers?.Family == RunWeaponFamily.Gauntlet)
+        {
+            if (_player && _player.TryGetComponent(out BreakerGauntletCombat combat)) combat.Configure(null);
+            if (_momentum) _momentum.enabled = false;
+            if (_hungryCombo) _hungryCombo.enabled = false;
+            if (_asuraSurge) _asuraSurge.enabled = false;
+            if (_guardBreaker) _guardBreaker.enabled = false;
+            WeaponModifiers.ClearRunInventory();
+            if (IsChoosing && _agent && _agent.enabled && _agent.isOnNavMesh) _agent.isStopped = false;
+            _acquired.Clear(); _choices.Clear(); IsChoosing = false;
+        }
     }
 }

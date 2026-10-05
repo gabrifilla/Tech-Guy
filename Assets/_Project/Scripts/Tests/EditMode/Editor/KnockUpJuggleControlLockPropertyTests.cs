@@ -12,51 +12,25 @@ namespace TechGuy.Tests.EditMode
     /// locked while it is airborne (Requisito 8.8) — and restore control when the airborne duration
     /// ends (Requisito 8.9).
     ///
-    /// This composes the real, scene-free production primitives that own each piece of the decision so
-    /// the invariant can be property-checked without a live Unity scene (the actual coroutine-driven
-    /// lock/restore lives in <c>CombatReactionController.StartKnockUp</c> → <c>ControlLockFor</c>, which
-    /// cannot run in EditMode):
-    /// <list type="bullet">
-    ///   <item><see cref="GauntletLoopSteps.EnsureJuggleDeclaration"/> — the gauntlet E step declares the
-    ///   KnockUp (BreakEffect KnockUp, positive rise height, positive airborne duration).</item>
-    ///   <item><see cref="BreakEffectResistance.Resolve"/> — with KnockUpResistance &lt; 1 the requested
-    ///   KnockUp is applied unchanged (the enemy is launched, i.e. juggled), never degraded to Stun/None.</item>
-    ///   <item><see cref="ControlLockGate.AllowsImmediateDisplacement"/> — while control is locked
-    ///   (airborne) the enemy cannot be nudged/act; when the lock ends it can again.</item>
-    /// </list>
-    ///
-    /// The airborne/lock duration itself is <c>CombatReactionController.StartKnockUp</c>'s private
-    /// <c>ScaleDuration(StunDuration, knockUpResistance)</c> = <c>StunDuration * (1 - knockUpResistance)</c>.
-    /// That production method is private, so the formula is mirrored below (exactly as the sibling
-    /// <c>RemainingArchetypeUnitTests</c> mirrors it) purely to reason about when the air phase ends; the
-    /// launch/lock decisions themselves are driven through the real helpers above.
-    ///
+    /// Fase 2 replaces proportional airtime with the production binary policy: resistance below one
+    /// preserves the authored duration. Runtime ownership/lifecycle is covered separately in PlayMode.
     /// This project cannot resolve FsCheck/CsCheck packages on this machine, so the agreed seeded harness
     /// <see cref="PropertyCheck"/> drives &gt;= 100 deterministic generated cases per property (sweeping
     /// KnockUpResistance across [0, 1) plus the other channels' resistances and the declared stun/height,
     /// with 0 sampled explicitly and the &lt; 1 boundary approached) and reports the exact failing case as
     /// a counterexample.
     ///
-    /// Execution caveat (R1.7 / R13.9): the Unity EditMode runner could not be executed via CLI in this
-    /// environment (no Unity CLI / Unity_MCP tools available), and the scene-bound coroutine lock/restore
-    /// in <c>CombatReactionController</c> is not exercised here. Those are reported as NOT validated; this
-    /// test validates the pure decision logic the controller delegates to.
+    /// EditMode covers pure decisions; see posture-enemy-interaction/validation.md for MCP execution evidence.
     /// </summary>
     public sealed class KnockUpJuggleControlLockPropertyTests
     {
         private const float Epsilon = 1e-4f;
 
         /// <summary>
-        /// Mirrors <c>CombatReactionController.ScaleDuration</c> /
-        /// <c>StartKnockUp</c>'s airborne-time computation: the airborne lock lasts
-        /// <c>StunDuration * (1 - Mathf.Clamp01(knockUpResistance))</c>. The production method is private,
-        /// so the formula is replicated here (resistance clamped to [0, 1] exactly as the controller does)
-        /// only to reason about the air-phase length. When <c>knockUpResistance</c> &lt; 1 and the declared
-        /// stun is &gt; 0 this is strictly positive, i.e. there is a real airborne window during which
-        /// control is locked.
+        /// Uses the production binary airtime decision, without mirroring a private implementation.
         /// </summary>
         private static float AirborneDuration(float stunDuration, float knockUpResistance)
-            => Mathf.Max(0f, stunDuration) * (1f - Mathf.Clamp01(knockUpResistance));
+            => ReactionPolicy.AllowedDuration(stunDuration, knockUpResistance);
 
         // Feature: weapon-gameplay-swarm-rework, Property 29: KnockUp mantém juggle e restaura controle ao pousar
         // Para todo inimigo com KnockUpResistance < 1, uma quebra de postura por golpe que declara KnockUp
@@ -166,12 +140,11 @@ namespace TechGuy.Tests.EditMode
                 PropertyCheck.That(lowAir > 0f && highAir > 0f,
                     $"the airborne juggle window must be positive for any resistance < 1 for {state}");
 
-                // More KnockUp resistance => shorter (never longer) juggle; the lock window scales down but
-                // never below the full-immunity zero — and it always terminates (R8.9).
-                PropertyCheck.That(lowAir >= highAir - Epsilon,
-                    $"lower KnockUp resistance must not yield a shorter airborne juggle for {state}");
+                // Phase 2 supersedes proportional scaling: non-immune durations remain integral.
+                PropertyCheck.That(Mathf.Abs(lowAir - stunDuration) <= Epsilon && Mathf.Abs(highAir - stunDuration) <= Epsilon,
+                    $"every non-immune resistance preserves the full authored airborne duration for {state}");
 
-                // The window is finite and equals the full declared time only at zero resistance.
+                // The window is finite and equals the full declared time for every non-immune target.
                 float fullAtZero = AirborneDuration(stunDuration, 0f);
                 PropertyCheck.That(Mathf.Abs(fullAtZero - stunDuration) <= Epsilon,
                     $"zero KnockUp resistance keeps the enemy airborne for the full declared duration for {state}");

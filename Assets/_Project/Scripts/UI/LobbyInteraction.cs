@@ -116,6 +116,9 @@ public sealed class LobbyInteraction : MonoBehaviour
         if (GUI.Button(new Rect(width - 210, 28, 180, 36), "Menu inicial")) ReturnToMainMenu();
         GUI.Label(new Rect(30, 28, 220, 30), "Nexus · Ponto Zero", _heading);
         GUI.Label(new Rect(30, 57, 220, 24), "Área segura", _hint);
+        var selected = WeaponLoadout.LoadSelected();
+        GUI.Label(new Rect(30,110,700,28), WeaponRunModifiers.Identify(selected)==RunWeaponFamily.Gauntlet ?
+            "Próxima run: Manopla · rota manual · Repair / Elite / Mutation" : "Próxima run: Bow/Spear · modo procedural legado",_hint);
         GUI.Label(new Rect(30, 82, 650, 28),
             GamePreferences.BindingLabel(GameControl.Primary) + ": selecionar / mover · " + GamePreferences.BindingLabel(GameControl.Skill3) + ": interagir · Esc: pausar", _hint);
         if (_nearest != null)

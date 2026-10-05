@@ -25,5 +25,7 @@ public enum StanceBreakEffect
     /// <summary>Enemy is launched into the air and cannot act until it lands (air juggle).</summary>
     KnockUp,
     /// <summary>Enemy is thrown a significant distance away from the player. Reserved for specific skills.</summary>
-    Knockback
+    Knockback,
+    /// <summary>Grounded fall, positive ground dwell and recovery; no airborne trajectory.</summary>
+    Knockdown = 4
 }

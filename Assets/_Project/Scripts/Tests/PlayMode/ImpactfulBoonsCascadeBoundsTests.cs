@@ -195,6 +195,9 @@ namespace TechGuy.Tests
                 if (stray) Object.DestroyImmediate(stray.gameObject);
             foreach (GameObject go in _extra) if (go) Object.DestroyImmediate(go);
             _extra.Clear();
+            // This fixture intentionally destroys arrows between cases, including returned instances.
+            // Drop their pooled references before the next case fires through the real API.
+            ArsenalProjectileTestRig.ResetArrowPoolReferences();
         }
     }
 }

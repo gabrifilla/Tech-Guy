@@ -6,6 +6,8 @@ using UnityEngine;
 public sealed class ArsenalProjectile : MonoBehaviour
 {
     private PlayerActor _owner;
+    private ProtocolRuntime _protocolRuntime;
+    private ProtocolExecution _protocolExecution;
     private float _damage, _multiplier, _remaining;
     private bool _piercing;
     private readonly HashSet<Actor> _hit = new HashSet<Actor>();
@@ -66,24 +68,34 @@ public sealed class ArsenalProjectile : MonoBehaviour
     }
 
     public static void Fire(PlayerActor owner, Vector3 origin, Vector3 direction, float damage,
-        float multiplier, float range, bool piercing, Color color, bool returning = false)
+        float multiplier, float range, bool piercing, Color color, bool returning = false,
+        ProtocolProducer producer = ProtocolProducer.Direct)
     {
         if (!owner || owner.IsDead || direction.sqrMagnitude < .001f) return;
+        owner.TryGetComponent(out ProtocolRuntime protocols);
+        using (protocols ? protocols.BeginAreaScope(null) : null)
+        {
         WeaponRunModifiers mods = owner.RunModifiers;
         int twin = mods?.Rank(WeaponBoon.TwinShot) ?? 0;
         int count = 1 + 2 * twin;
         for (int i = 0; i < count; i++)
             FireSingle(owner, origin, Quaternion.AngleAxis((i - (count - 1) * .5f) * 5, Vector3.up) * direction,
-                damage, multiplier / (1 + .5f * twin), range, piercing, color, mods, returning);
+                damage, multiplier / (1 + .5f * twin), range, piercing, color, mods, returning,
+                producer == ProtocolProducer.Direct && i != count / 2 ? ProtocolProducer.Technique : producer);
+        }
     }
 
     private static void FireSingle(PlayerActor owner, Vector3 origin, Vector3 direction, float damage,
-        float multiplier, float range, bool piercing, Color color, WeaponRunModifiers mods, bool returning = false)
+        float multiplier, float range, bool piercing, Color color, WeaponRunModifiers mods, bool returning = false,
+        ProtocolProducer producer = ProtocolProducer.Direct)
     {
         // R3.1: acquire a pooled instance (expands if empty) instead of `new GameObject`; the pooled
         // instance already owns its reused LineRenderer + Material created once by the factory.
         ArsenalProjectile arrow = Pool.Acquire();
         arrow.ResetForReuse(owner, origin, direction, damage, multiplier, range, piercing, color, mods, returning);
+        arrow._protocolExecution?.Dispose();
+        owner.TryGetComponent(out arrow._protocolRuntime);
+        arrow._protocolExecution = arrow._protocolRuntime ? arrow._protocolRuntime.ReserveExecution(producer) : null;
     }
 
     /// <summary>
@@ -124,10 +136,12 @@ public sealed class ArsenalProjectile : MonoBehaviour
         gameObject.SetActive(false);
         Pool.Release(this);
     }
+    private void OnDisable() { _protocolExecution?.Dispose(); _protocolExecution = null; }
 
     private void Update()
     {
-        if (!_owner || _owner.IsDead || _owner.CurrentWeapon != _weapon || _remaining <= 0f) { ReleaseToPool(); return; }
+        if (!_owner || _owner.IsDead || _owner.CurrentWeapon != _weapon || _remaining <= 0f ||
+            _protocolRuntime && (_protocolExecution == null || !_protocolExecution.IsLifecycleCurrent)) { ReleaseToPool(); return; }
         if (_homing)
         {
             if (Time.time >= _nextSeek)
@@ -170,9 +184,12 @@ public sealed class ArsenalProjectile : MonoBehaviour
                     reflectedDamage = reflector.ResolveIncomingDamage(_damage, transform.position,
                         isPlayerProjectile: true, isAreaAttack: false);
 
+                using (_protocolRuntime ? _protocolRuntime.OpenExecutionScope(_protocolExecution) : null)
+                {
                 if (_owner.TryApplyDamage(actor, reflectedDamage, _multiplier, 0f) &&
                     _owner.TryGetComponent(out AbilityHolder holder))
                     holder.NotifyAttackHits(_owner, new[] { actor });
+                }
 
                 // R1.1/R1.4: pierce every un-hit enemy on the current straight-line heading first.
                 if (_piercing && HasInlineTarget()) continue; // travels straight, no bounce consumed

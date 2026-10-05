@@ -26,6 +26,7 @@ namespace TechGuy.Tests
         // once, for any pierce/ricochet combination.
         // Validates: Requirements 1.6
         [UnityTest]
+        [Timeout(600000)] // Preserve 100 generated real-time projectile cases under grouped hit-stop.
         public IEnumerator Property3_EachEnemyDamagedAtMostOnce()
         {
             const int cases = 100;
@@ -61,7 +62,7 @@ namespace TechGuy.Tests
                 ArsenalProjectile arrow = _rig.FireArrow(Vector3.zero, Vector3.forward, 70f, piercing, bounces);
                 Assert.IsNotNull(arrow, $"case {c}: arrow failed to spawn");
 
-                for (int frame = 0; frame < 400 && arrow; frame++)
+                for (int frame = 0; frame < 400 && arrow && arrow.isActiveAndEnabled; frame++)
                     yield return null;
 
                 // No enemy appears more than once across all recorded damage events.

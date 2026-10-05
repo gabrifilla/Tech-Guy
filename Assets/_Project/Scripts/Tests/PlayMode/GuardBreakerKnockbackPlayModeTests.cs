@@ -183,6 +183,100 @@ namespace TechGuy.Tests
         // mesh. Driven under the live player loop so the multi-frame push coroutine actually advances.
         // Validates: Requirements 5.2
         [UnityTest]
+        public IEnumerator Phase3GuardAndSeismicUseOneBoundedDisplacementAtEveryRank()
+        {
+            Assert.IsTrue(TryBakeFullFloor());
+            var player = BuildPlayer(Vector3.zero);
+            var holder = player.gameObject.AddComponent<AbilityHolder>();
+            player.EquipWeapon(Resources.Load<WeaponScript>("Weapons/Melee/Gauntlet/Gauntlet")); holder.RefreshLoadout();
+            var run = player.gameObject.AddComponent<RunBoons>(); yield return null;
+            var combat = player.GetComponent<BreakerGauntletCombat>();
+            var weapon = player.CurrentWeapon;
+            var tracker = player.gameObject.AddComponent<ImpactGuardTracker>();
+            for (int rank = 0; rank <= 3; rank++)
+            {
+                combat.Configure(null); combat.Configure(weapon);
+                var mods = new WeaponRunModifiers(RunWeaponFamily.Gauntlet);
+                foreach (var def in WeaponRunModifiers.Catalog) if (def.Kind == WeaponBoon.GuardBreaker || def.Kind == WeaponBoon.SeismicFist)
+                    for (int i = 0; i < rank; i++) mods.Add(def);
+                typeof(RunBoons).GetProperty("WeaponModifiers").SetValue(run, mods);
+                tracker.enabled = false; tracker.enabled = true; tracker.Configure(player, run.Hooks, holder, rank);
+                var target = BuildEnemy(Vector3.forward * 1.5f);
+                int breaks = 0; target.reaction.StanceBroken += _ => breaks++;
+                Physics.SyncTransforms(); Vector3 start = target.actor.transform.position;
+                for (int hit = 0; hit < 3; hit++)
+                {
+                    var root = combat.BeginBasicExecution();
+                    Assert.AreEqual(1, player.TryApplyGauntletAreaDamage(Vector3.zero, Vector3.forward, 2.2f,
+                        new Vector3(2f, 2f, 2f), AreaHitShape.Box, 0f, Physics.DefaultRaycastLayers,
+                        10f, 1f, 0f, null, false, null, root, combat.EnergyPolicy, 0));
+                    combat.EnergyPolicy.Close(root);
+                }
+                yield return new WaitForSeconds(.5f);
+                float travelled = Vector3.Distance(start, target.actor.transform.position);
+                float expected = rank > 0 ? Mathf.Min(8f, 4f * (1f + .3f * rank)) : 0f;
+                Assert.AreEqual(rank > 0 ? 1 : 0, breaks);
+                Assert.AreEqual(expected, travelled, .15f, "one Guard knockback, scaled once by Seismic");
+                Assert.IsTrue(target.agent.isOnNavMesh); Assert.LessOrEqual(travelled, 8.01f);
+                UnityEngine.Object.DestroyImmediate(target.actor.gameObject);
+                // A separately authored basic Knockback receives the same amplification, without Guard producing it.
+                var authoredTarget = BuildEnemy(Vector3.forward * 1.5f);
+                Physics.SyncTransforms(); Vector3 authoredStart = authoredTarget.actor.transform.position;
+                var authoredRoot = combat.BeginBasicExecution();
+                var request = new HitReactionRequest(player, authoredStart, Vector3.forward,
+                    HitReactionType.Stagger, HitStrength.Heavy, 100f, StanceBreakEffect.Knockback, 0f);
+                Assert.AreEqual(1, player.TryApplyGauntletAreaDamage(Vector3.zero, Vector3.forward, 2.2f,
+                    new Vector3(2f, 2f, 2f), AreaHitShape.Box, 0f, Physics.DefaultRaycastLayers,
+                    10f, 1f, 0f, request, false, null, authoredRoot, combat.EnergyPolicy, 0));
+                combat.EnergyPolicy.Close(authoredRoot);
+                yield return new WaitForSeconds(.5f);
+                Assert.AreEqual(Mathf.Min(8f, 4f * (1f + .3f * rank)),
+                    Vector3.Distance(authoredStart, authoredTarget.actor.transform.position), .15f);
+                UnityEngine.Object.DestroyImmediate(authoredTarget.actor.gameObject);
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator Phase3RocketAdvanceStopsAtTerrainBoundaryWithoutTrajectoryDamage()
+        {
+            Assert.IsTrue(TryBakeHalfFloor(4f));
+            var player = BuildPlayer(Vector3.zero);
+            var holder = player.gameObject.AddComponent<AbilityHolder>();
+            player.EquipWeapon(Resources.Load<WeaponScript>("Weapons/Melee/Gauntlet/Gauntlet")); holder.RefreshLoadout();
+            var run = player.gameObject.AddComponent<RunBoons>(); yield return null;
+            var weapon = player.CurrentWeapon; var combat = player.GetComponent<BreakerGauntletCombat>();
+            var agent = player.GetComponent<NavMeshAgent>();
+            if (!agent) agent = player.gameObject.AddComponent<NavMeshAgent>();
+            SetPrivate(combat, "_agent", agent);
+            SetPrivate(player, "baseMaxMana", 500f); player.RefreshResourceStats();
+            var cameras = Camera.allCameras;
+            foreach (var camera in cameras) camera.enabled = false;
+            try
+            {
+                for (int rank = 0; rank <= 3; rank++)
+                {
+                    agent.Warp(Vector3.zero); player.transform.rotation = Quaternion.identity;
+                    combat.Configure(null); combat.Configure(weapon); holder.RefreshLoadout();
+                    player.mana = player.maxMana;
+                    var mods = new WeaponRunModifiers(RunWeaponFamily.Gauntlet);
+                    foreach (var def in WeaponRunModifiers.Catalog) if (def.Kind == WeaponBoon.RocketAdvance)
+                        for (int i = 0; i < rank; i++) mods.Add(def);
+                    typeof(RunBoons).GetProperty("WeaponModifiers").SetValue(run, mods);
+                    var q = (BreakerGauntletAbility)holder.ActiveAbilities[0];
+                    Assert.IsTrue(holder.TryUseAbility(0), $"Q rank {rank}, mana {player.mana}, cost {q.ManaCost}");
+                    float deadline = Time.realtimeSinceStartup + 4f;
+                    while (combat.IsExecuting && Time.realtimeSinceStartup < deadline) yield return null;
+                    Assert.IsFalse(combat.IsExecuting); Assert.IsTrue(agent.isOnNavMesh);
+                    float requested = Mathf.Min(8f, q.AdvanceDistance * (1f + .7f * rank));
+                    Assert.Greater(player.transform.position.z, 0f);
+                    Assert.LessOrEqual(player.transform.position.z, Mathf.Min(4f, requested) + .02f);
+                    Assert.AreEqual(0, combat.Energy, "a trajectory alone cannot confirm HP or posture");
+                }
+            }
+            finally { foreach (var camera in cameras) if (camera) camera.enabled = true; }
+        }
+
+        [UnityTest]
         public IEnumerator StanceBreakKnockback_MovesEnemyThroughNavMeshChannel()
         {
             if (!TryBakeFullFloor())
@@ -201,7 +295,8 @@ namespace TechGuy.Tests
                 stanceDamage: 100f, StanceBreakEffect.Knockback, pushDistance: 0f);
 
             // Let the push coroutine play out across frames.
-            for (int frame = 0; frame < 60; frame++) yield return null;
+            // Phase 2 explicitly freezes movement during real-time break hit-stop; wait for gameplay time.
+            yield return new WaitForSeconds(0.4f);
 
             Vector3 end = enemy.transform.position;
             float movedAlongPush = end.z - start.z;
@@ -248,7 +343,7 @@ namespace TechGuy.Tests
             player.ApplyHitReactionTo(enemy, HitReactionType.Stagger, HitStrength.Heavy,
                 stanceDamage: 100f, StanceBreakEffect.Knockback, pushDistance: 0f);
 
-            for (int frame = 0; frame < 90; frame++) yield return null;
+            yield return new WaitForSeconds(0.5f);
 
             Vector3 end = enemy.transform.position;
 

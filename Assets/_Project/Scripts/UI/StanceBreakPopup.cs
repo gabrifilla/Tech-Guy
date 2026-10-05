@@ -15,16 +15,16 @@ public sealed class StanceBreakPopup : MonoBehaviour
     {
         var popup = new GameObject("Stance Break Popup").AddComponent<StanceBreakPopup>();
         popup.transform.position = popup._anchor = worldPoint;
-        popup._born = Time.time;
-        Destroy(popup.gameObject, 1.1f);
+        popup._born = Time.realtimeSinceStartup;
     }
 
+    private void Update() { if (Time.realtimeSinceStartup - _born >= 1.1f) Destroy(gameObject); }
     private void OnGUI()
     {
         if (!_camera) _camera = Camera.main;
         if (!_camera) return;
 
-        float age = Time.time - _born;
+        float age = Time.realtimeSinceStartup - _born;
         Vector3 screen = _camera.WorldToScreenPoint(_anchor + Vector3.up * (0.3f + age * 1.4f));
         if (screen.z <= 0f) return;
 

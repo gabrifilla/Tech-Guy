@@ -15,7 +15,7 @@ using UnityEngine;
 /// </para>
 ///
 /// <para><strong>Real time (R7.1):</strong> the pause is measured in unscaled/real time via
-/// <see cref="WaitForSecondsRealtime"/>, so setting <c>Time.timeScale</c> to the near-zero hit-stop
+/// <see cref="Time.realtimeSinceStartup"/>, so setting <c>Time.timeScale</c> to the near-zero hit-stop
 /// scale does not stall the pause's own countdown.</para>
 ///
 /// <para><strong>Restore policy (R7.10):</strong> when the hit-stop begins it captures the
@@ -60,7 +60,9 @@ public sealed class HitStopRunner : MonoBehaviour
 
     // Remaining real-time seconds the active hit-stop should still last. Extended (never shortened) by
     // an overlapping Apply so the longest requested pause wins.
-    private float _remaining;
+
+    private float _deadline;
+    public int AppliedCount { get; private set; }
 
     /// <summary>True while a hit-stop is currently holding <c>Time.timeScale</c> at the frozen scale.</summary>
     public bool IsActive => _running != null;
@@ -83,12 +85,14 @@ public sealed class HitStopRunner : MonoBehaviour
             return;
         }
 
+        if (Time.timeScale <= 0f) return;
+        AppliedCount++;
         if (_running != null)
         {
             // Overlap: keep the longest requested pause, never cut an in-flight hit-stop short, and do
             // NOT re-capture the baseline (that would freeze the already-frozen scale). Grouping of
             // simultaneous impacts is HitStopGrouping.Combine's job at the call site.
-            if (clamped > _remaining) _remaining = clamped;
+            _deadline = Mathf.Max(_deadline, Time.realtimeSinceStartup + clamped);
             return;
         }
 
@@ -101,7 +105,8 @@ public sealed class HitStopRunner : MonoBehaviour
 
         _baselineScale = Time.timeScale;
         _appliedScale = HitStopScale;
-        _remaining = clamped;
+
+        _deadline = Time.realtimeSinceStartup + clamped;
         Time.timeScale = _appliedScale;
         _running = StartCoroutine(RunHitStop());
     }
@@ -109,12 +114,11 @@ public sealed class HitStopRunner : MonoBehaviour
     private IEnumerator RunHitStop()
     {
         // Real-time countdown so the frozen Time.timeScale does not stall the pause's own clock (R7.1).
-        // Re-read _remaining each loop so an overlapping Apply that extended it is honored.
-        while (_remaining > 0f)
+        // Read the shared deadline each frame so overlapping requests extend the same window.
+        while (Time.realtimeSinceStartup < _deadline)
         {
-            float wait = _remaining;
-            _remaining = 0f;
-            yield return new WaitForSecondsRealtime(wait);
+
+            yield return null;
         }
 
         RestoreTimeScale();
@@ -144,7 +148,7 @@ public sealed class HitStopRunner : MonoBehaviour
         if (_running == null) return;
         StopCoroutine(_running);
         _running = null;
-        _remaining = 0f;
+
         RestoreTimeScale();
     }
 }

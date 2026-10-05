@@ -28,7 +28,18 @@ public class Ability : ScriptableObject
         _displayName = title; _manaCost = manaCost; _glyph = glyph;
     }
 
-    public bool TryActivate(GameObject parent)
+    /// <summary>Scale a run clone's authored cost, before family/global multipliers in ManaCost.</summary>
+    internal void ScaleRunManaCost(float multiplier)
+    {
+        if (float.IsNaN(multiplier) || float.IsInfinity(multiplier) || multiplier < 0f)
+            throw new System.ArgumentOutOfRangeException(nameof(multiplier));
+        double cost = (double)Mathf.Max(0f, _manaCost) * multiplier;
+        if (double.IsNaN(cost) || double.IsInfinity(cost) || cost > float.MaxValue)
+            throw new System.InvalidOperationException("Invalid run ability mana cost.");
+        _manaCost = (float)cost;
+    }
+
+    public virtual bool TryActivate(GameObject parent)
     {
         if (!CanActivate(parent) || !parent.TryGetComponent(out PlayerActor actor) ||
             !actor.TrySpendMana(ManaCost)) return false;

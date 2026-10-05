@@ -1,6 +1,8 @@
 using UnityEngine;
 
 /// <summary>
+/// Phase 3: contextual basics pay once per execution at the captured rank; running R is excluded.
+/// The legacy bus fallback retains its per-event contract.
 /// Hungry Combo boon (gauntlet-boon-playstyle-overhaul R6, "Combo faminto"). A run-scoped coordinator
 /// added to the player by <c>RunBoons</c> when the Gauntlet boon is chosen.
 ///
@@ -28,6 +30,7 @@ public sealed class HungryComboTracker : MonoBehaviour
     private HookBus _hooks;
     private AbilityHolder _holder;
     private int _rank;
+    private BreakerGauntletCombat _combat;
 
     /// <summary>
     /// Binds this tracker to the run. Safe to call again when the boon rank increases: the previous
@@ -40,19 +43,28 @@ public sealed class HungryComboTracker : MonoBehaviour
         _hooks = hooks;
         _holder = holder;
         _rank = Mathf.Max(0, rank);
+        _combat = player ? player.GetComponent<BreakerGauntletCombat>() : null;
         Subscribe();
     }
 
     private void Subscribe() { if (_hooks != null) _hooks.OnBasicHit += OnBasicHit; }   // R6: only the basic channel
 
     private void Unsubscribe() { if (_hooks != null) _hooks.OnBasicHit -= OnBasicHit; }
+    private void OnDisable() => Unsubscribe();
+    private void OnEnable() { Unsubscribe(); Subscribe(); }
 
     // R6.1: a basic hit removes (0.3 * rank)s of remaining recharge. ReduceCooldowns clamps at zero and
     // ignores slots that are not currently on cooldown, so this is a no-op when nothing is recharging (R6.3).
     private void OnBasicHit(Actor victim, float damage)
     {
-        if (_rank <= 0 || !_holder) return;
-        _holder.ReduceCooldowns(SecondsPerRank * _rank);
+        if (!_holder || damage <= 0f) return;
+        var context = _player ? _player.CurrentGauntletImpactContext : null;
+        int rank = context?.Snapshot?.Rank(WeaponBoon.HungryCombo) ?? _rank;
+        if (rank <= 0) return;
+        if (context != null && (!_combat || !_combat.EnergyPolicy.ClaimBasicTechnique(context, WeaponBoon.HungryCombo))) return;
+        bool rExecuting = _combat && _combat.EnergyPolicy?.IsAsuraActive == true;
+        float seconds = context?.Snapshot?.HungrySecondsPerRank ?? SecondsPerRank;
+        _holder.ReduceCooldowns(seconds * rank, rExecuting ? 3 : -1);
     }
 
     private void OnDestroy() => Unsubscribe();   // + HookBus.Clear() drops the subscription at run end (R6.4)

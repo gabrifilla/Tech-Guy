@@ -241,6 +241,9 @@ public sealed class ArsenalCombat : MonoBehaviour
         SkillMotion motion = weapon.FiresArrows ? (ability.Kind==ArsenalSkillKind.Rain ? SkillMotion.BowRain : SkillMotion.BowShot) :
             ability.Kind==ArsenalSkillKind.Thrust ? SkillMotion.SpearThrust :
             WeaponRunModifiers.Identify(weapon)==RunWeaponFamily.Gauntlet ? SkillMotion.Slam : SkillMotion.SpearSweep;
+        _player.TryGetComponent(out ProtocolRuntime protocols);
+        var protocolExecution = protocols ? protocols.BeginExecution(ability.Kind == ArsenalSkillKind.Rain ?
+            ProtocolProducer.Persistent : ProtocolProducer.Direct) : null;
         try
         {
             float elapsed = 0f;
@@ -258,6 +261,8 @@ public sealed class ArsenalCombat : MonoBehaviour
                 }
                 if (_player.IsDead || _player.CurrentWeapon != weapon) yield break;
                 _animation.Contact(motion);
+                using (protocols ? protocols.OpenExecutionScope(protocolExecution) : null)
+                {
                 if (ability.Kind == ArsenalSkillKind.Arrow || ability.Kind == ArsenalSkillKind.Volley)
                 {
                     int arrows = plan.Arrows;
@@ -347,7 +352,7 @@ public sealed class ArsenalCombat : MonoBehaviour
                     if (plan.WaveMultiplier > 0)
                         // R7.4: ReturnWave flips the wave back toward the player at max range.
                         ArsenalProjectile.Fire(_player, origin + Vector3.up, direction, weapon.attackDamage,
-                            plan.Damage * plan.WaveMultiplier, plan.Range * 2, true, ability.AccentColor, plan.ReturnWave);
+                            plan.Damage * plan.WaveMultiplier, plan.Range * 2, true, ability.AccentColor, plan.ReturnWave, ProtocolProducer.Technique);
 
                     // R7.3: MoonShard launches ShardCount (2-6) projectiles from the sweep extremities.
                     if (radial && ability.Kind == ArsenalSkillKind.Sweep && plan.ShardCount > 0)
@@ -375,7 +380,9 @@ public sealed class ArsenalCombat : MonoBehaviour
 
                     // R7.2: PhantomSpear repeats the thrust with a spectral copy after a short delay.
                     if (!radial && plan.PhantomDelay > 0f)
-                        StartCoroutine(SpectralThrust(center, direction, plan, weapon, ability, reaction, plan.PhantomDelay));
+                        StartCoroutine(SpectralThrust(center, direction, plan, weapon, ability, reaction, plan.PhantomDelay,
+                            protocols ? protocols.ReserveExecution(ProtocolProducer.Echo) : null));
+                }
                 }
                 while (elapsed < end)
                 {
@@ -386,7 +393,7 @@ public sealed class ArsenalCombat : MonoBehaviour
                 }
             }
         }
-        finally { Release(); }
+        finally { protocolExecution?.Dispose(); Release(); }
     }
 
     // Builds the per-hit reaction that carries the Lança's Q/W/E/R identity (Requisito 9.3–9.6). The
@@ -596,7 +603,7 @@ public sealed class ArsenalCombat : MonoBehaviour
             Vector3 aim = Quaternion.AngleAxis(t * 90f, Vector3.up) * forward;
             Vector3 spawn = rimBase + aim * edge;
             ArsenalProjectile.Fire(_player, spawn, aim, weapon.attackDamage,
-                plan.Damage, plan.Range, ability.Piercing, ability.AccentColor);
+                plan.Damage, plan.Range, ability.Piercing, ability.AccentColor, producer: ProtocolProducer.Technique);
         }
     }
 
@@ -612,24 +619,35 @@ public sealed class ArsenalCombat : MonoBehaviour
         if (toTarget.sqrMagnitude < .001f) return;
         Vector3 aim = toTarget.normalized;
         float reach = Mathf.Min(plan.Range, toTarget.magnitude + plan.Width);
+        _player.TryGetComponent(out ProtocolRuntime protocols);
+        using (var execution = protocols ? protocols.ReserveExecution(ProtocolProducer.Technique) : null)
+        using (protocols ? protocols.OpenExecutionScope(execution) : null)
+        {
         // Route through the shared area-damage path so the chain hit stays inside MaxDepth/MaxSecondaryHits (R7.9).
         _player.TryApplyAreaDamage(center, aim, reach,
             new Vector3(plan.Width, 2f, reach), AreaHitShape.Box, plan.Width,
             Physics.DefaultRaycastLayers, weapon.attackDamage, plan.Damage, 0f, reaction, true, ability.AccentColor);
+        }
     }
 
     // R7.2: repeat the thrust with a spectral copy after the plan delay; the repeat reuses the shared damage path.
     private IEnumerator SpectralThrust(Vector3 center, Vector3 direction, ArsenalCastPlan plan, WeaponScript weapon,
-        ArsenalAbility ability, HitReactionRequest reaction, float delay)
+        ArsenalAbility ability, HitReactionRequest reaction, float delay, ProtocolExecution protocolExecution)
     {
+        using (protocolExecution)
+        {
         yield return new WaitForSeconds(delay);
         if (!_player || _player.IsDead || _player.CurrentWeapon != weapon) yield break;
+        if (protocolExecution != null && !protocolExecution.IsLifecycleCurrent) yield break;
         Vector3 aim = direction; aim.y = 0f;
         if (aim.sqrMagnitude < .001f) yield break;
         aim.Normalize();
+        _player.TryGetComponent(out ProtocolRuntime protocols);
+        using (protocols ? protocols.OpenExecutionScope(protocolExecution) : null)
         _player.TryApplyAreaDamage(center, aim, plan.Range,
             new Vector3(plan.Width, 2f, plan.Range), AreaHitShape.Box, plan.Width,
             Physics.DefaultRaycastLayers, weapon.attackDamage, plan.Damage, 0f, reaction, true, ability.AccentColor);
+        }
     }
 
     // Nearest live non-player Actor within radius of origin; used by ChainThrust (R7.5).

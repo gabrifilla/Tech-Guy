@@ -34,6 +34,11 @@ public sealed class ProceduralStageEnvironment : MonoBehaviour
     private NavMeshData _runtimeNavigation;
     private readonly Dictionary<int, GameObject> _roomObjects = new();
 
+    public void SetGeometryActive(bool active)
+    {
+        if (_geometry) _geometry.gameObject.SetActive(active);
+    }
+
     public NavMeshSurface Build(RoomGraph graph)
     {
         if (_geometry)

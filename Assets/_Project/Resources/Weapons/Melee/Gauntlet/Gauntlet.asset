@@ -17,6 +17,7 @@ MonoBehaviour:
     type: 3}
   pickupPrefab: {fileID: 7650408296148597918, guid: 418caccd4f71c5e419145c03c4b91889,
     type: 3}
+  _firesArrows: 0
   attackDamage: 15
   attackSpeed: 0.2
   attackDistance: 2.2
@@ -58,3 +59,11 @@ MonoBehaviour:
     hitStopProfiles:
     - duration: 0.05
       hitStopClass: 0
+  _basicReactionVersion: 1
+  _overrideBasicReaction: 1
+  _basicReaction: 2
+  _basicInterruptContribution: 0.35
+  _basicStageContributions:
+  - 0.35
+  - 0.45
+  - 0.6

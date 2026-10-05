@@ -93,6 +93,9 @@ public class PlayerArpgStats
     }
 
     public float GetStat(PlayerStatType statType)
+        => GetStat(statType, null);
+
+    private float GetStat(PlayerStatType statType, PlayerStatModifier excluded)
     {
         float baseValue = GetBaseStat(statType);
         float flat = 0f;
@@ -101,7 +104,7 @@ public class PlayerArpgStats
 
         foreach (PlayerStatModifier modifier in runtimeModifiers)
         {
-            if (modifier == null || modifier.statType != statType) continue;
+            if (modifier == null || modifier == excluded || modifier.statType != statType) continue;
 
             switch (modifier.mode)
             {
@@ -121,23 +124,34 @@ public class PlayerArpgStats
     }
 
     public AttackDamageRoll RollAttackDamage(float weaponDamage, float skillMultiplier = 1f, float addedDamage = 0f)
+        => RollAttackDamage(CaptureAttackDamage(weaponDamage, skillMultiplier, addedDamage));
+
+    internal AttackDamageBatch CaptureAttackDamage(float weaponDamage, float skillMultiplier,
+        float addedDamage, PlayerStatModifier excluded = null, float momentumMultiplier = 1f)
     {
         float baseAmount = Mathf.Max(0f, GetStat(PlayerStatType.BaseDamage))
             + Mathf.Max(0f, weaponDamage)
             + Mathf.Max(0f, GetStat(PlayerStatType.FlatDamageBonus))
             + Mathf.Max(0f, addedDamage);
 
-        float increasedMultiplier = 1f + Mathf.Max(0f, GetStat(PlayerStatType.IncreasedDamagePercent)) / 100f;
+        float increasedMultiplier = 1f + Mathf.Max(0f, GetStat(PlayerStatType.IncreasedDamagePercent, excluded)) / 100f;
         float resolvedSkillMultiplier = Mathf.Max(0f, skillMultiplier);
         float finalAmount = baseAmount
             * increasedMultiplier
             * Mathf.Max(0f, GetStat(PlayerStatType.DamageMultiplier))
-            * resolvedSkillMultiplier;
+            * resolvedSkillMultiplier * momentumMultiplier;
 
-        bool isCritical = CritRoll() < CriticalChance01;
+        return new AttackDamageBatch(finalAmount, CriticalChance01,
+            Mathf.Max(1f, GetStat(PlayerStatType.CriticalDamageMultiplier)));
+    }
+
+    internal AttackDamageRoll RollAttackDamage(AttackDamageBatch batch)
+    {
+        float finalAmount = batch.Amount;
+        bool isCritical = CritRoll() < batch.CriticalChance;
         if (isCritical)
         {
-            finalAmount *= Mathf.Max(1f, GetStat(PlayerStatType.CriticalDamageMultiplier));
+            finalAmount *= batch.CriticalMultiplier;
         }
 
         return new AttackDamageRoll(finalAmount, isCritical);

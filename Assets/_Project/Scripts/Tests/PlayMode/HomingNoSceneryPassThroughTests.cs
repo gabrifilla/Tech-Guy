@@ -70,11 +70,11 @@ namespace TechGuy.Tests
                 for (int frame = 0; frame < 400; frame++)
                 {
                     yield return null;
-                    if (!arrow) { destroyed = true; break; }
+                    if (!arrow || !arrow.isActiveAndEnabled) { destroyed = true; break; }
                     _rig.SetNextSeek(arrow, -1f); // keep re-seeking every frame
                 }
 
-                Assert.IsTrue(destroyed, $"case {c}: arrow was not destroyed at the wall (passed through or lingered)");
+                Assert.IsTrue(destroyed, $"case {c}: arrow was not released at the wall (passed through or lingered)");
                 Assert.IsFalse(_rig.DamageEvents.Contains(beyond),
                     $"case {c}: an enemy behind solid scenery was damaged — arrow tunneled through the wall");
             }
@@ -103,7 +103,7 @@ namespace TechGuy.Tests
                 ArsenalProjectile arrow = _rig.FireHomingArrow(Vector3.zero, heading, 60f);
                 Assert.IsNotNull(arrow, $"case {c}: homing arrow failed to spawn");
 
-                for (int frame = 0; frame < 400 && arrow; frame++)
+                for (int frame = 0; frame < 400 && arrow && arrow.isActiveAndEnabled; frame++)
                 {
                     yield return null;
                     if (_rig.DamageEvents.Contains(target)) break;

@@ -16,7 +16,8 @@ public sealed class SkillSlotView : MonoBehaviour
     public RectTransform Rect => (RectTransform)transform;
     public string Status { get; private set; }
 
-    public void Present(Ability ability, string key, float remaining, float ratio, bool active, bool hasMana, bool requirement)
+    public void Present(Ability ability, string key, float remaining, float ratio, bool active, bool hasMana, bool requirement,
+        string actionName = null, string unavailableStatus = null, string activeStatus = null)
     {
         _key.enableAutoSizing = true;
         _key.fontSizeMin = 8;
@@ -31,13 +32,15 @@ public sealed class SkillSlotView : MonoBehaviour
         }
         _glyph.enabled = true;
         _glyph.SetKind(ability.Glyph);
-        _name.text = ability.DisplayName.ToUpperInvariant();
+        _name.text = (actionName ?? ability.DisplayName).ToUpperInvariant();
+        _name.enableAutoSizing = true; _name.fontSizeMin = 8; _name.fontSizeMax = 14;
         _cost.text = ability.ManaCost > 0 ? $"{ability.ManaCost:0} MANA" : "GRATIS";
         _cost.color = hasMana ? new Color(.52f,.73f,.92f) : new Color(1f,.38f,.3f);
         Color accent = ability.AccentColor;
         _glyph.color = remaining > 0 || !hasMana || !requirement ? new Color(accent.r*.35f,accent.g*.35f,accent.b*.35f) : accent;
         _cooldown.fillAmount = ratio;
-        _timer.text = remaining > 0 ? remaining.ToString("0.0") : active ? "EM USO" : !hasMana ? "SEM MANA" : !requirement ? "CARREGAR" : "";
+        _timer.text = remaining > 0 ? remaining.ToString("0.0") : active ? activeStatus ?? "EM USO"
+            : !hasMana ? "SEM MANA" : !requirement ? unavailableStatus ?? "CARREGAR" : "";
         _timer.fontSize = remaining > 0 ? 28 : 11;
         Status = _timer.text;
         if (active && Time.unscaledTime >= _flashUntil)

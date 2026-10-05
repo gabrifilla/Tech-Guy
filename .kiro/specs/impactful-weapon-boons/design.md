@@ -460,3 +460,8 @@ Tests follow the same conventions as the `modifier-synergies-theme17` spec: Edit
 - Offering: with each family equipped, the family boons become eligible; choice count stays at 3 (R9.1, R9.4).
 - Presentation: cards for the new boons render with Portuguese title/description and the `Nível X/Y` format (R9.2); combination hints appear (R9.3).
 - Feedback cues: charge indicator (R3.4), spacing streak (R4.3), and momentum stack indicator (R6.4) update and clear as expected (smoke tests).
+
+
+## Adaptação localizada — Fase 3 Manopla 2.0 (tasks 8–9)
+
+No pipeline contextualizado da Manopla, MomentumStrike captura rank por execução e pilhas antes de cada lote. Seu multiplicador é aplicado uma vez e igualmente aos alvos; incrementa uma pilha por HP causal direto confirmado somente após o lote, até 10. Echoes/zonas não empilham. HP recebido efetivo limpa as pilhas, inclusive em callback reentrante; imunidade/absorção total não limpa. Disable remove contador/modificador próprio, preservando ranks da run. A emissão de HookBus/crit/morte permanece; contratos fora dessa adaptação continuam. Evidências em gauntlet-2-rework/contract-audit.md.

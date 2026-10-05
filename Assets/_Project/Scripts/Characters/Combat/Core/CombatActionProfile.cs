@@ -128,6 +128,19 @@ public struct ImpactEvent
     /// into this profile (R2.5).
     /// </summary>
     public int AreaHitStepIndex => areaHitStepIndex;
+    internal ImpactEvent ForSingleStep()
+    {
+        var copy = this; copy.index = 0; copy.areaHitStepIndex = 0;
+        copy.opensWindow = false; copy.windowEnd = 0f;
+        return copy;
+    }
+    internal ImpactEvent ForCadencedStep(int step)
+    {
+        var copy = this; copy.index = step; copy.areaHitStepIndex = step;
+        return copy;
+    }
+    internal static ImpactEvent Cadenced(int step) => new ImpactEvent
+        { index = step, areaHitStepIndex = step, at = .3f, hitStopProfileIndex = -1 };
 }
 
 /// <summary>
@@ -142,6 +155,8 @@ public struct ImpactEvent
 [Serializable]
 public struct CancelRuleData
 {
+    internal static CancelRuleData CadencedDash() => new CancelRuleData
+        { target = CancelTarget.Dash, start = .775f, end = 1f };
     [Tooltip("Destination this rule authorizes a cancel into (Dash, Basic, Skill) (R4.1).")]
     [SerializeField]
     private CancelTarget target;
@@ -197,6 +212,37 @@ public struct CancelRuleData
 [Serializable]
 public class CombatActionProfile
 {
+    internal static CombatActionProfile CadencedStrike(int step) => new CombatActionProfile
+    {
+        startupEnd = .3f, activeEnd = .55f, commitment = CommitmentCategory.Committed,
+        startupMoveFraction = 0f, activeMoveFraction = 0f, recoveryMoveFraction = 0f,
+        cancelRules = new[] { CancelRuleData.CadencedDash() },
+        impactEvents = new[] { ImpactEvent.Cadenced(step) }
+    };
+    internal CombatActionProfile Copy()
+    {
+        var copy = (CombatActionProfile)MemberwiseClone();
+        copy.cancelRules = cancelRules == null ? null : (CancelRuleData[])cancelRules.Clone();
+        copy.impactEvents = impactEvents == null ? null : (ImpactEvent[])impactEvents.Clone();
+        copy.hitStopProfiles = hitStopProfiles == null ? null : (HitStopProfile[])hitStopProfiles.Clone();
+        return copy;
+    }
+    internal CombatActionProfile WithOnlyFinalImpact(int finalSourceStep)
+    {
+        var copy = Copy();
+        copy.impactEvents = Array.Empty<ImpactEvent>();
+        if (impactEvents != null)
+            for (int i = impactEvents.Length - 1; i >= 0; i--)
+                if (impactEvents[i].AreaHitStepIndex == finalSourceStep)
+                { copy.impactEvents = new[] { impactEvents[i].ForSingleStep() }; break; }
+        return copy;
+    }
+    internal CombatActionProfile ForCadencedStep(int step)
+    {
+        var copy = Copy();
+        copy.impactEvents = new[] { impactEvents[0].ForCadencedStep(step) };
+        return copy;
+    }
     [Header("Phase boundaries (normalized [0, 1])")]
     [Tooltip("End of Startup / start of Active, as a fraction in [0, 1] (R2.2).")]
     [SerializeField]

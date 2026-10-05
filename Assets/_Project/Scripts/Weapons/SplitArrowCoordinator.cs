@@ -81,7 +81,7 @@ public sealed class SplitArrowCoordinator : MonoBehaviour
                 Vector3 direction = Quaternion.AngleAxis(angle, Vector3.up) * RandomFlatDirection();
                 // 50% of the killing arrow's damage, carried as the Fire multiplier (R2.2).
                 ArsenalProjectile.Fire(_owner, origin, direction, damage, SplitDamageMultiplier,
-                    SplitRange, false, Color.cyan);
+                    SplitRange, false, Color.cyan, producer: ProtocolProducer.Technique);
                 _spawnedThisFrame++;
             }
         }

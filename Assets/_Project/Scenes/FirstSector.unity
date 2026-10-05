@@ -4198,6 +4198,7 @@ GameObject:
   - component: {fileID: 133740931}
   - component: {fileID: 133740930}
   - component: {fileID: 133740929}
+  - component: {fileID: 133740934}
   m_Layer: 0
   m_Name: First sector procedural flow
   m_TagString: Untagged
@@ -4217,6 +4218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2b57d93699c044898bfae063fc33be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: TechGuy::ProgressionDirector
+  _progressionMode: 1
+  _manualDefinition: {fileID: 11400000, guid: 4d17687f81ce0dc42b2035a3dec505e3, type: 2}
+  _manualEnvironment: {fileID: 1868160058}
   _player: {fileID: 643458981}
   _generationParams:
     _minCombatRooms: 5
@@ -4334,6 +4338,20 @@ Transform:
   - {fileID: 2065606826}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &133740934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 133740928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af93177913fb25c4d97bb0f3ef95579b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::ManualRunUI
+  _director: {fileID: 133740929}
+  _player: {fileID: 643458981}
 --- !u!1 &134867619
 GameObject:
   m_ObjectHideFlags: 0
@@ -17840,7 +17858,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &643458981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55176,6 +55194,86 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1864137183}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1868160057
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2898965801739333130, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: m_Name
+      value: FirstSectorManualEnvironment
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140780622842490613, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140780622842490613, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140780622842490613, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140780622842490613, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140780622842490613, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140780622842490613, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140780622842490613, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140780622842490613, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140780622842490613, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8140780622842490613, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bf6c2c11bb28e6a4dbb40743c37f5b61, type: 3}
+--- !u!114 &1868160058 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3725101256911225433, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+    type: 3}
+  m_PrefabInstance: {fileID: 1868160057}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf755c5c84258745a9a1ead7a8a2312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::ManualStageEnvironment
 --- !u!1 &1883149341
 GameObject:
   m_ObjectHideFlags: 0
@@ -62623,3 +62721,4 @@ SceneRoots:
   - {fileID: 1032717107}
   - {fileID: 2050476913}
   - {fileID: 1492858528}
+  - {fileID: 1868160057}

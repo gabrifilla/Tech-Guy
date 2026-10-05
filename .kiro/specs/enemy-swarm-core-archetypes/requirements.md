@@ -109,7 +109,7 @@ Three cross-cutting design principles from the design doc (seções 15 & 18) con
 3. WHEN the distance between the Heavy and the Player_Actor is at or below engagement range (at most 2.5 meters), THE Heavy SHALL perform a telegraphed slam attack followed by a ground-pound area attack through Combat_Actions.
 4. WHEN the Heavy begins each slam or ground-pound, THE Heavy SHALL display a ground-area Telegraph covering that attack's impact area for at least 0.4 seconds before the impact occurs.
 5. WHILE the Heavy is performing its slam or ground-pound windup, THE Reaction_Controller SHALL require the Heavy's configured maximum stance to be depleted to 0 to interrupt it, where the Heavy's maximum stance is greater than the Grunt's maximum stance.
-6. WHEN a hit reduces the Heavy's stance pool to 0, THE Reaction_Controller SHALL apply the hit's requested crowd-control effect with its duration scaled by (1 minus the Heavy's configured resistance for that effect), and SHALL apply no hard crowd-control effect for any resistance equal to 1.
+6. WHEN a hit reduces the Heavy's stance pool to 0, THE Reaction_Controller SHALL resolve the requested effect or the Phase 2 MediumMob default. Phase 2 supersedes proportional CC scaling: resistance below 1 permits the full authored duration; resistance 1 rejects that channel and resolves only a permitted fallback.
 
 ### Requirement 6: Charger Archetype (Melee)
 
@@ -270,7 +270,7 @@ Three cross-cutting design principles from the design doc (seções 15 & 18) con
 1. THE Fragile SHALL declare Combat_Role Combo-Fodder.
 2. THE Fragile SHALL use an Enemy_Profile whose maximum stance is in the range 1 to 60 and whose KnockUp resistance equals 0.
 3. WHEN the Fragile's stance pool is reduced to 0 by a KnockUp attack, THE Reaction_Controller SHALL launch the Fragile into the air.
-4. WHILE the Fragile is airborne from a KnockUp, THE Fragile SHALL remain airborne for a duration equal to the launch's stun duration scaled by (1 minus its KnockUp resistance), which for the Fragile's zero KnockUp resistance exceeds the airborne duration of an otherwise-identical enemy with nonzero KnockUp resistance.
+4. WHILE the Fragile is airborne from an allowed KnockUp, THE Fragile SHALL remain airborne for the authored launch duration. Phase 2 (`posture-enemy-interaction`) intentionally supersedes proportional resistance scaling: resistance below 1 permits the full effect, while resistance 1 rejects that channel and uses the permitted fallback. Fragile's zero resistance guarantees launch eligibility, not longer airtime than an otherwise-identical non-immune enemy. Collision fallback and cleanup remain required.
 5. WHILE the Fragile is airborne and displaced into another enemy, THE Archetype_System SHALL not suppress the resulting collision.
 6. WHEN the Fragile's airborne crowd-control ends, THE Archetype_System SHALL return the Fragile to its grounded controllable state.
 

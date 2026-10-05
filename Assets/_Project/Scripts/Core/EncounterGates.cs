@@ -5,6 +5,12 @@ using UnityEngine.AI;
 /// <summary>Temporary room doors; carving updates the existing baked navigation.</summary>
 public sealed class EncounterGates : MonoBehaviour
 {
+    [SerializeField] private GameObject _authoredBarrier;
+    public void ConfigureAuthoredBarrier(GameObject barrier) => _authoredBarrier = barrier;
+    public void SetAuthoredOpen(bool open)
+    {
+        if (_authoredBarrier) _authoredBarrier.SetActive(!open);
+    }
     private GameObject _entrance, _exit;
     private Material _material;
     public bool ExitLocked => _exit && _exit.activeSelf;

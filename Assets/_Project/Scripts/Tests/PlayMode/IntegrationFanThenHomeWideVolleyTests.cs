@@ -71,13 +71,14 @@ namespace TechGuy.Tests
             {
                 Vector3 heading = FanHeading(i, arrows, baseDir);
                 headings.Add(heading);
+                Vector3 launchOrigin = origin + Vector3.right * ((i - (arrows - 1) * 0.5f) * 2.5f);
 
                 // Plant one enemy straight down each arrow's fan heading, inside radius and cone,
                 // so an independent seek can lock a distinct target per arrow.
-                float depth = 3f + i * 0.2f;
-                expectedTargets.Add(_rig.BuildEnemy(origin + heading * depth));
+                float depth = 3f;
+                expectedTargets.Add(_rig.BuildEnemy(launchOrigin + heading * depth));
 
-                ArsenalProjectile arrow = _rig.FireHomingArrow(origin, heading, 40f);
+                ArsenalProjectile arrow = _rig.FireHomingArrow(launchOrigin, heading, 40f);
                 Assert.IsNotNull(arrow, $"arrow {i} failed to spawn");
                 launched.Add(arrow);
             }
@@ -134,11 +135,12 @@ namespace TechGuy.Tests
             for (int i = 0; i < arrows; i++)
             {
                 Vector3 heading = FanHeading(i, arrows, baseDir);
+                Vector3 launchOrigin = origin + Vector3.right * ((i - (arrows - 1) * 0.5f) * 2.5f);
                 // Enemy offset slightly off the exact heading so a real homing curve is required to hit it.
                 Vector3 lateral = Quaternion.AngleAxis(90f, Vector3.up) * heading;
-                Vector3 pos = origin + heading * 4f + lateral * ((i - 1) * 0.6f);
+                Vector3 pos = launchOrigin + heading * 4f + lateral * ((i - 1) * 0.6f);
                 _rig.BuildEnemy(pos);
-                Assert.IsNotNull(_rig.FireHomingArrow(origin, heading, 40f), $"arrow {i} failed to spawn");
+                Assert.IsNotNull(_rig.FireHomingArrow(launchOrigin, heading, 40f), $"arrow {i} failed to spawn");
             }
 
             // Fly the volley: homing arrows seek every 0.1s, steer at <=180deg/s, and sweep for hits.

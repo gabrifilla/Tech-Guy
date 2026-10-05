@@ -62,7 +62,7 @@ namespace TechGuy.Tests.EditMode
 
                     // Predict from the mirror model BEFORE the call.
                     float projectedTotal = expectedTotal + (staggerValue > 0f ? staggerValue : 0f);
-                    bool expectedFire = projectedTotal + 1e-6f >= threshold;
+                    bool expectedFire = staggerValue > 0f && projectedTotal + 1e-6f >= threshold;
 
                     RankInterruptStagger.Outcome outcome = accumulator.Accumulate(staggerValue);
 
@@ -76,11 +76,8 @@ namespace TechGuy.Tests.EditMode
                         // R7.8: at or above the threshold, a stagger/break fires.
                         PropertyCheck.That(outcome == RankInterruptStagger.Outcome.StaggerOrBreak,
                             $"{ctx}: expected StaggerOrBreak once the running total reached the threshold.");
-                        // All whole thresholds the running total covers are consumed this call, so the carried
-                        // remainder always ends strictly below the threshold (never a full un-fired threshold).
-                                                expectedTotal = projectedTotal;
-                        while (expectedTotal + 1e-6f >= threshold) expectedTotal -= threshold;
-                        if (expectedTotal < 0f) expectedTotal = 0f;
+                        // Phase 2 R7.3 consumes one threshold; all additional excess remains.
+                        expectedTotal = Mathf.Max(0f, projectedTotal - threshold);
                     }
                     else
                     {
@@ -94,11 +91,10 @@ namespace TechGuy.Tests.EditMode
                     // The class's accumulated total tracks the same pure model exactly.
                     PropertyCheck.That(Mathf.Abs(accumulator.Accumulated - expectedTotal) <= epsilon,
                         $"{ctx}: accumulated {accumulator.Accumulated} diverged from expected {expectedTotal}.");
-                    // The carried remainder is always non-negative and never itself a fresh full threshold.
+                    // Excess remains non-negative, including multiple unspent thresholds.
                     PropertyCheck.That(accumulator.Accumulated >= -epsilon,
                         $"{ctx}: accumulated went negative.");
-                    PropertyCheck.That(accumulator.Accumulated < threshold + epsilon,
-                        $"{ctx}: a full threshold remained un-fired in the carried remainder.");
+
                 }
             });
         }

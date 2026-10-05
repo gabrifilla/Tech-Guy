@@ -51,6 +51,7 @@ namespace TechGuy.Tests
         // terminates (depth bounded by MaxDepth=4).
         // Validates: Requirements 3.4, 7.9, 8.11, 11.3
         [UnityTest]
+        [Timeout(600000)] // 100 dense real-physics/cosmetic cases; retain the full generated coverage.
         public IEnumerator Property10_GlobalCascadeStaysWithinBounds()
         {
             const int cases = 100;

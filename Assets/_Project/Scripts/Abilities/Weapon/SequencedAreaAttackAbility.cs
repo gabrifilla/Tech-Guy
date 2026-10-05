@@ -93,8 +93,16 @@ public abstract class SequencedAreaAttackAbility : Ability
     /// (R7.1, R7.3). The damage channel itself is unchanged.
     /// </summary>
     /// <returns>The number of enemies the hit step resolved damage on (0 when it hit nothing).</returns>
-    internal static int ApplyHitStep(Transform ownerTransform, PlayerActor playerActor, WeaponScript weapon, AreaHitStep hitStep, bool showEffect = true, Color? effectColor = null)
+    internal static int ApplyHitStep(Transform ownerTransform, PlayerActor playerActor, WeaponScript weapon, AreaHitStep hitStep, bool showEffect = true, Color? effectColor = null,
+        GauntletImpactContext context = null, GauntletEnergyPolicy policy = null, int impactIndex = 0)
+        => ApplyHitStep(ownerTransform.localToWorldMatrix, ownerTransform.rotation, playerActor, weapon, hitStep,
+            showEffect, effectColor, context, policy, impactIndex);
+
+    internal static int ApplyHitStep(Matrix4x4 ownerMatrix, Quaternion ownerRotation, PlayerActor playerActor,
+        WeaponScript weapon, AreaHitStep hitStep, bool showEffect, Color? effectColor,
+        GauntletImpactContext context, GauntletEnergyPolicy policy, int impactIndex)
     {
+        Vector3 forward = ownerRotation * Vector3.forward;
         float range = hitStep.rangeOverride > 0f
             ? hitStep.rangeOverride
             : weapon != null && weapon.attackDistance > 0f
@@ -108,11 +116,11 @@ public abstract class SequencedAreaAttackAbility : Ability
                 : Vector3.zero;
 
         float weaponDamage = weapon != null ? weapon.attackDamage : 0f;
-        Vector3 origin = ownerTransform.TransformPoint(hitStep.localOffset);
+        Vector3 origin = ownerMatrix.MultiplyPoint3x4(hitStep.localOffset);
         HitReactionRequest reactionRequest = new HitReactionRequest(
             playerActor,
-            origin + ownerTransform.forward * Mathf.Max(0f, range),
-            ownerTransform.forward,
+            origin + forward * Mathf.Max(0f, range),
+            forward,
             hitStep.reactionType,
             hitStep.hitStrength,
             hitStep.stanceDamage,
@@ -122,9 +130,14 @@ public abstract class SequencedAreaAttackAbility : Ability
             hitStep.knockUpHeight,
             hitStep.knockbackDistance);
 
+        if (context != null && policy != null)
+            return playerActor.TryApplyGauntletAreaDamage(origin, forward, range, boxSize,
+                hitStep.hitShape, hitStep.sphereRadius, hitStep.targetLayers, weaponDamage, hitStep.damageMultiplier,
+                hitStep.bonusDamage, reactionRequest, showEffect, effectColor, context, policy, impactIndex);
+
         return playerActor.TryApplyAreaDamage(
             origin,
-            ownerTransform.forward,
+            forward,
             range,
             boxSize,
             hitStep.hitShape,

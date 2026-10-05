@@ -31,6 +31,7 @@ public sealed class RankInterruptStagger
     private EnemyRank rank;
     private float resistance;
     private float accumulated;
+    private float lastContributionTime = float.NegativeInfinity;
 
     /// <summary>The interruption stagger accumulated so far but not yet spent on a stagger/break.</summary>
     public float Accumulated => accumulated;
@@ -57,7 +58,7 @@ public sealed class RankInterruptStagger
     public RankInterruptStagger(EnemyRank rank = EnemyRank.Normal, float resistance = 0f)
     {
         this.rank = rank;
-        this.resistance = Mathf.Clamp01(resistance);
+        this.resistance = ReactionNumeric.Safe(resistance, 0f, 1f, 1f);
         accumulated = 0f;
     }
 
@@ -68,7 +69,7 @@ public sealed class RankInterruptStagger
     public void Configure(EnemyRank newRank, float newResistance)
     {
         rank = newRank;
-        resistance = Mathf.Clamp01(newResistance);
+        resistance = ReactionNumeric.Safe(newResistance, 0f, 1f, 1f);
     }
 
     /// <summary>
@@ -85,27 +86,36 @@ public sealed class RankInterruptStagger
     /// <returns>Whether this call triggered a stagger/break or preserved the enemy's state.</returns>
     public Outcome Accumulate(float staggerValue)
     {
-        if (staggerValue > 0f) accumulated += staggerValue;
+        if (!ReactionNumeric.IsFinite(staggerValue) || staggerValue <= 0f) return Outcome.Preserved;
+        // Saturation avoids overflow while preserving every representable excess.
+        accumulated = (float)System.Math.Min(float.MaxValue, (double)accumulated + staggerValue);
 
         float threshold = Threshold;
         if (threshold <= 0f) return Outcome.Preserved; // guard against a non-positive threshold.
         if (accumulated + 1e-6f < threshold) return Outcome.Preserved;
 
-        // Threshold met: consume as many whole thresholds as the running total covers so a single
-        // large interruption never leaves a full, un-fired threshold in the carried remainder
-        // (repeated interruptions keep breaking on schedule). The remainder always ends < threshold.
-        bool fired = false;
-        while (accumulated + 1e-6f >= threshold)
-        {
-            accumulated -= threshold;
-            fired = true;
-        }
-        if (accumulated < 0f) accumulated = 0f;
-        return fired ? Outcome.StaggerOrBreak : Outcome.Preserved;
+        // Phase 2 R7.3: exactly one threshold is spent per positive eligible contribution.
+        accumulated = System.Math.Max(0f, accumulated - threshold);
+        return Outcome.StaggerOrBreak;
+    }
+
+    public Outcome Accumulate(float staggerValue, float now, float decaySeconds)
+    {
+        Decay(now, decaySeconds);
+        if (!ReactionNumeric.IsFinite(now) || !ReactionNumeric.IsFinite(staggerValue) || staggerValue <= 0f)
+            return Outcome.Preserved;
+        lastContributionTime = now;
+        return Accumulate(staggerValue);
+    }
+
+    public void Decay(float now, float decaySeconds)
+    {
+        float timeout = ReactionNumeric.Safe(decaySeconds, 0.5f, 5f, 2f);
+        if (ReactionNumeric.IsFinite(now) && now - lastContributionTime >= timeout) Reset();
     }
 
     /// <summary>Clears the accumulated stagger (e.g. when the enemy fully recovers between engagements).</summary>
-    public void Reset() => accumulated = 0f;
+    public void Reset() { accumulated = 0f; lastContributionTime = float.NegativeInfinity; }
 
     /// <summary>
     /// The interruption-stagger threshold for a rank at a given stance resistance (Requisito 7.8): a
@@ -115,7 +125,7 @@ public sealed class RankInterruptStagger
     /// </summary>
     public static float ThresholdFor(EnemyRank rank, float resistance)
     {
-        float clampedResistance = Mathf.Clamp01(resistance);
+        float clampedResistance = ReactionNumeric.Safe(resistance, 0f, 1f, 1f);
         float rankBase = BaseThreshold * RankScale(rank);
         float resistanceFactor = Mathf.Lerp(MinResistanceFactor, 1f, clampedResistance);
         return rankBase * resistanceFactor;

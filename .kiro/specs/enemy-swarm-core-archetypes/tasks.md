@@ -179,7 +179,7 @@ New gameplay code lives under `Assets/_Project/Scripts/Characters/Enemy` (archet
     - Generate windups with control-lock/stance-break before the beat; assert no damage and same-frame cancel; min 100 iterations; tagged
     - _Requirements: 2.4, 7.6, 8.5, 9.6, 13.7, 14.5_
   - [x] 14.2 Write remaining unit/example tests
-    - Charger obstruction recovery (R6.6); Swarm one-hit death and ≤1s removal (R15.3/R15.6); Fragile launch airborne-duration ordering (R17.4)
+    - Charger obstruction recovery (R6.6); Swarm one-hit death and ≤1s removal (R15.3/R15.6); Fragile launch duration (R17.4). Phase 2 supersedes the original proportional-duration ordering with full authored duration for non-immune targets and explicit immunity/fallback coverage; update expectations as part of that implementation, preserving collision/recovery coverage.
     - _Requirements: 6.6, 15.3, 15.6, 17.4_
 
 - [x] 15. Integration wiring and PlayMode tests

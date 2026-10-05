@@ -714,3 +714,7 @@ Unity.exe -runTests -batchmode -projectPath "d:\Projetos\Gabriel\Tech-Guy" -test
 | R7 — Feedback de acerto | `HitStop`/`HitStopGrouping` (puro) + `HitStopRunner` (fino, preserva tempo); reação via `HitReactionRequest` com `StanceBreakEffect.None` | P12, P13, P14 + PlayMode R7 |
 | R8 — Compatibilidade por contrato | Fachadas preservadas; auditoria de emissores/subscribers; Adaptadores documentados; `ExecutionImpactLedger`; classes puras testáveis sem cena | P11, P15 + smoke R8.1/R8.2/R8.7 + PlayMode R8.3/R8.5/R8.6 |
 | R9 — Gate de playtest | Nota de design; critério manual registrado (sandbox 3–5 inimigos, Q/W/E/R, dash em ação, ~10 min); Asura alcançável | Checklist manual de playtest (não automatizado) |
+
+## Adaptação localizada — disponibilidade da Manopla 2.0 (03/10/2026)
+
+Na transição para outra BreakerGauntletAbility, validar energia/autoria/mana de destino antes de cancelar a ação vigente. O CancelResolver e a janela autorada continuam sendo a autoridade para autorizar o cancelamento. Rejeição de R por energia insuficiente, mana ou cooldown preserva a ação, recursos e fase atuais. Não altera o cancelamento das outras famílias nem introduz continuação de R Cadenciada nesta etapa. Evidência e escopo: gauntlet-2-rework/contract-audit.md, task 7.

@@ -1096,3 +1096,17 @@ PBT **se aplica** aqui porque a maior parte da lógica é pura ou de entrada/sa�
 | R15.2 cartão PT + ScopeFor + "Nível X/Y" | `RunModifierPresentation.For`/`ScopeFor`; teste de apresentação |
 | R15.3 Hint de combinação | `RunModifierPresentation.Hint` CHANGED; teste de apresentação |
 | R15.4 descrição por estilo | descrições do `Catalog`; revisão |
+
+## Adaptação localizada — Fase 3 Manopla 2.0 (03/10/2026)
+
+O contrato de AsuraFist para a Manopla passa a ser +2/rank na primeira confirmação de HP de uma execução de básico, além de 3 nativos. O commit ocorre na política local antes da publicação; AsuraSurge não adiciona novamente por alvo contextualizado. HP letal conta; básico vazio, echoes/zonas e geração durante R não pagam. O payload público de OnBasicHit/OnBasicKill mantém sua granularidade por alvo e sua contagem; o caminho por área do CharControlScript também é um básico, sem depender de HitboxDamage. Skills não emitem o canal básico. A formulação histórica que restringe o emissor exclusivamente ao HitboxDamage é substituída apenas nesse ponto.
+
+Esta adaptação não altera contratos de Arco/Lança nem exclui outros assinantes do HookBus. HungryCombo foi migrado na task 9 de gauntlet-2-rework: uma redução por execução confirmada de básico, usando rank capturado, sem afetar R em execução. GuardBreaker e SeismicFist foram migrados na task 10, conforme a adaptação abaixo. O design e os requisitos atuais dessa fase são a autoridade para as substituições registradas.
+
+### Adaptação localizada — Techniques de postura e echoes da Fase 3 (03/10/2026)
+
+GuardBreaker passa a contar três execuções de básico com HP confirmado, usando rank capturado e o primeiro alvo confirmado da terceira. Seu impacto de postura é filho Technique da mesma raiz; ganho nativo de básico e eventual quebra são consolidados antes de qualquer publicação. Reconfigurar ranks do mesmo proprietário preserva a sequência; Q/W/E aceito, disable ou troca de proprietário a reiniciam. R/dash não reiniciam por si. O bus legado mantém seus eventos por alvo e a fachada explícita anterior a Awake.
+
+SeismicFist amplifica somente Knockback já autorizado em básico/Q/W/E/GuardBreaker: distância × (1 + 0,3 × rank), limitada a 8 m, aplicada uma vez. Não declara Knockback no hitbox, não converte Launch/Stun/Knockdown e não afeta R. Esta adaptação substitui especificamente a antiga Property 13 de conversão opt-in; resistência, postura e limites da Fase 2 permanecem.
+
+FlurryEcho/AsuraEcho dependem do último produtor direto realmente executado, sem exigir HP para a réplica espacial. Quantidade 2/rank em W e 1/rank em R; HP/postura 55%/65%, incluindo o bônus de dano autorado. Filhos capturam posição/direção do produtor, têm identidade própria, não geram Asura nem reproduzem produtores locais. Cancelamento anterior não antecipa finisher; posterior preserva réplicas já agendadas. Elas não prolongam duração, movimento bloqueado ou proteção de R. Morte/troca/disable descartam os filhos; relógio mecânico pausa junto ao gameplay. Shockwave legado mantém seu efeito e eventos com produtor próprio, sem ser identificado como FlurryEcho. Ofertas/migrações permanecem na task 14.

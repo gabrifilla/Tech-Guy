@@ -33,6 +33,34 @@ public sealed class EnemyProfile : ScriptableObject
     [Tooltip("Resistance to Knockback on a break. 1 = immune (never thrown).")]
     [SerializeField, Range(0f, 1f)] private float _knockbackResistance;
 
+    [Header("Phase 2 reaction category (independent of rarity)")]
+    [SerializeField] private ReactionCategory _reactionCategory;
+    [SerializeField] private ReactionAuthoring _reaction = new ReactionAuthoring();
+
+    public ReactionCategory ReactionCategory => _reactionCategory;
+    public ReactionConfiguration ResolveReaction(EnemyRank rank) => new ReactionConfiguration(rank, _reactionCategory, _reaction, StunResistance);
+
+    public System.Collections.Generic.List<string> ValidateReactionData()
+    {
+        var errors = new System.Collections.Generic.List<string>();
+        ReactionNumeric.Validate(errors, nameof(_maxStance), _maxStance, 1f, float.MaxValue);
+        ReactionNumeric.Validate(errors, nameof(_stanceDamageMultiplier), _stanceDamageMultiplier, 0f, 5f);
+        ReactionNumeric.Validate(errors, nameof(_stanceRecoveryPerSecond), _stanceRecoveryPerSecond, 0f, float.MaxValue);
+        ReactionNumeric.Validate(errors, nameof(_stanceRecoveryDelay), _stanceRecoveryDelay, 0f, 10f);
+        ReactionNumeric.Validate(errors, nameof(_staggerResistance), _staggerResistance, 0f, 1f);
+        ReactionNumeric.Validate(errors, nameof(_stunResistance), _stunResistance, 0f, 1f);
+        ReactionNumeric.Validate(errors, nameof(_knockUpResistance), _knockUpResistance, 0f, 1f);
+        ReactionNumeric.Validate(errors, nameof(_knockbackResistance), _knockbackResistance, 0f, 1f);
+        if (!System.Enum.IsDefined(typeof(ReactionCategory), _reactionCategory)) errors.Add("Undefined reaction category.");
+        _reaction?.Validate(errors);
+        return errors;
+    }
+
+    private void OnValidate()
+    {
+        foreach (string error in ValidateReactionData()) Debug.LogError($"EnemyProfile '{name}': {error}", this);
+    }
+
     public EnemyRarity Rarity => _rarity;
     public float HealthMultiplier => Mathf.Max(0.01f, _healthMultiplier);
     public float DamageMultiplier => Mathf.Max(0f, _damageMultiplier);
@@ -40,12 +68,12 @@ public sealed class EnemyProfile : ScriptableObject
     public float AttackSpeedMultiplier => Mathf.Max(0.01f, _attackSpeedMultiplier);
     public System.Collections.Generic.IReadOnlyList<GameObject> AffixPrefabs => _affixPrefabs;
 
-    public float MaxStance => Mathf.Max(1f, _maxStance);
-    public float StanceDamageMultiplier => Mathf.Max(0f, _stanceDamageMultiplier);
-    public float StanceRecoveryPerSecond => Mathf.Max(0f, _stanceRecoveryPerSecond);
-    public float StanceRecoveryDelay => Mathf.Max(0f, _stanceRecoveryDelay);
-    public float StaggerResistance => Mathf.Clamp01(_staggerResistance);
-    public float StunResistance => Mathf.Clamp01(_stunResistance);
-    public float KnockUpResistance => Mathf.Clamp01(_knockUpResistance);
-    public float KnockbackResistance => Mathf.Clamp01(_knockbackResistance);
+    public float MaxStance => ReactionNumeric.Safe(_maxStance, 1f, float.MaxValue, 100f);
+    public float StanceDamageMultiplier => ReactionNumeric.Safe(_stanceDamageMultiplier, 0f, 5f, 1f);
+    public float StanceRecoveryPerSecond => ReactionNumeric.Safe(_stanceRecoveryPerSecond, 0f, float.MaxValue, 25f);
+    public float StanceRecoveryDelay => ReactionNumeric.Safe(_stanceRecoveryDelay, 0f, 10f, 2.5f);
+    public float StaggerResistance => ReactionNumeric.Safe(_staggerResistance, 0f, 1f, 0f);
+    public float StunResistance => ReactionNumeric.Safe(_stunResistance, 0f, 1f, 0f);
+    public float KnockUpResistance => ReactionNumeric.Safe(_knockUpResistance, 0f, 1f, 0f);
+    public float KnockbackResistance => ReactionNumeric.Safe(_knockbackResistance, 0f, 1f, 0f);
 }

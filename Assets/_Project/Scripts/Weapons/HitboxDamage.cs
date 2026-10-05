@@ -100,6 +100,8 @@ public class HitboxDamage : MonoBehaviour
 
     public bool TryDamageActor(Actor actor)
     {
+        using ((owner as PlayerActor)?.BeginImpactFeedback())
+        {
         if (owner == null || actor == null || actor == owner || actor.IsDead) return false;
         if (!hitActors.Add(actor)) return false;
 
@@ -116,28 +118,45 @@ public class HitboxDamage : MonoBehaviour
             Debug.Log($"HitboxDamage: {owner.name} hit {actor.name} for {finalDamage}");
         }
 
+        float dealt;
         if (owner is PlayerActor attacker)
         {
             // Only the hitbox (Basic_Attack) path raises the dedicated basic-hit channel. Measure the
             // damage actually dealt around DealResolvedAttackDamage (which already raises the generic
             // OnHit/OnKill — R3.4) and surface it as a basic hit (R3.1/R3.2). Skill hits never reach
             // this branch, so they never fire the basic channel (R3.3).
-            float before = actor.health;
-            attacker.DealResolvedAttackDamage(actor, finalDamage);
-            attacker.RaiseBasicAttackHit(actor, before - actor.health);
+            float healthBefore = actor.health;
+            dealt = attacker.ResolveAttackDamage(actor, finalDamage, false);
+            attacker.RaiseBasicAttackHit(actor, dealt, healthBefore > 0 && dealt >= healthBefore);
         }
-        else actor.TakeDamage(finalDamage);
+        else
+        {
+            float before = actor.health;
+            actor.TakeDamage(finalDamage);
+            dealt = before - actor.health;
+        }
+        if (dealt <= 0f) return false;
 
         // Basic swings apply crowd-control too, so weak mobs get pushed back / staggered
         // instead of the player having to dash out of their range.
         if (owner is PlayerActor player)
         {
             if (reactionType != HitReactionType.None || stanceDamage > 0f)
-                player.ApplyHitReactionTo(actor, reactionType, reactionStrength, stanceDamage, breakEffect, pushDistance);
+            {
+                var weapon = player.CurrentWeapon;
+                // None/Push authored on this hitbox remain explicit opt-outs; default Stagger uses weapon contribution.
+                var request = new HitReactionRequest(player, actor.transform.position, actor.transform.position - player.transform.position,
+                    reactionType, reactionStrength, stanceDamage, breakEffect, pushDistance);
+                if (weapon && weapon.OverridesBasicReaction && reactionType == HitReactionType.Stagger)
+                    request = request.WithInterruptContribution(weapon.BasicInterruptContribution(0));
+                player.ApplyHitReactionTo(actor, request);
+            }
 
         }
 
         return true;
+
+        }
     }
 
     private void SpawnHitEffect(Actor actor)

@@ -4,6 +4,8 @@
     "references": [
         "TechGuy",
         "TechGuy.Tests.Support",
+        "Unity.AI.Navigation",
+        "Unity.InputSystem",
         "Unity.TextMeshPro",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"

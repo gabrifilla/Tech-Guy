@@ -339,7 +339,7 @@ namespace TechGuy.Tests
         // Feature: combat-foundation-rework, task 16.3.
         // Validates: Requirements 7.6, 7.7, 7.11
         [UnityTest]
-        public IEnumerator BasicPush_DoesNotInterruptAi_WhileStaggerDoes()
+        public IEnumerator BasicPushAndOrdinaryStaggerPreserveBossTelegraph_WhileBreakCancels()
         {
             // --- 1) Basic Push does not interrupt a telegraphing boss (any rank; boss is the hardest case).
             SectorBoss boss = BuildTelegraphingBoss(out PlayerActor player1);
@@ -363,8 +363,13 @@ namespace TechGuy.Tests
                 reactionType: HitReactionType.Stagger, strength: HitStrength.Light,
                 stanceDamage: 0f, breakEffect: StanceBreakEffect.None, pushDistance: 0f));
 
-            Assert.IsFalse(boss2.IsTelegraphing,
-                "a mechanical Stagger reaction must interrupt the telegraph (distinct from basic Push) (R7.6)");
+            // Fase 2 R3.5/R3.8: ordinary interruption never cancels a real Boss, even in windup.
+            Assert.IsTrue(boss2.IsTelegraphing, "ordinary Stagger must preserve the boss telegraph");
+            var reaction = boss2.GetComponent<CombatReactionController>();
+            reaction.ConfigureStance(EnemyRank.Boss, 100f, 1f, 0f, 0f, 1f, 1f, 1f, 1f);
+            reaction.ApplyReaction(new HitReactionRequest(player2, boss2.transform.position, Vector3.forward,
+                HitReactionType.None, HitStrength.Heavy, reaction.MaxStance, StanceBreakEffect.Stun));
+            Assert.IsFalse(boss2.IsTelegraphing, "a genuine posture break must cancel the pending boss impact");
         }
 
         /// <summary>

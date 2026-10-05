@@ -146,15 +146,17 @@ namespace TechGuy.Tests
                 int n = 3 + rng.Next(0, 3); // 3..5 arrows in the fan
                 var arrows = new List<ArsenalProjectile>();
                 var expected = new List<Actor>();
+                float depth = 2.5f + (float)rng.NextDouble() * 2f;
 
                 for (int i = 0; i < n; i++)
                 {
                     // Fan each arrow across a shared arc; give each its own enemy straight down its heading.
                     float angle = -30f + 60f * (i / (float)(n - 1));
                     Vector3 heading = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.forward;
-                    Vector3 origin = Quaternion.AngleAxis(angle, Vector3.up) * Vector3.right * 0.3f; // slight lateral offset
-                    float d = 2.5f + (float)rng.NextDouble() * 2f;
-                    expected.Add(_rig.BuildEnemy(origin + heading * d));
+                    // Independent seeking chooses the nearest candidate in each cone. Spread origins
+                    // and use equal depth so the authored target really is nearest for its own arrow.
+                    Vector3 origin = Vector3.right * ((i - (n - 1) * 0.5f) * 2.5f);
+                    expected.Add(_rig.BuildEnemy(origin + heading * depth));
                     arrows.Add(_rig.FireHomingArrow(origin, heading, 40f));
                 }
 

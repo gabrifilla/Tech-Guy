@@ -38,6 +38,17 @@ public class WeaponScript : ScriptableObject
     /// <c>null</c> on older assets authored before the profile existed; callers must null-guard.
     /// </summary>
     public CombatActionProfile BasicProfile => _basicProfile;
+    [Header("Phase 2 basic reaction")]
+    [SerializeField] private int _basicReactionVersion;
+    [SerializeField] private bool _overrideBasicReaction;
+    [SerializeField] private HitReactionType _basicReaction = HitReactionType.Stagger;
+    [SerializeField] private float _basicInterruptContribution = 0.35f;
+    [SerializeField] private float[] _basicStageContributions;
+    public bool OverridesBasicReaction => _basicReactionVersion >= 1 && _overrideBasicReaction;
+    public HitReactionType BasicReaction => _basicReaction;
+    public float BasicInterruptContribution(int index) => ReactionNumeric.Safe(
+        _basicStageContributions != null && index >= 0 && index < _basicStageContributions.Length
+            ? _basicStageContributions[index] : _basicInterruptContribution, 0f, float.MaxValue, 0f);
 
     /// <summary>
     /// Validates the authored <see cref="BasicProfile"/> in the Inspector without ever mutating it

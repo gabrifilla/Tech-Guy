@@ -36,8 +36,20 @@ public class AbilityHolder : MonoBehaviour
     private RunBoons _runBoons;
     private PauseMenuUI _pause;
     public void BindPause(PauseMenuUI pause) => _pause = pause;
+    public bool IsGamePaused => Time.timeScale <= 0f || (_pause && _pause.BlocksInput);
     public void BindRun(RunBoons run) => _runBoons = run;
     public void RefreshLoadout() => RefreshWeaponAbilities(true);
+    public bool TryStopEncounterOffense()
+    {
+        if(playerActor && (playerActor.IsResolvingGauntletImpact || playerActor.HasOpenImpactFeedback)) return false;
+        if(_breakerCombat && !_breakerCombat.TryStopEncounterOffense()) return false;
+        if(_arsenalCombat) _arsenalCombat.Cancel();
+        _inputBuffer.Discard(); _bufferedDash=null; _bufferedContinuation=0;
+        _impactDeferredSlot=-1; _impactDeferredWeapon=null;
+        // Active/cooldown timers continue naturally; reward acquisition alone may RefreshLoadout.
+        if(_characterControl) _characterControl.StopEncounterOffense();
+        return true;
+    }
     private CharControlScript _characterControl;
     [SerializeField] private LobbyInteraction _lobbyInteraction;
     // Single-slot Buffer_de_Input (R5) owned by the holder. In this subtask it carries the dash
@@ -52,6 +64,12 @@ public class AbilityHolder : MonoBehaviour
     private DashScript _bufferedDash;
     // Monotonic tie-break for same-timestamp Command_Intents stored this frame (R5.7).
     private long _intentSequence;
+    private long _bufferedContinuation;
+    private float _inputClock;
+    public bool IsCadencedWaiting => _breakerCombat && _breakerCombat.IsCadencedWaiting;
+    internal void EndCadencedForBasic() { if (IsCadencedWaiting) _breakerCombat.FinishForDodge(); }
+    private int _impactDeferredSlot = -1;
+    private WeaponScript _impactDeferredWeapon;
     public event Action<int> AbilityUsed;
     public event Action<int, AbilityUseFailure> AbilityRejected;
     // Resolved-hit notification (impactful-weapon-boons R4.3): raised right after the passive
@@ -69,10 +87,29 @@ public class AbilityHolder : MonoBehaviour
     /// false so they keep their full stop. Consumers still treat this as casting for ability/attack
     /// gating — it only unblocks locomotion.
     /// </summary>
-    public bool MovementAllowedWhileCasting => _arsenalCombat && _arsenalCombat.IsExecuting &&
-        _arsenalCombat.AllowsMovementWhileFiring;
-    public bool BlocksWorldInput => Time.timeScale <= 0f || (_pause && _pause.BlocksInput) || (_lobbyInteraction && _lobbyInteraction.IsPanelOpen) ||
-        (_runBoons && _runBoons.IsChoosing);
+    public bool MovementAllowedWhileCasting => IsCadencedWaiting || (_arsenalCombat && _arsenalCombat.IsExecuting &&
+        _arsenalCombat.AllowsMovementWhileFiring);
+    private bool _manualInitializationBlocked;
+    internal void SetManualInitializationBlocked(bool blocked) => _manualInitializationBlocked = blocked;
+    public bool BlocksWorldInput => _manualInitializationBlocked || Time.timeScale <= 0f || (_pause && _pause.BlocksInput) || (_lobbyInteraction && _lobbyInteraction.IsPanelOpen) ||
+        (_runBoons && (_runBoons.IsChoosing || _runBoons.BlocksManualOffense));
+
+    /// <summary>Read-only R preflight for presentation; never cancels, spends, buffers or publishes rejection.</summary>
+    public AbilityUseFailure? GetGauntletRUnavailability()
+    {
+        if (!isActiveAndEnabled || !playerActor || playerActor.IsDead || !_breakerCombat || !_breakerCombat.IsEquipped
+            || activeAbilities.Length <= 3 || !(activeAbilities[3] is BreakerGauntletAbility ability) || !ability.AsuraBurst)
+            return AbilityUseFailure.Unavailable;
+        if (states[3] != AbilityState.Ready) return AbilityUseFailure.Cooldown;
+        if (BlocksWorldInput || (_lobbyInteraction && _lobbyInteraction.BlocksAbilityInput(ResolveKey(3))))
+            return AbilityUseFailure.Interaction;
+        if (_characterControl && _characterControl.isDashing) return AbilityUseFailure.Busy;
+        if (!_breakerCombat.CanPrepare(ability)) return AbilityUseFailure.Requirement;
+        if (IsCasting && ResolveCancel(CancelTarget.Skill, _ => true) != CancelDecision.Authorized)
+            return AbilityUseFailure.Busy;
+        if (!playerActor.HasMana(ability.ManaCost)) return AbilityUseFailure.NotEnoughMana;
+        return null;
+    }
 
     private enum AbilityState
     {
@@ -83,6 +120,7 @@ public class AbilityHolder : MonoBehaviour
 
     private void Awake()
     {
+        _inputClock = Time.unscaledTime;
         playerActor = GetComponent<PlayerActor>();
         _characterControl = GetComponent<CharControlScript>();
     }
@@ -100,9 +138,27 @@ public class AbilityHolder : MonoBehaviour
         RefreshWeaponAbilities(force: true);
     }
 
+    private void OnDisable()
+    {
+        _inputBuffer.TryConsume(_inputClock, true, out _);
+        _bufferedContinuation = 0; _bufferedDash = null;
+        _impactDeferredSlot = -1;
+        _impactDeferredWeapon = null;
+    }
+
     private void Update()
     {
+        // Unscaled input validity excludes menu pause and hit-stop; action clocks remain scaled.
+        if (!BlocksWorldInput && (!playerActor || !playerActor.IsCombatHitStopped)) _inputClock += Time.unscaledDeltaTime;
         RefreshWeaponAbilities(force: false);
+        if (_impactDeferredSlot >= 0 && playerActor && !playerActor.IsResolvingGauntletImpact)
+        {
+            int slot = _impactDeferredSlot;
+            var requestedWeapon = _impactDeferredWeapon;
+            _impactDeferredSlot = -1;
+            _impactDeferredWeapon = null;
+            if (requestedWeapon == playerActor.CurrentWeapon) TryUseAbility(slot);
+        }
 
         for (int i = 0; i < activeAbilities.Length; i++)
         {
@@ -215,7 +271,27 @@ public class AbilityHolder : MonoBehaviour
 
     public bool TryUseAbility(int index)
     {
+        if (playerActor && playerActor.IsResolvingGauntletImpact)
+        {
+            if (BlocksWorldInput) return Reject(index, AbilityUseFailure.Interaction);
+            if (index < 0 || index >= activeAbilities.Length || !activeAbilities[index]) return false;
+            _impactDeferredSlot = index;
+            _impactDeferredWeapon = playerActor.CurrentWeapon;
+            return true;
+        }
         RefreshWeaponAbilities(false);
+        if (index == 3 && _breakerCombat && _breakerCombat.IsCadencedAsura &&
+            (_breakerCombat.IsCadencedWaiting || _breakerCombat.CanBufferCadencedContinuation))
+        {
+            if (BlocksWorldInput || !isActiveAndEnabled || playerActor.IsDead) return Reject(index, AbilityUseFailure.Busy);
+            long execution = _breakerCombat.CadencedExecution;
+            if (_breakerCombat.IsCadencedWaiting)
+                return _breakerCombat.TryContinueCadenced(execution) || Reject(index, AbilityUseFailure.Requirement);
+            if (!_breakerCombat.CanBufferCadencedContinuation) return Reject(index, AbilityUseFailure.Busy);
+            _bufferedDash = null; _bufferedContinuation = execution;
+            _inputBuffer.Store(new CommandIntent(CommandKind.Skill4, null, Vector3.zero, _inputClock, _intentSequence++));
+            return true;
+        }
         if (index < 0 || index >= activeAbilities.Length || !activeAbilities[index]) return false;
         Ability ability = activeAbilities[index];
         // R13.3/R13.4 — a slot that is not Ready is on cooldown/active and cannot be re-activated.
@@ -263,6 +339,16 @@ public class AbilityHolder : MonoBehaviour
         // or the press was buffered/rejected). Only skill slots (0..3) consult the resolver with
         // CancelTarget.Skill here; the trailing Busy for a non-skill slot is a defensive fallback.
         bool isSkillSlot = index >= 0 && index < 4;
+        if (IsCadencedWaiting && !(ability is BreakerGauntletAbility))
+        {
+            if (!ability.CanActivate(gameObject)) return Reject(index, AbilityUseFailure.Requirement);
+            if (!playerActor.HasMana(ability.ManaCost)) return Reject(index, AbilityUseFailure.NotEnoughMana);
+        }
+        if (IsCasting && ability is BreakerGauntletAbility incoming && _breakerCombat)
+        {
+            if (!_breakerCombat.CanPrepare(incoming)) return Reject(index, AbilityUseFailure.Requirement);
+            if (!playerActor.HasMana(ability.ManaCost)) return Reject(index, AbilityUseFailure.NotEnoughMana);
+        }
         if (IsCasting && (!isSkillSlot || !TryCancelActiveForSkill(index)))
             return isSkillSlot ? false : Reject(index, AbilityUseFailure.Busy);
         if (!ability.CanActivate(gameObject)) return Reject(index, AbilityUseFailure.Requirement);
@@ -325,6 +411,8 @@ public class AbilityHolder : MonoBehaviour
     /// <returns>The <see cref="CancelDecision"/> from the shared resolver.</returns>
     private CancelDecision ResolveCancel(CancelTarget target, DestinationAvailability availability)
     {
+        if (IsCadencedWaiting)
+            return availability(target) ? CancelDecision.Authorized : CancelDecision.DeniedUnavailable;
         // Task 15.2: the profile + global progress come from the active executor's single computation
         // (TryGetCancelContext) instead of being recomputed here. The CancelRules are authored over
         // global [0, 1] progress, so this is the global fraction the resolver needs; each executor also
@@ -477,9 +565,10 @@ public class AbilityHolder : MonoBehaviour
     /// </summary>
     private void BufferDashIntent(DashScript dash)
     {
+        _bufferedContinuation = 0;
         _bufferedDash = dash;
         _inputBuffer.Store(new CommandIntent(
-            CommandKind.Dash, null, Vector3.zero, Time.unscaledTime, _intentSequence++));
+            CommandKind.Dash, null, Vector3.zero, _inputClock, _intentSequence++));
     }
 
     /// <summary>
@@ -492,7 +581,16 @@ public class AbilityHolder : MonoBehaviour
     /// </summary>
     private void TickDashBuffer()
     {
-        _inputBuffer.Expire(Time.unscaledTime);
+        _inputBuffer.Expire(_inputClock);
+        if (_bufferedContinuation != 0)
+        {
+            if (!_breakerCombat || _breakerCombat.CadencedExecution != _bufferedContinuation)
+            { _inputBuffer.TryConsume(_inputClock, true, out _); _bufferedContinuation = 0; }
+            else if (!BlocksWorldInput && _inputBuffer.TryConsume(_inputClock, IsCadencedWaiting, out _))
+            { long execution = _bufferedContinuation; _bufferedContinuation = 0; _breakerCombat.TryContinueCadenced(execution); }
+            if (!_inputBuffer.HasPending) _bufferedContinuation = 0;
+            return;
+        }
         if (!_inputBuffer.HasPending || !_bufferedDash) return;
 
         DashScript dash = _bufferedDash;
@@ -514,7 +612,7 @@ public class AbilityHolder : MonoBehaviour
             windowOpen = IsDashAvailable(dash);
         }
 
-        if (!_inputBuffer.TryConsume(Time.unscaledTime, windowOpen, out _))
+        if (!_inputBuffer.TryConsume(_inputClock, windowOpen, out _))
         {
             // Not fired this frame: either expired (already cleared by Expire/TryConsume) or the
             // window is still closed (kept, no rejection — O-6). Clear our dash ref if the slot
@@ -543,12 +641,14 @@ public class AbilityHolder : MonoBehaviour
     /// ability's authored cooldownTime (R6.2). A non-positive value is a no-op (R6.1), and slots that are
     /// Ready or Active are left untouched (R6.3).
     /// </summary>
-    public void ReduceCooldowns(float seconds)
+    public void ReduceCooldowns(float seconds) => ReduceCooldowns(seconds, -1);
+
+    internal void ReduceCooldowns(float seconds, int excludedSlot)
     {
-        if (seconds <= 0f) return;                                      // R6.1
+        if (seconds <= 0f || float.IsNaN(seconds) || float.IsInfinity(seconds)) return;
         for (int i = 0; i < cooldownTimers.Length; i++)
         {
-            if (states[i] != AbilityState.Cooldown) continue;           // R6.3
+            if (i == excludedSlot || states[i] != AbilityState.Cooldown) continue;
             cooldownTimers[i] = Mathf.Max(0f, cooldownTimers[i] - seconds); // R6.2
         }
     }

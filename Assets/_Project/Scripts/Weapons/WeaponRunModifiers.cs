@@ -24,6 +24,16 @@ public enum WeaponBoon
 /// <summary>Run-owned ranks and cast snapshots; never writes to weapon/ability assets.</summary>
 public sealed class WeaponRunModifiers
 {
+    [Serializable]
+    public sealed class LegacyRankRecord
+    {
+        [SerializeField] private string _id;
+        [SerializeField] private int _rank;
+        public string Id => _id;
+        public int Rank => _rank;
+        public LegacyRankRecord(string id, int rank) { _id = id; _rank = rank; }
+    }
+
     public sealed class Definition
     {
         public readonly WeaponBoon Kind;
@@ -89,7 +99,7 @@ public sealed class WeaponRunModifiers
         new Definition(WeaponBoon.AsuraFist,       RunWeaponFamily.Gauntlet, "Punho de Asura",      "Seus básicos carregam o finalizador: cada acerto básico gera +2 de energia Asura por nível."),
         new Definition(WeaponBoon.GuardBreaker,    RunWeaponFamily.Gauntlet, "Guarda partida",      "A cada 3 básicos seguidos, o terceiro racha a postura (+50% de dano de postura por nível) e arremessa ao quebrar a guarda."),
         new Definition(WeaponBoon.HungryCombo,     RunWeaponFamily.Gauntlet, "Combo faminto",       "Tecer básicos acelera suas skills: cada acerto básico reduz a recarga das habilidades em 0,3s por nível."),
-        new Definition(WeaponBoon.SeismicFist,     RunWeaponFamily.Gauntlet, "Punho sísmico",       "OPCIONAL: reinstaura o arremesso. Ao quebrar a guarda (básico ou skill), empurra o inimigo, +30% de distância por nível."),
+        new Definition(WeaponBoon.SeismicFist,     RunWeaponFamily.Gauntlet, "Punho sísmico",       "Knockback já autorizado: +30% de distância por nível, até 8m. Preserva Launch e não afeta R."),
         new Definition(WeaponBoon.KitingStep,      RunWeaponFamily.Bow,      "Disparo em recuo",    "Atirar recuando dá um impulso curto de reposicionamento, +25% de distância por nível. O kiting vira ritmo ativo."),
         new Definition(WeaponBoon.AdaptiveCadence, RunWeaponFamily.Bow,      "Cadência adaptativa", "Manter 6m ou mais acelera seu disparo básico em +15% por nível; aproximar-se do alvo zera o bônus."),
         new Definition(WeaponBoon.RainMark,        RunWeaponFamily.Bow,      "Chuva marcadora",     "O R marca e lentifica inimigos sob a chuva; acertos em marcados causam +20% de dano por nível enquanto a marca durar."),
@@ -105,9 +115,45 @@ public sealed class WeaponRunModifiers
     // yields the same rank multiset produces byte-identical snapshots. Keep ranks keyed by boon here; do
     // not introduce order-sensitive state (insertion-ordered lists, running accumulators across boons).
     private readonly Dictionary<WeaponBoon, int> _ranks = new Dictionary<WeaponBoon, int>();
+    private readonly List<LegacyRankRecord> _legacySource = new List<LegacyRankRecord>();
+    public IReadOnlyList<LegacyRankRecord> LegacySource => _legacySource.AsReadOnly();
+    public GauntletMutationSelection GauntletMutations { get; } = new GauntletMutationSelection();
     public RunWeaponFamily Family { get; }
     public WeaponRunModifiers(RunWeaponFamily family) => Family = family;
     public int Rank(WeaponBoon kind) => _ranks.TryGetValue(kind, out int rank) ? rank : 0;
+
+    public static bool TryDefinition(string id, out Definition definition)
+    {
+        foreach (var entry in Catalog)
+            if (entry.Id == id) { definition = entry; return true; }
+        definition = null;
+        return false;
+    }
+
+    /// <summary>Explicit, idempotent legacy import. Original records survive invalid/unknown data.</summary>
+    public bool ImportLegacyGauntletRank(LegacyRankRecord record)
+    {
+        if (record == null) { Debug.LogWarning("Gauntlet legacy import: null record."); return false; }
+        if (!_legacySource.Exists(source => source.Id == record.Id && source.Rank == record.Rank))
+            _legacySource.Add(new LegacyRankRecord(record.Id, record.Rank));
+        if (Family != RunWeaponFamily.Gauntlet || !TryDefinition(record.Id, out var definition)
+            || definition.Family != RunWeaponFamily.Gauntlet || record.Rank < 1 || record.Rank > definition.MaxRank)
+        {
+            Debug.LogWarning($"Gauntlet legacy import: preserved unsupported record '{record.Id}' rank {record.Rank} without applying it.");
+            return false;
+        }
+        while (Rank(definition.Kind) < record.Rank) if (!Add(definition)) return false;
+        if (definition.Kind == WeaponBoon.ShockRing)
+            GauntletMutations.Select(GauntletMutation.Epicenter);
+        return true;
+    }
+
+    internal void ClearRunInventory()
+    {
+        _ranks.Clear();
+        _legacySource.Clear();
+        GauntletMutations.Clear();
+    }
 
     // Invalid-modifier gate (Requisito 12.8 / task 15.6 / Property 40): Add is the single entry point that
     // records a run rank, so it is also the single point that must refuse — and *log* the refusal of — a
@@ -150,7 +196,8 @@ public sealed class WeaponRunModifiers
     public static RunWeaponFamily Identify(WeaponScript weapon)
     {
         if (weapon.FiresArrows) return RunWeaponFamily.Bow;
-        foreach (Ability skill in weapon.abilities) if (skill is BreakerGauntletAbility) return RunWeaponFamily.Gauntlet;
+        if (weapon.abilities != null)
+            foreach (Ability skill in weapon.abilities) if (skill is BreakerGauntletAbility) return RunWeaponFamily.Gauntlet;
         return RunWeaponFamily.Spear;
     }
     public float MeleeScale => 1f + .3f * Rank(WeaponBoon.LongReach) + .25f * Rank(WeaponBoon.LongFists);
@@ -251,8 +298,8 @@ public sealed class WeaponRunModifiers
         return plan;
     }
     // Immutability contract (Requisito 12.1/12.5/12.6): every returned AreaHitStep is a fresh deep copy
-    // of the asset's authored step (JsonUtility round-trip). AreaHitStep holds only value-type fields, so
-    // the round-trip is a genuine deep clone with no shared reference back into ability.HitSteps; the
+    // of the asset's authored step (value-field copy). AreaHitStep holds only value-type fields, so
+    // the value-field copy is an independent clone with no shared reference back into ability.HitSteps; the
     // returned list never contains a reference into the source asset. Downstream loop rules
     // (GauntletLoopSteps.Configure) and the Flurry/Asura soft-grouping therefore mutate clones only and
     // move enemies through their own SoftGroupingService locomotion — no parallel movement channel and no
@@ -264,33 +311,28 @@ public sealed class WeaponRunModifiers
     // the ability's authored HitSteps order and echoes appended deterministically, so the result depends
     // only on the final rank multiset, not on the order boons were acquired.
     public List<AreaHitStep> GauntletSteps(BreakerGauntletAbility ability, int slot)
+        => ComposeGauntletSteps(ability ? ability.HitSteps : null, slot);
+
+    internal List<AreaHitStep> ComposeGauntletSteps(IReadOnlyList<AreaHitStep> sources, int slot, bool applyLegacyGeometry = true)
     {
         var steps = new List<AreaHitStep>();
         // An ability with no authored steps (a fresh/placeholder asset) has a null HitSteps; treat it as
         // an empty sequence so planning never throws (echoes below also no-op on an empty list).
-        if (ability == null || ability.HitSteps == null) return steps;
+        if (sources == null) return steps;
         
-foreach (AreaHitStep source in ability.HitSteps)
+foreach (AreaHitStep source in sources)
         {
             if (source == null) continue;
-            AreaHitStep step = JsonUtility.FromJson<AreaHitStep>(JsonUtility.ToJson(source));
+            AreaHitStep step = source.Copy();
             step.rangeOverride *= MeleeScale; step.boxSize *= MeleeScale; step.sphereRadius *= MeleeScale;
             step.stanceDamage *= 1 + .75f * Rank(WeaponBoon.StanceCrusher);
             step.pushDistance *= 1 + .3f * Rank(WeaponBoon.StanceCrusher);
-            // gauntlet-boon-playstyle-overhaul R7 (SeismicFist, "Punho sísmico"): opt-in deliberate
-            // knockback. When the boon is active, the cloned step declares StanceBreakEffect.Knockback and
-            // scales knockbackDistance by (1 + 0.3 * rank); the per-hit pushDistance is left untouched (the
-            // hard displacement comes only from the Stance_Break knockback, resolved through the enemy's
-            // locomotion). At rank 0 nothing here runs, so the baseline no-push behavior and the source's
-            // authored breakEffect/knockbackDistance are unchanged (R7.3). The scaling lands on the per-cast
-            // JsonUtility clone only, so the source asset is never mutated (R7.4). Monotonic in rank (R7.1).
+            // Phase 3: amplify only an authored Knockback. Launch and R retain their contracts.
             int seismic = Rank(WeaponBoon.SeismicFist);
-            if (seismic > 0)
-            {
-                step.breakEffect = StanceBreakEffect.Knockback;
-                step.knockbackDistance *= 1 + .3f * seismic;
-            }
-            if (slot == 2 && Rank(WeaponBoon.ShockRing) > 0)
+            if (seismic > 0 && slot != 3 && step.breakEffect == StanceBreakEffect.Knockback)
+                step.knockbackDistance = Mathf.Min(DisplacementTier.KnockbackMax,
+                    step.knockbackDistance * (1f + .3f * seismic));
+            if (applyLegacyGeometry && slot == 2 && Rank(WeaponBoon.ShockRing) > 0)
             {
                 step.hitShape = AreaHitShape.Sphere;
                 step.sphereRadius = Mathf.Max(step.sphereRadius, step.boxSize.x * .5f) * (1 + .2f * Rank(WeaponBoon.ShockRing));
@@ -304,13 +346,14 @@ foreach (AreaHitStep source in ability.HitSteps)
             AreaHitStep last = steps[steps.Count - 1];
             for (int i = 0; i < echoes; i++)
             {
-                AreaHitStep echo = JsonUtility.FromJson<AreaHitStep>(JsonUtility.ToJson(last));
+                AreaHitStep echo = last.Copy();
                 echo.delay += .18f * (i + 1); echo.damageMultiplier *= slot == 1 ? .55f : .65f;
+                // bonusDamage is part of the base before damageMultiplier; scaling both would square its fraction.
                 echo.stanceDamage *= slot == 1 ? .55f : .65f; steps.Add(echo);
             }
         }
         // impactful-weapon-boons R7 (Shockwave Finisher): after the combo's final resolved step (echoes
-        // included), release one spherical burst centered on the player. Built as a JsonUtility deep clone
+        // included), release one spherical burst centered on the player. Built as an independent value-field clone
         // of the final step, so the source ability's authored HitSteps are never mutated (R7.4) and the
         // clone carries the finisher's inherited stanceDamage/pushDistance (already StanceCrusher-scaled in
         // the loop above) so the wave applies stance and outward push through the same AreaHitStep channel
@@ -320,7 +363,7 @@ foreach (AreaHitStep source in ability.HitSteps)
         if (shock > 0 && steps.Count > 0)
         {
             AreaHitStep finisher = steps[steps.Count - 1];
-            AreaHitStep wave = JsonUtility.FromJson<AreaHitStep>(JsonUtility.ToJson(finisher));
+            AreaHitStep wave = finisher.Copy();
             wave.hitShape = AreaHitShape.Sphere;
             wave.sphereRadius = 3f * (1 + .2f * shock);                   // R7.2: base 3m, +20% per rank
             wave.localOffset = new Vector3(0, 1f - wave.sphereRadius, 0); // center on the player (ShockRing pattern)

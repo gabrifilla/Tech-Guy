@@ -26,6 +26,7 @@ namespace TechGuy.Tests
         // a bounce, and redirects (consuming exactly one bounce) only when none remain in-line.
         // Validates: Requirements 1.1, 1.2, 1.4
         [UnityTest]
+        [Timeout(600000)] // Preserve 100 generated real-time projectile cases under grouped hit-stop.
         public IEnumerator Property1_PiercesAllInlineBeforeConsumingAnyBounce()
         {
             // A seeded loop of generated collinear layouts. Physics + frame stepping makes each case a
@@ -54,11 +55,11 @@ namespace TechGuy.Tests
                 ArsenalProjectile arrow = _rig.FireArrow(Vector3.zero, direction, 60f, piercing: true, ricochetBounces: startingBounces);
                 Assert.IsNotNull(arrow, $"case {c}: arrow failed to spawn");
 
-                int bouncesWhileInlineRemained = startingBounces;
+
                 int framesInlineExhausted = -1;
 
                 // Step frames until the arrow is gone or its range is spent.
-                for (int frame = 0; frame < 400 && arrow; frame++)
+                for (int frame = 0; frame < 400 && arrow && arrow.isActiveAndEnabled; frame++)
                 {
                     yield return null; // one Update tick (physics sweep + hit resolution)
 
@@ -68,13 +69,11 @@ namespace TechGuy.Tests
                     if (allInlineHit && framesInlineExhausted < 0)
                     {
                         framesInlineExhausted = frame;
-                        bouncesWhileInlineRemained = _rig.Bounces(arrow);
                     }
+                    if (!allInlineHit)
+                        Assert.AreEqual(startingBounces, _rig.Bounces(arrow),
+                            $"case {c}: bounce consumed while an in-line enemy remains unhit");
                 }
-
-                // R1.1/R1.4: no bounce was consumed while un-hit in-line enemies still remained.
-                Assert.AreEqual(startingBounces, bouncesWhileInlineRemained,
-                    $"case {c}: a ricochet bounce was consumed before every in-line enemy was pierced");
 
                 // Every in-line enemy took damage (pierced through).
                 foreach (Actor e in inline)

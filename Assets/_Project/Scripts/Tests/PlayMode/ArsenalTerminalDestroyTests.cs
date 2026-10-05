@@ -7,8 +7,8 @@ namespace TechGuy.Tests
 {
     /// <summary>
     /// PlayMode example test for R1 criterion 1.5 of modifier-synergies-theme17: an arrow with zero
-    /// remaining ricochet bounces and piercing disabled is destroyed after resolving a hit. Runs in
-    /// PlayMode so the real destroy lifecycle (deferred to end of frame) is observed.
+    /// remaining ricochet bounces and piercing disabled is released after resolving a hit. Runs in
+    /// PlayMode so the pooled terminal lifecycle (deferred to end of frame) is observed.
     /// </summary>
     public sealed class ArsenalTerminalDestroyTests
     {
@@ -36,11 +36,11 @@ namespace TechGuy.Tests
             for (int frame = 0; frame < 120; frame++)
             {
                 yield return null;
-                if (!arrow) { destroyed = true; break; }
+                if (!arrow || !arrow.isActiveAndEnabled) { destroyed = true; break; }
             }
 
             Assert.IsTrue(_rig.DamageEvents.Contains(enemy), "the enemy was never hit");
-            Assert.IsTrue(destroyed, "arrow was not destroyed after resolving the hit with no bounces and no piercing");
+            Assert.IsTrue(destroyed, "arrow was not released after resolving the hit with no bounces and no piercing");
         }
 
         // Complementary guard: an arrow that still has bounces or piercing does NOT terminate on the

@@ -164,6 +164,11 @@ namespace TechGuy.Tests
             SetBackingProperty(combat, nameof(BreakerGauntletCombat.IsExecuting), true);
             SetBackingProperty(combat, nameof(BreakerGauntletCombat.ExecutionDuration), duration);
             SetPrivate(combat, "_activeAbility", active);
+            if (!GauntletExecutionSnapshot.TryBuild(active,
+                active.AsuraBurst ? GauntletActionSlot.R : GauntletActionSlot.Q, null, out var snapshot))
+                throw new InvalidOperationException("The injected action requires a valid execution snapshot.");
+            SetPrivate(combat, "_snapshot", snapshot);
+            SetPrivate(combat, "_activeProfile", snapshot.CopyProfile());
             SetPrivate(combat, "_elapsed", elapsed);
 
             SetPrivate(Holder, "_breakerCombat", combat);
@@ -179,6 +184,8 @@ namespace TechGuy.Tests
         {
             SetBackingProperty(combat, nameof(BreakerGauntletCombat.IsExecuting), false);
             SetPrivate(combat, "_activeAbility", null);
+            SetPrivate(combat, "_snapshot", null);
+            SetPrivate(combat, "_activeProfile", null);
         }
 
         /// <summary>
@@ -192,6 +199,7 @@ namespace TechGuy.Tests
             var ability = ScriptableObject.CreateInstance<BreakerGauntletAbility>();
             ability.name = "DashTestCastAbility";
             SetPrivate(ability, "_asuraBurst", asuraBurst);
+            SetPrivate(ability, "_hitSteps", new[] { new AreaHitStep() });
 
             var profile = new CombatActionProfile();
             if (dashStart <= dashEnd)

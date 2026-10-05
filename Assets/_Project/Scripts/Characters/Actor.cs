@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Actor : MonoBehaviour
 {
+    [SerializeField] private CombatAffiliation _combatAffiliation = CombatAffiliation.Enemy;
+    public CombatAffiliation Affiliation => this is PlayerActor ? CombatAffiliation.Player : _combatAffiliation;
     public float health;
     public float maxHealth { get; protected set; }
 
@@ -16,6 +18,34 @@ public class Actor : MonoBehaviour
     public event Action<Actor> DamageAbsorbed;
     public event Action<Actor> Died;
     public bool IsDead { get; private set; }
+    public long CombatGeneration { get; private set; }
+    protected virtual void OnEnable() { CombatGeneration = checked(CombatGeneration + 1); }
+    private Action<float> _nextDamageReceipt;
+    private Action<Action> _nextDamageNotifications;
+    private Action<Action> _deathNotifications;
+
+    // A caller owns one receipt for one virtual TakeDamage call. Consume it before invoking any
+    // callback so nested damage cannot overwrite or reuse the outer hit's confirmation.
+    internal IDisposable CaptureNextDamage(Action<float> confirm, Action<Action> notifications = null) => new DamageReceipt(this, confirm, notifications);
+
+    private sealed class DamageReceipt : IDisposable
+    {
+        private Actor _actor;
+        private readonly Action<float> _previous;
+        private readonly Action<Action> _previousNotifications;
+        public DamageReceipt(Actor actor, Action<float> confirm, Action<Action> notifications)
+        {
+            _actor = actor; _previous = actor._nextDamageReceipt; _previousNotifications = actor._nextDamageNotifications;
+            actor._nextDamageReceipt = confirm; actor._nextDamageNotifications = notifications;
+        }
+        public void Dispose()
+        {
+            if (!_actor) return;
+            _actor._nextDamageReceipt = _previous;
+            _actor._nextDamageNotifications = _previousNotifications;
+            _actor = null;
+        }
+    }
     private readonly Dictionary<UnityEngine.Object, float> _damageTakenModifiers = new Dictionary<UnityEngine.Object, float>();
     // Full damage-immunity sources, keyed by source like _damageTakenModifiers (R6.9). This is the
     // SAME immunity channel the damage-taken multiplier uses (source-keyed, applied in TakeDamage),
@@ -97,6 +127,10 @@ public class Actor : MonoBehaviour
 
     public virtual void TakeDamage(float amount)
     {
+        Action<float> confirm = _nextDamageReceipt;
+        Action<Action> notifications = _nextDamageNotifications;
+        _nextDamageReceipt = null;
+        _nextDamageNotifications = null;
         if (IsDead) return;
         // Full i-frame immunity (R6.9): a damage-immune actor ignores the hit entirely — no health
         // loss, no DamageReceived, no absorber consumption. This precedes the damage-taken
@@ -121,24 +155,29 @@ public class Actor : MonoBehaviour
         float previousHealth = health;
         health = Mathf.Max(0f, health - amount);
         float actualDamage = previousHealth - health;
-        if (actualDamage > 0f) DamageReceived?.Invoke(this, actualDamage);
+        if (actualDamage > 0f) confirm?.Invoke(actualDamage);
         // A hit was fully absorbed when the absorber received a positive amount and left
         // nothing to reach health. This is distinct from a reduction via
         // _damageTakenModifiers (which scales amount before the absorber) and from a plain
         // zero-damage hit with no absorber, so ProtectionIndicator only reacts to real
         // absorption (R6.3, R6.8).
-        if (fullyAbsorbed) DamageAbsorbed?.Invoke(this);
         UpdateHealthBar();
-        HealthChanged?.Invoke(this);
-
-        EnemyTargetUI ui = EnemyTargetUI.Instance;
-        if (ui != null)
+        Action publish = () =>
         {
-            ui.NotifyHealthChanged(this);
-        }
+            if (actualDamage > 0f) DamageReceived?.Invoke(this, actualDamage);
+            if (fullyAbsorbed) DamageAbsorbed?.Invoke(this);
+            HealthChanged?.Invoke(this);
+            EnemyTargetUI ui = EnemyTargetUI.Instance;
+            if (ui != null) ui.NotifyHealthChanged(this);
+        };
+        if (notifications != null) notifications(publish); else publish();
 
         if (health <= 0)
-        { Death(); }
+        {
+            var previous = _deathNotifications;
+            _deathNotifications = notifications;
+            try { Death(); } finally { _deathNotifications = previous; }
+        }
     }
 
     /// <summary>
@@ -219,7 +258,8 @@ public class Actor : MonoBehaviour
             healthBar.gameObject.SetActive(false);
         }
 
-        Died?.Invoke(this);
+        if (_deathNotifications != null) _deathNotifications(() => Died?.Invoke(this));
+        else Died?.Invoke(this);
         Destroy(gameObject);
     }
 }

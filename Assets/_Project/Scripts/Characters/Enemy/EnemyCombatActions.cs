@@ -18,6 +18,8 @@ public sealed class EnemyCombatActions : MonoBehaviour
     private GameObject _bolt;
     private Material _boltMaterial;
     private int _version;
+    private CombatReactionController _reaction;
+    private long _reactionExecution;
     private bool _busy, _agentRotation;
     private static readonly Color Warm = new Color(1f,.55f,.16f);
     private static readonly Color Frost = new Color(.25f,.85f,1f);
@@ -46,6 +48,7 @@ public sealed class EnemyCombatActions : MonoBehaviour
     private void Awake()
     {
         _owner = GetComponent<Actor>(); _agent = GetComponent<NavMeshAgent>();
+        _reaction = GetComponent<CombatReactionController>();
         _animator = GetComponent<Animator>();
         _animation = GetComponent<SkillAnimationPlayer>() ?? gameObject.AddComponent<SkillAnimationPlayer>();
         if (_motions) _animation.Configure(_motions);
@@ -73,6 +76,9 @@ public sealed class EnemyCombatActions : MonoBehaviour
         Func<bool> valid = () => version == _version && isActiveAndEnabled && _owner && !_owner.IsDead &&
             target && !target.IsDead && target.isActiveAndEnabled && canAttack();
         if (!valid()) { Cancel(); yield break; }
+        long reactionExecution = --_reactionExecution;
+        if (!_reaction) _reaction = GetComponent<CombatReactionController>();
+        if (_reaction) _reaction.BeginOffensiveAction(reactionExecution);
         switch (kind)
         {
             case EnemyAttackKind.Charge: yield return Charge(target,damage,valid,boss); break;
@@ -107,6 +113,7 @@ public sealed class EnemyCombatActions : MonoBehaviour
         _animation.Release();
         if (_agent) _agent.updateRotation = _agentRotation;
         _busy = false;
+        if (_reaction) _reaction.EndOffensiveAction(reactionExecution);
         ClearEffects();
     }
 
@@ -559,6 +566,7 @@ public sealed class EnemyCombatActions : MonoBehaviour
 
     public void Cancel()
     {
+        if (_busy && _reaction) _reaction.CancelOffensiveActionExternally();
         _version++; Completed=false; _warning.Cancel();
         if(_animation) _animation.Release();
         if(_busy && _agent) _agent.updateRotation=_agentRotation;

@@ -45,6 +45,9 @@ public sealed class BreakerGauntletAbility : Ability
     public override bool CanActivate(GameObject parent) => parent &&
         parent.TryGetComponent(out BreakerGauntletCombat combat) && combat.CanUse(this);
 
+    public override bool TryActivate(GameObject parent) => parent &&
+        parent.TryGetComponent(out BreakerGauntletCombat combat) && combat.TryActivate(this);
+
     public override void Activate(GameObject parent)
     {
         if (parent && parent.TryGetComponent(out BreakerGauntletCombat combat)) combat.Use(this);

@@ -1,6 +1,8 @@
 using UnityEngine;
 
 /// <summary>
+/// Phase 3: contextual hits use frozen damage batches and causal confirmations; descendants never stack.
+/// The modifier below serves the legacy pipeline; contextual batches exclude it and apply their captured bonus once.
 /// Momentum Strike boon (impactful-weapon-boons R6). A run-scoped aggression-stack holder, added to
 /// the player by <c>RunBoons</c> when the Gauntlet "Golpe de ímpeto" boon is chosen.
 ///
@@ -41,7 +43,18 @@ public sealed class MomentumStacks : MonoBehaviour
     private PlayerStatModifier _mod; // the single run-scoped modifier we rescale on each stack change.
 
     /// <summary>The current stack count. Exposed for the HUD/tests; never gates the damage bonus.</summary>
+    private long _resetVersion;
+    internal long ResetVersion => _resetVersion;
     public int Stacks => _stacks;
+    internal PlayerStatModifier Modifier => _mod;
+    internal float BatchMultiplier(int rank) => 1f + .02f * rank * _stacks;
+    internal void ConfirmBatch(int confirmations, long resetVersion)
+    {
+        if (_rank <= 0 || confirmations <= 0 || !isActiveAndEnabled || resetVersion != _resetVersion) return;
+        _stacks = Mathf.Min(MaxStacks, _stacks + confirmations);
+        ApplyModifier();
+        PushHud();
+    }
 
     /// <summary>
     /// Binds this holder to the run. <paramref name="statSource"/> is the <c>RunBoons</c> instance the
@@ -53,6 +66,8 @@ public sealed class MomentumStacks : MonoBehaviour
     public void Configure(PlayerActor player, HookBus hooks, int rank, Object statSource)
     {
         Unsubscribe();
+        if (_player && _mod != null) _player.Stats.RemoveModifier(_mod);
+        _mod = null;
         _player = player;
         _hooks = hooks;
         _rank = Mathf.Max(0, rank);
@@ -77,6 +92,7 @@ public sealed class MomentumStacks : MonoBehaviour
     // R6.1: a direct hit adds one stack, clamped to MaxStacks, then rescales the stat modifier.
     private void OnDirectHit(Actor victim, float damage)
     {
+        if (_player && _player.IsResolvingGauntletImpact) return;
         if (_rank <= 0 || _stacks >= MaxStacks) return;
         _stacks++;
         ApplyModifier();
@@ -86,6 +102,8 @@ public sealed class MomentumStacks : MonoBehaviour
     // R6.3: taking any damage resets stacks (and the bonus) to zero.
     private void OnDamageReceived(Actor self, float amount)
     {
+        if (amount <= 0f || float.IsNaN(amount) || float.IsInfinity(amount)) return;
+        _resetVersion = checked(_resetVersion + 1);
         if (_stacks == 0) return;
         _stacks = 0;
         ApplyModifier();
@@ -117,5 +135,15 @@ public sealed class MomentumStacks : MonoBehaviour
         if (hud) hud.ShowMomentumStacks(_stacks);
     }
 
+    private void OnDisable()
+    {
+        _resetVersion = checked(_resetVersion + 1);
+        Unsubscribe();
+        _stacks = 0;
+        if (_player && _mod != null) _player.Stats.RemoveModifier(_mod);
+        _mod = null;
+        PushHud();
+    }
+    private void OnEnable() { if (_player) { Unsubscribe(); Subscribe(); ApplyModifier(); } }
     private void OnDestroy() => Unsubscribe();
 }

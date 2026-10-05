@@ -1,0 +1,152 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf530ed90db3cb246bad5deec7e20c4b, type: 3}
+  m_Name: DefaultProtocolCatalog
+  m_EditorClassIdentifier: TechGuy::ProtocolCatalogDefinition
+  _revision: 1
+  _entries:
+  - _kind: 0
+    _id: ignite
+    _maxRank: 3
+    _damagePerRank: 6
+    _damageFactorBase: 0
+    _damageFactorPerAdditionalRank: 0
+    _radiusBase: 0
+    _radiusPerRank: 0
+    _duration: 4
+    _tickInterval: 0.5
+    _chancePerRank: 0
+    _slowFraction: 0
+    _maxVictims: 0
+    _requiresIgnite: 0
+    _requiresElement: 0
+    _requiresPropagation: 0
+  - _kind: 1
+    _id: frost
+    _maxRank: 3
+    _damagePerRank: 0
+    _damageFactorBase: 0
+    _damageFactorPerAdditionalRank: 0
+    _radiusBase: 0
+    _radiusPerRank: 0
+    _duration: 2.5
+    _tickInterval: 0
+    _chancePerRank: 0.35
+    _slowFraction: 0.9
+    _maxVictims: 0
+    _requiresIgnite: 0
+    _requiresElement: 0
+    _requiresPropagation: 0
+  - _kind: 2
+    _id: conductor
+    _maxRank: 3
+    _damagePerRank: 0
+    _damageFactorBase: 0.45
+    _damageFactorPerAdditionalRank: 0
+    _radiusBase: 3
+    _radiusPerRank: 0.5
+    _duration: 0
+    _tickInterval: 0
+    _chancePerRank: 0
+    _slowFraction: 0
+    _maxVictims: 0
+    _requiresIgnite: 0
+    _requiresElement: 0
+    _requiresPropagation: 0
+  - _kind: 3
+    _id: detonation
+    _maxRank: 3
+    _damagePerRank: 0
+    _damageFactorBase: 0.75
+    _damageFactorPerAdditionalRank: 0.25
+    _radiusBase: 3
+    _radiusPerRank: 0.5
+    _duration: 0
+    _tickInterval: 0
+    _chancePerRank: 0
+    _slowFraction: 0
+    _maxVictims: 6
+    _requiresIgnite: 0
+    _requiresElement: 0
+    _requiresPropagation: 0
+  - _kind: 4
+    _id: reactor
+    _maxRank: 3
+    _damagePerRank: 0.12
+    _damageFactorBase: 0
+    _damageFactorPerAdditionalRank: 0
+    _radiusBase: 0
+    _radiusPerRank: 0
+    _duration: 0
+    _tickInterval: 0
+    _chancePerRank: 0
+    _slowFraction: 0
+    _maxVictims: 0
+    _requiresIgnite: 1
+    _requiresElement: 0
+    _requiresPropagation: 0
+  - _kind: 5
+    _id: resonance
+    _maxRank: 3
+    _damagePerRank: 0.4
+    _damageFactorBase: 0
+    _damageFactorPerAdditionalRank: 0
+    _radiusBase: 0
+    _radiusPerRank: 0
+    _duration: 0
+    _tickInterval: 0
+    _chancePerRank: 0
+    _slowFraction: 0
+    _maxVictims: 0
+    _requiresIgnite: 0
+    _requiresElement: 1
+    _requiresPropagation: 1
+  - _kind: 6
+    _id: overflow
+    _maxRank: 3
+    _damagePerRank: 0.5
+    _damageFactorBase: 0
+    _damageFactorPerAdditionalRank: 0
+    _radiusBase: 0
+    _radiusPerRank: 0
+    _duration: 0
+    _tickInterval: 0
+    _chancePerRank: 0
+    _slowFraction: 0
+    _maxVictims: 0
+    _requiresIgnite: 0
+    _requiresElement: 1
+    _requiresPropagation: 0
+  _limits:
+    _clock: 0
+    _impactsPerRoot: 32
+    _maxDepth: 4
+    _queuePerRoot: 64
+    _reservationsPerRoot: 32
+    _liveRoots: 64
+    _impactsPerFrame: 256
+    _queriesPerFrame: 64
+    _collidersPerQuery: 128
+    _sightTestsPerQuery: 128
+    _applicationsPerType: 256
+    _burnTicksPerFrame: 64
+    _activeVfx: 24
+    _newVfxPerFrame: 16
+    _vfxLifetime: 0.6
+    _rootLifetime: 10
+    _thermalShockMultiplier: 1.5
+    _combustionRadiusMultiplier: 1.3
+    _shatterMinTrails: 3
+    _shatterMaxTrails: 6
+    _heavyMaxSlow: 0.5
+    _eliteMaxSlow: 0.35
+    _bossMaxSlow: 0.15

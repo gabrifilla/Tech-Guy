@@ -26,3 +26,28 @@ MonoBehaviour:
   _stunResistance: 0.25
   _knockUpResistance: 0.25
   _knockbackResistance: 0.25
+  _reactionCategory: 2
+  _reaction:
+    _version: 1
+    _overrideDefaultBreakEffect: 0
+    _defaultBreakEffect: 0
+    _overrideKnockdownResistance: 0
+    _knockdownResistance: 0
+    _overrideReapplication: 0
+    _reapplication: 0
+    _knockdownFallSeconds: 0.2
+    _knockdownGroundSeconds: 0.8
+    _knockdownRecoverSeconds: 0.3
+    _defaultStunSeconds: 1
+    _defaultLaunchHeight: 2
+    _defaultLaunchSeconds: 1
+    _continuousControlLimitSeconds: 5
+    _interruptDecaySeconds: 2
+    _resumeWatchdogSeconds: 10
+    _overrideVulnerabilitySeconds: 0
+    _vulnerabilitySeconds: 4
+    _overrideBreakImmunitySeconds: 0
+    _breakImmunitySeconds: 1.5
+    _allowBossLaunch: 0
+    _allowBossKnockdown: 0
+    _allowBossKnockback: 0

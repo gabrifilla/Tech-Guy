@@ -10,6 +10,8 @@ public enum AreaHitShape
 [Serializable]
 public class AreaHitStep
 {
+    // All authoring fields are value types. Copy without JSON float round-trips between composition stages.
+    internal AreaHitStep Copy() => (AreaHitStep)MemberwiseClone();
     [Min(0f)] public float delay;
     [Min(0f)] public float rangeOverride;
     public AreaHitShape hitShape = AreaHitShape.Box;

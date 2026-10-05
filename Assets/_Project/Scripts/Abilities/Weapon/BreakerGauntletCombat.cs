@@ -10,14 +10,69 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     private PlayerActor _player;
     private AbilityHolder _holder;
     private SkillAnimationPlayer _animation;
-    private HitStopRunner _hitStop;
+
     private NavMeshAgent _agent;
     private WeaponScript _weapon;
+    [SerializeField] private GauntletAuthoring _phase3Authoring;
+    private GauntletContextRegistry _contexts;
+    private GauntletEnergyPolicy _energyPolicy;
+    private GauntletImpactContext _castContext;
+    private bool _startingCast;
+    private GauntletExecutionSnapshot _snapshot;
+    private CombatActionProfile _activeProfile;
+    public GauntletEnergyPolicy EnergyPolicy => _energyPolicy;
+    internal GauntletExecutionSnapshot ExecutionSnapshot => _snapshot;
     private Coroutine _cast;
     private BreakerGauntletAbility _activeAbility;
     private System.Collections.Generic.IReadOnlyList<AreaHitStep> _activeSteps;
     private float _elapsed;
+    private int _cadencedStrike;
+    private bool _cadencedWaiting;
+    private bool _cadencedImpactEmitted;
+    private float _cadencedWaitUntil;
+    private float _cadencedClock;
+    private int _cadencedClockFrame;
+    internal float CadencedNow
+    {
+        get
+        {
+            if (_cadencedClockFrame != Time.frameCount)
+            {
+                if (!_player.IsCombatHitStopped) _cadencedClock += Time.deltaTime;
+                _cadencedClockFrame = Time.frameCount;
+            }
+            return _cadencedClock;
+        }
+    }
+    public bool IsCadencedAsura => IsExecuting && _snapshot?.Mutation == GauntletMutation.CadencedAsura;
+    public bool IsCadencedWaiting => IsCadencedAsura && _cadencedWaiting;
+    internal long CadencedExecution => IsCadencedAsura ? _castContext.Execution : 0;
+    internal bool CanBufferCadencedContinuation => IsCadencedAsura && !_cadencedWaiting && _cadencedStrike < 2 && _elapsed >= _snapshot.CadencedRecoveryStart;
+
+    internal bool TryContinueCadenced(long execution)
+    {
+        if (!IsCadencedAsura || execution != CadencedExecution || !_cadencedWaiting || _player.IsResolvingGauntletImpact) return false;
+        if (CadencedNow > _cadencedWaitUntil) { CancelCast(); return false; }
+        _cadencedStrike++; _cadencedWaiting = false;
+        PrepareCadencedStrike();
+        return true;
+    }
+
+    private void LateUpdate()
+    {
+        // Inputs are serviced in Update first, including the inclusive end of the wait.
+        if (!IsCadencedAsura) return;
+        float now = CadencedNow;
+        if (IsCadencedWaiting && now > _cadencedWaitUntil) CancelCast();
+    }
     private bool _finisherApplied;
+    private sealed class PendingChild
+    {
+        public GauntletImpactContext Context;
+        public Coroutine Routine;
+    }
+    private readonly System.Collections.Generic.List<PendingChild> _children = new System.Collections.Generic.List<PendingChild>();
+    internal int PendingChildCount => _children.Count;
 
     // Single advance source for the active execution's ImpactEvents (task 15.1). The ledger dedups
     // every emission by (ExecutionId, ImpactEvent.Index) so the logical clock advanced in FixedUpdate
@@ -31,6 +86,9 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     private bool _savedStopped;
     private bool _savedRotation;
     private bool _agentLocked;
+    private bool _bodyTraversal;
+    private ObstacleAvoidanceType _savedAvoidance;
+    private readonly RaycastHit[] _advanceObstructions = new RaycastHit[32];
 
     // Weapon-applied soft grouping (Requisito 7.2/7.3). Both reuse SoftGroupingService's existing
     // locomotion channel (ApplyExternalDisplacement) instead of opening a parallel one; the bounded
@@ -48,7 +106,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         = new System.Collections.Generic.Dictionary<SoftGroupingService, float>();
 
     public bool IsExecuting { get; private set; }
-    public bool IsAsuraActive => IsExecuting && _activeAbility && _activeAbility.AsuraBurst;
+    public bool IsAsuraActive => IsExecuting && _snapshot != null && _snapshot.Asura;
     public float ExecutionDuration { get; private set; }
 
     /// <summary>
@@ -67,7 +125,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         get
         {
             if (!IsExecuting || !_activeAbility) return false;
-            CombatActionProfile profile = _activeAbility.CombatProfile;
+            CombatActionProfile profile = _activeProfile;
             if (profile == null) return false;
             CancelRuleSet rules = profile.BuildCancelRuleSet();
             if (!rules.TryGet(CancelTarget.Dash, out CancelRule dash)) return false;
@@ -113,7 +171,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         localProgress = 0f;
         if (!IsExecuting || !_activeAbility) return false;
 
-        CombatActionProfile profile = _activeAbility.CombatProfile;
+        CombatActionProfile profile = _activeProfile;
         if (profile == null) return false;
 
         ActionTimeline timeline = profile.BuildTimeline();
@@ -152,7 +210,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         commitment = CommitmentRules.Default;
         if (!IsExecuting || !_activeAbility) return false;
 
-        CombatActionProfile profile = _activeAbility.CombatProfile;
+        CombatActionProfile profile = _activeProfile;
         if (profile == null) return false;
 
         commitment = profile.ResolveCommitment(out _);
@@ -178,7 +236,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         globalProgress = 0f;
         if (!IsExecuting || !_activeAbility) return false;
 
-        profile = _activeAbility.CombatProfile;
+        profile = _snapshot.CopyProfile();
         globalProgress = Mathf.Clamp01(_elapsed / Mathf.Max(0.0001f, ExecutionDuration));
         return true;
     }
@@ -191,11 +249,10 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     {
         _player = GetComponent<PlayerActor>();
         _holder = GetComponent<AbilityHolder>();
+        _contexts = new GauntletContextRegistry(_player);
+        _energyPolicy = new GauntletEnergyPolicy(_momentum, _contexts, _phase3Authoring ? _phase3Authoring.Energy : new GauntletEnergyAuthoring());
         _animation = GetComponent<SkillAnimationPlayer>() ?? gameObject.AddComponent<SkillAnimationPlayer>();
-        // The thin hit-stop runtime lives on the player GameObject (same get-or-add pattern as the
-        // SkillAnimationPlayer above). It is driven once per resolved ImpactEvent by EmitAuthoredImpact
-        // (task 16.1); the pure HitStop/HitStopGrouping decision stays in the Núcleo_Compartilhado.
-        _hitStop = GetComponent<HitStopRunner>() ?? gameObject.AddComponent<HitStopRunner>();
+        // Feedback scopes close once per scheduler batch; PlayerActor owns the shared runner.
         _agent = GetComponent<NavMeshAgent>();
         _player.Died += OnDeath;
     }
@@ -205,74 +262,99 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     /// <see cref="AsuraMomentum.AddEnergy"/> which already clamps to [0, Maximum]. Thin delegate only
     /// (Requisitos 4.1/4.2).
     /// </summary>
-    public void AddAsuraEnergy(int amount) => _momentum.AddEnergy(amount);
+    public void AddAsuraEnergy(int amount)
+    {
+        if (amount < 0) return;
+        if (_energyPolicy != null) _energyPolicy.AddExternal(amount);
+        else _momentum.AddEnergy(amount); // Preserve pre-Awake injection into the same meter.
+    }
+
+    internal GauntletImpactContext BeginBasicExecution()
+    {
+        if (!IsEquipped || _energyPolicy == null || (_phase3Authoring && !_phase3Authoring.Validate(out _))) return null;
+        var mods = _player.RunModifiers;
+        var snapshot = GauntletExecutionSnapshot.CaptureBasic(mods, _phase3Authoring);
+        return _contexts.Begin(GauntletActionSlot.Basic, asuraFistRank: snapshot.Rank(WeaponBoon.AsuraFist), snapshot: snapshot);
+    }
+
+    internal GauntletImpactContext BeginGuardImpact(GauntletImpactContext parent)
+        => _contexts.BeginChild(parent, GauntletImpactOrigin.Technique,
+            WeaponRunModifiers.CatalogId(WeaponBoon.GuardBreaker));
 
     public void Configure(WeaponScript weapon)
     {
         if (_weapon == weapon) return;
         CancelCast();
-        _momentum.Reset();
+        CancelChildren();
+        _energyPolicy.Reset();
         _weapon = weapon;
     }
 
     public bool CanUse(BreakerGauntletAbility ability)
+        => !IsExecuting && CanPrepare(ability);
+
+    internal bool CanPrepare(BreakerGauntletAbility ability)
     {
+        if (_phase3Authoring && !_phase3Authoring.Validate(out _)) return false;
         if (!isActiveAndEnabled || !_holder.isActiveAndEnabled || !_player || _player.IsDead ||
-            !_weapon || _player.CurrentWeapon != _weapon || IsExecuting || !ability ||
+            !_weapon || _player.CurrentWeapon != _weapon || _startingCast || _player.IsResolvingGauntletImpact || !ability ||
             ability.HitSteps == null || ability.HitSteps.Count == 0) return false;
         if (System.Array.IndexOf(_weapon.abilities, ability) < 0) return false;
-        return !ability.AsuraBurst || _momentum.IsReady;
+        return (!ability.AsuraBurst || _momentum.IsReady) && GauntletExecutionSnapshot.TryBuild(ability,
+            (GauntletActionSlot)System.Array.IndexOf(_weapon.abilities, ability), _player.RunModifiers, out _,
+            _player.RunModifiers?.GauntletMutations, _phase3Authoring);
     }
 
     public void Use(BreakerGauntletAbility ability)
+        => TryBeginCast(ability, false);
+
+    public bool TryActivate(BreakerGauntletAbility ability) => TryBeginCast(ability, true);
+
+    private bool TryBeginCast(BreakerGauntletAbility ability, bool spendMana)
     {
-        if (!CanUse(ability)) return;
+        if (!CanUse(ability) || (spendMana && !_player.HasMana(ability.ManaCost))) return false;
         WeaponRunModifiers mods = _player.RunModifiers;
-        if (ability.AsuraBurst)
+        if (!GauntletExecutionSnapshot.TryBuild(ability, (GauntletActionSlot)System.Array.IndexOf(_weapon.abilities, ability), mods, out var snapshot, mods?.GauntletMutations, _phase3Authoring)) return false;
+        var notifications = new System.Collections.Generic.List<System.Action>();
+        _startingCast = true;
+        try
         {
-            // Requisitos 8.6/8.7: CanUse already gated R on _momentum.IsReady, so a full meter enters
-            // Asura and TryConsume zeroes it; a sub-100 meter never reaches here (activation denied,
-            // energy preserved). The post-burst reserve is a separate run-modifier grant, not a self-loop.
-            _momentum.TryConsume();
-            _momentum.AddEnergy(20 * (mods?.Rank(WeaponBoon.AsuraReserve) ?? 0));
+            _castContext = _contexts.Begin((GauntletActionSlot)System.Array.IndexOf(_weapon.abilities, ability), ability.ShockSkill,
+                snapshot.Rank(WeaponBoon.Momentum), snapshot.Rank(WeaponBoon.AsuraFist), snapshot.Rank(WeaponBoon.AsuraReserve), snapshot: snapshot);
+            if (spendMana && !_player.TrySpendMana(snapshot.ManaCost, notifications.Add))
+            { _energyPolicy.Close(_castContext); _castContext = null; return false; }
+            if (ability.AsuraBurst && !_energyPolicy.TryStartAsura(_castContext, out _, notifications.Add))
+            { _energyPolicy.Close(_castContext); _castContext = null; return false; }
+            _snapshot = snapshot;
+            _activeProfile = snapshot.CopyProfile();
+            _cast = StartCoroutine(Execute(ability));
+            foreach (var notification in notifications)
+                try { notification(); } catch (System.Exception exception) { Debug.LogException(exception); }
+            return true;
         }
-        else
-        {
-            _momentum.RegisterSkill(ability.ShockSkill);
-            _momentum.AddEnergy(10 * (mods?.Rank(WeaponBoon.Momentum) ?? 0));
-        }
-        _cast = StartCoroutine(Execute(ability));
+        finally { _startingCast = false; }
     }
 
     private IEnumerator Execute(BreakerGauntletAbility ability)
     {
+        if (_snapshot.Mutation == GauntletMutation.CadencedAsura)
+        {
+            yield return ExecuteCadenced(ability);
+            yield break;
+        }
         IsExecuting = true;
         _activeAbility = ability; _elapsed = 0; _finisherApplied = false;
         _flurryTarget = null; _asuraPulled.Clear();
-        if (ability.AsuraBurst) _player.SetDamageTakenMultiplier(this,.15f);
+        if (_snapshot.Asura) _player.SetDamageTakenMultiplier(this,.15f);
         if (TryGetComponent(out CharControlScript control)) control.CancelCombo();
         SequencedAreaAttackAbility.FaceMousePosition(transform);
         Vector3 direction = transform.forward;
-        WeaponRunModifiers mods = _player.RunModifiers;
-        int slot = System.Array.IndexOf(_weapon.abilities, ability);
-        // Per-cast step snapshot: GauntletSteps already clones (never writes the asset). On the no-run
-        // fallback path we clone here too so the loop configuration below never mutates the source
-        // ability (Requisito 12.1). The pure GauntletLoopSteps helper then pins the Manoplas loop
-        // identity for this slot — E (slot 2) lands Heavy/Breaker and its finisher declares a KnockUp
-        // so QUEBRAR flows into JUGGLE (Requisito 8.5/8.8/8.9); other slots are left as authored so the
-        // loop's ENTRAR→INTERROMPER→PRESSIONAR→QUEBRAR→JUGGLE→ASURA→FINALIZAR steps stay data-driven and
-        // each usable on its own (Requisito 8.1).
-        var steps = mods != null ? mods.GauntletSteps(ability, slot) : CloneSteps(ability.HitSteps);
-        GauntletLoopSteps.Configure(steps, slot);
-        // Gauntlet (Manopla) basic/skill hits must NOT shove the enemy: zero the per-step push nudge so
-        // every blow lands in place (dano, stance damage, stagger e rotação de reação são preservados; só
-        // o deslocamento imediato é removido). Operates on the per-cast clone, never the source asset, so
-        // other weapons (Arco/Lança) are untouched. Strong displacement stays available as a deliberate
-        // Stance_Break Knockback (e.g. a future boon/skill), which these steps do not request.
-        foreach (AreaHitStep gauntletStep in steps)
-            if (gauntletStep != null) gauntletStep.pushDistance = 0f;
+        int slot = (int)_snapshot.Slot;
+        var steps = _snapshot.CopySteps();
+        if (steps.Count > _snapshot.DirectStepCount)
+            steps.RemoveRange(_snapshot.DirectStepCount, steps.Count - _snapshot.DirectStepCount);
         _activeSteps = steps;
-        float advance = ability.AdvanceDistance * (1 + .7f * (mods?.Rank(WeaponBoon.RocketAdvance) ?? 0));
+        float advance = _snapshot.AdvanceDistance;
         _agentLocked = _agent && _agent.enabled && _agent.isOnNavMesh;
         if (_agentLocked)
         {
@@ -281,6 +363,12 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
             _agent.ResetPath();
             _agent.isStopped = true;
             _agent.updateRotation = false;
+            if (_snapshot.Mutation == GauntletMutation.DemolishingAdvance)
+            {
+                _savedAvoidance = _agent.obstacleAvoidanceType;
+                _agent.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+                _bodyTraversal = true;
+            }
         }
 
         // Task 15.3 (R3.6): generic Channel-Hold termination. When the active ability authors a
@@ -294,7 +382,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         // Channel — so no observable behavior of the shipped kit changes. The triggering control is the
         // skill slot's binding (GameControl.Skill1 + slot); dash (slot < 0) and any unmapped slot are
         // never hold-sustained.
-        CombatActionProfile holdProfile = ability ? ability.CombatProfile : null;
+        CombatActionProfile holdProfile = _activeProfile;
         bool holdSustained = holdProfile != null &&
             holdProfile.ResolveCommitment(out _) == CommitmentCategory.Channel &&
             holdProfile.ChannelTermination == ChannelTerminationMode.Hold &&
@@ -308,7 +396,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         try
         {
             float elapsed = 0f;
-            float duration = Mathf.Max(ability.activeTime, ability.AdvanceDuration);
+            float duration = Mathf.Max(_snapshot.ActiveTime, _snapshot.AdvanceDuration);
             foreach (AreaHitStep step in steps)
                 if (step != null) duration = Mathf.Max(duration, step.delay + 0.18f);
             ExecutionDuration = duration;
@@ -328,7 +416,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
                     break;
                 float delta = Time.deltaTime;
                 if (delta <= 0f) { yield return null; continue; }
-                if (ability.AsuraBurst)
+                if (_snapshot.Asura)
                 {
                     // Let the earned burst follow the fight instead of firing into empty space.
                     Quaternion before = transform.rotation;
@@ -336,18 +424,23 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
                     transform.rotation = Quaternion.RotateTowards(before,transform.rotation,180f*delta);
                     direction = transform.forward;
                 }
-                if (_agentLocked && _agent.enabled && _agent.isOnNavMesh && elapsed < ability.AdvanceDuration)
+                if (_agentLocked && _agent.enabled && _agent.isOnNavMesh && elapsed < _snapshot.AdvanceDuration)
                 {
-                    float distance = advance * Mathf.Min(delta, ability.AdvanceDuration - elapsed)
-                        / Mathf.Max(0.01f, ability.AdvanceDuration);
+                    float distance = advance * Mathf.Min(delta, _snapshot.AdvanceDuration - elapsed)
+                        / Mathf.Max(0.01f, _snapshot.AdvanceDuration);
                     Vector3 destination = transform.position + direction * distance;
+                    if (_bodyTraversal) destination = LimitTraversalToSolids(direction, distance);
                     if (_agent.Raycast(destination, out NavMeshHit edge)) destination = edge.position;
                     _agent.Move(destination - transform.position);
+                    // A delayed agent pose must not leave a due uppercut at the pre-advance position.
+                    // Copy only the position already validated by the agent and solid sweep.
+                    if (_bodyTraversal && _agent.updatePosition) transform.position = _agent.nextPosition;
                 }
+                else if (_bodyTraversal) RestoreBodyTraversal();
                 // Weapon-applied soft grouping, reapplied every frame during the cast (well within the
                 // R7.2 ≤0.25 s reapplication interval). Both route through the enemy's existing
                 // SoftGroupingService locomotion; no parallel movement channel is opened.
-                if (ability.AsuraBurst) ApplyAsuraPull(delta);            // R7.3
+                if (_snapshot.Asura) ApplyAsuraPull(delta);            // R7.3
                 else if (GauntletLoopSteps.StageForSlot(slot) == GauntletLoopStage.Flurry)
                     ApplyFlurryRegroup(delta);                            // R7.2
                 elapsed += delta;
@@ -391,6 +484,69 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         }
     }
 
+    private IEnumerator ExecuteCadenced(BreakerGauntletAbility ability)
+    {
+        IsExecuting = true; _activeAbility = ability; _cadencedStrike = 0;
+        _cadencedClock = 0f; _cadencedClockFrame = Time.frameCount;
+        _cadencedWaiting = false; _finisherApplied = false;
+        var steps = _snapshot.CopySteps();
+        _activeSteps = steps;
+        if (TryGetComponent(out CharControlScript control)) control.CancelCombo();
+        _asuraPulled.Clear(); PrepareCadencedStrike();
+        try
+        {
+            while (IsExecuting)
+            {
+                if (!_player || _player.IsDead || _player.CurrentWeapon != _weapon || !_holder.isActiveAndEnabled) yield break;
+                if (_cadencedWaiting) { yield return null; continue; }
+                if (Time.deltaTime <= 0f || _player.IsCombatHitStopped) { yield return null; continue; }
+                _elapsed = Mathf.Min(_snapshot.ActiveTime, _elapsed + Time.deltaTime);
+                _animation.Strike(Motion(ability, _cadencedStrike), _elapsed, 0f, _snapshot.CadencedImpactTime, _snapshot.ActiveTime);
+                ApplyAsuraPull(Time.deltaTime);
+                    // Wait for the FixedUpdate scheduler, including when a frame crossed the whole active phase.
+                if (_elapsed >= _snapshot.ActiveTime)
+                {
+                    if (!_cadencedImpactEmitted) { yield return null; continue; }
+                    if (!IsExecuting) yield break;
+                    ReleaseCadencedStrike();
+                    if (_cadencedStrike >= 2) yield break;
+                    _cadencedWaiting = true; _cadencedWaitUntil = CadencedNow + _snapshot.CadencedWaitDuration;
+                }
+                yield return null;
+            }
+        }
+        finally { RestoreCastState(); _cast = null; }
+    }
+
+    private void PrepareCadencedStrike()
+    {
+        _elapsed = 0f; ExecutionDuration = _snapshot.ActiveTime;
+        _cadencedImpactEmitted = false;
+        _activeProfile = _snapshot.CopyProfile().ForCadencedStep(_cadencedStrike);
+        SequencedAreaAttackAbility.FaceMousePosition(transform);
+        _player.SetDamageTakenMultiplier(this, .15f);
+        _agentLocked = _agent && _agent.enabled && _agent.isOnNavMesh;
+        if (_agentLocked)
+        {
+            _savedStopped = _agent.isStopped; _savedRotation = _agent.updateRotation;
+            _agent.ResetPath(); _agent.isStopped = true; _agent.updateRotation = false;
+        }
+        BuildImpactScheduler(_activeAbility, _activeSteps);
+    }
+
+    private void ReleaseCadencedStrike()
+    {
+        _scheduler?.StopAndCloseWindows(); _scheduler = null;
+        if (_animation) _animation.Release();
+        _player.RemoveDamageTakenMultiplier(this);
+        if (_agentLocked && _agent)
+        {
+            _agent.updateRotation = _savedRotation;
+            if (_agent.enabled && _agent.isOnNavMesh) _agent.isStopped = _savedStopped;
+        }
+        _agentLocked = false;
+    }
+
     // Deep-clones the asset's authored steps so the no-run fallback path can be configured without
     // mutating the source ability (mirrors WeaponRunModifiers.GauntletSteps' JsonUtility round-trip so
     // the source ScriptableObject stays untouched — Requisito 12.1).
@@ -418,9 +574,16 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     private void FixedUpdate()
     {
         if (_scheduler == null || !IsExecuting) return;
+        if (IsCadencedAsura && _elapsed >= _snapshot.CadencedImpactTime && !_cadencedImpactEmitted)
+        {
+            _cadencedImpactEmitted = true;
+            _scheduler.Advance(_snapshot.CadencedImpactFraction);
+            if (_scheduler == null || !IsExecuting) return;
+        }
         float duration = ExecutionDuration;
         float progress = duration > 0f ? Mathf.Clamp01(_elapsed / duration) : 1f;
-        _scheduler.Advance(progress);
+        using (_player.BeginImpactFeedback(0f, _scheduler.ExecutionId.Value))
+            _scheduler.Advance(progress);
     }
 
     /// <summary>
@@ -437,7 +600,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         System.Collections.Generic.IReadOnlyList<AreaHitStep> steps)
     {
         _scheduler = null;
-        CombatActionProfile profile = ability ? ability.CombatProfile : null;
+        CombatActionProfile profile = _activeProfile;
         if (profile == null || profile.ImpactEvents == null || profile.ImpactEvents.Count == 0) return;
 
         ActionTimeline timeline = profile.BuildTimeline();
@@ -464,8 +627,8 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         if (stepIndex < 0 || stepIndex >= steps.Count) return;
         AreaHitStep step = steps[stepIndex];
         if (step == null) return;
-        int enemiesDamaged = Impact(ability, step, stepIndex);
-        ApplyHitStopForImpact(ability, impact, enemiesDamaged);
+        using (_player.BeginImpactFeedback(HitStopDuration(ability, impact), _scheduler != null ? _scheduler.ExecutionId.Value : 0, impact.Index))
+            Impact(ability, step, stepIndex);
     }
 
     /// <summary>
@@ -483,26 +646,21 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     /// <see cref="HitStopGrouping.Combine"/>, which <see cref="HitStopRunner.Apply"/>'s overlap policy
     /// honors by keeping the longest in-flight pause rather than stacking them.
     /// </summary>
-    private void ApplyHitStopForImpact(BreakerGauntletAbility ability, ImpactEvent impact, int enemiesDamaged)
+    private float HitStopDuration(BreakerGauntletAbility ability, ImpactEvent impact)
     {
-        if (_hitStop == null) return;
-        CombatActionProfile profile = ability ? ability.CombatProfile : null;
-        if (profile == null) return;
+        CombatActionProfile profile = _activeProfile;
+        if (profile == null) return 0f;
 
         System.Collections.Generic.IReadOnlyList<HitStopProfile> profiles = profile.HitStopProfiles;
         int hitStopIndex = impact.HitStopProfileIndex;
-        if (profiles == null || hitStopIndex < 0 || hitStopIndex >= profiles.Count) return;
+        if (profiles == null || hitStopIndex < 0 || hitStopIndex >= profiles.Count) return 0f;
 
-        float duration = profiles[hitStopIndex].ClampedDuration;
-        if (HitStop.ShouldApply(duration, enemiesDamaged))
-        {
-            _hitStop.Apply(duration);
-        }
+        return profiles[hitStopIndex].ClampedDuration;
     }
 
-    private static SkillMotion Motion(BreakerGauntletAbility ability,int index)
+    private SkillMotion Motion(BreakerGauntletAbility ability,int index)
     {
-        if (ability.ShockSkill && index >= ability.HitSteps.Count-1) return SkillMotion.Slam;
+        if (_snapshot.Shock && index >= _snapshot.DirectStepCount-1) return SkillMotion.Slam;
         return index%2==0 ? SkillMotion.PunchLeft : SkillMotion.PunchRight;
     }
     // Returns the number of enemies this impact resolved damage on, so the authored-ImpactEvent path
@@ -511,16 +669,87 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     // the value — it never carried a hit-stop profile — so its behavior is unchanged.
     private int Impact(BreakerGauntletAbility ability,AreaHitStep step,int index)
     {
-        bool finisher=index>=ability.HitSteps.Count-1;
+        var snapshot = _snapshot;
+        bool finisher=index>=snapshot.LastDirectProducer;
         if (finisher) _finisherApplied=true;
         _animation.Contact(Motion(ability,index));
-        int enemiesDamaged=SequencedAreaAttackAbility.ApplyHitStep(transform,_player,_weapon,step,true,ability.EffectColor);
+        var context = _castContext;
+        if (context != null && _contexts.ClaimProducer(context, index))
+            ScheduleChildren(context, snapshot);
+        bool secondary = context != null && index >= snapshot.DirectStepCount;
+        if (secondary) context = _contexts.BeginChild(context, GauntletImpactOrigin.Echo,
+            WeaponRunModifiers.CatalogId(snapshot.Asura ? WeaponBoon.AsuraEcho : WeaponBoon.FlurryEcho));
+        int enemiesDamaged;
+        try { enemiesDamaged = SequencedAreaAttackAbility.ApplyHitStep(transform,_player,_weapon,step,true,snapshot.EffectColor,context,_energyPolicy,index); }
+        finally { if (secondary) _energyPolicy.Close(context); }
         bool radial=step.hitShape==AreaHitShape.Sphere;
         Vector3 origin=transform.TransformPoint(step.localOffset)+(radial ? Vector3.up*(step.sphereRadius-1f) : Vector3.zero);
         GauntletImpactVfx.Spawn(origin,transform.forward,
             step.hitShape==AreaHitShape.Sphere ? step.sphereRadius*2 : step.rangeOverride,
-            radial ? step.sphereRadius*2 : step.boxSize.x,ability.EffectColor,ability.ShockSkill && finisher,ability.AsuraBurst && finisher,index%2==0 ? -1 : 1,radial);
+            radial ? step.sphereRadius*2 : step.boxSize.x,snapshot.EffectColor,snapshot.Shock && finisher,snapshot.Asura && finisher,index%2==0 ? -1 : 1,radial);
         return enemiesDamaged;
+    }
+
+    private void ScheduleChildren(GauntletImpactContext parent, GauntletExecutionSnapshot snapshot)
+    {
+        var steps = snapshot.CopySteps();
+        int echoCount = snapshot.Slot == GauntletActionSlot.W ? 2 * snapshot.Rank(WeaponBoon.FlurryEcho)
+            : snapshot.Slot == GauntletActionSlot.R ? snapshot.Rank(WeaponBoon.AsuraEcho) : 0;
+        Matrix4x4 matrix = transform.localToWorldMatrix;
+        Quaternion rotation = transform.rotation;
+        var weapon = _weapon;
+        if (snapshot.Mutation == GauntletMutation.PressureField)
+        {
+            var pulse = steps[snapshot.LastDirectProducer].Copy();
+            pulse.damageMultiplier *= .25f; pulse.stanceDamage *= .25f;
+            pulse.reactionType = HitReactionType.None; pulse.breakEffect = StanceBreakEffect.None; pulse.pushDistance = 0f;
+            var zone = new PendingChild { Context = _contexts.BeginChild(parent, GauntletImpactOrigin.Persistent,
+                GauntletContentAuthoring.ForMutation(GauntletMutation.PressureField).Id) };
+            _children.Add(zone);
+            zone.Routine = StartCoroutine(ExecuteChild(zone, pulse, 0, snapshot.PressurePulseInterval, matrix, rotation, weapon, snapshot, 4));
+        }
+        for (int i = snapshot.DirectStepCount; i < steps.Count; i++)
+        {
+            bool echo = i < snapshot.DirectStepCount + echoCount;
+            string producer = WeaponRunModifiers.CatalogId(echo
+                ? snapshot.Slot == GauntletActionSlot.R ? WeaponBoon.AsuraEcho : WeaponBoon.FlurryEcho
+                : WeaponBoon.Shockwave);
+            var child = new PendingChild { Context = _contexts.BeginChild(parent,
+                echo ? GauntletImpactOrigin.Echo : GauntletImpactOrigin.Technique, producer) };
+            _children.Add(child);
+            child.Routine = StartCoroutine(ExecuteChild(child, steps[i], i,
+                steps[i].delay - steps[snapshot.LastDirectProducer].delay, matrix, rotation, weapon, snapshot));
+        }
+    }
+
+    private IEnumerator ExecuteChild(PendingChild child, AreaHitStep step, int index, float delay,
+        Matrix4x4 matrix, Quaternion rotation, WeaponScript weapon, GauntletExecutionSnapshot snapshot, int pulses = 1)
+    {
+        try
+        {
+            float elapsed = 0f;
+            // An explicit zero delay still follows the accepted direct producer, never preceding its HP batch.
+            if (delay == 0f) yield return null;
+            for (int pulse = 0; pulse < pulses; pulse++)
+            {
+                while (elapsed < delay * (pulse + 1))
+                { yield return null; if (_player && !_player.IsCombatHitStopped) elapsed += Time.deltaTime; }
+                if (!_player || _player.IsDead || !_energyPolicy.IsLive(child.Context)) yield break;
+                SequencedAreaAttackAbility.ApplyHitStep(matrix, rotation, _player, weapon, step,
+                    true, snapshot.EffectColor, child.Context, _energyPolicy, index + pulse);
+            }
+        }
+        finally { _energyPolicy.Close(child.Context); _children.Remove(child); }
+    }
+
+    private void CancelChildren()
+    {
+        foreach (var child in _children.ToArray())
+        {
+            if (child.Routine != null) StopCoroutine(child.Routine);
+            _energyPolicy?.Close(child.Context);
+        }
+        _children.Clear();
     }
     // R7.2: while W (Flurry) runs, reapply soft grouping to the struck target so it is kept within
     // 2.0 m of the chaining point. The chaining point is captured the first frame a target is locked;
@@ -617,9 +846,9 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     {
         if (!IsExecuting || !_activeAbility) return;
         // Cash out the main finisher once; optional echoes are traded for an immediate escape.
-        if (!_finisherApplied && _activeSteps!=null)
+        if (_castContext == null && !_finisherApplied && _activeSteps!=null)
         {
-            int index=_activeAbility.HitSteps.Count-1;
+            int index=_snapshot.LastDirectProducer;
             // When the single advance source is active, cash the finisher through the scheduler's
             // ledger (task 15.1): if the FixedUpdate clock already emitted that index it is a no-op,
             // so the dodge-cancel never double-applies an impact the Active phase already fired.
@@ -646,7 +875,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     /// </summary>
     private bool TryEmitFinisherThroughScheduler(int finisherStepIndex)
     {
-        CombatActionProfile profile = _activeAbility ? _activeAbility.CombatProfile : null;
+        CombatActionProfile profile = _activeAbility ? _activeProfile : null;
         if (profile == null || profile.ImpactEvents == null) return false;
         for (int i = 0; i < profile.ImpactEvents.Count; i++)
         {
@@ -662,6 +891,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         if (!IsExecuting) return;
         if (_animation) _animation.Release();
         if (_player) _player.RemoveDamageTakenMultiplier(this);
+        RestoreBodyTraversal();
         if (_agentLocked && _agent)
         {
             _agent.updateRotation = _savedRotation;
@@ -669,11 +899,42 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         }
         _agentLocked = false;
         IsExecuting = false;
+        _cadencedWaiting = false;
+        if (_castContext != null) { _energyPolicy.Close(_castContext); _castContext = null; }
         // Close any ImpactWindow still open and release the single advance source so a cancelled or
         // finished execution never leaves a window alive or a stale scheduler ticking (task 15.1, R2.6).
         if (_scheduler != null) { _scheduler.StopAndCloseWindows(); _scheduler = null; }
-        _activeAbility = null; _activeSteps = null;
+        _activeAbility = null; _activeSteps = null; _snapshot = null; _activeProfile = null;
         _flurryTarget = null; _asuraPulled.Clear();
+    }
+
+    private Vector3 LimitTraversalToSolids(Vector3 direction, float distance)
+    {
+        Vector3 position = transform.position;
+        float radius = Mathf.Max(.01f, _agent.radius);
+        float height = Mathf.Max(radius * 2f, _agent.height);
+        int count = Physics.CapsuleCastNonAlloc(position + Vector3.up * radius,
+            position + Vector3.up * (height - radius), radius, direction, _advanceObstructions,
+            distance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+        if (count == _advanceObstructions.Length) return position;
+        float allowed = distance;
+        for (int i = 0; i < count; i++)
+        {
+            var hit = _advanceObstructions[i];
+            if (!hit.collider || hit.collider.GetComponentInParent<Actor>()) continue;
+            // Ground below the capsule is support, not a forward blocking surface.
+            if (hit.normal.y > .5f) continue;
+            allowed = Mathf.Min(allowed, Mathf.Max(0f, hit.distance - .01f));
+        }
+        return position + direction * allowed;
+    }
+
+    private void RestoreBodyTraversal()
+    {
+        if (!_bodyTraversal) return;
+        if (_agent && _agent.obstacleAvoidanceType == ObstacleAvoidanceType.NoObstacleAvoidance)
+            _agent.obstacleAvoidanceType = _savedAvoidance;
+        _bodyTraversal = false;
     }
 
     private void CancelCast()
@@ -683,8 +944,15 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         RestoreCastState();
     }
 
-    private void OnDeath(Actor actor) { CancelCast(); _momentum.Reset(); }
-    private void OnDisable() { CancelCast(); _momentum.Reset(); }
+    /// <summary>Closes only future work after the mechanical batch. Resource/category/epoch remain intact.</summary>
+    public bool TryStopEncounterOffense()
+    {
+        if(_player && (_player.IsResolvingGauntletImpact || _player.HasOpenImpactFeedback)) return false;
+        CancelCast(); CancelChildren(); return true;
+    }
+
+    private void OnDeath(Actor actor) { CancelCast(); CancelChildren(); _energyPolicy?.Reset(); }
+    private void OnDisable() { CancelCast(); CancelChildren(); _energyPolicy?.Reset(); }
     private void OnDestroy() { if (_player) _player.Died -= OnDeath; }
 
 }

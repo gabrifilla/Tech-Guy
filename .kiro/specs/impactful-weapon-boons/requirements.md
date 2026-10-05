@@ -159,3 +159,8 @@ Numeric balancing is not the objective; the objective is behavior, feel, and cle
 2. WHERE a new Weapon_Boon has a current rank below its `MaxRank`, THE Run_Modifier_System SHALL present its reward card with a Portuguese title and description and a rank indicator in the existing `"Nível X/Y"` format.
 3. WHEN a new boon has a meaningful synergy with an already-owned or co-offered boon, THE Run_Modifier_System SHALL surface a combination hint consistent with the existing hint presentation.
 4. THE Run_Modifier_System SHALL NOT alter the number of choices presented per reward set as a result of adding these boons.
+
+
+## Adaptação localizada — Fase 3 Manopla 2.0 (tasks 8–9)
+
+No pipeline contextualizado da Manopla, MomentumStrike captura rank por execução e pilhas antes de cada lote. Seu multiplicador é aplicado uma vez e igualmente aos alvos; incrementa uma pilha por HP causal direto confirmado somente após o lote, até 10. Echoes/zonas não empilham. HP recebido efetivo limpa as pilhas, inclusive em callback reentrante; imunidade/absorção total não limpa. Disable remove contador/modificador próprio, preservando ranks da run. A emissão de HookBus/crit/morte permanece; contratos fora dessa adaptação continuam. Evidências em gauntlet-2-rework/contract-audit.md.

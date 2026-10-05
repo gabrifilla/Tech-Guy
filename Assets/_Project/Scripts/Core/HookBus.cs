@@ -57,6 +57,8 @@ public sealed class HookBus
 
     /// <summary>Raised at a detonation/explosion origin.</summary>
     public event Action<Vector3> OnExplosion;
+    public event Action<ProtocolCombatEvent> OnProtocolImpact;
+    internal void RaiseProtocolImpact(ProtocolCombatEvent impact) => Dispatch(OnProtocolImpact, impact);
 
     /// <summary>Enemies already reported dead this run, so <see cref="OnKill"/> fires once each.</summary>
     private readonly HashSet<Actor> _killed = new HashSet<Actor>();
@@ -130,6 +132,7 @@ public sealed class HookBus
         OnStanceBreak = null;
         OnDash = null;
         OnExplosion = null;
+        OnProtocolImpact = null;
         _killed.Clear();
         _basicKilled.Clear();
     }

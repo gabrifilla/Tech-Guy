@@ -35,7 +35,7 @@ using UnityEngine.SceneManagement;
 /// not block <c>Awake</c>.
 /// </para>
 /// </remarks>
-public sealed class ProgressionDirector : MonoBehaviour
+public sealed partial class ProgressionDirector : MonoBehaviour
 {
     [Header("Run dependencies")]
     [SerializeField] private PlayerActor _player;
@@ -181,6 +181,7 @@ public sealed class ProgressionDirector : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        if (TrySelectManualInitialization()) return;
         if (!ValidateDependencies())
         {
             // A required dependency is missing: log has already named each one. Disable and
@@ -193,10 +194,12 @@ public sealed class ProgressionDirector : MonoBehaviour
         // Acquire the seed (8.2), then generate + materialize the Stage (8.3). On generation
         // failure GenerateAndMaterializeStage aborts without building any partial rooms/gates
         // (R1.7/R7.2) and leaves _stageBuilt false, so the later run-loop tasks stay dormant.
+        if (_environment) _environment.SetGeometryActive(true);
         GenerateAndMaterializeStage();
 
         if (_stageBuilt)
         {
+            if (!_player.gameObject.activeSelf) _player.gameObject.SetActive(true);
             // The combat run-loop (8.4/8.5) is proximity-driven, not Update-driven (AGENTS.md):
             // a light coroutine polls the player's position and reacts to room entry and clears.
             // Started only after a successful materialization so it never runs against a partial
@@ -1386,6 +1389,7 @@ public sealed class ProgressionDirector : MonoBehaviour
     /// </summary>
     private void OnValidate()
     {
+        if (_progressionMode == RunProgressionMode.ManualSlice) return;
         _generationParams?.OnValidate();
 
         // Only report once the component looks configured: if EVERY required dependency is
@@ -1476,6 +1480,13 @@ public sealed class ProgressionDirector : MonoBehaviour
     /// </summary>
     private void OnDestroy()
     {
+        if (ManualSession != null)
+        {
+            if (!ManualSession.IsClosed) _manualPolicy.TryEndRun(ManualSession.Id, RunOutcome.Aborted, new RunActionContext(false));
+            _manualPolicy.TryCompleteReturn(ManualSession.Id);
+            if (_boons) _boons.EndManualSession();
+        }
+        DisposeManualState();
         UnsubscribeSpawners();
         if (_boons)
         {

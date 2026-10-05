@@ -18,6 +18,20 @@ public sealed class EnemyVariant : MonoBehaviour
     private float _chaseSpeed;
     private bool _started;
     private Vector3 _baseScale;
+    private CombatReactionController _earlyReaction;
+    private EnemyProfile _earlyReactionProfile;
+
+    private void Awake() => ConfigureInitialReaction();
+
+    private void ConfigureInitialReaction()
+    {
+        var profile = _archetype && _archetype.Profile ? _archetype.Profile : _profile;
+        var reaction = GetComponentInChildren<CombatReactionController>();
+        if (!reaction || !profile) return;
+        reaction.ConfigureProfile(profile);
+        _earlyReaction = reaction;
+        _earlyReactionProfile = profile;
+    }
     public float VisualScaleMultiplier => EnemyVisualStyle.SizeMultiplier(_profile ? _profile.Rarity : EnemyRarity.Normal, GetComponent<SectorBoss>());
     private readonly List<GameObject> _affixes = new List<GameObject>();
 
@@ -71,6 +85,7 @@ public sealed class EnemyVariant : MonoBehaviour
     {
         _profile = profile;
         if (_started) ApplyProfile();
+        else ConfigureInitialReaction();
     }
 
     public void Configure(EnemyProfile profile, GameObject[] affixPrefabs)
@@ -88,6 +103,7 @@ public sealed class EnemyVariant : MonoBehaviour
     {
         _archetype = archetype;
         if (_started) ApplyProfile();
+        else ConfigureInitialReaction();
     }
 
     private void ApplyProfile()
@@ -111,6 +127,7 @@ public sealed class EnemyVariant : MonoBehaviour
             AffixSummary = "";
             _actor.SetDamageTakenMultiplier(this,1f);
             _actor.SetMaxHealth(boss.MaximumHealth);
+            ApplyStanceProfile();
             return;
         }
         var selected = new HashSet<GameObject>();
@@ -168,32 +185,14 @@ public sealed class EnemyVariant : MonoBehaviour
         CombatReactionController reaction = GetComponentInChildren<CombatReactionController>();
         if (!reaction) return;
 
-        EnemyRank resolvedRank = reaction.Rank;
-        if (!_profile)
+        // Start layers HP/movement after spawning; it must not reset posture already hit in that frame.
+        if (reaction == _earlyReaction && _profile == _earlyReactionProfile)
         {
-            // Missing stance/resistance configuration for this enemy (R3.7): with no EnemyProfile to
-            // source concrete numbers from, fall back to the data-driven per-rank defaults
-            // (RankReactionDefaults, applied by ConfigureRank) and log a stable missing-config
-            // identifier so the gap is traceable. This never interrupts the hit — the enemy ends in a
-            // valid, fully-configured reaction state and processing continues normally.
-            Debug.LogWarning(
-                $"EnemyVariant on '{name}': no EnemyProfile assigned; applying per-rank reaction " +
-                $"defaults for {resolvedRank} (missing config id '{RankReactionDefaults.MissingConfigId(resolvedRank)}').",
-                this);
-            reaction.ConfigureRank(resolvedRank);
+            _earlyReaction = null; _earlyReactionProfile = null;
             return;
         }
 
-        reaction.ConfigureStance(
-            resolvedRank,
-            _profile.MaxStance,
-            _profile.StanceDamageMultiplier,
-            _profile.StanceRecoveryPerSecond,
-            _profile.StanceRecoveryDelay,
-            _profile.StaggerResistance,
-            _profile.StunResistance,
-            _profile.KnockUpResistance,
-            _profile.KnockbackResistance);
+        reaction.ConfigureProfile(_profile);
     }
 
     private void SpawnAffixes(IReadOnlyList<GameObject> prefabs, HashSet<GameObject> added)

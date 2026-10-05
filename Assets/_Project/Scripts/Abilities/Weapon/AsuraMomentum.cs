@@ -12,7 +12,14 @@ public sealed class AsuraMomentum
     public int Energy { get; private set; }
     public bool IsReady => Energy >= Maximum;
     private bool? _lastShock;
-    public void AddEnergy(int amount) => Energy = System.Math.Min(Maximum, Energy + System.Math.Max(0, amount));
+    public void AddEnergy(int amount)
+    {
+        if (amount <= 0) return;
+        Energy += System.Math.Min(amount, Maximum - Energy);
+    }
+
+    internal bool IsAlternation(bool shock) => _lastShock.HasValue && _lastShock.Value != shock;
+    internal void ConfirmCategory(bool shock) => _lastShock = shock;
 
     // Requisito 8.10: +25 when the category differs from the previous skill, +10 when it repeats, capped at 100.
     public void RegisterSkill(bool shock)

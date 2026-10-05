@@ -55,6 +55,9 @@ namespace TechGuy.Tests
             Host = new GameObject("TestDetonationHost");
             _spawned.Add(Host);
             Effects = Host.AddComponent<PlayerOnHitEffects>();
+            // This fixture counts detonation/conductor damage, not a second Thermal Shock impact.
+            // Thermal Shock has its own fixture and contract tests.
+            Effects.ConfigureThermalShock(0f);
             Synergies = Effects.Synergies; // lazily adds RunSynergyEffects to the same GameObject
             return Synergies;
         }

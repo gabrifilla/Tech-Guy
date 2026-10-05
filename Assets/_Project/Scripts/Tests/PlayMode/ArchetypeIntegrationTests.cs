@@ -85,6 +85,9 @@ namespace TechGuy.Tests
         /// <c>[RequireComponent]</c> dependencies resolve before Awake runs.
         /// </summary>
         private Actor BuildAgentEnemy(Vector3 position, float health, params System.Type[] extra)
+            => BuildAgentEnemy(position, health, null, extra);
+
+        private Actor BuildAgentEnemy(Vector3 position, float health, System.Action<GameObject> configureBeforeAwake, params System.Type[] extra)
         {
             var go = new GameObject("RigEnemy");
             go.SetActive(false);
@@ -103,6 +106,8 @@ namespace TechGuy.Tests
 
             foreach (System.Type type in extra)
                 if (!go.GetComponent(type)) go.AddComponent(type);
+
+            configureBeforeAwake?.Invoke(go);
 
             go.SetActive(true); // Awake: Actor.maxHealth = health; agent enables
 
@@ -145,7 +150,9 @@ namespace TechGuy.Tests
             var spawnContainer = new GameObject("SpawnedSwarms");
             _spawned.Add(spawnContainer);
 
-            Actor spawnerActor = BuildAgentEnemy(Vector3.zero, 1000, typeof(EnemyAI), typeof(SpawnerBehavior));
+            Actor spawnerActor = BuildAgentEnemy(Vector3.zero, 1000,
+                go => SetPrivate(go.GetComponent<SpawnerBehavior>(), "_swarmPrefab", swarm),
+                typeof(EnemyAI), typeof(SpawnerBehavior));
             var spawner = spawnerActor.GetComponent<SpawnerBehavior>();
             Assert.That(spawner, Is.Not.Null);
 
@@ -269,7 +276,10 @@ namespace TechGuy.Tests
             _assets.Add(archetype);
             Assert.That(archetype.IsPriorityTarget, Is.True, "Precondition: Spawner archetype is a priority target.");
 
-            Actor actor = BuildAgentEnemy(Vector3.zero, 50, typeof(EnemyAI), typeof(EnemyVariant));
+            var swarm = BuildSwarmPrefabTemplate();
+            Actor actor = BuildAgentEnemy(Vector3.zero, 50,
+                go => SetPrivate(go.GetComponent<SpawnerBehavior>(), "_swarmPrefab", swarm),
+                typeof(EnemyAI), typeof(EnemyVariant), typeof(SpawnerBehavior));
             var variant = actor.GetComponent<EnemyVariant>();
             variant.Configure(archetype);
             yield return null; // let Start()/ApplyProfile() run so the marker is added
