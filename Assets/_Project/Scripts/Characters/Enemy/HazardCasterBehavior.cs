@@ -40,6 +40,9 @@ public sealed class HazardCasterBehavior : ArchetypeBehavior
              "its tuning live on the prefab (serialized reference, no FindObjectOfType).")]
     [SerializeField] private HazardZone _zonePrefab;
 
+    private Transform _encounterEffects;
+    public void ConfigureEncounterEffects(Transform root) => _encounterEffects = root;
+
     private EnemyCombatActions _combat;
     private Coroutine _loop;
 
@@ -104,7 +107,7 @@ public sealed class HazardCasterBehavior : ArchetypeBehavior
         if (!_combat.Completed || _combat.CurrentKind != EnemyAttackKind.HazardPlace) yield break;
 
         Vector3 zonePoint = _combat.AttackCenter;
-        HazardZone zone = Instantiate(_zonePrefab, zonePoint, Quaternion.identity);
+        HazardZone zone = Instantiate(_zonePrefab, zonePoint, Quaternion.identity, _encounterEffects);
         zone.Activate();
     }
 

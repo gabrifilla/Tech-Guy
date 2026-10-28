@@ -1,0 +1,286 @@
+# TECH GUY — GPR-00 Approval, Input Design Decisions & GPR-C01.1 Authorization
+
+## 1. Context and approval
+
+The developer has reviewed the GPR-00 audit documentation.
+
+**GPR-00 is approved as a completed documentation and architectural audit phase, subject to the design adjustments below.**
+
+Read the following documents before proceeding:
+
+- `VALIDACAO_GPR00_TECH_GUY_20261026.md`
+- `TECH_GUY_GAMEPLAY_REWORK_EXECUTION_PLAN_v1.1_WASD.md`
+- `TECH_GUY_GAMEPLAY_MUTACOES_SINERGIAS_E_SKILLS_MODULARES.md`
+- The actual GPR-00 phase summary, ADR-0006, requirements, design, tasks, and progress ledger.
+- `AGENTS.md` and all relevant canonical project documentation.
+
+Resolve document paths from the real repository. Do not assume that filenames or directories exactly match these references.
+
+The control direction below supersedes any conflicting proposals in the previous audit.
+
+## 2. Mandatory skills
+
+Before performing the activity:
+
+1. Discover, read, and apply the custom Tech Guy design skills already installed in the repository.
+2. Discover and use the relevant skills from `gamedev-skills/awesome-gamedev-agent-skills`, including its router when available.
+3. Prioritize applicable Unity, input-system, game-feel, animation, navigation, UI/UX, and technical-validation skills.
+4. Check the actual Unity version and distinguish version-specific guidance.
+5. Report which skills were applied and which could not be found.
+
+Repository-specific design decisions and proven runtime contracts take precedence over generic skill examples.
+
+## 3. Approved control scheme
+
+### Movement
+
+- WASD: direct character movement.
+- Mouse cursor: independent combat aiming.
+- Space: dodge/dash.
+- Character orientation and movement restrictions must respect the active attack, skill, recovery, and animation contracts.
+- An attack must not automatically allow unrestricted movement if its existing design requires commitment.
+
+The existing click-to-move model is to be replaced during the future control migration.
+
+The movement implementation must not introduce a second movement controller or duplicate navigation authority.
+
+The proposed use of NavMeshAgent-based direct movement remains an engineering hypothesis to validate, not an irrevocable requirement.
+
+### Left Mouse Button — Basic Attack
+
+**Approved behavior: each deliberate LMB click requests one individual basic attack.**
+
+Requirements:
+
+- One click requests one attack, not an entire automatic combo.
+- Subsequent clicks can advance the existing weapon-specific combo sequence.
+- Preserve authored cadence, animation timing, impact events, recovery, cancel windows, hitstop, and enemy reactions.
+- Respect existing attack eligibility and busy states.
+- Do not introduce accidental double attacks or uncontrolled input buffering.
+- Do not trigger attacks through old click-to-move behavior.
+- Each weapon retains its own attack sequence and identity.
+
+Holding LMB to repeat attacks is **not yet approved as the final control policy**.
+
+Audit its current behavior and compatibility. Do not silently preserve or remove it; propose the safest migration policy, keeping the explicitly approved one-click/one-request default.
+
+### Right Mouse Button — Weapon-Specific Special
+
+**Approved behavior: RMB activates the unique special mechanic of the equipped weapon.**
+
+RMB is:
+
+- NOT an alternative basic attack.
+- NOT simply a replacement for the final hit of an LMB combo.
+- NOT a fifth modular skill.
+- NOT a substitute for one of the Q/E/R/X slots.
+
+For Gauntlet, RMB must become the input for the **existing Asura mechanic**.
+
+Before designing its migration, inspect:
+
+- Existing Asura activation and execution ownership.
+- Resource generation and consumption.
+- Stages, continuations, and early finishes.
+- Cooldowns, if applicable.
+- Animation and presentation.
+- Hit timing, damage, and reactions.
+- Interruptions, cancellation, pause, hitstop, and cleanup.
+- Existing F11 or custom input binding behavior.
+
+Reuse the actual Asura implementation. Do not create another Asura executor or simplify the mechanic to fit the new input scheme.
+
+Spear and Bow must eventually have their own meaningful weapon-specific RMB mechanics. Audit their current capabilities, but do not invent or implement new weapon kits during GPR-C01.1.
+
+### Modular Active Skills
+
+The approved target scheme is:
+
+- Q: Active Skill Slot 1.
+- E: Active Skill Slot 2.
+- R: Active Skill Slot 3.
+- X: Active Skill Slot 4.
+
+Maintain the existing internal slot indices where compatible.
+
+Distinguish physical key bindings from internal ability IDs and execution logic.
+
+Do not replace or remove the current Gauntlet finisher, contextual finishing behavior, or Asura continuation during this migration.
+
+Audit the exact ownership and input relationships of these existing actions before assigning new defaults.
+
+### Interactions and contextual actions
+
+- Space for dodge is the approved target default.
+- Pause remains Esc unless compatibility requires explicit review.
+- F for contextual finishing is provisionally preserved.
+- The default interaction key is not yet approved.
+- Other auxiliary bindings require an explicit compatibility decision.
+
+Do not silently assign new bindings that conflict with existing skills, interactions, or contextual actions.
+
+### User-configurable bindings
+
+The finished control system must allow players to remap relevant keyboard and mouse actions through Settings.
+
+The GPR-C01 design must include:
+
+- Action-based input mapping.
+- Binding conflict detection.
+- Appropriate reserved-key handling.
+- Persistence across sessions.
+- Restoring defaults.
+- UI/HUD labels reflecting actual bindings.
+- Safe handling of legacy player preferences.
+- Input blocking while menus or modal interfaces own control.
+- Correct input release and held-button behavior.
+- No duplicate execution from overlapping action maps.
+
+Do not implement this settings system during GPR-C01.1.
+
+## 4. Preserve existing combat foundations
+
+The migration must preserve the validated gameplay behavior developed in the earlier Gameplay Intelligence iterations.
+
+In particular:
+
+- Gauntlet impact timing and attack cadence.
+- Q/W/E presentation synchronization.
+- Existing damage and hit-confirmation ownership.
+- Enemy flinch, Push, Stagger, and interruption policies.
+- Cancel rules and execution priorities.
+- Hitstop, pause, recovery, and cleanup.
+- Existing dash and skill movement semantics.
+- Asura resource and execution contracts.
+- Protocol and Mutation compatibility.
+- RunSummary damage attribution.
+- Bow and Spear existing behavior where migration affects them.
+
+Do not rewrite the combat engine merely to change inputs.
+
+Avoid introducing parallel input, movement, ability, or damage pipelines.
+
+## 5. Current implementation authorization
+
+**Only GPR-C01.1a and GPR-C01.1b are authorized.**
+
+Their purpose is to establish baselines and prepare the control migration.
+
+Do not implement:
+
+- GPR-C01.2 — WASD runtime migration.
+- GPR-C01.3 — Mouse combat migration.
+- GPR-C01.4 — Skill bindings/settings migration.
+- GPR-C01.5 — Final integrated control acceptance.
+- GPR-01 — Mutations and modular skills.
+- Any subsequent gameplay rework phase.
+
+Documentation updates, nonintrusive diagnostics, and necessary focused test/observation infrastructure are permitted within the existing project conventions.
+
+## 6. GPR-C01.1a — Baseline and architecture verification
+
+Use the real Unity project through Unity MCP.
+
+Confirm:
+
+- Project identity and Unity version.
+- Active Editor state and Console.
+- Current branch/worktree and preexisting changes.
+- Available disk space before capturing evidence.
+
+Establish reliable baseline evidence for:
+
+1. Existing click-to-move behavior.
+2. Character movement speed, acceleration, diagonal behavior, and collision.
+3. NavMeshAgent ownership and navigation constraints.
+4. Camera-relative versus world-relative input considerations.
+5. Mouse aiming and target selection.
+6. Basic attack tap/hold and combo progression.
+7. Existing Asura activation and continuation.
+8. Dash and mobility behavior.
+9. Q/W/E/R ability ownership and input.
+10. Contextual finishers and interactions.
+11. Input ownership between gameplay, Nexus, menus, and run results.
+12. Existing rebinds, custom bindings, and saved preferences.
+
+Distinguish:
+
+- Physical human input.
+- Virtual keyboard/mouse input.
+- Direct API-driven commands.
+- Automated Unity tests.
+
+Do not claim these are equivalent.
+
+Preserve all gameplay tuning, assets, saves, scenes, and player progress.
+
+## 7. GPR-C01.1b — Migration design and readiness
+
+Based on the baseline, produce an implementation-ready technical design.
+
+It must describe:
+
+- The recommended architecture for WASD movement.
+- Whether the existing NavMeshAgent can provide satisfactory direct control.
+- Alternative movement approaches if the current solution fails its prototype criteria.
+- Separation of direct movement, aiming, targeting, and skill-driven movement.
+- How one-click/one-basic-request will integrate with existing attack execution.
+- How RMB will activate Asura without modifying its execution.
+- The slot-binding migration to Q/E/R/X.
+- Handling of legacy controls and user-defined bindings.
+- Settings and rebinding implementation.
+- Animation, facing, dash, and combat commitment rules.
+- UI ownership and safe input suppression.
+- Expected changes to the three weapons.
+- Test plan and regression coverage.
+- Human playtest and acceptance criteria.
+- Minimal implementation steps with explicit dependencies.
+
+Update ADR-0006, requirements, design, and tasks to match the approved decisions.
+
+Do not present unresolved design options as approved decisions.
+
+## 8. Mandatory activity reporting
+
+At the end of **each individual activity**, create its required Markdown report.
+
+Each report must contain:
+
+1. Activity and phase ID.
+2. Objective.
+3. Current status: COMPLETED, PARTIAL, BLOCKED, or AWAITING_APPROVAL.
+4. Work actually performed.
+5. Relevant skills applied.
+6. Files created or modified.
+7. Technical findings and decisions.
+8. Tests executed, exact results, and limitations.
+9. Unity MCP evidence, Console findings, and actual screenshots where applicable.
+10. Regressions or unresolved risks.
+11. Developer decisions still required.
+12. Next activity and its prerequisites.
+
+Update:
+
+- The master GPR progress ledger.
+- The canonical validation matrix.
+- Relevant requirements/design/tasks.
+- Any existing architectural decision records affected by this change.
+
+Do not create redundant reports when an existing canonical document already owns the underlying specification.
+
+All developer-facing documentation and final explanations must be in Brazilian Portuguese.
+
+## 9. Completion and stop condition
+
+After completing GPR-C01.1a and GPR-C01.1b:
+
+1. Produce a consolidated baseline and migration-readiness summary.
+2. Identify exactly which control decisions are approved.
+3. List unresolved decisions requiring developer approval.
+4. Present the proposed GPR-C01.2 implementation scope.
+5. Confirm which activity and phase are complete.
+6. Clearly state which activity should be performed next.
+
+**STOP and request developer approval before changing the actual player movement or combat inputs.**
+
+The goal is to build the new WASD + mouse-based combat controls on top of the existing, validated combat foundations, without losing Gauntlet responsiveness or weapon identity.

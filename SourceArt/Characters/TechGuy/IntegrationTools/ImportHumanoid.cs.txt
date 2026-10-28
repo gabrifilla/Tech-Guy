@@ -1,0 +1,50 @@
+// Unity MCP execute_code method body. Import a new asset; do not alter gameplay or existing model GUIDs.
+if (EditorApplication.isPlaying) throw new System.InvalidOperationException("Exit Play Mode before model import.");
+const string path = "Assets/_Project/Art/Characters/TG/TG_Rigged.fbx";
+AssetDatabase.ImportAsset(path, ImportAssetOptions.ForceSynchronousImport);
+var importer = AssetImporter.GetAtPath(path) as ModelImporter;
+if (!importer) throw new System.InvalidOperationException("Expected TG_Rigged.fbx ModelImporter.");
+importer.animationType = ModelImporterAnimationType.Human;
+importer.avatarSetup = ModelImporterAvatarSetup.CreateFromThisModel;
+importer.optimizeGameObjects = false;
+importer.importCameras = false;
+importer.importLights = false;
+importer.SaveAndReimport();
+var model = AssetDatabase.LoadAssetAtPath<GameObject>(path);
+var names = new System.Collections.Generic.HashSet<string>(model.GetComponentsInChildren<Transform>(true).Select(t => t.name));
+var human = HumanTrait.BoneName.Select(h => new HumanBone { humanName=h, boneName=h.Replace(" ", ""), limit=new HumanLimit { useDefaultValues=true } }).Where(h => names.Contains(h.boneName)).ToArray();
+var preview = UnityEditor.SceneManagement.EditorSceneManager.NewPreviewScene();
+var instance = UnityEngine.Object.Instantiate(model);
+UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(instance, preview);
+instance.name = model.name;
+float before = 0, after = 0;
+try
+{
+    var setup = typeof(ModelImporter).Assembly.GetType("UnityEditor.AvatarSetupTool", true);
+    var flags = System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic;
+    var mapping = human.ToDictionary(h => h.humanName, h => h.boneName);
+    var actual = instance.GetComponentsInChildren<Transform>(true).ToDictionary(t => t, t => true);
+    var getBones = setup.GetMethods(flags).Single(m => m.Name=="GetHumanBones" && m.GetParameters()[0].ParameterType==typeof(System.Collections.Generic.Dictionary<string,string>));
+    var bones = getBones.Invoke(null, new object[] { mapping, actual });
+    var getError = setup.GetMethod("GetPoseError", flags);
+    before = (float)getError.Invoke(null, new object[] { bones });
+    setup.GetMethod("MakePoseValid", flags).Invoke(null, new object[] { bones });
+    after = (float)getError.Invoke(null, new object[] { bones });
+    var skeleton = (SkeletonBone[])setup.GetMethod("GetSkeletonBones", flags).Invoke(null, new object[] { instance.transform });
+    var description = importer.humanDescription;
+    description.human = human;
+    description.skeleton = skeleton;
+    description.upperArmTwist=.5f; description.lowerArmTwist=.5f;
+    description.upperLegTwist=.5f; description.lowerLegTwist=.5f;
+    description.armStretch=.05f; description.legStretch=.05f;
+    description.feetSpacing=0; description.hasTranslationDoF=false;
+    importer.humanDescription = description;
+    importer.SaveAndReimport();
+}
+finally
+{
+    UnityEditor.SceneManagement.EditorSceneManager.ClosePreviewScene(preview);
+}
+var avatar = AssetDatabase.LoadAllAssetsAtPath(path).OfType<Avatar>().SingleOrDefault();
+if (!avatar || !avatar.isValid || !avatar.isHuman) throw new System.InvalidOperationException("Imported TG avatar is not a valid Humanoid.");
+return new { path, valid=avatar.isValid, humanoid=avatar.isHuman, mappedBones=human.Length, poseErrorBefore=before, poseErrorAfter=after, bones=human.Select(h=>new {human=h.humanName,bone=h.boneName}).ToArray() };

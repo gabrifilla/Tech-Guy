@@ -27,11 +27,23 @@ public sealed class LobbyArsenal : MonoBehaviour
 
         [Tooltip("Proximity radius; the card shows and the interaction is allowed within this reach.")]
         [Min(0f)] public float proximityRange = 3.5f;
+
+        [Tooltip("Scene-owned physical marker; visible only for the weapon actually equipped.")]
+        public GameObject equippedIndicator;
     }
 
     [SerializeField] private PlayerActor _player;
     [SerializeField] private Camera _camera;
+    [SerializeField] private LobbyInteraction _lobby;
     [SerializeField] private Pedestal[] _pedestals;
+    [Tooltip("Experimental scene only: compact proximity card with explicit kit disclosure.")]
+    [SerializeField] private bool _compactPresentation;
+    private bool _detailsRequested;
+    public bool DetailsRequested => _detailsRequested;
+    public int FocusedWeaponIndex => _nearestIndex >= 0 ? _pedestals[_nearestIndex].weaponIndex : -1;
+    public bool BlocksPointer(Vector2 screenPosition) => _compactPresentation && _nearestIndex >= 0 &&
+        _cardView != null && _cardView.LastRect.Contains(new Vector2(screenPosition.x,
+            Screen.height - screenPosition.y) / WeaponCardView.Scale);
 
     // Cached parallel arrays for the pure proximity math, rebuilt only when the pedestal count changes.
     private Vector3[] _anchorPositions;
@@ -40,6 +52,24 @@ public sealed class LobbyArsenal : MonoBehaviour
     private WeaponScript[] _weapons;
     private WeaponCardView _cardView;
     private int _nearestIndex = PedestalProximity.None;
+    public Rect VisibleCardRect => _nearestIndex != PedestalProximity.None && _cardView != null ? _cardView.LastRect : default;
+
+    private void RefreshEquipmentMarkers()
+    {
+        if (_pedestals == null || _weapons == null || !_player) return;
+        int equipped = Array.IndexOf(_weapons, _player.CurrentWeapon);
+        foreach (var pedestal in _pedestals)
+        {
+            if (pedestal?.equippedIndicator == null) continue;
+            pedestal.equippedIndicator.SetActive(pedestal.weaponIndex == equipped);
+            // A nearby pedestal may project behind the training HUD. Keep its label out of that strip.
+            if (_camera && pedestal.equippedIndicator.TryGetComponent(out Renderer label))
+            {
+                Vector3 point = _camera.WorldToViewportPoint(pedestal.equippedIndicator.transform.position);
+                label.enabled = point.z > 0f && point.y > .24f;
+            }
+        }
+    }
 
     /// <summary>Configures the arsenal from the scene builder (no scene lookups at runtime).</summary>
     public void Configure(PlayerActor player, Camera lobbyCamera, Pedestal[] pedestals)
@@ -58,7 +88,8 @@ public sealed class LobbyArsenal : MonoBehaviour
     public bool BlocksAbilityInput(KeyCode key)
     {
         if (!_player || _pedestals == null) return false;
-        if (key != GamePreferences.Binding(GameControl.Skill3)) return false;
+        if (key != GamePreferences.Binding(GameControl.Skill3) &&
+            !(_compactPresentation && key == GamePreferences.Binding(GameControl.Skill4))) return false;
         return NearestInRange() != PedestalProximity.None;
     }
 
@@ -83,13 +114,18 @@ public sealed class LobbyArsenal : MonoBehaviour
 
     private void Update()
     {
+        RefreshEquipmentMarkers();
+        int previous = _nearestIndex;
         _nearestIndex = PedestalProximity.None;
         if (Time.timeScale <= 0f || !_player) return;
         if (_player.TryGetComponent(out PauseMenuUI pause) && pause.BlocksInput) return;
-        if (_player.TryGetComponent(out LobbyInteraction lobby) && lobby.IsPanelOpen) return;
+        if (_lobby && _lobby.IsPanelOpen) return;
 
         _nearestIndex = NearestInRange();
+        if (_nearestIndex != previous) _detailsRequested = false;
         if (_nearestIndex == PedestalProximity.None) return;
+        if (_compactPresentation && GamePreferences.WasPressed(GameControl.Skill4))
+            _detailsRequested = !_detailsRequested;
         if (!GamePreferences.WasPressed(GameControl.Skill3)) return;
 
         Interact(_pedestals[_nearestIndex]);
@@ -128,7 +164,7 @@ public sealed class LobbyArsenal : MonoBehaviour
         if (Time.timeScale <= 0f || !_player) return;
         if (_nearestIndex == PedestalProximity.None) return;
         if (_player.TryGetComponent(out PauseMenuUI pause) && pause.BlocksInput) return;
-        if (_player.TryGetComponent(out LobbyInteraction lobby) && lobby.IsPanelOpen) return;
+        if (_lobby && _lobby.IsPanelOpen) return;
 
         Camera camera = _camera ? _camera : Camera.main;
         if (!camera) return; // never throw when no camera is available
@@ -139,11 +175,13 @@ public sealed class LobbyArsenal : MonoBehaviour
         Vector3 projected = camera.WorldToScreenPoint(pedestal.anchor.position);
         if (projected.z <= 0f) return; // anchor is behind the camera; skip drawing
 
-        // Camera screen-space has Y bottom-up; GUI space is top-down, so flip Y for the card anchor.
-        var anchorScreen = new Vector2(projected.x, Screen.height - projected.y);
-
         _cardView ??= new WeaponCardView();
-        _cardView.Draw(BuildCardContent(pedestal), anchorScreen);
+        Vector3 playerProjected = camera.WorldToScreenPoint(_player.transform.position);
+        var playerPoint = new Vector2(playerProjected.x, Screen.height - playerProjected.y);
+        if (_compactPresentation)
+            _detailsRequested = _cardView.DrawCompact(BuildCardContent(pedestal), playerPoint, _detailsRequested,
+                GamePreferences.BindingLabel(GameControl.Skill4));
+        else _cardView.Draw(BuildCardContent(pedestal), playerPoint);
     }
 
     /// <summary>Assembles the card content for a pedestal from its weapon and lock/equip state.</summary>

@@ -1,0 +1,101 @@
+// GPR-C01.1a: diagnóstico temporário via execute_code/compiler=codedom.
+// Fora de Assets, sem compilação/autoria no projeto. Somente controles legados.
+// Input virtual não equivale a entrada física humana. Não altera bindings/tuning.
+var p = UnityEngine.Object.FindFirstObjectByType<PlayerActor>();
+if (!UnityEditor.EditorApplication.isPlaying || !p) throw new System.InvalidOperationException("Preparar Nexus em Play Mode.");
+var c = p.GetComponent<CharControlScript>();
+var a = p.GetComponent<UnityEngine.AI.NavMeshAgent>();
+var h = p.GetComponent<AbilityHolder>();
+var pause = p.GetComponent<PauseMenuUI>();
+if (UnityEngine.Object.FindFirstObjectByType<ProgressionDirector>()) throw new System.InvalidOperationException("Este diagnóstico deve usar Nexus sem run ativa.");
+var dir = System.IO.Path.Combine(System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName,"Docs/validation/artifacts/gameplay-rework/c01-baseline");
+var logPath = System.IO.Path.Combine(dir,"nexus-input-virtual-02.jsonl");
+if (System.IO.File.Exists(logPath)) throw new System.InvalidOperationException("Recusa sobrescrever evidência existente.");
+var request = "{\"scenario_id\":\"GAUNTLET_SMALL_GROUP\",\"mode\":\"current\",\"phase\":\"baseline\",\"seed\":\"0\",\"weapon\":0,\"node_id\":1,\"enemy_count\":5,\"width\":1280,\"height\":720,\"simulation_fps\":60,\"capture_every_frames\":6,\"duration_frames\":1320,\"observe_seconds\":22,\"control_enemy_rng\":false,\"input_schedule\":[]}";
+var observation = CombatPolishPreview.BeginObservation(request);
+var writer = new System.IO.StreamWriter(new System.IO.FileStream(logPath,System.IO.FileMode.CreateNew,System.IO.FileAccess.Write,System.IO.FileShare.Read));
+var disabled = new System.Collections.Generic.List<UnityEngine.InputSystem.InputDevice>();
+foreach (var d in UnityEngine.InputSystem.InputSystem.devices)
+ if (d.enabled && (d is UnityEngine.InputSystem.Keyboard || d is UnityEngine.InputSystem.Mouse)) disabled.Add(d);
+foreach (var d in disabled) UnityEngine.InputSystem.InputSystem.DisableDevice(d);
+var oldKeyboard = UnityEngine.InputSystem.Keyboard.current;
+var oldMouse = UnityEngine.InputSystem.Mouse.current;
+var keyboard = UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Keyboard>("C01BaselineKeyboard");
+var mouse = UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Mouse>("C01BaselineMouse");
+var settings = UnityEngine.InputSystem.InputSystem.settings;
+var background = settings.backgroundBehavior;
+var editorInput = settings.editorInputBehaviorInPlayMode;
+settings.backgroundBehavior=UnityEngine.InputSystem.InputSettings.BackgroundBehavior.IgnoreFocus;
+settings.editorInputBehaviorInPlayMode=UnityEngine.InputSystem.InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+var start = p.transform.position;
+double t0 = UnityEngine.Time.realtimeSinceStartupAsDouble + 2;
+int basics=0, used=0, rejected=0, lastFrame=-1;
+bool done=false, paused=false;
+System.Action onBasic=delegate {basics++;};
+System.Action<int> onUse=delegate(int slot) {used++; writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new {kind="AbilityUsed",slot=slot,t=UnityEngine.Time.realtimeSinceStartupAsDouble-t0}));};
+System.Action<int,AbilityUseFailure> onReject=delegate(int slot,AbilityUseFailure reason) {rejected++;writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new {kind="AbilityRejected",slot=slot,reason=reason.ToString(),t=UnityEngine.Time.realtimeSinceStartupAsDouble-t0}));};
+c.BasicAttackPerformed+=onBasic; h.AbilityUsed+=onUse; h.AbilityRejected+=onReject;
+System.Action before=null, cleanup=null;
+UnityEditor.EditorApplication.CallbackFunction tick=null;
+System.Action<UnityEditor.PlayModeStateChange> stateChanged=null;
+cleanup=delegate {
+ if(done)return;done=true;
+ UnityEngine.InputSystem.InputSystem.onBeforeUpdate-=before;
+ UnityEditor.EditorApplication.update-=tick;
+ UnityEditor.EditorApplication.playModeStateChanged-=stateChanged;
+ if(c)c.BasicAttackPerformed-=onBasic;
+ if(h){h.AbilityUsed-=onUse;h.AbilityRejected-=onReject;}
+ if(paused && pause)pause.Resume();
+ if(mouse.added)UnityEngine.InputSystem.InputSystem.RemoveDevice(mouse);
+ if(keyboard.added)UnityEngine.InputSystem.InputSystem.RemoveDevice(keyboard);
+ foreach(var d in disabled)if(d.added)UnityEngine.InputSystem.InputSystem.EnableDevice(d);
+ if(oldMouse!=null && oldMouse.added)oldMouse.MakeCurrent();
+ if(oldKeyboard!=null && oldKeyboard.added)oldKeyboard.MakeCurrent();
+ settings.backgroundBehavior=background;settings.editorInputBehaviorInPlayMode=editorInput;
+ writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Cleanup",basics=basics,used=used,rejected=rejected,input_devices_restored=true}));writer.Dispose();
+ System.IO.File.WriteAllText(System.IO.Path.Combine(dir,"nexus-driver-status-02.json"),Newtonsoft.Json.JsonConvert.SerializeObject(new{status="complete",basics=basics,used=used,rejected=rejected}));
+};
+stateChanged=delegate(UnityEditor.PlayModeStateChange state){if(state==UnityEditor.PlayModeStateChange.ExitingPlayMode)cleanup();};
+before=delegate {
+ if(done)return;
+ double t=UnityEngine.Time.realtimeSinceStartupAsDouble-t0;
+ var cam=UnityEngine.Camera.main;if(!cam)return;
+ var world=start+UnityEngine.Vector3.forward*3;
+ bool left=false,right=false,shift=false;
+ var keys=new System.Collections.Generic.List<UnityEngine.InputSystem.Key>();
+ if(t>=.8 && t<3){world=start+UnityEngine.Vector3.left*4;right=t<.94;}
+ else if(t>=3 && t<5.4){world=start+UnityEngine.Vector3.forward*4;right=t<3.14;}
+ else if(t>=5.4 && t<7.6){world=start;left=t<5.54;}
+ else if(t>=8 && t<8.14){left=true;shift=true;}
+ else if(t>=9 && t<10.4){left=true;shift=true;}
+ if(t>=11 && t<11.14){world=p.transform.position+UnityEngine.Vector3.left*3;keys.Add(UnityEngine.InputSystem.Key.Space);}
+ if(t>=13.5 && t<13.64)keys.Add(UnityEngine.InputSystem.Key.Q);
+ if(t>=14.5 && t<14.64)keys.Add(UnityEngine.InputSystem.Key.W);
+ if(t>=16.5 && t<16.64)keys.Add(UnityEngine.InputSystem.Key.E);
+ if(t>=18 && t<18.14)keys.Add(UnityEngine.InputSystem.Key.F11);
+ if(t>=19.5 && t<19.64)keys.Add(UnityEngine.InputSystem.Key.F);
+ if(shift)keys.Add(UnityEngine.InputSystem.Key.LeftShift);
+ var pointer=(UnityEngine.Vector2)cam.WorldToScreenPoint(world);
+ var ms=new UnityEngine.InputSystem.LowLevel.MouseState{position=pointer};
+ if(left)ms=ms.WithButton(UnityEngine.InputSystem.LowLevel.MouseButton.Left);
+ if(right)ms=ms.WithButton(UnityEngine.InputSystem.LowLevel.MouseButton.Right);
+ UnityEngine.InputSystem.InputSystem.QueueStateEvent(mouse,ms);
+ UnityEngine.InputSystem.InputSystem.QueueStateEvent(keyboard,new UnityEngine.InputSystem.LowLevel.KeyboardState(keys.ToArray()));
+};
+tick=delegate {
+ if(done)return;
+ try {
+  double t=UnityEngine.Time.realtimeSinceStartupAsDouble-t0;
+  if(!p || !UnityEditor.EditorApplication.isPlaying || t>20.5){cleanup();return;}
+  if(t>=12 && t<13 && !paused && pause){pause.Pause();paused=true;}
+  if(t>=13 && paused && pause){pause.Resume();paused=false;}
+  if(lastFrame==UnityEngine.Time.frameCount)return;lastFrame=UnityEngine.Time.frameCount;
+  var pos=p.transform.position;var v=a.velocity;
+  writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Sample",t=t,scaled=UnityEngine.Time.time,frame=lastFrame,pos=new[]{pos.x,pos.y,pos.z},velocity=new[]{v.x,v.y,v.z},speed=a.speed,acceleration=a.acceleration,onMesh=a.isOnNavMesh,hasPath=a.hasPath,basics=basics,used=used,rejected=rejected,blocked=h.BlocksWorldInput,cast=h.IsCasting,dash=c.isDashing,primary=GamePreferences.IsHeld(GameControl.Primary),move=GamePreferences.IsHeld(GameControl.Move),energy=p.GetComponent<BreakerGauntletCombat>().Energy}));writer.Flush();
+ } catch(System.Exception e){writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Error",error=e.ToString()}));cleanup();}
+};
+UnityEngine.InputSystem.InputSystem.onBeforeUpdate+=before;
+UnityEditor.EditorApplication.update+=tick;
+UnityEditor.EditorApplication.playModeStateChanged+=stateChanged;
+writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Provenance",method="virtual Keyboard/Mouse via InputSystem, legacy production controller; API Pause/Resume only",scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().path,observation=observation,asura_binding=GamePreferences.Binding(GameControl.Skill4).ToString(),no_resource_injection=true}));writer.Flush();
+return observation;

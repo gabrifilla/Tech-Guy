@@ -17,7 +17,13 @@ namespace TechGuy.Cameras
       [SerializeField]
       private float m_Angle = 0f;
 
-      private Vector3 refVelocity;
+      [SerializeField, Range(0f, 1f)] private float _occludedOpacity = .12f;
+      [SerializeField, Min(.01f)] private float _fadeOutDuration = .12f;
+      [SerializeField, Min(.01f)] private float _fadeInDuration = .25f;
+      [SerializeField, Min(.05f)] private float _occlusionProbeRadius = .5f;
+      [SerializeField, Min(0f)] private float _pathRevealDistance = 2.5f;
+      [SerializeField, Min(0f)] private float _occlusionRestoreDelay = .12f;
+      private CameraOcclusionFader _occlusionFader;
     #endregion
 
     #region Main Methods
@@ -31,6 +37,36 @@ namespace TechGuy.Cameras
       void Update()
       {
         HandleCamera(); 
+      }
+      private void LateUpdate()
+      {
+        if (_occlusionFader == null)
+          _occlusionFader = new CameraOcclusionFader(_occludedOpacity, _fadeOutDuration, _fadeInDuration,
+            _occlusionProbeRadius, _pathRevealDistance, _occlusionRestoreDelay);
+        _occlusionFader.Tick(transform.position, m_Target, Time.unscaledDeltaTime);
+      }
+
+      public bool IsOcclusionFaded(Collider collider)
+      {
+        return isActiveAndEnabled && _occlusionFader != null && _occlusionFader.IsFaded(collider);
+      }
+
+      private void OnDisable()
+      {
+        _occlusionFader?.Dispose();
+        _occlusionFader = null;
+      }
+
+      private void OnDestroy() { _occlusionFader?.Dispose(); }
+
+      private void OnValidate()
+      {
+        _occludedOpacity = CameraOcclusionFader.FiniteClamp(_occludedOpacity, .12f, 0f, 1f);
+        _fadeOutDuration = CameraOcclusionFader.FiniteClamp(_fadeOutDuration, .12f, .01f, 5f);
+        _fadeInDuration = CameraOcclusionFader.FiniteClamp(_fadeInDuration, .25f, .01f, 5f);
+        _occlusionProbeRadius = CameraOcclusionFader.FiniteClamp(_occlusionProbeRadius, .5f, .05f, 2f);
+        _pathRevealDistance = CameraOcclusionFader.FiniteClamp(_pathRevealDistance, 2.5f, 0f, 8f);
+        _occlusionRestoreDelay = CameraOcclusionFader.FiniteClamp(_occlusionRestoreDelay, .12f, 0f, 2f);
       }
     #endregion
 

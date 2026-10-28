@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public enum ProtocolFeedbackKind { Conductor, Detonation, Combustion, Shatter, ThermalShock, Overflow }
+public enum ProtocolFeedbackKind { Conductor, Detonation, Combustion, Shatter, ThermalShock, Overflow, EclipseMark, EclipseFall }
 
 /// <summary>Owner-local cosmetic pool. It never retains roots, actors or gameplay callbacks.</summary>
 public sealed class ProtocolFeedbackPool : IDisposable
@@ -57,7 +57,9 @@ public sealed class ProtocolFeedbackPool : IDisposable
         effect.Transform.localScale = Vector3.one; effect.ActiveLines = 1;
         effect.Remaining = _limits.VfxLifetime; effect.Radius = Mathf.Min(radius, 6);
         effect.Expands = kind != ProtocolFeedbackKind.Conductor;
-        effect.Color = kind == ProtocolFeedbackKind.Conductor ? new Color(.15f, .85f, 1, .65f) :
+        effect.Color = kind == ProtocolFeedbackKind.EclipseMark ? new Color(.65f,.4f,1f,.55f) :
+            kind == ProtocolFeedbackKind.EclipseFall ? new Color(.85f,.65f,1f,.6f) :
+            kind == ProtocolFeedbackKind.Conductor ? new Color(.15f, .85f, 1, .65f) :
             kind == ProtocolFeedbackKind.Shatter ? new Color(.65f, .9f, 1, .5f) :
             kind == ProtocolFeedbackKind.ThermalShock ? new Color(.95f, .65f, 1, .55f) :
             kind == ProtocolFeedbackKind.Overflow ? new Color(.6f, 1, .3f, .55f) :
@@ -73,7 +75,7 @@ public sealed class ProtocolFeedbackPool : IDisposable
         }
         else
         {
-            int count = kind == ProtocolFeedbackKind.Overflow ? 5 : 33;
+            int count = kind == ProtocolFeedbackKind.Overflow || kind == ProtocolFeedbackKind.EclipseMark ? 5 : 33;
             for (int i = 0; i < count; i++)
             {
                 float angle = i * Mathf.PI * 2 / (count - 1);

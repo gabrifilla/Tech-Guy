@@ -1,0 +1,299 @@
+{
+  "activity": "GPR-C01.2a",
+  "status": "CONCLUIDA_EXPERIMENTO_AGUARDANDO_REVISAO",
+  "finalTests": 59,
+  "physicalHumanApproval": false,
+  "files": [
+    {
+      "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementArena.cs",
+      "bytes": 7356,
+      "sha256": "fb04c915074c039a964bda74f4303d53234a34981f0c20e6511781c32d50e0d4"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementArena.cs.meta",
+      "bytes": 59,
+      "sha256": "bcdc523075aa3f4cc99348cac3d6d620ec72e1fc466ce22bf2aec02de9758c98"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementMotor.cs",
+      "bytes": 9960,
+      "sha256": "2e979503cdd70e91ec69ce2308e5cbce9c5cd68be43469f0f864cdedf8093452"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementMotor.cs.meta",
+      "bytes": 59,
+      "sha256": "a9884b45154a6b913ae89575ed16696c8e41279a19ee24d2b964d7731bb2cf44"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementPreview.cs",
+      "bytes": 1805,
+      "sha256": "5b240b7acb24f1f4c9c3c91e58a75e4ca7209b44979c4d2f3d973537ef35c253"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementPreview.cs.meta",
+      "bytes": 59,
+      "sha256": "b9e589a0aef9e47c2f16e99f4b69c953f4b3246d945d42dd2884293e5b875758"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementTests.cs",
+      "bytes": 17478,
+      "sha256": "e3b01dfbbca1b5a00bbf3f5ef6783928f3f1a6652ece69f017a15ce757d77510"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementTests.cs.meta",
+      "bytes": 59,
+      "sha256": "2f74572a0dcf7c00b2278a87021585d30636f2bb9b1b006df7edb7dace897156"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/TechGuy.Tests.GprMovement.asmdef",
+      "bytes": 327,
+      "sha256": "623f231d7c7732b10ba2ee9dcb9d1cd0cfa43a984a3f578193283340caf9877f"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/TechGuy.Tests.GprMovement.asmdef.meta",
+      "bytes": 166,
+      "sha256": "0889f33942828f5f6c11c2cf825e7f474f18ea9c15bef14e9c713d2c45022ec6"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype.meta",
+      "bytes": 172,
+      "sha256": "61a6550bbce6cda96768eb36fff89a49c16f8c7fac18c6488056c91dc4e2d620"
+    },
+    {
+      "path": "Docs/decisions/ADR-0006-GPR-DIRECAO-E-GATES.md",
+      "bytes": 17547,
+      "sha256": "b0054391701ba92caf497b4f8d7b09675b2ae38e47024c5ca69e6dc3874b72ac"
+    },
+    {
+      "path": "Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md",
+      "bytes": 4397,
+      "sha256": "7a2d884e058db1a8a26b1cd81f96f4786bc85e6e2610bf817ea6df9c0b2fba71"
+    },
+    {
+      "path": "Docs/decisions/GPR-C01.2a_RELATORIO.md",
+      "bytes": 19039,
+      "sha256": "157c668b35be8a9f3523de59732da9737a9f77c7f86e8515e5354db9f6a7ddde"
+    },
+    {
+      "path": "Docs/gameplay/GPR_CONTROL_MIGRATION.md",
+      "bytes": 16879,
+      "sha256": "54268c4a2ed977a84b06679f1bdd568ae7a4906b502d9b6d1568b3df85569e30"
+    },
+    {
+      "path": "Docs/gameplay/GPR_REQUIREMENTS.md",
+      "bytes": 5205,
+      "sha256": "bcc502775e2a12bec4bff76ee4e1d632af7f28c99523bf7d603ed6adc0672d33"
+    },
+    {
+      "path": "Docs/gameplay/GPR_TASKS.md",
+      "bytes": 5373,
+      "sha256": "2bf2c037e4f53541f88a7042bb629423b328aa6c6b4dbfc2bcc27cfe50a983c9"
+    },
+    {
+      "path": "Docs/gameplay/GPR_TECHNICAL_DESIGN.md",
+      "bytes": 11249,
+      "sha256": "411cfb9b3339f3595761fff0bcdc83f015163431318364842cd8c2e3dbcb77e7"
+    },
+    {
+      "path": "Docs/gameplay/GPR_VALIDATION_PLAN.md",
+      "bytes": 11133,
+      "sha256": "7c5a247bc143a2c17ea75a8ce13f984bfb00438cdc9915bd0d70b59c6dbf2f96"
+    },
+    {
+      "path": "Docs/gameplay/README.md",
+      "bytes": 2009,
+      "sha256": "80b6eb1cc50f92402a404ce7ff47a733dbfca41aac0b57829deff49e02ce0c20"
+    },
+    {
+      "path": "Docs/validation/01_MATRIZ_DE_VALIDACAO.md",
+      "bytes": 242322,
+      "sha256": "9103e1074714399dbca68fa71705991bed3cee815208dd9131294205c52e72f5"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/arena-boundary-gameview.png",
+      "bytes": 40361,
+      "sha256": "6e37f61e96692aba18ee6d11c7b959144252d1021b7795508fd8830d054203c6"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/arena-slope-gameview.png",
+      "bytes": 40279,
+      "sha256": "fc7b8efd1af9a740c1a7166f1ac05d13a6f3b8c5affa551fb8c45739eaa0a089"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/arena-thin-wall-gameview.png",
+      "bytes": 39669,
+      "sha256": "12f7e715fb8bdf8107cc28d961df49c8262b28308e46d1fe39c7259c75903e50"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/arena-virtual-input-gameview.png",
+      "bytes": 40228,
+      "sha256": "a738f14a59b896e03abae7e9fbea9020cc17a17c49da3aabe7fa019008683720"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/BakedWallCornerObstacleAndBoundary.csv",
+      "bytes": 24485,
+      "sha256": "5e1222f27a32016c241e68d4a600a01dc27aeab536162966d2718f8dc85a49b0"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/CameraVersusWorldAndFrameSteps.csv",
+      "bytes": 27274,
+      "sha256": "307d7d6a2d4fa8928caad2d249cc06c4ef9c5755d9bbf650532da02e26e32eae"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/CardinalDiagonalStopAndAim.csv",
+      "bytes": 11340,
+      "sha256": "ef96e2af4306ab827587b459b854bcb601273f5f2122890805790bd5d551f7fd"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/character-controller-assessment.json",
+      "bytes": 75,
+      "sha256": "d7c4dfa0c26b20caf613da5c1ff946681f78743fc455c43a9d4fa901a586ee94"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/CharacterControllerAlternativeHasNoNavMeshBoundary.csv",
+      "bytes": 75,
+      "sha256": "7da60ed4e102c5b68f7a591124360f065efac2faf1260223b665223698e606d3"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/CursorDashAlternativeAndFrozenClock.csv",
+      "bytes": 1364,
+      "sha256": "2a01d158e53799d72917c26c08706e0bc409dc44b61a8396a69ea6514c73912a"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/disco-inicial.json",
+      "bytes": 227,
+      "sha256": "bd54ffe9c62c44a91fe56ba5911af14dfbddf56d48d02c119b550cfd1598a012"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/editor-final.json",
+      "bytes": 1776,
+      "sha256": "3e845da16b3558a1af5708ae2585fb7e791f5ce13ef832f0b1da43a032ba45d4"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/editor-inicial.json",
+      "bytes": 760,
+      "sha256": "4b2d6321899abdf3d965da062b3c88f3599de9a7ea59ed965d603d5cfcaf09f3"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/git-status-delta.json",
+      "bytes": 315,
+      "sha256": "71f5214728663f46504590985f383939d296faf79680bad9e33650583dab2365"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/git-status-final.txt",
+      "bytes": 65851,
+      "sha256": "18834013ce41c58c5352285ab14cd1c4646118c3a843b6826e67d4a15c97d62e"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/git-status-inicial.txt",
+      "bytes": 65748,
+      "sha256": "b4934e7c2fdd888d08f9597be134d9dee2e1120396ac87b98305a51cdca0a34f"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/integridade-final.json",
+      "bytes": 59,
+      "sha256": "51e7f86e5322d3008c7677636abd285a043e16c7a8dbe3f476eb89d08b1051b9"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/integridade-inicial.json",
+      "bytes": 301304,
+      "sha256": "673ad97b9a8e54b4f4408bece4e7d1ceb4ec4e92b5b5968ac454fb32b580cc9f"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/limpeza-final.json",
+      "bytes": 468,
+      "sha256": "891a7ad5c7efac0b31e7ce6f7428e3261a369c13facbf5ac2fe01190f6258da6"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/medicoes-resumo.json",
+      "bytes": 11999,
+      "sha256": "2c7c0e78e75c0c91ff24dce64a5a3558bb900c8bee8a5c903350f72b13854e00"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/metadados-alternativa.json",
+      "bytes": 877,
+      "sha256": "c514f02fdc1eb75c8a5f3f5b5a157b8e73290fc5de8a5dfad619041857dc3963"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/metadados.json",
+      "bytes": 579,
+      "sha256": "41a6f9a68770c027a04f8f5b061f71883a601bbb8eaafd5119d8c88f5c774271"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/RawMoveFailureAndGuardedThinWallDash.csv",
+      "bytes": 2004,
+      "sha256": "b075f465f1e8142323195abff992c4a95fdddf42a519fe7fa8737de2ff34d1f8"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/README.md",
+      "bytes": 3501,
+      "sha256": "a10c05304b919fb553546ba0d22471fb1a372027af1d1f9acccfa61b0e0e416f"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/RootCastHitstopForcedPauseFocusAndDisable.csv",
+      "bytes": 4343,
+      "sha256": "851e84b336271821c512c99ff587c55740ecabcda02e2f6caa30d766330068f1"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/SlopeUpDownAndActualDisplacement.csv",
+      "bytes": 11494,
+      "sha256": "ebc5d95d9f435eb98388daa43007bcf85bbc3f0c2fe07b3f8f234f67629c9253"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/testes-dash-8.json",
+      "bytes": 5405,
+      "sha256": "17d5d46a36606f9d98cdf29e91b62ab01e2eae1e2376185ec2de8b7fb95ca783"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/testes-editmode-15.json",
+      "bytes": 7551,
+      "sha256": "e847354796e0e3a0285cec3640bccb30556d16f67ba9de32f97bf0fdf13d7c60"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/testes-prototipo-9-parametro.json",
+      "bytes": 4473,
+      "sha256": "093d76073fab63da6b1c69c8e07ccaea2603b5674aaee2c1395eb51533d8bf77"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/testes-prototipo-final.json",
+      "bytes": 4879,
+      "sha256": "ba745dc209c07dcd7bfee74bf6b72e70d28cce1e90e1f9396d85bfb543b6cf81"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/testes-prototipo-pos-correcao.json",
+      "bytes": 4473,
+      "sha256": "6eb3c5b4e419fa3f434fa60954be317ac771724009c0ebf38939a5493b00abc5"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/testes-prototipo-primeira-execucao.json",
+      "bytes": 4798,
+      "sha256": "a832217e639ef90855ea4b79fa8b74238525df0933b5d1a84c67e3c622b3352f"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/testes-regressao-26.json",
+      "bytes": 1080,
+      "sha256": "3e5f6c4d13be35a1bd73b054fd10c362b07f597af84e87315b9f5bbb8ecfaae1"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/virtual-input-real-time.json",
+      "bytes": 82,
+      "sha256": "600849f9862118ef2d1d7b76f9e9f802fddbf6396b938b99b12fbdf5118b211b"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/VirtualKeyboardMouseUsesPreviewReader.csv",
+      "bytes": 75,
+      "sha256": "7da60ed4e102c5b68f7a591124360f065efac2faf1260223b665223698e606d3"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2a/ZeroTimePauseAndInvalidTimeClearAnimationWithoutMoving.csv",
+      "bytes": 351,
+      "sha256": "7a970b81084c9f627d5229d767eb945914e8d2f29e528e108a9b30db717f7219"
+    },
+    {
+      "path": "Tools/GameplayObservation/c01_2a_analyze.py",
+      "bytes": 2920,
+      "sha256": "e61acfef1518d44658978dfa631d914201b7cc775201b9e3ec13ab036134250a"
+    }
+  ],
+  "trailingWhitespaceFindings": []
+}

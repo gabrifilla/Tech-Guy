@@ -1,0 +1,55 @@
+{
+  "file": "D:\\Dev\\Personal\\My_games\\Tech-Guy\\SourceArt\\Characters\\TechGuy\\TG.blend",
+  "vertices": 159424,
+  "faces": 318872,
+  "boundaryEdges": 0,
+  "nonManifoldEdges": 0,
+  "bones": 53,
+  "badWeights": 0,
+  "maxInfluences": 4,
+  "headFootCorrection": {
+    "head": {
+      "rollDegrees": 12.766622430820346,
+      "pitchDegrees": -2.0,
+      "vertices": 15116,
+      "pivot": [
+        0.0,
+        -0.03999999910593033,
+        1.590000033378601
+      ],
+      "eyePlaneTiltBeforeFinalCorrection": 4.766622430820347,
+      "lateralCentering": -0.012915107421576977
+    },
+    "LeftFoot": {
+      "yawDegrees": -13.554187057674783,
+      "vertices": 10041,
+      "pivot": [
+        0.11650197207927704,
+        -0.0339452289044857,
+        0.16504454612731934
+      ]
+    },
+    "RightFoot": {
+      "yawDegrees": 36.03426356341465,
+      "vertices": 10198,
+      "pivot": [
+        -0.10679371654987335,
+        0.0017202937742695212,
+        0.1762692779302597
+      ]
+    }
+  },
+  "footAxisValidation": [
+    {
+      "foot": "Left",
+      "meshAxisOutwardDegrees": 0.0041559871708206205
+    },
+    {
+      "foot": "Right",
+      "meshAxisOutwardDegrees": -0.007844373760021502
+    }
+  ],
+  "reopened": true,
+  "finitePoseSamples": 50,
+  "poseSampleCount": 50
+}

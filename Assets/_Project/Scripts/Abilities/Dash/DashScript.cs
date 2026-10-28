@@ -166,9 +166,11 @@ public class DashScript : Ability
             }
 
             float endTime = Time.time + Mathf.Max(0f, dashTime);
+            CharControlScript control = parent.GetComponent<CharControlScript>();
             while (Time.time < endTime)
             {
                 if (parent == null) break;
+                if (control && control.DirectMovementEnabled && (!control.DirectInputHasFocus || control.playerActor && control.playerActor.HasExternalPull)) break;
 
                 // End the i-frame window exactly when it elapses, independent of the displacement
                 // (R6.7/R6.8). If IframeWindow < dashTime the player loses immunity mid-dash; if it is
@@ -179,6 +181,9 @@ public class DashScript : Ability
                     dashingActor.RemoveDamageImmunity(this);
                     immunityArmed = false;
                 }
+
+                if (control && control.DirectMovementEnabled && control.playerActor && control.playerActor.IsCombatHitStopped)
+                { endTime += Time.deltaTime; yield return null; continue; }
 
                 Vector3 step = dashDirection * dashVelocity * Time.deltaTime;
                 if (hadAgent && agent != null && agent.enabled && agent.isOnNavMesh)
@@ -215,6 +220,7 @@ public class DashScript : Ability
 
     private static void MoveAgentOnNavMesh(NavMeshAgent agent, Vector3 step)
     {
+        if (PlayerNavigationMotor.TryMove(agent, step, true, PlayerMovementSource.Dash)) return;
         Vector3 targetPosition = agent.transform.position + step;
         // Sampling the far side of a carved room door can jump across it.
         if (agent.Raycast(targetPosition, out NavMeshHit edge)) targetPosition = edge.position;

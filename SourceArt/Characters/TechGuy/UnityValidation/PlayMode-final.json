@@ -1,0 +1,66 @@
+{
+  "job_id": "4215fcb689a24dec8017da045742d2b8",
+  "status": "succeeded",
+  "mode": "PlayMode",
+  "started_unix_ms": 1791858368899,
+  "finished_unix_ms": 1791858380772,
+  "last_update_unix_ms": 1791858380772,
+  "progress": {
+    "completed": 3,
+    "total": 3,
+    "current_test_full_name": null,
+    "current_test_started_unix_ms": null,
+    "last_finished_test_full_name": "TechGuy.Tests.ManualRunPlayerFeedbackTests.PublishedFloorClickActuallyMovesAfterChoosingDestination",
+    "last_finished_unix_ms": 1791858380757,
+    "stuck_suspected": false,
+    "editor_is_focused": false,
+    "run_in_background": true,
+    "focus_nudge_attempts": null,
+    "focus_nudge_limit": null,
+    "focus_nudge_status": null,
+    "blocked_reason": null,
+    "failures_so_far": [],
+    "failures_capped": false
+  },
+  "error": null,
+  "result": {
+    "mode": "PlayMode",
+    "summary": {
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 5.5894578,
+      "resultState": "Passed"
+    },
+    "results": [
+      {
+        "name": "PublishedDeathReturnsToNexusAndBowStillUsesLegacyWorld",
+        "fullName": "TechGuy.Tests.ManualPublishedRunPlayModeTests.PublishedDeathReturnsToNexusAndBowStillUsesLegacyWorld",
+        "state": "Passed",
+        "durationSeconds": 3.2180091,
+        "message": null,
+        "stackTrace": null,
+        "output": "CharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\nProgressionDirector Run_Seed = 4626722996780891660 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "PublishedSpearStillUsesLegacyWorldWithLocalProtocolInventory",
+        "fullName": "TechGuy.Tests.ManualPublishedRunPlayModeTests.PublishedSpearStillUsesLegacyWorldWithLocalProtocolInventory",
+        "state": "Passed",
+        "durationSeconds": 0.765553,
+        "message": null,
+        "stackTrace": null,
+        "output": "ProgressionDirector Run_Seed = 4879117969898111454 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "PublishedFloorClickActuallyMovesAfterChoosingDestination",
+        "fullName": "TechGuy.Tests.ManualRunPlayerFeedbackTests.PublishedFloorClickActuallyMovesAfterChoosingDestination",
+        "state": "Passed",
+        "durationSeconds": 1.5465516,
+        "message": null,
+        "stackTrace": null,
+        "output": "CharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nClickToMove: hit Walkable arena at (504.02, 0.00, 0.08) cam=MainCamera(Clone)(Clone) mask=512\r\n"
+      }
+    ]
+  }
+}

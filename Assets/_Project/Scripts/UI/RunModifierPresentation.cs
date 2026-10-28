@@ -15,6 +15,8 @@ public sealed class RunModifierPresentation
     public static string Emphasize(string text) => Numbers.Replace(text, "<b><color=#F2DCA6>$1</color></b>");
     public static int Count(RunBoons run, string id)
     {
+        if (id == BoonReworkCatalog.ViolentFallId) return run.WeaponModifiers?.HasViolentFall == true ? 1 : 0;
+        if (BoonExpansionCatalog.TryDefinition(id, out _)) return run.WeaponModifiers?.Expansion.Has(id) == true ? 1 : 0;
         if (run.Protocols != null && ProtocolInventory.TryKind(id, out var protocol)) return run.Protocols.Rank(protocol);
         if (run.WeaponModifiers != null && run.WeaponModifiers.Family == RunWeaponFamily.Gauntlet)
         {
@@ -36,6 +38,25 @@ public sealed class RunModifierPresentation
     public static RunModifierPresentation For(RunBoons.Offer offer)
     {
         var view = new RunModifierPresentation { Description = offer.Description };
+        if (BoonExpansionCatalog.TryDefinition(offer.Id, out var extension))
+        {
+            view.Category = extension.Family == BoonFamily.Resonance ? "RESONANCE / DUO" : extension.Family.ToString().ToUpperInvariant();
+            view.Scope = extension.Slots.ToString(); view.Symbol = extension.Family == BoonFamily.Resonance ? "<>" : view.Scope;
+            view.MaxRank = extension.MaxRank;
+            view.Accent = extension.Family == BoonFamily.Resonance ? new Color(1f, .77f, .3f) : new Color(.65f, .45f, 1f);
+            return view;
+        }
+        if (offer.Id == BoonReworkCatalog.ViolentFallId)
+        {
+            view.Category = "AUGMENT"; view.Scope = view.Symbol = "Q"; view.MaxRank = 1;
+            view.Accent = new Color(.65f,.4f,1f); view.Description = EclipseBoonCatalog.FallDescription;
+            return view;
+        }
+        if (offer.Id == RunBoonOfferCatalog.ExhaustedId)
+        {
+            view.Category = "ALTERNATIVA"; view.Scope = "PROGRESSÃO"; view.Symbol = ">";
+            return view;
+        }
         if (ProtocolInventory.TryKind(offer.Id, out var protocol))
         {
             view.Category = "PROTOCOL"; view.Scope = "COMBATE"; view.MaxRank = 3;
@@ -60,6 +81,8 @@ public sealed class RunModifierPresentation
             view.Category = definition.Family == RunWeaponFamily.Bow ? "ARCO" : definition.Family == RunWeaponFamily.Spear ? "LANÇA" : "MANOPLAS";
             if (definition.Family == RunWeaponFamily.Gauntlet && GauntletContentAuthoring.IsSelectedTechnique(definition.Kind))
                 view.Category = "TECHNIQUE";
+            if (RunBoonOfferCatalog.IsTechnique(definition.Kind)) view.Category = "TECHNIQUE";
+            if (RunBoonOfferCatalog.IsMutation(definition.Kind)) view.Category = "MUTATION";
             view.Accent = definition.Family == RunWeaponFamily.Bow ? new Color(.34f,.8f,1f) : definition.Family == RunWeaponFamily.Spear ? new Color(1f,.53f,.4f) : new Color(1f,.73f,.32f);
             view.Description = definition.Description; view.MaxRank = definition.MaxRank;
             if (definition.Kind == WeaponBoon.ShockRing)
@@ -93,6 +116,11 @@ public sealed class RunModifierPresentation
     }
     public static string Hint(RunBoons run, string id)
     {
+        if (id == BoonReworkCatalog.ViolentFallId) return EclipseBoonCatalog.FallDescription;
+        if (BoonExpansionCatalog.TryDefinition(id, out var expansion)) return expansion.Family == BoonFamily.Resonance
+            ? "DUO · pré-requisitos presentes. Máximo de dois Duos por run."
+            : "Forma compatível · até dois Augments por habilidade. Consulte o alvo e as condições no cartão.";
+        if (id == RunBoonOfferCatalog.ExhaustedId) return "SEM AQUISIÇÃO · libera a próxima etapa da rota.";
         if (id == WeaponRunModifiers.CatalogId(WeaponBoon.ShockRing) && run.WeaponModifiers != null)
             return "EPICENTRO LEGADO · rank " + run.WeaponModifiers.Rank(WeaponBoon.ShockRing)
                 + ": +" + (20 * run.WeaponModifiers.Rank(WeaponBoon.ShockRing)) + "% de raio preservado; seleção única de E.";

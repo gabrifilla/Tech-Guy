@@ -21,6 +21,8 @@ public sealed class ArsenalCombat : MonoBehaviour
     [Header("Arco — Movimento reduzido ao disparar (Requisito 10.1)")]
     [SerializeField] private BowFireMovementConfig _bowFireMovementConfig = BowFireMovementConfig.Default;
     private BowFireMovement _bowFireMovement;
+    internal float BowFiringSpeed(float baseSpeed) =>
+        (_bowFireMovement ?? (_bowFireMovement = new BowFireMovement(_bowFireMovementConfig))).ReducedSpeed(baseSpeed);
 
     // R10.5: base stance damage a Bow W (Flecha Pesada) hit chips, scaled by the slot's BowLoopSteps
     // identity so a charged shot can crack a Heavy enemy's stance. Kept as data so numbers stay tunable.
@@ -327,6 +329,10 @@ public sealed class ArsenalCombat : MonoBehaviour
                             plan.Width, Physics.DefaultRaycastLayers, weapon.attackDamage, plan.Damage, 0f, reaction, true, ability.AccentColor);
 
                     }
+
+                    // Only the native base producer can cross a Horizon or consume persistent stakes.
+                    if (_player.TryGetComponent(out SpearBoonCombat spearBoons))
+                        spearBoons.NotifyNativePath(slot, center, radial ? center + direction * plan.Width : center + direction * plan.Range);
 
                     // R7.4/R9.4: the orbital sweep (W) nudges hit enemies along the sweep direction by a
                     // LIMITED amount (<=1.5 m/s, <=0.75 m total), routed through each enemy's existing
@@ -685,6 +691,7 @@ public sealed class ArsenalCombat : MonoBehaviour
         Vector3 back = fireDirection; back.y = 0f;
         if (back.sqrMagnitude < .001f) return;
         Vector3 desired = transform.position - back.normalized * backstepDistance;
+        if (PlayerNavigationMotor.TryMove(_agent, desired - transform.position)) return;
         if (NavMesh.SamplePosition(desired, out NavMeshHit hit, backstepDistance + 1f, _agent.areaMask))
             _agent.Warp(hit.position);
     }
@@ -722,7 +729,7 @@ public sealed class ArsenalCombat : MonoBehaviour
         // would leave the navigable area) and move via the agent so the recoil never tunnels through walls.
         Vector3 destination = transform.position - back * step;
         if (_agent.Raycast(destination, out NavMeshHit edge)) destination = edge.position;
-        _agent.Move(destination - transform.position);
+        if (!PlayerNavigationMotor.TryMove(_agent, destination - transform.position)) _agent.Move(destination - transform.position);
     }
 
     public void Cancel()

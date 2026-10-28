@@ -1,0 +1,19 @@
+{
+  "checked": 1795,
+  "unchanged": 1783,
+  "changed": [
+    "Assets/_Project/Scripts/Abilities/AbilityHolder.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Core/BasicAttackDriver.cs",
+    "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectMovement.cs",
+    "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+    "Assets/_Project/Scripts/Characters/Player/PlayerNavigationMotor.cs",
+    "Assets/_Project/Scripts/Core/Run/RunBoons.Manual.cs",
+    "Assets/_Project/Scripts/Core/RunBoons.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs",
+    "Assets/_Project/Scripts/UI/LobbyInteraction.cs",
+    "Assets/_Project/Scripts/UI/PauseMenuUI.cs"
+  ],
+  "missing": []
+}

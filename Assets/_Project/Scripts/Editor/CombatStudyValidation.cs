@@ -139,7 +139,8 @@ public static class CombatStudyValidation
         RenderTexture old = RenderTexture.active;
         camera.targetTexture = rt; camera.Render(); RenderTexture.active = rt;
         image.ReadPixels(new Rect(0, 0, 1280, 800), 0, 0); image.Apply();
-        File.WriteAllBytes("Docs/CombatStudy.png", image.EncodeToPNG());
+        Directory.CreateDirectory("Docs/validation/artifacts/combat-study");
+        File.WriteAllBytes("Docs/validation/artifacts/combat-study/CombatStudy.png", image.EncodeToPNG());
         camera.targetTexture = null; RenderTexture.active = old;
         UnityEngine.Object.DestroyImmediate(image); rt.Release(); UnityEngine.Object.DestroyImmediate(rt);
     }

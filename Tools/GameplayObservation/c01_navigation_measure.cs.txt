@@ -1,0 +1,13 @@
+// Mede somente ordens legadas por API; não prototipa WASD/novo motor.
+var p=UnityEngine.Object.FindFirstObjectByType<PlayerActor>();var c=p.GetComponent<CharControlScript>();var a=p.GetComponent<UnityEngine.AI.NavMeshAgent>();
+if(!UnityEditor.EditorApplication.isPlaying || p.GetComponent<AbilityHolder>().IsCasting)throw new System.InvalidOperationException("Player deve estar livre no Nexus.");
+var file=System.IO.Path.Combine(System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName,"Docs/validation/artifacts/gameplay-rework/c01-baseline/navegacao-api.jsonl");
+if(System.IO.File.Exists(file))throw new System.InvalidOperationException("Não sobrescrever evidência.");
+var w=new System.IO.StreamWriter(new System.IO.FileStream(file,System.IO.FileMode.CreateNew,System.IO.FileAccess.Write,System.IO.FileShare.Read));
+var start=p.transform.position;double t0=UnityEngine.Time.realtimeSinceStartupAsDouble;int stage=-1,last=-1;bool done=false;
+UnityEditor.EditorApplication.CallbackFunction tick=null;
+tick=delegate{if(done)return;try{double t=UnityEngine.Time.realtimeSinceStartupAsDouble-t0;if(!p || !UnityEditor.EditorApplication.isPlaying || t>5){done=true;UnityEditor.EditorApplication.update-=tick;w.Dispose();return;}
+ int next=t<2?0:1;if(stage!=next){stage=next;var goal=stage==0?start+new UnityEngine.Vector3(3,0,0):start+new UnityEngine.Vector3(1,0,-2);var accepted=typeof(CharControlScript).GetMethod("TryRequestGroundMovement",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic).Invoke(c,new object[]{goal});w.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Order",stage=stage,t=t,accepted=accepted,goal=new[]{goal.x,goal.y,goal.z}}));}
+ if(last==UnityEngine.Time.frameCount)return;last=UnityEngine.Time.frameCount;var pos=p.transform.position;var v=a.velocity;w.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Sample",stage=stage,t=t,frame=last,pos=new[]{pos.x,pos.y,pos.z},velocity=new[]{v.x,v.y,v.z},speed=a.speed,acceleration=a.acceleration,onMesh=a.isOnNavMesh,hasPath=a.hasPath,stopped=a.isStopped}));w.Flush();
+ }catch(System.Exception e){w.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Error",error=e.ToString()}));done=true;UnityEditor.EditorApplication.update-=tick;w.Dispose();}};
+UnityEditor.EditorApplication.update+=tick;return "navegação legada por API,5s; não modifica controlador/velocidade";

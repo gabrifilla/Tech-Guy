@@ -1,0 +1,22 @@
+{
+  "method": "GUIDs novos comparados com metadados Assets enumerados por rg; nao substitui checker global",
+  "metasRead": 1347,
+  "prototypeGuids": {
+    "58f588082280d294f80ab8ebc8d586cc": [
+      "Assets/_Project/Scripts/Tests/GprMovementPrototype/TechGuy.Tests.GprMovement.asmdef.meta"
+    ],
+    "db28d160d082dab459701607ea29620a": [
+      "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementTests.cs.meta"
+    ],
+    "a3f378ed6517e7a40b19017977eb2966": [
+      "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementPreview.cs.meta"
+    ],
+    "840089660520b114b9800aa7298b2fb2": [
+      "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementMotor.cs.meta"
+    ],
+    "ae47f1df0cf82c148bfb82d03ef766a0": [
+      "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementArena.cs.meta"
+    ]
+  },
+  "duplicates": {}
+}

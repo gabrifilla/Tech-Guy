@@ -24,7 +24,7 @@ namespace TechGuy.Tests
     /// trophy's own private <c>Claim</c> path (the exact method the [E] press invokes) via reflection —
     /// the callback and removal are the observable production behaviour under test.
     /// </summary>
-    public sealed class StageTrophyRewardTests
+    public sealed class StageTrophyRewardTests : RunSummaryIsolatedPlayModeFixture
     {
         private static readonly MethodInfo ClaimMethod =
             typeof(RewardTrophy).GetMethod("Claim", BindingFlags.Instance | BindingFlags.NonPublic);

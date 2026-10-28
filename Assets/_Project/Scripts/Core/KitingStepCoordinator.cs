@@ -75,7 +75,7 @@ public sealed class KitingStepCoordinator : MonoBehaviour
         if (_agent && _agent.enabled && _agent.isOnNavMesh)
         {
             if (_agent.Raycast(destination, out NavMeshHit edge)) destination = edge.position; // R8.3
-            _agent.Move(destination - origin);
+            if (!PlayerNavigationMotor.TryMove(_agent, destination - origin, true, PlayerMovementSource.Boon)) _agent.Move(destination - origin);
         }
     }
 

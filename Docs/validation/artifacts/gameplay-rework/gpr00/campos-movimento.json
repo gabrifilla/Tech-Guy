@@ -1,0 +1,32 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Code executed successfully.\",\"data\":{\"result\":[{\"name\":\"Player - Nexus\",\"agent\":{\"speed\":5.0,\"acceleration\":99999.0,\"angularSpeed\":0.0,\"radius\":0.5,\"stoppingDistance\":0.0,\"updatePosition\":true,\"updateRotation\":true},\"rootMotion\":false,\"weapon\":\"Gauntlet\"}],\"compiler\":\"roslyn\"}}"
+    }
+  ],
+  "structuredContent": {
+    "success": true,
+    "message": "Code executed successfully.",
+    "data": {
+      "result": [
+        {
+          "name": "Player - Nexus",
+          "agent": {
+            "speed": 5,
+            "acceleration": 99999,
+            "angularSpeed": 0,
+            "radius": 0.5,
+            "stoppingDistance": 0,
+            "updatePosition": true,
+            "updateRotation": true
+          },
+          "rootMotion": false,
+          "weapon": "Gauntlet"
+        }
+      ],
+      "compiler": "roslyn"
+    }
+  },
+  "isError": false
+}

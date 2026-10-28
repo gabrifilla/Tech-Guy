@@ -1553,7 +1553,23 @@ MonoBehaviour:
   timeBetweenAttacks: 1.5
   _attackWindup: 0.7
   _attackRecovery: 0.35
+  _retreatMaxDistance: 3
   _attackCoordinator: {fileID: 0}
+  _kiting:
+    RetreatSpeedMultiplier: 0.5
+    StandoffFraction: 0.45
+    StandoffMargin: 1.15
+    RetreatWindow: 1
+    RetreatCooldown: 2
+  _natural:
+    AngularSpeed: 540
+    ReactionDelay: 0.3
+    SightLossReset: 1
+    CadenceJitter: 0.15
+    ApproachOffset: 1.5
+    ApproachRefresh: 1
+    PatrolPauseMin: 0.5
+    PatrolPauseMax: 1.5
   FootstepAudioClips: []
   FootstepAudioVolume: 0.5
 --- !u!114 &7812480294942989704
@@ -1581,6 +1597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 968eb81713e1d1e40b9b5887ae0fdd02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _combatAffiliation: 0
   health: 60
   healthBar: {fileID: 0}
 --- !u!114 &5821585644952671808

@@ -33,7 +33,12 @@ public static class TitleTutorialPreview
         _phase=0; _next=EditorApplication.timeSinceStartup+5; EditorApplication.update+=Tick;
     }
     private static MainMenuUI Menu() => SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(root=>root.GetComponentsInChildren<MainMenuUI>()).Single();
-    private static void Capture(string name) => ScreenCapture.CaptureScreenshot(Path.Combine(Application.dataPath,"../"+name+".png"));
+    private static void Capture(string name)
+    {
+        string directory = Path.GetFullPath(Path.Combine(Application.dataPath,"../Docs/validation/artifacts/title-tutorial"));
+        Directory.CreateDirectory(directory);
+        ScreenCapture.CaptureScreenshot(Path.Combine(directory,name+".png"));
+    }
     private static void Tick()
     {
         if (EditorApplication.timeSinceStartup<_next || ShaderUtil.anythingCompiling) return;
@@ -47,7 +52,7 @@ public static class TitleTutorialPreview
             case 5: Menu().StartJourney(true); break;
             case 6: Capture("TutorialPreview"); break;
             default:
-                bool captured = new[] { "MainMenuPreview", "SettingsPreview", "ControlsPreview", "TutorialPreview" }.All(name=>File.Exists(Path.Combine(Application.dataPath,"../"+name+".png")));
+                bool captured = new[] { "MainMenuPreview", "SettingsPreview", "ControlsPreview", "TutorialPreview" }.All(name=>File.Exists(Path.Combine(Application.dataPath,"../Docs/validation/artifacts/title-tutorial/"+name+".png")));
                 Debug.Log(captured ? "TITLE_PREVIEW_SUCCESS" : "TITLE_PREVIEW_FAILED");
                 SessionState.SetBool(Pending,false); EditorApplication.update-=Tick; EditorApplication.Exit(captured ? 0 : 1); return;
         }

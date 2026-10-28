@@ -117,6 +117,14 @@ public sealed class WeaponRunModifiers
     private readonly Dictionary<WeaponBoon, int> _ranks = new Dictionary<WeaponBoon, int>();
     private readonly List<LegacyRankRecord> _legacySource = new List<LegacyRankRecord>();
     public IReadOnlyList<LegacyRankRecord> LegacySource => _legacySource.AsReadOnly();
+    public BoonExpansionInventory Expansion { get; } = new BoonExpansionInventory();
+    public bool HasViolentFall { get; private set; }
+    public bool TryAcquireViolentFall()
+    {
+        if (Family != RunWeaponFamily.Gauntlet || HasViolentFall ||
+            !GauntletMutations.TryGet(GauntletActionSlot.Q, out var mutation) || mutation != GauntletMutation.EclipseUppercut) return false;
+        HasViolentFall = true; return true;
+    }
     public GauntletMutationSelection GauntletMutations { get; } = new GauntletMutationSelection();
     public RunWeaponFamily Family { get; }
     public WeaponRunModifiers(RunWeaponFamily family) => Family = family;
@@ -153,6 +161,8 @@ public sealed class WeaponRunModifiers
         _ranks.Clear();
         _legacySource.Clear();
         GauntletMutations.Clear();
+        Expansion.Clear();
+        HasViolentFall = false;
     }
 
     // Invalid-modifier gate (Requisito 12.8 / task 15.6 / Property 40): Add is the single entry point that

@@ -1,0 +1,17 @@
+{
+  "method": "git status --short nos dois snapshots",
+  "added": [
+    " M Assets/_Project/Scripts/Abilities/Dash/DashScript.cs",
+    " M Assets/_Project/Scripts/Characters/Enemy/SoftGroupingService.cs",
+    " M Assets/_Project/Scripts/Core/KitingStepCoordinator.cs",
+    " M Assets/_Project/Scripts/Editor/TutorialSceneBuilder.cs",
+    " M Assets/_Project/Scripts/UI/TutorialHUD.cs",
+    "?? Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectMovement.cs",
+    "?? Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectMovement.cs.meta",
+    "?? Assets/_Project/Scripts/Characters/Player/PlayerNavigationMotor.cs",
+    "?? Assets/_Project/Scripts/Characters/Player/PlayerNavigationMotor.cs.meta",
+    "?? Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs",
+    "?? Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs.meta"
+  ],
+  "removed": []
+}

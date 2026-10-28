@@ -1,0 +1,2155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1781965c65e4216ac4d5c1aedbb7df3, type: 3}
+  m_Name: BoonReworkCatalog
+  m_EditorClassIdentifier: TechGuy::BoonCatalogDefinition
+  _entries:
+  - _id: augment_bow_cutting_return
+    _title: Retorno Cortante
+    _description: "Flecha do Ju\xEDzo completa retorna uma vez ao fim do alcance
+      pela rota percorrida, a 40% do dano. S\xF3lidos encerram o tiro. Retorno \xE9
+      derivado da mesma raiz, n\xE3o consome nem produz marcas, e n\xE3o cria outro
+      retorno."
+    _family: 1
+    _weapons: 2
+    _slots: 8
+    _requiredCapabilities: 6
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 16384
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - mutation_bow_judgment_arrow
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 6
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: augment_bow_inverted_harvest
+    _title: Colheita Invertida
+    _description: "Segundo input distinto recolhe as estacas v\xE1lidas, sem conceder
+      a Mutation Chuva Invertida."
+    _family: 1
+    _weapons: 2
+    _slots: 4
+    _requiredCapabilities: 512
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 16640
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - mutation_bow_thorn_forest
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 3
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 1
+      _maxDepth: 1
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: augment_bow_predator_seal
+    _title: Selo do Predador
+    _description: "Flechas nativas confirmadas marcam por 3s. Marcados acionam minas
+      a at\xE9 2,5m; consome o selo ao acionar. Flecha do Ju\xEDzo completa tamb\xE9m
+      pode consumir esse selo. Explos\xF5es, retornos e t\xE9cnicas derivadas n\xE3o
+      marcam."
+    _family: 1
+    _weapons: 2
+    _slots: 4
+    _requiredCapabilities: 512
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 131072
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - mutation_bow_mine_garden
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 24
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 1
+      _maxDepth: 1
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: augment_gauntlet_echoing_fist
+    _title: Punho Ecoante
+    _description: "W: somente o finalizador que confirmar HP cria um soco atrasado
+      em 0,25s no mesmo lugar, a 35% de dano/postura e 75% da largura. Sem novo W,
+      custo, controle ou Asura. Comp\xF5e com Mil punhos dentro do mesmo teto causal."
+    _family: 1
+    _weapons: 1
+    _slots: 2
+    _requiredCapabilities: 268435457
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 1073741824
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 6
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 2
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: augment_gauntlet_perfect_rhythm
+    _title: Ritmo Perfeito
+    _description: "Cadenciada: continuar R nas duas esperas entre 0,10s e 0,35s transforma
+      o \xFAltimo soco em onda circular de 3m. Mant\xE9m HP/postura, custo e prote\xE7\xE3o.
+      Fora da janela mant\xE9m o golpe normal; finalizar cedo n\xE3o concede a onda."
+    _family: 1
+    _weapons: 1
+    _slots: 8
+    _requiredCapabilities: 268435713
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 0
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - gauntlet_mutation_CadencedAsura
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 21
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: augment_gauntlet_temporal_echo
+    _title: Eco Temporal
+    _description: "Q ou E: ap\xF3s o \xFAltimo contato nativo confirmar HP, uma silhueta
+      repete somente esse hit em 0,45s na origem capturada, a 30% de dano/postura.
+      N\xE3o repete avan\xE7o, Launch, marcas, gera\xE7\xE3o de Asura ou a skill
+      inteira. Vincula \xE0 habilidade indicada no cart\xE3o."
+    _family: 1
+    _weapons: 1
+    _slots: 5
+    _requiredCapabilities: 1
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 1073741824
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 6
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 2
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: augment_gauntlet_violent_fall
+    _title: Queda Violenta
+    _description: "Augment de Q \u2014 Uppercut do Eclipse. Um finalizador nativo
+      de outra execu\xE7\xE3o consome a marca. No alvo lan\xE7ado, arma uma onda
+      na aterrissagem natural; no resistente, gera impacto/postura alternativo. Raio
+      2,5m, 35% do roll de HP/postura do finalizador. Um consumo por marca; echoes,
+      ticks, pouso e timeout n\xE3o ativam. Sem custo ou recarga adicional. Nesta
+      combina\xE7\xE3o, ecos mant\xEAm dano/postura e suas quebras usam Stun permitido
+      pelo perfil, sem renovar Launch."
+    _family: 1
+    _weapons: 1
+    _slots: 1
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 135266304
+    _providedCapabilities: 65552
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - mutation_gauntlet_eclipse_uppercut
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 18
+    _enemyPolicies:
+      _common: 0
+      _heavy: 2
+      _elite: 2
+      _boss: 2
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 32
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: augment_spear_moon_echo
+    _title: Eco da Lua
+    _description: "O final do retorno da \xD3rbita repete um \xFAnico corte em raio
+      1,5m por 12,5% do dano/postura nominal. \xC9 eco derivado; n\xE3o cria \xF3rbita,
+      input, mana ou energia."
+    _family: 1
+    _weapons: 4
+    _slots: 8
+    _requiredCapabilities: 268435456
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 1073741824
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - mutation_spear_dragon_orbit
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 2
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: augment_spear_return_mark
+    _title: Marca de Retorno
+    _description: "\xD3rbita: confirmar HP na ida e na volta contra a mesma gera\xE7\xE3o
+      detona uma vez por alvo por R: 20% do dano/postura nominal, derivado. Duplicar
+      collider ou dar mais voltas n\xE3o renova a marca."
+    _family: 1
+    _weapons: 4
+    _slots: 8
+    _requiredCapabilities: 16384
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 393216
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - mutation_spear_dragon_orbit
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 18
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: conductor
+    _title: conductor
+    _description: 
+    _family: 2
+    _weapons: 7
+    _slots: 15
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 0
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 3
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 0
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 127
+      _triggerImpacts: 7
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: detonation
+    _title: detonation
+    _description: 
+    _family: 2
+    _weapons: 7
+    _slots: 15
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 0
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 3
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 0
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 127
+      _triggerImpacts: 15
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: duo_bow_arrow_graveyard
+    _title: "Cemit\xE9rio de Flechas"
+    _description: "Converte recolhimento de estacas em c\xEDrculo de estilha\xE7os;
+      cada estaca \xE9 consumida uma vez."
+    _family: 3
+    _weapons: 2
+    _slots: 4
+    _requiredCapabilities: 17152
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 16
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - mutation_bow_thorn_forest
+    - augment_bow_inverted_harvest
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 4
+      _elite: 4
+      _boss: 4
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 1
+      _maxDepth: 1
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: duo_bow_eclipse_archer
+    _title: Arqueiro do Eclipse
+    _description: "Com V\xEDnculo v\xE1lido, a flecha completa usa corredor estreito
+      de foco e consumo de selo +50% em vez de +25%. Concentra as fra\xE7\xF5es extras
+      de Corda tripla em um \xFAnico proj\xE9til, preservando o or\xE7amento dessas
+      fra\xE7\xF5es. Exige cone, alcance e linha de vis\xE3o; sem alvo priorit\xE1rio
+      mant\xE9m o tiro largo normal."
+    _family: 3
+    _weapons: 2
+    _slots: 8
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 65536
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - mutation_bow_hunting_bond
+    - mutation_bow_judgment_arrow
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 1
+      _maxDepth: 1
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: duo_bow_hunting_detonator
+    _title: "Detonador da Ca\xE7a"
+    _description: "Uma nova flecha nativa confirmada em alvo com Selo consome a marca
+      e detona no m\xE1ximo uma mina armada a at\xE9 4m, com linha de vis\xE3o. A
+      explos\xE3o n\xE3o marca, n\xE3o detona outra mina e mant\xE9m a raiz e o limite
+      de impactos do plantio."
+    _family: 3
+    _weapons: 2
+    _slots: 4
+    _requiredCapabilities: 131584
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 262144
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - mutation_bow_mine_garden
+    - augment_bow_predator_seal
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 24
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 1
+      _maxDepth: 1
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: duo_gauntlet_titan_fall
+    _title: "Queda dos Tit\xE3s"
+    _description: "Uppercut + Queda Violenta: um finisher que armar a queda prepara
+      um cruzado descendente ap\xF3s 0,12s. Metade do dano da Queda atinge o marcado;
+      a outra metade e toda a postura permanecem na onda ao pousar. Heavy/Elite/Boss
+      recebem os dois momentos sem Launch virtual. Um consumo por marca; cancelamento,
+      morte e reciclagem limpam futuros."
+    _family: 3
+    _weapons: 1
+    _slots: 1
+    _requiredCapabilities: 134283264
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 0
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - mutation_gauntlet_eclipse_uppercut
+    - augment_gauntlet_violent_fall
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 22
+    _enemyPolicies:
+      _common: 0
+      _heavy: 3
+      _elite: 3
+      _boss: 3
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: duo_spear_return_line
+    _title: Linha de Retorno
+    _description: "\xD3rbita + Marca de Retorno: a primeira confirma\xE7\xE3o v\xE1lida
+      de ida e volta por R consome a linha e troca sua detona\xE7\xE3o de 20% por
+      50% do dano/postura nominal. Outros alvos conservam a Marca normal. Um consumo
+      por R; sempre no or\xE7amento derivado original."
+    _family: 3
+    _weapons: 4
+    _slots: 8
+    _requiredCapabilities: 278528
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 65536
+    _removedCapabilities: 0
+    _requiredBoonIds:
+    - mutation_spear_dragon_orbit
+    - augment_spear_return_mark
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 24
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: frost
+    _title: frost
+    _description: 
+    _family: 2
+    _weapons: 7
+    _slots: 15
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 0
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 3
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 0
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 127
+      _triggerImpacts: 7
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: gauntlet_mutation_CadencedAsura
+    _title: Asura Cadenciada
+    _description: 
+    _family: 0
+    _weapons: 1
+    _slots: 8
+    _requiredCapabilities: 268435457
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 256
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 3
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: ignite
+    _title: ignite
+    _description: 
+    _family: 2
+    _weapons: 7
+    _slots: 15
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 0
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 3
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 0
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 127
+      _triggerImpacts: 7
+      _producedImpact: 3
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_bow_hunting_bond
+    _title: "V\xEDnculo da Ca\xE7a"
+    _description: "Q sela o alvo atingido por 6s. Pr\xF3ximas flechas priorizam esse
+      alvo somente no cone de 50\xB0, alcance do tiro e linha de vis\xE3o. Mant\xE9m
+      tiros/cad\xEAncia do snapshot de Q, mana e recarga; perde a dispers\xE3o do
+      Q. N\xE3o atravessa paredes nem concede controle sobre boss."
+    _family: 0
+    _weapons: 2
+    _slots: 1
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 163842
+    _removedCapabilities: 2147319805
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 3
+      _elite: 3
+      _boss: 3
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_bow_hunting_constellation
+    _title: "Constela\xE7\xE3o de Ca\xE7a"
+    _description: "Origens de arco et\xE9reas alternam salvas e podem convergir em
+      alvo marcado."
+    _family: 0
+    _weapons: 2
+    _slots: 8
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 32834
+    _removedCapabilities: 2147450813
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 6
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 3
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_bow_hunting_storm
+    _title: "Tempestade de Ca\xE7a"
+    _description: "Arrastar e soltar a mira desenha a linha das salvas, em vez de
+      um c\xEDrculo fixo."
+    _family: 0
+    _weapons: 2
+    _slots: 8
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 32790
+    _removedCapabilities: 2147450857
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 5
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_bow_judgment_arrow
+    _title: "Flecha do Ju\xEDzo"
+    _description: "Segure R para concentrar. Soltar antes de 0,8s: 60% do dano nominal
+      de R em corredor estreito, sem perfura\xE7\xE3o pr\xF3pria. A partir de 0,8s:
+      100%, flecha larga perfurante e +25% ao consumir selo v\xE1lido. Auto-solta
+      em 1,6s; recupera\xE7\xE3o 0,2s. Parado ao carregar; dash ou HP recebido interrompem
+      sem reembolso. Mant\xE9m mana/recarga do slot e t\xE9cnicas compat\xEDveis."
+    _family: 0
+    _weapons: 2
+    _slots: 8
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 98438
+    _removedCapabilities: 2147385209
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 3
+    _enemyPolicies:
+      _common: 0
+      _heavy: 3
+      _elite: 3
+      _boss: 3
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_bow_mine_garden
+    _title: Jardim de Minas
+    _description: "E prepara at\xE9 3 minas por 6s na \xE1rea apontada, respeitando
+      paredes. Arma em 0,25s; inimigo a 1,25m detona a mina uma vez, explos\xE3o
+      de 2,5m com 1/3 do dano nominal de E. Replantar remove o conjunto anterior.
+      Perde leque/recuo; mant\xE9m mana/recarga. Derivados usam a raiz original e
+      n\xE3o plantam minas."
+    _family: 0
+    _weapons: 2
+    _slots: 4
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 33296
+    _removedCapabilities: 2147450351
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 6
+    _enemyPolicies:
+      _common: 0
+      _heavy: 3
+      _elite: 3
+      _boss: 3
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 3
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_bow_phantom_passage
+    _title: Passagem Fantasma
+    _description: "Reposiciona o arqueiro e deixa uma origem ilus\xF3ria de salva
+      curta, sem aggro ou clones recursivos."
+    _family: 0
+    _weapons: 2
+    _slots: 1
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 43074
+    _removedCapabilities: 2147440573
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 6
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_bow_predator_mark
+    _title: Marca do Predador
+    _description: "Distribui marcas; pr\xF3ximo impacto eleg\xEDvel divide seu or\xE7amento
+      entre alvos marcados."
+    _family: 0
+    _weapons: 2
+    _slots: 4
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 163858
+    _removedCapabilities: 2147319789
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_bow_prismatic_arrow
+    _title: "Flecha Prism\xE1tica"
+    _description: "Impacto em inimigo ou superf\xEDcie origina fragmenta\xE7\xE3o
+      lateral limitada."
+    _family: 0
+    _weapons: 2
+    _slots: 1
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 32778
+    _removedCapabilities: 2147450869
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_bow_thorn_forest
+    _title: Floresta de Espinhos
+    _description: "Estacas delimitam corredor; flechas eleg\xEDveis que o cruzam
+      produzem fragmentos laterais."
+    _family: 0
+    _weapons: 2
+    _slots: 4
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 33286
+    _removedCapabilities: 2147450361
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_gauntlet_asura_avatar
+    _title: Avatar de Asura
+    _description: "Projeta execu\xE7\xE3o fixa remota; composi\xE7\xE3o futura com
+      input cadenciado exige adapta\xE7\xE3o expl\xEDcita de suporte."
+    _family: 0
+    _weapons: 1
+    _slots: 8
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 268468289
+    _removedCapabilities: 1879015358
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 6
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_gauntlet_counter_impact
+    _title: Contra-Impacto
+    _description: "Receber golpe bloque\xE1vel durante a postura habilita resposta;
+      golpes n\xE3o bloque\xE1veis mant\xEAm seu contrato."
+    _family: 0
+    _weapons: 1
+    _slots: 4
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 12615697
+    _removedCapabilities: 2134867950
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 3
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_gauntlet_eclipse_uppercut
+    _title: Uppercut do Eclipse
+    _description: "Substitui Q \u2014 Avan\xE7o Rel\xE2mpago por uppercut frontal
+      de 2,4m, sem avan\xE7o. Mant\xE9m dano/postura total, mana e recarga de Q.
+      Launch s\xF3 na quebra autorizada; caso contr\xE1rio aplica marca de ascens\xE3o
+      por 3s. Permite extens\xE3o por finalizadores nativos e Queda Violenta. N\xE3o
+      herda o gap closer."
+    _family: 0
+    _weapons: 1
+    _slots: 1
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 137396225
+    _removedCapabilities: 2010087422
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 6
+    _enemyPolicies:
+      _common: 0
+      _heavy: 3
+      _elite: 3
+      _boss: 3
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 1
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_gauntlet_mass_press
+    _title: Prensa de Massa
+    _description: "Dois socos originam ondas convergentes; mira define a regi\xE3o
+      de fechamento."
+    _family: 0
+    _weapons: 1
+    _slots: 4
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 8421397
+    _removedCapabilities: 2139062250
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 6
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_gauntlet_mirrored_asura
+    _title: Asura Espelhado
+    _description: "Avatar repete somente hits confirmados eleg\xEDveis; n\xE3o replica
+      custo, energia ou outro avatar."
+    _family: 0
+    _weapons: 1
+    _slots: 8
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 1342177345
+    _removedCapabilities: 805306302
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_gauntlet_pugilist_step
+    _title: Passo do Pugilista
+    _description: "Avan\xE7o curto com esquiva direcional precisa; confirma\xE7\xE3o
+      real habilita o contra-gancho."
+    _family: 0
+    _weapons: 1
+    _slots: 1
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 71346177
+    _removedCapabilities: 2076137470
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 3
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_gauntlet_rupture_hook
+    _title: Gancho de Ruptura
+    _description: "Avan\xE7a at\xE9 alvo acess\xEDvel e deixa marca que um pr\xF3ximo
+      golpe pode ativar."
+    _family: 0
+    _weapons: 1
+    _slots: 1
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 427009
+    _removedCapabilities: 2147056638
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_gauntlet_two_beat_quake
+    _title: Sismo de Dois Tempos
+    _description: "Um segundo pressionamento no ritmo correto detona a linha perpendicular;
+      hold n\xE3o continua."
+    _family: 0
+    _weapons: 1
+    _slots: 4
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 75530501
+    _removedCapabilities: 2071953146
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 3
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_spear_celestial_spear
+    _title: "Lan\xE7a Celestial"
+    _description: Q e E confirmados em alvos marcados guiam a queda final telegrafada.
+    _family: 0
+    _weapons: 4
+    _slots: 8
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 268599376
+    _removedCapabilities: 1878884271
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_spear_double_crescent
+    _title: Crescente Duplo
+    _description: Alterna cortes horizontal e vertical; confirmar o primeiro habilita
+      ruptura no segundo.
+    _family: 0
+    _weapons: 4
+    _slots: 4
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 8421633
+    _removedCapabilities: 2139062014
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 3
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_spear_dragon_anchor
+    _title: "\xC2ncora do Drag\xE3o"
+    _description: "Arremessa \xE2ncora e reserva segundo pressionamento para avan\xE7o;
+      recolhimento \xE9 suporte futuro."
+    _family: 0
+    _weapons: 4
+    _slots: 1
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 536904962
+    _removedCapabilities: 1610578685
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 3
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_spear_dragon_orbit
+    _title: "\xD3rbita do Drag\xE3o"
+    _description: "R: proje\xE7\xE3o at\xE9 8m percorre tr\xEAs voltas de 1s, raio
+      2,5m, e retorna \xE0 posi\xE7\xE3o escolhida ao iniciar a volta em at\xE9 1s.
+      Cada passagem e retorno causa 25% do dano/postura nominal por alvo. Finalizar
+      sequ\xEAncia antecipa o retorno e perde passagens restantes. Paredes interrompem
+      a rota; finaliza no \xFAltimo ponto livre. Libera a\xE7\xF5es ap\xF3s 0,4s+0,15s;
+      mana/recarga de R, uma proje\xE7\xE3o ativa."
+    _family: 0
+    _weapons: 4
+    _slots: 8
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 805355536
+    _removedCapabilities: 1342128111
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 22
+    _enemyPolicies:
+      _common: 0
+      _heavy: 2
+      _elite: 2
+      _boss: 2
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_spear_horizon_cut
+    _title: Corte do Horizonte
+    _description: "Q: estocada de at\xE9 8m causa 60% do dano/postura nominal e deixa
+      uma linha por 5s. E nativo cruzando a linha detona os 40% restantes uma vez.
+      Sem avan\xE7o. Mana/recarga de Q; uma linha ativa. Ecos repetem s\xF3 a estocada
+      ofensiva; nunca recriam a linha."
+    _family: 0
+    _weapons: 4
+    _slots: 1
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 426501
+    _removedCapabilities: 2147057146
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 22
+    _enemyPolicies:
+      _common: 0
+      _heavy: 2
+      _elite: 2
+      _boss: 2
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_spear_moon_step
+    _title: Passo da Lua
+    _description: "Recua e reserva pr\xF3ximo Q no prazo para estocada de retorno."
+    _family: 0
+    _weapons: 4
+    _slots: 1
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 41221
+    _removedCapabilities: 2147442426
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 3
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_spear_spiral_return
+    _title: Retorno Espiral
+    _description: Projeta crescente de ida e volta; mover o jogador altera a rota
+      do retorno.
+    _family: 0
+    _weapons: 4
+    _slots: 4
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 536920066
+    _removedCapabilities: 1610563581
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 6
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_spear_stake_siege
+    _title: Cerco de Hastes
+    _description: "E: ap\xF3s 0,35s, pulso em raio 3m causa 40% do dano/postura nominal
+      e planta seis hastes por 6s, at\xE9 7m. Cada haste pulsa uma vez por 10% em
+      raio 1,5m por contato inimigo ou trajeto nativo de Q/R. N\xE3o bloqueia movimento
+      ou NavMesh. Mana/recarga de E; um conjunto ativo."
+    _family: 0
+    _weapons: 4
+    _slots: 4
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 426512
+    _removedCapabilities: 2147057135
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 1
+    _isTransformative: 1
+    _presentation: 22
+    _enemyPolicies:
+      _common: 0
+      _heavy: 2
+      _elite: 2
+      _boss: 2
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 6
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_spear_two_moons
+    _title: Duas Luas
+    _description: "Alterna postura de alcance e varredura, alterando a decis\xE3o
+      de entrada sem haste permanente."
+    _family: 0
+    _weapons: 4
+    _slots: 8
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 33045
+    _removedCapabilities: 2147450602
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 3
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_universal_repulsion_ring
+    _title: "Anel de Repuls\xE3o"
+    _description: "Abre espa\xE7o com repuls\xE3o autorizada e uma janela de contra-ataque."
+    _family: 0
+    _weapons: 7
+    _slots: 2
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 12615696
+    _removedCapabilities: 2134867951
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 2
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_universal_rupture_orb
+    _title: Orbe de Ruptura
+    _description: "Instala orbe est\xE1tico; skills confirmadas constroem marcas
+      para a detona\xE7\xE3o."
+    _family: 0
+    _weapons: 7
+    _slots: 2
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 426512
+    _removedCapabilities: 2147057135
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 20
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: mutation_universal_wandering_singularity
+    _title: Singularidade Errante
+    _description: "Lan\xE7a uma zona m\xF3vel; libera as outras a\xE7\xF5es e atrai
+      somente inimigos autorizados pelo perfil."
+    _family: 0
+    _weapons: 7
+    _slots: 2
+    _requiredCapabilities: 0
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 37394
+    _removedCapabilities: 2147446253
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 0
+    _enabledForOffers: 0
+    _isTransformative: 1
+    _presentation: 6
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 1
+    _impactRules:
+      _triggerOrigins: 1
+      _triggerImpacts: 1
+      _producedImpact: 0
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 1
+      _canSpawnSkillEntities: 1
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: weapon_AsuraEcho
+    _title: Asura reverberante
+    _description: "R: +1 r\xE9plica do golpe final por n\xEDvel, a 65% do dano e
+      postura."
+    _family: 1
+    _weapons: 1
+    _slots: 8
+    _requiredCapabilities: 268435457
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 1073741824
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 3
+    _isRetainedSupport: 1
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 0
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 3
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: weapon_ChainThrust
+    _title: Encadeamento
+    _description: "Estocadas encadeiam uma estocada curta a um inimigo pr\xF3ximo."
+    _family: 0
+    _weapons: 4
+    _slots: 15
+    _requiredCapabilities: 5
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 32
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 1
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 0
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 3
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: weapon_EchoThrust
+    _title: Estocada ecoante
+    _description: "Habilidades de estocada: +1 repeti\xE7\xE3o por n\xEDvel; dano
+      de cada golpe dividido por 1 + 0,2 \xD7 n\xEDvel."
+    _family: 1
+    _weapons: 4
+    _slots: 15
+    _requiredCapabilities: 5
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 1073741824
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 3
+    _isRetainedSupport: 1
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 0
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 3
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: weapon_FlurryEcho
+    _title: Mil punhos
+    _description: "W: repete o \xFAltimo golpe +2 vezes por n\xEDvel, a 55% do dano
+      e postura."
+    _family: 1
+    _weapons: 1
+    _slots: 2
+    _requiredCapabilities: 268435457
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 1073741824
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 3
+    _isRetainedSupport: 1
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 0
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 3
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: weapon_PhantomSpear
+    _title: "Lan\xE7a fantasma"
+    _description: "Estocadas repetem com uma c\xF3pia espectral ap\xF3s um instante."
+    _family: 0
+    _weapons: 4
+    _slots: 15
+    _requiredCapabilities: 5
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 1073741824
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 1
+    _isRetainedSupport: 1
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 0
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 3
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: weapon_RapidBurst
+    _title: Tambor de disparos
+    _description: "Q: +2 disparos e +25% de cad\xEAncia entre disparos por n\xEDvel."
+    _family: 0
+    _weapons: 2
+    _slots: 1
+    _requiredCapabilities: 2
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 0
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 3
+    _isRetainedSupport: 1
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 0
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 3
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0
+  - _id: weapon_Ricochet
+    _title: Flecha saltadora
+    _description: "Cada flecha busca +2 inimigos ap\xF3s acertar, por n\xEDvel. Cada
+      salto conserva 75% do dano."
+    _family: 1
+    _weapons: 2
+    _slots: 15
+    _requiredCapabilities: 2
+    _anyRequiredCapabilities: 0
+    _providedCapabilities: 32
+    _removedCapabilities: 0
+    _requiredBoonIds: []
+    _blockedBoonIds: []
+    _maxRank: 3
+    _isRetainedSupport: 1
+    _enabledForOffers: 1
+    _isTransformative: 0
+    _presentation: 0
+    _enemyPolicies:
+      _common: 0
+      _heavy: 0
+      _elite: 0
+      _boss: 0
+    _impactRules:
+      _triggerOrigins: 3
+      _triggerImpacts: 1
+      _producedImpact: 1
+      _maxInstancesPerCast: 1
+      _maxDerivedImpactsPerCast: 32
+      _maxDepth: 4
+      _canGenerateEnergy: 0
+      _canCreateCausalRoot: 0
+      _canSpawnSkillEntities: 0
+    _cost:
+      _overrideManaCost: 0
+      _manaCost: 0
+      _overrideCooldown: 0
+      _cooldown: 0

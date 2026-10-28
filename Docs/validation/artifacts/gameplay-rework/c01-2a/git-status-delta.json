@@ -1,0 +1,10 @@
+{
+  "method": "git status --short em ambos os snapshots; diretorios untracked permanecem agrupados",
+  "addedStatusLines": [
+    "?? Assets/_Project/Scripts/Tests/GprMovementPrototype.meta",
+    "?? Assets/_Project/Scripts/Tests/GprMovementPrototype/"
+  ],
+  "removedStatusLines": [
+    "?? Docs.zip"
+  ]
+}

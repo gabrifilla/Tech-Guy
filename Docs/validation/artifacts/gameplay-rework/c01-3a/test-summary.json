@@ -1,0 +1,77 @@
+{
+  "distinctTests": 102,
+  "jobs": [
+    {
+      "file": "new-19-final.json",
+      "job": "74fc13a0f30a481ebe6e5a340439bb0c",
+      "summary": {
+        "total": 19,
+        "passed": 19,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 19.8624362,
+        "resultState": "Passed"
+      }
+    },
+    {
+      "file": "movement-regression-final.json",
+      "job": "d8786721fb814feba945e93fff8820d1",
+      "summary": {
+        "total": 23,
+        "passed": 23,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 8.7548669,
+        "resultState": "Passed"
+      }
+    },
+    {
+      "file": "contexts-final.json",
+      "job": "2704c2c356d4436ca9aaa5e81948ad42",
+      "summary": {
+        "total": 7,
+        "passed": 7,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 3.5658561,
+        "resultState": "Passed"
+      }
+    },
+    {
+      "file": "combat-regression-final.json",
+      "job": "bc1d6be6defa460987ab35809f787aab",
+      "summary": {
+        "total": 30,
+        "passed": 30,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 23.741416,
+        "resultState": "Passed"
+      }
+    },
+    {
+      "file": "dash-final.json",
+      "job": "bf16eff1e41b43ce9980383195a0e245",
+      "summary": {
+        "total": 8,
+        "passed": 8,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 1.8526469,
+        "resultState": "Passed"
+      }
+    },
+    {
+      "file": "edit-final.json",
+      "job": "043ed5373ff74f11bb99f4d7dcb70d24",
+      "summary": {
+        "total": 15,
+        "passed": 15,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 0.0395554,
+        "resultState": "Passed"
+      }
+    }
+  ]
+}

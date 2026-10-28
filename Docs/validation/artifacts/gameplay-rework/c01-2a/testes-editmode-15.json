@@ -1,0 +1,182 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "bfd1eb5b51b34d26a07574905b96d8af",
+      "status": "succeeded",
+      "mode": "EditMode",
+      "started_unix_ms": 1793070457944,
+      "finished_unix_ms": 1793070459341,
+      "last_update_unix_ms": 1793070459341,
+      "progress": {
+        "completed": 15,
+        "total": 15,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.ResolutionIsDeterministicAndDoesNotDependOnExistingControlOrder",
+        "last_finished_unix_ms": 1793070459309,
+        "stuck_suspected": false,
+        "editor_is_focused": true,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "EditMode",
+        "summary": {
+          "total": 15,
+          "passed": 15,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 0.0581934,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "AFreeBindablePreferenceWinsBeforeFallbackCandidates(Z)",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AFreeBindablePreferenceWinsBeforeFallbackCandidates(Z)",
+            "state": "Passed",
+            "durationSeconds": 0.0114458,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "AFreeBindablePreferenceWinsBeforeFallbackCandidates(Mouse3)",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AFreeBindablePreferenceWinsBeforeFallbackCandidates(Mouse3)",
+            "state": "Passed",
+            "durationSeconds": 0.0000492,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "AFreeBindablePreferenceWinsBeforeFallbackCandidates(K)",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AFreeBindablePreferenceWinsBeforeFallbackCandidates(K)",
+            "state": "Passed",
+            "durationSeconds": 0.0000426,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "AFreePreferenceStillWorksWhenAllFallbackCandidatesAreOccupied",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AFreePreferenceStillWorksWhenAllFallbackCandidatesAreOccupied",
+            "state": "Passed",
+            "durationSeconds": 0.0001238,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "AnArtificiallyExhaustedFallbackSetReturnsNoneInsteadOfADuplicate",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AnArtificiallyExhaustedFallbackSetReturnsNoneInsteadOfADuplicate",
+            "state": "Passed",
+            "durationSeconds": 0.000792,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "AnExistingFBindingIsPreservedAndTheNewControlChoosesG",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AnExistingFBindingIsPreservedAndTheNewControlChoosesG",
+            "state": "Passed",
+            "durationSeconds": 0.0010044,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "AnOccupiedPreferredKeyFallsBackWithoutChangingTheOriginalOwner",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AnOccupiedPreferredKeyFallsBackWithoutChangingTheOriginalOwner",
+            "state": "Passed",
+            "durationSeconds": 0.0001968,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DefaultsPreserveAllSevenOriginalControlsAndAddAnIndependentFinishKey",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.DefaultsPreserveAllSevenOriginalControlsAndAddAnIndependentFinishKey",
+            "state": "Passed",
+            "durationSeconds": 0.0029405,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FallbackOrderAlwaysLeavesOneUniqueChoiceForSevenExistingControls",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.FallbackOrderAlwaysLeavesOneUniqueChoiceForSevenExistingControls",
+            "state": "Passed",
+            "durationSeconds": 0.0004587,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FinishSequenceAppendsItsIdentityWithoutReorderingExistingControls",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.FinishSequenceAppendsItsIdentityWithoutReorderingExistingControls",
+            "state": "Passed",
+            "durationSeconds": 0.000213,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "InvalidPreferencesChooseTheFirstFreeBindableFallback(None)",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.InvalidPreferencesChooseTheFirstFreeBindableFallback(None)",
+            "state": "Passed",
+            "durationSeconds": 0.0001732,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "InvalidPreferencesChooseTheFirstFreeBindableFallback(Escape)",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.InvalidPreferencesChooseTheFirstFreeBindableFallback(Escape)",
+            "state": "Passed",
+            "durationSeconds": 0.0000506,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "InvalidPreferencesChooseTheFirstFreeBindableFallback(2147483647)",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.InvalidPreferencesChooseTheFirstFreeBindableFallback(2147483647)",
+            "state": "Passed",
+            "durationSeconds": 0.0005082,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "InvalidPreferencesChooseTheFirstFreeBindableFallback(-1)",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.InvalidPreferencesChooseTheFirstFreeBindableFallback(-1)",
+            "state": "Passed",
+            "durationSeconds": 0.0000469,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ResolutionIsDeterministicAndDoesNotDependOnExistingControlOrder",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.ResolutionIsDeterministicAndDoesNotDependOnExistingControlOrder",
+            "state": "Passed",
+            "durationSeconds": 0.0015605,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

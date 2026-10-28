@@ -1,0 +1,21 @@
+{
+  "energia_natural_antes": 100,
+  "usos": [
+    {
+      "kind": "AbilityUsed",
+      "slot": 3,
+      "t": 1.5038872000000083,
+      "mana": 1353.0,
+      "energy": 0
+    }
+  ],
+  "amostras_ativas": 109,
+  "janela_observada": [
+    1.513962999999876,
+    3.6674788000000262
+  ],
+  "recarga_final": 14.6888685,
+  "energia_final": 0,
+  "sem_injecao_recurso": true,
+  "nao_certifica": "timing sob FPS controlado ou inimigos hostis; é input virtual no dummy"
+}

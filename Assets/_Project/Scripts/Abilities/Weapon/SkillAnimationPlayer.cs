@@ -47,6 +47,13 @@ public sealed class SkillAnimationPlayer : MonoBehaviour
         CurrentMotion=entry.motion; NormalizedTime=Mathf.Clamp01(phase);
         _clip.SetTime(entry.clip.length*NormalizedTime); _graph.Evaluate(0);
     }
+    // A manual graph can be overwritten by the AnimatorController's later engine evaluation.
+    // The action owner may commit the already-sampled pose after that evaluation, without
+    // advancing time, re-emitting contact, or selecting another animation.
+    internal void ReapplyPose()
+    {
+        if (_graph.IsValid() && _animator && _animator.isActiveAndEnabled) _graph.Evaluate(0f);
+    }
     public void Release()
     {
         if (!_graph.IsValid()) return;

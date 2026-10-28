@@ -1,0 +1,14 @@
+{
+  "mode": "PlayMode",
+  "test_names": [
+    "TechGuy.Tests.RunResultsPlayModeTests.EscapeClosesDetailThenPanelAndHeldInputBlocksWorldUntilReleased",
+    "TechGuy.Tests.RunResultsPlayModeTests.DisableWithDetailRestoresCursorMovementAndCanReopen",
+    "TechGuy.Tests.RunResultsPlayModeTests.GPRSafetyResultsHeldWQCannotReplayAfterClosing",
+    "TechGuy.Tests.RunResultsPlayModeTests.GPRSafetySceneReloadRequiresHeldGameplayKeysReleased",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseInspectionKeepsRewardPendingAndBlocksAcquisitionUntilTheResumeFrameHasPassed",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseInspectionRestoresTheCapturedClockAndAudioRatherThanForcingDefaults",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.DisablingPauseDuringBuildInspectionRestoresClockAudioAndReleasesItsPage"
+  ],
+  "include_details": true,
+  "init_timeout": 120000
+}

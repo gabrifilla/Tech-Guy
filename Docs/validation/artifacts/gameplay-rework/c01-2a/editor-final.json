@@ -1,0 +1,56 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "scene": "Assets/_Project/Scenes/NexusBlockout.unity",
+      "dirty": false,
+      "playing": false,
+      "prefs": {
+        "TechGuy.Currency.Coins": 2597,
+        "TechGuy.Loadout.Weapon": 0,
+        "TechGuy.Loadout.Unlocked.0": -999,
+        "TechGuy.Loadout.Unlocked.1": 1,
+        "TechGuy.Loadout.Unlocked.2": 1,
+        "TechGuy.Progress.TutorialSeen": 1
+      },
+      "summaryLength": 42387,
+      "summaryHash": "9751067523EABB7557FFEC504779DB853925D6665AE876DAF8C0C489D52189B3",
+      "bindings": [
+        323,
+        324,
+        32,
+        113,
+        119,
+        101,
+        292,
+        102
+      ],
+      "virtualDevices": 0,
+      "prototypeObjects": 0,
+      "prototypeScripts": [
+        {
+          "guid": "ae47f1df0cf82c148bfb82d03ef766a0",
+          "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementArena.cs",
+          "type": "TechGuy.Tests.GprMovement.GprMovementArena"
+        },
+        {
+          "guid": "840089660520b114b9800aa7298b2fb2",
+          "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementMotor.cs",
+          "type": "TechGuy.Tests.GprMovement.GprMovementMotor"
+        },
+        {
+          "guid": "a3f378ed6517e7a40b19017977eb2966",
+          "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementPreview.cs",
+          "type": "TechGuy.Tests.GprMovement.GprMovementPreview"
+        },
+        {
+          "guid": "db28d160d082dab459701607ea29620a",
+          "path": "Assets/_Project/Scripts/Tests/GprMovementPrototype/GprMovementTests.cs",
+          "type": "TechGuy.Tests.GprMovement.GprMovementTests"
+        }
+      ]
+    },
+    "compiler": "codedom"
+  }
+}

@@ -10,6 +10,8 @@ public sealed class ManualRouteSnapshot
     public string DefinitionId { get; }
     public int StartNode { get; }
     public int BossNode { get; }
+    // Seed for reward draws is independent of session identity and world/decorative RNG.
+    public ulong? RewardSeed { get; }
     public IReadOnlyCollection<ManualNodeDefinition> Nodes => _nodes.Values;
     public IReadOnlyList<ManualConnectionDefinition> Connections => _connections.AsReadOnly();
     public IReadOnlyList<ManualExclusiveGroup> Groups => _groups.AsReadOnly();
@@ -25,5 +27,15 @@ public sealed class ManualRouteSnapshot
         foreach (var edge in definition.Connections) _connections.Add(new ManualConnectionDefinition(edge.Id, edge.From, edge.To));
         foreach (var group in definition.Groups) _groups.Add(new ManualExclusiveGroup(group.Id, group.DecisionNode, group.FirstBranch, group.SecondBranch));
         foreach (var path in paths) _paths.Add((int[])path.Clone());
+    }
+
+    internal ManualRouteSnapshot(ManualRouteSnapshot source, IEnumerable<ManualNodeDefinition> nodes, ulong? rewardSeed = null)
+    {
+        DefinitionId = source.DefinitionId; StartNode = source.StartNode; BossNode = source.BossNode;
+        RewardSeed = rewardSeed ?? source.RewardSeed;
+        foreach (var node in nodes) _nodes.Add(node.Id, node.Copy());
+        foreach (var edge in source.Connections) _connections.Add(new ManualConnectionDefinition(edge.Id, edge.From, edge.To));
+        foreach (var group in source.Groups) _groups.Add(new ManualExclusiveGroup(group.Id, group.DecisionNode, group.FirstBranch, group.SecondBranch));
+        foreach (var path in source.Paths) _paths.Add((int[])path.Clone());
     }
 }

@@ -1,0 +1,22 @@
+if(EditorApplication.isPlaying) throw new System.InvalidOperationException("Exit Play Mode before authoring materials.");
+const string path="Assets/_Project/Art/Characters/TG/TG_Rigged.fbx";
+const string folder="Assets/_Project/Art/Characters/TG/Materials";
+if(!AssetDatabase.IsValidFolder(folder)) AssetDatabase.CreateFolder("Assets/_Project/Art/Characters/TG","Materials");
+var shader=AssetDatabase.LoadAssetAtPath<Shader>("Assets/_Project/Art/Toon/TechGuyToon.shader");
+if(!shader || ShaderUtil.ShaderHasError(shader)) throw new System.InvalidOperationException("Illustrated shader has errors.");
+var model=AssetDatabase.LoadAssetAtPath<GameObject>(path); var importer=(ModelImporter)AssetImporter.GetAtPath(path);
+var sources=model.GetComponentsInChildren<SkinnedMeshRenderer>(true).SelectMany(r=>r.sharedMaterials).Distinct().ToArray();
+foreach(var source in sources) {
+ string materialPath=folder+"/"+source.name+"_Illustrated.mat";
+ var material=AssetDatabase.LoadAssetAtPath<Material>(materialPath);
+ if(!material) {material=new Material(shader){name=source.name+" Illustrated",enableInstancing=true}; AssetDatabase.CreateAsset(material,materialPath);}
+ material.shader=shader; material.SetColor("_BaseColor",source.GetColor("_BaseColor"));
+ var texture=AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/_Project/Art/Characters/TG/Textures/"+source.name+".png");
+ material.SetTexture("_BaseMap",texture);
+ material.SetColor("_ShadowColor",new Color(.3f,.41f,.46f)); material.SetColor("_HighlightColor",new Color(1.05f,1f,.87f));
+ material.SetFloat("_OutlineWidth",.012f); material.SetFloat("_PigmentStrength",.025f);
+ importer.AddRemap(new AssetImporter.SourceAssetIdentifier(typeof(Material),source.name),material); EditorUtility.SetDirty(material);
+}
+AssetDatabase.SaveAssets(); importer.SaveAndReimport();
+model=AssetDatabase.LoadAssetAtPath<GameObject>(path);
+return model.GetComponentsInChildren<SkinnedMeshRenderer>(true).SelectMany(r=>r.sharedMaterials).Select(m=>new {name=m.name,path=AssetDatabase.GetAssetPath(m),shader=m.shader.name,texture=m.GetTexture("_BaseMap")?AssetDatabase.GetAssetPath(m.GetTexture("_BaseMap")):"None"}).ToArray();

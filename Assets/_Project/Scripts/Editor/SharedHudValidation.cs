@@ -219,8 +219,8 @@ public static class SharedHudValidation
             camera.Render();
             RenderTexture.active = texture;
             image.ReadPixels(new Rect(0,0,1600,900),0,0); image.Apply();
-            Directory.CreateDirectory("Docs");
-            File.WriteAllBytes("Docs/"+label+".png",image.EncodeToPNG());
+            Directory.CreateDirectory("Docs/validation/artifacts/hud");
+            File.WriteAllBytes("Docs/validation/artifacts/hud/"+label+".png",image.EncodeToPNG());
         }
         finally
         {

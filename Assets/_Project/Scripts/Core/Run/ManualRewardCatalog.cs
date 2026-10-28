@@ -8,38 +8,42 @@ public static class ManualRewardCatalog
     public static IReadOnlyList<RunBoons.Offer> Eligible(RunRewardKind kind, WeaponRunModifiers modifiers, WeaponScript weapon, ProtocolInventory protocols = null, int opportunity = 0)
     {
         var offers = new List<RunBoons.Offer>();
-        if (modifiers == null || modifiers.Family != RunWeaponFamily.Gauntlet || !weapon ||
-            WeaponRunModifiers.Identify(weapon) != RunWeaponFamily.Gauntlet) return offers.AsReadOnly();
-        if (kind == RunRewardKind.Technique)
+        if (modifiers == null || !weapon || modifiers.Family != WeaponRunModifiers.Identify(weapon)) return offers.AsReadOnly();
+        if (kind == RunRewardKind.Technique || kind == RunRewardKind.Mutation && modifiers.Family != RunWeaponFamily.Gauntlet)
         {
             foreach (var definition in WeaponRunModifiers.Catalog)
-                if (definition.Family == RunWeaponFamily.Gauntlet && GauntletContentAuthoring.IsSelectedTechnique(definition.Kind) &&
-                    modifiers.Rank(definition.Kind) < definition.MaxRank)
-                    offers.Add(new RunBoons.Offer(definition.Id, definition.Title, definition.Description));
+                if (definition.Family == modifiers.Family &&
+                    (kind == RunRewardKind.Technique ? RunBoonOfferCatalog.IsTechnique(definition.Kind) : RunBoonOfferCatalog.IsMutation(definition.Kind)) &&
+                    modifiers.Rank(definition.Kind) < definition.MaxRank && RunBoonOfferCatalog.HasTarget(definition.Kind, weapon))
+                    offers.Add(new RunBoons.Offer(definition.Id, definition.Title,
+                        "Nível " + (modifiers.Rank(definition.Kind) + 1) + "/" + definition.MaxRank + "\n" + definition.Description));
         }
         else if (kind == RunRewardKind.Protocol)
         {
-            if (protocols != null && opportunity > 0)
+            // The ticket owns the random draw. Returning the whole retained compatible pool avoids
+            // the old opportunity script silently starving late rewards after boon retirement.
+            foreach (var protocol in new[] { ProtocolKind.Ignite, ProtocolKind.Frost, ProtocolKind.Conductor, ProtocolKind.Detonation })
             {
-                foreach (var selected in ProtocolRewardSelection.Select(protocols, opportunity))
+                if (protocols != null)
                 {
-                    offers.Add(ProtocolOfferPresentation.Create(protocols, selected));
+                    if (protocols.CanAcquire(protocol)) offers.Add(ProtocolOfferPresentation.Create(protocols, protocol));
                 }
-                return offers.AsReadOnly();
+                else
+                {
+                    string id = ProtocolCatalogValidator.IdFor(protocol);
+                    string title = protocol == ProtocolKind.Ignite ? "Lâmina incandescente" : protocol == ProtocolKind.Frost ? "Toque glacial" :
+                        protocol == ProtocolKind.Conductor ? "Bobina encadeada" : "Reator de sucata";
+                    offers.Add(new RunBoons.Offer(id, title, "Protocol — " + protocol));
+                }
             }
-            offers.Add(new RunBoons.Offer("ignite", "Lâmina incandescente", "Protocol — Queimadura por 4s; cada aquisição aumenta seu dano."));
-            offers.Add(new RunBoons.Offer("frost", "Toque glacial", "Protocol — Lentidão e chance de congelar; cópias aumentam a chance."));
-            offers.Add(new RunBoons.Offer("conductor", "Bobina encadeada", "Protocol — Acertos saltam com 45% do dano; cópias aumentam alvos e alcance."));
-            offers.Add(new RunBoons.Offer("detonation", "Reator de sucata", "Protocol — Mortes por impacto explodem; cópias aumentam dano e alcance."));
         }
         else if (kind == RunRewardKind.Mutation)
         {
             foreach (GauntletMutation mutation in Enum.GetValues(typeof(GauntletMutation)))
             {
+                if (!RunBoonOfferCatalog.IsMutation(mutation)) continue;
                 var slot = GauntletMutationSelection.SlotOf(mutation);
-                if (modifiers.GauntletMutations.TryGet(slot, out _) ||
-                    mutation == GauntletMutation.Epicenter && modifiers.Rank(WeaponBoon.ShockRing) > 0 ||
-                    weapon.abilities == null || (int)slot >= weapon.abilities.Length ||
+                if (modifiers.GauntletMutations.TryGet(slot, out _) || weapon.abilities == null || (int)slot >= weapon.abilities.Length ||
                     !(weapon.abilities[(int)slot] is BreakerGauntletAbility ability)) continue;
                 var selection = new GauntletMutationSelection(); selection.Select(mutation);
                 if (!GauntletExecutionSnapshot.TryBuild(ability, slot, modifiers, out _, selection)) continue;
@@ -47,9 +51,20 @@ public static class ManualRewardCatalog
                     GauntletContentAuthoring.MutationTitle(mutation), GauntletContentAuthoring.MutationDescription(mutation)));
             }
         }
-        if (protocols != null && kind == RunRewardKind.Protocol)
-            offers.RemoveAll(o => !ProtocolInventory.TryKind(o.Id, out var protocol) || !protocols.CanAcquire(protocol));
-        return offers.OrderBy(o => o.Id, StringComparer.Ordinal).ToList().AsReadOnly();
+        if (kind == RunRewardKind.Technique && modifiers.Family == RunWeaponFamily.Gauntlet)
+            offers.Add(EclipseBoonCatalog.FallOffer());
+        offers.AddRange(BoonExpansionCatalog.Offers(kind, modifiers, weapon, protocols));
+        return BoonOfferCompatibility.Filter(offers, modifiers, weapon, protocols);
+    }
+
+    public static IReadOnlyList<RunBoons.Offer> Alternatives(RunRewardKind kind, WeaponRunModifiers modifiers, WeaponScript weapon, ProtocolInventory protocols)
+    {
+        var offers = new List<RunBoons.Offer>();
+        foreach (var protocol in Eligible(RunRewardKind.Protocol, modifiers, weapon, protocols))
+            offers.Add(new RunBoons.Offer(protocol.Id, "ALTERNATIVA — " + protocol.Title,
+                kind + " esgotada. Esta escolha concede um Protocol preservado e não conta como Mutation.\n" + protocol.Description));
+        if (offers.Count == 0) offers.Add(RunBoonOfferCatalog.ExhaustedOffer());
+        return offers.AsReadOnly();
     }
 
     public static string InventoryKey(WeaponRunModifiers modifiers, WeaponScript weapon, int revision)
@@ -60,6 +75,9 @@ public static class ManualRewardCatalog
             parts.Add(definition.Id + "=" + modifiers.Rank(definition.Kind));
         foreach (GauntletActionSlot slot in Enum.GetValues(typeof(GauntletActionSlot)))
             parts.Add(slot + "=" + (modifiers.GauntletMutations.TryGet(slot, out var mutation) ? mutation.ToString() : "none"));
+        parts.Add(BoonReworkCatalog.ViolentFallId + "=" + (modifiers.HasViolentFall ? 1 : 0));
+        foreach (var acquisition in modifiers.Expansion.Acquisitions)
+            parts.Add(acquisition.Id + "=" + acquisition.Rank + "@" + acquisition.Slots);
         foreach (RunRewardKind kind in new[] { RunRewardKind.Technique, RunRewardKind.Mutation, RunRewardKind.Protocol })
             parts.Add(string.Join(",", Eligible(kind, modifiers, weapon).Select(o => o.Id)));
         return string.Join("|", parts);

@@ -22,6 +22,7 @@ public sealed partial class ProtocolRuntime
         public int Maximum;
         public ProtocolFeedbackKind Feedback;
         public bool DeadSource;
+        public float Posture;
     }
     private bool Matches(ProtocolRootContext root) => root != null && root.IsValid &&
         root.SessionId == _inventory.SessionId && root.EncounterId == EncounterId && !_inventory.IsEnded;
@@ -147,7 +148,16 @@ public sealed partial class ProtocolRuntime
                     _feedback?.Emit(work.Producer == ProtocolProducer.ThermalShock ? ProtocolFeedbackKind.ThermalShock : ProtocolFeedbackKind.Overflow,
                         before.Position, before.Position, .55f);
                 float actual = 0;
-                using (work.Target.CaptureNextDamage(value => actual = value)) work.Target.TakeDamage(amount);
+                var analyticsSource = (work.Root.AnalyticsSource ?? _player?.RunStatistics?.UnknownSource())?
+                    .WithProducer(work.Producer.ToString(), "protocol:" + work.Producer, true);
+                if (ProtocolEligibility.Amplifies(work.Producer) && work.Root.Rank(ProtocolKind.Resonance) > 0 && (before.Burn || before.Chill))
+                    analyticsSource = analyticsSource?.WithModifier("resonance");
+                using (work.Target.CaptureNextDamage(value => actual = value, source: analyticsSource)) work.Target.TakeDamage(amount);
+                if (work.Posture > 0 && Matches(work.Root) && work.Target && !work.Target.IsDead && work.Target.isActiveAndEnabled &&
+                    work.Target.CombatGeneration == before.Handle.Generation && _player)
+                    _player.ApplyHitReactionTo(work.Target, new HitReactionRequest(_player, work.Target.transform.position,
+                        work.Target.transform.position - _player.transform.position, HitReactionType.None, HitStrength.Heavy,
+                        work.Posture, StanceBreakEffect.Stun, 0f, 0f, 0f, 0f));
                 if (actual > 0 && (before.IsLethal(actual) || work.Target && work.Target.CombatGeneration == before.Handle.Generation))
                     using (OpenCallbackScope(work.Root, work.Depth))
                     ProcessConfirmed(work.Root, work.Target, before, actual, work.Producer, work.Depth);
@@ -202,11 +212,14 @@ public sealed partial class ProtocolRuntime
         var root = Budget.BeginRoot(value.SessionId, value.EncounterId, _inventory,
             ProtocolProducer.BurnTick, value.TickOrdinal, value.BurnRanks);
         if (root == null) return;
+        root.AnalyticsSource = value.AnalyticsBurnSource;
         try
         {
             var before = new ProtocolHitSnapshot(value.Target);
             float actual = 0;
-            using (value.Target.CaptureNextDamage(amount => actual = amount))
+            var analyticsSource = (value.AnalyticsBurnSource ?? _player?.RunStatistics?.UnknownSource())?
+                .WithProducer(ProtocolProducer.BurnTick.ToString(), "ignite", true);
+            using (value.Target.CaptureNextDamage(amount => actual = amount, source: analyticsSource))
                 value.Target.TakeDamage(value.BurnDps * _inventory.Catalog.Get(ProtocolKind.Ignite).TickInterval);
             SubmitConfirmedImpact(root, value.Target, before, actual, ProtocolProducer.BurnTick);
         }

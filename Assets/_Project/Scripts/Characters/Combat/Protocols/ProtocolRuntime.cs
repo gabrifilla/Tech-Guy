@@ -56,7 +56,11 @@ public sealed partial class ProtocolRuntime : MonoBehaviour
             if (!_nativeRoots.ContainsKey(key))
             {
                 var root = Budget.BeginRoot(_inventory.SessionId, EncounterId, _inventory, ProtocolProducer.Direct, context.RootExecution);
-                if (root != null) _nativeRoots.Add(key, root);
+                if (root != null)
+                {
+                    root.AnalyticsSource = _player.RunStatistics?.SourceFor(context);
+                    _nativeRoots.Add(key, root);
+                }
             }
         }
         else if (_nativeRoots.TryGetValue(key, out var parent)) parent.ReserveChild(context.Execution);
@@ -86,7 +90,9 @@ public sealed partial class ProtocolRuntime : MonoBehaviour
         using (Profile())
         {
         if (!IsOpen || _boons && _boons.ProtocolSession?.IsEncounterClosing == true) return null;
-        TouchFrame(); return Budget.BeginRoot(_inventory.SessionId, EncounterId, _inventory, producer);
+        TouchFrame(); var root = Budget.BeginRoot(_inventory.SessionId, EncounterId, _inventory, producer);
+        if (root != null) root.AnalyticsSource = _player.RunStatistics?.CurrentSource ?? _player.RunStatistics?.UnknownSource();
+        return root;
         }
     }
     public static ProtocolProducer ProducerFor(GauntletImpactContext context)

@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "method": "API Pause + reflection only to open existing Controls draft; no Apply/Save",
+      "blocked": true,
+      "observation": "{\"status\":\"running\",\"stage\":\"starting\",\"run_id\":\"20261026T220710899-cb654ca9\",\"output_directory\":\"D:\\\\Dev\\\\Personal\\\\My_games\\\\Tech-Guy\\\\Library\\\\GameplayObservation\\\\20261026T220710899-cb654ca9\",\"frames\":0,\"message\":\"\"}"
+    },
+    "compiler": "codedom"
+  }
+}

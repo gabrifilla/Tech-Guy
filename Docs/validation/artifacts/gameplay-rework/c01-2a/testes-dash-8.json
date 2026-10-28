@@ -1,0 +1,119 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "149ce43f84fc4383941881425886db4a",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793070417339,
+      "finished_unix_ms": 1793070420072,
+      "last_update_unix_ms": 1793070420072,
+      "progress": {
+        "completed": 8,
+        "total": 8,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.DashCancelResolverPlayModeTests.SuccessPath_FiresAbilityUsedThenOnDash_EachOnce",
+        "last_finished_unix_ms": 1793070420061,
+        "stuck_suspected": false,
+        "editor_is_focused": true,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 8,
+          "passed": 8,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 1.6541381,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "CastingSemantics_PreservedAcrossDashCancelAttempt",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.CastingSemantics_PreservedAcrossDashCancelAttempt",
+            "state": "Passed",
+            "durationSeconds": 0.0105123,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "DashWindowNeverOpens_BufferDropsSilently_NoOnDashNoReject",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.DashWindowNeverOpens_BufferDropsSilently_NoOnDashNoReject",
+            "state": "Passed",
+            "durationSeconds": 0.3059097,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Iframes_IndependentOfDisplacement_AndNoResidue",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.Iframes_IndependentOfDisplacement_AndNoResidue",
+            "state": "Passed",
+            "durationSeconds": 0.6088802,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "LongIframeWindow_ReleasesImmunityWhenDisplacementEnds_NoResidue",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.LongIframeWindow_ReleasesImmunityWhenDisplacementEnds_NoResidue",
+            "state": "Passed",
+            "durationSeconds": 0.2584752,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "OnCooldown_RejectsOnceWithCooldown_UnchangedAndNoOnDash",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.OnCooldown_RejectsOnceWithCooldown_UnchangedAndNoOnDash",
+            "state": "Passed",
+            "durationSeconds": 0.0109208,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "OutsideWindowWhileCasting_BuffersThenFiresWhenRuleOpens",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.OutsideWindowWhileCasting_BuffersThenFiresWhenRuleOpens",
+            "state": "Passed",
+            "durationSeconds": 0.2123868,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "PlayerDestroyedMidDash_LeavesNoResidualDashState",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.PlayerDestroyedMidDash_LeavesNoResidualDashState",
+            "state": "Passed",
+            "durationSeconds": 0.0083593,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "SuccessPath_FiresAbilityUsedThenOnDash_EachOnce",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.SuccessPath_FiresAbilityUsedThenOnDash_EachOnce",
+            "state": "Passed",
+            "durationSeconds": 0.2047715,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

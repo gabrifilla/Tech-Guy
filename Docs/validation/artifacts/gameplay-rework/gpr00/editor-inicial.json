@@ -1,0 +1,33 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Code executed successfully.\",\"data\":{\"result\":{\"project\":\"D:/Dev/Personal/My_games/Tech-Guy/Assets\",\"version\":\"6000.5.10f1\",\"scene\":\"Assets/_Project/Scenes/NexusBlockout.unity\",\"dirty\":false,\"playing\":false,\"bindings\":{\"Primary\":\"Mouse0\",\"Move\":\"Mouse1\",\"Dash\":\"Space\",\"Skill1\":\"Q\",\"Skill2\":\"W\",\"Skill3\":\"E\",\"Skill4\":\"F11\",\"FinishSequence\":\"F\"}},\"compiler\":\"roslyn\"}}"
+    }
+  ],
+  "structuredContent": {
+    "success": true,
+    "message": "Code executed successfully.",
+    "data": {
+      "result": {
+        "project": "D:/Dev/Personal/My_games/Tech-Guy/Assets",
+        "version": "6000.5.10f1",
+        "scene": "Assets/_Project/Scenes/NexusBlockout.unity",
+        "dirty": false,
+        "playing": false,
+        "bindings": {
+          "Primary": "Mouse0",
+          "Move": "Mouse1",
+          "Dash": "Space",
+          "Skill1": "Q",
+          "Skill2": "W",
+          "Skill3": "E",
+          "Skill4": "F11",
+          "FinishSequence": "F"
+        }
+      },
+      "compiler": "roslyn"
+    }
+  },
+  "isError": false
+}

@@ -47,6 +47,7 @@ public sealed partial class ProgressionDirector
     {
         if (ManualSession == null || ManualSession.Phase != RunPhase.Returning || ManualReturnStatus != ManualReturnState.Idle) return;
         TeardownManualRun();
+        RunResultsHandoff.Expect(ManualSession.Id.ToString());
         ManualReturnStatus = ManualReturnState.Loading;
         StartCoroutine(LoadManualNexus(ManualSession.Id, ManualSession.Outcome == RunOutcome.Dead));
     }
@@ -55,6 +56,7 @@ public sealed partial class ProgressionDirector
     {
         if (_manualTeardownDone) return;
         _manualTeardownDone = true;
+        FinishRunStatistics();
         DisposeManualState();
         if (_manualPortal) { Destroy(_manualPortal.gameObject); _manualPortal = null; }
         if (_manualControls) { _manualControls.StopEncounterOffense(); _manualControls.enabled = false; }

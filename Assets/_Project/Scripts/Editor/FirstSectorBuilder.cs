@@ -63,6 +63,7 @@ public static class FirstSectorBuilder
         cameraData.FindProperty("m_Angle").floatValue = 0f;
         cameraData.ApplyModifiedPropertiesWithoutUndo();
         var controls = new SerializedObject(player.GetComponent<CharControlScript>());
+        controls.FindProperty("_directKeyboardMovement").boolValue = true;
         controls.FindProperty("mainCamera").objectReferenceValue = camera;
         controls.ApplyModifiedPropertiesWithoutUndo();
         camera.clearFlags = CameraClearFlags.SolidColor;
@@ -143,6 +144,7 @@ public static class FirstSectorBuilder
         RenderSettings.ambientLight = new Color(.32f, .39f, .48f);
         ValidatePaths(Vector3.zero, graph.Rooms.Select(r => new Vector3(r.Center.x, 0, r.Center.y)).ToArray());
         CaptureOverview(camera, graph);
+        NewRoomRunAuthoring.Configure(scene, director);
         EditorSceneManager.SaveScene(scene, ScenePath);
         var paths = EditorBuildSettings.scenes.ToList();
         if (paths.All(s => s.path != ScenePath)) paths.Add(new EditorBuildSettingsScene(ScenePath, true));
@@ -150,7 +152,7 @@ public static class FirstSectorBuilder
         ConnectLobby();
         AssetDatabase.SaveAssets();
         EditorSceneManager.OpenScene(ScenePath);
-        Debug.Log("FIRST_SECTOR_BUILD_SUCCESS: procedural stage, 5 distinct combat arenas, 3-fragment boss seal, guardian and 16 archetypes.");
+        Debug.Log("FIRST_SECTOR_BUILD_SUCCESS: seeded new room route, all weapons, varied encounters and rewards.");
     }
 
     private static EnemyVariant[] BuildArchetypePrefabs()
@@ -299,7 +301,7 @@ public static class FirstSectorBuilder
         camera.transform.rotation=Quaternion.Euler(90,0,0);
         var target=new RenderTexture(1400,1400,24);camera.targetTexture=target;camera.Render();
         var old=RenderTexture.active;RenderTexture.active=target;var image=new Texture2D(1400,1400,TextureFormat.RGB24,false);
-        image.ReadPixels(new Rect(0,0,1400,1400),0,0);image.Apply();Directory.CreateDirectory("Docs");File.WriteAllBytes("Docs/FirstSector-overview.png",image.EncodeToPNG());
+        image.ReadPixels(new Rect(0,0,1400,1400),0,0);image.Apply();Directory.CreateDirectory("Docs/validation/artifacts/first-sector");File.WriteAllBytes("Docs/validation/artifacts/first-sector/FirstSector-overview.png",image.EncodeToPNG());
         camera.targetTexture=null;RenderTexture.active=old;target.Release();Object.DestroyImmediate(target);Object.DestroyImmediate(image);Object.DestroyImmediate(camera.gameObject);
     }
 }

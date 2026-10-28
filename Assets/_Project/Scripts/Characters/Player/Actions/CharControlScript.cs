@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.AI;
 
-public class CharControlScript : MonoBehaviour
+public partial class CharControlScript : MonoBehaviour
 {
     private const string IDLE = "Idle";
     private const string WALK = "Walk";
@@ -25,6 +25,16 @@ public class CharControlScript : MonoBehaviour
     [SerializeField] private Transform clickEffectPoolRoot;
     [SerializeField] private bool debugClickLog = false;
     [SerializeField, Min(0f)] private float _movementClickDeadZone = .55f;
+    [SerializeField, Range(0f, 40f)] private float _enemyPointerRadiusPixels = 18f;
+
+    [SerializeField, Min(0f)] private float _recoveryMoveBufferDuration = .35f;
+    [SerializeField, Range(0f, .2f)] private float _locomotionBlendDuration = .08f;
+    private readonly GroundMovementBuffer _groundMoveBuffer = new GroundMovementBuffer();
+    private NavMeshPath _groundMovePath;
+    private AbilityHolder _boundMovementHolder;
+    private float _movementInputClock;
+    private bool _locomotionMoving;
+    private int _locomotionState;
 
     [Header("Attack")]
     [SerializeField] private string[] attackAnimations = { "Attack1", "Attack2", "Attack3" };
@@ -109,7 +119,7 @@ public class CharControlScript : MonoBehaviour
     private float _primaryHeldSeconds;
     private bool _primaryHeldLast;
     public event System.Action BasicAttackPerformed;
-    public void RequireAttackRelease() => _waitForAttackRelease = true;
+    public void RequireAttackRelease() { _waitForAttackRelease = true; InvalidateDirectGameplayInput(); }
 
     /// <summary>
     /// gauntlet-boon-playstyle-overhaul R8: the player's already-computed locomotion direction, read
@@ -122,6 +132,7 @@ public class CharControlScript : MonoBehaviour
     {
         get
         {
+            if (_directKeyboardMovement) return _directLocomotionVelocity.sqrMagnitude > .0001f ? _directLocomotionVelocity.normalized : Vector3.zero;
             if (agent == null) return Vector3.zero;
             Vector3 velocity = agent.velocity;
             velocity.y = 0f;
@@ -132,6 +143,7 @@ public class CharControlScript : MonoBehaviour
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        _groundMovePath = new NavMeshPath();
         _abilityHolder = GetComponent<AbilityHolder>();
         animator = GetComponent<Animator>();
         if (playerActor == null)
@@ -141,11 +153,20 @@ public class CharControlScript : MonoBehaviour
 
         defaultStoppingDistance = agent != null ? agent.stoppingDistance : 0f;
         baseMoveSpeed = agent != null ? agent.speed : 0f;
+        InitializeDirectMovement();
         baseAttackRange = attackRange;
         baseAttackInterval = attackInterval;
         baseAttackBusyDuration = attackBusyDuration;
         baseAttackHitboxDuration = attackHitboxDuration;
         baseAttackBoxSize = attackBoxSize;
+    }
+
+    private void OnValidate()
+    {
+        _recoveryMoveBufferDuration = float.IsNaN(_recoveryMoveBufferDuration) || float.IsInfinity(_recoveryMoveBufferDuration)
+            ? .35f : Mathf.Clamp(_recoveryMoveBufferDuration, 0f, 1f);
+        _locomotionBlendDuration = float.IsNaN(_locomotionBlendDuration) || float.IsInfinity(_locomotionBlendDuration)
+            ? .08f : Mathf.Clamp(_locomotionBlendDuration, 0f, .2f);
     }
 
     private void Start()
@@ -157,27 +178,70 @@ public class CharControlScript : MonoBehaviour
         RefreshMovementStats();
     }
 
-    void OnDisable() { CancelCombo(); ClearTarget(); }
+    private void OnEnable()
+    {
+        if (_directKeyboardMovement) InitializeDirectMovement();
+        BindMovementActions();
+    }
+    private void BindMovementActions()
+    {
+        if (_boundMovementHolder == _abilityHolder) return;
+        if (_boundMovementHolder) _boundMovementHolder.AbilityUsed -= OnOffensiveActionStarted;
+        _boundMovementHolder = _abilityHolder;
+        if (_boundMovementHolder) _boundMovementHolder.AbilityUsed += OnOffensiveActionStarted;
+    }
+    private void OnOffensiveActionStarted(int slot) => _groundMoveBuffer.Discard();
+    void OnDisable()
+    {
+        RequireAttackRelease();
+        _directVelocity = Vector3.zero; _directLocomotionVelocity = Vector3.zero; _keyboardOwnsMovement = false; _directMovementRelease = true;
+        if (_boundMovementHolder) _boundMovementHolder.AbilityUsed -= OnOffensiveActionStarted;
+        _boundMovementHolder = null;
+        _groundMoveBuffer.Discard(); _locomotionState = 0;
+        CancelCombo(); ClearTarget();
+    }
 
     void Update()
     {
-        if (!playerActor || playerActor.IsDead) return;
+        _keyboardOwnsMovement = false;
+        if (!playerActor || playerActor.IsDead) { _groundMoveBuffer.Discard(); return; }
         RefreshWeaponStats();
         RefreshMovementStats();
+        if (!GameplayInputReady) return;
         TrackChargedShot();
 
-        if (_abilityHolder && _abilityHolder.BlocksWorldInput) return;
+        if (_abilityHolder && _abilityHolder.BlocksWorldInput)
+        { _groundMoveBuffer.Discard(); if (_directKeyboardMovement) _directMovementRelease = true; return; }
+        // Hitstop freezes locomotion and its clock, while offensive input still reaches
+        // the existing dash/attack gates (combat foundation R5.10).
+        bool hitStopped = playerActor.IsCombatHitStopped;
+        if (!hitStopped) _movementInputClock += Time.unscaledDeltaTime;
 
         isDashing = dashScript != null && dashScript.IsDashing(gameObject);
         HandleDashInput();
+        if (_directKeyboardMovement) HandleDirectBasicInput();
         // R10.1: a normal cast pins the player, but a Bow cast fires on the move — let movement keep
         // running at the reduced speed the agent was set to. Basic attacks and new ability casts stay
         // gated by their own IsCasting checks, so only locomotion is unblocked here.
-        if (_abilityHolder && _abilityHolder.IsCasting && !_abilityHolder.MovementAllowedWhileCasting) return;
+        if (_abilityHolder && _abilityHolder.IsCasting && !_abilityHolder.MovementAllowedWhileCasting)
+        {
+            _locomotionState = 0;
+            if (!hitStopped && !_directKeyboardMovement) CaptureRecoveryMovement();
+            return;
+        }
 
+        if (isDashing) _groundMoveBuffer.Discard();
         if (!isDashing)
         {
             HandlePointerInput();
+            if (hitStopped) return;
+            if (_directKeyboardMovement)
+            {
+                HandleDirectMovement();
+                HandleComboReset();
+                return;
+            }
+            ResumeRecoveryMovement();
             HandleMovement();
             SetAnimations();
             HandleComboReset();
@@ -186,10 +250,11 @@ public class CharControlScript : MonoBehaviour
 
     private void HandlePointerInput()
     {
+        if (_directKeyboardMovement) { HandleLegacySecondaryPointerInput(); return; }
         bool primary = GamePreferences.IsHeld(GameControl.Primary);
-        if (!primary) _waitForAttackRelease = false;
+        if (!primary && !GamePreferences.IsHeld(GameControl.Move)) _waitForAttackRelease = false;
         if (_waitForAttackRelease) return;
-        if (IsDirectionalAttackGesturePressed())
+        if (IsDirectionalAttackGestureHeld())
         {
             TryDirectionalBasicAttackAtPointer();
             return;
@@ -201,17 +266,28 @@ public class CharControlScript : MonoBehaviour
     public static bool IsDirectionalAttackGesturePressed()
     {
         Keyboard keyboard = Keyboard.current;
-        Mouse mouse = Mouse.current;
-        if (keyboard == null || mouse == null) return false;
+        if (keyboard == null) return false;
         bool shiftHeld = keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed;
         return ShouldTriggerDirectionalBasicAttack(shiftHeld,
-            mouse.leftButton.wasPressedThisFrame, mouse.rightButton.wasPressedThisFrame);
+            GamePreferences.WasPressed(GameControl.Primary), GamePreferences.WasPressed(GameControl.Move));
+    }
+
+    private static bool IsDirectionalAttackGestureHeld()
+    {
+        Keyboard keyboard = Keyboard.current;
+        return keyboard != null && (keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed)
+            && (GamePreferences.IsHeld(GameControl.Primary) || GamePreferences.IsHeld(GameControl.Move));
     }
 
     public static bool ShouldTriggerDirectionalBasicAttack(bool shiftHeld, bool leftPressed, bool rightPressed) =>
         shiftHeld && (leftPressed || rightPressed);
 
-    private float EffectiveAttackRange => attackRange * (weapon && weapon.FiresArrows ? 1f : playerActor?.RunModifiers?.MeleeScale ?? 1f);
+    private bool UsesGauntletBasic => weapon && WeaponRunModifiers.Identify(weapon) == RunWeaponFamily.Gauntlet;
+    private float BasicAttackReach => UsesGauntletBasic && CombatBalance.Current != null
+        ? CombatBalance.Current.GauntletBasicReach : attackRange;
+    private Vector3 BasicAttackBoxSize => UsesGauntletBasic && CombatBalance.Current != null
+        ? CombatBalance.Current.GauntletBasicBoxSize : attackBoxSize;
+    private float EffectiveAttackRange => BasicAttackReach * (weapon && weapon.FiresArrows ? 1f : playerActor?.RunModifiers?.MeleeScale ?? 1f);
 
     // Charged Shot (R3): the boon only applies while a bow is equipped and the run modifier is owned.
     // Rank 0 means the boon is absent, so charging is inert and basic arrows behave normally (R3.3).
@@ -262,7 +338,7 @@ public class CharControlScript : MonoBehaviour
         if (_abilityHolder && _abilityHolder.BlocksWorldInput) return false;
         Vector3 direction = aimPoint - transform.position;
         direction.y = 0f;
-        if (direction.sqrMagnitude <= Mathf.Epsilon) return false;
+        if (!GroundMovementBuffer.IsFinite(direction) || direction.sqrMagnitude <= Mathf.Epsilon) return false;
 
         ClearTarget();
         if (agent && agent.enabled && agent.isOnNavMesh) agent.ResetPath();
@@ -274,7 +350,10 @@ public class CharControlScript : MonoBehaviour
         return true;
     }
 
+    internal bool CanStartDirectionalBasic => CanStartBasicAttack();
+
     private bool CanStartBasicAttack() => isActiveAndEnabled && playerActor && !playerActor.IsDead && weapon &&
+        Time.timeScale > 0f && !playerActor.IsCombatHitStopped &&
         !playerActor.IsResolvingGauntletImpact && !playerBusy && Time.time >= nextAttackTime && !isDashing &&
         (!_abilityHolder || (!_abilityHolder.BlocksWorldInput && (!_abilityHolder.IsCasting || _abilityHolder.IsCadencedWaiting)));
 
@@ -307,6 +386,7 @@ public class CharControlScript : MonoBehaviour
     private void RefreshWeaponStats()
     {
         if (!_abilityHolder) _abilityHolder = GetComponent<AbilityHolder>();
+        BindMovementActions();
         WeaponScript currentWeapon = playerActor != null ? playerActor.CurrentWeapon : null;
         float currentAttackSpeedMultiplier = playerActor != null && playerActor.Stats != null
             ? playerActor.Stats.AttackSpeedMultiplier
@@ -414,6 +494,7 @@ public class CharControlScript : MonoBehaviour
 
     private void TryDirectionalBasicAttackAtPointer()
     {
+        if (!CanStartBasicAttack()) return;
         Vector3 pointerPosition = GetPointerPosition();
         if (_playerHUD && _playerHUD.BlocksPointer(pointerPosition)) return;
 
@@ -421,6 +502,18 @@ public class CharControlScript : MonoBehaviour
         if (cameraToUse == null) return;
 
         Ray pointerRay = cameraToUse.ScreenPointToRay(pointerPosition);
+        int mask = clickableLayers.value != 0 ? clickableLayers.value : Physics.DefaultRaycastLayers;
+        if (WorldClickResolver.TryResolveWithEnemyAssist(cameraToUse, pointerPosition, transform, mask,
+            out RaycastHit hit, out _, _enemyPointerRadiusPixels,
+            cameraToUse.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>()))
+        {
+            var interactable = hit.collider.GetComponentInParent<Interactable>();
+            if (interactable && interactable.interactionType == InteractableType.Enemy)
+            {
+                Actor actor = interactable.myActor ? interactable.myActor : interactable.GetComponentInParent<Actor>();
+                if (actor && !actor.IsDead) { TryDirectionalBasicAttack(actor.transform.position); return; }
+            }
+        }
         var aimPlane = new Plane(Vector3.up, transform.position);
         if (!aimPlane.Raycast(pointerRay, out float distance) || distance < 0f) return;
         TryDirectionalBasicAttack(pointerRay.GetPoint(distance));
@@ -447,8 +540,9 @@ public class CharControlScript : MonoBehaviour
         }
 
         int mask = clickableLayers.value != 0 ? clickableLayers.value : Physics.DefaultRaycastLayers;
-        bool hitSomething = WorldClickResolver.TryResolve(cameraToUse.ScreenPointToRay(pointerPosition),
-            transform, mask, out RaycastHit hit, out bool crossedPlayer);
+        bool hitSomething = WorldClickResolver.TryResolveWithEnemyAssist(cameraToUse, pointerPosition,
+            transform, mask, out RaycastHit hit, out bool crossedPlayer, _enemyPointerRadiusPixels,
+            cameraToUse.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>());
 
         if (debugClickLog)
         {
@@ -478,9 +572,64 @@ public class CharControlScript : MonoBehaviour
             if (!agent || !agent.enabled || !agent.isOnNavMesh) return;
             if (!NavMesh.SamplePosition(hit.point, out NavMeshHit destination, .75f, agent.areaMask)) return;
             if (WorldClickResolver.IsNearPlayer(destination.position, transform.position, _movementClickDeadZone)) return;
-            HandleClickEffect(hit);
-            MoveToPosition(destination.position);
+            if (TryRequestGroundMovement(destination.position)) HandleClickEffect(hit);
         }
+    }
+
+    private void CaptureRecoveryMovement()
+    {
+        if (!_abilityHolder.CanQueueRecoveryMovement || _waitForAttackRelease || IsDirectionalAttackGesturePressed()) return;
+        if (!GamePreferences.WasPressed(GameControl.Primary) && !GamePreferences.WasPressed(GameControl.Move)) return;
+        Vector3 pointer = GetPointerPosition();
+        if (_playerHUD && _playerHUD.BlocksPointer(pointer)) return;
+        Camera camera = mainCamera ? mainCamera : Camera.main;
+        if (!camera) return;
+        int mask = clickableLayers.value != 0 ? clickableLayers.value : Physics.DefaultRaycastLayers;
+        if (!WorldClickResolver.TryResolve(camera.ScreenPointToRay(pointer), transform, mask,
+            out RaycastHit hit, out bool crossedPlayer, camera.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>())
+            || crossedPlayer || hit.collider.GetComponentInParent<Interactable>()) return;
+        if (TryRequestGroundMovement(hit.point)) HandleClickEffect(hit);
+    }
+
+    internal bool HasPendingGroundMovement => _groundMoveBuffer.HasPending;
+    internal void DiscardPendingGroundMovement() => _groundMoveBuffer.Discard();
+
+    internal bool TryRequestGroundMovement(Vector3 requestedDestination)
+    {
+        if (_directKeyboardMovement) return false;
+        if (!isActiveAndEnabled || !playerActor || playerActor.IsDead || isDashing
+            || (dashScript && dashScript.IsDashing(gameObject))
+            || playerActor.IsCombatHitStopped || Time.timeScale <= 0f
+            || (_abilityHolder && _abilityHolder.BlocksWorldInput)) return false;
+        if (!TryValidateGroundDestination(requestedDestination, out Vector3 destination)) return false;
+        if (_abilityHolder && _abilityHolder.IsCasting && !_abilityHolder.MovementAllowedWhileCasting)
+        {
+            return _abilityHolder.CanQueueRecoveryMovement
+                && _groundMoveBuffer.Store(destination, _movementInputClock, _recoveryMoveBufferDuration);
+        }
+        _groundMoveBuffer.Discard();
+        MoveToPosition(destination);
+        return true;
+    }
+
+    private bool TryValidateGroundDestination(Vector3 requested, out Vector3 destination)
+    {
+        destination = default;
+        if (!GroundMovementBuffer.IsFinite(requested) || !agent || !agent.enabled || !agent.isOnNavMesh
+            || WorldClickResolver.IsNearPlayer(requested, transform.position, _movementClickDeadZone)) return false;
+        if (!NavMesh.SamplePosition(requested, out NavMeshHit sample, .75f, agent.areaMask)
+            || WorldClickResolver.IsNearPlayer(sample.position, transform.position, _movementClickDeadZone)
+            || !agent.CalculatePath(sample.position, _groundMovePath)
+            || _groundMovePath.status != NavMeshPathStatus.PathComplete) return false;
+        destination = sample.position;
+        return true;
+    }
+
+    private void ResumeRecoveryMovement()
+    {
+        if (_abilityHolder && _abilityHolder.HasBufferedOffensiveIntent) { _groundMoveBuffer.Discard(); return; }
+        if (!_groundMoveBuffer.TryTake(_movementInputClock, out Vector3 requested)) return;
+        if (TryValidateGroundDestination(requested, out Vector3 destination)) MoveToPosition(destination);
     }
 
     private void HandleClickEffect(RaycastHit hit)
@@ -583,9 +732,9 @@ public class CharControlScript : MonoBehaviour
     {
         if (newTarget == null || agent == null || !agent.enabled || !agent.isOnNavMesh) return;
 
+        _groundMoveBuffer.Discard();
         target = newTarget;
         agent.stoppingDistance = Mathf.Max(0f, EffectiveAttackRange - .1f);
-        agent.SetDestination(target.transform.position);
 
         Actor targetActor = target.myActor;
         if (targetActor == null)
@@ -631,6 +780,8 @@ public class CharControlScript : MonoBehaviour
 
     private void MoveToPosition(Vector3 destination)
     {
+        if (_directKeyboardMovement) return;
+        _groundMoveBuffer.Discard();
         CancelCombo();
         if (agent != null && agent.enabled && agent.isOnNavMesh)
         {
@@ -666,6 +817,8 @@ public class CharControlScript : MonoBehaviour
         }
 
         if (playerBusy) return;
+        // Tracking a selected enemy does not authorize an endless chase after the tap is spent.
+        if (!_basicAttackDriver.HasAttackIntent) { agent.ResetPath(); return; }
         agent.stoppingDistance = Mathf.Max(0f, EffectiveAttackRange - .1f);
         bool inRange = CanReachTarget(targetActor);
         if (!inRange)
@@ -685,7 +838,8 @@ public class CharControlScript : MonoBehaviour
     // the driver is wired in task 13.3; until then this stays a no-op while a target is followed.
     private void TryAttackTarget()
     {
-        if (target == null) return;
+        // Keep a tap pending through recovery/cadence instead of consuming a rejected execution.
+        if (target == null || !CanStartBasicAttack()) return;
 
         Vector3 direction = target.transform.position - transform.position;
         direction.y = 0;
@@ -715,20 +869,30 @@ public class CharControlScript : MonoBehaviour
     {
         if (agent.velocity.sqrMagnitude > Mathf.Epsilon)
         {
-            Vector3 direction = agent.steeringTarget - transform.position;
+            Vector3 direction = agent.desiredVelocity.sqrMagnitude > .001f ? agent.desiredVelocity : agent.velocity;
             direction.y = 0;
+            if (direction.sqrMagnitude < .0001f) return;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lookRotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f - Mathf.Exp(-Mathf.Max(0f, lookRotationSpeed) * Time.deltaTime));
         }
     }
 
     
     void SetAnimations()
     {
-        if (playerBusy) return;
-
-        animator.Play(agent.velocity == Vector3.zero ? IDLE : WALK);
+        if (playerBusy) { _locomotionState = 0; return; }
+        if (!animator || !animator.runtimeAnimatorController || animator.layerCount == 0 || !agent) return;
+        Vector3 velocity = ActualMovementVelocity; velocity.y = 0f;
+        _locomotionMoving = velocity.sqrMagnitude > (_locomotionMoving ? .0016f : .0144f);
+        int state = Animator.StringToHash(_locomotionMoving ? WALK : IDLE);
+        bool stateStillPlaying = animator.GetCurrentAnimatorStateInfo(0).shortNameHash == state
+            || (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).shortNameHash == state);
+        if ((_locomotionState != state || !stateStillPlaying) && animator.HasState(0, state))
+        {
+            animator.CrossFadeInFixedTime(state, _locomotionBlendDuration, 0);
+            _locomotionState = state;
+        }
     }
 
     private bool TryPlayAttackAnimation(string stateName)
@@ -783,6 +947,7 @@ public class CharControlScript : MonoBehaviour
     private IEnumerator ClearBusyAfter(float delay)
     {
         yield return new WaitForSeconds(delay);
+        EndGauntletBasicImpact();
         playerBusy = false;
         attackBusyCoroutine = null;
     }
@@ -799,6 +964,9 @@ public class CharControlScript : MonoBehaviour
 
     public void CancelCombo()
     {
+        if (_abilityHolder) _abilityHolder.DiscardBufferedBasic();
+        EndGauntletBasicImpact();
+        _groundMoveBuffer.Discard();
         currentComboCount = 0;
         playerBusy = false;
         lastAttackTime = 0f;
@@ -834,6 +1002,8 @@ public class CharControlScript : MonoBehaviour
     private void PerformAttack(Actor victim)
     {
         if (!CanStartBasicAttack() || (victim && !CanReachTarget(victim))) return;
+        using var statisticsAction = playerActor?.RunStatistics?.BeginAction("Basic");
+        _groundMoveBuffer.Discard();
         if (_abilityHolder) _abilityHolder.EndCadencedForBasic();
         nextAttackTime = Time.time + Mathf.Max(.05f, attackInterval);
 
@@ -855,6 +1025,8 @@ public class CharControlScript : MonoBehaviour
         }
 
         int attackIndex = currentComboCount;
+        float busyDuration = attackBusyDuration > 0 ? attackBusyDuration : attackInterval;
+        if (busyDuration <= 0f) busyDuration = 0.1f;
         // Basic attacks resolve once through the area/projectile path, never a second trigger hitbox.
 
         if (playerActor != null && weapon && weapon.FiresArrows)
@@ -875,17 +1047,18 @@ public class CharControlScript : MonoBehaviour
         else if (playerActor != null)
         {
             float authoredRange = attackRange > 0f ? attackRange : defaultStoppingDistance;
-            // R2.5: the unified basic-swing volume comes from the central config when present, so the
-            // box/reach match one coherent definition (R2.1); missing config falls back to the volume
-            // authored on the weapon asset (attackBoxSize) and its attackDistance-derived range.
-            CombatBalanceConfig balance = CombatBalance.Current;
-            float range = balance != null ? balance.GauntletBasicReach : authoredRange;
-            Vector3 basicBoxSize = balance != null ? balance.GauntletBasicBoxSize : attackBoxSize;
+            // Approach and impact share the same weapon geometry. Only Gauntlet uses the
+            // central Gauntlet balance override; Spear keeps its authored reach and narrow box.
+            float range = BasicAttackReach > 0f ? BasicAttackReach : authoredRange;
+            Vector3 basicBoxSize = BasicAttackBoxSize;
             float scale = playerActor.RunModifiers?.MeleeScale ?? 1f;
-            if (weapon && WeaponRunModifiers.Identify(weapon) == RunWeaponFamily.Gauntlet)
+            bool scheduled = weapon && WeaponRunModifiers.Identify(weapon) == RunWeaponFamily.Gauntlet &&
+                BeginGauntletBasicImpact(attackIndex, busyDuration, range, scale, basicBoxSize);
+            if (!scheduled && weapon && WeaponRunModifiers.Identify(weapon) == RunWeaponFamily.Gauntlet)
                 playerActor.TryApplyGauntletBasicDamage(transform.position, transform.forward, range * scale,
-                    basicBoxSize * scale, attackLayers, weapon.attackDamage, BuildBasicAttackReaction(attackIndex, range));
-            else playerActor.TryApplyAreaDamage(
+                    basicBoxSize * scale, attackLayers, weapon.attackDamage, BuildBasicAttackReaction(attackIndex, range),
+                    attackAnimations != null && attackAnimations.Length > 0 && attackIndex == attackAnimations.Length - 1);
+            else if (!scheduled) playerActor.TryApplyAreaDamage(
                 transform.position,
                 transform.forward,
                 range * scale,
@@ -895,8 +1068,7 @@ public class CharControlScript : MonoBehaviour
                 1f,
                 0f,
                 BuildBasicAttackReaction(attackIndex, range));
-            _runBasicCount++;
-            TryProcComboNova();
+            if (!scheduled) { _runBasicCount++; TryProcComboNova(); }
         }
 
         if (attackAnimations != null && attackAnimations.Length > 0)
@@ -906,8 +1078,6 @@ public class CharControlScript : MonoBehaviour
 
         lastAttackTime = Time.time;
         playerBusy = true;
-        float busyDuration = attackBusyDuration > 0 ? attackBusyDuration : attackInterval;
-        if (busyDuration <= 0f) busyDuration = 0.1f;
 
         if (attackBusyCoroutine != null)
         {
@@ -974,7 +1144,7 @@ public class CharControlScript : MonoBehaviour
             if (_primaryHeldLast && ChargedShotRank > 0 && _playerHUD) _playerHUD.SetChargeIndicator(0f);
         }
 
-        FeedTargetedTapHold(primaryHeld);
+        if (!_directKeyboardMovement) FeedTargetedTapHold(primaryHeld);
         _primaryHeldLast = primaryHeld;
     }
 

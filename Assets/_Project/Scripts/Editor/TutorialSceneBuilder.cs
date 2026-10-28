@@ -34,6 +34,7 @@ public static class TutorialSceneBuilder
         var controls = new SerializedObject(player.GetComponent<CharControlScript>());
         controls.FindProperty("mainCamera").objectReferenceValue = camera;
         controls.FindProperty("debugClickLog").boolValue = false;
+        controls.FindProperty("_directKeyboardMovement").boolValue = true;
         controls.ApplyModifiedPropertiesWithoutUndo();
 
         Material deck = Material("Deck", new Color(.12f,.19f,.24f));

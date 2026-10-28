@@ -25,9 +25,15 @@ public static class HudFormatter
     public static string Asura(bool ready, int energy)
         => ready ? "ASURA PRONTO" : $"ASURA   {energy} / 100";
 
+    public static string CadencedWait(string continueKey, string finishKey)
+        => $"[{continueKey}] continuar · [{finishKey}] finalizar";
+
     public static string Asura(int energy, AbilityUseFailure? unavailable, bool active, bool waiting)
+        => Asura(energy, unavailable, active, waiting, null);
+
+    public static string Asura(int energy, AbilityUseFailure? unavailable, bool active, bool waiting, string waitingHint)
     {
-        if (active) return waiting ? "ASURA · AGUARDA R" : "ASURA · EM USO";
+        if (active) return waiting ? "ASURA · " + (waitingHint ?? "AGUARDA R") : "ASURA · EM USO";
         if (energy < AsuraMomentum.Maximum) return Asura(false, energy);
         if (!unavailable.HasValue) return Asura(true, energy);
         string reason = unavailable == AbilityUseFailure.NotEnoughMana ? "SEM MANA"

@@ -24,6 +24,7 @@ public sealed class EnemyCombatActions : MonoBehaviour
     private static readonly Color Warm = new Color(1f,.55f,.16f);
     private static readonly Color Frost = new Color(.25f,.85f,1f);
     public bool IsWindingUp => _warning.IsWindingUp;
+    internal bool HasAttackPresentation => _busy;
     public bool Completed { get; private set; }
     public EnemyAttackKind CurrentKind { get; private set; }
     public int ResolvedImpacts { get; private set; }
@@ -55,6 +56,14 @@ public sealed class EnemyCombatActions : MonoBehaviour
     }
     public void ConfigureAnimations(SkillAnimationLibrary library)
     { _motions=library; if(_animation) _animation.Configure(library); }
+
+    private void LateUpdate()
+    {
+        // The executor already selected this sample. Preserve it after AnimatorController
+        // evaluation without advancing the attack, selecting a new pose or emitting a hit.
+        // Cancel/complete release the graph and ownership before this render boundary.
+        if (_busy && _animation) _animation.ReapplyPose();
+    }
 
     /// <summary>
     /// Executes a telegraphed attack of <paramref name="kind"/> against <paramref name="target"/>.
@@ -373,7 +382,7 @@ public sealed class EnemyCombatActions : MonoBehaviour
     /// <summary>
     /// Sniper (R9): aim-line telegraph >=1.0s that INTENSIFIES toward impact (reusing the
     /// <see cref="EnemyAttackExecution"/> color-lerp-to-white pattern via the outline warning), then fires
-    /// a single straight projectile along the aim line captured at windup END, applying damage at most once
+    /// a single straight projectile along the aim line committed when the warning becomes visible, applying damage at most once
     /// (the projectile hits once and is destroyed). Cancels on control lock or LoS break during the windup.
     /// Requirements: 9.3, 9.5, 9.6.
     /// </summary>
@@ -393,10 +402,10 @@ public sealed class EnemyCombatActions : MonoBehaviour
             showWarning:true,impactHold:0);
         if(!_warning.Completed || !canFire()) yield break;
         _animation.Contact(SkillMotion.PunchRight); ResolvedImpacts++;
-        // Aim line captured at the moment the windup completes (R9.5).
-        Vector3 aim=Face(target);
-        EnemyProjectile.Spawn(MuzzleOrigin(aim),aim,_owner,target,damage,StraightShotSpeed*1.5f,
-            SniperShotRange,StraightShotRadius,EnemyProjectile.PathKind.Straight,Frost);
+        // The actionable warning is the existing commitment boundary. Reuse both its origin and
+        // direction; neither this executor nor projectile setup may silently reacquire the target.
+        EnemyProjectile.Spawn(origin,forward,_owner,target,damage,StraightShotSpeed*1.5f,
+            SniperShotRange,StraightShotRadius,EnemyProjectile.PathKind.Straight,Frost,lockDirection:true);
         yield return Recover(SkillMotion.PunchRight,1f,.45f,valid);
     }
 

@@ -1,0 +1,92 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Test job status retrieved.\",\"error\":null,\"data\":{\"job_id\":\"304278d7295e4fbc8660565529a44206\",\"status\":\"succeeded\",\"mode\":\"PlayMode\",\"started_unix_ms\":1793050297275,\"finished_unix_ms\":1793050305831,\"last_update_unix_ms\":1793050305831,\"progress\":{\"completed\":4,\"total\":4,\"current_test_full_name\":null,\"current_test_started_unix_ms\":null,\"last_finished_test_full_name\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicTargetChangeDoesNotRedirectAcceptedSwing\",\"last_finished_unix_ms\":1793050305820,\"stuck_suspected\":false,\"editor_is_focused\":false,\"run_in_background\":true,\"focus_nudge_attempts\":null,\"focus_nudge_limit\":null,\"focus_nudge_status\":null,\"blocked_reason\":null,\"failures_so_far\":[],\"failures_capped\":false},\"error\":null,\"result\":{\"mode\":\"PlayMode\",\"summary\":{\"total\":4,\"passed\":4,\"failed\":0,\"skipped\":0,\"durationSeconds\":1.5465211,\"resultState\":\"Passed\"},\"results\":[{\"name\":\"GIBasicCommittedAreaSurvivesReentrantCancelExactlyOnce\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicCommittedAreaSurvivesReentrantCancelExactlyOnce\",\"state\":\"Passed\",\"durationSeconds\":0.6700528,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator is not playing an AnimatorController\\r\\n\"},{\"name\":\"GIBasicMovingTargetWhiffsWithoutHomingOrResources\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicMovingTargetWhiffsWithoutHomingOrResources\",\"state\":\"Passed\",\"durationSeconds\":0.2261165,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator is not playing an AnimatorController\\r\\n\"},{\"name\":\"GIBasicPreImpactMovementCancelsWithoutGhostHitOrEnergy\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicPreImpactMovementCancelsWithoutGhostHitOrEnergy\",\"state\":\"Passed\",\"durationSeconds\":0.3273476,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator is not playing an AnimatorController\\r\\n\"},{\"name\":\"GIBasicTargetChangeDoesNotRedirectAcceptedSwing\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicTargetChangeDoesNotRedirectAcceptedSwing\",\"state\":\"Passed\",\"durationSeconds\":0.2835934,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator is not playing an AnimatorController\\r\\n\"}]}},\"hint\":null}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "success": true,
+      "message": "Test job status retrieved.",
+      "error": null,
+      "data": {
+        "job_id": "304278d7295e4fbc8660565529a44206",
+        "status": "succeeded",
+        "mode": "PlayMode",
+        "started_unix_ms": 1793050297275,
+        "finished_unix_ms": 1793050305831,
+        "last_update_unix_ms": 1793050305831,
+        "progress": {
+          "completed": 4,
+          "total": 4,
+          "current_test_full_name": null,
+          "current_test_started_unix_ms": null,
+          "last_finished_test_full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicTargetChangeDoesNotRedirectAcceptedSwing",
+          "last_finished_unix_ms": 1793050305820,
+          "stuck_suspected": false,
+          "editor_is_focused": false,
+          "run_in_background": true,
+          "focus_nudge_attempts": null,
+          "focus_nudge_limit": null,
+          "focus_nudge_status": null,
+          "blocked_reason": null,
+          "failures_so_far": [],
+          "failures_capped": false
+        },
+        "error": null,
+        "result": {
+          "mode": "PlayMode",
+          "summary": {
+            "total": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0,
+            "durationSeconds": 1.5465211,
+            "resultState": "Passed"
+          },
+          "results": [
+            {
+              "name": "GIBasicCommittedAreaSurvivesReentrantCancelExactlyOnce",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicCommittedAreaSurvivesReentrantCancelExactlyOnce",
+              "state": "Passed",
+              "durationSeconds": 0.6700528,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+            },
+            {
+              "name": "GIBasicMovingTargetWhiffsWithoutHomingOrResources",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicMovingTargetWhiffsWithoutHomingOrResources",
+              "state": "Passed",
+              "durationSeconds": 0.2261165,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+            },
+            {
+              "name": "GIBasicPreImpactMovementCancelsWithoutGhostHitOrEnergy",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicPreImpactMovementCancelsWithoutGhostHitOrEnergy",
+              "state": "Passed",
+              "durationSeconds": 0.3273476,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+            },
+            {
+              "name": "GIBasicTargetChangeDoesNotRedirectAcceptedSwing",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicTargetChangeDoesNotRedirectAcceptedSwing",
+              "state": "Passed",
+              "durationSeconds": 0.2835934,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+            }
+          ]
+        }
+      },
+      "hint": null
+    }
+  },
+  "isError": false
+}

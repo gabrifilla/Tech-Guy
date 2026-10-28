@@ -10,10 +10,10 @@ public enum TutorialStage { Movement, Dodge, BasicAttack, Skill, Encounter, Rewa
 /// <summary>Scene-owned onboarding; editable beats and hooks can later drive the prologue.</summary>
 public sealed class TutorialDirector : MonoBehaviour
 {
-    public const string BasicAttackTitle = "Ataque livre";
-    public const string BasicAttackControl = "SHIFT + MOUSE ESQUERDO / DIREITO";
-    public const string BasicAttackInstruction = "Segure Shift e clique com o botão esquerdo ou direito mirando no alvo. Acerte 3 ataques básicos sem selecioná-lo.";
-    public const string BasicAttackTransmission = "O ataque sai na direção do cursor e mantém sua posição. Solte Shift para voltar a selecionar ou mover.";
+    public const string BasicAttackTitle = "Ataques básicos";
+    public static string BasicAttackControl => GamePreferences.BindingLabel(GameControl.Primary);
+    public const string BasicAttackInstruction = "Clique no alvo para se aproximar e atacar. Mantenha o ataque pressionado para repetir e acerte 3 golpes. Shift é opcional para atacar parado.";
+    public const string BasicAttackTransmission = "Básicos não gastam mana. Soltar encerra a repetição; clicar no chão volta a mover. Use-os entre as habilidades.";
 
     [Serializable]
     public sealed class Beat
@@ -39,7 +39,8 @@ public sealed class TutorialDirector : MonoBehaviour
     {
         new Beat("Reconecte os movimentos", "BOTÃO DIREITO", "Clique no chão e caminhe até o marcador azul.", "Sistemas em calibração. Siga as luzes para acessar o Nexus."),
         new Beat("Saia da linha de perigo", "ESPAÇO", "Aponte para uma área livre e execute uma esquiva.", "Esquivar reposiciona você. Observe a recarga na barra inferior."),
-        new Beat(BasicAttackTitle, BasicAttackControl, BasicAttackInstruction, BasicAttackTransmission),
+        // Serialized defaults must not read PlayerPrefs; Awake resolves the current binding.
+        new Beat(BasicAttackTitle, "ATAQUE", BasicAttackInstruction, BasicAttackTransmission),
         new Beat("Libere uma habilidade", "Q", "Aponte para o alvo e acerte com Q. Observe o gasto de mana e a recarga.", "Q, W e E são suas habilidades. Alterne golpes para carregar Asura, usada com R."),
         new Beat("Complete a simulação", "ATAQUE + ESQUIVA", "Derrote os dois drones. Saia das áreas marcadas antes dos impactos.", "Combine ataques e habilidades. Os drones desta calibração causam pouco dano."),
         new Beat("Escolha sua evolução", "1 / 2 / 3", "Escolha um dos três modificadores. Leia o efeito e a habilidade afetada.", "Nas incursões, as escolhas se acumulam e criam novas combinações. Elas duram somente aquela run."),
@@ -83,6 +84,7 @@ public sealed class TutorialDirector : MonoBehaviour
             _beats == null || _beats.Length != 7 || Array.Exists(_beats, beat => beat == null) ||
             !_player.TryGetComponent(out _abilities))
         { Debug.LogError("Tutorial requires player, weapon, target, enemies, landmarks and seven beats.", this); enabled = false; return; }
+        RefreshBasicAttackLesson();
         foreach (Actor enemy in _enemies) { enemy.Died += OnEnemyDied; enemy.gameObject.SetActive(false); }
         _target.DamageReceived += OnTargetDamaged;
         _target.gameObject.SetActive(false);

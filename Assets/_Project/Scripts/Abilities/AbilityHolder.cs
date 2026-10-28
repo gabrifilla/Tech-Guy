@@ -28,11 +28,14 @@ public class AbilityHolder : MonoBehaviour
     private Ability[] activeAbilities = Array.Empty<Ability>();
     private float[] cooldownTimers = Array.Empty<float>();
     private float[] activeTimers = Array.Empty<float>();
+    private bool[] _expandedActive = Array.Empty<bool>();
     private AbilityState[] states = Array.Empty<AbilityState>();
     private PlayerActor playerActor;
     private WeaponScript currentWeapon;
     private BreakerGauntletCombat _breakerCombat;
     private ArsenalCombat _arsenalCombat;
+    private BowBoonCombat _bowBoonCombat;
+    private SpearBoonCombat _spearBoonCombat;
     private RunBoons _runBoons;
     private PauseMenuUI _pause;
     public void BindPause(PauseMenuUI pause) => _pause = pause;
@@ -44,7 +47,9 @@ public class AbilityHolder : MonoBehaviour
         if(playerActor && (playerActor.IsResolvingGauntletImpact || playerActor.HasOpenImpactFeedback)) return false;
         if(_breakerCombat && !_breakerCombat.TryStopEncounterOffense()) return false;
         if(_arsenalCombat) _arsenalCombat.Cancel();
-        _inputBuffer.Discard(); _bufferedDash=null; _bufferedContinuation=0;
+        if(_bowBoonCombat) _bowBoonCombat.StopEncounter();
+        if(_spearBoonCombat) _spearBoonCombat.StopEncounter();
+        _inputBuffer.Discard(); _bufferedDash=null; _bufferedContinuation=0; _bufferedBasicWeapon=null;
         _impactDeferredSlot=-1; _impactDeferredWeapon=null;
         // Active/cooldown timers continue naturally; reward acquisition alone may RefreshLoadout.
         if(_characterControl) _characterControl.StopEncounterOffense();
@@ -62,11 +67,37 @@ public class AbilityHolder : MonoBehaviour
     // The dash referenced by a buffered Dash intent, kept so the per-frame retry can re-attempt the
     // exact dash that was requested without re-deriving it. Cleared whenever the buffer empties.
     private DashScript _bufferedDash;
+    private WeaponScript _bufferedBasicWeapon;
     // Monotonic tie-break for same-timestamp Command_Intents stored this frame (R5.7).
     private long _intentSequence;
     private long _bufferedContinuation;
     private float _inputClock;
     public bool IsCadencedWaiting => _breakerCombat && _breakerCombat.IsCadencedWaiting;
+    public bool CanFinishCadencedAsura => isActiveAndEnabled && playerActor && !playerActor.IsDead &&
+        !playerActor.IsCombatHitStopped && !playerActor.IsResolvingGauntletImpact && !BlocksWorldInput &&
+        _breakerCombat && _breakerCombat.isActiveAndEnabled && _breakerCombat.IsEquipped && _breakerCombat.CanFinishCadenced;
+
+    public bool TryFinishCadencedAsura()
+    {
+        if (!GameplayInputReady) return false;
+        if (!isActiveAndEnabled || !playerActor || playerActor.IsDead || playerActor.IsCombatHitStopped ||
+            playerActor.IsResolvingGauntletImpact || BlocksWorldInput || !_breakerCombat || !_breakerCombat.isActiveAndEnabled ||
+            !_breakerCombat.IsEquipped || (_lobbyInteraction && _lobbyInteraction.BlocksAbilityInput(GamePreferences.Binding(GameControl.FinishSequence)))) return false;
+        if (!_breakerCombat.TryFinishCadenced(_breakerCombat.CadencedExecution)) return false;
+        _inputBuffer.Discard(); _bufferedContinuation = 0; _bufferedDash = null;
+        if (_characterControl) _characterControl.DiscardPendingGroundMovement();
+        return true;
+    }
+    public bool CanFinishSequence => !BlocksWorldInput && playerActor && !playerActor.IsDead && !playerActor.IsCombatHitStopped &&
+        (CanFinishCadencedAsura || _spearBoonCombat && _spearBoonCombat.CanReturnOrbit);
+    public bool TryFinishSequence()
+    {
+        if (!GameplayInputReady) return false;
+        if (!this || !isActiveAndEnabled || !playerActor || playerActor.IsDead || playerActor.IsCombatHitStopped ||
+            playerActor.IsResolvingGauntletImpact || BlocksWorldInput ||
+            _lobbyInteraction && _lobbyInteraction.BlocksAbilityInput(GamePreferences.Binding(GameControl.FinishSequence))) return false;
+        return TryFinishCadencedAsura() || _spearBoonCombat && _spearBoonCombat.TryReturnOrbit();
+    }
     internal void EndCadencedForBasic() { if (IsCadencedWaiting) _breakerCombat.FinishForDodge(); }
     private int _impactDeferredSlot = -1;
     private WeaponScript _impactDeferredWeapon;
@@ -79,7 +110,8 @@ public class AbilityHolder : MonoBehaviour
     public event Action<PlayerActor, IReadOnlyList<Actor>> AttackHitsResolved;
 
     public bool IsCasting => (_breakerCombat && _breakerCombat.IsExecuting) ||
-        (_arsenalCombat && _arsenalCombat.IsExecuting);
+        (_arsenalCombat && _arsenalCombat.IsExecuting) || (_bowBoonCombat && _bowBoonCombat.IsExecuting) ||
+        (_spearBoonCombat && _spearBoonCombat.IsExecuting);
 
     /// <summary>
     /// True while the active cast permits the player to keep moving (R10.1): the Arco fires on the
@@ -88,10 +120,29 @@ public class AbilityHolder : MonoBehaviour
     /// gating — it only unblocks locomotion.
     /// </summary>
     public bool MovementAllowedWhileCasting => IsCadencedWaiting || (_arsenalCombat && _arsenalCombat.IsExecuting &&
-        _arsenalCombat.AllowsMovementWhileFiring);
+        _arsenalCombat.AllowsMovementWhileFiring) || (_bowBoonCombat && _bowBoonCombat.IsExecuting && _bowBoonCombat.AllowsMovementWhileFiring);
+    /// <summary>A ground move can wait for a recovering cast without cancelling it.</summary>
+    internal bool HasBufferedOffensiveIntent => _inputBuffer.HasPending;
+    internal bool CanQueueRecoveryMovement
+    {
+        get
+        {
+            if (_inputBuffer.HasPending) return false;
+            ActionPhase phase; float progress;
+            if (_breakerCombat && _breakerCombat.IsExecuting)
+                return _breakerCombat.TryGetActionProgress(out phase, out progress) && phase == ActionPhase.Recovery;
+            if (_arsenalCombat && _arsenalCombat.IsExecuting)
+                return _arsenalCombat.TryGetActionProgress(out phase, out progress) && phase == ActionPhase.Recovery;
+            if (_bowBoonCombat && _bowBoonCombat.IsExecuting)
+                return _bowBoonCombat.TryGetActionProgress(out phase, out progress) && phase == ActionPhase.Recovery;
+            if (_spearBoonCombat && _spearBoonCombat.IsExecuting)
+                return _spearBoonCombat.TryGetActionProgress(out phase, out progress) && phase == ActionPhase.Recovery;
+            return false;
+        }
+    }
     private bool _manualInitializationBlocked;
     internal void SetManualInitializationBlocked(bool blocked) => _manualInitializationBlocked = blocked;
-    public bool BlocksWorldInput => _manualInitializationBlocked || Time.timeScale <= 0f || (_pause && _pause.BlocksInput) || (_lobbyInteraction && _lobbyInteraction.IsPanelOpen) ||
+    public bool BlocksWorldInput => _manualInitializationBlocked || Time.timeScale <= 0f || (_pause && _pause.BlocksInput) || (_lobbyInteraction && (_lobbyInteraction.IsPanelOpen || _lobbyInteraction.BlocksWorldPointer)) ||
         (_runBoons && (_runBoons.IsChoosing || _runBoons.BlocksManualOffense));
 
     /// <summary>Read-only R preflight for presentation; never cancels, spends, buffers or publishes rejection.</summary>
@@ -138,16 +189,69 @@ public class AbilityHolder : MonoBehaviour
         RefreshWeaponAbilities(force: true);
     }
 
+    internal void DiscardBufferedBasic()
+    {
+        if (!_bufferedBasicWeapon) return;
+        _inputBuffer.Discard(); _bufferedBasicWeapon = null;
+    }
+
+    // Shares the holder's existing one-slot/120ms intent buffer with dash and continuations.
+    internal bool TryRequestDirectionalBasic(Vector3 direction, bool mayBuffer = true)
+    {
+        if (!isActiveAndEnabled || !playerActor || playerActor.IsDead || !GameplayInputReady ||
+            !_characterControl || !_characterControl.DirectMovementEnabled || playerActor.HasExternalPull ||
+            _characterControl.isDashing || (IsCasting && !IsCadencedWaiting) ||
+            !GroundMovementBuffer.IsFinite(direction) || direction.sqrMagnitude < .0001f) return false;
+        direction.y = 0;
+        if (direction.sqrMagnitude < .0001f) return false;
+        direction.Normalize();
+        if (_characterControl.CanStartDirectionalBasic)
+        {
+            DiscardUncommittedInput();
+            return _characterControl.TryDirectionalBasicAttack(transform.position + direction);
+        }
+        if (!mayBuffer) return false;
+        _bufferedDash = null; _bufferedContinuation = 0;
+        _bufferedBasicWeapon = playerActor.CurrentWeapon;
+        _inputBuffer.Store(new CommandIntent(CommandKind.Basic, null, direction, _inputClock, _intentSequence++));
+        return true;
+    }
+
+    private void TickDirectionalBasicBuffer()
+    {
+        if (!_bufferedBasicWeapon) return;
+        _inputBuffer.Expire(_inputClock);
+        if (!_inputBuffer.HasPending) { _bufferedBasicWeapon = null; return; }
+        if (!_characterControl || !_characterControl.DirectMovementEnabled ||
+            playerActor.CurrentWeapon != _bufferedBasicWeapon || playerActor.HasExternalPull ||
+            _characterControl.isDashing || (IsCasting && !IsCadencedWaiting))
+        { DiscardBufferedBasic(); return; }
+        if (!_inputBuffer.TryConsume(_inputClock, _characterControl.CanStartDirectionalBasic, out var intent)) return;
+        _bufferedBasicWeapon = null;
+        _characterControl.TryDirectionalBasicAttack(transform.position + intent.Direction);
+    }
+
+    // Drop only uncommitted intentions. Active casts, impact feedback and cooldowns keep their owner.
+    internal void DiscardUncommittedInput()
+    {
+        _inputBuffer.Discard(); _bufferedDash = null; _bufferedContinuation = 0; _bufferedBasicWeapon = null;
+        _impactDeferredSlot = -1; _impactDeferredWeapon = null;
+    }
+    private bool GameplayInputReady => !_characterControl || _characterControl.GameplayInputReady;
+
     private void OnDisable()
     {
         _inputBuffer.TryConsume(_inputClock, true, out _);
-        _bufferedContinuation = 0; _bufferedDash = null;
+        _bufferedContinuation = 0; _bufferedDash = null; _bufferedBasicWeapon = null;
         _impactDeferredSlot = -1;
         _impactDeferredWeapon = null;
+        if (_bowBoonCombat) _bowBoonCombat.StopEncounter();
+        if (_spearBoonCombat) _spearBoonCombat.StopEncounter();
     }
 
     private void Update()
     {
+        bool inputReady = GameplayInputReady;
         // Unscaled input validity excludes menu pause and hit-stop; action clocks remain scaled.
         if (!BlocksWorldInput && (!playerActor || !playerActor.IsCombatHitStopped)) _inputClock += Time.unscaledDeltaTime;
         RefreshWeaponAbilities(force: false);
@@ -160,16 +264,17 @@ public class AbilityHolder : MonoBehaviour
             if (requestedWeapon == playerActor.CurrentWeapon) TryUseAbility(slot);
         }
 
+        bool finishedSequence = inputReady && GamePreferences.WasPressed(GameControl.FinishSequence) && TryFinishSequence();
         for (int i = 0; i < activeAbilities.Length; i++)
         {
             TickAbility(i);
-            if (IsAbilityKeyPressed(i)) TryUseAbility(i);
+            if (inputReady && !(finishedSequence && i == 3) && IsAbilityKeyPressed(i)) TryUseAbility(i);
         }
 
         // R6.4: service any dash intent buffered on a temporal miss, firing it on the first frame the
         // Dash CancelRule opens (or when the active action ends). Ticked after the skills so a dash
         // buffered this frame is retried starting next frame.
-        TickDashBuffer();
+        if (inputReady) { TickDirectionalBasicBuffer(); TickDashBuffer(); }
     }
 
     public IReadOnlyList<Ability> ActiveAbilities => activeAbilities;
@@ -236,6 +341,7 @@ public class AbilityHolder : MonoBehaviour
 
         cooldownTimers = new float[activeAbilities.Length];
         activeTimers = new float[activeAbilities.Length];
+        _expandedActive = new bool[activeAbilities.Length];
         states = new AbilityState[activeAbilities.Length];
 
         bool usesBreaker = Array.Exists(activeAbilities, ability => ability is BreakerGauntletAbility);
@@ -244,11 +350,31 @@ public class AbilityHolder : MonoBehaviour
         if (usesBreaker && !_breakerCombat)
             _breakerCombat = gameObject.AddComponent<BreakerGauntletCombat>();
         if (_breakerCombat) _breakerCombat.Configure(usesBreaker ? currentWeapon : null);
+        ConfigureExpansionExecutors();
 
         if (keys is null || keys.Length < activeAbilities.Length)
         {
             Debug.LogWarning("AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.", this);
         }
+    }
+
+    private void ConfigureExpansionExecutors()
+    {
+        var inventory = playerActor ? playerActor.RunModifiers?.Expansion : null;
+        bool bow = currentWeapon && WeaponRunModifiers.Identify(currentWeapon) == RunWeaponFamily.Bow;
+        bool spear = currentWeapon && WeaponRunModifiers.Identify(currentWeapon) == RunWeaponFamily.Spear;
+        if (bow && inventory != null && inventory.Acquisitions.Count > 0 && !_bowBoonCombat)
+            _bowBoonCombat = GetComponent<BowBoonCombat>() ?? gameObject.AddComponent<BowBoonCombat>();
+        if (spear && inventory != null && inventory.Acquisitions.Count > 0 && !_spearBoonCombat)
+            _spearBoonCombat = GetComponent<SpearBoonCombat>() ?? gameObject.AddComponent<SpearBoonCombat>();
+        if (_bowBoonCombat) _bowBoonCombat.Configure(bow && inventory?.Has(BowBoonCatalog.HuntingBondId) == true,
+            bow && inventory?.Has(BowBoonCatalog.JudgmentArrowId) == true, bow && inventory?.Has(BowBoonCatalog.MineGardenId) == true,
+            bow && inventory?.Has(BowBoonCatalog.PredatorSealId) == true, bow && inventory?.Has(BowBoonCatalog.CuttingReturnId) == true,
+            bow && inventory?.Has(BowBoonCatalog.EclipseArcherId) == true, bow && inventory?.Has(BowBoonCatalog.HuntingDetonatorId) == true);
+        if (_spearBoonCombat) _spearBoonCombat.Configure(spear && inventory?.Has(SpearBoonCatalog.HorizonId) == true,
+            spear && inventory?.Has(SpearBoonCatalog.SiegeId) == true, spear && inventory?.Has(SpearBoonCatalog.OrbitId) == true,
+            spear && inventory?.Has(SpearBoonCatalog.ReturnMarkId) == true, spear && inventory?.Has(SpearBoonCatalog.MoonEchoId) == true,
+            spear && inventory?.Has(SpearBoonCatalog.ReturnLineId) == true);
     }
 
     private void TickAbility(int index)
@@ -271,6 +397,7 @@ public class AbilityHolder : MonoBehaviour
 
     public bool TryUseAbility(int index)
     {
+        if (!GameplayInputReady) return Reject(index, AbilityUseFailure.Interaction);
         if (playerActor && playerActor.IsResolvingGauntletImpact)
         {
             if (BlocksWorldInput) return Reject(index, AbilityUseFailure.Interaction);
@@ -286,8 +413,14 @@ public class AbilityHolder : MonoBehaviour
             if (BlocksWorldInput || !isActiveAndEnabled || playerActor.IsDead) return Reject(index, AbilityUseFailure.Busy);
             long execution = _breakerCombat.CadencedExecution;
             if (_breakerCombat.IsCadencedWaiting)
-                return _breakerCombat.TryContinueCadenced(execution) || Reject(index, AbilityUseFailure.Requirement);
+            {
+                if (!_breakerCombat.TryContinueCadenced(execution)) return Reject(index, AbilityUseFailure.Requirement);
+                if (_characterControl) _characterControl.DiscardPendingGroundMovement();
+                return true;
+            }
             if (!_breakerCombat.CanBufferCadencedContinuation) return Reject(index, AbilityUseFailure.Busy);
+            if (_characterControl) _characterControl.DiscardPendingGroundMovement();
+            _bufferedBasicWeapon = null;
             _bufferedDash = null; _bufferedContinuation = execution;
             _inputBuffer.Store(new CommandIntent(CommandKind.Skill4, null, Vector3.zero, _inputClock, _intentSequence++));
             return true;
@@ -302,11 +435,16 @@ public class AbilityHolder : MonoBehaviour
 
         // R13.2 — ability.TryActivate deducts exactly ManaCost via PlayerActor.TrySpendMana; if the
         // ability's own requirement fails the reserve is left untouched (R13.4).
-        if (!ability.TryActivate(gameObject)) return Reject(index, AbilityUseFailure.Requirement);
+        using (playerActor.RunStatistics?.BeginAction(index >= 0 && index < 4 ? "QWER"[index].ToString() : "Unattributed"))
+            if (!ability.TryActivate(gameObject)) return Reject(index, AbilityUseFailure.Requirement);
         states[index] = AbilityState.Active;
         activeTimers[index] = Mathf.Max(0f, ability.activeTime);
         if (ability is ArsenalAbility && _arsenalCombat)
             activeTimers[index] = Mathf.Max(activeTimers[index], _arsenalCombat.ExecutionDuration);
+        if (ability is ArsenalAbility bowAbility && _bowBoonCombat && _bowBoonCombat.Handles(bowAbility))
+            { activeTimers[index] = _bowBoonCombat.ExecutionDuration; _expandedActive[index] = true; }
+        if (ability is ArsenalAbility spearAbility && _spearBoonCombat && _spearBoonCombat.Handles(spearAbility))
+            { activeTimers[index] = _spearBoonCombat.ExecutionDuration; _expandedActive[index] = true; }
         if (ability is BreakerGauntletAbility && _breakerCombat)
             activeTimers[index] = Mathf.Max(activeTimers[index], _breakerCombat.ExecutionDuration);
 
@@ -318,6 +456,7 @@ public class AbilityHolder : MonoBehaviour
             states[index] = AbilityState.Cooldown;
             cooldownTimers[index] = GetCooldownDuration(ability);
         }
+        DiscardBufferedBasic();
         AbilityUsed?.Invoke(index);
         return true;
     }
@@ -440,6 +579,10 @@ public class AbilityHolder : MonoBehaviour
             // locomotion fraction is left as a documented follow-up. Resolving it has no side effect.
             if (_breakerCombat.TryGetCommitment(out _)) { /* commitment available to the core; no behavior change (O-9) */ }
         }
+        else if (_bowBoonCombat && _bowBoonCombat.TryGetCancelContext(out var bowActive, out float bowProgress))
+        { profile = bowActive; progress = bowProgress; _bowBoonCombat.TryGetCommitment(out _); }
+        else if (_spearBoonCombat && _spearBoonCombat.TryGetCancelContext(out var spearActive, out float spearProgress))
+        { profile = spearActive; progress = spearProgress; _spearBoonCombat.TryGetCommitment(out _); }
         else if (_arsenalCombat && _arsenalCombat.TryGetCancelContext(out CombatActionProfile arsenalActive, out float arsenalProgress))
         {
             profile = arsenalActive; // null for the shipped Arco/Lança ⇒ legacy total block preserved
@@ -471,6 +614,8 @@ public class AbilityHolder : MonoBehaviour
     {
         if (_breakerCombat && _breakerCombat.IsExecuting) _breakerCombat.FinishForDodge();
         else if (_arsenalCombat && _arsenalCombat.IsExecuting) _arsenalCombat.Cancel();
+        else if (_bowBoonCombat && _bowBoonCombat.IsExecuting) _bowBoonCombat.Cancel();
+        else if (_spearBoonCombat && _spearBoonCombat.IsExecuting) _spearBoonCombat.Cancel();
     }
 
     public bool TryUseDash(DashScript dash)
@@ -481,6 +626,7 @@ public class AbilityHolder : MonoBehaviour
         // any source action is canceled. A dash on cooldown rejects once with the remaining cooldown
         // left completely untouched — the active action keeps running and never loses its phase.
         if (dash.GetRemainingCooldown(gameObject) > 0f) return Reject(4, AbilityUseFailure.Cooldown);
+        if (!GameplayInputReady) return Reject(4, AbilityUseFailure.Interaction);
 
         if (IsCasting)
         {
@@ -536,6 +682,7 @@ public class AbilityHolder : MonoBehaviour
     private bool ActivateDash(DashScript dash)
     {
         if (!dash.TryActivate(gameObject)) return Reject(4, AbilityUseFailure.Requirement);
+        DiscardBufferedBasic();
         AbilityUsed?.Invoke(4);
         // R6.9: a dash succeeded — raise OnDash exactly once, AFTER AbilityUsed(4) (O-5). The bus is
         // reached through the RunBoons reference bound to this holder (no scene lookup) and is null
@@ -566,6 +713,7 @@ public class AbilityHolder : MonoBehaviour
     private void BufferDashIntent(DashScript dash)
     {
         _bufferedContinuation = 0;
+        _bufferedBasicWeapon = null;
         _bufferedDash = dash;
         _inputBuffer.Store(new CommandIntent(
             CommandKind.Dash, null, Vector3.zero, _inputClock, _intentSequence++));
@@ -587,7 +735,8 @@ public class AbilityHolder : MonoBehaviour
             if (!_breakerCombat || _breakerCombat.CadencedExecution != _bufferedContinuation)
             { _inputBuffer.TryConsume(_inputClock, true, out _); _bufferedContinuation = 0; }
             else if (!BlocksWorldInput && _inputBuffer.TryConsume(_inputClock, IsCadencedWaiting, out _))
-            { long execution = _bufferedContinuation; _bufferedContinuation = 0; _breakerCombat.TryContinueCadenced(execution); }
+            { long execution = _bufferedContinuation; _bufferedContinuation = 0;
+                if (_breakerCombat.TryContinueCadenced(execution) && _characterControl) _characterControl.DiscardPendingGroundMovement(); }
             if (!_inputBuffer.HasPending) _bufferedContinuation = 0;
             return;
         }
@@ -653,7 +802,10 @@ public class AbilityHolder : MonoBehaviour
         }
     }
 
-    public KeyCode GetAbilityKey(int index) => ResolveKey(index);
+    internal bool UsesDirectAsuraInput => _characterControl && _characterControl.DirectMovementEnabled &&
+        playerActor && WeaponRunModifiers.Identify(playerActor.CurrentWeapon) == RunWeaponFamily.Gauntlet &&
+        activeAbilities.Length > 3 && activeAbilities[3] is BreakerGauntletAbility asura && asura.AsuraBurst;
+    public KeyCode GetAbilityKey(int index) => index == 3 && UsesDirectAsuraInput ? GamePreferences.WeaponSpecialBinding : ResolveKey(index);
     public float GetCooldownRatio(int index) => index >= 0 && index < activeAbilities.Length
         ? Mathf.Clamp01(GetRemainingCooldown(index) / Mathf.Max(0.001f, GetCooldownDuration(activeAbilities[index]))) : 0f;
 
@@ -662,8 +814,17 @@ public class AbilityHolder : MonoBehaviour
 
     private void TickActive(int index, Ability ability)
     {
-        activeTimers[index] -= Time.deltaTime;
-        if (activeTimers[index] > 0f) return;
+        if (_expandedActive[index])
+        {
+            if (_bowBoonCombat && _bowBoonCombat.IsExecuting && _bowBoonCombat.ActiveSlot == index ||
+                _spearBoonCombat && _spearBoonCombat.IsExecuting && _spearBoonCombat.ActiveSlot == index) return;
+            _expandedActive[index] = false; activeTimers[index] = 0f;
+        }
+        else
+        {
+            activeTimers[index] -= Time.deltaTime;
+            if (activeTimers[index] > 0f) return;
+        }
 
         states[index] = AbilityState.Cooldown;
         cooldownTimers[index] = GetCooldownDuration(ability);
@@ -678,7 +839,16 @@ public class AbilityHolder : MonoBehaviour
         }
     }
 
-    private bool IsAbilityKeyPressed(int index) => GamePreferences.WasPressed(ResolveKey(index));
+    private bool IsAbilityKeyPressed(int index)
+    {
+        bool legacy = GamePreferences.WasPressed(ResolveKey(index));
+        if (index != 3 || !UsesDirectAsuraInput) return legacy;
+        bool special = GamePreferences.WasWeaponSpecialPressed();
+        if (special && _characterControl.DirectPointerIsOverUi)
+        { _characterControl.RequireAttackRelease(); return false; }
+        // One delivery into the SAME holder state/executor, even if legacy F11 is pressed too.
+        return special || legacy;
+    }
 
     private KeyCode ResolveKey(int index) => index >= 0 && index < 4
         ? GamePreferences.Binding((GameControl)((int)GameControl.Skill1 + index)) : KeyCode.None;

@@ -40,7 +40,14 @@ namespace TechGuy.Tests
                 var route=(ManualRoutePolicy)typeof(ProgressionDirector).GetField("_manualPolicy",BindingFlags.NonPublic|BindingFlags.Instance).GetValue(fixture.director);
                 // Prior node results are stand-ins to isolate E1 composition and its two real acquisitions.
                 foreach(int node in new[]{1,2,4,5})
-                { ReachManualReward(route,node); Assert.IsTrue(route.TryCompleteReward(route.Session.Id,node,0,node==5,RewardReady)); }
+                {
+                    ReachManualReward(route,node);
+                    var priorNode=route.Session.Route.Node(node);
+                    for(int ordinal=0;ordinal<priorNode.TotalAcquisitions;ordinal++)
+                        Assert.IsTrue(route.TryCompleteReward(route.Session.Id,node,ordinal,
+                            priorNode.RewardAt(ordinal)==RunRewardKind.Mutation,RewardReady));
+                    Assert.AreEqual(RunPhase.RouteChoice,route.Session.Phase);
+                }
                 Assert.IsTrue(fixture.director.TryCommitDestination(route.Session.Id,7));
                 Assert.IsTrue(_agent.Warp(route.Session.Route.Node(7).Center)); Assert.IsTrue(fixture.director.TryEnterNode(route.Session.Id,7));
                 yield return null;
@@ -55,16 +62,24 @@ namespace TechGuy.Tests
                 yield return null;
                 Assert.AreEqual(RunPhase.RewardPending,route.Session.Phase,"The real director must close the Elite encounter frontier.");
                 var run=_player.GetComponent<RunBoons>();
-                foreach(var d in WeaponRunModifiers.Catalog.Where(d=>GauntletContentAuthoring.IsSelectedTechnique(d.Kind)))
-                    for(int i=0;i<d.MaxRank;i++) Assert.IsTrue(run.WeaponModifiers.Add(d));
-                float armor=_player.Stats.GetStat(PlayerStatType.Armor);
+                // The historical method name says Defense, but bulwark is retired from offers.
+                // Exercise both real Technique acquisitions rather than injecting exhausted legacy ranks.
                 InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.Digit1)); InputSystem.Update();
-                Assert.IsTrue(fixture.director.TryOpenManualReward(route.Session.Id,7,0)); Assert.AreEqual("bulwark",run.Choices.Single().Id);
-                Assert.IsTrue(run.Choose(0)); Assert.AreEqual(armor+40,_player.Stats.GetStat(PlayerStatType.Armor));
+                Assert.IsTrue(fixture.director.TryOpenManualReward(route.Session.Id,7,0));
+                Assert.That(run.Choices.Count,Is.InRange(1,3)); Assert.IsFalse(run.ManualTicket.IsAlternative);
+                string firstId=run.Choices[0].Id; Assert.IsTrue(RunBoonOfferCatalog.IncludesOffer(firstId));
+                int firstRank=RunModifierPresentation.Count(run,firstId);
+                Assert.IsTrue(run.Choose(0)); Assert.AreEqual(firstRank+1,RunModifierPresentation.Count(run,firstId));
+                Assert.AreEqual(firstId,run.Acquired.Single().Id);
                 Assert.AreEqual(1,run.ManualTicket.Request.Ordinal); Assert.AreEqual(RunPhase.RewardPending,route.Session.Phase);
+                Assert.That(run.Choices.Count,Is.InRange(1,3)); Assert.IsFalse(run.ManualTicket.IsAlternative);
+                string secondId=run.Choices[0].Id; Assert.IsTrue(RunBoonOfferCatalog.IncludesOffer(secondId));
+                int secondRank=RunModifierPresentation.Count(run,secondId);
                 Assert.IsFalse(run.Choose(0)); yield return null; Assert.IsFalse(run.Choose(0),"Holding the selection key must not accept ordinal 1.");
+                Assert.AreEqual(1,run.Acquired.Count); Assert.AreEqual(secondRank,RunModifierPresentation.Count(run,secondId));
                 InputSystem.QueueStateEvent(keyboard,new KeyboardState()); InputSystem.Update(); yield return null;
-                Assert.IsTrue(run.Choose(0)); Assert.AreEqual(armor+80,_player.Stats.GetStat(PlayerStatType.Armor));
+                Assert.IsTrue(run.Choose(0)); Assert.AreEqual(secondRank+1,RunModifierPresentation.Count(run,secondId));
+                Assert.AreEqual(secondId,run.Acquired[1].Id);
                 Assert.AreEqual(2,run.Acquired.Count); Assert.AreEqual(RunPhase.RouteChoice,route.Session.Phase);
                 Assert.AreEqual(RunNodeState.Available,route.Session.NodeState(8)); Assert.AreEqual(RunNodeState.Excluded,route.Session.NodeState(6));
                 Assert.IsFalse(run.Choose(0)); Assert.IsFalse(fixture.director.TryOpenManualReward(route.Session.Id,7,1));

@@ -23,26 +23,34 @@ public class Actor : MonoBehaviour
     private Action<float> _nextDamageReceipt;
     private Action<Action> _nextDamageNotifications;
     private Action<Action> _deathNotifications;
+    private RunDamageSource _nextDamageSource;
+    private long _hpTransactionSequence;
+    // Valid only inside the existing DamageReceived callback, including delayed/reentrant publication.
+    public HpDamageTransaction? PublishedDamageTransaction { get; private set; }
 
     // A caller owns one receipt for one virtual TakeDamage call. Consume it before invoking any
     // callback so nested damage cannot overwrite or reuse the outer hit's confirmation.
-    internal IDisposable CaptureNextDamage(Action<float> confirm, Action<Action> notifications = null) => new DamageReceipt(this, confirm, notifications);
+    internal IDisposable CaptureNextDamage(Action<float> confirm, Action<Action> notifications = null,
+        RunDamageSource source = null) => new DamageReceipt(this, confirm, notifications, source);
 
     private sealed class DamageReceipt : IDisposable
     {
         private Actor _actor;
         private readonly Action<float> _previous;
         private readonly Action<Action> _previousNotifications;
-        public DamageReceipt(Actor actor, Action<float> confirm, Action<Action> notifications)
+        private readonly RunDamageSource _previousSource;
+        public DamageReceipt(Actor actor, Action<float> confirm, Action<Action> notifications, RunDamageSource source)
         {
             _actor = actor; _previous = actor._nextDamageReceipt; _previousNotifications = actor._nextDamageNotifications;
-            actor._nextDamageReceipt = confirm; actor._nextDamageNotifications = notifications;
+            _previousSource = actor._nextDamageSource;
+            actor._nextDamageReceipt = confirm; actor._nextDamageNotifications = notifications; actor._nextDamageSource = source;
         }
         public void Dispose()
         {
             if (!_actor) return;
             _actor._nextDamageReceipt = _previous;
             _actor._nextDamageNotifications = _previousNotifications;
+            _actor._nextDamageSource = _previousSource;
             _actor = null;
         }
     }
@@ -129,8 +137,10 @@ public class Actor : MonoBehaviour
     {
         Action<float> confirm = _nextDamageReceipt;
         Action<Action> notifications = _nextDamageNotifications;
+        RunDamageSource source = _nextDamageSource;
         _nextDamageReceipt = null;
         _nextDamageNotifications = null;
+        _nextDamageSource = null;
         if (IsDead) return;
         // Full i-frame immunity (R6.9): a damage-immune actor ignores the hit entirely — no health
         // loss, no DamageReceived, no absorber consumption. This precedes the damage-taken
@@ -155,6 +165,8 @@ public class Actor : MonoBehaviour
         float previousHealth = health;
         health = Mathf.Max(0f, health - amount);
         float actualDamage = previousHealth - health;
+        var hpTransaction = actualDamage > 0f ? new HpDamageTransaction(++_hpTransactionSequence,
+            EntityId.ToULong(GetEntityId()).ToString(), CombatGeneration, previousHealth, health, amount, source) : default;
         if (actualDamage > 0f) confirm?.Invoke(actualDamage);
         // A hit was fully absorbed when the absorber received a positive amount and left
         // nothing to reach health. This is distinct from a reduction via
@@ -164,7 +176,13 @@ public class Actor : MonoBehaviour
         UpdateHealthBar();
         Action publish = () =>
         {
-            if (actualDamage > 0f) DamageReceived?.Invoke(this, actualDamage);
+            if (actualDamage > 0f)
+            {
+                var previousTransaction = PublishedDamageTransaction;
+                PublishedDamageTransaction = hpTransaction;
+                try { DamageReceived?.Invoke(this, actualDamage); }
+                finally { PublishedDamageTransaction = previousTransaction; }
+            }
             if (fullyAbsorbed) DamageAbsorbed?.Invoke(this);
             HealthChanged?.Invoke(this);
             EnemyTargetUI ui = EnemyTargetUI.Instance;

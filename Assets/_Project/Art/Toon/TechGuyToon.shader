@@ -13,6 +13,7 @@ Shader "Tech Guy/Illustrated Toon"
         _OutlineWidth("Ink width (world metres)", Range(0,.08)) = .018
         _EmissionMap("Emission", 2D) = "white" {}
         [HDR] _EmissionColor("Emission color", Color) = (0,0,0,1)
+        [HideInInspector] _OcclusionOpacity("Camera occlusion opacity", Range(0,1)) = 1
         [HideInInspector] _Cull("Cull", Float) = 2
         [HideInInspector] _Cutoff("Alpha cutoff", Float) = .5
     }
@@ -24,10 +25,21 @@ Shader "Tech Guy/Illustrated Toon"
         CBUFFER_START(UnityPerMaterial)
             float4 _BaseMap_ST;
             half4 _BaseColor, _ShadowColor, _HighlightColor, _OutlineColor, _EmissionColor;
-            float _ShadowThreshold, _BandSoftness, _PigmentStrength, _OutlineWidth, _Cutoff;
+            float _ShadowThreshold, _BandSoftness, _PigmentStrength, _OutlineWidth, _Cutoff, _OcclusionOpacity;
         CBUFFER_END
         TEXTURE2D(_BaseMap); SAMPLER(sampler_BaseMap);
         TEXTURE2D(_EmissionMap); SAMPLER(sampler_EmissionMap);
+        // Ordered screen-door fade keeps the opaque depth ordering and ink style.
+        void ApplyOcclusionFade(float4 positionCS)
+        {
+            uint2 pixel = (uint2)positionCS.xy & 3;
+            const float thresholds[16] = {
+                .03125, .53125, .15625, .65625,
+                .78125, .28125, .90625, .40625,
+                .21875, .71875, .09375, .59375,
+                .96875, .46875, .84375, .34375 };
+            clip(_OcclusionOpacity - thresholds[pixel.y * 4 + pixel.x]);
+        }
         ENDHLSL
 
         Pass
@@ -52,7 +64,8 @@ Shader "Tech Guy/Illustrated Toon"
                 output.positionCS = TransformWorldToHClip(position);
                 return output;
             }
-            half4 InkFragment(InkVaryings input):SV_Target { return _OutlineColor; }
+            half4 InkFragment(InkVaryings input):SV_Target
+            { ApplyOcclusionFade(input.positionCS); return _OutlineColor; }
             ENDHLSL
         }
         Pass
@@ -102,6 +115,7 @@ Shader "Tech Guy/Illustrated Toon"
             }
             half4 ToonFragment(Varyings input):SV_Target
             {
+                ApplyOcclusionFade(input.positionCS);
                 half3 normal = normalize(input.normalWS);
                 Light light = GetMainLight(TransformWorldToShadowCoord(input.positionWS));
                 half diffuse = saturate(dot(normal,light.direction));
@@ -146,9 +160,11 @@ Shader "Tech Guy/Illustrated Toon"
             ZWrite On ColorMask R Cull Back
             HLSLPROGRAM
             #pragma vertex DepthOnlyVertex
-            #pragma fragment DepthOnlyFragment
+            #pragma fragment OcclusionDepthOnlyFragment
             #pragma multi_compile_instancing
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+            half OcclusionDepthOnlyFragment(Varyings input):SV_Target
+            { ApplyOcclusionFade(input.positionCS); return DepthOnlyFragment(input); }
             ENDHLSL
         }
         Pass
@@ -158,10 +174,12 @@ Shader "Tech Guy/Illustrated Toon"
             ZWrite On Cull Back
             HLSLPROGRAM
             #pragma vertex DepthNormalsVertex
-            #pragma fragment DepthNormalsFragment
+            #pragma fragment OcclusionDepthNormalsFragment
             #pragma multi_compile_instancing
             #pragma multi_compile_fragment _ _GBUFFER_NORMALS_OCT
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthNormalsPass.hlsl"
+            void OcclusionDepthNormalsFragment(Varyings input, out half4 normalWS:SV_Target0)
+            { ApplyOcclusionFade(input.positionCS); DepthNormalsFragment(input, normalWS); }
             ENDHLSL
         }
     }

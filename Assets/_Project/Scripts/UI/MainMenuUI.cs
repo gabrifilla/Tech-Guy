@@ -27,6 +27,7 @@ public sealed class MainMenuUI : MonoBehaviour
 
     private void Awake()
     {
+        GamePreferences.UseDirectControls(this);
         Time.timeScale = 1;
         Cursor.visible = true; Cursor.lockState = CursorLockMode.None;
         _saved = GamePreferences.Read(); _draft = _saved.Copy();
@@ -103,7 +104,7 @@ public sealed class MainMenuUI : MonoBehaviour
         GamePreferences.Apply(_saved); _draft = _saved.Copy(); _confirmDisplay = false;
         _message = "Alterações de vídeo revertidas.";
     }
-    private void OnDestroy() { if (_confirmDisplay) GamePreferences.Apply(_saved); }
+    private void OnDestroy() { if (_confirmDisplay) GamePreferences.Apply(_saved); GamePreferences.ReleaseDirectControls(this); }
 
     private static GUIStyle Style(int size, bool bold = false) => new GUIStyle(GUI.skin.label)
     { fontSize = size, fontStyle = bold ? FontStyle.Bold : FontStyle.Normal, wordWrap = true, normal = { textColor = Color.white } };
@@ -262,17 +263,17 @@ public sealed class MainMenuUI : MonoBehaviour
     private void DrawControls()
     {
         Panel("Controles","Aponte o cursor na direção em que deseja agir.");
-        string[] keys = { GamePreferences.BindingLabel(GameControl.Move), GamePreferences.BindingLabel(GameControl.Primary), GamePreferences.BindingLabel(GameControl.Dash),
-            GamePreferences.BindingLabel(GameControl.Skill1)+" / "+GamePreferences.BindingLabel(GameControl.Skill2)+" / "+GamePreferences.BindingLabel(GameControl.Skill3), GamePreferences.BindingLabel(GameControl.Skill4), "1 / 2 / 3" };
-        string[] actions = { "Mover até o ponto indicado", "Selecionar inimigo e atacar ao alcançar; chão: mover", "Esquivar", "Usar habilidades da arma", "Usar a habilidade especial da arma", "Escolher um modificador na recompensa" };
+        string[] keys = { GamePreferences.MovementLabel, GamePreferences.BindingLabel(GameControl.Primary), GamePreferences.BindingLabel(GameControl.Dash),
+            GamePreferences.BindingLabel(GameControl.Skill1)+" / "+GamePreferences.BindingLabel(GameControl.Skill2)+" / "+GamePreferences.BindingLabel(GameControl.Skill3), GamePreferences.BindingLabel(GameControl.Skill4), GamePreferences.BindingLabel(GameControl.FinishSequence), "1 / 2 / 3" };
+        string[] actions = { "Mover diretamente; mire com o mouse", "Clique no alvo ao alcance; segure: comportamento legado", "Esquivar para o cursor", "Usar habilidades da arma", "Usar o especial legado da arma", "Finalizar Asura na espera / retornar Órbita da Lança", "Escolher um modificador na recompensa" };
         for (int i=0;i<keys.Length;i++)
         {
-            float y=215+i*49;
-            Fill(new Rect(190,y,885,42),i%2==0 ? new Color(.065f,.105f,.14f) : new Color(.045f,.08f,.11f));
+            float y=215+i*43;
+            Fill(new Rect(190,y,885,38),i%2==0 ? new Color(.065f,.105f,.14f) : new Color(.045f,.08f,.11f));
             Label(new Rect(203,y+9,250,28),keys[i],_small,Cyan);
             Label(new Rect(475,y+6,590,32),actions[i],_body,Color.white);
         }
-        Label(new Rect(190,522,880,40),"Clique no inimigo para persegui-lo; clique no chão para cancelar e mover.",_small,Muted);
+        Label(new Rect(190,522,880,40),"Aproxime-se com WASD. Clique no inimigo para atacar; o cursor não define destinos de movimento.",_small,Muted);
         if (Button(new Rect(190,572,210,44),"Voltar")) Open(Page.Home);
         if (Button(new Rect(815,572,260,44),"Praticar no prólogo",true)) StartJourney(true);
     }

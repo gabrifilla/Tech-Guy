@@ -1,0 +1,47 @@
+// Diagnóstico C01.1a: kit/Asura atuais, recurso ganho no dummy por gameplay.
+// Executar somente no Nexus em Play, após chegada navegada ao treino.
+var p=UnityEngine.Object.FindFirstObjectByType<PlayerActor>();
+var target=UnityEngine.Object.FindFirstObjectByType<TrainingDummy>();
+if(!UnityEditor.EditorApplication.isPlaying || !p || !target || UnityEngine.Vector3.Distance(p.transform.position,target.transform.position)>3)throw new System.InvalidOperationException("Nexus/treino não preparado.");
+var c=p.GetComponent<CharControlScript>();var h=p.GetComponent<AbilityHolder>();var combat=p.GetComponent<BreakerGauntletCombat>();
+var root=System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName;
+var dir=System.IO.Path.Combine(root,"Docs/validation/artifacts/gameplay-rework/c01-baseline");
+var path=System.IO.Path.Combine(dir,"treino-input-virtual.jsonl");if(System.IO.File.Exists(path))throw new System.InvalidOperationException("Evidência já existe.");
+var req="{\"scenario_id\":\"GAUNTLET_SMALL_GROUP\",\"mode\":\"current\",\"phase\":\"baseline\",\"seed\":\"0\",\"weapon\":0,\"node_id\":1,\"enemy_count\":5,\"width\":1280,\"height\":720,\"simulation_fps\":60,\"capture_every_frames\":6,\"duration_frames\":1500,\"observe_seconds\":25,\"control_enemy_rng\":false,\"input_schedule\":[]}";
+var observation=CombatPolishPreview.BeginObservation(req);
+var writer=new System.IO.StreamWriter(new System.IO.FileStream(path,System.IO.FileMode.CreateNew,System.IO.FileAccess.Write,System.IO.FileShare.Read));
+var oldMouse=UnityEngine.InputSystem.Mouse.current;var oldKeyboard=UnityEngine.InputSystem.Keyboard.current;
+var disabled=new System.Collections.Generic.List<UnityEngine.InputSystem.InputDevice>();
+foreach(var d in UnityEngine.InputSystem.InputSystem.devices)if(d.enabled && (d is UnityEngine.InputSystem.Mouse || d is UnityEngine.InputSystem.Keyboard))disabled.Add(d);
+foreach(var d in disabled)UnityEngine.InputSystem.InputSystem.DisableDevice(d);
+var mouse=UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Mouse>("C01TrainingMouse");
+var keyboard=UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Keyboard>("C01TrainingKeyboard");
+var settings=UnityEngine.InputSystem.InputSystem.settings;var bg=settings.backgroundBehavior;var ei=settings.editorInputBehaviorInPlayMode;
+settings.backgroundBehavior=UnityEngine.InputSystem.InputSettings.BackgroundBehavior.IgnoreFocus;
+settings.editorInputBehaviorInPlayMode=UnityEngine.InputSystem.InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+double t0=UnityEngine.Time.realtimeSinceStartupAsDouble+2,special=-1;int basics=0,used=0,last=-1;bool done=false;
+System.Action onBasic=delegate{basics++;writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Basic",t=UnityEngine.Time.realtimeSinceStartupAsDouble-t0,energy=combat.Energy}));};
+System.Action<int> onUse=delegate(int slot){used++;writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="AbilityUsed",slot=slot,t=UnityEngine.Time.realtimeSinceStartupAsDouble-t0,mana=p.mana,energy=combat.Energy}));};
+System.Action<int,AbilityUseFailure> onReject=delegate(int slot,AbilityUseFailure reason){writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Rejected",slot=slot,reason=reason.ToString(),t=UnityEngine.Time.realtimeSinceStartupAsDouble-t0}));};
+c.BasicAttackPerformed+=onBasic;h.AbilityUsed+=onUse;h.AbilityRejected+=onReject;
+System.Action before=null,cleanup=null;UnityEditor.EditorApplication.CallbackFunction tick=null;System.Action<UnityEditor.PlayModeStateChange> sc=null;
+cleanup=delegate{if(done)return;done=true;UnityEngine.InputSystem.InputSystem.onBeforeUpdate-=before;UnityEditor.EditorApplication.update-=tick;UnityEditor.EditorApplication.playModeStateChanged-=sc;
+ if(c)c.BasicAttackPerformed-=onBasic;if(h){h.AbilityUsed-=onUse;h.AbilityRejected-=onReject;}
+ if(mouse.added)UnityEngine.InputSystem.InputSystem.RemoveDevice(mouse);if(keyboard.added)UnityEngine.InputSystem.InputSystem.RemoveDevice(keyboard);
+ foreach(var d in disabled)if(d.added)UnityEngine.InputSystem.InputSystem.EnableDevice(d);if(oldMouse!=null && oldMouse.added)oldMouse.MakeCurrent();if(oldKeyboard!=null && oldKeyboard.added)oldKeyboard.MakeCurrent();
+ settings.backgroundBehavior=bg;settings.editorInputBehaviorInPlayMode=ei;
+ writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Cleanup",basics=basics,used=used,special_requested=special>=0,input_devices_restored=true}));writer.Dispose();};
+sc=delegate(UnityEditor.PlayModeStateChange s){if(s==UnityEditor.PlayModeStateChange.ExitingPlayMode)cleanup();};
+before=delegate{if(done || !p || !target)return;double t=UnityEngine.Time.realtimeSinceStartupAsDouble-t0;var keys=new System.Collections.Generic.List<UnityEngine.InputSystem.Key>();
+ bool left=t>=.7 && t<19 && special<0;
+ if(combat.IsReady && t>=1.5 && special<0)special=t;
+ if(special>=0){left=false;if(t-special<.14)keys.Add(UnityEngine.InputSystem.Key.F11);}
+ if(left){keys.Add(UnityEngine.InputSystem.Key.LeftShift);if(t>=2 && t<2.14)keys.Add(UnityEngine.InputSystem.Key.Q);if(t>=4 && t<4.14)keys.Add(UnityEngine.InputSystem.Key.W);if(t>=7 && t<7.14)keys.Add(UnityEngine.InputSystem.Key.E);if(t>=10 && t<10.14)keys.Add(UnityEngine.InputSystem.Key.Q);}
+ var pointer=(UnityEngine.Vector2)UnityEngine.Camera.main.WorldToScreenPoint(target.transform.position+UnityEngine.Vector3.up*.5f);
+ var state=new UnityEngine.InputSystem.LowLevel.MouseState{position=pointer};if(left)state=state.WithButton(UnityEngine.InputSystem.LowLevel.MouseButton.Left);
+ UnityEngine.InputSystem.InputSystem.QueueStateEvent(mouse,state);UnityEngine.InputSystem.InputSystem.QueueStateEvent(keyboard,new UnityEngine.InputSystem.LowLevel.KeyboardState(keys.ToArray()));};
+tick=delegate{if(done)return;try{double t=UnityEngine.Time.realtimeSinceStartupAsDouble-t0;if(!p || !UnityEditor.EditorApplication.isPlaying || t>22){cleanup();return;}if(last==UnityEngine.Time.frameCount)return;last=UnityEngine.Time.frameCount;
+ writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Sample",t=t,frame=last,basics=basics,energy=combat.Energy,mana=p.mana,health=target.health,executing=combat.IsExecuting,asura=combat.IsAsuraActive,cadenced=combat.IsCadencedAsura,waiting=combat.IsCadencedWaiting,remaining=h.GetRemainingCooldown(3),pos=new[]{p.transform.position.x,p.transform.position.y,p.transform.position.z}}));writer.Flush();
+ }catch(System.Exception e){writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Error",error=e.ToString()}));cleanup();}};
+UnityEngine.InputSystem.InputSystem.onBeforeUpdate+=before;UnityEditor.EditorApplication.update+=tick;UnityEditor.EditorApplication.playModeStateChanged+=sc;
+writer.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(new{kind="Provenance",method="InputSystem virtual, bindings atuais Q/W/E/F11; energia natural de contatos no dummy; sem edição de stats",observation=observation}));writer.Flush();return observation;

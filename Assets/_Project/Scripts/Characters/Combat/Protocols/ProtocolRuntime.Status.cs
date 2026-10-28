@@ -43,6 +43,8 @@ public sealed partial class ProtocolRuntime
                 float dps = _inventory.Catalog.Get(ProtocolKind.Ignite).DamagePerRank * ignite +
                     _inventory.Catalog.Get(ProtocolKind.Reactor).DamagePerRank * root.Rank(ProtocolKind.Reactor) * damage;
                 if (!ReactionNumeric.IsFinite(dps)) dps = _inventory.Catalog.Get(ProtocolKind.Ignite).DamagePerRank * ignite;
+                value.AnalyticsBurnSource = value.BurnRemaining > 0
+                    ? RunDamageSource.MergeBurn(value.AnalyticsBurnSource, root.AnalyticsSource) : root.AnalyticsSource;
                 value.BurnDps = Mathf.Max(value.BurnDps, dps); value.BurnRemaining = Mathf.Max(value.BurnRemaining, _inventory.Catalog.Get(ProtocolKind.Ignite).Duration);
                 value.BurnRanks = new ProtocolRanks(root); value.Revision++; fire = true; _boons?.Hooks?.RaiseBurn(target);
             }

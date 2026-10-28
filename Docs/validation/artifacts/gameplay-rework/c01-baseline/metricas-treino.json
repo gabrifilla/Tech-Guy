@@ -1,0 +1,46 @@
+{
+  "basicos_max": 20,
+  "energia_max": 100,
+  "asura_amostras": 0,
+  "asura_primeira": null,
+  "asura_ultima": null,
+  "usos": [
+    {
+      "kind": "AbilityUsed",
+      "slot": 0,
+      "t": 2.0118376000000353,
+      "mana": 1444.0,
+      "energy": 9
+    },
+    {
+      "kind": "AbilityUsed",
+      "slot": 1,
+      "t": 4.0145698999999695,
+      "mana": 1392.60889,
+      "energy": 31
+    },
+    {
+      "kind": "AbilityUsed",
+      "slot": 2,
+      "t": 7.041776999999911,
+      "mana": 1357.13074,
+      "energy": 56
+    },
+    {
+      "kind": "AbilityUsed",
+      "slot": 0,
+      "t": 10.005983600000036,
+      "mana": 1361.03015,
+      "energy": 96
+    }
+  ],
+  "rejeicoes": [
+    {
+      "kind": "Rejected",
+      "slot": 3,
+      "reason": "Busy",
+      "t": 10.21724979999999
+    }
+  ],
+  "limite": "Dummy real e input virtual; não é encontro hostil ou aceitação humana; sem resource injection"
+}

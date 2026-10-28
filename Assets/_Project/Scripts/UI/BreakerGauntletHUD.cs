@@ -19,7 +19,9 @@ public sealed class BreakerGauntletHUD : MonoBehaviour
         var area = new Rect((Screen.width - width) * 0.5f, Screen.height - 105f, width, 95f);
         GUI.Box(area, "");
         GUILayout.BeginArea(area);
-        GUILayout.Label(_combat.IsReady ? "ASURA PRONTO - use a Rajada!" :
+        GUILayout.Label(_combat.IsCadencedWaiting
+            ? HudFormatter.CadencedWait(GamePreferences.KeyLabel(_holder.GetAbilityKey(3)), GamePreferences.BindingLabel(GameControl.FinishSequence))
+            : _combat.IsReady ? "ASURA PRONTO - use a Rajada!" :
             $"ASURA {_combat.Energy}/100 - alterne Impulso e Choque");
         GUILayout.BeginHorizontal();
         for (int i = 0; i < _holder.ActiveAbilities.Count; i++)

@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 [InitializeOnLoad]
-public static class CombatPolishPreview
+public static partial class CombatPolishPreview
 {
     private const string Pending="TechGuy.CombatPolishPreview";
     private static int _phase;
@@ -31,7 +31,12 @@ public static class CombatPolishPreview
         _phase=0; _next=EditorApplication.timeSinceStartup+4; EditorApplication.update+=Tick;
     }
     private static T[] All<T>() where T:Component => SceneManager.GetActiveScene().GetRootGameObjects().SelectMany(root=>root.GetComponentsInChildren<T>(true)).ToArray();
-    private static void Capture(string name) => ScreenCapture.CaptureScreenshot(Path.Combine(Application.dataPath,"../"+name+".png"));
+    private static void Capture(string name)
+    {
+        string directory = Path.GetFullPath(Path.Combine(Application.dataPath,"../Docs/validation/artifacts/combat-preview"));
+        Directory.CreateDirectory(directory);
+        ScreenCapture.CaptureScreenshot(Path.Combine(directory,name+".png"));
+    }
     private static void Pose(SkillMotion kind,int weapon)
     {
         _motion.Release(); _player.EquipWeapon(Resources.Load<WeaponScript>(WeaponLoadout.ResourcePaths[weapon]));

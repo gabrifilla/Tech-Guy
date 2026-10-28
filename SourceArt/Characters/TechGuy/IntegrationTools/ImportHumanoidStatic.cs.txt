@@ -1,0 +1,24 @@
+// Static asset authoring only: never enters Play Mode, evaluates a clip, or modifies scenes/tests/controllers.
+if (EditorApplication.isPlaying || EditorApplication.isCompiling) throw new System.InvalidOperationException("Static import requires an idle Editor outside Play Mode.");
+const string path="Assets/_Project/Art/Characters/TG/TG_Rigged.fbx";
+var guid=AssetDatabase.AssetPathToGUID(path);
+if(guid!="7e49ae0d22e58b341bcf0ed3ea0eb599") throw new System.InvalidOperationException("Unexpected TG asset identity.");
+var oldImporter=(ModelImporter)AssetImporter.GetAtPath(path);
+var remaps=oldImporter.GetExternalObjectMap().Select(x=>x.Key.name+"|"+AssetDatabase.GetAssetPath(x.Value)).OrderBy(x=>x).ToArray();
+AssetDatabase.ImportAsset(path,ImportAssetOptions.ForceSynchronousImport);
+var importer=(ModelImporter)AssetImporter.GetAtPath(path);
+var model=AssetDatabase.LoadAssetAtPath<GameObject>(path);
+var transforms=model.GetComponentsInChildren<Transform>(true);
+var names=new System.Collections.Generic.HashSet<string>(transforms.Select(t=>t.name));
+var description=importer.humanDescription;
+var previousMapping=description.human ?? new HumanBone[0];
+var human=HumanTrait.BoneName.Select(h=>new HumanBone {humanName=h,boneName=h.Replace(" ",""),limit=previousMapping.Any(p=>p.humanName==h)?previousMapping.First(p=>p.humanName==h).limit:new HumanLimit{useDefaultValues=true}}).Where(h=>names.Contains(h.boneName)).ToArray();
+description.human=human;
+description.skeleton=transforms.Select(t=>new SkeletonBone{name=t.name,position=t.localPosition,rotation=t.localRotation,scale=t.localScale}).ToArray();
+importer.animationType=ModelImporterAnimationType.Human;
+importer.avatarSetup=ModelImporterAvatarSetup.CreateFromThisModel;
+importer.humanDescription=description;
+importer.SaveAndReimport();
+var avatar=AssetDatabase.LoadAllAssetsAtPath(path).OfType<Avatar>().SingleOrDefault();
+var finalRemaps=importer.GetExternalObjectMap().Select(x=>x.Key.name+"|"+AssetDatabase.GetAssetPath(x.Value)).OrderBy(x=>x).ToArray();
+return new {path,guid=AssetDatabase.AssetPathToGUID(path),avatarValid=avatar&&avatar.isValid,avatarHuman=avatar&&avatar.isHuman,humanMappingCount=human.Length,sourceSkeletonTransforms=transforms.Length,materialRemapsPreserved=remaps.SequenceEqual(finalRemaps),materialRemaps=finalRemaps,testsExecuted=false,playModeEntered=false,animationEvaluated=false};

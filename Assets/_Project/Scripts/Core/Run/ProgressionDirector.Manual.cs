@@ -6,7 +6,8 @@ using UnityEngine.AI;
 
 public sealed partial class ProgressionDirector
 {
-    [Header("Manual slice (opt-in until final integration)")]
+    [Header("New room route")]
+    [SerializeField] private bool _randomizeRooms;
     [SerializeField] private RunProgressionMode _progressionMode;
     [SerializeField] private ManualRunDefinition _manualDefinition;
     [SerializeField] private ManualStageEnvironment _manualEnvironment;
@@ -15,6 +16,7 @@ public sealed partial class ProgressionDirector
     private CharControlScript _manualControls;
     private readonly HashSet<Actor> _manualActors = new HashSet<Actor>();
     private GameObject _manualEncounterRoot;
+    private readonly HashSet<SpawnerBehavior> _manualSpawners = new HashSet<SpawnerBehavior>();
     private bool _manualCompletionCandidate;
     public RunProgressionMode ActiveProgressionMode { get; private set; }
     public RunSessionState ManualSession => _manualPolicy?.Session;
@@ -35,18 +37,27 @@ public sealed partial class ProgressionDirector
         if (_progressionMode == RunProgressionMode.ProceduralLegacy)
         { if (_manualEnvironment) _manualEnvironment.SetActive(false); return false; }
         WeaponScript selected = WeaponLoadout.LoadSelected();
-        if (selected && WeaponRunModifiers.Identify(selected) != RunWeaponFamily.Gauntlet)
-        {
-            ActiveProgressionMode = RunProgressionMode.ProceduralLegacy;
-            if (_manualEnvironment) _manualEnvironment.SetActive(false);
-            return false;
-        }
         if (!_player || !_manualEnvironment)
         { Debug.LogError("Manual run requires player and authored environment.", this); enabled = false; return true; }
         if (!ManualRouteValidator.TrySnapshot(_manualDefinition, selected, out var route, out string error) ||
             !_manualEnvironment.Validate(route, out error))
         { Debug.LogError("Manual run refused: " + error, this); enabled = false; return true; }
+        if (_randomizeRooms)
+        {
+            try
+            {
+                var prefabs = new List<GameObject>();
+                if (_archetypePrefabs != null) foreach (var variant in _archetypePrefabs) if (variant) prefabs.Add(variant.gameObject);
+                route = ManualRunRandomizer.Generate(route, AcquireRunSeed(), prefabs);
+                if (_environment) _environment.SetGeometryActive(false);
+                if (!_manualEnvironment.BuildGenerated(route, out error))
+                { Debug.LogError(error, this); enabled = false; return true; }
+            }
+            catch (Exception exception)
+            { Debug.LogError("New room generation refused: " + exception.Message, this); enabled = false; return true; }
+        }
         _manualPolicy = new ManualRoutePolicy(route);
+        MarkStatisticsStart();
         ManualProjection = ManualRoomProjection.Create(route, _manualEnvironment);
         _manualHolder = _player.GetComponent<AbilityHolder>();
         if (_manualHolder) _manualHolder.SetManualInitializationBlocked(true);
@@ -92,6 +103,7 @@ public sealed partial class ProgressionDirector
             yield break;
         }
         InitializeManualResourcesOnce();
+        StartRunStatistics();
         _manualHolder.SetManualInitializationBlocked(false);
         _boons.ManualRewardChosen += OnManualRewardResolved;
         StartCoroutine(ManualEntryLoop());
@@ -140,7 +152,14 @@ public sealed partial class ProgressionDirector
         foreach (var spawn in node.Spawns)
         {
             GameObject instance = Instantiate(spawn.Prefab, node.Center + spawn.Offset, Quaternion.identity, _manualEncounterRoot.transform);
-            if (instance.TryGetComponent<EnemyAI>(out var ai)) ai.player = _player.transform;
+            if (instance.TryGetComponent<EnemyAI>(out var ai))
+            { ai.player = _player.transform; ai.ConfigureEncounterBounds(node.Center, node.ArenaSize); }
+            if (instance.TryGetComponent<SpawnerBehavior>(out var spawner))
+            {
+                spawner.ConfigureArenaBounds(node.Center, node.ArenaSize);
+                _manualSpawners.Add(spawner); spawner.Produced += OnManualEnemyProduced;
+            }
+            if (instance.TryGetComponent<HazardCasterBehavior>(out var caster)) caster.ConfigureEncounterEffects(_manualEncounterRoot.transform);
             var reaction = instance.GetComponent<CombatReactionController>() ?? instance.AddComponent<CombatReactionController>();
             reaction.ConfigureRank(spawn.Rank);
             if (spawn.Rank == EnemyRank.Boss)
@@ -152,9 +171,32 @@ public sealed partial class ProgressionDirector
             var membership = instance.GetComponent<ProtocolEncounterMembership>() ?? instance.AddComponent<ProtocolEncounterMembership>();
             membership.Configure(ManualSession.Id, ManualSession.CurrentNode);
             _manualActors.Add(actor); actor.Died += OnManualEnemyDied;
+            _runStatistics?.Watch(actor);
             instance.SetActive(true);
         }
         _manualEncounterRoot.SetActive(true);
+    }
+
+    private void OnManualEnemyProduced(Actor actor)
+    {
+        if (!actor) return;
+        if (ManualSession == null || ManualSession.IsClosed || ManualSession.Phase != RunPhase.Encounter)
+        { Destroy(actor.gameObject); return; }
+        var node = ManualSession.Route.Node(ManualSession.CurrentNode);
+        if (_manualEncounterRoot) actor.transform.SetParent(_manualEncounterRoot.transform, true);
+        if (actor.TryGetComponent<EnemyAI>(out var ai))
+        { ai.player = _player.transform; ai.ConfigureEncounterBounds(node.Center, node.ArenaSize); }
+        var membership = actor.GetComponent<ProtocolEncounterMembership>() ?? actor.gameObject.AddComponent<ProtocolEncounterMembership>();
+        membership.Configure(ManualSession.Id, node.Id);
+        if (_manualActors.Add(actor)) actor.Died += OnManualEnemyDied;
+        _runStatistics?.Watch(actor);
+        _manualCompletionCandidate = false; ManualSession.IsEncounterClosing = false;
+    }
+
+    private void DetachManualSpawners()
+    {
+        foreach (var spawner in _manualSpawners) if (spawner) spawner.Produced -= OnManualEnemyProduced;
+        _manualSpawners.Clear();
     }
 
     private void OnManualEnemyDied(Actor actor)
@@ -175,6 +217,7 @@ public sealed partial class ProgressionDirector
             Destroy(actor.gameObject);
         }
         _manualActors.Clear(); _manualCompletionCandidate = false;
+        DetachManualSpawners();
         if (_manualEncounterRoot) Destroy(_manualEncounterRoot);
     }
 
@@ -187,6 +230,7 @@ public sealed partial class ProgressionDirector
     private void OnManualRewardResolved(RunRewardTicket ticket)
     {
         if(ManualSession==null||ticket.Request.SessionId!=ManualSession.Id||ManualSession.IsClosed) return;
+        _runStatistics?.Reward(ticket);
         _manualEnvironment.ApplyGateState(ManualSession);
         if(ManualSession.Phase==RunPhase.RewardPending)
             TryOpenManualReward(ManualSession.Id,ManualSession.CurrentNode,ManualSession.RewardOrdinal);

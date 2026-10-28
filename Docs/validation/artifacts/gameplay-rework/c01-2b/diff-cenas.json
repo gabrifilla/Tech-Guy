@@ -1,0 +1,94 @@
+[
+  {
+    "scene": "Assets/_Project/Scenes/FirstSector.unity",
+    "diff": [
+      "--- FirstSector.unity before\n",
+      "+++ FirstSector.unity after\n",
+      "@@ -567,6 +567,7 @@\n",
+      "   m_Script: {fileID: 11500000, guid: 37fe7a78383bdd348a207d3482580988, type: 3}",
+      "   m_Name: ",
+      "   m_EditorClassIdentifier: ",
+      "+  _directKeyboardMovement: 1",
+      "   clickEffect: {fileID: 2629482439324332389, guid: d73518ac39297e64995acb17999b6908,",
+      "     type: 3}",
+      "   clickableLayers:",
+      "@@ -578,6 +579,7 @@\n",
+      "   clickEffectPoolRoot: {fileID: 0}",
+      "   debugClickLog: 1",
+      "   _movementClickDeadZone: 0.55",
+      "+  _enemyPointerRadiusPixels: 18",
+      "   _recoveryMoveBufferDuration: 0.35",
+      "   _locomotionBlendDuration: 0.08",
+      "   attackAnimations:"
+    ]
+  },
+  {
+    "scene": "Assets/_Project/Scenes/NexusBlockout.unity",
+    "diff": [
+      "--- NexusBlockout.unity before\n",
+      "+++ NexusBlockout.unity after\n",
+      "@@ -3403,6 +3403,7 @@\n",
+      "   m_Script: {fileID: 11500000, guid: 37fe7a78383bdd348a207d3482580988, type: 3}",
+      "   m_Name: ",
+      "   m_EditorClassIdentifier: ",
+      "+  _directKeyboardMovement: 1",
+      "   clickEffect: {fileID: 2629482439324332389, guid: d73518ac39297e64995acb17999b6908,",
+      "     type: 3}",
+      "   clickableLayers:"
+    ]
+  },
+  {
+    "scene": "Assets/_Project/Scenes/NexusLobby.unity",
+    "diff": [
+      "--- NexusLobby.unity before\n",
+      "+++ NexusLobby.unity after\n",
+      "@@ -11243,6 +11243,7 @@\n",
+      "   m_Script: {fileID: 11500000, guid: 37fe7a78383bdd348a207d3482580988, type: 3}",
+      "   m_Name: ",
+      "   m_EditorClassIdentifier: ",
+      "+  _directKeyboardMovement: 1",
+      "   clickEffect: {fileID: 2629482439324332389, guid: d73518ac39297e64995acb17999b6908,",
+      "     type: 3}",
+      "   clickableLayers:",
+      "@@ -34577,6 +34578,7 @@\n",
+      "   _player: {fileID: 415681199}",
+      "   _arsenal: {fileID: 1435940633}",
+      "   _camera: {fileID: 1107029880}",
+      "+  _blockoutGuide: 0",
+      "   _stations:",
+      "   - anchor: {fileID: 252526010}",
+      "     title: 01 / INCURSAO",
+      "@@ -39146,6 +39148,7 @@\n",
+      "     weaponIndex: 2",
+      "     proximityRange: 3.5",
+      "     equippedIndicator: {fileID: 1969758740}",
+      "+  _compactPresentation: 0",
+      " --- !u!1 &1451325219",
+      " GameObject:",
+      "   m_ObjectHideFlags: 0"
+    ]
+  },
+  {
+    "scene": "Assets/_Project/Scenes/PrologueTutorial.unity",
+    "diff": [
+      "--- PrologueTutorial.unity before\n",
+      "+++ PrologueTutorial.unity after\n",
+      "@@ -2308,6 +2308,7 @@\n",
+      "   m_Script: {fileID: 11500000, guid: 37fe7a78383bdd348a207d3482580988, type: 3}",
+      "   m_Name: ",
+      "   m_EditorClassIdentifier: ",
+      "+  _directKeyboardMovement: 1",
+      "   clickEffect: {fileID: 2629482439324332389, guid: d73518ac39297e64995acb17999b6908,",
+      "     type: 3}",
+      "   clickableLayers:",
+      "@@ -2319,6 +2320,7 @@\n",
+      "   clickEffectPoolRoot: {fileID: 0}",
+      "   debugClickLog: 0",
+      "   _movementClickDeadZone: 0.55",
+      "+  _enemyPointerRadiusPixels: 18",
+      "   _recoveryMoveBufferDuration: 0.35",
+      "   _locomotionBlendDuration: 0.08",
+      "   attackAnimations:"
+    ]
+  }
+]

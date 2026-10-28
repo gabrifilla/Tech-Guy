@@ -1,0 +1,49 @@
+{
+  "scope": "torso and arms revision; static inspection only",
+  "editorScene": "NexusLobby",
+  "playMode": false,
+  "consoleErrors": 0,
+  "consoleWarnings": [
+    "AbilityHolder Q/W/E/R bindings fallback (pre-existing)"
+  ],
+  "guardedFiles": [
+    {
+      "path": "Assets/_Project/Art/Characters/TG/TG_Rigged.fbx.meta",
+      "sha256": "d1798506a7123c1a22dc70743d8f99b0072986a081ef11c8a0aa72e10c064172"
+    },
+    {
+      "path": "Assets/_Project/Art/Character/Animator Controller Character.controller",
+      "sha256": "06e16fac601f2bd0918dec189a7c87230b8c959049407e51891e7953b006d007"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs",
+      "sha256": "f775b7342a3fe6d6ef7acc29097ab0243b4ce1f0ff0af2bcf798cc71f576c336"
+    },
+    {
+      "path": "Assets/_Project/Scenes/NexusLobby.unity",
+      "sha256": "97ca496b2853327f6ff8ca76e84d2d258711eb6bbf807902bf0f228109603bfa"
+    },
+    {
+      "path": "Assets/_Project/Scenes/FirstSector.unity",
+      "sha256": "e958ac8e51703d9a2427649ee85428030f1adf16b5828b6be060247a818bc8e5"
+    },
+    {
+      "path": "Assets/_Project/Scenes/PrologueTutorial.unity",
+      "sha256": "7f613fa6fb6eae6230fa4633a03447ca04fe30f0df35dada25bfd9eb937550e8"
+    },
+    {
+      "path": "Assets/_Project/Scenes/Playground.unity",
+      "sha256": "4a7a83ca65e8eb114d02c336a71ec117aff100b489145331569171c31a725ae0"
+    },
+    {
+      "path": "Assets/_Project/Scenes/CombatStudy.unity",
+      "sha256": "ba53983a0440ce517e20d533390319b815b1a067c01e96d33964af14b8772fdf"
+    },
+    {
+      "path": "Assets/_Project/Scenes/ProceduralStageAuthoring.unity",
+      "sha256": "1a4eebcad4692390d7d33afe55d4f864347ee9a000e9d682240acf459f94cae2"
+    }
+  ],
+  "testsExecuted": false,
+  "animationEvaluated": false
+}

@@ -39,8 +39,18 @@ public sealed class ArsenalAbility : Ability
         ConfigureRunPresentation(name, 80, bow ? SkillGlyphKind.Arrow : SkillGlyphKind.Shock);
     }
 
-    public override bool CanActivate(GameObject parent) => parent &&
-        parent.TryGetComponent(out ArsenalCombat combat) && combat.CanUse(this);
+    public override bool CanActivate(GameObject parent)
+    {
+        if (!parent) return false;
+        if (parent.TryGetComponent(out BowBoonCombat bow) && bow.Handles(this)) return bow.CanUse(this);
+        if (parent.TryGetComponent(out SpearBoonCombat spear) && spear.Handles(this)) return spear.CanUse(this);
+        return parent.TryGetComponent(out ArsenalCombat combat) && combat.CanUse(this);
+    }
 
-    public override void Activate(GameObject parent) => parent.GetComponent<ArsenalCombat>().Use(this);
+    public override void Activate(GameObject parent)
+    {
+        if (parent.TryGetComponent(out BowBoonCombat bow) && bow.Handles(this)) { bow.Use(this); return; }
+        if (parent.TryGetComponent(out SpearBoonCombat spear) && spear.Handles(this)) { spear.Use(this); return; }
+        parent.GetComponent<ArsenalCombat>().Use(this);
+    }
 }

@@ -46,14 +46,18 @@ public sealed class TutorialHUD : MonoBehaviour
         switch (_tutorial.Stage)
         {
             case TutorialStage.Movement:
-            case TutorialStage.Departure: return GamePreferences.BindingLabel(GameControl.Primary) + " / " + GamePreferences.BindingLabel(GameControl.Move);
+            case TutorialStage.Departure: return GamePreferences.UsesDirectControls ? "WASD" : GamePreferences.BindingLabel(GameControl.Primary) + " / " + GamePreferences.BindingLabel(GameControl.Move);
             case TutorialStage.Dodge: return GamePreferences.BindingLabel(GameControl.Dash);
             case TutorialStage.BasicAttack: return TutorialDirector.BasicAttackControl;
             case TutorialStage.Skill: return GamePreferences.BindingLabel(GameControl.Skill1);
             default: return _tutorial.CurrentBeat.control;
         }
     }
-    private string Instruction() => _tutorial.Stage == TutorialStage.BasicAttack
+    private string Instruction() => GamePreferences.UsesDirectControls && (_tutorial.Stage == TutorialStage.Movement || _tutorial.Stage == TutorialStage.Departure)
+        ? "Use WASD para chegar ao marcador. O mouse controla a mira, independentemente do movimento."
+        : GamePreferences.UsesDirectControls && _tutorial.Stage == TutorialStage.BasicAttack
+        ? "Aproxime-se do alvo com WASD e clique nele para atacar. Acompanhe o contato e a reação."
+        : _tutorial.Stage == TutorialStage.BasicAttack
         ? TutorialDirector.BasicAttackInstruction
         : _tutorial.Stage == TutorialStage.Skill ? "Aponte para o alvo e use a habilidade 1. Observe a mana e a recarga."
         : _tutorial.CurrentBeat.instruction;

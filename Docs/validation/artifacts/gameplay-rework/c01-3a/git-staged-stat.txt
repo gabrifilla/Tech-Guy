@@ -1,0 +1,1535 @@
+ .agents/skills/tech-guy-boon-design/SKILL.md       |    12 +
+ .../references/catalog-and-gates.md                |    10 +
+ .agents/skills/tech-guy-combat-unity/SKILL.md      |    12 +
+ .../references/combat-matrix.md                    |    14 +
+ .agents/skills/tech-guy-game-vision/SKILL.md       |    13 +
+ .../references/vision-and-constraints.md           |    17 +
+ .agents/skills/tech-guy-unity-acceptance/SKILL.md  |    12 +
+ .../references/editor-validation.md                |    20 +
+ .gitattributes                                     |     2 +
+ .gitignore                                         |    11 +
+ .kiro/settings/mcp.json                            |    20 -
+ .kiro/specs/combat-foundation-rework/.config.kiro  |     1 -
+ .../combat-foundation-rework/contract-audit.md     |   351 -
+ .kiro/specs/combat-foundation-rework/design.md     |   720 -
+ .../specs/combat-foundation-rework/requirements.md |   253 -
+ .kiro/specs/combat-foundation-rework/tasks.md      |   304 -
+ .../specs/combat-foundation-rework/tasks.meta.json |   883 -
+ .../specs/enemy-swarm-core-archetypes/.config.kiro |     1 -
+ .kiro/specs/enemy-swarm-core-archetypes/design.md  |   465 -
+ .../enemy-swarm-core-archetypes/requirements.md    |   336 -
+ .kiro/specs/enemy-swarm-core-archetypes/tasks.md   |   223 -
+ .../enemy-swarm-core-archetypes/tasks.meta.json    |   846 -
+ .kiro/specs/gauntlet-2-rework/contract-audit.md    |   247 -
+ .kiro/specs/gauntlet-2-rework/design.md            |   312 -
+ .kiro/specs/gauntlet-2-rework/requirements.md      |   209 -
+ .kiro/specs/gauntlet-2-rework/tasks.md             |   286 -
+ .kiro/specs/gauntlet-2-rework/validation.md        |    46 -
+ .../gauntlet-boon-playstyle-overhaul/.config.kiro  |     1 -
+ .../gauntlet-boon-playstyle-overhaul/design.md     |  1112 -
+ .../requirements.md                                |   274 -
+ .../gauntlet-boon-playstyle-overhaul/tasks.md      |   353 -
+ .../tasks.meta.json                                |   819 -
+ .kiro/specs/impactful-weapon-boons/.config.kiro    |     1 -
+ .kiro/specs/impactful-weapon-boons/design.md       |   467 -
+ .kiro/specs/impactful-weapon-boons/requirements.md |   166 -
+ .kiro/specs/impactful-weapon-boons/tasks.md        |   181 -
+ .kiro/specs/impactful-weapon-boons/tasks.meta.json |   311 -
+ .../specs/modifier-synergies-theme17/.config.kiro  |     1 -
+ .kiro/specs/modifier-synergies-theme17/design.md   |   787 -
+ .../modifier-synergies-theme17/requirements.md     |   210 -
+ .kiro/specs/modifier-synergies-theme17/tasks.md    |   339 -
+ .../modifier-synergies-theme17/tasks.meta.json     |  1220 -
+ .../nexus-lobby-menu-restructure/.config.kiro      |     1 -
+ .kiro/specs/nexus-lobby-menu-restructure/design.md |   325 -
+ .../nexus-lobby-menu-restructure/requirements.md   |   189 -
+ .kiro/specs/nexus-lobby-menu-restructure/tasks.md  |   270 -
+ .../nexus-lobby-menu-restructure/tasks.meta.json   |   354 -
+ .kiro/specs/playable-procedural-run/.config.kiro   |     1 -
+ .kiro/specs/playable-procedural-run/design.md      |   295 -
+ .../specs/playable-procedural-run/requirements.md  |   231 -
+ .kiro/specs/playable-procedural-run/tasks.md       |   121 -
+ .../specs/playable-procedural-run/tasks.meta.json  |   262 -
+ .kiro/specs/posture-enemy-interaction/.config.kiro |     1 -
+ .../posture-enemy-interaction/contract-audit.md    |    71 -
+ .kiro/specs/posture-enemy-interaction/design.md    |   322 -
+ .../posture-enemy-interaction/requirements.md      |   277 -
+ .kiro/specs/posture-enemy-interaction/tasks.md     |   302 -
+ .../specs/posture-enemy-interaction/validation.md  |    84 -
+ .../procedural-stage-room-generation/.config.kiro  |     1 -
+ .../procedural-stage-room-generation/design.md     |   515 -
+ .../requirements.md                                |   214 -
+ .../procedural-stage-room-generation/tasks.md      |   294 -
+ .../tasks.meta.json                                |  1005 -
+ .../project-cleanup-optimization/.config.kiro      |     1 -
+ .../specs/project-cleanup-optimization/baseline.md |   113 -
+ .kiro/specs/project-cleanup-optimization/design.md |   415 -
+ .../fastscriptreload-review.md                     |   174 -
+ .../project-cleanup-optimization/requirements.md   |   324 -
+ .kiro/specs/project-cleanup-optimization/tasks.md  |   308 -
+ .../project-cleanup-optimization/tasks.meta.json   |   725 -
+ .../project-cleanup-optimization/validation.md     |   246 -
+ .../specs/protocol-system/analyze-performance.ps1  |    49 -
+ .kiro/specs/protocol-system/contract-audit.md      |    44 -
+ .kiro/specs/protocol-system/design.md              |   264 -
+ .kiro/specs/protocol-system/performance.md         |    29 -
+ .kiro/specs/protocol-system/requirements.md        |   211 -
+ .kiro/specs/protocol-system/tasks.md               |   192 -
+ .kiro/specs/protocol-system/validation.md          |   128 -
+ .../.config.kiro                                   |     1 -
+ .../design.md                                      |   490 -
+ .../requirements.md                                |   246 -
+ .../tasks.md                                       |   273 -
+ .../tasks.meta.json                                |   776 -
+ .kiro/specs/run-structure/contract-audit.md        |    65 -
+ .kiro/specs/run-structure/design.md                |   289 -
+ .kiro/specs/run-structure/requirements.md          |   211 -
+ .kiro/specs/run-structure/task-1-review.md         |    41 -
+ .kiro/specs/run-structure/tasks.md                 |   274 -
+ .kiro/specs/run-structure/validation.md            |   132 -
+ AGENTS.md                                          |    50 +-
+ ...Scene6bc04670-6937-4028-895d-1cee1b974ce9.unity |   209 -
+ ...Scened26eadda-fec1-451a-bf30-c83fa74cc5bf.unity |   208 -
+ .../ProceduralStageAuthoring_Layout.png            |   Bin 36035 -> 0 bytes
+ .../ProceduralStageAuthoring_PlayMode.png          |   Bin 1050 -> 0 bytes
+ .../Screenshots/firstsector_extraction_portal.png  |   Bin 85798 -> 0 bytes
+ Assets/Screenshots/firstsector_play_start.png      |   Bin 154244 -> 0 bytes
+ Assets/Screenshots/firstsector_topdown_layout.png  |   Bin 30225 -> 0 bytes
+ .../firstsector_topdown_layout.png.meta            |   130 -
+ Assets/Screenshots/screenshot-20261001-125959.png  |   Bin 715229 -> 0 bytes
+ .../screenshot-20261001-125959.png.meta            |   130 -
+ Assets/Screenshots/screenshot-20261001-130034.png  |   Bin 568585 -> 0 bytes
+ .../screenshot-20261001-130034.png.meta            |   130 -
+ Assets/Screenshots/screenshot-20261001-130046.png  |   Bin 129788 -> 0 bytes
+ .../screenshot-20261001-130046.png.meta            |   130 -
+ Assets/Screenshots/screenshot-20261001-130905.png  |   Bin 286793 -> 0 bytes
+ .../screenshot-20261001-130905.png.meta            |   130 -
+ Assets/Screenshots/screenshot-20261001-131213.png  |   Bin 287221 -> 0 bytes
+ .../screenshot-20261001-131213.png.meta            |   130 -
+ Assets/Screenshots/screenshot-20261001-132414.png  |   Bin 134423 -> 0 bytes
+ .../screenshot-20261001-132414.png.meta            |   130 -
+ Assets/Screenshots/screenshot-20261001-133217.png  |   Bin 130994 -> 0 bytes
+ .../screenshot-20261001-133217.png.meta            |   130 -
+ .../Animator Controller Character.controller       |    15 +-
+ .../Art/Characters.meta}                           |     2 +-
+ .../Art/Characters/TG.meta}                        |     2 +-
+ .../Art/Characters/TG/Materials.meta}              |     2 +-
+ .../Art/Characters/TG/Materials/TG_HairGray.mat    |    50 +
+ .../Characters/TG/Materials/TG_HairGray.mat.meta   |     8 +
+ .../TG/Materials/TG_Head_Illustrated.mat           |    50 +
+ .../TG/Materials/TG_Head_Illustrated.mat.meta      |     8 +
+ .../TG/Materials/TG_LeftArm_Illustrated.mat        |    50 +
+ .../TG/Materials/TG_LeftArm_Illustrated.mat.meta   |     8 +
+ .../TG/Materials/TG_LeftLeg_Illustrated.mat        |    50 +
+ .../TG/Materials/TG_LeftLeg_Illustrated.mat.meta   |     8 +
+ .../Art/Characters/TG/Materials/TG_OutfitGray.mat  |    50 +
+ .../Characters/TG/Materials/TG_OutfitGray.mat.meta |     8 +
+ .../TG/Materials/TG_RightArm_Illustrated.mat       |    50 +
+ .../TG/Materials/TG_RightArm_Illustrated.mat.meta  |     8 +
+ .../TG/Materials/TG_RightLeg_Illustrated.mat       |    50 +
+ .../TG/Materials/TG_RightLeg_Illustrated.mat.meta  |     8 +
+ .../TG/Materials/TG_ShortsRepair_Illustrated.mat   |    50 +
+ .../Materials/TG_ShortsRepair_Illustrated.mat.meta |     8 +
+ .../TG/Materials/TG_Shorts_Illustrated.mat         |    50 +
+ .../TG/Materials/TG_Shorts_Illustrated.mat.meta    |     8 +
+ .../TG/Materials/TG_Torso_Illustrated.mat          |    50 +
+ .../TG/Materials/TG_Torso_Illustrated.mat.meta     |     8 +
+ .../Art/Characters/TG/TG_Rigged.fbm.meta}          |     2 +-
+ .../Art/Characters/TG/TG_Rigged.fbm/TG_Head.png    |   Bin 0 -> 26010 bytes
+ .../Characters/TG/TG_Rigged.fbm/TG_Head.png.meta}  |    15 +-
+ .../Art/Characters/TG/TG_Rigged.fbm/TG_LeftArm.png |   Bin 0 -> 20454 bytes
+ .../TG/TG_Rigged.fbm/TG_LeftArm.png.meta}          |    15 +-
+ .../Art/Characters/TG/TG_Rigged.fbm/TG_LeftLeg.png |   Bin 0 -> 48831 bytes
+ .../TG/TG_Rigged.fbm/TG_LeftLeg.png.meta}          |    15 +-
+ .../Characters/TG/TG_Rigged.fbm/TG_RightArm.png    |   Bin 0 -> 20454 bytes
+ .../TG/TG_Rigged.fbm/TG_RightArm.png.meta}         |    15 +-
+ .../Characters/TG/TG_Rigged.fbm/TG_RightLeg.png    |   Bin 0 -> 58113 bytes
+ .../TG/TG_Rigged.fbm/TG_RightLeg.png.meta          |   117 +
+ .../Art/Characters/TG/TG_Rigged.fbm/TG_Shorts.png  |   Bin 0 -> 19525 bytes
+ .../Characters/TG/TG_Rigged.fbm/TG_Shorts.png.meta |   117 +
+ .../Art/Characters/TG/TG_Rigged.fbm/TG_Torso.png   |   Bin 0 -> 50972 bytes
+ .../Characters/TG/TG_Rigged.fbm/TG_Torso.png.meta  |   117 +
+ Assets/_Project/Art/Characters/TG/TG_Rigged.fbx    |   Bin 0 -> 15144428 bytes
+ .../_Project/Art/Characters/TG/TG_Rigged.fbx.meta  |   860 +
+ Assets/_Project/Art/Characters/TG/Textures.meta    |     8 +
+ .../Art/Characters/TG/Textures/TG_Head.png         |   Bin 0 -> 26010 bytes
+ .../Art/Characters/TG/Textures/TG_Head.png.meta    |   117 +
+ .../Art/Characters/TG/Textures/TG_LeftArm.png      |   Bin 0 -> 20454 bytes
+ .../Art/Characters/TG/Textures/TG_LeftArm.png.meta |   117 +
+ .../Art/Characters/TG/Textures/TG_LeftLeg.png      |   Bin 0 -> 48831 bytes
+ .../Art/Characters/TG/Textures/TG_LeftLeg.png.meta |   117 +
+ .../Art/Characters/TG/Textures/TG_RightArm.png     |   Bin 0 -> 20454 bytes
+ .../Characters/TG/Textures/TG_RightArm.png.meta    |   117 +
+ .../Art/Characters/TG/Textures/TG_RightLeg.png     |   Bin 0 -> 58113 bytes
+ .../Characters/TG/Textures/TG_RightLeg.png.meta    |   117 +
+ .../Art/Characters/TG/Textures/TG_Shorts.png       |   Bin 0 -> 19525 bytes
+ .../Art/Characters/TG/Textures/TG_Shorts.png.meta  |   117 +
+ .../Art/Characters/TG/Textures/TG_Torso.png        |   Bin 0 -> 50972 bytes
+ .../Art/Characters/TG/Textures/TG_Torso.png.meta   |   117 +
+ .../_Project/Art/NexusLobby/NexusBlockoutEdge.mat  |   137 +
+ .../Art/NexusLobby/NexusBlockoutEdge.mat.meta      |     8 +
+ .../Art/NexusLobby/NexusBlockoutFloorplan.asset    |   892 +
+ .../NexusLobby/NexusBlockoutFloorplan.asset.meta   |     8 +
+ .../_Project/Art/NexusLobby/NexusBlockoutGray.mat  |   137 +
+ .../Art/NexusLobby/NexusBlockoutGray.mat.meta      |     8 +
+ .../Art/NexusLobby/NexusBlockoutNavMesh.asset      |   Bin 0 -> 15152 bytes
+ .../Art/NexusLobby/NexusBlockoutNavMesh.asset.meta |     8 +
+ Assets/_Project/Art/Toon/TechGuyToon.shader        |    26 +-
+ .../Prefabs/EnemyArchetypes/Shooter.prefab         |    17 +
+ Assets/_Project/Resources/Combat.meta              |     8 +
+ .../Resources/Combat/SkillAnimations.asset         |    24 +
+ .../Resources/Combat/SkillAnimations.asset.meta    |     8 +
+ Assets/_Project/Scenes/CombatStudy.unity           |   242 +-
+ Assets/_Project/Scenes/FirstSector.unity           | 63453 +------------------
+ Assets/_Project/Scenes/NexusBlockout.unity         | 15458 +++++
+ .../Scenes/NexusBlockout.unity.meta}               |     2 +-
+ Assets/_Project/Scenes/NexusLobby.unity            |  2281 +-
+ Assets/_Project/Scenes/Playground.unity            |   246 +-
+ .../_Project/Scenes/ProceduralStageAuthoring.unity |   239 +-
+ Assets/_Project/Scenes/PrologueTutorial.unity      |   244 +-
+ Assets/_Project/Screenshots.meta                   |     8 -
+ .../_Project/Screenshots/telegraph_fill_shapes.png |   Bin 2343 -> 0 bytes
+ .../Screenshots/telegraph_fill_shapes.png.meta     |   130 -
+ .../Screenshots/telegraph_fill_shapes_top.png      |   Bin 2657 -> 0 bytes
+ .../Screenshots/telegraph_fill_shapes_top.png.meta |   130 -
+ .../Screenshots/telegraph_fill_validation.png      |   Bin 26742 -> 0 bytes
+ .../Screenshots/telegraph_fill_validation.png.meta |   130 -
+ .../Screenshots/telegraph_fill_validation_top.png  |   Bin 62650 -> 0 bytes
+ .../telegraph_fill_validation_top.png.meta         |   130 -
+ .../ScriptableObjects/Run/BoonReworkCatalog.asset  |  2155 +
+ .../Run/BoonReworkCatalog.asset.meta               |     8 +
+ .../ScriptableObjects/Run/FirstSectorManual.asset  |    82 +-
+ Assets/_Project/Scripts/Abilities/AbilityHolder.cs |   198 +-
+ .../_Project/Scripts/Abilities/Dash/DashScript.cs  |     6 +
+ .../Scripts/Abilities/Weapon/ArsenalAbility.cs     |    16 +-
+ .../Scripts/Abilities/Weapon/ArsenalCombat.cs      |     9 +-
+ .../Scripts/Abilities/Weapon/BowBoonCombat.cs      |   354 +
+ .../Scripts/Abilities/Weapon/BowBoonCombat.cs.meta |     2 +
+ .../Scripts/Abilities/Weapon/BowBoonModel.cs       |    53 +
+ .../Scripts/Abilities/Weapon/BowBoonModel.cs.meta  |     2 +
+ .../Abilities/Weapon/BowBoonPresentation.cs        |    48 +
+ .../Abilities/Weapon/BowBoonPresentation.cs.meta   |     2 +
+ .../Weapon/BreakerGauntletCombat.Eclipse.cs        |   164 +
+ .../Weapon/BreakerGauntletCombat.Eclipse.cs.meta   |     2 +
+ .../Weapon/BreakerGauntletCombat.Expansion.cs      |    23 +
+ .../Weapon/BreakerGauntletCombat.Expansion.cs.meta |     2 +
+ .../Abilities/Weapon/BreakerGauntletCombat.cs      |   122 +-
+ .../Abilities/Weapon/EclipseCombatTuning.cs        |    74 +
+ .../Abilities/Weapon/EclipseCombatTuning.cs.meta   |     2 +
+ .../Scripts/Abilities/Weapon/GauntletAuthoring.cs  |    19 +-
+ .../Abilities/Weapon/GauntletExecutionSnapshot.cs  |    51 +-
+ .../Abilities/Weapon/GauntletMutationSelection.cs  |     3 +-
+ .../Abilities/Weapon/SkillAnimationPlayer.cs       |     7 +
+ .../Scripts/Abilities/Weapon/SpearBoonCombat.cs    |   533 +
+ .../Abilities/Weapon/SpearBoonCombat.cs.meta       |     2 +
+ .../Scripts/Abilities/Weapon/SpearBoonGeometry.cs  |    51 +
+ .../Abilities/Weapon/SpearBoonGeometry.cs.meta     |     2 +
+ .../Scripts/Camera/CameraOcclusionFader.cs         |   256 +
+ .../Scripts/Camera/CameraOcclusionFader.cs.meta    |     2 +
+ .../_Project/Scripts/Camera/TG_TopDown_Camera.cs   |    38 +-
+ Assets/_Project/Scripts/Characters/Actor.cs        |    26 +-
+ .../Characters/Combat/CombatReactionController.cs  |    86 +-
+ .../Characters/Combat/Core/BasicAttackDriver.cs    |     6 +
+ .../Characters/Combat/Core/CombatActionProfile.cs  |    16 +
+ .../Characters/Combat/GauntletImpactTransaction.cs |     2 +
+ .../Characters/Combat/Protocols/ProtocolBudget.cs  |     1 +
+ .../Combat/Protocols/ProtocolElementStatus.cs      |     1 +
+ .../Combat/Protocols/ProtocolRuntime.Damage.cs     |    17 +-
+ .../Combat/Protocols/ProtocolRuntime.Eclipse.cs    |    64 +
+ .../Protocols/ProtocolRuntime.Eclipse.cs.meta      |     2 +
+ .../Combat/Protocols/ProtocolRuntime.Scope.cs      |     3 +
+ .../Combat/Protocols/ProtocolRuntime.Status.cs     |     2 +
+ .../Characters/Combat/Protocols/ProtocolRuntime.cs |    10 +-
+ .../Combat/Protocols/SpearBoonProtocolImpacts.cs   |   115 +
+ .../Protocols/SpearBoonProtocolImpacts.cs.meta     |     2 +
+ .../_Project/Scripts/Characters/Enemy/EnemyAI.cs   |   281 +-
+ .../Scripts/Characters/Enemy/EnemyCombatActions.cs |    19 +-
+ .../Enemy/EnemyLocomotionPresentation.cs           |    12 +
+ .../Enemy/EnemyLocomotionPresentation.cs.meta      |     2 +
+ .../Scripts/Characters/Enemy/EnemyNavigation.cs    |    31 +
+ .../Characters/Enemy/EnemyNavigation.cs.meta       |     2 +
+ .../Scripts/Characters/Enemy/EnemyProjectile.cs    |    13 +-
+ .../Characters/Enemy/HazardCasterBehavior.cs       |     5 +-
+ .../Scripts/Characters/Enemy/KiteController.cs     |   151 +-
+ .../Characters/Enemy/PreferredDistanceLayer.cs     |    88 +-
+ .../Characters/Enemy/SoftGroupingService.cs        |     1 +
+ .../Scripts/Characters/Enemy/SpawnerBehavior.cs    |     6 +-
+ .../Characters/Enemy/TutorialTrainingTarget.cs     |     7 +
+ .../Actions/CharControlScript.BasicImpact.cs       |   124 +
+ .../Actions/CharControlScript.BasicImpact.cs.meta  |     2 +
+ .../Actions/CharControlScript.DirectBasicInput.cs  |    70 +
+ .../CharControlScript.DirectBasicInput.cs.meta     |     2 +
+ .../Actions/CharControlScript.DirectMovement.cs    |   164 +
+ .../CharControlScript.DirectMovement.cs.meta       |     2 +
+ .../Characters/Player/Actions/CharControlScript.cs |   246 +-
+ .../Player/Actions/GroundMovementBuffer.cs         |    31 +
+ .../Player/Actions/GroundMovementBuffer.cs.meta    |     2 +
+ .../Player/Actions/WorldClickResolver.cs           |    50 +-
+ .../Scripts/Characters/Player/PlayerActor.cs       |    29 +-
+ .../Characters/Player/PlayerNavigationMotor.cs     |    64 +
+ .../Player/PlayerNavigationMotor.cs.meta           |     2 +
+ Assets/_Project/Scripts/Core/GamePreferences.cs    |   108 +-
+ .../_Project/Scripts/Core/KitingStepCoordinator.cs |     2 +-
+ .../_Project/Scripts/Core/Pooling/ComponentPool.cs |    10 +-
+ .../Scripts/Core/Run/BoonCapabilityGraph.cs        |   262 +
+ .../Scripts/Core/Run/BoonCapabilityGraph.cs.meta   |     2 +
+ .../Scripts/Core/Run/BoonCatalogDefinition.cs      |   139 +
+ .../Scripts/Core/Run/BoonCatalogDefinition.cs.meta |     2 +
+ Assets/_Project/Scripts/Core/Run/BoonDefinition.cs |   201 +
+ .../Scripts/Core/Run/BoonDefinition.cs.meta        |     2 +
+ .../Scripts/Core/Run/BoonExpansionCatalog.cs       |    84 +
+ .../Scripts/Core/Run/BoonExpansionCatalog.cs.meta  |     2 +
+ .../Scripts/Core/Run/BoonExpansionInventory.cs     |    26 +
+ .../Core/Run/BoonExpansionInventory.cs.meta        |     2 +
+ .../Scripts/Core/Run/BoonOfferCompatibility.cs     |   178 +
+ .../Core/Run/BoonOfferCompatibility.cs.meta        |     2 +
+ Assets/_Project/Scripts/Core/Run/BoonOfferDraw.cs  |    30 +
+ .../Scripts/Core/Run/BoonOfferDraw.cs.meta         |     2 +
+ .../_Project/Scripts/Core/Run/BoonReworkCatalog.cs |   209 +
+ .../Scripts/Core/Run/BoonReworkCatalog.cs.meta     |     2 +
+ Assets/_Project/Scripts/Core/Run/BowBoonCatalog.cs |    59 +
+ .../Scripts/Core/Run/BowBoonCatalog.cs.meta        |     2 +
+ .../Scripts/Core/Run/EclipseBoonCatalog.cs         |    31 +
+ .../Scripts/Core/Run/EclipseBoonCatalog.cs.meta    |     2 +
+ .../Scripts/Core/Run/GauntletExpansionCatalog.cs   |    35 +
+ .../Core/Run/GauntletExpansionCatalog.cs.meta      |     2 +
+ .../Scripts/Core/Run/ManualRewardCatalog.cs        |    58 +-
+ .../_Project/Scripts/Core/Run/ManualRoutePolicy.cs |     4 +-
+ .../Scripts/Core/Run/ManualRouteSnapshot.cs        |    12 +
+ .../Scripts/Core/Run/ManualRouteValidator.cs       |    41 +-
+ .../Scripts/Core/Run/ManualRunRandomizer.cs        |   197 +
+ .../Scripts/Core/Run/ManualRunRandomizer.cs.meta   |     2 +
+ .../Scripts/Core/Run/ManualSceneBindings.cs        |     6 +
+ .../Core/Run/ManualStageEnvironment.Procedural.cs  |   179 +
+ .../Run/ManualStageEnvironment.Procedural.cs.meta  |     2 +
+ .../Scripts/Core/Run/ManualStageEnvironment.cs     |     2 +-
+ .../Scripts/Core/Run/ProceduralRunGeometryPlan.cs  |    65 +
+ .../Core/Run/ProceduralRunGeometryPlan.cs.meta     |     2 +
+ .../Core/Run/ProgressionDirector.Encounter.cs      |     4 +-
+ .../Core/Run/ProgressionDirector.Lifecycle.cs      |     2 +
+ .../Scripts/Core/Run/ProgressionDirector.Manual.cs |    60 +-
+ .../Core/Run/ProgressionDirector.Statistics.cs     |    17 +
+ .../Run/ProgressionDirector.Statistics.cs.meta     |     2 +
+ .../Scripts/Core/Run/ProtocolRewardSelection.cs    |    34 -
+ .../Core/Run/ProtocolRewardSelection.cs.meta       |     2 -
+ .../Scripts/Core/Run/RunBoonOfferCatalog.cs        |    51 +
+ .../Scripts/Core/Run/RunBoonOfferCatalog.cs.meta   |     2 +
+ .../_Project/Scripts/Core/Run/RunBoons.Manual.cs   |    31 +-
+ .../_Project/Scripts/Core/Run/RunDamageSource.cs   |    68 +
+ .../Scripts/Core/Run/RunDamageSource.cs.meta       |     2 +
+ .../_Project/Scripts/Core/Run/RunRewardPolicy.cs   |    17 +-
+ Assets/_Project/Scripts/Core/Run/RunStatistics.cs  |   223 +
+ .../Scripts/Core/Run/RunStatistics.cs.meta         |     2 +
+ Assets/_Project/Scripts/Core/Run/RunSummary.cs     |    50 +
+ .../_Project/Scripts/Core/Run/RunSummary.cs.meta   |     2 +
+ .../_Project/Scripts/Core/Run/RunSummaryStore.cs   |    40 +
+ .../Scripts/Core/Run/RunSummaryStore.cs.meta       |     2 +
+ .../_Project/Scripts/Core/Run/SpearBoonCatalog.cs  |    56 +
+ .../Scripts/Core/Run/SpearBoonCatalog.cs.meta      |     2 +
+ Assets/_Project/Scripts/Core/RunBoons.cs           |    31 +-
+ Assets/_Project/Scripts/Core/TutorialDirector.cs   |    12 +-
+ .../Editor/CombatPolishPreview.Observation.cs      |   909 +
+ .../Editor/CombatPolishPreview.Observation.cs.meta |     2 +
+ .../CombatPolishPreview.ObservationTelemetry.cs    |   731 +
+ ...ombatPolishPreview.ObservationTelemetry.cs.meta |     2 +
+ .../_Project/Scripts/Editor/CombatPolishPreview.cs |     9 +-
+ .../_Project/Scripts/Editor/CombatStudyBuilder.cs  |     3 +-
+ .../Scripts/Editor/CombatStudyValidation.cs        |     3 +-
+ .../_Project/Scripts/Editor/FirstSectorBuilder.cs  |     6 +-
+ .../_Project/Scripts/Editor/LobbyCompactLayout.cs  |     6 +-
+ .../_Project/Scripts/Editor/LobbySceneBuilder.cs   |     5 +-
+ .../_Project/Scripts/Editor/NewRoomRunAuthoring.cs |    79 +
+ .../Scripts/Editor/NewRoomRunAuthoring.cs.meta     |     2 +
+ .../Scripts/Editor/NexusBlockoutBuilder.cs         |   200 +
+ .../Scripts/Editor/NexusBlockoutBuilder.cs.meta    |     2 +
+ .../Scripts/Editor/NexusBlockoutPlaySession.cs     |    66 +
+ .../Editor/NexusBlockoutPlaySession.cs.meta        |     2 +
+ .../Scripts/Editor/NexusBlockoutSpatialRevision.cs |   174 +
+ .../Editor/NexusBlockoutSpatialRevision.cs.meta    |     2 +
+ Assets/_Project/Scripts/Editor/RunRewardPreview.cs |     7 +-
+ .../_Project/Scripts/Editor/SharedHudValidation.cs |     4 +-
+ .../Scripts/Editor/TGOutfitModelPostprocessor.cs   |    35 +
+ .../Editor/TGOutfitModelPostprocessor.cs.meta      |     2 +
+ .../Scripts/Editor/TitleTutorialPreview.cs         |     9 +-
+ .../Scripts/Editor/TutorialSceneBuilder.cs         |     1 +
+ .../_Project/Scripts/Effects/CombatGroundFill.cs   |    94 +-
+ Assets/_Project/Scripts/Effects/EclipseMarkVfx.cs  |     8 +
+ .../Scripts/Effects/EclipseMarkVfx.cs.meta         |     2 +
+ .../Scripts/Effects/ProtocolFeedbackPool.cs        |     8 +-
+ .../_Project/Scripts/Stages/ProgressionDirector.cs |     6 +
+ ...ionDeductsManaAndStartsRechargePropertyTests.cs |    93 -
+ ...ductsManaAndStartsRechargePropertyTests.cs.meta |     2 -
+ ...ActivationInvalidPreservesStatePropertyTests.cs |   168 -
+ ...ationInvalidPreservesStatePropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/ActionTimelinePropertyTests.cs |   120 -
+ .../Editor/ActionTimelinePropertyTests.cs.meta     |     2 -
+ .../Editor/AdaptiveCadencePropertyTests.cs         |   240 -
+ .../Editor/AdaptiveCadencePropertyTests.cs.meta    |     2 -
+ .../Editor/AntiHeavyToolStrengthPropertyTests.cs   |   194 -
+ .../AntiHeavyToolStrengthPropertyTests.cs.meta     |     2 -
+ .../Editor/ApproachOffsetBoundsPropertyTests.cs    |   155 -
+ .../ApproachOffsetBoundsPropertyTests.cs.meta      |     2 -
+ .../Editor/ApproachOffsetChaseExampleTests.cs      |   124 -
+ .../Editor/ApproachOffsetChaseExampleTests.cs.meta |     2 -
+ .../Editor/ArrowRainRangeClampPropertyTests.cs     |   207 -
+ .../ArrowRainRangeClampPropertyTests.cs.meta       |     2 -
+ .../Editor/ArsenalRicochetDecayInvariantTests.cs   |    41 -
+ .../ArsenalRicochetDecayInvariantTests.cs.meta     |     2 -
+ .../Tests/EditMode/Editor/AssetIsolationTests.cs   |   183 -
+ .../EditMode/Editor/AssetIsolationTests.cs.meta    |     2 -
+ .../AsuraCategoryAlternationEnergyPropertyTests.cs |    61 -
+ ...aCategoryAlternationEnergyPropertyTests.cs.meta |     2 -
+ .../Editor/AsuraDenyWhenNotFullPropertyTests.cs    |   102 -
+ .../AsuraDenyWhenNotFullPropertyTests.cs.meta      |     2 -
+ ...raDisplayedIffGauntletsEquippedPropertyTests.cs |   121 -
+ ...playedIffGauntletsEquippedPropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/AsuraFinishControlTests.cs     |   162 +
+ .../Editor/AsuraFinishControlTests.cs.meta         |     2 +
+ .../EditMode/Editor/AsuraFistPropertyTests.cs      |   192 -
+ .../EditMode/Editor/AsuraFistPropertyTests.cs.meta |     2 -
+ .../AsuraPullDisplacementBoundsPropertyTests.cs    |   301 -
+ ...suraPullDisplacementBoundsPropertyTests.cs.meta |     2 -
+ .../AtMostOneTreasureAndSecretPropertyTests.cs     |   126 -
+ ...AtMostOneTreasureAndSecretPropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/AttackShapeEdgeCaseTests.cs    |   232 -
+ .../Editor/AttackShapeEdgeCaseTests.cs.meta        |     2 -
+ .../AttackSlotConcurrencyLimitPropertyTests.cs     |   161 -
+ ...AttackSlotConcurrencyLimitPropertyTests.cs.meta |     2 -
+ .../Editor/BasicAttackDriverPropertyTests.cs       |   115 -
+ .../Editor/BasicAttackDriverPropertyTests.cs.meta  |     2 -
+ .../Editor/BasicHitChannelPropertyTests.cs         |   277 -
+ .../Editor/BasicHitChannelPropertyTests.cs.meta    |     2 -
+ .../EditMode/Editor/BoonCapabilityGraphTests.cs    |   256 +
+ .../Editor/BoonCapabilityGraphTests.cs.meta        |     2 +
+ .../EditMode/Editor/BoonExpansionOfferTests.cs     |   344 +
+ .../Editor/BoonExpansionOfferTests.cs.meta         |     2 +
+ .../EditMode/Editor/BoonOfferCompatibilityTests.cs |   356 +
+ .../Editor/BoonOfferCompatibilityTests.cs.meta     |     2 +
+ .../Editor/BoonRealRouteSimulationTests.cs         |   318 +
+ .../Editor/BoonRealRouteSimulationTests.cs.meta    |     2 +
+ .../Tests/EditMode/Editor/BoonRewardSeedTests.cs   |   115 +
+ .../EditMode/Editor/BoonRewardSeedTests.cs.meta    |     2 +
+ ...SuppressesConventionalReactionsPropertyTests.cs |   245 -
+ ...essesConventionalReactionsPropertyTests.cs.meta |     2 -
+ .../Editor/BossUniqueAndEligiblePropertyTests.cs   |   141 -
+ .../BossUniqueAndEligiblePropertyTests.cs.meta     |     2 -
+ .../Scripts/Tests/EditMode/Editor/BowBoonTests.cs  |    38 +
+ .../Tests/EditMode/Editor/BowBoonTests.cs.meta     |     2 +
+ .../Editor/BowFireReducedSpeedPropertyTests.cs     |   100 -
+ .../BowFireReducedSpeedPropertyTests.cs.meta       |     2 -
+ ...BreakEffectDeterministicDegradePropertyTests.cs |   233 -
+ ...EffectDeterministicDegradePropertyTests.cs.meta |     2 -
+ .../Editor/CadenceAnimationGuardExampleTests.cs    |   125 -
+ .../CadenceAnimationGuardExampleTests.cs.meta      |     2 -
+ .../Editor/CadenceJitterBandPropertyTests.cs       |   118 -
+ .../Editor/CadenceJitterBandPropertyTests.cs.meta  |     2 -
+ .../Editor/CancelConsumeOrBufferPropertyTests.cs   |   215 -
+ .../CancelConsumeOrBufferPropertyTests.cs.meta     |     2 -
+ .../EditMode/Editor/CancelResolverPropertyTests.cs |   191 -
+ .../Editor/CancelResolverPropertyTests.cs.meta     |     2 -
+ .../EditMode/Editor/CancelRulePropertyTests.cs     |   131 -
+ .../Editor/CancelRulePropertyTests.cs.meta         |     2 -
+ .../Editor/ChargedShotThresholdPropertyTests.cs    |    91 -
+ .../ChargedShotThresholdPropertyTests.cs.meta      |     2 -
+ .../Editor/CleanupReportAndFallbackExampleTests.cs |   317 -
+ .../CleanupReportAndFallbackExampleTests.cs.meta   |     2 -
+ .../Editor/CombatActionProfileSmokeTests.cs        |   234 -
+ .../Editor/CombatActionProfileSmokeTests.cs.meta   |     2 -
+ .../Editor/CombatBalanceBoundsPropertyTests.cs     |   303 -
+ .../CombatBalanceBoundsPropertyTests.cs.meta       |     2 -
+ .../Editor/CombatGroundFillMeshExampleTests.cs     |   294 -
+ .../CombatGroundFillMeshExampleTests.cs.meta       |     2 -
+ .../Editor/CombatRoomSpawnPointPropertyTests.cs    |   158 -
+ .../CombatRoomSpawnPointPropertyTests.cs.meta      |     2 -
+ .../EditMode/Editor/ComboNovaProcGateTests.cs      |   121 -
+ .../EditMode/Editor/ComboNovaProcGateTests.cs.meta |     2 -
+ .../Editor/CommitmentRulesPropertyTests.cs         |   124 -
+ .../Editor/CommitmentRulesPropertyTests.cs.meta    |     2 -
+ .../Editor/ConsecutiveHitCounterPropertyTests.cs   |   176 -
+ .../ConsecutiveHitCounterPropertyTests.cs.meta     |     2 -
+ .../ControlLockGateDisplacementPropertyTests.cs    |    91 -
+ ...ontrolLockGateDisplacementPropertyTests.cs.meta |     2 -
+ .../Editor/ControlLockGatePropertyTests.cs         |   138 -
+ .../Editor/ControlLockGatePropertyTests.cs.meta    |     2 -
+ .../Editor/DamageAbsorbedDecisionPropertyTests.cs  |   134 -
+ .../DamageAbsorbedDecisionPropertyTests.cs.meta    |     2 -
+ .../EditMode/Editor/DamageNumberBurstTests.cs      |    89 +
+ .../EditMode/Editor/DamageNumberBurstTests.cs.meta |     2 +
+ .../Editor/DensityMonotonicByDepthPropertyTests.cs |   119 -
+ .../DensityMonotonicByDepthPropertyTests.cs.meta   |     2 -
+ .../Editor/DensityWithinBudgetPropertyTests.cs     |   184 -
+ .../DensityWithinBudgetPropertyTests.cs.meta       |     2 -
+ .../Editor/DifferentSeedsDivergePropertyTests.cs   |   193 -
+ .../DifferentSeedsDivergePropertyTests.cs.meta     |     2 -
+ .../DisplacementInvalidDowngradePropertyTests.cs   |   237 -
+ ...splacementInvalidDowngradePropertyTests.cs.meta |     2 -
+ .../Editor/DisplacementTierBoundsPropertyTests.cs  |   162 -
+ .../DisplacementTierBoundsPropertyTests.cs.meta    |     2 -
+ .../Tests/EditMode/Editor/EclipseBoonTests.cs      |   159 +
+ .../Tests/EditMode/Editor/EclipseBoonTests.cs.meta |     2 +
+ .../Tests/EditMode/Editor/EdgeBandPropertyTests.cs |   131 -
+ .../EditMode/Editor/EdgeBandPropertyTests.cs.meta  |     2 -
+ .../EditMode/Editor/EdgeStrikePropertyTests.cs     |   235 -
+ .../Editor/EdgeStrikePropertyTests.cs.meta         |     2 -
+ .../Editor/ElementalOverflowGatePropertyTests.cs   |   243 -
+ .../ElementalOverflowGatePropertyTests.cs.meta     |     2 -
+ .../EliteStanceBreakDifficultyPropertyTests.cs     |   279 -
+ ...EliteStanceBreakDifficultyPropertyTests.cs.meta |     2 -
+ .../Editor/EncounterGatesDirectionalTests.cs       |   137 -
+ .../Editor/EncounterGatesDirectionalTests.cs.meta  |     2 -
+ .../Tests/EditMode/Editor/EnemyAttackAreaTests.cs  |    69 -
+ .../EditMode/Editor/EnemyAttackAreaTests.cs.meta   |     2 -
+ .../Editor/EnemyFacingConvergencePropertyTests.cs  |   173 -
+ .../EnemyFacingConvergencePropertyTests.cs.meta    |     2 -
+ .../Editor/EnemyReactionFacingExampleTests.cs      |   127 -
+ .../Editor/EnemyReactionFacingExampleTests.cs.meta |     2 -
+ .../Editor/ExecutionImpactLedgerPropertyTests.cs   |   145 -
+ .../ExecutionImpactLedgerPropertyTests.cs.meta     |     2 -
+ .../EditMode/Editor/FirstSectorProceduralTests.cs  |   306 -
+ .../Editor/FirstSectorProceduralTests.cs.meta      |     2 -
+ .../EditMode/Editor/FluidityGroundFillTests.cs     |   110 +
+ .../Editor/FluidityGroundFillTests.cs.meta         |     2 +
+ .../EditMode/Editor/FluidityRouteTestFactory.cs    |    56 +
+ .../Editor/FluidityRouteTestFactory.cs.meta        |     2 +
+ .../FlurryRegroupDisplacementPropertyTests.cs      |   244 -
+ .../FlurryRegroupDisplacementPropertyTests.cs.meta |     2 -
+ .../FlurryStrikesAndLockDurationPropertyTests.cs   |   205 -
+ ...urryStrikesAndLockDurationPropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/FrameThrottlePropertyTests.cs  |   188 -
+ .../Editor/FrameThrottlePropertyTests.cs.meta      |     2 -
+ .../FreeSlotWithoutEligibleEnemyExampleTests.cs    |   105 -
+ ...reeSlotWithoutEligibleEnemyExampleTests.cs.meta |     2 -
+ .../Editor/FrontalArcReflectionPropertyTests.cs    |   137 -
+ .../FrontalArcReflectionPropertyTests.cs.meta      |     2 -
+ .../Editor/GauntletAdvanceNavMeshPropertyTests.cs  |   230 -
+ .../GauntletAdvanceNavMeshPropertyTests.cs.meta    |     2 -
+ .../Editor/GauntletAuthoringAndContextTests.cs     |   273 -
+ .../GauntletAuthoringAndContextTests.cs.meta       |     2 -
+ .../EditMode/Editor/GauntletEnergyPolicyTests.cs   |   183 -
+ .../Editor/GauntletEnergyPolicyTests.cs.meta       |     2 -
+ .../Editor/GauntletOverhaulCatalogExampleTests.cs  |   183 -
+ .../GauntletOverhaulCatalogExampleTests.cs.meta    |     2 -
+ .../GauntletOverhaulInvariantPropertyTests.cs      |   440 -
+ .../GauntletOverhaulInvariantPropertyTests.cs.meta |     2 -
+ .../GauntletOverhaulPresentationExampleTests.cs    |   305 -
+ ...auntletOverhaulPresentationExampleTests.cs.meta |     2 -
+ .../GauntletOverhaulTeardownPropertyTests.cs       |   295 -
+ .../GauntletOverhaulTeardownPropertyTests.cs.meta  |     2 -
+ .../Tests/EditMode/Editor/GauntletSnapshotTests.cs |   305 -
+ .../EditMode/Editor/GauntletSnapshotTests.cs.meta  |     2 -
+ .../Editor/GauntletStepsCloneIsolationTests.cs     |   170 -
+ .../GauntletStepsCloneIsolationTests.cs.meta       |     2 -
+ .../Editor/GenerationDeterminismPropertyTests.cs   |   137 -
+ .../GenerationDeterminismPropertyTests.cs.meta     |     2 -
+ ...GenerationIsolatedFromGlobalRngPropertyTests.cs |   148 -
+ ...ationIsolatedFromGlobalRngPropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/GroundMovementBufferTests.cs   |    87 +
+ .../Editor/GroundMovementBufferTests.cs.meta       |     2 +
+ .../EditMode/Editor/GuardBreakerPropertyTests.cs   |   251 -
+ .../Editor/GuardBreakerPropertyTests.cs.meta       |     2 -
+ .../EditMode/Editor/HasteComboNovaExampleTests.cs  |   155 -
+ .../Editor/HasteComboNovaExampleTests.cs.meta      |     2 -
+ .../Editor/HasteComboNovaFrequencyTests.cs         |   127 -
+ .../Editor/HasteComboNovaFrequencyTests.cs.meta    |     2 -
+ .../EditMode/Editor/HazardModelPropertyTests.cs    |   191 -
+ .../Editor/HazardModelPropertyTests.cs.meta        |     2 -
+ .../Editor/HealthBarRecomputeFillPropertyTests.cs  |   272 -
+ .../HealthBarRecomputeFillPropertyTests.cs.meta    |     2 -
+ .../Tests/EditMode/Editor/HitStopPropertyTests.cs  |   234 -
+ .../EditMode/Editor/HitStopPropertyTests.cs.meta   |     2 -
+ .../EditMode/Editor/HookPullBoundPropertyTests.cs  |   231 -
+ .../Editor/HookPullBoundPropertyTests.cs.meta      |     2 -
+ ...udFormatterMatchesInlineFormulaPropertyTests.cs |   129 -
+ ...matterMatchesInlineFormulaPropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/HungryComboExampleTests.cs     |   229 -
+ .../Editor/HungryComboExampleTests.cs.meta         |     2 -
+ .../Editor/ImmediateReactionClampPropertyTests.cs  |    87 -
+ .../ImmediateReactionClampPropertyTests.cs.meta    |     2 -
+ .../EditMode/Editor/ImpactFeedbackScopeTests.cs    |    51 -
+ .../Editor/ImpactFeedbackScopeTests.cs.meta        |     2 -
+ .../Editor/ImpactfulBoonsAssetIsolationTests.cs    |   232 -
+ .../ImpactfulBoonsAssetIsolationTests.cs.meta      |     2 -
+ .../Editor/ImpactfulBoonsMonotonicityTests.cs      |   191 -
+ .../Editor/ImpactfulBoonsMonotonicityTests.cs.meta |     2 -
+ .../Editor/ImpactfulBoonsOrderDeterminismTests.cs  |   214 -
+ .../ImpactfulBoonsOrderDeterminismTests.cs.meta    |     2 -
+ .../Editor/ImpactfulVarietyPropertyTests.cs        |   236 -
+ .../Editor/ImpactfulVarietyPropertyTests.cs.meta   |     2 -
+ .../EditMode/Editor/InputBufferPropertyTests.cs    |   272 -
+ .../Editor/InputBufferPropertyTests.cs.meta        |     2 -
+ .../Editor/InterruptCancellationPropertyTests.cs   |   207 -
+ .../InterruptCancellationPropertyTests.cs.meta     |     2 -
+ .../Editor/InterruptWindowGatePropertyTests.cs     |    74 -
+ .../InterruptWindowGatePropertyTests.cs.meta       |     2 -
+ ...alidModifierIgnoredNoSideEffectPropertyTests.cs |   318 -
+ ...odifierIgnoredNoSideEffectPropertyTests.cs.meta |     2 -
+ .../Editor/KiteWindowCooldownPropertyTests.cs      |   179 -
+ .../Editor/KiteWindowCooldownPropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/KitingImpulsePropertyTests.cs  |   182 -
+ .../Editor/KitingImpulsePropertyTests.cs.meta      |    11 -
+ .../KitingStandoffIntegrationExampleTests.cs       |   139 -
+ .../KitingStandoffIntegrationExampleTests.cs.meta  |     2 -
+ .../KnockUpJuggleControlLockPropertyTests.cs       |   185 -
+ .../KnockUpJuggleControlLockPropertyTests.cs.meta  |     2 -
+ ...egendaryStaggerNoContinuousLockPropertyTests.cs |   184 -
+ ...aryStaggerNoContinuousLockPropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/MainMenuFocusPropertyTests.cs  |   166 -
+ .../Editor/MainMenuFocusPropertyTests.cs.meta      |     2 -
+ .../Editor/ManualAuthoredEnvironmentTests.cs       |    48 -
+ .../Editor/ManualAuthoredEnvironmentTests.cs.meta  |     2 -
+ .../Editor/ManualRouteMapPresentationTests.cs      |   183 +
+ .../Editor/ManualRouteMapPresentationTests.cs.meta |     2 +
+ .../EditMode/Editor/ManualRoutePolicyTests.cs      |   130 -
+ .../EditMode/Editor/ManualRoutePolicyTests.cs.meta |     2 -
+ .../EditMode/Editor/ManualRunDefinitionTests.cs    |   139 -
+ .../Editor/ManualRunDefinitionTests.cs.meta        |     2 -
+ .../EditMode/Editor/ManualRunRandomizerTests.cs    |   185 +
+ .../Editor/ManualRunRandomizerTests.cs.meta        |     2 +
+ .../Editor/MarkAbsentDefaultTargetPropertyTests.cs |   154 -
+ .../MarkAbsentDefaultTargetPropertyTests.cs.meta   |     2 -
+ ...MarkReinforcesPriorityBehaviorsPropertyTests.cs |   110 -
+ ...einforcesPriorityBehaviorsPropertyTests.cs.meta |     2 -
+ .../MeleeProfileDistinctnessPropertyTests.cs       |   143 -
+ .../MeleeProfileDistinctnessPropertyTests.cs.meta  |     2 -
+ ...ssingProfileRankDefaultsFallbackExampleTests.cs |   192 -
+ ...ProfileRankDefaultsFallbackExampleTests.cs.meta |     2 -
+ ...fierApplicationOrderDeterminismPropertyTests.cs |   235 -
+ ...pplicationOrderDeterminismPropertyTests.cs.meta |     2 -
+ .../ModifierRankMonotonicityPropertyTests.cs       |   258 -
+ .../ModifierRankMonotonicityPropertyTests.cs.meta  |     2 -
+ .../Editor/MomentumStackAndDamagePropertyTests.cs  |   225 -
+ .../MomentumStackAndDamagePropertyTests.cs.meta    |     2 -
+ .../EditMode/Editor/MoonShardFragmentBoundTests.cs |   142 -
+ .../Editor/MoonShardFragmentBoundTests.cs.meta     |     2 -
+ .../Editor/MovementBlendRangePropertyTests.cs      |    82 -
+ .../Editor/MovementBlendRangePropertyTests.cs.meta |     2 -
+ .../MutualExclusionDuringExecutionPropertyTests.cs |   104 -
+ ...alExclusionDuringExecutionPropertyTests.cs.meta |     2 -
+ .../Editor/NextSeedDeterminismPropertyTests.cs     |    60 -
+ .../NextSeedDeterminismPropertyTests.cs.meta       |     2 -
+ .../Tests/EditMode/Editor/NexusCardLayoutTests.cs  |    24 +
+ .../EditMode/Editor/NexusCardLayoutTests.cs.meta   |     2 +
+ .../EditMode/Editor/ObservationTelemetryTests.cs   |   124 +
+ .../Editor/ObservationTelemetryTests.cs.meta       |     2 +
+ .../Editor/OneConnectionPerPairPropertyTests.cs    |   148 -
+ .../OneConnectionPerPairPropertyTests.cs.meta      |     2 -
+ .../EditMode/Editor/OrbitCombinationHintTests.cs   |   109 -
+ .../Editor/OrbitCombinationHintTests.cs.meta       |     2 -
+ .../OrphanCandidateReferenceScanPropertyTests.cs   |   271 -
+ ...phanCandidateReferenceScanPropertyTests.cs.meta |     2 -
+ .../Editor/PatrolPauseIntegrationExampleTests.cs   |    89 -
+ .../PatrolPauseIntegrationExampleTests.cs.meta     |     2 -
+ .../Editor/PatrolPauseRangePropertyTests.cs        |   122 -
+ .../Editor/PatrolPauseRangePropertyTests.cs.meta   |     2 -
+ .../PedestalActionResolutionPropertyTests.cs       |    98 -
+ .../PedestalActionResolutionPropertyTests.cs.meta  |     2 -
+ .../PedestalEquippedExclusivePropertyTests.cs      |   103 -
+ .../PedestalEquippedExclusivePropertyTests.cs.meta |     2 -
+ .../PedestalProximitySelectionPropertyTests.cs     |   188 -
+ ...PedestalProximitySelectionPropertyTests.cs.meta |     2 -
+ .../Editor/PerfectSpacingBandPropertyTests.cs      |   116 -
+ .../Editor/PerfectSpacingBandPropertyTests.cs.meta |     2 -
+ .../Tests/EditMode/Editor/PikeWallPropertyTests.cs |   194 -
+ .../EditMode/Editor/PikeWallPropertyTests.cs.meta  |    11 -
+ .../Editor/PostBreakImmunityStancePropertyTests.cs |   113 -
+ .../PostBreakImmunityStancePropertyTests.cs.meta   |     2 -
+ .../Tests/EditMode/Editor/PostureBoundaryTests.cs  |    73 -
+ .../EditMode/Editor/PostureBoundaryTests.cs.meta   |     2 -
+ .../Tests/EditMode/Editor/PostureMigrationTests.cs |    29 -
+ .../EditMode/Editor/PostureMigrationTests.cs.meta  |     2 -
+ .../EditMode/Editor/PostureReactionStateTests.cs   |   119 -
+ .../Editor/PostureReactionStateTests.cs.meta       |     2 -
+ ...PreferredDistancePositiveTargetPropertyTests.cs |   185 -
+ ...rredDistancePositiveTargetPropertyTests.cs.meta |     2 -
+ .../PreferredDistanceRoleFallbackExampleTests.cs   |   126 -
+ ...eferredDistanceRoleFallbackExampleTests.cs.meta |     2 -
+ .../Editor/PreservedBoonOfferExampleTests.cs       |   265 -
+ .../Editor/PreservedBoonOfferExampleTests.cs.meta  |     2 -
+ .../Editor/PriorityMarkerPresencePropertyTests.cs  |   132 -
+ .../PriorityMarkerPresencePropertyTests.cs.meta    |     2 -
+ .../Editor/ProceduralRunGeometryPlanTests.cs       |   133 +
+ .../Editor/ProceduralRunGeometryPlanTests.cs.meta  |     2 +
+ .../Editor/ProjectileMotionPropertyTests.cs        |   281 -
+ .../Editor/ProjectileMotionPropertyTests.cs.meta   |     2 -
+ ...ojectileResetClearsTrackedStatePropertyTests.cs |   181 -
+ ...ileResetClearsTrackedStatePropertyTests.cs.meta |     2 -
+ .../Tests/EditMode/Editor/ProtocolBudgetTests.cs   |   119 -
+ .../EditMode/Editor/ProtocolBudgetTests.cs.meta    |     2 -
+ .../Tests/EditMode/Editor/ProtocolCatalogTests.cs  |    97 -
+ .../EditMode/Editor/ProtocolCatalogTests.cs.meta   |     2 -
+ .../EditMode/Editor/ProtocolInventoryTests.cs      |    63 -
+ .../EditMode/Editor/ProtocolInventoryTests.cs.meta |     2 -
+ .../EditMode/Editor/ProtocolMixedTicketTests.cs    |    72 -
+ .../Editor/ProtocolMixedTicketTests.cs.meta        |     2 -
+ .../Editor/ProtocolRewardSelectionTests.cs         |    39 -
+ .../Editor/ProtocolRewardSelectionTests.cs.meta    |     2 -
+ .../Editor/PureLogicDeterminismPropertyTests.cs    |   295 -
+ .../PureLogicDeterminismPropertyTests.cs.meta      |     2 -
+ .../Tests/EditMode/Editor/RainMarkPropertyTests.cs |   251 -
+ .../EditMode/Editor/RainMarkPropertyTests.cs.meta  |     2 -
+ .../EditMode/Editor/RangedFluidityContractTests.cs |   138 +
+ .../Editor/RangedFluidityContractTests.cs.meta     |     2 +
+ ...ankInterruptStaggerAccumulationPropertyTests.cs |   170 -
+ ...terruptStaggerAccumulationPropertyTests.cs.meta |     2 -
+ .../ReactionChannelIndependencePropertyTests.cs    |   271 -
+ ...eactionChannelIndependencePropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/ReactionConfigurationTests.cs  |   133 -
+ .../Editor/ReactionConfigurationTests.cs.meta      |     2 -
+ .../Editor/ReactionGateDelayPropertyTests.cs       |   170 -
+ .../Editor/ReactionGateDelayPropertyTests.cs.meta  |     2 -
+ .../Tests/EditMode/Editor/ReactionPolicyTests.cs   |    82 -
+ .../EditMode/Editor/ReactionPolicyTests.cs.meta    |     2 -
+ .../Editor/ReduceCooldownsPropertyTests.cs         |   143 -
+ .../Editor/ReduceCooldownsPropertyTests.cs.meta    |     2 -
+ .../Editor/ReentryIdempotencePropertyTests.cs      |   207 -
+ .../Editor/ReentryIdempotencePropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/RemainingArchetypeUnitTests.cs |   197 -
+ .../Editor/RemainingArchetypeUnitTests.cs.meta     |     2 -
+ .../ResourcesGuardNeverPureOrphanPropertyTests.cs  |   248 -
+ ...ourcesGuardNeverPureOrphanPropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/RetainedRunRewardTests.cs      |   203 +
+ .../EditMode/Editor/RetainedRunRewardTests.cs.meta |     2 +
+ .../Editor/RetirementOfferPropertyTests.cs         |   329 -
+ .../Editor/RetirementOfferPropertyTests.cs.meta    |     2 -
+ .../Editor/RetreatSpeedMultiplierPropertyTests.cs  |   112 -
+ .../RetreatSpeedMultiplierPropertyTests.cs.meta    |     2 -
+ .../EditMode/Editor/RewriteCategoryExampleTests.cs |   262 -
+ .../Editor/RewriteCategoryExampleTests.cs.meta     |     2 -
+ .../EditMode/Editor/RewriteOfferConstraintTests.cs |   181 -
+ .../Editor/RewriteOfferConstraintTests.cs.meta     |     2 -
+ .../Editor/RoomCompositionResolverWarningsTests.cs |   189 -
+ .../RoomCompositionResolverWarningsTests.cs.meta   |     2 -
+ .../Editor/RoomCountBoundsPropertyTests.cs         |   149 -
+ .../Editor/RoomCountBoundsPropertyTests.cs.meta    |     2 -
+ .../EditMode/Editor/RoomNonOverlapPropertyTests.cs |   154 -
+ .../Editor/RoomNonOverlapPropertyTests.cs.meta     |     2 -
+ .../Editor/RunMapDiscoveryPresentationTests.cs     |   288 +
+ .../RunMapDiscoveryPresentationTests.cs.meta       |     2 +
+ .../Tests/EditMode/Editor/RunRepairPolicyTests.cs  |    61 -
+ .../EditMode/Editor/RunRepairPolicyTests.cs.meta   |     2 -
+ .../Tests/EditMode/Editor/RunResultsModelTests.cs  |    26 +
+ .../EditMode/Editor/RunResultsModelTests.cs.meta   |     2 +
+ .../Tests/EditMode/Editor/RunRewardPolicyTests.cs  |   140 -
+ .../EditMode/Editor/RunRewardPolicyTests.cs.meta   |     2 -
+ .../Editor/RunSelectionReleaseGateTests.cs         |    15 -
+ .../Editor/RunSelectionReleaseGateTests.cs.meta    |     2 -
+ .../EditMode/Editor/SeismicFistPropertyTests.cs    |    45 -
+ .../Editor/SeismicFistPropertyTests.cs.meta        |     2 -
+ .../EditMode/Editor/ShieldHealPropertyTests.cs     |   158 -
+ .../Editor/ShieldHealPropertyTests.cs.meta         |     2 -
+ .../Editor/ShockwaveAppendPropertyTests.cs         |   185 -
+ .../Editor/ShockwaveAppendPropertyTests.cs.meta    |     3 -
+ .../Editor/SimpleObjectPoolPropertyTests.cs        |   276 -
+ .../Editor/SimpleObjectPoolPropertyTests.cs.meta   |     2 -
+ .../Editor/SingleTypePerRoomPropertyTests.cs       |   135 -
+ .../Editor/SingleTypePerRoomPropertyTests.cs.meta  |     2 -
+ .../SlotReleaseRestoresCapacityPropertyTests.cs    |   121 -
+ ...lotReleaseRestoresCapacityPropertyTests.cs.meta |     2 -
+ .../Editor/SoftGroupingBoundsPropertyTests.cs      |   211 -
+ .../Editor/SoftGroupingBoundsPropertyTests.cs.meta |     2 -
+ .../SoftGroupingBowNoGroupingPropertyTests.cs      |    88 -
+ .../SoftGroupingBowNoGroupingPropertyTests.cs.meta |     2 -
+ ...ceAssetImmutabilityWhenPlanningPropertyTests.cs |   262 -
+ ...etImmutabilityWhenPlanningPropertyTests.cs.meta |     2 -
+ .../EditMode/Editor/SpacingBandPropertyTests.cs    |    99 -
+ .../Editor/SpacingBandPropertyTests.cs.meta        |     2 -
+ .../Editor/SpawnerLivingCountPropertyTests.cs      |   140 -
+ .../Editor/SpawnerLivingCountPropertyTests.cs.meta |     2 -
+ .../Tests/EditMode/Editor/SpearBoonTests.cs        |    91 +
+ .../Tests/EditMode/Editor/SpearBoonTests.cs.meta   |     2 +
+ ...InterferenceWhenNotAccumulatingPropertyTests.cs |   140 -
+ ...ferenceWhenNotAccumulatingPropertyTests.cs.meta |     2 -
+ .../Editor/SpearModifierCatalogMetadataTests.cs    |   124 -
+ .../SpearModifierCatalogMetadataTests.cs.meta      |     2 -
+ .../SpearPlanCorrectnessAndIsolationTests.cs       |   125 -
+ .../SpearPlanCorrectnessAndIsolationTests.cs.meta  |     2 -
+ .../SpearSweepDisplacementBoundsPropertyTests.cs   |   240 -
+ ...earSweepDisplacementBoundsPropertyTests.cs.meta |     2 -
+ .../SpecialProbabilityBoundsPropertyTests.cs       |   185 -
+ .../SpecialProbabilityBoundsPropertyTests.cs.meta  |     2 -
+ .../Editor/StageGeneratorCoreEdgeExampleTests.cs   |   302 -
+ .../StageGeneratorCoreEdgeExampleTests.cs.meta     |     2 -
+ .../StanceBreakRestoreRecoveryPropertyTests.cs     |   152 -
+ ...StanceBreakRestoreRecoveryPropertyTests.cs.meta |     2 -
+ .../Editor/StanceBreakSameStepPropertyTests.cs     |   291 -
+ .../StanceBreakSameStepPropertyTests.cs.meta       |     2 -
+ .../Editor/StanceSubtractionBoundsPropertyTests.cs |   112 -
+ .../StanceSubtractionBoundsPropertyTests.cs.meta   |     2 -
+ .../Editor/StandoffDistanceBandPropertyTests.cs    |   121 -
+ .../StandoffDistanceBandPropertyTests.cs.meta      |     2 -
+ .../Editor/StartToBossConnectivityPropertyTests.cs |   154 -
+ .../StartToBossConnectivityPropertyTests.cs.meta   |     2 -
+ .../SweetSpotStrictlyGreaterBonusPropertyTests.cs  |   191 -
+ ...etSpotStrictlyGreaterBonusPropertyTests.cs.meta |     2 -
+ .../Editor/SystemBreakEscalationTierTests.cs       |    91 -
+ .../Editor/SystemBreakEscalationTierTests.cs.meta  |     2 -
+ .../Editor/SystemBreakFeedbackPresentationTests.cs |   315 -
+ .../SystemBreakFeedbackPresentationTests.cs.meta   |     2 -
+ .../EditMode/Editor/TGCharacterIntegrationTests.cs |   288 +
+ .../Editor/TGCharacterIntegrationTests.cs.meta     |     2 +
+ .../EditMode/Editor/TelegraphBeatPropertyTests.cs  |   191 -
+ .../Editor/TelegraphBeatPropertyTests.cs.meta      |     2 -
+ .../TelegraphExecutionIntegrationExampleTests.cs   |   250 -
+ ...legraphExecutionIntegrationExampleTests.cs.meta |     2 -
+ .../Editor/TelegraphFillProgressPropertyTests.cs   |    75 -
+ .../TelegraphFillProgressPropertyTests.cs.meta     |     2 -
+ .../Editor/TelegraphRedBasePropertyTests.cs        |   146 -
+ .../Editor/TelegraphRedBasePropertyTests.cs.meta   |     2 -
+ .../TreasureAccessibleOrDiscardedPropertyTests.cs  |   227 -
+ ...asureAccessibleOrDiscardedPropertyTests.cs.meta |     2 -
+ .../UiValueCacheDirtyDecisionPropertyTests.cs      |   211 -
+ .../UiValueCacheDirtyDecisionPropertyTests.cs.meta |     2 -
+ .../Editor/VarietySatisfiedPropertyTests.cs        |   169 -
+ .../Editor/VarietySatisfiedPropertyTests.cs.meta   |     2 -
+ ...ulnerabilityWindowRankDowngradePropertyTests.cs |    90 -
+ ...abilityWindowRankDowngradePropertyTests.cs.meta |     2 -
+ .../WeaponCacheIdempotentPreloadPropertyTests.cs   |   250 -
+ ...aponCacheIdempotentPreloadPropertyTests.cs.meta |     2 -
+ .../Editor/WeaponCardContentPropertyTests.cs       |   260 -
+ .../Editor/WeaponCardContentPropertyTests.cs.meta  |     2 -
+ ...nEnemyMatrixCompletenessFallbackExampleTests.cs |   224 -
+ ...yMatrixCompletenessFallbackExampleTests.cs.meta |     2 -
+ .../Scripts/Tests/GprMovementPrototype.meta        |     8 +
+ .../Tests/GprMovementPrototype/GprMovementArena.cs |   140 +
+ .../GprMovementPrototype/GprMovementArena.cs.meta  |     2 +
+ .../Tests/GprMovementPrototype/GprMovementMotor.cs |   195 +
+ .../GprMovementPrototype/GprMovementMotor.cs.meta  |     2 +
+ .../GprMovementPrototype/GprMovementPreview.cs     |    41 +
+ .../GprMovementPreview.cs.meta                     |     2 +
+ .../Tests/GprMovementPrototype/GprMovementTests.cs |   329 +
+ .../GprMovementPrototype/GprMovementTests.cs.meta  |     2 +
+ .../TechGuy.Tests.GprMovement.asmdef               |     9 +
+ .../TechGuy.Tests.GprMovement.asmdef.meta}         |     4 +-
+ .../PlayMode/AsuraEarlyFinishPlayModeTests.cs      |   451 +
+ .../PlayMode/AsuraEarlyFinishPlayModeTests.cs.meta |     2 +
+ .../PlayMode/BasicAttackCursorFluidityTests.cs     |   269 +
+ .../BasicAttackCursorFluidityTests.cs.meta         |     2 +
+ .../PlayMode/BasicAttackR1MovementFluidityTests.cs |   493 +
+ .../BasicAttackR1MovementFluidityTests.cs.meta     |     2 +
+ .../Tests/PlayMode/BasicAttackR1PlayModeTests.cs   |    63 +-
+ .../PlayMode/BasicAttackR1RunStatisticsTests.cs    |    72 +
+ .../BasicAttackR1RunStatisticsTests.cs.meta        |     2 +
+ .../BoonPublishedEncounterPlayModeTests.cs         |   226 +
+ .../BoonPublishedEncounterPlayModeTests.cs.meta    |     2 +
+ .../Scripts/Tests/PlayMode/BowBoonPlayModeTests.cs |   398 +
+ .../Tests/PlayMode/BowBoonPlayModeTests.cs.meta    |     2 +
+ .../PlayMode/BreakerKitEmissionPlayModeTests.cs    |   138 +
+ .../Tests/PlayMode/CameraOcclusionFadeTests.cs     |   448 +
+ .../PlayMode/CameraOcclusionFadeTests.cs.meta      |     2 +
+ .../PlayMode/CombatResponsivenessPlayModeTests.cs  |   171 +
+ .../CombatResponsivenessPlayModeTests.cs.meta      |     2 +
+ .../PlayMode/DamageConfirmationPlayModeTests.cs    |   111 +
+ .../DamageConfirmationPlayModeTests.cs.meta        |     2 +
+ .../PlayMode/DirectBasicInputPlayModeTests.cs      |   404 +
+ .../PlayMode/DirectBasicInputPlayModeTests.cs.meta |     2 +
+ .../DirectMovementIntegrationPlayModeTests.cs      |   625 +
+ .../DirectMovementIntegrationPlayModeTests.cs.meta |     2 +
+ .../Tests/PlayMode/EclipseBoonPlayModeTests.cs     |   410 +
+ .../PlayMode/EclipseBoonPlayModeTests.cs.meta      |     2 +
+ .../PlayMode/EnemyInteractionPresentationTests.cs  |   205 +
+ .../EnemyInteractionPresentationTests.cs.meta      |     2 +
+ .../EnemyProjectileLifecyclePlayModeTests.cs       |   216 +
+ .../EnemyProjectileLifecyclePlayModeTests.cs.meta  |     2 +
+ .../PlayMode/GauntletBasicImpactPlayModeTests.cs   |   265 +
+ .../GauntletBasicImpactPlayModeTests.cs.meta       |     2 +
+ .../PlayMode/GauntletExpansionPlayModeTests.cs     |   156 +
+ .../GauntletExpansionPlayModeTests.cs.meta         |     2 +
+ .../ManualAuthoredNavigationPlayModeTests.cs       |    35 +-
+ .../PlayMode/ManualPublishedRunPlayModeTests.cs    |   113 +-
+ .../Tests/PlayMode/ManualRouteMapPlayModeTests.cs  |   277 +
+ .../PlayMode/ManualRouteMapPlayModeTests.cs.meta   |     2 +
+ .../Tests/PlayMode/ManualRunElitePlayModeTests.cs  |    29 +-
+ .../PlayMode/ManualRunLifecyclePlayModeTests.cs    |     1 +
+ .../PlayMode/ManualRunMutationPlayModeTests.cs     |    81 +-
+ .../Tests/PlayMode/ManualRunPlayerFeedbackTests.cs |    32 +-
+ .../Tests/PlayMode/ManualRunRewardPlayModeTests.cs |    73 +-
+ .../Tests/PlayMode/ManualRunWorldPlayModeTests.cs  |    81 +-
+ .../Tests/PlayMode/MeleeEngagementPlayModeTests.cs |   234 +
+ .../PlayMode/MeleeEngagementPlayModeTests.cs.meta  |     2 +
+ .../Tests/PlayMode/NexusBlockoutPlayModeTests.cs   |   244 +
+ .../PlayMode/NexusBlockoutPlayModeTests.cs.meta    |     2 +
+ .../PlayMode/NexusSpatialJourneyPlayModeTests.cs   |   192 +
+ .../NexusSpatialJourneyPlayModeTests.cs.meta       |     2 +
+ .../Tests/PlayMode/NexusUsabilityPlayModeTests.cs  |   200 +
+ .../PlayMode/NexusUsabilityPlayModeTests.cs.meta   |     2 +
+ .../Tests/PlayMode/PauseInspectionPlayModeTests.cs |   335 +
+ .../PlayMode/PauseInspectionPlayModeTests.cs.meta  |     2 +
+ .../PlayMode/PauseMapVisibilityPlayModeTests.cs    |   130 +
+ .../PauseMapVisibilityPlayModeTests.cs.meta        |     2 +
+ .../Tests/PlayMode/PostureReactionPlayModeTests.cs |   163 +
+ .../PlayMode/ProtocolEncounterFrontierTests.cs     |     2 +-
+ .../PlayMode/ProtocolPublishedCompositionTests.cs  |     2 +-
+ .../Tests/PlayMode/RangedFluidityPlayModeTests.cs  |   291 +
+ .../PlayMode/RangedFluidityPlayModeTests.cs.meta   |     2 +
+ .../Tests/PlayMode/RunResultsPlayModeTests.cs      |   217 +
+ .../Tests/PlayMode/RunResultsPlayModeTests.cs.meta |     2 +
+ .../Tests/PlayMode/RunStatisticsPlayModeTests.cs   |   201 +
+ .../PlayMode/RunStatisticsPlayModeTests.cs.meta    |     2 +
+ .../PlayMode/RunSummaryIsolationPlayModeTests.cs   |    17 +
+ .../RunSummaryIsolationPlayModeTests.cs.meta       |     2 +
+ .../Tests/PlayMode/RunSummaryPreferenceScope.cs    |    69 +
+ .../PlayMode/RunSummaryPreferenceScope.cs.meta     |     2 +
+ .../PlayMode/SniperAimCommitmentPlayModeTests.cs   |   183 +
+ .../SniperAimCommitmentPlayModeTests.cs.meta       |     2 +
+ .../Tests/PlayMode/SpearBoonPlayModeTests.cs       |   380 +
+ .../Tests/PlayMode/SpearBoonPlayModeTests.cs.meta  |     2 +
+ .../Tests/PlayMode/StageDoorSealingTests.cs        |     2 +-
+ .../Tests/PlayMode/StagePlayerDeathReturnTests.cs  |     2 +-
+ .../Tests/PlayMode/StageRoomActivationTests.cs     |     2 +-
+ .../Tests/PlayMode/StageTrophyRewardTests.cs       |     2 +-
+ .../Tests/PlayMode/TechGuy.Tests.PlayMode.asmdef   |     3 +-
+ .../Tests/PlayMode/WorldClickEnemyAssistTests.cs   |   176 +
+ .../PlayMode/WorldClickEnemyAssistTests.cs.meta    |     2 +
+ Assets/_Project/Scripts/UI/BreakerGauntletHUD.cs   |     4 +-
+ .../_Project/Scripts/UI/ControlRemappingPanel.cs   |    22 +-
+ Assets/_Project/Scripts/UI/DamageNumberBurst.cs    |    38 +
+ .../_Project/Scripts/UI/DamageNumberBurst.cs.meta  |     2 +
+ Assets/_Project/Scripts/UI/DamagePopup.cs          |    64 +-
+ Assets/_Project/Scripts/UI/EnemyCombatFeedback.cs  |    14 +-
+ Assets/_Project/Scripts/UI/HudFormatter.cs         |     8 +-
+ Assets/_Project/Scripts/UI/LobbyArsenal.cs         |    52 +-
+ Assets/_Project/Scripts/UI/LobbyInteraction.cs     |    68 +-
+ Assets/_Project/Scripts/UI/MainMenuUI.cs           |    15 +-
+ .../Scripts/UI/ManualRouteMapPresentation.cs       |   149 +
+ .../Scripts/UI/ManualRouteMapPresentation.cs.meta  |     2 +
+ Assets/_Project/Scripts/UI/ManualRunUI.PauseMap.cs |   127 +
+ .../Scripts/UI/ManualRunUI.PauseMap.cs.meta        |     2 +
+ Assets/_Project/Scripts/UI/ManualRunUI.cs          |   520 +-
+ Assets/_Project/Scripts/UI/PauseMenuUI.cs          |   315 +-
+ Assets/_Project/Scripts/UI/PlayerHUD.cs            |    42 +-
+ .../Scripts/UI/RunMapDiscoveryPresentation.cs      |   140 +
+ .../Scripts/UI/RunMapDiscoveryPresentation.cs.meta |     2 +
+ .../_Project/Scripts/UI/RunModifierPresentation.cs |    28 +
+ Assets/_Project/Scripts/UI/RunResultsFocus.cs      |    14 +
+ Assets/_Project/Scripts/UI/RunResultsFocus.cs.meta |     2 +
+ Assets/_Project/Scripts/UI/RunResultsHandoff.cs    |    11 +
+ .../_Project/Scripts/UI/RunResultsHandoff.cs.meta  |     2 +
+ Assets/_Project/Scripts/UI/RunResultsModel.cs      |   104 +
+ Assets/_Project/Scripts/UI/RunResultsModel.cs.meta |     2 +
+ Assets/_Project/Scripts/UI/RunResultsPresenter.cs  |   114 +
+ .../Scripts/UI/RunResultsPresenter.cs.meta         |     2 +
+ Assets/_Project/Scripts/UI/RunResultsView.cs       |   193 +
+ Assets/_Project/Scripts/UI/RunResultsView.cs.meta  |     2 +
+ Assets/_Project/Scripts/UI/RunRewardUI.cs          |   193 +-
+ Assets/_Project/Scripts/UI/TutorialHUD.cs          |     8 +-
+ Assets/_Project/Scripts/UI/WeaponCardView.cs       |    71 +-
+ .../_Project/Scripts/Weapons/ArsenalProjectile.cs  |    69 +-
+ Assets/_Project/Scripts/Weapons/HitboxDamage.cs    |     1 +
+ .../Scripts/Weapons/PlayerWeaponBootstrap.cs       |    15 -
+ .../Scripts/Weapons/PlayerWeaponBootstrap.cs.meta  |     2 -
+ .../_Project/Scripts/Weapons/WeaponRunModifiers.cs |    10 +
+ .../Blends/Crystal4.blend                          |   Bin 518072 -> 131 bytes
+ Docs.zip                                           |   Bin 0 -> 2745321 bytes
+ Docs/00_VISAO.md                                   |    51 +
+ Docs/01_PILARES.md                                 |    23 +
+ Docs/02_ESTADO_E_LACUNAS.md                        |   118 +
+ Docs/03_PRIORIDADES.md                             |   144 +
+ Docs/04_ARQUITETURA_E_INTEGRIDADE.md               |    50 +
+ Docs/05_MIGRACAO_E_LIMPEZA.md                      |    42 +
+ Docs/Arsenal.md                                    |    27 -
+ Docs/Boons.md                                      |   147 -
+ Docs/BreakerGauntlet.md                            |    65 -
+ Docs/Captures/cartoon-before.png                   |   Bin 169903 -> 0 bytes
+ Docs/Captures/cartoon-combat-1.png                 |   Bin 357274 -> 0 bytes
+ Docs/Captures/cartoon-combat.png                   |   Bin 356941 -> 0 bytes
+ Docs/Captures/cartoon-lobby.png                    |   Bin 249452 -> 0 bytes
+ Docs/Captures/illustrated-final.png                |   Bin 301613 -> 0 bytes
+ Docs/CombatPolish.md                               |    54 -
+ Docs/CombatStudy.md                                |    66 -
+ Docs/CombatStudy.png                               |   Bin 111685 -> 0 bytes
+ Docs/EnemiesAndBoss.md                             |    20 -
+ Docs/EnemyAttacks.md                               |    29 -
+ Docs/EnemySwarmSpec.md                             |   309 -
+ Docs/EnemyVariants.md                              |    70 -
+ Docs/FirstSector-combat.png                        |   Bin 238563 -> 0 bytes
+ Docs/FirstSector-guardian.png                      |   Bin 220188 -> 0 bytes
+ Docs/FirstSector-overview.png                      |   Bin 132501 -> 0 bytes
+ Docs/FirstSector.md                                |    48 -
+ Docs/HUD-CombatStudy.png                           |   Bin 166102 -> 0 bytes
+ Docs/HUD-NexusLobby.png                            |   Bin 344317 -> 0 bytes
+ Docs/HUD-Playground.png                            |   Bin 674732 -> 0 bytes
+ Docs/HUD-casting.png                               |   Bin 362400 -> 0 bytes
+ Docs/HUD-no-mana.png                               |   Bin 336929 -> 0 bytes
+ Docs/IllustratedLookAndInput.md                    |    19 -
+ Docs/Modificadores.md                              |   121 -
+ Docs/NexusLobby-gameplay.png                       |   Bin 321640 -> 0 bytes
+ Docs/NexusLobby-preview.png                        |   Bin 169695 -> 0 bytes
+ Docs/NexusLobby.md                                 |   107 -
+ Docs/PlayerHUD.md                                  |    71 -
+ Docs/PrologueAndMenus.md                           |    43 -
+ Docs/README.md                                     |    71 +
+ Docs/RunLoop.md                                    |    38 -
+ Docs/RunSynergies.md                               |    41 -
+ Docs/Tech-Guy_Gameplay_Rework.md                   |  2315 -
+ Docs/WeaponRunModifiers.md                         |    70 -
+ Docs/WorkshopReference.png                         |   Bin 241747 -> 0 bytes
+ Docs/art/01_DIRECAO_VISUAL.md                      |    33 +
+ Docs/art/02_PIPELINE_DE_ASSETS.md                  |    34 +
+ Docs/art/03_NEXUS_PROPOSTA_DE_EXPERIENCIA.md       |    35 +
+ Docs/art/04_NEXUS_BLOCKOUT_FUNCIONAL.md            |    41 +
+ Docs/decisions/ADR-0001-REFERENCIAS-E-HUD.md       |     7 +
+ Docs/decisions/ADR-0002-REACOES-E-CONTROLE.md      |     7 +
+ Docs/decisions/ADR-0003-IDENTIDADE-DAS-ARMAS.md    |     7 +
+ Docs/decisions/ADR-0004-BOONS-STATUS-E-GATES.md    |     7 +
+ Docs/decisions/ADR-0005-CICLO-DE-CAPTURA.md        |     7 +
+ Docs/decisions/ADR-0006-GPR-DIRECAO-E-GATES.md     |   123 +
+ Docs/decisions/AUTORIZACAO_GPR_C01_3A_20261027.md  |   148 +
+ Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md         |    61 +
+ Docs/decisions/GPR-00.1_RELATORIO.md               |    62 +
+ Docs/decisions/GPR-00.2_RELATORIO.md               |    31 +
+ Docs/decisions/GPR-00.3_RELATORIO.md               |    28 +
+ Docs/decisions/GPR-00.4_RELATORIO.md               |    32 +
+ Docs/decisions/GPR-00.5_RELATORIO.md               |    33 +
+ Docs/decisions/GPR-00_PHASE_SUMMARY.md             |    78 +
+ Docs/decisions/GPR-C01.1_BASELINE_E_PRONTIDAO.md   |    66 +
+ Docs/decisions/GPR-C01.1a_RELATORIO.md             |    40 +
+ Docs/decisions/GPR-C01.1b_RELATORIO.md             |    43 +
+ Docs/decisions/GPR-C01.2a_RELATORIO.md             |   128 +
+ Docs/decisions/GPR-C01.2b_RELATORIO.md             |   128 +
+ Docs/decisions/GPR-C01.2c_RELATORIO.md             |   143 +
+ Docs/decisions/GPR-C01.3a_RELATORIO.md             |   125 +
+ Docs/decisions/README.md                           |    11 +
+ .../decisions/VALIDACAO_GPR00_TECH_GUY_20261026.md |    42 +
+ .../VALIDACAO_GPR_C01_2A_2B_TECH_GUY_20261027.md   |    98 +
+ Docs/gameplay/GPR_C01_BASELINE.md                  |    58 +
+ Docs/gameplay/GPR_CONTROL_MIGRATION.md             |   116 +
+ Docs/gameplay/GPR_OWNERSHIP.md                     |    48 +
+ Docs/gameplay/GPR_REQUIREMENTS.md                  |    41 +
+ Docs/gameplay/GPR_TASKS.md                         |    33 +
+ Docs/gameplay/GPR_TECHNICAL_DESIGN.md              |    90 +
+ Docs/gameplay/GPR_VALIDATION_PLAN.md               |    89 +
+ Docs/gameplay/README.md                            |    12 +
+ ...LAY_MUTACOES_SINERGIAS_E_SKILLS_MODULARES(1).md |   989 +
+ ...GUY_GAMEPLAY_REWORK_EXECUTION_PLAN_v1.1_WASD.md |   376 +
+ Docs/references/README.md                          |    18 +
+ Docs/systems/01_COMBATE.md                         |   111 +
+ Docs/systems/02_ARMAS.md                           |    81 +
+ Docs/systems/03_INIMIGOS.md                        |   133 +
+ Docs/systems/04_BOONS.md                           |    79 +
+ Docs/systems/05_RUN_E_PROGRESSAO.md                |    96 +
+ Docs/systems/06_HUD_E_UI.md                        |   274 +
+ Docs/templates/00_AUDITORIA_INICIAL.md             |    17 +
+ Docs/templates/01_PROMPT_DE_TAREFA.md              |    22 +
+ Docs/templates/02_TAREFA.md                        |    49 +
+ Docs/templates/03_HANDOFF.md                       |    32 +
+ Docs/templates/04_ADR.md                           |    27 +
+ Docs/validation/01_MATRIZ_DE_VALIDACAO.md          |  1358 +
+ Docs/validation/02_CAPTURA_E_INSPECAO_VISUAL.md    |   109 +
+ Docs/validation/03_TELEMETRIA_E_GAME_FEEL.md       |    91 +
+ Docs/validation/04_CHECKLIST_PLAYTEST.md           |   165 +
+ .../c01-2a/BakedWallCornerObstacleAndBoundary.csv  |   273 +
+ .../c01-2a/CameraVersusWorldAndFrameSteps.csv      |   295 +
+ .../c01-2a/CardinalDiagonalStopAndAim.csv          |   131 +
+ ...erControllerAlternativeHasNoNavMeshBoundary.csv |     1 +
+ .../c01-2a/CursorDashAlternativeAndFrozenClock.csv |    15 +
+ .../artifacts/gameplay-rework/c01-2a/README.md     |    18 +
+ .../RawMoveFailureAndGuardedThinWallDash.csv       |    21 +
+ .../RootCastHitstopForcedPauseFocusAndDisable.csv  |    50 +
+ .../c01-2a/SlopeUpDownAndActualDisplacement.csv    |   131 +
+ .../VirtualKeyboardMouseUsesPreviewReader.csv      |     1 +
+ ...seAndInvalidTimeClearAnimationWithoutMoving.csv |     4 +
+ .../c01-2a/arena-boundary-gameview.png             |   Bin 0 -> 40361 bytes
+ .../c01-2a/arena-slope-gameview.png                |   Bin 0 -> 40279 bytes
+ .../c01-2a/arena-thin-wall-gameview.png            |   Bin 0 -> 39669 bytes
+ .../c01-2a/arena-virtual-input-gameview.png        |   Bin 0 -> 40228 bytes
+ .../c01-2a/character-controller-assessment.json    |     1 +
+ .../gameplay-rework/c01-2a/disco-inicial.json      |    18 +
+ .../gameplay-rework/c01-2a/editor-final.json       |    56 +
+ .../gameplay-rework/c01-2a/editor-inicial.json     |    32 +
+ .../gameplay-rework/c01-2a/git-status-delta.json   |    10 +
+ .../gameplay-rework/c01-2a/git-status-final.txt    |   905 +
+ .../gameplay-rework/c01-2a/git-status-inicial.txt  |   904 +
+ .../gameplay-rework/c01-2a/integridade-final.json  |     5 +
+ .../c01-2a/integridade-inicial.json                |  7114 +++
+ .../gameplay-rework/c01-2a/limpeza-final.json      |    13 +
+ .../gameplay-rework/c01-2a/manifesto.json          |   299 +
+ .../gameplay-rework/c01-2a/medicoes-resumo.json    |   546 +
+ .../c01-2a/metadados-alternativa.json              |    22 +
+ .../gameplay-rework/c01-2a/metadados.json          |     8 +
+ .../gameplay-rework/c01-2a/testes-dash-8.json      |   119 +
+ .../gameplay-rework/c01-2a/testes-editmode-15.json |   182 +
+ .../c01-2a/testes-prototipo-9-parametro.json       |   128 +
+ .../c01-2a/testes-prototipo-final.json             |   137 +
+ .../c01-2a/testes-prototipo-pos-correcao.json      |   128 +
+ .../c01-2a/testes-prototipo-primeira-execucao.json |   124 +
+ .../c01-2a/testes-regressao-26.json                |    35 +
+ .../c01-2a/virtual-input-real-time.json            |     1 +
+ .../artifacts/gameplay-rework/c01-2b/README.md     |    18 +
+ .../gameplay-rework/c01-2b/ativacao-cenas.json     |     1 +
+ .../gameplay-rework/c01-2b/autorizacao.txt         |    10 +
+ .../c01-2b/checker-metadados-status.json           |     9 +
+ .../gameplay-rework/c01-2b/checker-metadados.json  |     0
+ .../c01-2b/checker-metadados.stderr.txt            |    26 +
+ .../gameplay-rework/c01-2b/console-final.json      |     1 +
+ .../gameplay-rework/c01-2b/console-runtime.json    |     1 +
+ .../gameplay-rework/c01-2b/diff-cenas-final.json   |    26 +
+ .../gameplay-rework/c01-2b/diff-cenas.json         |    94 +
+ .../gameplay-rework/c01-2b/editor-inicial.json     |     1 +
+ .../gameplay-rework/c01-2b/git-status-delta.json   |    17 +
+ .../gameplay-rework/c01-2b/git-status-final.txt    |   916 +
+ .../gameplay-rework/c01-2b/git-status-inicial.txt  |   905 +
+ .../c01-2b/integration-movement.json               |     1 +
+ .../gameplay-rework/c01-2b/integridade-final.json  |    29 +
+ .../c01-2b/integridade-inicial.json                |  7158 +++
+ .../c01-2b/limpeza-final-tentativa.json            |     1 +
+ .../gameplay-rework/c01-2b/limpeza-final.json      |     1 +
+ .../gameplay-rework/c01-2b/manifesto.json          |   423 +
+ .../c01-2b/mcp-tools-discovery.json                |     1 +
+ .../gameplay-rework/c01-2b/nexus-driver-start.json |     1 +
+ .../gameplay-rework/c01-2b/nexus-medicoes.json     |    44 +
+ .../gameplay-rework/c01-2b/nexus-proveniencia.json |     1 +
+ .../gameplay-rework/c01-2b/nexus-runtime.csv       |   462 +
+ .../gameplay-rework/c01-2b/nexus-wasd-diagonal.png |   Bin 0 -> 98199 bytes
+ .../gameplay-rework/c01-2b/nexus-wasd-stop.png     |   Bin 0 -> 98008 bytes
+ .../gameplay-rework/c01-2b/nexus-wasd-walk.png     |   Bin 0 -> 90895 bytes
+ .../gameplay-rework/c01-2b/novos-guids.json        |    15 +
+ .../c01-2b/persistencia-antes-ativacao.json        |     1 +
+ .../gameplay-rework/c01-2b/persistencia-final.json |     1 +
+ .../gameplay-rework/c01-2b/recovery-isolado.json   |     1 +
+ .../gameplay-rework/c01-2b/roundtrip-cenas.json    |     1 +
+ .../gameplay-rework/c01-2b/testes-dash-8.json      |     1 +
+ .../gameplay-rework/c01-2b/testes-editmode-15.json |     1 +
+ .../c01-2b/testes-integracao-dez.json              |     1 +
+ .../c01-2b/testes-integracao-final.json            |     1 +
+ .../c01-2b/testes-integracao-onze.json             |     1 +
+ .../c01-2b/testes-integracao-primeira.json         |     1 +
+ .../c01-2b/testes-integracao-segunda.json          |     1 +
+ .../c01-2b/testes-regressao-30.json                |     1 +
+ .../c01-2b/testes-regressao-final-30.json          |     1 +
+ .../gameplay-rework/c01-2c/cleanup-final.json      |     1 +
+ .../gameplay-rework/c01-2c/console-compile.json    |     1 +
+ .../c01-2c/console-errors-final.json               |     1 +
+ .../gameplay-rework/c01-2c/console-inicial.json    |     1 +
+ .../gameplay-rework/c01-2c/console-runtime.json    |     1 +
+ .../c01-2c/console-warnings-final.json             |     1 +
+ .../gameplay-rework/c01-2c/contexts-final.json     |     1 +
+ .../c01-2c/contexts-final.request.json             |    14 +
+ .../c01-2c/contexts-final.start.json               |     1 +
+ .../gameplay-rework/c01-2c/dash-final.json         |     1 +
+ .../gameplay-rework/c01-2c/dash-final.request.json |     8 +
+ .../gameplay-rework/c01-2c/dash-final.start.json   |     1 +
+ .../c01-2c/diff-check-escopo_c01_2c.txt            |     0
+ .../gameplay-rework/c01-2c/diff-check-global.txt   |   486 +
+ .../gameplay-rework/c01-2c/diff-check.json         |    15 +
+ .../c01-2c/documentation-links.json                |     1 +
+ .../gameplay-rework/c01-2c/edit-final.json         |     1 +
+ .../gameplay-rework/c01-2c/edit-final.request.json |     8 +
+ .../gameplay-rework/c01-2c/edit-final.start.json   |     1 +
+ .../c01-2c/editor-after-compile.json               |     1 +
+ .../gameplay-rework/c01-2c/editor-final.json       |     1 +
+ .../gameplay-rework/c01-2c/git-status-final.txt    |   917 +
+ .../gameplay-rework/c01-2c/git-status-inicial.txt  |   917 +
+ .../gameplay-rework/c01-2c/git-status-parcial.txt  |   917 +
+ .../gameplay-rework/c01-2c/guids-movimento.json    |    15 +
+ .../gameplay-rework/c01-2c/integration-final.json  |     1 +
+ .../c01-2c/integration-final.request.json          |    30 +
+ .../c01-2c/integration-final.start.json            |     1 +
+ .../c01-2c/integration-initial.json                |     1 +
+ .../gameplay-rework/c01-2c/integridade-final.json  |    19 +
+ .../c01-2c/integridade-inicial.json                |  7182 +++
+ .../gameplay-rework/c01-2c/mcp-tools.json          |     1 +
+ .../c01-2c/nexus-driver-result.json                |     1 +
+ .../gameplay-rework/c01-2c/nexus-measurements.json |   158 +
+ .../c01-2c/nexus-pause-game-view.png               |   Bin 0 -> 59763 bytes
+ .../gameplay-rework/c01-2c/nexus-pause.png         |   Bin 0 -> 98937 bytes
+ .../gameplay-rework/c01-2c/nexus-proveniencia.json |     1 +
+ .../c01-2c/nexus-results-game-view.png             |   Bin 0 -> 129279 bytes
+ .../gameplay-rework/c01-2c/nexus-resume-held.png   |   Bin 0 -> 99126 bytes
+ .../gameplay-rework/c01-2c/nexus-runtime.csv       |   758 +
+ .../gameplay-rework/c01-2c/nexus-wasd-diagonal.png |   Bin 0 -> 101450 bytes
+ .../gameplay-rework/c01-2c/nexus-wasd-stop.png     |   Bin 0 -> 99311 bytes
+ .../gameplay-rework/c01-2c/nexus-wasd-walk.png     |   Bin 0 -> 90967 bytes
+ .../c01-2c/pause-capture-state.json                |     1 +
+ .../c01-2c/pause-screenshot-tool.json              |     1 +
+ .../gameplay-rework/c01-2c/recovery-baseline.json  |     1 +
+ .../gameplay-rework/c01-2c/recovery-hitch150.csv   |   192 +
+ .../gameplay-rework/c01-2c/recovery-hitch150.json  |     1 +
+ .../gameplay-rework/c01-2c/recovery-hitch500.csv   |    78 +
+ .../gameplay-rework/c01-2c/recovery-hitch500.json  |     1 +
+ .../c01-2c/recovery-normal-final.csv               |   395 +
+ .../gameplay-rework/c01-2c/recovery-normal.csv     |   415 +
+ .../gameplay-rework/c01-2c/regression-final.json   |     1 +
+ .../c01-2c/regression-final.request.json           |    37 +
+ .../c01-2c/regression-final.start.json             |     1 +
+ .../gameplay-rework/c01-2c/regression-group.json   |     1 +
+ .../c01-2c/results-capture-state.json              |     1 +
+ .../c01-2c/results-screenshot-tool.json            |     1 +
+ .../gameplay-rework/c01-2c/runtime-components.json |     1 +
+ .../gameplay-rework/c01-2c/safety-initial.json     |     1 +
+ .../c01-2c/skill-checker.stderr.txt                |    26 +
+ .../c01-2c/skill-checker.stdout.json               |     0
+ .../gameplay-rework/c01-2c/snapshot-after.json     |     1 +
+ .../gameplay-rework/c01-2c/snapshot-before.json    |     1 +
+ .../gameplay-rework/c01-2c/wall-comparison.json    |     1 +
+ ...harControlScript.DirectMovement.cs.baseline.txt |   164 +
+ .../c01-3a/CharControlScript.cs.baseline.txt       |  1216 +
+ .../c01-3a/asura-compile-error.json                |     1 +
+ .../c01-3a/baseline-regression.json                |     1 +
+ .../c01-3a/baseline-regression.request.json        |    37 +
+ .../c01-3a/baseline-regression.start.json          |     1 +
+ .../c01-3a/click-device-isolation.json             |    74 +
+ .../c01-3a/click-initial-native.json               |   185 +
+ .../gameplay-rework/c01-3a/click-initial.json      |     0
+ .../gameplay-rework/c01-3a/click-second.json       |   209 +
+ .../c01-3a/combat-regression-final.json            |     1 +
+ .../c01-3a/combat-regression-final.request.json    |    37 +
+ .../c01-3a/combat-regression-final.start.json      |     1 +
+ .../gameplay-rework/c01-3a/combo-observation.json  |     1 +
+ .../c01-3a/compile-initial-error.json              |     1 +
+ .../c01-3a/console-final-warnings.json             |     1 +
+ .../gameplay-rework/c01-3a/console-initial.json    |     1 +
+ .../c01-3a/console-runtime-errors.json             |     1 +
+ .../gameplay-rework/c01-3a/contexts-final.json     |     1 +
+ .../c01-3a/contexts-final.request.json             |    14 +
+ .../c01-3a/contexts-final.start.json               |     1 +
+ .../gameplay-rework/c01-3a/dash-final.json         |     1 +
+ .../gameplay-rework/c01-3a/dash-final.request.json |     8 +
+ .../gameplay-rework/c01-3a/dash-final.start.json   |     1 +
+ .../gameplay-rework/c01-3a/diff-check.txt          |     0
+ .../c01-3a/documentation-links.json                |     1 +
+ .../gameplay-rework/c01-3a/edit-final.json         |     1 +
+ .../gameplay-rework/c01-3a/edit-final.request.json |     8 +
+ .../gameplay-rework/c01-3a/edit-final.start.json   |     1 +
+ .../c01-3a/editor-after-new-tests.json             |     1 +
+ .../gameplay-rework/c01-3a/editor-final.json       |     1 +
+ .../gameplay-rework/c01-3a/editor-initial.json     |     1 +
+ .../gameplay-rework/c01-3a/git-baseline.txt        |     3 +
+ .../c01-3a/git-status-final-before-commit.txt      |   923 +
+ .../gameplay-rework/c01-3a/git-status-inicial.txt  |   917 +
+ .../gameplay-rework/c01-3a/guids-c01-3a.json       |    12 +
+ .../gameplay-rework/c01-3a/instances-initial.json  |     1 +
+ .../c01-3a/integration-movement.json               |     1 +
+ .../gameplay-rework/c01-3a/integridade-final.json  |    13 +
+ .../c01-3a/integridade-inicial.json                |  7182 +++
+ .../gameplay-rework/c01-3a/mcp-tools-renewed.json  |     1 +
+ .../gameplay-rework/c01-3a/mcp-tools.json          |     1 +
+ .../c01-3a/movement-regression-final.json          |     1 +
+ .../c01-3a/movement-regression-final.request.json  |    30 +
+ .../c01-3a/movement-regression-final.start.json    |     1 +
+ .../gameplay-rework/c01-3a/new-15-pass.json        |     1 +
+ .../gameplay-rework/c01-3a/new-19-final.json       |     1 +
+ .../c01-3a/new-19-final.request.json               |    26 +
+ .../gameplay-rework/c01-3a/new-19-final.start.json |     1 +
+ .../gameplay-rework/c01-3a/new-final.json          |     1 +
+ .../gameplay-rework/c01-3a/new-final.request.json  |    26 +
+ .../gameplay-rework/c01-3a/new-final.start.json    |     1 +
+ .../c01-3a/new-iteration.request.json              |    22 +
+ .../c01-3a/new-iteration.start.json                |     1 +
+ .../c01-3a/new-with-asura.request.json             |    22 +
+ .../c01-3a/new-with-asura.start.json               |     1 +
+ .../gameplay-rework/c01-3a/nexus-asura-rmb.png     |   Bin 0 -> 78074 bytes
+ .../gameplay-rework/c01-3a/nexus-basic-1.png       |   Bin 0 -> 76876 bytes
+ .../gameplay-rework/c01-3a/nexus-basic-2.png       |   Bin 0 -> 77596 bytes
+ .../gameplay-rework/c01-3a/nexus-basic-3.png       |   Bin 0 -> 76763 bytes
+ .../c01-3a/nexus-driver-result.json                |     1 +
+ .../gameplay-rework/c01-3a/nexus-input.csv         |  1373 +
+ .../gameplay-rework/c01-3a/nexus-measurements.json |    19 +
+ .../gameplay-rework/c01-3a/nexus-proveniencia.json |     1 +
+ .../gameplay-rework/c01-3a/recovery-normal.csv     |   506 +
+ .../gameplay-rework/c01-3a/runtime-info.json       |     1 +
+ .../c01-3a/skill-checker.stderr.txt                |    26 +
+ .../c01-3a/skill-checker.stdout.json               |     0
+ .../gameplay-rework/c01-3a/snapshot-after.json     |     1 +
+ .../gameplay-rework/c01-3a/snapshot-before.json    |     1 +
+ .../gameplay-rework/c01-3a/test-summary.json       |    77 +
+ .../gameplay-rework/c01-3a/wall-comparison.json    |     1 +
+ .../20261026T220046042-caf13bee-manifest.json      |  2758 +
+ .../20261026T220118194-1514b312-manifest.json      |  2146 +
+ .../20261026T220320789-7ecce255-manifest.json      |  2299 +
+ .../20261026T220437791-c65a550e-manifest.json      |   814 +
+ .../20261026T220632531-840f6b20-manifest.json      |   166 +
+ .../20261026T220710899-cb654ca9-manifest.json      |   130 +
+ .../c01-baseline/asura-input-virtual.jsonl         |   442 +
+ .../c01-baseline/autorizacao-recebida.txt          |   286 +
+ .../c01-baseline/capturas-inspecionadas.json       |    66 +
+ .../c01-baseline/capturas-selecionadas.json        |    44 +
+ .../c01-baseline/capturas/asura-em-uso.png         |   Bin 0 -> 180256 bytes
+ .../c01-baseline/capturas/asura-impacto.png        |   Bin 0 -> 182037 bytes
+ .../c01-baseline/capturas/controles-legados.png    |   Bin 0 -> 94823 bytes
+ .../c01-baseline/capturas/interacao-e.png          |   Bin 0 -> 119189 bytes
+ .../c01-baseline/capturas/nexus-legado.png         |   Bin 0 -> 109141 bytes
+ .../c01-baseline/capturas/resultados-modal.png     |   Bin 0 -> 181503 bytes
+ .../c01-baseline/capturas/treino-base.png          |   Bin 0 -> 177470 bytes
+ .../c01-baseline/capturas/treino-energia.png       |   Bin 0 -> 182571 bytes
+ .../c01-baseline/console-erros-final.json          |     5 +
+ .../c01-baseline/controles-apenas-leitura.json     |    12 +
+ .../c01-baseline/disco-inicial.json                |    18 +
+ .../c01-baseline/editor-preferencias-finais.json   |    32 +
+ .../c01-baseline/editor-preferencias-iniciais.json |    33 +
+ .../c01-baseline/estado-final-verificado.json      |    33 +
+ .../exclusoes-comparacao-historica.json            |     6 +
+ .../c01-baseline/git-status-inicial.txt            |   903 +
+ .../c01-baseline/integridade-inicial.json          |  7114 +++
+ .../c01-baseline/integridade-pos-baseline.json     |     6 +
+ .../gameplay-rework/c01-baseline/kit-efetivo.json  |    50 +
+ .../c01-baseline/manifesto-arquivos.json           |   215 +
+ .../c01-baseline/mcp-editor-final.json             |     1 +
+ .../c01-baseline/metricas-asura.json               |    21 +
+ .../c01-baseline/metricas-navegacao-api.json       |    55 +
+ .../c01-baseline/metricas-nexus.json               |   194 +
+ .../c01-baseline/metricas-treino.json              |    46 +
+ .../c01-baseline/modal-resultados-probe.json       |    14 +
+ .../c01-baseline/navegacao-api.jsonl               |   668 +
+ .../c01-baseline/nexus-driver-status-02.json       |     1 +
+ .../c01-baseline/nexus-driver-status.json          |     1 +
+ .../c01-baseline/nexus-input-virtual-02.jsonl      |  1459 +
+ .../c01-baseline/nexus-input-virtual.jsonl         |  1810 +
+ .../c01-baseline/observacoes-index.json            |    62 +
+ .../c01-baseline/paths-preparacao.json             |    30 +
+ .../c01-baseline/preparacao-treino-api.json        |     8 +
+ .../gameplay-rework/c01-baseline/qa-final.json     |    16 +
+ .../c01-baseline/testes-bow-spear-4.json           |    83 +
+ .../c01-baseline/testes-editmode-15.json           |   182 +
+ .../c01-baseline/testes-playmode-21.json           |   236 +
+ .../c01-baseline/treino-input-virtual.jsonl        |  1456 +
+ .../c01-baseline/velocidade-planar.json            |    14 +
+ .../artifacts/gameplay-rework/gpr00/baseline.json  |     6 +
+ .../gameplay-rework/gpr00/campos-movimento.json    |    32 +
+ .../gameplay-rework/gpr00/console-final.json       |   155 +
+ .../gameplay-rework/gpr00/editmode-asura.json      |   191 +
+ .../gameplay-rework/gpr00/editor-inicial.json      |    33 +
+ .../gameplay-rework/gpr00/git-status-inicial.txt   |   902 +
+ .../gameplay-rework/gpr00/integridade-final.json   |     7 +
+ .../gameplay-rework/gpr00/integridade-inicial.json |  6390 ++
+ .../gameplay-rework/gpr00/playmode-basicos.json    |    92 +
+ .../gameplay-rework/gpr00/preferencias-finais.json |    41 +
+ .../gpr00/preferencias-iniciais.json               |    28 +
+ .../gameplay-rework/gpr00/qa-documental.json       |    23 +
+ MANIFEST.json                                      |    49 +
+ Packages/manifest.json                             |     3 +-
+ Packages/packages-lock.json                        |    12 +-
+ ProjectSettings/EditorBuildSettings.asset          |     3 +
+ README.md                                          |   264 +-
+ .../Animator Controller Character.controller       |   678 +
+ .../Backups/UnityBeforeTG/CombatStudy.unity        | 17041 +++++
+ .../Backups/UnityBeforeTG/FirstSector.unity        | 62724 ++++++++++++++++++
+ .../TechGuy/Backups/UnityBeforeTG/NexusLobby.unity | 55666 ++++++++++++++++
+ .../TechGuy/Backups/UnityBeforeTG/Playground.unity | 10844 ++++
+ .../UnityBeforeTG/ProceduralStageAuthoring.unity   |  1369 +
+ .../Backups/UnityBeforeTG/PrologueTutorial.unity   | 13022 ++++
+ .../TechGuy/Backups/UnityBeforeTG/manifest.json    |    37 +
+ SourceArt/Characters/TechGuy/HANDOFF.md            |   211 +
+ SourceArt/Characters/TechGuy/HumanBaseMale.blend   |     3 +
+ .../BuildIllustratedMaterials.cs.txt               |    22 +
+ .../TechGuy/IntegrationTools/ImportHumanoid.cs.txt |    50 +
+ .../IntegrationTools/ImportHumanoidStatic.cs.txt   |    24 +
+ .../IntegrationTools/ReplacePlayerVisuals.cs.txt   |    90 +
+ .../Characters/TechGuy/QPreviewFrames/Q_001.png    |   Bin 0 -> 535249 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_002.png    |   Bin 0 -> 536146 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_003.png    |   Bin 0 -> 537114 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_004.png    |   Bin 0 -> 537657 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_005.png    |   Bin 0 -> 538687 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_006.png    |   Bin 0 -> 537909 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_007.png    |   Bin 0 -> 535419 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_008.png    |   Bin 0 -> 534445 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_009.png    |   Bin 0 -> 533535 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_010.png    |   Bin 0 -> 531195 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_011.png    |   Bin 0 -> 530097 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_012.png    |   Bin 0 -> 530276 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_013.png    |   Bin 0 -> 530928 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_014.png    |   Bin 0 -> 530988 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_015.png    |   Bin 0 -> 530321 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_016.png    |   Bin 0 -> 529649 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_017.png    |   Bin 0 -> 527595 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_018.png    |   Bin 0 -> 525453 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_019.png    |   Bin 0 -> 524915 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_020.png    |   Bin 0 -> 524611 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_021.png    |   Bin 0 -> 523914 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_022.png    |   Bin 0 -> 523585 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_023.png    |   Bin 0 -> 523079 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_024.png    |   Bin 0 -> 523567 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_025.png    |   Bin 0 -> 524037 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_026.png    |   Bin 0 -> 524612 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_027.png    |   Bin 0 -> 525115 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_028.png    |   Bin 0 -> 525791 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_029.png    |   Bin 0 -> 526875 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_030.png    |   Bin 0 -> 527586 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_031.png    |   Bin 0 -> 527651 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_032.png    |   Bin 0 -> 527857 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_033.png    |   Bin 0 -> 527894 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_034.png    |   Bin 0 -> 528317 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_035.png    |   Bin 0 -> 528292 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_036.png    |   Bin 0 -> 528634 bytes
+ .../Characters/TechGuy/QPreviewFrames/Q_037.png    |   Bin 0 -> 528282 bytes
+ .../TechGuy/QPreviewFrames/Video_QA_227.png        |   Bin 0 -> 333256 bytes
+ .../TechGuy/QPreviewFrames/Video_QA_25.png         |   Bin 0 -> 259841 bytes
+ .../TechGuy/QPreviewFrames/Video_QA_35.png         |   Bin 0 -> 254445 bytes
+ .../TechGuy/QPreviewFrames/Video_QA_380.png        |   Bin 0 -> 343656 bytes
+ SourceArt/Characters/TechGuy/TG.blend              |     3 +
+ SourceArt/Characters/TechGuy/TG.blend1             |     3 +
+ .../TG_IntegrationBackup/BlenderValidation.json    |    55 +
+ .../TG_Rigged_beforeOutfit.fbx                     |   Bin 0 -> 11757532 bytes
+ .../TG_beforeHeadFootAdjustment.blend              |     3 +
+ .../TG_beforeOutfitIntegration_disk.blend          |     3 +
+ .../TG_beforeOutfitIntegration_live.blend          |     3 +
+ .../TG_beforeRepair_disk.blend                     |     3 +
+ .../TG_beforeRepair_live.blend                     |     3 +
+ .../TG_beforeTorsoArmCorrection_disk.blend         |     3 +
+ .../TG_beforeTorsoArmCorrection_live.blend         |     3 +
+ .../Characters/TechGuy/TG_Rig_RaisedPose.blend     |     3 +
+ SourceArt/Characters/TechGuy/TG_Rigged.blend       |     3 +
+ SourceArt/Characters/TechGuy/TG_Rigged.blend1      |     3 +
+ .../Characters/TechGuy/TechGuy_01_Silhouette.blend |     3 +
+ .../Characters/TechGuy/TechGuy_02_Details.blend    |     3 +
+ .../Characters/TechGuy/TechGuy_03_Preview.png      |   Bin 0 -> 913189 bytes
+ .../Characters/TechGuy/TechGuy_03_Refined.blend    |     3 +
+ .../Characters/TechGuy/TechGuy_03_Refined.blend1   |     3 +
+ .../Characters/TechGuy/TechGuy_04_ArtPass.blend    |     3 +
+ SourceArt/Characters/TechGuy/TechGuy_04_Face.png   |   Bin 0 -> 1050910 bytes
+ .../Characters/TechGuy/TechGuy_04_Preview.png      |   Bin 0 -> 1520566 bytes
+ .../TechGuy/TechGuy_05_JacketSneakers.blend        |     3 +
+ .../TechGuy/TechGuy_05_JacketSneakers.blend1       |     3 +
+ .../Characters/TechGuy/TechGuy_05_Preview.png      |   Bin 0 -> 1521775 bytes
+ .../Characters/TechGuy/TechGuy_05_Sneakers.png     |   Bin 0 -> 1166631 bytes
+ .../Characters/TechGuy/TechGuy_06_Gauntlet.png     |   Bin 0 -> 1235744 bytes
+ .../TechGuy/TechGuy_06_GauntletHands.blend         |     3 +
+ .../Characters/TechGuy/TechGuy_06_HumanHand.png    |   Bin 0 -> 1232544 bytes
+ .../Characters/TechGuy/TechGuy_06_Preview.png      |   Bin 0 -> 1525160 bytes
+ .../Characters/TechGuy/TechGuy_07_Handedness.blend |     3 +
+ .../Characters/TechGuy/TechGuy_07_LeftHand.png     |   Bin 0 -> 1226572 bytes
+ .../Characters/TechGuy/TechGuy_07_Preview.png      |   Bin 0 -> 1525173 bytes
+ .../TechGuy/TechGuy_07_RightGauntlet.png           |   Bin 0 -> 1236227 bytes
+ .../TechGuy/TechGuy_08_AthleticSilhouette.blend    |     3 +
+ SourceArt/Characters/TechGuy/TechGuy_08_Front.png  |   Bin 0 -> 1982687 bytes
+ .../Characters/TechGuy/TechGuy_08_Preview.png      |   Bin 0 -> 1515894 bytes
+ .../Characters/TechGuy/TechGuy_08_Profile.png      |   Bin 0 -> 1158555 bytes
+ SourceArt/Characters/TechGuy/TechGuy_09_Face.png   |   Bin 0 -> 2140630 bytes
+ .../Characters/TechGuy/TechGuy_09_HumanBase.blend  |     3 +
+ .../Characters/TechGuy/TechGuy_09_LeftHand.png     |   Bin 0 -> 1530480 bytes
+ .../Characters/TechGuy/TechGuy_09_Preview.png      |   Bin 0 -> 1525762 bytes
+ SourceArt/Characters/TechGuy/TechGuy_10_Back.png   |   Bin 0 -> 1522840 bytes
+ SourceArt/Characters/TechGuy/TechGuy_10_Feet.png   |   Bin 0 -> 1692343 bytes
+ .../TechGuy/TechGuy_10_FittedOutfit.blend          |     3 +
+ SourceArt/Characters/TechGuy/TechGuy_10_Front.png  |   Bin 0 -> 1595723 bytes
+ .../Characters/TechGuy/TechGuy_10_Gauntlet.png     |   Bin 0 -> 1605931 bytes
+ .../Characters/TechGuy/TechGuy_10_Preview.png      |   Bin 0 -> 1540350 bytes
+ SourceArt/Characters/TechGuy/TechGuy_11_Back.png   |   Bin 0 -> 1475323 bytes
+ .../Characters/TechGuy/TechGuy_11_BodyContour.png  |   Bin 0 -> 1606543 bytes
+ .../TechGuy/TechGuy_11_ClothSilhouette.blend       |     3 +
+ SourceArt/Characters/TechGuy/TechGuy_11_Front.png  |   Bin 0 -> 1548871 bytes
+ .../Characters/TechGuy/TechGuy_11_Preview.png      |   Bin 0 -> 1512233 bytes
+ .../Characters/TechGuy/TechGuy_11_Profile.png      |   Bin 0 -> 1369026 bytes
+ .../TechGuy/TechGuy_12_AccessoryRefinement.blend   |     3 +
+ SourceArt/Characters/TechGuy/TechGuy_12_Back.png   |   Bin 0 -> 1469663 bytes
+ SourceArt/Characters/TechGuy/TechGuy_12_Front.png  |   Bin 0 -> 1546761 bytes
+ .../Characters/TechGuy/TechGuy_12_Gauntlet.png     |   Bin 0 -> 1570308 bytes
+ .../TechGuy/TechGuy_12_GauntletDorsal.png          |   Bin 0 -> 1571114 bytes
+ SourceArt/Characters/TechGuy/TechGuy_12_Head.png   |   Bin 0 -> 1876023 bytes
+ .../Characters/TechGuy/TechGuy_12_HeadProfile.png  |   Bin 0 -> 1742399 bytes
+ .../TechGuy/TechGuy_12_HeadThreeQuarter.png        |   Bin 0 -> 1905871 bytes
+ .../Characters/TechGuy/TechGuy_12_Preview.png      |   Bin 0 -> 1509463 bytes
+ .../TechGuy/TechGuy_13_BeardHeadphones.blend       |     3 +
+ SourceArt/Characters/TechGuy/TechGuy_13_Face.png   |   Bin 0 -> 2077587 bytes
+ SourceArt/Characters/TechGuy/TechGuy_13_Head.png   |   Bin 0 -> 1866396 bytes
+ .../Characters/TechGuy/TechGuy_13_HeadProfile.png  |   Bin 0 -> 1758015 bytes
+ .../TechGuy/TechGuy_13_HeadThreeQuarter.png        |   Bin 0 -> 1905246 bytes
+ .../Characters/TechGuy/TechGuy_13_Preview.png      |   Bin 0 -> 1508717 bytes
+ SourceArt/Characters/TechGuy/TechGuy_14_Back.png   |   Bin 0 -> 1487145 bytes
+ SourceArt/Characters/TechGuy/TechGuy_14_Front.png  |   Bin 0 -> 1567632 bytes
+ SourceArt/Characters/TechGuy/TechGuy_14_Jacket.png |   Bin 0 -> 1963583 bytes
+ .../TechGuy/TechGuy_14_LooseJacket.blend           |     3 +
+ .../Characters/TechGuy/TechGuy_14_Preview.png      |   Bin 0 -> 1518586 bytes
+ .../Characters/TechGuy/TechGuy_14_Profile.png      |   Bin 0 -> 1382807 bytes
+ SourceArt/Characters/TechGuy/TechGuy_15_Back.png   |   Bin 0 -> 1495458 bytes
+ SourceArt/Characters/TechGuy/TechGuy_15_Front.png  |   Bin 0 -> 1564678 bytes
+ .../Characters/TechGuy/TechGuy_15_HoodBack.png     |   Bin 0 -> 1968154 bytes
+ SourceArt/Characters/TechGuy/TechGuy_15_Jacket.png |   Bin 0 -> 1959187 bytes
+ .../TechGuy/TechGuy_15_JacketDetails.blend         |     3 +
+ .../Characters/TechGuy/TechGuy_15_Pockets.png      |   Bin 0 -> 2382477 bytes
+ .../Characters/TechGuy/TechGuy_15_Preview.png      |   Bin 0 -> 1515303 bytes
+ .../Characters/TechGuy/TechGuy_15_Profile.png      |   Bin 0 -> 1383683 bytes
+ SourceArt/Characters/TechGuy/TechGuy_16_Back.png   |   Bin 0 -> 1472223 bytes
+ .../TechGuy/TechGuy_16_FootwearCargo.blend         |     3 +
+ SourceArt/Characters/TechGuy/TechGuy_16_Front.png  |   Bin 0 -> 1536059 bytes
+ .../Characters/TechGuy/TechGuy_16_Pockets.png      |   Bin 0 -> 1788697 bytes
+ .../Characters/TechGuy/TechGuy_16_Preview.png      |   Bin 0 -> 1522692 bytes
+ .../Characters/TechGuy/TechGuy_16_Sneakers.png     |   Bin 0 -> 1438522 bytes
+ .../TechGuy/TechGuy_16_SneakersProfile.png         |   Bin 0 -> 1673953 bytes
+ SourceArt/Characters/TechGuy/TechGuy_17_Badge.png  |   Bin 0 -> 2196464 bytes
+ .../Characters/TechGuy/TechGuy_17_BadgeProfile.png |   Bin 0 -> 2238076 bytes
+ .../Characters/TechGuy/TechGuy_17_BadgeWatch.blend |     3 +
+ SourceArt/Characters/TechGuy/TechGuy_17_Front.png  |   Bin 0 -> 1533411 bytes
+ .../Characters/TechGuy/TechGuy_17_Preview.png      |   Bin 0 -> 1521615 bytes
+ SourceArt/Characters/TechGuy/TechGuy_17_Watch.png  |   Bin 0 -> 1391420 bytes
+ .../Characters/TechGuy/TechGuy_17_WatchProfile.png |   Bin 0 -> 1832158 bytes
+ SourceArt/Characters/TechGuy/TechGuy_18_Front.png  |   Bin 0 -> 1532724 bytes
+ SourceArt/Characters/TechGuy/TechGuy_18_Hand.png   |   Bin 0 -> 1433276 bytes
+ .../TechGuy/TechGuy_18_HandStudyBack.png           |   Bin 0 -> 1198701 bytes
+ .../TechGuy/TechGuy_18_HandStudyDorsal.png         |   Bin 0 -> 1163801 bytes
+ .../TechGuy/TechGuy_18_HandStudyFront.png          |   Bin 0 -> 1168885 bytes
+ .../Characters/TechGuy/TechGuy_18_Preview.png      |   Bin 0 -> 1520436 bytes
+ SourceArt/Characters/TechGuy/TechGuy_18_Watch.png  |   Bin 0 -> 1496323 bytes
+ .../Characters/TechGuy/TechGuy_18_WatchPalm.png    |   Bin 0 -> 1320490 bytes
+ .../TechGuy/TechGuy_18_WatchPlacement.blend        |     3 +
+ .../Characters/TechGuy/TechGuy_18_WatchProfile.png |   Bin 0 -> 1738653 bytes
+ .../Characters/TechGuy/TechGuy_19_HandPose.png     |   Bin 0 -> 1042393 bytes
+ .../Characters/TechGuy/TechGuy_19_HandRest.png     |   Bin 0 -> 884826 bytes
+ .../Characters/TechGuy/TechGuy_19_QAnimation.blend |     3 +
+ .../TechGuy/TechGuy_19_QAnimation.blend1           |     3 +
+ .../Characters/TechGuy/TechGuy_19_Q_Guard.png      |   Bin 0 -> 666432 bytes
+ .../TechGuy/TechGuy_19_Q_LeftContact.png           |   Bin 0 -> 672398 bytes
+ .../TechGuy/TechGuy_19_Q_LeftProfile.png           |   Bin 0 -> 580150 bytes
+ .../Characters/TechGuy/TechGuy_19_Q_Preview.mp4    |   Bin 0 -> 1499180 bytes
+ .../TechGuy/TechGuy_19_Q_RightContact.png          |   Bin 0 -> 654326 bytes
+ .../TechGuy/TechGuy_19_Q_RightProfile.png          |   Bin 0 -> 577152 bytes
+ .../Characters/TechGuy/TechGuy_19_Q_Travel_1.png   |   Bin 0 -> 535249 bytes
+ .../Characters/TechGuy/TechGuy_19_Q_Travel_11.png  |   Bin 0 -> 530097 bytes
+ .../Characters/TechGuy/TechGuy_19_Q_Travel_23.png  |   Bin 0 -> 523079 bytes
+ .../Characters/TechGuy/TechGuy_19_Q_Travel_37.png  |   Bin 0 -> 528282 bytes
+ .../UnityValidation/ConsoleAndEditor-final.json    |    28 +
+ .../TechGuy/UnityValidation/EditMode-final.json    |   138 +
+ .../TechGuy/UnityValidation/PlayMode-final.json    |    66 +
+ .../TechGuy/UnityValidation/Runtime-final.json     |    43 +
+ .../UnityValidation/TG_Attack_Final_Front.png      |   Bin 0 -> 327447 bytes
+ .../UnityValidation/TG_Attack_Final_Front_1.png    |   Bin 0 -> 308014 bytes
+ .../UnityValidation/TG_Attack_Final_Side.png       |   Bin 0 -> 391748 bytes
+ .../UnityValidation/TG_Attack_Final_Side_1.png     |   Bin 0 -> 361036 bytes
+ .../UnityValidation/TG_Bind_Final_Front.png        |   Bin 0 -> 299282 bytes
+ .../TechGuy/UnityValidation/TG_Bind_Final_Side.png |   Bin 0 -> 343326 bytes
+ .../UnityValidation/TG_Blender_Corrected.png       |   Bin 0 -> 205832 bytes
+ .../TechGuy/UnityValidation/TG_Idle_Front.png      |   Bin 0 -> 232712 bytes
+ .../UnityValidation/TG_TorsoArms_Static_Top.png    |   Bin 0 -> 203582 bytes
+ .../UnityValidation/TG_TorsoArms_Static_Top_1.png  |   Bin 0 -> 213808 bytes
+ .../UnityValidation/TG_Walk_Final_Front.png        |   Bin 0 -> 319910 bytes
+ .../TechGuy/UnityValidation/TG_Walk_Final_Side.png |   Bin 0 -> 400476 bytes
+ .../UnityValidation/TorsoArms-static-before.json   |    49 +
+ Tech-Guy.slnx                                      |     6 +-
+ Tools/BoonValidation/summarize_boon_route.py       |   167 +
+ Tools/GameplayObservation/.gitignore               |     1 +
+ Tools/GameplayObservation/c01_2a_analyze.py        |    55 +
+ Tools/GameplayObservation/c01_2b_audit.py          |    29 +
+ Tools/GameplayObservation/c01_2b_enable.cs.txt     |    41 +
+ Tools/GameplayObservation/c01_2b_mcp.py            |    60 +
+ .../GameplayObservation/c01_2b_nexus_driver.cs.txt |    54 +
+ Tools/GameplayObservation/c01_2c_audit.py          |    29 +
+ Tools/GameplayObservation/c01_2c_measurements.py   |     9 +
+ .../GameplayObservation/c01_2c_nexus_driver.cs.txt |    56 +
+ Tools/GameplayObservation/c01_2c_validation.py     |    28 +
+ Tools/GameplayObservation/c01_3a_audit.py          |    29 +
+ Tools/GameplayObservation/c01_3a_measurements.py   |     5 +
+ .../GameplayObservation/c01_3a_nexus_driver.cs.txt |    55 +
+ .../GameplayObservation/c01_asura_baseline.cs.txt  |    47 +
+ .../GameplayObservation/c01_baseline_driver.cs.txt |   101 +
+ .../c01_navigation_measure.cs.txt                  |    13 +
+ .../c01_training_baseline.cs.txt                   |    47 +
+ Tools/GameplayObservation/compare_captures.py      |   410 +
+ Tools/GameplayObservation/gi15-human-current.json  |    17 +
+ Tools/GameplayObservation/gi19-human-current.json  |    17 +
+ Tools/GameplayObservation/observe_gameplay.py      |   235 +
+ Tools/GameplayObservation/scenarios.json           |   153 +
+ Tools/GameplayObservation/test_compare_captures.py |   284 +
+ Tools/GameplayObservation/test_observe_gameplay.py |   198 +
+ Tools/UX/NexusDirection/create-blockout-review.cjs |    33 +
+ Tools/UX/NexusDirection/create-proposal.cjs        |    72 +
+ .../create-spatial-revision-review.cjs             |    35 +
+ Tools/UX/RunResultsPrototype/app.js                |   140 +
+ Tools/UX/RunResultsPrototype/data.js               |  1334 +
+ Tools/UX/RunResultsPrototype/index.html            |    47 +
+ Tools/UX/RunResultsPrototype/style.css             |     9 +
+ Tools/UX/RunResultsPrototype/verify.cjs            |    78 +
+ UnityValidation/TG_Outfit_Unity_Attack-1.png       |   Bin 0 -> 39889 bytes
+ UnityValidation/TG_Outfit_Unity_Attack2-1.png      |   Bin 0 -> 38780 bytes
+ UnityValidation/TG_Outfit_Unity_Front.png          |   Bin 0 -> 97693 bytes
+ UnityValidation/TG_Outfit_Unity_Idle.png           |   Bin 0 -> 80572 bytes
+ UnityValidation/TG_Outfit_Unity_Walk-1.png         |   Bin 0 -> 44629 bytes
+ 1534 files changed, 301271 insertions(+), 127050 deletions(-)

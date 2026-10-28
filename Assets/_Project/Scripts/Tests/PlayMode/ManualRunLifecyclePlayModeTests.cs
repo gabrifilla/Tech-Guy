@@ -60,6 +60,7 @@ namespace TechGuy.Tests
                 yield return null; yield return null; yield return null;
                 Assert.AreEqual(RunOutcome.Extracted,route.Session.Outcome); Assert.AreEqual(RunPhase.Ended,route.Session.Phase);
                 Assert.AreEqual(3,loader.Calls); Assert.IsNull(fixture.director.ManualExtractionPortal);
+                Assert.AreEqual(route.Session.Id.ToString(),RunResultsHandoff.Consume(),"Retry retains the expected presentation identity.");
                 Assert.IsEmpty(_player.GetComponent<RunBoons>().Acquired);
             }
             finally { PlayerPrefs.SetInt(WeaponLoadout.PreferenceKey,old); UnityEngine.Object.DestroyImmediate(fixture.definition); }

@@ -106,8 +106,9 @@ public sealed class EnemyProjectile : MonoBehaviour
     /// <param name="path">Straight (line) or Arced (lob to a ground point).</param>
     /// <param name="color">Tint for the runtime material and, for the arced path, the impact telegraph.</param>
     /// <param name="groundImpactRadius">Impact-area radius for the arced path; ignored on the straight path.</param>
+    /// <param name="lockDirection">For a committed straight shot, preserve the supplied spawn facing. Default callers retain target-based setup.</param>
     public void Configure(Actor owner, Actor target, float damage, float speed, float range,
-        float radius, PathKind path, Color color, float groundImpactRadius = 1f)
+        float radius, PathKind path, Color color, float groundImpactRadius = 1f, bool lockDirection = false)
     {
         _owner = owner;
         _target = target;
@@ -130,15 +131,15 @@ public sealed class EnemyProjectile : MonoBehaviour
         BuildVisual();
         SubscribeOwner();
 
-        if (path == PathKind.Straight) SetupStraight();
+        if (path == PathKind.Straight) SetupStraight(lockDirection);
         else SetupArced();
 
         _configured = true;
     }
 
-    private void SetupStraight()
+    private void SetupStraight(bool lockDirection)
     {
-        Vector3 forward = _target ? _target.transform.position - transform.position : transform.forward;
+        Vector3 forward = !lockDirection && _target ? _target.transform.position - transform.position : transform.forward;
         forward.y = 0f;
         _direction = forward.sqrMagnitude > 0.0001f ? forward.normalized : transform.forward;
     }
@@ -362,7 +363,7 @@ public sealed class EnemyProjectile : MonoBehaviour
     /// </summary>
     public static EnemyProjectile Spawn(Vector3 origin, Vector3 direction, Actor owner, Actor target,
         float damage, float speed, float range, float radius, PathKind path, Color color,
-        float groundImpactRadius = 1f)
+        float groundImpactRadius = 1f, bool lockDirection = false)
     {
         // Acquire a (reused or freshly created) instance from the pool instead of allocating a new
         // GameObject per shot (R3.2/R3.7). The acquire activates the instance; we then place it and
@@ -375,7 +376,7 @@ public sealed class EnemyProjectile : MonoBehaviour
         if (direction.sqrMagnitude > 0.0001f)
             t.rotation = Quaternion.LookRotation(direction.normalized);
 
-        projectile.Configure(owner, target, damage, speed, range, radius, path, color, groundImpactRadius);
+        projectile.Configure(owner, target, damage, speed, range, radius, path, color, groundImpactRadius, lockDirection);
         return projectile;
     }
 }

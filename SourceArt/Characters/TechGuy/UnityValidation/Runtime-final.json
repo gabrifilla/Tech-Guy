@@ -1,0 +1,43 @@
+{
+  "walk": {
+    "play": true,
+    "position": [
+      -3,
+      0.06499994,
+      -5.141598
+    ],
+    "velocity": [
+      0,
+      0,
+      1.24996114
+    ],
+    "moving": true,
+    "state": "Walk",
+    "normalizedTime": 4.028789,
+    "leftToeYaw": -174.451569,
+    "rightToeYaw": -0.91941
+  },
+  "attack": {
+    "accepted": true,
+    "state": "Attack",
+    "normalizedTime": 0.280000031,
+    "poseSampledDelta": 0.28,
+    "position": [
+      -3,
+      0.06499994,
+      -8.5
+    ]
+  },
+  "finalState": {
+    "scene": "Assets/_Project/Scenes/NexusLobby.unity",
+    "dirty": false,
+    "play": false,
+    "timeScale": 1,
+    "extraOnHitEffects": false,
+    "sharedColliderMaterialNull": true,
+    "avatarValid": true,
+    "avatarHuman": true,
+    "hand": "RightHand"
+  },
+  "captureNotes": "Walking used actual NavMesh displacement and gameplay Walk state. Basic attack used the gameplay directional action; its Animator pose was sampled at normalized time .28 for front/side inspection. Native gauntlet source offset reproduced identically on old and new rigs, around 1.0541m from hand to geometry center."
+}

@@ -57,14 +57,14 @@ public sealed class ManualRoutePolicy
     }
 
     // Called only after the contextual reward applicator has committed a real effect.
-    public bool TryCompleteReward(Guid sessionId, int nodeId, int ordinal, bool acquiredMutation, RunActionContext context)
+    public bool TryCompleteReward(Guid sessionId, int nodeId, int ordinal, bool acquiredMutation, RunActionContext context, bool? acquiredProtocol = null)
     {
         if (!Authorize(sessionId, RunPhase.RewardPending, context) || Session.CurrentNode != nodeId || Session.RewardOrdinal != ordinal) return false;
         var node = Session.Route.Node(nodeId);
         var kind = node.RewardAt(ordinal);
         if (kind == RunRewardKind.None || acquiredMutation && kind != RunRewardKind.Mutation) return false;
         if (kind == RunRewardKind.Mutation && !acquiredMutation && Session.MutationAcquisitions == 0) return false;
-        if (kind == RunRewardKind.Protocol) Session.ProtocolAcquisitions++;
+        if (acquiredProtocol ?? kind == RunRewardKind.Protocol) Session.ProtocolAcquisitions++;
         if (acquiredMutation) Session.MutationAcquisitions++;
         Session.InventoryRevision++; Session.RewardOrdinal++;
         if (Session.RewardOrdinal == node.TotalAcquisitions) CompleteCurrentNode();

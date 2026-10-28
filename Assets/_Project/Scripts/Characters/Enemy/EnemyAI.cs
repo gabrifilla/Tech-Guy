@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
         [Range(0.1f, 0.9f)] public float RetreatSpeedMultiplier; // default 0.5 (R1.3)
         [Range(0f, 1f)]     public float StandoffFraction;       // default 0.45 (R2.1)
         [Range(1f, 2f)]     public float StandoffMargin;         // default 1.15 (R2.2)
-        [Range(0.5f, 30f)]  public float RetreatWindow;          // default 3   (R3.1/R3.5)
+        [Range(0.5f, 30f)]  public float RetreatWindow;          // default 1   (fluidity revision 2026-10-11)
         [Range(0.1f, 30f)]  public float RetreatCooldown;        // default 2   (R3.2/R3.5)
     }
 
@@ -50,6 +50,7 @@ public class EnemyAI : MonoBehaviour
     // missing case is logged once per enemy (mirroring PreferredDistanceLayer's missing-config log).
     private const string MovementBlendParameter = "Speed";
     private bool _hasMovementBlendParameter;
+    private bool _walkingAnimation;
 
     [Header("References")]
     public NavMeshAgent agent;
@@ -84,6 +85,18 @@ public class EnemyAI : MonoBehaviour
     private CombatReactionController _reaction;
     private Actor _owner;
     private EnemyVariant _variant;
+    private PreferredDistanceLayer _preferredDistance;
+    private NavMeshPath _positioningPath;
+    private Bounds _encounterBounds;
+    private bool _hasEncounterBounds;
+    private bool _retreating;
+    private bool _rotationBeforeRetreat;
+    private float _speedBeforeRetreat;
+    private Vector3 _retreatOrigin;
+    private Vector3 _retreatDestination;
+    [SerializeField, Min(.1f)] private float _retreatMaxDistance = 3f;
+    public bool IsRetreating => _retreating;
+    public KiteController.Phase RetreatPhase => _kite.Current;
 
     // Per-enemy runtime state for the kiting / natural-behavior layers (design: "Per-enemy runtime
     // state"). These are plain, scene-free C# state objects driven each frame by the integration tasks
@@ -109,7 +122,15 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private SwarmAttackCoordinator _attackCoordinator;
     private bool _holdsAttackSlot;
     public bool IsWindingUp => _combatActions && _combatActions.IsWindingUp;
+    internal bool HasAttackPresentation => _attackRoutine != null || (alreadyAttacked && Time.time < nextAttackTime);
     public EnemyAttackTraits AttackTraits => _attackTraits;
+
+    // GI1.7 is limited to the baseline Grunt. Keep every other archetype/rank's positioning
+    // policy intact, and derive the approach limit from the unchanged attack eligibility.
+    internal float PositioningAttackRange => _variant && _variant.ArchetypeId == ArchetypeId.Grunt &&
+        _reaction && _reaction.Rank == EnemyRank.Normal && _reaction.Category == ReactionCategory.SmallMob
+            ? Mathf.Min(attackRange, 1.45f * Mathf.Clamp(transform.lossyScale.y, .5f, 2f) + .35f)
+            : float.PositiveInfinity;
 
     // Ranged standoff (R7.3): the Shooter kites to keep the player outside a minimum standoff distance.
     // The distance is derived from the archetype's engagement band (a fraction of it) so no extra
@@ -121,7 +142,7 @@ public class EnemyAI : MonoBehaviour
         RetreatSpeedMultiplier = 0.5f,
         StandoffFraction = 0.45f,
         StandoffMargin = 1.15f,
-        RetreatWindow = 3f,
+        RetreatWindow = 1f,
         RetreatCooldown = 2f,
     };
 
@@ -154,6 +175,8 @@ public class EnemyAI : MonoBehaviour
 
     private void Awake()
     {
+        _positioningPath = new NavMeshPath();
+        ClampKitingConfiguration();
         if (agent == null)
         {
             agent = GetComponent<NavMeshAgent>();
@@ -178,6 +201,7 @@ public class EnemyAI : MonoBehaviour
         _owner = GetComponent<Actor>();
         _reaction = GetComponent<CombatReactionController>();
         _variant = GetComponent<EnemyVariant>();
+        _preferredDistance = GetComponent<PreferredDistanceLayer>();
         _combatActions = GetComponent<EnemyCombatActions>() ?? gameObject.AddComponent<EnemyCombatActions>();
         if (_attackCoordinator == null)
         {
@@ -233,13 +257,22 @@ public class EnemyAI : MonoBehaviour
     /// defensively re-clamp (R16.6), so out-of-range serialized data can never produce out-of-range
     /// behavior; this keeps the Inspector honest as well.
     /// </summary>
+    private void ClampKitingConfiguration()
+    {
+        _kiting.RetreatSpeedMultiplier = ClampFinite(_kiting.RetreatSpeedMultiplier, 0.1f, 0.9f, 0.5f);
+        _kiting.StandoffFraction = ClampFinite(_kiting.StandoffFraction, 0f, 1f, 0.45f);
+        _kiting.StandoffMargin = ClampFinite(_kiting.StandoffMargin, 1f, 2f, 1.15f);
+        _kiting.RetreatWindow = ClampFinite(_kiting.RetreatWindow, 0.5f, 30f, 1f);
+        _kiting.RetreatCooldown = ClampFinite(_kiting.RetreatCooldown, 0.1f, 30f, 2f);
+
+        _retreatMaxDistance = float.IsNaN(_retreatMaxDistance) || float.IsInfinity(_retreatMaxDistance)
+            ? 3f : Mathf.Max(.1f, _retreatMaxDistance);
+
+    }
+
     private void OnValidate()
     {
-        _kiting.RetreatSpeedMultiplier = Mathf.Clamp(_kiting.RetreatSpeedMultiplier, 0.1f, 0.9f);
-        _kiting.StandoffFraction = Mathf.Clamp01(_kiting.StandoffFraction);
-        _kiting.StandoffMargin = Mathf.Clamp(_kiting.StandoffMargin, 1f, 2f);
-        _kiting.RetreatWindow = Mathf.Clamp(_kiting.RetreatWindow, 0.5f, 30f);
-        _kiting.RetreatCooldown = Mathf.Clamp(_kiting.RetreatCooldown, 0.1f, 30f);
+        ClampKitingConfiguration();
 
         _natural.AngularSpeed = Mathf.Clamp(_natural.AngularSpeed, 90f, 1440f);
         _natural.ReactionDelay = Mathf.Clamp(_natural.ReactionDelay, 0f, 2f);
@@ -254,16 +287,21 @@ public class EnemyAI : MonoBehaviour
     private void Update()
     {
         if (Time.timeScale <= 0f) return;
+        // Cooldown uses scaled gameplay time even during an attack/recovery or a control lock.
+        // TryMaintainStandoff supplies zero delta while cooling down so the clock ticks once per frame.
+        if (_kite.Current == KiteController.Phase.Cooldown)
+            _kite.Tick(false, Time.deltaTime, _kiting.RetreatWindow, _kiting.RetreatCooldown);
         if (agent == null || !agent.enabled || !agent.isOnNavMesh || player == null || (_owner && _owner.IsDead))
         {
             if (_reaction) _reaction.EvaluateResumeEligibility(false);
+            EndRetreat();
             CancelAttack();
             SetMovementAnimation();
             return;
         }
 
         if (agent.isStopped && _reaction && !_reaction.IsControlLocked) _reaction.EvaluateResumeEligibility(false);
-        if (agent.isStopped || (_reaction && _reaction.IsControlLocked) || ProtocolElementQuery.IsFrozen(_owner)) { CancelAttack(); return; }
+        if (agent.isStopped || (_reaction && _reaction.IsControlLocked) || ProtocolElementQuery.IsFrozen(_owner)) { EndRetreat(); CancelAttack(); return; }
         if (_attackRoutine != null) return;
 
         UpdatePerception();
@@ -289,6 +327,7 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
+                EndRetreat();
                 ChasePlayer();
             }
         }
@@ -296,6 +335,7 @@ public class EnemyAI : MonoBehaviour
         {
             // Not yet reacted (still inside the reaction delay) or player not in sight: hold the
             // pre-detection behavior — patrol/idle — until the gate opens (R11.1/R11.3).
+            EndRetreat();
             Patrol();
         }
 
@@ -517,6 +557,7 @@ public class EnemyAI : MonoBehaviour
     /// </summary>
     private void ChasePlayer()
     {
+        if (TryPreferredPositioning(allowRetreat: !IsStandoffKiter(ResolveArchetypeId()))) return;
         Vector3 offset = _approach.Tick(Time.deltaTime, _natural.ApproachOffset, _natural.ApproachRefresh, _rng);
         Vector3 desired = player.position + offset;
 
@@ -540,103 +581,149 @@ public class EnemyAI : MonoBehaviour
         // to the attack path, so their behavior is unchanged.
         if (TryMaintainStandoff()) return;
 
-        agent.ResetPath();
         FacePlayer();
-
-        // Facing-gated attack initiation (R10.4): with gradual turning the enemy may not yet be oriented
-        // at the player on the frame it would otherwise swing. Hold (keep turning via FacePlayer above)
-        // until the forward is within the facing epsilon, then initiate exactly as the instant snap did.
+        if (Time.time < nextAttackTime)
+        {
+            if (!TryPreferredPositioning(allowRetreat: !IsStandoffKiter(ResolveArchetypeId()))) agent.ResetPath();
+            return;
+        }
+        agent.ResetPath();
+        // Attack facing and the offensive cadence remain unchanged; positioning waiting is now
+        // authorized before stopping, so a held approach is not reset and reissued every frame.
         if (!IsFacingPlayer()) return;
-
-        if (Time.time < nextAttackTime) return;
 
         // Swarm attack-slot gate (R5.2): a melee attacker must hold a token before it may attack. When
         // the encounter is at its limit the request is denied and the enemy simply holds position here
         // (already facing the player, path reset) instead of attacking, until a slot frees up. Ranged
         // archetypes bypass the melee slot pool entirely.
-        if (!TryAcquireAttackSlot()) return;
+        if (!TryAcquireAttackSlot())
+        {
+            TryPreferredPositioning(allowRetreat: !IsStandoffKiter(ResolveArchetypeId()));
+            return;
+        }
 
         alreadyAttacked = true;
         _attackRoutine = StartCoroutine(TelegraphedAttack());
     }
 
-    /// <summary>
-    /// Drives the ranged kiting / standoff layer (R1–R4). For a standoff-kiting ranged archetype (the
-    /// Shooter) this consults the pure <see cref="KiteController"/> window/cooldown machine and, when it
-    /// permits kiting, lowers <see cref="NavMeshAgent.speed"/> to the retreat speed and sets a NavMesh
-    /// destination along the player&#8594;enemy vector that restores the reposition target distance,
-    /// returning true so the caller skips firing this frame (R2.5/R4.2). The standoff distance and
-    /// reposition target are resolved by the pure <see cref="RetreatCadence"/> math from the engagement
-    /// band (R2.1/R2.2/R2.3), replacing the former inline consts.
-    /// <para>
-    /// When kiting is not permitted this frame (the <see cref="KiteController"/> is in cooldown, or the
-    /// player is at/beyond the standoff distance) the agent speed is restored to the stored
-    /// <see cref="EnemyVariant.ChaseSpeed"/> within one frame (R1.2/R1.4) and the method returns false so
-    /// the existing attack path runs normally (R3.3/R2.4). Movement is NavMesh-only
-    /// (<c>NavMesh.SamplePosition</c> &#8594; <c>SetDestination</c>); a sample failure retains position
-    /// and still skips firing (R4.5). Returns false — falling through to the non-standoff path — for a
-    /// non-kiting archetype (R4.4) or when the agent is unavailable this frame (R4.6).
-    /// </para>
-    /// </summary>
+    /// <summary>Supplies the arena boundary without introducing a scene search or a global owner.</summary>
+    public void ConfigureEncounterBounds(Vector3 center, Vector2 size)
+    {
+        _hasEncounterBounds = EnemyNavigation.IsFinite(center) && !float.IsNaN(size.x) && !float.IsInfinity(size.x) &&
+            !float.IsNaN(size.y) && !float.IsInfinity(size.y) && size.x > 0f && size.y > 0f;
+        if (!_hasEncounterBounds) return;
+        float inset = agent ? Mathf.Max(.1f, agent.radius) : .5f;
+        _encounterBounds = new Bounds(center, new Vector3(Mathf.Max(.1f, size.x - 2f * inset),
+            1000f, Mathf.Max(.1f, size.y - 2f * inset)));
+    }
+
+    /// <summary>The distance layer suggests; this AI owns the final movement decision.</summary>
+    private bool TryPreferredPositioning(bool allowRetreat)
+    {
+        if (!_preferredDistance || !_preferredDistance.TryGetPositioningTarget(out Vector3 target)) return false;
+        if (!allowRetreat)
+        {
+            Vector3 currentOffset = transform.position - player.position; currentOffset.y = 0f;
+            Vector3 targetOffset = target - player.position; targetOffset.y = 0f;
+            // Preferred firing distance is an approach goal, never another escape from melee pressure.
+            if (targetOffset.sqrMagnitude > currentOffset.sqrMagnitude + .01f) return false;
+        }
+        if (!EnemyNavigation.TryResolveDestination(agent, target, Mathf.Max(.5f, agent.radius), _positioningPath,
+            _hasEncounterBounds, _encounterBounds, out Vector3 destination))
+        {
+            agent.ResetPath();
+            return false;
+        }
+        if (agent.hasPath && (agent.destination - destination).sqrMagnitude <= .01f) return true;
+        // Apply exactly the complete route already checked for areaMask and encounter bounds.
+        // Re-requesting it with SetDestination creates a frame where hasPath can still be false.
+        return agent.SetPath(_positioningPath);
+    }
+
+    /// <summary>One short radial retreat, held to a fixed target, then an unavoidable punishable pause.</summary>
     private bool TryMaintainStandoff()
     {
-        // Unavailable agent: fall through to the existing non-standoff behavior (R4.6).
-        if (agent == null || !agent.enabled || !agent.isOnNavMesh) return false;
-
+        if (agent == null || !agent.enabled || !agent.isOnNavMesh || player == null) return false;
         ArchetypeId? archetype = ResolveArchetypeId();
+        if (!IsStandoffKiter(archetype)) return false;
         float meleeRange = Mathf.Min(attackRange, 1.45f * Mathf.Clamp(transform.lossyScale.y, .5f, 2f) + .35f);
         float engagementBand = EnemyAttackPatterns.EngagementRange(_attackTraits, _attackSequence, meleeRange, archetype);
-
-        // Only standoff-kiting archetypes (the Shooter) reposition; every other archetype and every
-        // non-archetype enemy returns here and keeps its identical non-standoff behavior (R4.4).
-        if (!IsStandoffKiter(archetype)) return false;
-
-        // Derive the standoff distance and reposition target from the pure RetreatCadence math so the
-        // engagement band bounds the standoff (R2.1) and the margin scales the reposition target
-        // (R2.2/R2.3). These replace the former inline fraction/margin multiplications.
-        float standoff = RetreatCadence.StandoffDistance(engagementBand, _kiting.StandoffFraction);
-        float repositionTarget = RetreatCadence.RepositionTarget(standoff, _kiting.StandoffMargin);
-
-        Vector3 away = transform.position - player.position;
-        away.y = 0f;
+        float standoff = RetreatCadence.StandoffDistance(engagementBand, ClampFinite(_kiting.StandoffFraction, 0f, 1f, .45f));
+        float repositionTarget = RetreatCadence.RepositionTarget(standoff, ClampFinite(_kiting.StandoffMargin, 1f, 2f, 1.15f));
+        Vector3 away = transform.position - player.position; away.y = 0f;
         float distance = away.magnitude;
-
-        // wantsToKite: the player has closed inside the standoff distance (R2.4). Consult the pure
-        // window/cooldown machine before issuing any retreat destination (R3.1–R3.4).
-        bool wantsToKite = distance < standoff;
-        bool kiting = _kite.Tick(wantsToKite, Time.deltaTime, _kiting.RetreatWindow, _kiting.RetreatCooldown);
-
-        // Chase (non-kiting) speed restore target, read from the stored EnemyVariant value (R1.2/R1.4).
-        // Fall back to the current agent speed when there is no variant so we never zero a valid speed.
-        float chaseSpeed = _variant ? _variant.ChaseSpeed : agent.speed;
-
-        if (!kiting)
+        // Entry threshold is lower than the exit distance: crossing 5.4m does not alternate chase/retreat.
+        bool wantsToKite = distance < (_kite.Current == KiteController.Phase.Kiting ? repositionTarget : standoff);
+        float delta = _kite.Current == KiteController.Phase.Cooldown ? 0f : Time.deltaTime;
+        if (!_kite.Tick(wantsToKite, delta, _kiting.RetreatWindow, _kiting.RetreatCooldown))
         {
-            // Not kiting this frame — either in cooldown (R3.3) or at/beyond the standoff (R2.4). Restore
-            // the chase speed within one frame (R1.2/R1.4) and let the normal attack path run (return
-            // false). Guard against a zero stored speed (e.g. variant not yet configured).
-            if (chaseSpeed > 0f) agent.speed = chaseSpeed;
+            EndRetreat();
             return false;
         }
 
-        // Kiting is permitted this frame: retreat at the reduced speed (R1.1) and skip firing (R2.5/R4.2).
-        agent.speed = RetreatCadence.RetreatSpeed(chaseSpeed, _kiting.RetreatSpeedMultiplier);
-
-        FacePlayer();
-
-        // Destination is a point along the player→enemy vector that restores distance to the reposition
-        // target (within ±0.5 once the agent arrives), i.e. just outside the standoff (R2.3/R4.1).
-        Vector3 direction = distance > Mathf.Epsilon ? away / distance : -transform.forward;
-        Vector3 desired = player.position + direction * repositionTarget;
-
-        // NavMesh-only movement (R4.3): validate the destination before issuing it.
-        if (NavMesh.SamplePosition(desired, out NavMeshHit hit, Mathf.Max(standoff, repositionTarget), NavMesh.AllAreas))
+        if (_retreating)
         {
-            agent.SetDestination(hit.position);
+            Vector3 travelled = transform.position - _retreatOrigin; travelled.y = 0f;
+            float budget = float.IsNaN(_retreatMaxDistance) || float.IsInfinity(_retreatMaxDistance)
+                ? 3f : Mathf.Max(.1f, _retreatMaxDistance);
+            bool reached = !agent.pathPending && (!agent.hasPath || agent.remainingDistance <= Mathf.Max(.1f, agent.stoppingDistance));
+            bool blocked = !agent.pathPending && agent.hasPath && agent.pathStatus != NavMeshPathStatus.PathComplete;
+            if (reached || blocked || travelled.sqrMagnitude >= budget * budget)
+            {
+                EndRetreat();
+                return false;
+            }
         }
-        // Sample failure retains the current position for the frame (R4.5). Either way we skip firing so
-        // the Shooter never fires from inside its own standoff.
+        else
+        {
+            Vector3 direction = distance > Mathf.Epsilon ? away / distance : -transform.forward;
+            Vector3 desired = player.position + direction * repositionTarget;
+            desired.y = transform.position.y;
+            if (!EnemyNavigation.TryResolveDestination(agent, desired, Mathf.Max(.5f, agent.radius), _positioningPath,
+                _hasEncounterBounds, _encounterBounds, out _retreatDestination) ||
+                Mathf.Abs(PlanarDistance(_retreatDestination, player.position) - repositionTarget) > .5f)
+            {
+                EndRetreat();
+                // No stale retreat path survives failure. This frame holds; the cooldown can then fire.
+                agent.ResetPath();
+                return true;
+            }
+            _retreatOrigin = transform.position;
+            _speedBeforeRetreat = agent.speed;
+            _rotationBeforeRetreat = agent.updateRotation;
+            _retreating = true;
+            agent.updateRotation = false;
+            if (!agent.SetPath(_positioningPath))
+            {
+                EndRetreat();
+                return true;
+            }
+        }
+        float chaseSpeed = _variant && _variant.ChaseSpeed > 0f ? _variant.ChaseSpeed : _speedBeforeRetreat;
+        agent.speed = RetreatCadence.RetreatSpeed(chaseSpeed, ClampFinite(_kiting.RetreatSpeedMultiplier, .1f, .9f, .5f));
+        FacePlayer();
         return true;
+    }
+
+    private static float ClampFinite(float value, float min, float max, float fallback) =>
+        float.IsNaN(value) || float.IsInfinity(value) ? fallback : Mathf.Clamp(value, min, max);
+
+    private static float PlanarDistance(Vector3 a, Vector3 b)
+    {
+        Vector3 offset = a - b; offset.y = 0f;
+        return offset.magnitude;
+    }
+
+    private void EndRetreat()
+    {
+        _kite.EndRetreat();
+        if (!_retreating) return;
+        _retreating = false;
+        if (agent == null) return;
+        float chaseSpeed = _variant && _variant.ChaseSpeed > 0f ? _variant.ChaseSpeed : _speedBeforeRetreat;
+        if (chaseSpeed > 0f) agent.speed = chaseSpeed;
+        agent.updateRotation = _rotationBeforeRetreat;
+        if (agent.enabled && agent.isOnNavMesh) agent.ResetPath();
     }
 
     private bool CanAttack() => isActiveAndEnabled && _owner && !_owner.IsDead &&
@@ -674,7 +761,11 @@ public class EnemyAI : MonoBehaviour
         ReleaseAttackSlot();
     }
 
-    public void InterruptAttack() => CancelAttack();
+    public void InterruptAttack()
+    {
+        EndRetreat();
+        CancelAttack();
+    }
 
     /// <summary>
     /// Applies a conditional interruption ability to this enemy (Requisitos 7.6, 7.7 / Property 23),
@@ -750,7 +841,12 @@ public class EnemyAI : MonoBehaviour
         _attackCoordinator.ReleaseSlot(this);
     }
 
-    private void OnDisable() => CancelAttack();
+    private void OnDisable()
+    {
+        EndRetreat();
+        _kite.Reset();
+        CancelAttack();
+    }
     private long _reactionExecution;
 
     private Actor ResolvePlayerActor()
@@ -803,11 +899,12 @@ public class EnemyAI : MonoBehaviour
     {
         // Null animator/agent: skip the update entirely (R15.5).
         if (animator == null || agent == null) return;
+        if ((_reaction && _reaction.IsControlLocked) || ProtocolElementQuery.IsFrozen(_owner)) return;
 
         // Preserve the attack-animation guard: while a telegraph is running, or during the brief
         // post-attack recovery window, hold the current (attack) animation and do not drive locomotion
         // (R15.3). This is unchanged from the prior binary behavior.
-        if (_attackRoutine != null || (alreadyAttacked && Time.time < nextAttackTime))
+        if (HasAttackPresentation)
         {
             return;
         }
@@ -819,12 +916,24 @@ public class EnemyAI : MonoBehaviour
             // Speed-based blend (R15.1/R15.2): normalize current speed into [0,1] via the pure resolver
             // and drive the animator's blend float, so idle→walk reads as a smooth blend. The resolver
             // clamps to [0,1] and handles a degenerate agent.speed, so the parameter stays in range.
-            animator.SetFloat(MovementBlendParameter, MovementBlend.Normalize(agent.velocity.magnitude, agent.speed));
+            // Keep the gait reference at chase speed during backpedal: a x0.5 retreat blends to Walk,
+            // rather than looking like full-speed Run because the agent maximum was temporarily halved.
+            float referenceSpeed = _retreating
+                ? (_variant && _variant.ChaseSpeed > 0f ? _variant.ChaseSpeed : _speedBeforeRetreat)
+                : agent.speed;
+            animator.SetFloat(MovementBlendParameter, MovementBlend.Normalize(agent.velocity.magnitude, referenceSpeed),
+                EnemyLocomotionPresentation.TransitionSeconds, Time.deltaTime);
         }
         else
         {
-            // No blend parameter on this animator: fall back to the existing binary Idle/Walk (R15.4).
-            animator.Play(agent.velocity.sqrMagnitude <= Mathf.Epsilon ? IdleAnimation : WalkAnimation);
+            // Existing clips get a short blend with speed hysteresis. Never restart the same state.
+            if (_reaction && _reaction.OwnsFlinchPresentation) return;
+            _walkingAnimation = EnemyLocomotionPresentation.WantsWalk(agent.velocity.magnitude, _walkingAnimation);
+            int state = Animator.StringToHash(_walkingAnimation ? WalkAnimation : IdleAnimation);
+            AnimatorStateInfo current = animator.GetCurrentAnimatorStateInfo(0);
+            bool alreadyMovingToState = animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).shortNameHash == state;
+            if (current.shortNameHash != state && !alreadyMovingToState)
+                animator.CrossFadeInFixedTime(state, EnemyLocomotionPresentation.TransitionSeconds, 0);
         }
     }
 

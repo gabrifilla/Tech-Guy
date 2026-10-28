@@ -1,0 +1,41 @@
+// Explicitly authorized C01.2b adoption: set only the movement mode on enabled game scenes.
+if (UnityEditor.EditorApplication.isPlaying) throw new System.InvalidOperationException("Edit Mode required");
+var setup = UnityEditor.SceneManagement.EditorSceneManager.GetSceneManagerSetup();
+for (int i=0;i<UnityEngine.SceneManagement.SceneManager.sceneCount;i++)
+    if(UnityEngine.SceneManagement.SceneManager.GetSceneAt(i).isDirty) throw new System.InvalidOperationException("Preserve dirty human scene");
+var selectionProperty=typeof(UnityEditor.Selection).GetProperty("entityIds");
+var selection=selectionProperty!=null ? selectionProperty.GetValue(null,null) : null;
+var results=new System.Collections.Generic.List<object>();
+var backup=System.IO.Path.Combine(System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName,"Library/GprC01Integration/scene-backup-20261027");
+System.IO.Directory.CreateDirectory(backup);
+try
+{
+    foreach(var entry in UnityEditor.EditorBuildSettings.scenes.Where(s=>s.enabled))
+    {
+        var scene=UnityEngine.SceneManagement.SceneManager.GetSceneByPath(entry.path);
+        bool opened=!scene.IsValid() || !scene.isLoaded;
+        if(opened) scene=UnityEditor.SceneManagement.EditorSceneManager.OpenScene(entry.path,UnityEditor.SceneManagement.OpenSceneMode.Additive);
+        var controls=scene.GetRootGameObjects().SelectMany(g=>g.GetComponentsInChildren<CharControlScript>(true)).ToArray();
+        if(controls.Length>0)
+        {
+            string file=System.IO.Path.Combine(backup,System.IO.Path.GetFileName(entry.path));
+            if(!System.IO.File.Exists(file)) System.IO.File.Copy(entry.path,file);
+            foreach(var control in controls)
+            {
+                var serialized=new UnityEditor.SerializedObject(control);
+                serialized.FindProperty("_directKeyboardMovement").boolValue=true;
+                serialized.ApplyModifiedPropertiesWithoutUndo();
+            }
+            UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(scene);
+            if(!UnityEditor.SceneManagement.EditorSceneManager.SaveScene(scene)) throw new System.Exception("Scene save failed: "+entry.path);
+            results.Add(new {path=entry.path,players=controls.Length,direct=controls.All(c=>c.DirectMovementEnabled)});
+        }
+        if(opened) UnityEditor.SceneManagement.EditorSceneManager.CloseScene(scene,true);
+    }
+}
+finally
+{
+    UnityEditor.SceneManagement.EditorSceneManager.RestoreSceneManagerSetup(setup);
+    if(selectionProperty!=null && selectionProperty.CanWrite) selectionProperty.SetValue(null,selection,null);
+}
+return results;

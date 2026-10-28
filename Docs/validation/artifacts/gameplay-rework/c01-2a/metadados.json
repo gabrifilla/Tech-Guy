@@ -1,0 +1,8 @@
+{
+  "status": "CHECKER_INCOMPATIVEL_COM_PACOTE_EM_OUTRO_VOLUME",
+  "command": "python C:/Users/gabri/.codex/skills/unity-csharp-scripting/scripts/check_unity_project.py D:/Dev/Personal/My_games/Tech-Guy --json",
+  "error": "ValueError: path is on mount 'C:', start on mount 'D:'",
+  "cause": "collect_external_guids tenta os.path.relpath para o pacote Tripo3d em C:/Users/gabri/Downloads e o projeto em D:",
+  "globalCheckPassed": false,
+  "alternative": "metadados-alternativa.json + importacao/compilacao e referencias via Unity MCP; ferramenta instalada nao foi modificada"
+}

@@ -53,6 +53,12 @@ public class CombatReactionController : MonoBehaviour
     private Actor _owner;
     private EnemyAI _enemyAI;
     private SectorBoss _sectorBoss;
+    private EnemyCombatActions _presentationActions;
+    private SkillAnimationPlayer _presentationSkill;
+    private bool _ownsFlinch, _flinchWasWalking;
+    private int _flinchState;
+    private RuntimeAnimatorController _flinchController;
+    internal bool OwnsFlinchPresentation => _ownsFlinch;
     private bool _ownsAgentStop, _savedAgentRotation, _ownsAgentRotation;
     private int _motionToken, _motionGeneration;
     private float _motionHeight, _motionDistance, _motionTravelled;
@@ -66,6 +72,11 @@ public class CombatReactionController : MonoBehaviour
     private Transform _flashTarget;
     private Vector3 _flashBaseScale;
     private string _warnedMissingConfig;
+    private bool _motionIsLaunch;
+    private float _launchEndsAt;
+    public long LaunchSequence { get; private set; }
+    public long LandedLaunchSequence { get; private set; }
+    public bool IsAirborne => _motionIsLaunch && State.Owns(_motionToken, _motionGeneration);
     public EnemyRank Rank => rank;
     public ReactionCategory Category => State.Configuration.Category;
     public EnemyRank EffectiveRank => State.EffectiveRank;
@@ -188,7 +199,7 @@ public class CombatReactionController : MonoBehaviour
         }
     }
     private bool _watchdogReported;
-    private void LateUpdate() { if (Alive) TickMotion(); }
+    private void LateUpdate() { if (Alive) { TickMotion(); TickFlinchPresentation(); } }
     public void EvaluateResumeEligibility(bool eligible) => State.EvaluateResumeEligibility(eligible);
     public void BeginOffensiveAction(long execution) => State.BeginOffensiveAction(execution);
     public void EndOffensiveAction(long execution) => State.EndOffensiveAction(execution);
@@ -207,7 +218,7 @@ public class CombatReactionController : MonoBehaviour
             if (request.ReactionType == HitReactionType.Stagger)
                 ResolveInterrupt(request.InterruptContribution);
         }
-        if (request.ReactionType != HitReactionType.None) PlayAnimation(flinchAnimation);
+        if (!breakWillOccur && request.ReactionType != HitReactionType.None) StartFlinchPresentation();
         ResolvePosture(request);
     }
     public InterruptWindowGate.Decision ApplyInterruptStagger(HitReactionRequest request, float staggerValue)
@@ -284,6 +295,8 @@ public class CombatReactionController : MonoBehaviour
         {
             RestorePose();
             _motionToken = token; _motionGeneration = State.Generation;
+            _motionIsLaunch = effect == StanceBreakEffect.KnockUp;
+            if (_motionIsLaunch) { LaunchSequence = checked(LaunchSequence + 1); _launchEndsAt = State.Now + State.Remaining(token); }
             _motionWasKnockback = effect == StanceBreakEffect.Knockback;
             _motionHeight = ReactionNumeric.Safe(request.KnockUpHeight, 0.01f, DisplacementTier.KnockUpMax, config.LaunchHeight);
             _motionDistance = ReactionNumeric.Safe(request.KnockbackDistance, 0f, DisplacementTier.KnockbackMax, 4f);
@@ -306,6 +319,8 @@ public class CombatReactionController : MonoBehaviour
         if (_motionToken == 0) return;
         if (!State.Owns(_motionToken, _motionGeneration))
         {
+            if (_motionIsLaunch && _motionGeneration == State.Generation && State.Now >= _launchEndsAt)
+                LandedLaunchSequence = LaunchSequence;
             if (_motionGeneration == State.Generation && _motionWasKnockback)
                 MoveStep(_motionDirection * Mathf.Max(0f, _motionDistance - _motionTravelled));
             RestorePose(); return;
@@ -389,16 +404,75 @@ public class CombatReactionController : MonoBehaviour
             if (hit.collider && !hit.collider.transform.IsChildOf(transform))
                 distance = Mathf.Min(distance, Mathf.Max(0f, hit.distance - 0.01f));
         delta = direction * distance;
+        if (PlayerNavigationMotor.TryMove(agent, delta, true, PlayerMovementSource.Reaction)) return;
         if (agent && agent.enabled && agent.isOnNavMesh) agent.Move(delta);
         else if (characterController && characterController.enabled) characterController.Move(delta);
         else if (body && !body.isKinematic) body.position += delta;
         else transform.position += delta;
     }
-    private void PlayAnimation(string stateName)
+    private void PlayAnimation(string stateName, bool restart = false)
     {
         if (animator && animator.runtimeAnimatorController && !string.IsNullOrWhiteSpace(stateName)
-            && animator.HasState(0, Animator.StringToHash(stateName))) animator.Play(stateName);
+            && animator.HasState(0, Animator.StringToHash(stateName)))
+        {
+            // Play(name) preserves time when this state is already active. Each new contact
+            // needs its own flinch onset; physical control and stun presentation keep their policy.
+            if (restart) animator.Play(stateName, 0, 0f);
+            else animator.Play(stateName);
+        }
     }
+    private bool HasPriorityPresentation()
+    {
+        // These are read-only views of the existing owners, including active/recovery and
+        // procedural attack graphs. No attack timer or mechanical control is created here.
+        if (!_enemyAI) TryGetComponent(out _enemyAI);
+        if (!_presentationActions) TryGetComponent(out _presentationActions);
+        if (!_presentationSkill) TryGetComponent(out _presentationSkill);
+        return IsControlLocked || ProtocolElementQuery.IsFrozen(_owner)
+            || (_enemyAI && _enemyAI.isActiveAndEnabled && _enemyAI.HasAttackPresentation)
+            || (_presentationActions && _presentationActions.HasAttackPresentation)
+            || (_presentationSkill && _presentationSkill.IsPlaying);
+    }
+    private void StartFlinchPresentation()
+    {
+        if (HasPriorityPresentation() || !animator || !animator.isActiveAndEnabled
+            || !animator.runtimeAnimatorController || animator.layerCount == 0 || string.IsNullOrWhiteSpace(flinchAnimation)) return;
+        int state = Animator.StringToHash(flinchAnimation);
+        if (!animator.HasState(0, state)) return;
+        if (!_ownsFlinch) _flinchWasWalking = animator.GetCurrentAnimatorStateInfo(0).IsName("Walk");
+        PlayAnimation(flinchAnimation, restart: true);
+        _flinchState = state; _flinchController = animator.runtimeAnimatorController; _ownsFlinch = true;
+    }
+    private void TickFlinchPresentation()
+    {
+        if (!_ownsFlinch) return;
+        if (!animator || !animator.isActiveAndEnabled || animator.layerCount == 0
+            || animator.runtimeAnimatorController != _flinchController) { ClearFlinchPresentation(); return; }
+        var state = animator.GetCurrentAnimatorStateInfo(0);
+        if (animator.IsInTransition(0))
+        {
+            if (animator.GetNextAnimatorStateInfo(0).shortNameHash != _flinchState) ClearFlinchPresentation();
+            return;
+        }
+        // A different animator state has taken ownership. Never restore over it later.
+        if (state.shortNameHash != _flinchState) { ClearFlinchPresentation(); return; }
+        if (Time.timeScale <= 0f || Time.deltaTime <= 0f || (_hitStopRunner && _hitStopRunner.IsActive)
+            || HasPriorityPresentation() || !ReactionNumeric.IsFinite(state.normalizedTime) || state.normalizedTime < 1f) return;
+
+        bool speedBlend = false;
+        if (_enemyAI && _enemyAI.isActiveAndEnabled)
+            foreach (var parameter in animator.parameters)
+                if (parameter.name == "Speed" && parameter.type == AnimatorControllerParameterType.Float) { speedBlend = true; break; }
+        float speed = agent && agent.enabled && agent.isOnNavMesh ? agent.velocity.magnitude : 0f;
+        // Idle is the shipped Speed blend-tree root; a disabled/absent AI (including bosses)
+        // or binary controller uses the existing Idle/Walk hysteresis instead.
+        string target = !speedBlend && EnemyLocomotionPresentation.WantsWalk(speed, _flinchWasWalking) ? "Walk" : "Idle";
+        ClearFlinchPresentation();
+        if (animator.HasState(0, Animator.StringToHash(target)))
+            animator.CrossFadeInFixedTime(target, EnemyLocomotionPresentation.TransitionSeconds, 0);
+    }
+    private void ClearFlinchPresentation()
+    { _ownsFlinch = false; _flinchController = null; _flinchState = 0; _flinchWasWalking = false; }
     private void PlayBreakFlash()
     {
         RestoreFlash();
@@ -426,9 +500,9 @@ public class CombatReactionController : MonoBehaviour
     private void RestorePose()
     {
         if (_poseTarget) { _poseTarget.localPosition -= _lastPoseOffset; _poseTarget.localRotation = _poseBaseRotation; }
-        _lastPoseOffset = Vector3.zero; _poseTarget = null; _motionToken = 0;
+        _lastPoseOffset = Vector3.zero; _poseTarget = null; _motionToken = 0; _motionIsLaunch = false;
     }
-    private void CleanupOwnedPresentation() { RestorePose(); RestoreFlash(); _pushDistance = 0f; }
+    private void CleanupOwnedPresentation() { ClearFlinchPresentation(); RestorePose(); RestoreFlash(); _pushDistance = 0f; }
     private void OnDeath(Actor actor) => ResetLifecycle();
     private void OnDisable() => ResetLifecycle();
     private void OnEnable() { if (_state != null) _state.Reset(); _watchdogReported = false; }

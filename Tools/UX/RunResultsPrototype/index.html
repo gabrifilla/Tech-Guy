@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tech Guy — Estudo de resultados VS-02B.1</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="review" aria-label="Controles do estudo de design">
+    <strong>ESTUDO UX · VS-02B.1</strong>
+    <label for="scenario">Estado</label>
+    <select id="scenario">
+      <option value="real">Último resumo real · Aborted</option>
+      <option value="victory">Fictício · Victory</option><option value="death">Fictício · Death</option>
+      <option value="aborted">Fictício · Aborted</option><option value="partial">Fictício · dados parciais / ambíguos</option>
+      <option value="empty">Sem estatísticas</option><option value="invalid">Resumo inválido</option>
+      <option value="zero">Fictício · sem dano / kills / recompensas</option>
+      <option value="many">Fictício · build extensa</option><option value="skew">Fictício · dano muito desigual</option>
+      <option value="long">Fictício · expansão de texto</option>
+    </select>
+    <span id="provenance"></span>
+  </aside>
+  <main id="app" class="sheet">
+    <header class="hero">
+      <div class="sigil" aria-hidden="true"><span>⟨</span><b>TG</b><span>⟩</span><i></i></div>
+      <div class="outcome"><p class="eyebrow" id="eyebrow">NEXUS / REGISTRO DE INCURSÃO</p><h1 id="outcome"></h1><p id="outcome-copy"></p></div>
+      <div class="identity"><span class="eyebrow" id="weapon"></span><strong id="duration"></strong><small>Tempo decorrido · inclui pausas</small><span class="run-id" id="run-id"></span></div>
+    </header>
+    <section class="metrics" aria-label="Estatísticas principais">
+      <div><span>Dano efetivo causado</span><strong id="damage">—</strong><small>HP removido por sua build</small></div>
+      <div><span>Inimigos derrotados</span><strong id="kills">—</strong><small>Mortes observadas no percurso</small></div>
+      <div><span>Dano recebido</span><strong id="received">—</strong><small>HP efetivamente perdido</small></div>
+    </section>
+    <div class="tabs" role="tablist" aria-label="Explorar o resultado">
+      <button id="tab-summary" role="tab" aria-controls="panel" aria-selected="true" tabindex="0" data-tab="summary">Visão geral</button>
+      <button id="tab-sources" role="tab" aria-controls="panel" aria-selected="false" tabindex="-1" data-tab="sources">Fontes de dano</button>
+      <button id="tab-build" role="tab" aria-controls="panel" aria-selected="false" tabindex="-1" data-tab="build">Build e percurso</button>
+      <span class="tab-note">Um total. Diferentes leituras.</span>
+    </div>
+    <div id="panel" role="tabpanel" aria-labelledby="tab-summary" tabindex="0"></div>
+    <footer><div><strong>REGISTRO DA ÚLTIMA RUN</strong><span>Disponível para consulta no Nexus.</span></div><button id="continue" class="primary">Continuar no Nexus <span aria-hidden="true">→</span></button></footer>
+  </main>
+  <section id="nexus" hidden><p class="eyebrow">NEXUS / ÁREA SEGURA</p><h1>De volta ao ponto zero.</h1><p>Fechamento simulado do estudo. Nenhuma ação foi enviada ao Unity.</p><button id="reopen" class="primary">Consultar último resultado</button></section>
+  <dialog id="detail" aria-labelledby="detail-title"><div class="dialog-head"><span class="eyebrow">DETALHE DO REGISTRO</span><button id="close-detail" aria-label="Fechar detalhes">✕</button></div><h2 id="detail-title"></h2><div id="detail-body"></div></dialog>
+  <div id="announcement" class="sr-only" aria-live="polite"></div>
+  <script src="data.js"></script><script src="app.js"></script>
+</body></html>

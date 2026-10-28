@@ -24,6 +24,9 @@
 /// <remarks>Feature: combat-foundation-rework, task 7.1. Requirements: R1.1, R1.3, R1.4, R1.5, R1.6, R1.12.</remarks>
 public sealed class BasicAttackDriver
 {
+    /// <summary>Only a pending tap or held input permits approaching for another attack.</summary>
+    public bool HasAttackIntent => _pendingTap || _held;
+
     /// <summary>
     /// A one-shot pending Toque_de_Ataque. Set by <see cref="QueueTap"/>, consumed to exactly one
     /// attack by the next <see cref="TryTakeAttack"/>, then cleared (R1.1/R1.5/R1.6).
@@ -119,6 +122,9 @@ public sealed class BasicAttackDriver
     /// already authorized/started by a tap or a prior hold cycle (R1.4/R5.11). Does not touch the
     /// last-attack timing, so an already-authorized execution is preserved.
     /// </summary>
+    /// <summary>Invalidate uncommitted UI/focus input without changing the authored attack cadence.</summary>
+    public void DiscardPendingInput() { _pendingTap = false; _held = false; }
+
     public void ReleaseHold()
     {
         _held = false;

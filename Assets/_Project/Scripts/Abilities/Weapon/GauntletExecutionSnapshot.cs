@@ -19,6 +19,13 @@ public sealed class GauntletExecutionSnapshot
     public bool Shock { get; }
     public Color EffectColor { get; }
     public GauntletMutation? Mutation { get; }
+    public EclipseCombatSettings Eclipse { get; }
+    public bool ViolentFall { get; }
+    public bool BasicFinisher { get; }
+    public bool EchoingFist { get; }
+    public bool TemporalEcho { get; }
+    public bool PerfectRhythm { get; }
+    public bool TitanFall { get; }
     public float HungrySecondsPerRank { get; } = .3f;
     public float PressurePulseInterval { get; } = .5f;
     public float CadencedWaitDuration { get; } = .8f;
@@ -27,9 +34,17 @@ public sealed class GauntletExecutionSnapshot
     public float CadencedRecoveryStart { get; } = .22f;
 
     private GauntletExecutionSnapshot(WeaponRunModifiers modifiers, GauntletActionSlot slot,
-        BreakerGauntletAbility ability, GauntletMutationSelection selections = null, GauntletAuthoring authoring = null)
+        BreakerGauntletAbility ability, GauntletMutationSelection selections = null, GauntletAuthoring authoring = null, bool basicFinisher = false)
     {
         Slot = slot;
+        BasicFinisher = basicFinisher; ViolentFall = modifiers?.HasViolentFall == true;
+        EchoingFist = modifiers?.Expansion.Has(GauntletExpansionCatalog.EchoingFistId, slot) == true;
+        TemporalEcho = modifiers?.Expansion.Has(GauntletExpansionCatalog.TemporalEchoId, slot) == true;
+        PerfectRhythm = modifiers?.Expansion.Has(GauntletExpansionCatalog.PerfectRhythmId, slot) == true;
+        TitanFall = modifiers?.Expansion.Has(GauntletExpansionCatalog.TitanFallId) == true;
+        var eclipseTuning = authoring ? authoring.Eclipse : new EclipseCombatTuning();
+        if (!eclipseTuning.TrySnapshot(out var eclipse, out var diagnostic)) throw new ArgumentException(diagnostic);
+        Eclipse = eclipse;
         // Catalog order is stable; no acquisition dictionary is retained or exposed.
         var frozen = new WeaponRunModifiers(RunWeaponFamily.Gauntlet);
         foreach (var definition in WeaponRunModifiers.Catalog)
@@ -57,6 +72,11 @@ public sealed class GauntletExecutionSnapshot
         // ShockRing is a legacy selection of Epicenter, with its existing rank radius preserved.
         if (slot == GauntletActionSlot.E && Rank(WeaponBoon.ShockRing) > 0) Mutation = GauntletMutation.Epicenter;
         ApplyMutation(direct);
+        if (Mutation == GauntletMutation.EclipseUppercut)
+        {
+            ActiveTime = Eclipse.Duration; AdvanceDistance = 0f; AdvanceDuration = 0f;
+            _profile = CombatActionProfile.EclipseUppercut();
+        }
         if (Mutation == GauntletMutation.CadencedAsura)
         {
             ActiveTime = .4f; AdvanceDistance = 0f; AdvanceDuration = 0f;
@@ -86,6 +106,14 @@ public sealed class GauntletExecutionSnapshot
         }
         DirectStepCount = direct.Count;
         _steps = frozen.ComposeGauntletSteps(direct, (int)slot, applyLegacyGeometry: false);
+        if (ViolentFall)
+        {
+            // Preserve retained echo HP/posture while preventing its break from replacing an armed Launch.
+            int echoes = slot == GauntletActionSlot.W ? 2 * Rank(WeaponBoon.FlurryEcho)
+                : slot == GauntletActionSlot.R ? Rank(WeaponBoon.AsuraEcho) : 0;
+            for (int i = DirectStepCount; i < Math.Min(_steps.Count, DirectStepCount + echoes); i++)
+                _steps[i].breakEffect = StanceBreakEffect.Stun;
+        }
         var echoKind = slot == GauntletActionSlot.W ? WeaponBoon.FlurryEcho : WeaponBoon.AsuraEcho;
         var echoData = authoring && (slot == GauntletActionSlot.W || slot == GauntletActionSlot.R)
             ? authoring.FindContent(WeaponRunModifiers.CatalogId(echoKind)) : null;
@@ -112,7 +140,9 @@ public sealed class GauntletExecutionSnapshot
         => origin == GauntletImpactOrigin.Direct && stepIndex == LastDirectProducer && stepIndex >= 0;
 
     public static GauntletExecutionSnapshot CaptureBasic(WeaponRunModifiers modifiers, GauntletAuthoring authoring = null)
-        => new GauntletExecutionSnapshot(modifiers, GauntletActionSlot.Basic, null, authoring: authoring);
+        => CaptureBasic(modifiers, authoring, false);
+    internal static GauntletExecutionSnapshot CaptureBasic(WeaponRunModifiers modifiers, GauntletAuthoring authoring, bool finisher)
+        => new GauntletExecutionSnapshot(modifiers, GauntletActionSlot.Basic, null, authoring: authoring, basicFinisher: finisher);
 
     public static bool TryBuild(BreakerGauntletAbility ability, GauntletActionSlot slot,
         WeaponRunModifiers modifiers, out GauntletExecutionSnapshot snapshot, GauntletMutationSelection selections = null, GauntletAuthoring authoring = null)
@@ -132,6 +162,9 @@ public sealed class GauntletExecutionSnapshot
         var candidate = new GauntletExecutionSnapshot(modifiers, slot, ability, selections, authoring);
         var authoredMutation = authoring && candidate.Mutation.HasValue
             ? authoring.FindContent(GauntletContentAuthoring.ForMutation(candidate.Mutation.Value).Id) : null;
+        // Eclipse owns a single fixed contact profile; its timing is authored through EclipseCombatTuning.
+        // A legacy profile override could omit that contact and strand its scheduler waiting forever.
+        if (candidate.Mutation == GauntletMutation.EclipseUppercut && authoredMutation?.Profile != null) return false;
         if (authoredMutation?.Profile != null)
         {
             if (candidate._profile.ImpactEvents == null || candidate._profile.ImpactEvents.Count == 0) return false;
@@ -172,7 +205,19 @@ public sealed class GauntletExecutionSnapshot
 
     private void ApplyMutation(List<AreaHitStep> direct)
     {
-        if (Mutation == GauntletMutation.DemolishingAdvance)
+        if (Mutation == GauntletMutation.EclipseUppercut)
+        {
+            var step = Clone(direct[direct.Count - 1]);
+            MergeTotals(direct, out step.damageMultiplier, out step.bonusDamage, out step.stanceDamage);
+            step.delay = Eclipse.Duration * .3f; step.rangeOverride = Eclipse.Reach;
+            step.boxSize = new Vector3(Eclipse.Width, 3f, Eclipse.Reach);
+            step.hitShape = AreaHitShape.Box; step.localOffset = Vector3.zero;
+            step.reactionType = HitReactionType.Stagger; step.hitStrength = HitStrength.Heavy;
+            step.breakEffect = StanceBreakEffect.KnockUp; step.knockUpHeight = Eclipse.LaunchHeight;
+            step.stunDuration = Eclipse.LaunchSeconds; step.pushDistance = 0f; step.knockbackDistance = 0f;
+            direct.Clear(); direct.Add(step);
+        }
+        else if (Mutation == GauntletMutation.DemolishingAdvance)
         {
             var final = Clone(direct[direct.Count - 1]);
             MergeTotals(direct, out final.damageMultiplier, out final.bonusDamage, out final.stanceDamage);

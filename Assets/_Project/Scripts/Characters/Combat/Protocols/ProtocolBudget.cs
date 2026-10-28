@@ -75,6 +75,7 @@ public sealed class ProtocolBudget
 /// <summary>An execution snapshot retained by its reserved children, including across frames.</summary>
 public sealed class ProtocolRootContext
 {
+    internal RunDamageSource AnalyticsSource { get; set; }
     private readonly ProtocolBudget _budget;
     private readonly ProtocolLimits _limits;
     private readonly int[] _ranks = new int[7];

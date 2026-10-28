@@ -25,16 +25,18 @@ namespace TechGuy.Tests
             UnityEngine.Object.DestroyImmediate(definition); return new ManualRoutePolicy(snapshot);
         }
 
-        [UnityTest] public IEnumerator ManualRewardDefenseAppliesActualArmorOnceAndPreservesResourcesAndSourceAssets()
+        [UnityTest] public IEnumerator ManualExhaustedTechniqueAppliesRetainedProtocolOnceAndPreservesResourcesAndSourceAssets()
         {
             Assert.IsTrue(TryBakeFullFloor()); BuildPlayer(Vector3.zero);
             var holder=_player.gameObject.AddComponent<AbilityHolder>();
             var source=Resources.Load<WeaponScript>(WeaponLoadout.ResourcePaths[0]);
             var sourceAbilities=source.abilities.ToArray();
+            string sourceJson=JsonUtility.ToJson(source);
+            var abilityJson=sourceAbilities.Select(ability=>JsonUtility.ToJson(ability)).ToArray();
             _player.EquipWeapon(source); holder.RefreshLoadout();
             var run=_player.gameObject.AddComponent<RunBoons>(); yield return null;
             var route=BuildManualRewardRoute(); Assert.IsTrue(run.BindManualRun(route));
-            foreach(var d in WeaponRunModifiers.Catalog.Where(d=>GauntletContentAuthoring.IsSelectedTechnique(d.Kind)))
+            foreach(var d in WeaponRunModifiers.Catalog.Where(d=>d.Family==run.WeaponModifiers.Family&&RunBoonOfferCatalog.IsTechnique(d.Kind)))
                 for(int i=0;i<d.MaxRank;i++) Assert.IsTrue(run.WeaponModifiers.Add(d));
             ReachManualReward(route,1); var request=new RunRewardRequest(route.Session.Id,1,0);
             var combat=_player.GetComponent<BreakerGauntletCombat>(); combat.AddAsuraEnergy(52);
@@ -42,15 +44,23 @@ namespace TechGuy.Tests
             float armor=_player.Stats.GetStat(PlayerStatType.Armor); int legacyEvents=0,manualEvents=0;
             run.RewardChosen+=()=>legacyEvents++;
             run.ManualRewardChosen+=ticket=> { manualEvents++; Assert.IsFalse(run.Choose(0)); };
-            Assert.IsTrue(run.OfferReward(request)); Assert.AreEqual("bulwark",run.Choices.Single().Id);
+            Assert.IsTrue(run.OfferReward(request)); Assert.IsTrue(run.ManualTicket.IsAlternative);
+            Assert.That(run.Choices.Count,Is.InRange(1,3));
+            Assert.IsFalse(run.Choices.Any(offer=>offer.Id=="bulwark"));
+            Assert.IsTrue(run.Choices.All(offer=>ProtocolInventory.TryKind(offer.Id,out var kind)&&RunBoonOfferCatalog.Includes(kind)));
+            string selectedId=run.Choices[0].Id; Assert.IsTrue(ProtocolInventory.TryKind(selectedId,out var selectedProtocol));
             var ids=run.Choices.Select(o=>o.Id).ToArray(); run.CloseManualReward();
             Assert.AreEqual(RunPhase.RewardPending,route.Session.Phase);
             Assert.IsTrue(run.OfferReward(request)); Assert.That(run.Choices.Select(o=>o.Id),Is.EqualTo(ids));
             Assert.IsTrue(run.Choose(0)); Assert.IsFalse(run.Choose(0)); Assert.IsFalse(run.OfferReward(request));
-            Assert.AreEqual(armor+40,_player.Stats.GetStat(PlayerStatType.Armor));
+            Assert.AreEqual(armor,_player.Stats.GetStat(PlayerStatType.Armor));
+            Assert.AreEqual(1,run.Protocols.Rank(selectedProtocol)); Assert.AreEqual(1,route.Session.ProtocolAcquisitions);
+            AssertRetainedProtocolEffect(_player,selectedId);
             Assert.AreEqual(123,_player.health); Assert.AreEqual(81,_player.mana); Assert.AreEqual(52,combat.Energy);
             Assert.AreEqual(1,manualEvents); Assert.AreEqual(0,legacyEvents); Assert.AreEqual(1,run.Acquired.Count);
             Assert.That(source.abilities,Is.EqualTo(sourceAbilities)); Assert.AreNotSame(source,run.RunWeapon);
+            Assert.AreEqual(sourceJson,JsonUtility.ToJson(source));
+            Assert.That(source.abilities.Select(ability=>JsonUtility.ToJson(ability)),Is.EqualTo(abilityJson));
         }
 
         [UnityTest] public IEnumerator ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition()
@@ -101,7 +111,7 @@ namespace TechGuy.Tests
             // Run lifecycle completion belongs to task 12; this fixture isolates rejection of the second effect.
         }
 
-        [UnityTest] public IEnumerator ManualProtocolTicketsApplyAllFourExistingEffectsWithNoPriorProtocol()
+        [UnityTest] public IEnumerator ManualProtocolTicketsApplyEachRetainedEffectFromActualCompatibleOffers()
         {
             Assert.IsTrue(TryBakeFullFloor());
             foreach(string id in new[]{"ignite","frost","conductor","detonation"})
@@ -110,34 +120,39 @@ namespace TechGuy.Tests
                 _player.EquipWeapon(Resources.Load<WeaponScript>(WeaponLoadout.ResourcePaths[0])); holder.RefreshLoadout();
                 var run=_player.gameObject.AddComponent<RunBoons>(); yield return null;
                 var route=BuildManualRewardRoute(); Assert.IsTrue(run.BindManualRun(route));
-                // Earlier rooms are resolved by the policy fixture; this test isolates the real Protocol applicator.
+                // Fill unrelated inventory ranks without applying their effects. This leaves the desired
+                // retained Protocol as the sole eligible offer while testing the real ticket/applicator.
+                Assert.IsTrue(ProtocolInventory.TryKind(id,out var targetProtocol));
+                foreach(var other in new[]{ProtocolKind.Ignite,ProtocolKind.Frost,ProtocolKind.Conductor,ProtocolKind.Detonation})
+                    if(other!=targetProtocol)
+                        while(run.Protocols.CanAcquire(other))
+                            Assert.IsTrue(run.Protocols.TryAcquire(run.Protocols.SessionId,other,run.Protocols.Revision,_=>true));
                 foreach(int node in new[]{1,2,4,5})
                 { ReachManualReward(route,node); Assert.IsTrue(route.TryCompleteReward(route.Session.Id,node,0,node==5,RewardReady)); }
-                bool elite=id=="frost"||id=="detonation";
-                if(elite)
-                {
-                    ReachManualReward(route,7);
-                    Assert.IsTrue(route.TryCompleteReward(route.Session.Id,7,0,false,RewardReady));
-                    Assert.IsTrue(route.TryCompleteReward(route.Session.Id,7,1,false,RewardReady));
-                }
-                int target=elite?8:6; ReachManualReward(route,target);
-                var request=new RunRewardRequest(route.Session.Id,target,0);
-                var rewards=(RunRewardPolicy)typeof(RunBoons).GetField("_manualRewards",BindingFlags.NonPublic|BindingFlags.Instance).GetValue(run);
-                var eligible=ManualRewardCatalog.Eligible(RunRewardKind.Protocol,run.WeaponModifiers,run.RunWeapon);
-                Assert.That(eligible.Select(o=>o.Id),Is.EquivalentTo(new[]{"ignite","frost","conductor","detonation"}));
-                // Prefreeze one eligible card to exercise every effect deterministically; distribution has separate policy tests.
-                rewards.Open(request,RewardReady,ManualRewardCatalog.InventoryKey(run.WeaponModifiers,run.RunWeapon,route.Session.InventoryRevision),
-                    eligible.Where(o=>o.Id==id).ToArray());
-                Assert.IsEmpty(run.Acquired); Assert.IsTrue(run.OfferReward(request)); Assert.IsTrue(run.Choose(0));
-                Assert.AreEqual(id,run.Acquired.Single().Id);
-                var effects=_player.OnHitEffects;
-                if(id=="ignite")
-                { Assert.IsTrue((bool)typeof(PlayerOnHitEffects).GetField("_burnEnabled",BindingFlags.NonPublic|BindingFlags.Instance).GetValue(effects)); }
-                else if(id=="frost") Assert.AreEqual(.35f,effects.ChillChance);
-                else Assert.AreEqual(1,effects.Synergies.Rank(id=="conductor"?RunSynergy.Conductor:RunSynergy.Detonation));
-                Assert.AreEqual(0,effects.Synergies.Rank(RunSynergy.Reactor)); Assert.AreEqual(0,effects.Synergies.Rank(RunSynergy.Resonance));
+                ReachManualReward(route,6);
+                var request=new RunRewardRequest(route.Session.Id,6,0);
+                var eligible=ManualRewardCatalog.Eligible(RunRewardKind.Protocol,run.WeaponModifiers,run.RunWeapon,run.Protocols);
+                Assert.That(eligible.Select(offer=>offer.Id),Is.EqualTo(new[]{id}));
+                Assert.IsEmpty(run.Acquired); Assert.IsTrue(run.OfferReward(request));
+                Assert.AreEqual(id,run.Choices.Single().Id); Assert.IsFalse(run.ManualTicket.IsAlternative);
+                Assert.IsTrue(run.Choose(0)); Assert.IsFalse(run.Choose(0));
+                Assert.AreEqual(id,run.Acquired.Single().Id); Assert.AreEqual(1,run.Protocols.Rank(targetProtocol));
+                Assert.AreEqual(1,route.Session.ProtocolAcquisitions);
+                AssertRetainedProtocolEffect(_player,id);
+                Assert.AreEqual(0,_player.OnHitEffects.Synergies.Rank(RunSynergy.Reactor));
+                Assert.AreEqual(0,_player.OnHitEffects.Synergies.Rank(RunSynergy.Resonance));
                 UnityEngine.Object.DestroyImmediate(_player.gameObject); yield return null;
             }
+        }
+
+        private static void AssertRetainedProtocolEffect(PlayerActor player,string id)
+        {
+            var effects=player.OnHitEffects;
+            bool burn=(bool)typeof(PlayerOnHitEffects).GetField("_burnEnabled",BindingFlags.NonPublic|BindingFlags.Instance).GetValue(effects);
+            Assert.AreEqual(id=="ignite",burn);
+            Assert.AreEqual(id=="frost"?.35f:0f,effects.ChillChance);
+            Assert.AreEqual(id=="conductor"?1:0,effects.Synergies.Rank(RunSynergy.Conductor));
+            Assert.AreEqual(id=="detonation"?1:0,effects.Synergies.Rank(RunSynergy.Detonation));
         }
     }
 }

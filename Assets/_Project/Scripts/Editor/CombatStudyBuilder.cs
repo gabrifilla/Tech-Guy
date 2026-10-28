@@ -217,7 +217,8 @@ public static class CombatStudyBuilder
         {
             camera.targetTexture = rt; camera.Render(); RenderTexture.active = rt;
             image.ReadPixels(new Rect(0, 0, 1280, 800), 0, 0); image.Apply();
-            File.WriteAllBytes("Docs/WorkshopReference.png", image.EncodeToPNG());
+            Directory.CreateDirectory("Docs/validation/artifacts/combat-study");
+            File.WriteAllBytes("Docs/validation/artifacts/combat-study/WorkshopReference.png", image.EncodeToPNG());
         }
         finally
         {

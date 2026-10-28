@@ -1,0 +1,128 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "a86f331e31054d7c82ae909b5a6cd4dc",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793070328574,
+      "finished_unix_ms": 1793070333177,
+      "last_update_unix_ms": 1793070333177,
+      "progress": {
+        "completed": 9,
+        "total": 9,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.GprMovement.GprMovementTests.VirtualKeyboardMouseUsesPreviewReader",
+        "last_finished_unix_ms": 1793070333136,
+        "stuck_suspected": false,
+        "editor_is_focused": true,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 9,
+          "passed": 9,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 2.7633817,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "BakedWallCornerObstacleAndBoundary",
+            "fullName": "TechGuy.Tests.GprMovement.GprMovementTests.BakedWallCornerObstacleAndBoundary",
+            "state": "Passed",
+            "durationSeconds": 0.6281313,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "CameraVersusWorldAndFrameSteps",
+            "fullName": "TechGuy.Tests.GprMovement.GprMovementTests.CameraVersusWorldAndFrameSteps",
+            "state": "Passed",
+            "durationSeconds": 0.6023417,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "CardinalDiagonalStopAndAim",
+            "fullName": "TechGuy.Tests.GprMovement.GprMovementTests.CardinalDiagonalStopAndAim",
+            "state": "Passed",
+            "durationSeconds": 0.3036682,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "CharacterControllerAlternativeHasNoNavMeshBoundary",
+            "fullName": "TechGuy.Tests.GprMovement.GprMovementTests.CharacterControllerAlternativeHasNoNavMeshBoundary",
+            "state": "Passed",
+            "durationSeconds": 0.1570058,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "CursorDashAlternativeAndFrozenClock",
+            "fullName": "TechGuy.Tests.GprMovement.GprMovementTests.CursorDashAlternativeAndFrozenClock",
+            "state": "Passed",
+            "durationSeconds": 0.0595068,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "RawMoveFailureAndGuardedThinWallDash",
+            "fullName": "TechGuy.Tests.GprMovement.GprMovementTests.RawMoveFailureAndGuardedThinWallDash",
+            "state": "Passed",
+            "durationSeconds": 0.0987072,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "RootCastHitstopForcedPauseFocusAndDisable",
+            "fullName": "TechGuy.Tests.GprMovement.GprMovementTests.RootCastHitstopForcedPauseFocusAndDisable",
+            "state": "Passed",
+            "durationSeconds": 0.1091607,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SlopeUpDownAndActualDisplacement",
+            "fullName": "TechGuy.Tests.GprMovement.GprMovementTests.SlopeUpDownAndActualDisplacement",
+            "state": "Passed",
+            "durationSeconds": 0.2992346,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "VirtualKeyboardMouseUsesPreviewReader",
+            "fullName": "TechGuy.Tests.GprMovement.GprMovementTests.VirtualKeyboardMouseUsesPreviewReader",
+            "state": "Passed",
+            "durationSeconds": 0.4573327,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

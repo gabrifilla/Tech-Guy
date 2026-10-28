@@ -11,7 +11,7 @@ using UnityEngine.TestTools;
 
 namespace TechGuy.Tests
 {
-    public sealed class ManualRunPlayerFeedbackTests
+    public sealed class ManualRunPlayerFeedbackTests : RunSummaryIsolatedPlayModeFixture
     {
         private int _selection;
         [SetUp] public void Setup() { _selection=PlayerPrefs.GetInt(WeaponLoadout.PreferenceKey,0); PlayerPrefs.SetInt(WeaponLoadout.PreferenceKey,0); }
@@ -52,17 +52,24 @@ namespace TechGuy.Tests
             yield return Load();
             var director=Object.FindFirstObjectByType<ProgressionDirector>(); var player=Object.FindFirstObjectByType<PlayerActor>();
             var ui=director.GetComponent<ManualRunUI>(); var run=player.GetComponent<RunBoons>(); var controls=player.GetComponent<CharControlScript>();
+            int expectedAcquisitions=0, expectedProtocols=0;
             for(int room=1;room<=2;room++)
             {
                 Assert.IsTrue(ui.TryChooseDestination(0));
                 Assert.IsTrue(player.GetComponent<NavMeshAgent>().Warp(director.ManualSession.Route.Node(room).Center));
                 Assert.IsTrue(director.TryEnterNode(director.ManualSession.Id,room));
                 yield return null; yield return null;
-                var enemies=director.GetComponentsInChildren<Actor>(); Assert.AreEqual(4,enemies.Length);
+                var node=director.ManualSession.Route.Node(room);
+                var enemies=director.GetComponentsInChildren<Actor>(); Assert.AreEqual(node.Spawns.Count,enemies.Length,
+                    "The encounter must materialize every enemy in this run snapshot.");
+                expectedAcquisitions+=node.TotalAcquisitions;
+                expectedProtocols+=Enumerable.Range(0,node.TotalAcquisitions).Count(ordinal=>node.RewardAt(ordinal)==RunRewardKind.Protocol);
                 for(int i=0;i<enemies.Length;i++)
                 {
                     enemies[i].SetMaxHealth(1);
-                    var nav=enemies[i].GetComponent<NavMeshAgent>(); nav.Warp(player.transform.position+Vector3.forward*1.2f+Vector3.right*(i*.2f));
+                    var nav=enemies[i].GetComponent<NavMeshAgent>();
+                    float lateral=(i-(enemies.Length-1)*.5f)*.15f;
+                    Assert.IsTrue(nav.Warp(player.transform.position+Vector3.forward*1.2f+Vector3.right*lateral));
                 }
                 Physics.SyncTransforms();
                 using(player.BeginImpactFeedback(.3f))
@@ -72,19 +79,24 @@ namespace TechGuy.Tests
                 float deadline=Time.realtimeSinceStartup+3f;
                 while(!run.IsChoosing) { Assert.Less(Time.realtimeSinceStartup,deadline,"Pending reward must open automatically after feedback."); yield return null; }
                 var ticket=run.ManualTicket;
+                Assert.AreEqual(node.RewardAt(0),ticket.AnnouncedKind);
                 run.CloseManualReward(); yield return null; yield return null;
                 Assert.IsFalse(run.IsChoosing,"Explicit dismissal must remain closed."); Assert.AreSame(ticket,run.ManualTicket);
                 Assert.IsTrue(director.TryOpenManualReward(director.ManualSession.Id,room,0)); Assert.IsTrue(run.Choose(0));
-                Assert.AreEqual(RunPhase.RewardPending,director.ManualSession.Phase,"Fase 5 mantém a sala pendente até o Protocol adicional.");
-                Assert.AreEqual(RunRewardKind.Protocol,run.ManualTicket.AnnouncedKind);
-                Assert.IsFalse(run.Choose(0),"A confirmação da Technique não pode confirmar o segundo ticket no mesmo frame.");
-                yield return null; yield return null;
-                Assert.IsTrue(run.Choose(0));
+                for(int ordinal=1;ordinal<node.TotalAcquisitions;ordinal++)
+                {
+                    Assert.AreEqual(RunPhase.RewardPending,director.ManualSession.Phase,
+                        "The room must remain pending until its generated reward sequence is complete.");
+                    Assert.AreEqual(node.RewardAt(ordinal),run.ManualTicket.AnnouncedKind);
+                    Assert.IsFalse(run.Choose(0),"One confirmation cannot consume the next ticket in the same frame.");
+                    yield return null; yield return null;
+                    Assert.IsTrue(run.Choose(0));
+                }
                 Assert.AreEqual(RunPhase.RouteChoice,director.ManualSession.Phase);
                 yield return new WaitForSeconds(.8f);
             }
-            Assert.AreEqual(4,run.Acquired.Count);
-            Assert.AreEqual(2,director.ManualSession.ProtocolAcquisitions);
+            Assert.AreEqual(expectedAcquisitions,run.Acquired.Count);
+            Assert.AreEqual(expectedProtocols,director.ManualSession.ProtocolAcquisitions);
             Assert.AreEqual(2,director.ManualDestinations.Count,"C2 exposes both Repair and Technique routes.");
         }
     }

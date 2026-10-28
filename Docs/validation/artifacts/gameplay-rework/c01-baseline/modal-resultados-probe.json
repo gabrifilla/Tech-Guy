@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "modalWasOpen": true,
+      "holderBlocked": true,
+      "basicAccepted": false,
+      "observation": "{\"status\":\"complete\",\"stage\":\"finished\",\"run_id\":\"20261026T220632531-840f6b20\",\"output_directory\":\"D:\\\\Dev\\\\Personal\\\\My_games\\\\Tech-Guy\\\\Library\\\\GameplayObservation\\\\20261026T220632531-840f6b20\",\"frames\":13,\"message\":\"\"}",
+      "closed": true
+    },
+    "compiler": "codedom"
+  }
+}

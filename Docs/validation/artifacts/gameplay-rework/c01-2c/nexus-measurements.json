@@ -1,0 +1,158 @@
+{
+  "samples": 757,
+  "source": "Editor real; Keyboard/Mouse/focus virtuais; não é CPU Profiler nem build",
+  "stages": {
+    "0": {
+      "samples": 50,
+      "start": [
+        6.5,
+        0.0566666722,
+        -6.8
+      ],
+      "end": [
+        6.5,
+        0.0566666722,
+        -6.8
+      ],
+      "medianActualSpeed": 0.0,
+      "maxActualSpeed": 0.0,
+      "medianFrameMs": 5.708553,
+      "p95FrameMs": 7.67529756,
+      "maxFrameMs": 333.333343,
+      "abilityUses": 0
+    },
+    "1": {
+      "samples": 125,
+      "start": [
+        6.5,
+        0.0566666722,
+        -6.8
+      ],
+      "end": [
+        6.5,
+        0.0566666722,
+        -4.012553
+      ],
+      "medianActualSpeed": 4.999984,
+      "maxActualSpeed": 5.000047,
+      "medianFrameMs": 5.3381943099999996,
+      "p95FrameMs": 7.231902,
+      "maxFrameMs": 27.665801300000002,
+      "abilityUses": 0
+    },
+    "2": {
+      "samples": 67,
+      "start": [
+        6.5,
+        0.0566666722,
+        -4.012553
+      ],
+      "end": [
+        6.5,
+        0.0566666722,
+        -4.012553
+      ],
+      "medianActualSpeed": 0.0,
+      "maxActualSpeed": 0.0,
+      "medianFrameMs": 4.24610265,
+      "p95FrameMs": 6.00839732,
+      "maxFrameMs": 8.119197,
+      "abilityUses": 0
+    },
+    "3": {
+      "samples": 145,
+      "start": [
+        6.5,
+        0.0566666722,
+        -4.012553
+      ],
+      "end": [
+        8.951401,
+        0.0566666722,
+        -4.00071955
+      ],
+      "medianActualSpeed": 3.53553581,
+      "maxActualSpeed": 4.99994755,
+      "medianFrameMs": 4.729698,
+      "p95FrameMs": 6.027105,
+      "maxFrameMs": 22.7545,
+      "abilityUses": 0
+    },
+    "4": {
+      "samples": 98,
+      "start": [
+        8.968699,
+        0.0566666722,
+        -4.00071955
+      ],
+      "end": [
+        8.968699,
+        0.0566666722,
+        -4.00071955
+      ],
+      "medianActualSpeed": 0.0,
+      "maxActualSpeed": 3.535613,
+      "medianFrameMs": 4.88825114,
+      "p95FrameMs": 6.351899,
+      "maxFrameMs": 27.6616,
+      "abilityUses": 0
+    },
+    "5": {
+      "samples": 48,
+      "start": [
+        8.968699,
+        0.0566666722,
+        -4.00071955
+      ],
+      "end": [
+        8.968699,
+        0.0566666722,
+        -4.00071955
+      ],
+      "medianActualSpeed": 0.0,
+      "maxActualSpeed": 0.0,
+      "medianFrameMs": 0.0,
+      "p95FrameMs": 0.0,
+      "maxFrameMs": 5.431101,
+      "abilityUses": 0
+    },
+    "6": {
+      "samples": 29,
+      "start": [
+        8.968699,
+        0.0566666722,
+        -4.00071955
+      ],
+      "end": [
+        8.968699,
+        0.0566666722,
+        -4.00071955
+      ],
+      "medianActualSpeed": 0.0,
+      "maxActualSpeed": 0.0,
+      "medianFrameMs": 5.66129526,
+      "p95FrameMs": 28.9713014,
+      "maxFrameMs": 333.333343,
+      "abilityUses": 0
+    },
+    "7": {
+      "samples": 195,
+      "start": [
+        8.968699,
+        0.0566666722,
+        -4.00071955
+      ],
+      "end": [
+        8.968699,
+        0.0566666722,
+        -4.00071955
+      ],
+      "medianActualSpeed": 0.0,
+      "maxActualSpeed": 0.0,
+      "medianFrameMs": 4.508496259999999,
+      "p95FrameMs": 6.14749873,
+      "maxFrameMs": 6.755003,
+      "abilityUses": 0
+    }
+  }
+}

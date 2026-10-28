@@ -18,7 +18,7 @@ public sealed class ComponentPool<T> where T : Component
     private readonly Func<T> _factory;
     private readonly Action<T> _reset;
     private readonly string _rootName;
-    private readonly SimpleObjectPool<T> _pool;
+    private SimpleObjectPool<T> _pool;
 
     private Transform _root;
 
@@ -46,7 +46,7 @@ public sealed class ComponentPool<T> where T : Component
         _pool = new SimpleObjectPool<T>(CreateParented);
     }
 
-    /// <summary>Total instances ever created by this pool (high-water-mark, never shrinks).</summary>
+    /// <summary>Total instances created under the current scene root (high-water-mark until that root is destroyed).</summary>
     public int CreatedCount => _pool.CreatedCount;
 
     /// <summary>Instances currently parked and available for reuse.</summary>
@@ -62,6 +62,12 @@ public sealed class ComponentPool<T> where T : Component
     /// </summary>
     public T Acquire()
     {
+        // The adapter can outlive its scene through a static owner. Unloading the scene destroys
+        // the root and every child, but the plain C# pool still holds their managed wrappers.
+        // Rebuild this root's storage before acquiring; Unity-null items must not become dropped shots.
+        if (_pool.CreatedCount > 0 && !_root)
+            _pool = new SimpleObjectPool<T>(CreateParented);
+
         T instance = _pool.Acquire();
         if (instance == null) return null;
 

@@ -32,6 +32,167 @@ namespace TechGuy.Tests
         private static HitReactionRequest Hit(float damage, StanceBreakEffect effect = StanceBreakEffect.None, HitReactionType type = HitReactionType.None, float duration = 0.3f)
             => new HitReactionRequest(null, Vector3.up, Vector3.forward, type, HitStrength.Light, damage, effect, 5f, duration, 1f, 2f);
 
+        [UnityTest]
+        public IEnumerator RepeatedFlinchRestartsAtEachContactWithoutAddingControlOrDisplacement()
+        {
+#if UNITY_EDITOR
+            // One real common-enemy model/controller, isolated from navigation and AI for this
+            // presentation regression. The gameplay captures use the untouched production encounter.
+            var parent = new GameObject("Repeated flinch fixture"); parent.SetActive(false); _objects.Add(parent);
+            var prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/EnemyArchetypes/Grunt.prefab");
+            Assert.IsNotNull(prefab);
+            var enemy = Object.Instantiate(prefab, parent.transform);
+            enemy.GetComponent<EnemyAI>().enabled = false;
+            enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+            var animator = enemy.GetComponentInChildren<Animator>();
+            animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+            parent.SetActive(true);
+            var reaction = enemy.GetComponent<CombatReactionController>() ?? enemy.AddComponent<CombatReactionController>();
+            reaction.ConfigureProfile(UnityEditor.AssetDatabase.LoadAssetAtPath<EnemyProfile>("Assets/_Project/ScriptableObjects/Enemies/Archetypes/Grunt.asset"));
+            animator.Update(0f);
+            var actor = enemy.GetComponent<Actor>();
+            float health = actor.health, stance = reaction.CurrentStance;
+            Vector3 position = enemy.transform.position;
+            var contact = new HitReactionRequest(null, position, Vector3.forward,
+                HitReactionType.Stagger, HitStrength.Light, 0f, StanceBreakEffect.None, 0f);
+            reaction.ApplyReaction(contact); animator.Update(0f); animator.Update(.25f);
+            Assert.IsTrue(animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"));
+            Assert.Greater(animator.GetCurrentAnimatorStateInfo(0).normalizedTime, .2f);
+            reaction.ApplyReaction(contact); animator.Update(0f);
+            Assert.Less(animator.GetCurrentAnimatorStateInfo(0).normalizedTime, .01f,
+                "A new contact must restart GetHit even when GetHit is already the current state.");
+            Assert.AreEqual(health, actor.health); Assert.AreEqual(stance, reaction.CurrentStance);
+            Assert.IsFalse(reaction.IsControlLocked); Assert.IsFalse(reaction.IsAirborne);
+            Assert.AreEqual(position, enemy.transform.position);
+            animator.Update(.2f);
+            float beforeNone = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
+            reaction.ApplyReaction(Hit(0f)); animator.Update(0f);
+            Assert.AreEqual(beforeNone, animator.GetCurrentAnimatorStateInfo(0).normalizedTime, .001f,
+                "A None reaction must not manufacture a new flinch.");
+            yield return null;
+#else
+            Assert.Ignore("This regression uses the shipped Grunt prefab through AssetDatabase in the Editor.");
+            yield break;
+#endif
+        }
+
+#if UNITY_EDITOR
+        private CombatReactionController BuildFlinchFixture(out Animator animator)
+        {
+            var parent = new GameObject("Flinch recovery fixture"); parent.SetActive(false); _objects.Add(parent);
+            var prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/EnemyArchetypes/Grunt.prefab");
+            var enemy = Object.Instantiate(prefab, parent.transform);
+            enemy.GetComponent<EnemyAI>().enabled = false;
+            // The fixture applies its profile explicitly; do not let Start reconfigure ownership later.
+            enemy.GetComponent<EnemyVariant>().enabled = false;
+            enemy.GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+            animator = enemy.GetComponentInChildren<Animator>(); animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+            parent.SetActive(true);
+            var r = enemy.GetComponent<CombatReactionController>() ?? enemy.AddComponent<CombatReactionController>();
+            r.ConfigureProfile(UnityEditor.AssetDatabase.LoadAssetAtPath<EnemyProfile>("Assets/_Project/ScriptableObjects/Enemies/Archetypes/Grunt.asset"));
+            animator.Update(0f);
+            return r;
+        }
+        private static void Flinch(CombatReactionController r, Animator animator)
+        {
+            r.ApplyReaction(new HitReactionRequest(null, r.transform.position, Vector3.forward,
+                HitReactionType.Stagger, HitStrength.Light, 0f, StanceBreakEffect.None, 0f));
+            animator.Update(0f);
+        }
+        private static void EvaluatePresentation(CombatReactionController r, Animator animator)
+        {
+            typeof(CombatReactionController).GetMethod("LateUpdate", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(r, null);
+            animator.Update(.15f); // Complete the existing locomotion blend if one was requested.
+        }
+        [UnityTest] public IEnumerator FinishedFlinchReturnsToLocomotionWithoutChangingMechanics()
+        {
+            var r = BuildFlinchFixture(out var animator);
+            float health = r.GetComponent<Actor>().health, stance = r.CurrentStance;
+            Flinch(r, animator); animator.Update(.8f);
+            Assert.GreaterOrEqual(animator.GetCurrentAnimatorStateInfo(0).normalizedTime, 1f);
+            EvaluatePresentation(r, animator);
+            Assert.IsTrue(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"), "A completed owned GetHit must release to locomotion.");
+            Assert.AreEqual(health, r.GetComponent<Actor>().health); Assert.AreEqual(stance, r.CurrentStance);
+            Assert.IsFalse(r.IsControlLocked); Assert.IsFalse(r.IsAirborne);
+            yield return null;
+        }
+        [UnityTest] public IEnumerator AnotherImpactRestartsFlinchAndDefersItsVisualRecovery()
+        {
+            var r = BuildFlinchFixture(out var animator);
+            Flinch(r, animator); animator.Update(.5f); Flinch(r, animator);
+            animator.Update(.2f); EvaluatePresentation(r, animator);
+            Assert.IsTrue(animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"), "The new contact owns a fresh full clip.");
+            animator.Update(.5f); EvaluatePresentation(r, animator);
+            Assert.IsTrue(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+            yield return null;
+        }
+        [UnityTest] public IEnumerator FlinchRecoveryDoesNotOverwriteExternalAttackOrSurviveDisable()
+        {
+            var r = BuildFlinchFixture(out var animator);
+            Flinch(r, animator); animator.Play("Attack", 0, .1f); animator.Update(0f);
+            EvaluatePresentation(r, animator);
+            Assert.IsTrue(animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"));
+            r.enabled = false; r.enabled = true;
+            animator.Play("GetHit", 0, 1.1f); animator.Update(0f); EvaluatePresentation(r, animator);
+            Assert.IsTrue(animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"), "Disabled ownership must not leak into a later external state.");
+            yield return null;
+        }
+        [UnityTest] public IEnumerator PauseAndHitstopDoNotReleaseACompletedFlinchEarly()
+        {
+            var r = BuildFlinchFixture(out var animator);
+            Flinch(r, animator); animator.Update(.8f); Time.timeScale = 0f;
+            EvaluatePresentation(r, animator); Assert.IsTrue(animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"));
+            Time.timeScale = 1f;
+            var source = new GameObject("Presentation hitstop clock"); _objects.Add(source);
+            var runner = source.AddComponent<HitStopRunner>(); r.BindGameplayClock(runner); runner.Apply(.15f);
+            EvaluatePresentation(r, animator); Assert.IsTrue(animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"));
+            yield return new WaitForSecondsRealtime(.25f);
+            EvaluatePresentation(r, animator); Assert.IsTrue(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+        }
+        [UnityTest] public IEnumerator ActiveWindupKeepsPriorityWhenTheHitCannotInterruptIt()
+        {
+            var r = BuildFlinchFixture(out var animator);
+            var targetObject = new GameObject("Windup target"); _objects.Add(targetObject);
+            var target = targetObject.AddComponent<Actor>(); target.health = 100f;
+            target.transform.position = r.transform.position + Vector3.forward;
+            var actions = r.GetComponent<EnemyCombatActions>() ?? r.gameObject.AddComponent<EnemyCombatActions>();
+            r.StartCoroutine(actions.Perform(EnemyAttackKind.Punch, target, 5f, () => true));
+            yield return null; Assert.IsTrue(actions.IsWindingUp);
+            r.ApplyReaction(new HitReactionRequest(null, Vector3.zero, Vector3.forward,
+                HitReactionType.Stagger, HitStrength.Light, 0f, StanceBreakEffect.None, 0f).WithInterruptContribution(0f));
+            animator.Update(0f); EvaluatePresentation(r, animator);
+            Assert.IsFalse(animator.GetCurrentAnimatorStateInfo(0).IsName("GetHit"), "A non-interrupting flinch must not steal the attack presentation.");
+            Assert.IsTrue(actions.IsWindingUp); actions.Cancel();
+        }
+        [UnityTest] public IEnumerator ControlAndRankFallbacksKeepPriorityOverFlinchRecovery()
+        {
+            foreach (var rank in new[] { EnemyRank.Normal, EnemyRank.Elite, EnemyRank.Boss })
+            foreach (var effect in new[] { StanceBreakEffect.Stun, StanceBreakEffect.KnockUp, StanceBreakEffect.Knockdown })
+            {
+                var r = BuildFlinchFixture(out var animator);
+                r.ConfigureStance(rank, 10f, 1f, 0f, 0f, 0f, 0f, 0f, 0f);
+                r.ConfigureReaction(new ReactionConfiguration(rank, rank == EnemyRank.Boss ? ReactionCategory.Boss : ReactionCategory.SmallMob,
+                    vulnerabilitySeconds:.1f, breakImmunitySeconds:.1f));
+                Flinch(r, animator); r.ApplyReaction(Hit(10f, effect, duration:.2f));
+                Assert.IsTrue(r.IsControlLocked, rank + "/" + effect);
+                animator.Update(.8f); EvaluatePresentation(r, animator);
+                Assert.IsFalse(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"), "Control owns presentation until release: " + rank + "/" + effect);
+                yield return new WaitForSeconds(1.5f);
+                EvaluatePresentation(r, animator);
+                Assert.IsFalse(r.IsControlLocked); Assert.IsTrue(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
+                r.gameObject.SetActive(false);
+            }
+        }
+        [UnityTest] public IEnumerator DeathDuringFlinchCannotRestoreLocomotion()
+        {
+            var r = BuildFlinchFixture(out var animator); Flinch(r, animator); animator.Update(.8f);
+            r.GetComponent<Actor>().TakeDamage(9999f);
+            animator.Play("Die", 0, 0f); animator.Update(0f); EvaluatePresentation(r, animator);
+            Assert.IsTrue(animator.GetCurrentAnimatorStateInfo(0).IsName("Die"));
+            yield return null;
+        }
+#endif
+
         // Feature: posture-enemy-interaction, Property 5: callbacks observe committed state.
         // Validates: Requirements 4.1, 4.4, 4.5, 4.6, 7.2
         [UnityTest] public IEnumerator NoneBreakIsSameStepAndReentrantSafe()
@@ -89,6 +250,8 @@ namespace TechGuy.Tests
             r.ApplyReaction(Hit(10f)); Assert.AreEqual(KnockdownPhase.Falling, r.KnockdownPhase);
             yield return new WaitForSeconds(0.35f);
             Assert.AreEqual(KnockdownPhase.Grounded, r.KnockdownPhase);
+            // The reaction clock advances in Update; sample the owned pose after its LateUpdate.
+            yield return null;
             Assert.AreEqual(position.y, visual.localPosition.y);
             Assert.Greater(Quaternion.Angle(rotation, visual.localRotation), 45f);
             r.gameObject.SetActive(false);

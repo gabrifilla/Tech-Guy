@@ -53,6 +53,8 @@ public sealed partial class ProgressionDirector : MonoBehaviour
     [SerializeField, Min(1)] private int _maxConcurrentMeleePerRoom = 3;
 
     public RoomGraph CurrentGraph => _graph;
+    public string ObjectiveText => _objective ? _objective.text : "";
+    public int CurrentMapRoomId => _player && _graph != null ? FindRoomContainingPlayer()?.Id ?? -1 : -1;
     public int BossAccessFragments => _bossAccessFragments;
     public int RequiredBossAccessFragments => Mathf.Max(1, _requiredBossAccessFragments);
     public bool HasBossAccess => _bossAccessFragments >= RequiredBossAccessFragments;
@@ -181,6 +183,8 @@ public sealed partial class ProgressionDirector : MonoBehaviour
     /// </summary>
     private void Awake()
     {
+        // Keep progression messages available to pause without a persistent objective panel.
+        if (_objective) _objective.enabled = false;
         if (TrySelectManualInitialization()) return;
         if (!ValidateDependencies())
         {
@@ -549,6 +553,7 @@ public sealed partial class ProgressionDirector : MonoBehaviour
                 continue;
             }
 
+            if (actor.TryGetComponent(out EnemyAI ai)) ai.ConfigureEncounterBounds(ToWorld(room.Center), room.Size);
             _roomByActor[actor] = room.Id;
             actor.Died += OnEnemyDied;
             if (actor.TryGetComponent(out SpawnerBehavior spawner))
@@ -1483,6 +1488,7 @@ public sealed partial class ProgressionDirector : MonoBehaviour
         if (ManualSession != null)
         {
             if (!ManualSession.IsClosed) _manualPolicy.TryEndRun(ManualSession.Id, RunOutcome.Aborted, new RunActionContext(false));
+            FinishRunStatistics();
             _manualPolicy.TryCompleteReturn(ManualSession.Id);
             if (_boons) _boons.EndManualSession();
         }

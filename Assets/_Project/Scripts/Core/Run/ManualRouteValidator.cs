@@ -18,19 +18,38 @@ public static class ManualRouteValidator
     public static bool ValidateLoadout(WeaponScript weapon, out string error)
     {
         error = null;
-        if (!weapon || WeaponRunModifiers.Identify(weapon) != RunWeaponFamily.Gauntlet ||
-            weapon.abilities == null || weapon.abilities.Length != 4)
-        { error = "Manual slice requires the four-slot Gauntlet loadout."; return false; }
-        var mods = new WeaponRunModifiers(RunWeaponFamily.Gauntlet);
-        foreach (GauntletMutation mutation in Enum.GetValues(typeof(GauntletMutation)))
+        if (!weapon || weapon.abilities == null || weapon.abilities.Length != 4 || weapon.abilities.Any(ability => !ability))
+        { error = "Run requires a complete four-slot weapon loadout."; return false; }
+        var family = WeaponRunModifiers.Identify(weapon);
+        var mods = new WeaponRunModifiers(family);
+        if (family == RunWeaponFamily.Gauntlet)
         {
-            var slot = GauntletMutationSelection.SlotOf(mutation);
-            var selection = new GauntletMutationSelection();
-            selection.Select(mutation);
-            if (!(weapon.abilities[(int)slot] is BreakerGauntletAbility ability) ||
-                !GauntletExecutionSnapshot.TryBuild(ability, slot, mods, out _, selection))
-            { error = "Mutation target is invalid: " + mutation; return false; }
+            foreach (GauntletMutation mutation in Enum.GetValues(typeof(GauntletMutation)))
+            {
+                var slot = GauntletMutationSelection.SlotOf(mutation);
+                var selection = new GauntletMutationSelection();
+                selection.Select(mutation);
+                if (!(weapon.abilities[(int)slot] is BreakerGauntletAbility ability) ||
+                    !GauntletExecutionSnapshot.TryBuild(ability, slot, mods, out _, selection))
+                { error = "Mutation target is invalid: " + mutation; return false; }
+            }
         }
+        else
+        {
+            var expected = family == RunWeaponFamily.Bow
+                ? new[] { ArsenalSkillKind.Arrow, ArsenalSkillKind.Arrow, ArsenalSkillKind.Volley, ArsenalSkillKind.Rain }
+                : new[] { ArsenalSkillKind.Thrust, ArsenalSkillKind.Sweep, ArsenalSkillKind.Thrust, ArsenalSkillKind.Thrust };
+            for (int slot = 0; slot < expected.Length; slot++)
+            {
+                if (!(weapon.abilities[slot] is ArsenalAbility ability) || ability.Kind != expected[slot] ||
+                    !Bounded(ability.Windup, 0f, 60f) || !Bounded(ability.Interval, .01f, 60f) ||
+                    !Bounded(ability.Range, .01f, 1000f) || !Bounded(ability.Width, .01f, 1000f) ||
+                    !Bounded(ability.DamageMultiplier, .01f, 1000f) || ability.Hits < 1 || ability.Hits > 128)
+                { error = "Invalid " + family + " execution target at slot " + slot; return false; }
+            }
+        }
+        if (ManualRewardCatalog.Eligible(RunRewardKind.Mutation, mods, weapon).Count == 0)
+        { error = "No retained Mutation is compatible with this loadout."; return false; }
         return true;
     }
 

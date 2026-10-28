@@ -1,0 +1,2299 @@
+{
+    "schema_version": 1,
+    "run_id": "20261026T220320789-7ecce255",
+    "status": "complete",
+    "scenario_id": "GAUNTLET_SMALL_GROUP",
+    "phase": "baseline",
+    "unity_version": "6000.5.10f1",
+    "provenance": {
+        "utc": "2026-10-26T22:03:20.7903871Z",
+        "revision": "3a3f0ee8ad82734104511b63877d38df512ea146",
+        "working_tree": "M .gitignore\n D .kiro/settings/mcp.json\n D .kiro/specs/combat-foundation-rework/.config.kiro\n D .kiro/specs/combat-foundation-rework/contract-audit.md\n D .kiro/specs/combat-foundation-rework/design.md\n D .kiro/specs/combat-foundation-rework/requirements.md\n D .kiro/specs/combat-foundation-rework/tasks.md\n D .kiro/specs/combat-foundation-rework/tasks.meta.json\n D .kiro/specs/enemy-swarm-core-archetypes/.config.kiro\n D .kiro/specs/enemy-swarm-core-archetypes/design.md\n D .kiro/specs/enemy-swarm-core-archetypes/requirements.md\n D .kiro/specs/enemy-swarm-core-archetypes/tasks.md\n D .kiro/specs/enemy-swarm-core-archetypes/tasks.meta.json\n D .kiro/specs/gauntlet-2-rework/contract-audit.md\n D .kiro/specs/gauntlet-2-rework/design.md\n D .kiro/specs/gauntlet-2-rework/requirements.md\n D .kiro/specs/gauntlet-2-rework/tasks.md\n D .kiro/specs/gauntlet-2-rework/validation.md\n D .kiro/specs/gauntlet-boon-playstyle-overhaul/.config.kiro\n D .kiro/specs/gauntlet-boon-playstyle-overhaul/design.md\n D .kiro/specs/gauntlet-boon-playstyle-overhaul/requirements.md\n D .kiro/specs/gauntlet-boon-playstyle-overhaul/tasks.md\n D .kiro/specs/gauntlet-boon-playstyle-overhaul/tasks.meta.json\n D .kiro/specs/impactful-weapon-boons/.config.kiro\n D .kiro/specs/impactful-weapon-boons/design.md\n D .kiro/specs/impactful-weapon-boons/requirements.md\n D .kiro/specs/impactful-weapon-boons/tasks.md\n D .kiro/specs/impactful-weapon-boons/tasks.meta.json\n D .kiro/specs/modifier-synergies-theme17/.config.kiro\n D .kiro/specs/modifier-synergies-theme17/design.md\n D .kiro/specs/modifier-synergies-theme17/requirements.md\n D .kiro/specs/modifier-synergies-theme17/tasks.md\n D .kiro/specs/modifier-synergies-theme17/tasks.meta.json\n D .kiro/specs/nexus-lobby-menu-restructure/.config.kiro\n D .kiro/specs/nexus-lobby-menu-restructure/design.md\n D .kiro/specs/nexus-lobby-menu-restructure/requirements.md\n D .kiro/specs/nexus-lobby-menu-restructure/tasks.md\n D .kiro/specs/nexus-lobby-menu-restructure/tasks.meta.json\n D .kiro/specs/playable-procedural-run/.config.kiro\n D .kiro/specs/playable-procedural-run/design.md\n D .kiro/specs/playable-procedural-run/requirements.md\n D .kiro/specs/playable-procedural-run/tasks.md\n D .kiro/specs/playable-procedural-run/tasks.meta.json\n D .kiro/specs/posture-enemy-interaction/.config.kiro\n D .kiro/specs/posture-enemy-interaction/contract-audit.md\n D .kiro/specs/posture-enemy-interaction/design.md\n D .kiro/specs/posture-enemy-interaction/requirements.md\n D .kiro/specs/posture-enemy-interaction/tasks.md\n D .kiro/specs/posture-enemy-interaction/validation.md\n D .kiro/specs/procedural-stage-room-generation/.config.kiro\n D .kiro/specs/procedural-stage-room-generation/design.md\n D .kiro/specs/procedural-stage-room-generation/requirements.md\n D .kiro/specs/procedural-stage-room-generation/tasks.md\n D .kiro/specs/procedural-stage-room-generation/tasks.meta.json\n D .kiro/specs/project-cleanup-optimization/.config.kiro\n D .kiro/specs/project-cleanup-optimization/baseline.md\n D .kiro/specs/project-cleanup-optimization/design.md\n D .kiro/specs/project-cleanup-optimization/fastscriptreload-review.md\n D .kiro/specs/project-cleanup-optimization/requirements.md\n D .kiro/specs/project-cleanup-optimization/tasks.md\n D .kiro/specs/project-cleanup-optimization/tasks.meta.json\n D .kiro/specs/project-cleanup-optimization/validation.md\n D .kiro/specs/protocol-system/analyze-performance.ps1\n D .kiro/specs/protocol-system/contract-audit.md\n D .kiro/specs/protocol-system/design.md\n D .kiro/specs/protocol-system/performance.md\n D .kiro/specs/protocol-system/requirements.md\n D .kiro/specs/protocol-system/tasks.md\n D .kiro/specs/protocol-system/validation.md\n D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/.config.kiro\n D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/design.md\n D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/requirements.md\n D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/tasks.md\n D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/tasks.meta.json\n D .kiro/specs/run-structure/contract-audit.md\n D .kiro/specs/run-structure/design.md\n D .kiro/specs/run-structure/requirements.md\n D .kiro/specs/run-structure/task-1-review.md\n D .kiro/specs/run-structure/tasks.md\n D .kiro/specs/run-structure/validation.md\n M AGENTS.md\n D Assets/InitTestScene6bc04670-6937-4028-895d-1cee1b974ce9.unity\n D Assets/InitTestScene6bc04670-6937-4028-895d-1cee1b974ce9.unity.meta\n D Assets/InitTestScened26eadda-fec1-451a-bf30-c83fa74cc5bf.unity\n D Assets/InitTestScened26eadda-fec1-451a-bf30-c83fa74cc5bf.unity.meta\n D Assets/Resources/Weapons.meta\n D Assets/Resources/Weapons/Ranged.meta\n D Assets/Resources/Weapons/Ranged/Bow_arrow.meta\n D Assets/Screenshots.meta\n D Assets/Screenshots/ProceduralStageAuthoring_Layout.png\n D Assets/Screenshots/ProceduralStageAuthoring_Layout.png.meta\n D Assets/Screenshots/ProceduralStageAuthoring_PlayMode.png\n D Assets/Screenshots/ProceduralStageAuthoring_PlayMode.png.meta\n D Assets/Screenshots/firstsector_extraction_portal.png\n D Assets/Screenshots/firstsector_extraction_portal.png.meta\n D Assets/Screenshots/firstsector_play_start.png\n D Assets/Screenshots/firstsector_play_start.png.meta\n D Assets/Screenshots/firstsector_topdown_layout.png\n D Assets/Screenshots/firstsector_topdown_layout.png.meta\n D Assets/Screenshots/screenshot-20261001-125959.png\n D Assets/Screenshots/screenshot-20261001-125959.png.meta\n D Assets/Screenshots/screenshot-20261001-130034.png\n D Assets/Screenshots/screenshot-20261001-130034.png.meta\n D Assets/Screenshots/screenshot-20261001-130046.png\n D Assets/Screenshots/screenshot-20261001-130046.png.meta\n D Assets/Screenshots/screenshot-20261001-130905.png\n D Assets/Screenshots/screenshot-20261001-130905.png.meta\n D Assets/Screenshots/screenshot-20261001-131213.png\n D Assets/Screenshots/screenshot-20261001-131213.png.meta\n D Assets/Screenshots/screenshot-20261001-132414.png\n D Assets/Screenshots/screenshot-20261001-132414.png.meta\n D Assets/Screenshots/screenshot-20261001-133217.png\n D Assets/Screenshots/screenshot-20261001-133217.png.meta\n M \"Assets/_Project/Art/Character/Animator Controller Character.controller\"\n M Assets/_Project/Art/Toon/TechGuyToon.shader\n M Assets/_Project/Prefabs/EnemyArchetypes/Shooter.prefab\n M Assets/_Project/Scenes/CombatStudy.unity\n M Assets/_Project/Scenes/FirstSector.unity\n M Assets/_Project/Scenes/NexusLobby.unity\n M Assets/_Project/Scenes/Playground.unity\n M Assets/_Project/Scenes/ProceduralStageAuthoring.unity\n M Assets/_Project/Scenes/PrologueTutorial.unity\n D Assets/_Project/Screenshots.meta\n D Assets/_Project/Screenshots/telegraph_fill_shapes.png\n D Assets/_Project/Screenshots/telegraph_fill_shapes.png.meta\n D Assets/_Project/Screenshots/telegraph_fill_shapes_top.png\n D Assets/_Project/Screenshots/telegraph_fill_shapes_top.png.meta\n D Assets/_Project/Screenshots/telegraph_fill_validation.png\n D Assets/_Project/Screenshots/telegraph_fill_validation.png.meta\n D Assets/_Project/Screenshots/telegraph_fill_validation_top.png\n D Assets/_Project/Screenshots/telegraph_fill_validation_top.png.meta\n M Assets/_Project/ScriptableObjects/Run/FirstSectorManual.asset\n M Assets/_Project/Scripts/Abilities/AbilityHolder.cs\n M Assets/_Project/Scripts/Abilities/Weapon/ArsenalAbility.cs\n M Assets/_Project/Scripts/Abilities/Weapon/ArsenalCombat.cs\n M Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs\n M Assets/_Project/Scripts/Abilities/Weapon/GauntletAuthoring.cs\n M Assets/_Project/Scripts/Abilities/Weapon/GauntletExecutionSnapshot.cs\n M Assets/_Project/Scripts/Abilities/Weapon/GauntletMutationSelection.cs\n M Assets/_Project/Scripts/Abilities/Weapon/SkillAnimationPlayer.cs\n M Assets/_Project/Scripts/Camera/TG_TopDown_Camera.cs\n M Assets/_Project/Scripts/Characters/Actor.cs\n M Assets/_Project/Scripts/Characters/Combat/CombatReactionController.cs\n M Assets/_Project/Scripts/Characters/Combat/Core/BasicAttackDriver.cs\n M Assets/_Project/Scripts/Characters/Combat/Core/CombatActionProfile.cs\n M Assets/_Project/Scripts/Characters/Combat/GauntletImpactTransaction.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolElementStatus.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Status.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.cs\n M Assets/_Project/Scripts/Characters/Enemy/EnemyAI.cs\n M Assets/_Project/Scripts/Characters/Enemy/EnemyCombatActions.cs\n M Assets/_Project/Scripts/Characters/Enemy/EnemyProjectile.cs\n M Assets/_Project/Scripts/Characters/Enemy/HazardCasterBehavior.cs\n M Assets/_Project/Scripts/Characters/Enemy/KiteController.cs\n M Assets/_Project/Scripts/Characters/Enemy/PreferredDistanceLayer.cs\n M Assets/_Project/Scripts/Characters/Enemy/SpawnerBehavior.cs\n M Assets/_Project/Scripts/Characters/Enemy/TutorialTrainingTarget.cs\n M Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\n M Assets/_Project/Scripts/Characters/Player/Actions/WorldClickResolver.cs\n M Assets/_Project/Scripts/Characters/Player/PlayerActor.cs\n M Assets/_Project/Scripts/Core/GamePreferences.cs\n M Assets/_Project/Scripts/Core/Pooling/ComponentPool.cs\n M Assets/_Project/Scripts/Core/Run/ManualRewardCatalog.cs\n M Assets/_Project/Scripts/Core/Run/ManualRoutePolicy.cs\n M Assets/_Project/Scripts/Core/Run/ManualRouteSnapshot.cs\n M Assets/_Project/Scripts/Core/Run/ManualRouteValidator.cs\n M Assets/_Project/Scripts/Core/Run/ManualSceneBindings.cs\n M Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.cs\n M Assets/_Project/Scripts/Core/Run/ProgressionDirector.Encounter.cs\n M Assets/_Project/Scripts/Core/Run/ProgressionDirector.Lifecycle.cs\n M Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs\n D Assets/_Project/Scripts/Core/Run/ProtocolRewardSelection.cs\n D Assets/_Project/Scripts/Core/Run/ProtocolRewardSelection.cs.meta\n M Assets/_Project/Scripts/Core/Run/RunBoons.Manual.cs\n M Assets/_Project/Scripts/Core/Run/RunRewardPolicy.cs\n M Assets/_Project/Scripts/Core/RunBoons.cs\n M Assets/_Project/Scripts/Core/TutorialDirector.cs\n M Assets/_Project/Scripts/Editor/CombatPolishPreview.cs\n M Assets/_Project/Scripts/Editor/CombatStudyBuilder.cs\n M Assets/_Project/Scripts/Editor/CombatStudyValidation.cs\n M Assets/_Project/Scripts/Editor/FirstSectorBuilder.cs\n M Assets/_Project/Scripts/Editor/LobbyCompactLayout.cs\n M Assets/_Project/Scripts/Editor/LobbySceneBuilder.cs\n M Assets/_Project/Scripts/Editor/RunRewardPreview.cs\n M Assets/_Project/Scripts/Editor/SharedHudValidation.cs\n M Assets/_Project/Scripts/Editor/TitleTutorialPreview.cs\n M Assets/_Project/Scripts/Effects/CombatGroundFill.cs\n M Assets/_Project/Scripts/Effects/ProtocolFeedbackPool.cs\n M Assets/_Project/Scripts/Stages/ProgressionDirector.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationDeductsManaAndStartsRechargePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationDeductsManaAndStartsRechargePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationInvalidPreservesStatePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationInvalidPreservesStatePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ActionTimelinePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ActionTimelinePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AdaptiveCadencePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AdaptiveCadencePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AntiHeavyToolStrengthPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AntiHeavyToolStrengthPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetChaseExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetChaseExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ArrowRainRangeClampPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ArrowRainRangeClampPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ArsenalRicochetDecayInvariantTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ArsenalRicochetDecayInvariantTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AssetIsolationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AssetIsolationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraCategoryAlternationEnergyPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraCategoryAlternationEnergyPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDenyWhenNotFullPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDenyWhenNotFullPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDisplayedIffGauntletsEquippedPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDisplayedIffGauntletsEquippedPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFistPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFistPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraPullDisplacementBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraPullDisplacementBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AtMostOneTreasureAndSecretPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AtMostOneTreasureAndSecretPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackShapeEdgeCaseTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackShapeEdgeCaseTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackSlotConcurrencyLimitPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackSlotConcurrencyLimitPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicAttackDriverPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicAttackDriverPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicHitChannelPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicHitChannelPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BossSuppressesConventionalReactionsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BossSuppressesConventionalReactionsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BossUniqueAndEligiblePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BossUniqueAndEligiblePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BowFireReducedSpeedPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BowFireReducedSpeedPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BreakEffectDeterministicDegradePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BreakEffectDeterministicDegradePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceAnimationGuardExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceAnimationGuardExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceJitterBandPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceJitterBandPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelConsumeOrBufferPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelConsumeOrBufferPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelResolverPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelResolverPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelRulePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelRulePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ChargedShotThresholdPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ChargedShotThresholdPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CleanupReportAndFallbackExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CleanupReportAndFallbackExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatActionProfileSmokeTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatActionProfileSmokeTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatBalanceBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatBalanceBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatGroundFillMeshExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatGroundFillMeshExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatRoomSpawnPointPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatRoomSpawnPointPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ComboNovaProcGateTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ComboNovaProcGateTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CommitmentRulesPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CommitmentRulesPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ConsecutiveHitCounterPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ConsecutiveHitCounterPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGateDisplacementPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGateDisplacementPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGatePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGatePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DamageAbsorbedDecisionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DamageAbsorbedDecisionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityMonotonicByDepthPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityMonotonicByDepthPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityWithinBudgetPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityWithinBudgetPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DifferentSeedsDivergePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DifferentSeedsDivergePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementInvalidDowngradePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementInvalidDowngradePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementTierBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementTierBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeBandPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeBandPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeStrikePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeStrikePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ElementalOverflowGatePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ElementalOverflowGatePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EliteStanceBreakDifficultyPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EliteStanceBreakDifficultyPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EncounterGatesDirectionalTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EncounterGatesDirectionalTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyAttackAreaTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyAttackAreaTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyFacingConvergencePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyFacingConvergencePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyReactionFacingExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyReactionFacingExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ExecutionImpactLedgerPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ExecutionImpactLedgerPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FirstSectorProceduralTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FirstSectorProceduralTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryRegroupDisplacementPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryRegroupDisplacementPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryStrikesAndLockDurationPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryStrikesAndLockDurationPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FrameThrottlePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FrameThrottlePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FreeSlotWithoutEligibleEnemyExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FreeSlotWithoutEligibleEnemyExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FrontalArcReflectionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FrontalArcReflectionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAdvanceNavMeshPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAdvanceNavMeshPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAuthoringAndContextTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAuthoringAndContextTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletEnergyPolicyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletEnergyPolicyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulCatalogExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulCatalogExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulInvariantPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulInvariantPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulPresentationExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulPresentationExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulTeardownPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulTeardownPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletSnapshotTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletSnapshotTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletStepsCloneIsolationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletStepsCloneIsolationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationDeterminismPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationDeterminismPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationIsolatedFromGlobalRngPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationIsolatedFromGlobalRngPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GuardBreakerPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GuardBreakerPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaFrequencyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaFrequencyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HazardModelPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HazardModelPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HealthBarRecomputeFillPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HealthBarRecomputeFillPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HitStopPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HitStopPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HookPullBoundPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HookPullBoundPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HudFormatterMatchesInlineFormulaPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HudFormatterMatchesInlineFormulaPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HungryComboExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HungryComboExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImmediateReactionClampPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImmediateReactionClampPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactFeedbackScopeTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactFeedbackScopeTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsAssetIsolationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsAssetIsolationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsMonotonicityTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsMonotonicityTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsOrderDeterminismTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsOrderDeterminismTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulVarietyPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulVarietyPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InputBufferPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InputBufferPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptCancellationPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptCancellationPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptWindowGatePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptWindowGatePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InvalidModifierIgnoredNoSideEffectPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InvalidModifierIgnoredNoSideEffectPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KiteWindowCooldownPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KiteWindowCooldownPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingImpulsePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingImpulsePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingStandoffIntegrationExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingStandoffIntegrationExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KnockUpJuggleControlLockPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KnockUpJuggleControlLockPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/LegendaryStaggerNoContinuousLockPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/LegendaryStaggerNoContinuousLockPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MainMenuFocusPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MainMenuFocusPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualAuthoredEnvironmentTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualAuthoredEnvironmentTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRoutePolicyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRoutePolicyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunDefinitionTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunDefinitionTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkAbsentDefaultTargetPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkAbsentDefaultTargetPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkReinforcesPriorityBehaviorsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkReinforcesPriorityBehaviorsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MeleeProfileDistinctnessPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MeleeProfileDistinctnessPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MissingProfileRankDefaultsFallbackExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MissingProfileRankDefaultsFallbackExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierApplicationOrderDeterminismPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierApplicationOrderDeterminismPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierRankMonotonicityPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierRankMonotonicityPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MomentumStackAndDamagePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MomentumStackAndDamagePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MoonShardFragmentBoundTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MoonShardFragmentBoundTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MovementBlendRangePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MovementBlendRangePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MutualExclusionDuringExecutionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MutualExclusionDuringExecutionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/NextSeedDeterminismPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/NextSeedDeterminismPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OneConnectionPerPairPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OneConnectionPerPairPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OrbitCombinationHintTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OrbitCombinationHintTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OrphanCandidateReferenceScanPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OrphanCandidateReferenceScanPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseIntegrationExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseIntegrationExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseRangePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseRangePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalActionResolutionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalActionResolutionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalEquippedExclusivePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalEquippedExclusivePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalProximitySelectionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalProximitySelectionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PerfectSpacingBandPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PerfectSpacingBandPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PikeWallPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PikeWallPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostBreakImmunityStancePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostBreakImmunityStancePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureBoundaryTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureBoundaryTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureMigrationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureMigrationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureReactionStateTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureReactionStateTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistancePositiveTargetPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistancePositiveTargetPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistanceRoleFallbackExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistanceRoleFallbackExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreservedBoonOfferExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreservedBoonOfferExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PriorityMarkerPresencePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PriorityMarkerPresencePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileMotionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileMotionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileResetClearsTrackedStatePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileResetClearsTrackedStatePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolBudgetTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolBudgetTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolCatalogTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolCatalogTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolInventoryTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolInventoryTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolMixedTicketTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolMixedTicketTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolRewardSelectionTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolRewardSelectionTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PureLogicDeterminismPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PureLogicDeterminismPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RainMarkPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RainMarkPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RankInterruptStaggerAccumulationPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RankInterruptStaggerAccumulationPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionChannelIndependencePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionChannelIndependencePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionConfigurationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionConfigurationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionGateDelayPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionGateDelayPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionPolicyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionPolicyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReduceCooldownsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReduceCooldownsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReentryIdempotencePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReentryIdempotencePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RemainingArchetypeUnitTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RemainingArchetypeUnitTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ResourcesGuardNeverPureOrphanPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ResourcesGuardNeverPureOrphanPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RetirementOfferPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RetirementOfferPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RetreatSpeedMultiplierPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RetreatSpeedMultiplierPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteCategoryExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteCategoryExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteOfferConstraintTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteOfferConstraintTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCompositionResolverWarningsTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCompositionResolverWarningsTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCountBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCountBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomNonOverlapPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomNonOverlapPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRepairPolicyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRepairPolicyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRewardPolicyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRewardPolicyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunSelectionReleaseGateTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunSelectionReleaseGateTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SeismicFistPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SeismicFistPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ShieldHealPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ShieldHealPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ShockwaveAppendPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ShockwaveAppendPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SimpleObjectPoolPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SimpleObjectPoolPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SingleTypePerRoomPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SingleTypePerRoomPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SlotReleaseRestoresCapacityPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SlotReleaseRestoresCapacityPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBowNoGroupingPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBowNoGroupingPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SourceAssetImmutabilityWhenPlanningPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SourceAssetImmutabilityWhenPlanningPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpacingBandPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpacingBandPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpawnerLivingCountPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpawnerLivingCountPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearFlowNoInterferenceWhenNotAccumulatingPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearFlowNoInterferenceWhenNotAccumulatingPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearModifierCatalogMetadataTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearModifierCatalogMetadataTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearPlanCorrectnessAndIsolationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearPlanCorrectnessAndIsolationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearSweepDisplacementBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearSweepDisplacementBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpecialProbabilityBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpecialProbabilityBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StageGeneratorCoreEdgeExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StageGeneratorCoreEdgeExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakRestoreRecoveryPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakRestoreRecoveryPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakSameStepPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakSameStepPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceSubtractionBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceSubtractionBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StandoffDistanceBandPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StandoffDistanceBandPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StartToBossConnectivityPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StartToBossConnectivityPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SweetSpotStrictlyGreaterBonusPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SweetSpotStrictlyGreaterBonusPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakEscalationTierTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakEscalationTierTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakFeedbackPresentationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakFeedbackPresentationTests.cs.meta\n M Assets/_Project/Scripts/Tests/EditMode/Editor/TechGuy.Tests.EditMode.asmdef\n M Assets/_Project/Scripts/Tests/EditMode/Editor/TechGuy.Tests.EditMode.asmdef.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphBeatPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphBeatPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphExecutionIntegrationExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphExecutionIntegrationExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphFillProgressPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphFillProgressPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphRedBasePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphRedBasePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TreasureAccessibleOrDiscardedPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TreasureAccessibleOrDiscardedPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/UiValueCacheDirtyDecisionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/UiValueCacheDirtyDecisionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/VarietySatisfiedPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/VarietySatisfiedPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/VulnerabilityWindowRankDowngradePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/VulnerabilityWindowRankDowngradePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCacheIdempotentPreloadPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCacheIdempotentPreloadPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCardContentPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCardContentPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponEnemyMatrixCompletenessFallbackExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponEnemyMatrixCompletenessFallbackExampleTests.cs.meta\n M Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1PlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/BreakerKitEmissionPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualAuthoredNavigationPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualPublishedRunPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunElitePlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunLifecyclePlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunMutationPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunPlayerFeedbackTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunRewardPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunWorldPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/PostureReactionPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ProtocolEncounterFrontierTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ProtocolPublishedCompositionTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/StageDoorSealingTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/StagePlayerDeathReturnTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/StageRoomActivationTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/StageTrophyRewardTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/TechGuy.Tests.PlayMode.asmdef\n M Assets/_Project/Scripts/UI/BreakerGauntletHUD.cs\n M Assets/_Project/Scripts/UI/ControlRemappingPanel.cs\n M Assets/_Project/Scripts/UI/DamagePopup.cs\n M Assets/_Project/Scripts/UI/EnemyCombatFeedback.cs\n M Assets/_Project/Scripts/UI/HudFormatter.cs\n M Assets/_Project/Scripts/UI/LobbyArsenal.cs\n M Assets/_Project/Scripts/UI/LobbyInteraction.cs\n M Assets/_Project/Scripts/UI/MainMenuUI.cs\n M Assets/_Project/Scripts/UI/ManualRunUI.cs\n M Assets/_Project/Scripts/UI/PauseMenuUI.cs\n M Assets/_Project/Scripts/UI/PlayerHUD.cs\n M Assets/_Project/Scripts/UI/RunModifierPresentation.cs\n M Assets/_Project/Scripts/UI/RunRewardUI.cs\n M Assets/_Project/Scripts/UI/WeaponCardView.cs\n M Assets/_Project/Scripts/Weapons/ArsenalProjectile.cs\n M Assets/_Project/Scripts/Weapons/HitboxDamage.cs\n D Assets/_Project/Scripts/Weapons/PlayerWeaponBootstrap.cs\n D Assets/_Project/Scripts/Weapons/PlayerWeaponBootstrap.cs.meta\n M Assets/_Project/Scripts/Weapons/WeaponRunModifiers.cs\n D Docs/Arsenal.md\n D Docs/Boons.md\n D Docs/BreakerGauntlet.md\n D Docs/Captures/cartoon-before.png\n D Docs/Captures/cartoon-combat-1.png\n D Docs/Captures/cartoon-combat.png\n D Docs/Captures/cartoon-lobby.png\n D Docs/Captures/illustrated-final.png\n D Docs/CombatPolish.md\n D Docs/CombatStudy.md\n D Docs/CombatStudy.png\n D Docs/EnemiesAndBoss.md\n D Docs/EnemyAttacks.md\n D Docs/EnemySwarmSpec.md\n D Docs/EnemyVariants.md\n D Docs/FirstSector-combat.png\n D Docs/FirstSector-guardian.png\n D Docs/FirstSector-overview.png\n D Docs/FirstSector.md\n D Docs/HUD-CombatStudy.png\n D Docs/HUD-NexusLobby.png\n D Docs/HUD-Playground.png\n D Docs/HUD-casting.png\n D Docs/HUD-no-mana.png\n D Docs/IllustratedLookAndInput.md\n D Docs/Modificadores.md\n D Docs/NexusLobby-gameplay.png\n D Docs/NexusLobby-preview.png\n D Docs/NexusLobby.md\n D Docs/PlayerHUD.md\n D Docs/PrologueAndMenus.md\n D Docs/RunLoop.md\n D Docs/RunSynergies.md\n D Docs/Tech-Guy_Gameplay_Rework.md\n D Docs/WeaponRunModifiers.md\n D Docs/WorkshopReference.png\n M Packages/manifest.json\n M Packages/packages-lock.json\n M ProjectSettings/EditorBuildSettings.asset\n M README.md\n M Tech-Guy.slnx\n?? .agents/\n?? Assets/_Project/Art/Characters.meta\n?? Assets/_Project/Art/Characters/\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutEdge.mat\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutEdge.mat.meta\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutFloorplan.asset\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutFloorplan.asset.meta\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutGray.mat\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutGray.mat.meta\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutNavMesh.asset\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutNavMesh.asset.meta\n?? Assets/_Project/Resources/Combat.meta\n?? Assets/_Project/Resources/Combat/\n?? Assets/_Project/Scenes/NexusBlockout.unity\n?? Assets/_Project/Scenes/NexusBlockout.unity.meta\n?? Assets/_Project/ScriptableObjects/Run/BoonReworkCatalog.asset\n?? Assets/_Project/ScriptableObjects/Run/BoonReworkCatalog.asset.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonCombat.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonCombat.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonModel.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonModel.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonPresentation.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonPresentation.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Eclipse.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Eclipse.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Expansion.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Expansion.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/EclipseCombatTuning.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/EclipseCombatTuning.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonCombat.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonCombat.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonGeometry.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonGeometry.cs.meta\n?? Assets/_Project/Scripts/Camera/CameraOcclusionFader.cs\n?? Assets/_Project/Scripts/Camera/CameraOcclusionFader.cs.meta\n?? Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Eclipse.cs\n?? Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Eclipse.cs.meta\n?? Assets/_Project/Scripts/Characters/Combat/Protocols/SpearBoonProtocolImpacts.cs\n?? Assets/_Project/Scripts/Characters/Combat/Protocols/SpearBoonProtocolImpacts.cs.meta\n?? Assets/_Project/Scripts/Characters/Enemy/EnemyLocomotionPresentation.cs\n?? Assets/_Project/Scripts/Characters/Enemy/EnemyLocomotionPresentation.cs.meta\n?? Assets/_Project/Scripts/Characters/Enemy/EnemyNavigation.cs\n?? Assets/_Project/Scripts/Characters/Enemy/EnemyNavigation.cs.meta\n?? Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs\n?? Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs.meta\n?? Assets/_Project/Scripts/Characters/Player/Actions/GroundMovementBuffer.cs\n?? Assets/_Project/Scripts/Characters/Player/Actions/GroundMovementBuffer.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonCapabilityGraph.cs\n?? Assets/_Project/Scripts/Core/Run/BoonCapabilityGraph.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonCatalogDefinition.cs\n?? Assets/_Project/Scripts/Core/Run/BoonCatalogDefinition.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonDefinition.cs\n?? Assets/_Project/Scripts/Core/Run/BoonDefinition.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonExpansionInventory.cs\n?? Assets/_Project/Scripts/Core/Run/BoonExpansionInventory.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonOfferCompatibility.cs\n?? Assets/_Project/Scripts/Core/Run/BoonOfferCompatibility.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonOfferDraw.cs\n?? Assets/_Project/Scripts/Core/Run/BoonOfferDraw.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonReworkCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/BoonReworkCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BowBoonCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/BowBoonCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/EclipseBoonCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/EclipseBoonCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/GauntletExpansionCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/GauntletExpansionCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/ManualRunRandomizer.cs\n?? Assets/_Project/Scripts/Core/Run/ManualRunRandomizer.cs.meta\n?? Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.Procedural.cs\n?? Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.Procedural.cs.meta\n?? Assets/_Project/Scripts/Core/Run/ProceduralRunGeometryPlan.cs\n?? Assets/_Project/Scripts/Core/Run/ProceduralRunGeometryPlan.cs.meta\n?? Assets/_Project/Scripts/Core/Run/ProgressionDirector.Statistics.cs\n?? Assets/_Project/Scripts/Core/Run/ProgressionDirector.Statistics.cs.meta\n?? Assets/_Project/Scripts/Core/Run/RunBoonOfferCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/RunBoonOfferCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/RunDamageSource.cs\n?? Assets/_Project/Scripts/Core/Run/RunDamageSource.cs.meta\n?? Assets/_Project/Scripts/Core/Run/RunStatistics.cs\n?? Assets/_Project/Scripts/Core/Run/RunStatistics.cs.meta\n?? Assets/_Project/Scripts/Core/Run/RunSummary.cs\n?? Assets/_Project/Scripts/Core/Run/RunSummary.cs.meta\n?? Assets/_Project/Scripts/Core/Run/RunSummaryStore.cs\n?? Assets/_Project/Scripts/Core/Run/RunSummaryStore.cs.meta\n?? Assets/_Project/Scripts/Core/Run/SpearBoonCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/SpearBoonCatalog.cs.meta\n?? Assets/_Project/Scripts/Editor/CombatPolishPreview.Observation.cs\n?? Assets/_Project/Scripts/Editor/CombatPolishPreview.Observation.cs.meta\n?? Assets/_Project/Scripts/Editor/CombatPolishPreview.ObservationTelemetry.cs\n?? Assets/_Project/Scripts/Editor/CombatPolishPreview.ObservationTelemetry.cs.meta\n?? Assets/_Project/Scripts/Editor/NewRoomRunAuthoring.cs\n?? Assets/_Project/Scripts/Editor/NewRoomRunAuthoring.cs.meta\n?? Assets/_Project/Scripts/Editor/NexusBlockoutBuilder.cs\n?? Assets/_Project/Scripts/Editor/NexusBlockoutBuilder.cs.meta\n?? Assets/_Project/Scripts/Editor/NexusBlockoutPlaySession.cs\n?? Assets/_Project/Scripts/Editor/NexusBlockoutPlaySession.cs.meta\n?? Assets/_Project/Scripts/Editor/NexusBlockoutSpatialRevision.cs\n?? Assets/_Project/Scripts/Editor/NexusBlockoutSpatialRevision.cs.meta\n?? Assets/_Project/Scripts/Editor/TGOutfitModelPostprocessor.cs\n?? Assets/_Project/Scripts/Editor/TGOutfitModelPostprocessor.cs.meta\n?? Assets/_Project/Scripts/Effects/EclipseMarkVfx.cs\n?? Assets/_Project/Scripts/Effects/EclipseMarkVfx.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFinishControlTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFinishControlTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonCapabilityGraphTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonCapabilityGraphTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonExpansionOfferTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonExpansionOfferTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonOfferCompatibilityTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonOfferCompatibilityTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRealRouteSimulationTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRealRouteSimulationTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRewardSeedTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRewardSeedTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BowBoonTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BowBoonTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/DamageNumberBurstTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/DamageNumberBurstTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/EclipseBoonTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/EclipseBoonTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityGroundFillTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityGroundFillTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityRouteTestFactory.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityRouteTestFactory.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/GroundMovementBufferTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/GroundMovementBufferTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRouteMapPresentationTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRouteMapPresentationTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunRandomizerTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunRandomizerTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/NexusCardLayoutTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/NexusCardLayoutTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ObservationTelemetryTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ObservationTelemetryTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ProceduralRunGeometryPlanTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ProceduralRunGeometryPlanTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RangedFluidityContractTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RangedFluidityContractTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RetainedRunRewardTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RetainedRunRewardTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunMapDiscoveryPresentationTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunMapDiscoveryPresentationTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunResultsModelTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunResultsModelTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/SpearBoonTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/SpearBoonTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/AsuraEarlyFinishPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/AsuraEarlyFinishPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackCursorFluidityTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackCursorFluidityTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1RunStatisticsTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1RunStatisticsTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/BoonPublishedEncounterPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/BoonPublishedEncounterPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/BowBoonPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/BowBoonPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/CameraOcclusionFadeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/CameraOcclusionFadeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/CombatResponsivenessPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/CombatResponsivenessPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/DamageConfirmationPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/DamageConfirmationPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/EclipseBoonPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/EclipseBoonPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/EnemyInteractionPresentationTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/EnemyInteractionPresentationTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/EnemyProjectileLifecyclePlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/EnemyProjectileLifecyclePlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/GauntletBasicImpactPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/GauntletBasicImpactPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/GauntletExpansionPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/GauntletExpansionPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/ManualRouteMapPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/ManualRouteMapPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/MeleeEngagementPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/MeleeEngagementPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusBlockoutPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusBlockoutPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusSpatialJourneyPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusSpatialJourneyPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusUsabilityPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusUsabilityPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/PauseInspectionPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/PauseInspectionPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/PauseMapVisibilityPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/PauseMapVisibilityPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RangedFluidityPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RangedFluidityPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunStatisticsPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunStatisticsPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryIsolationPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryIsolationPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryPreferenceScope.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryPreferenceScope.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/SniperAimCommitmentPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/SniperAimCommitmentPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/SpearBoonPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/SpearBoonPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/WorldClickEnemyAssistTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/WorldClickEnemyAssistTests.cs.meta\n?? Assets/_Project/Scripts/UI/DamageNumberBurst.cs\n?? Assets/_Project/Scripts/UI/DamageNumberBurst.cs.meta\n?? Assets/_Project/Scripts/UI/ManualRouteMapPresentation.cs\n?? Assets/_Project/Scripts/UI/ManualRouteMapPresentation.cs.meta\n?? Assets/_Project/Scripts/UI/ManualRunUI.PauseMap.cs\n?? Assets/_Project/Scripts/UI/ManualRunUI.PauseMap.cs.meta\n?? Assets/_Project/Scripts/UI/RunMapDiscoveryPresentation.cs\n?? Assets/_Project/Scripts/UI/RunMapDiscoveryPresentation.cs.meta\n?? Assets/_Project/Scripts/UI/RunResultsFocus.cs\n?? Assets/_Project/Scripts/UI/RunResultsFocus.cs.meta\n?? Assets/_Project/Scripts/UI/RunResultsHandoff.cs\n?? Assets/_Project/Scripts/UI/RunResultsHandoff.cs.meta\n?? Assets/_Project/Scripts/UI/RunResultsModel.cs\n?? Assets/_Project/Scripts/UI/RunResultsModel.cs.meta\n?? Assets/_Project/Scripts/UI/RunResultsPresenter.cs\n?? Assets/_Project/Scripts/UI/RunResultsPresenter.cs.meta\n?? Assets/_Project/Scripts/UI/RunResultsView.cs\n?? Assets/_Project/Scripts/UI/RunResultsView.cs.meta\n?? Docs/00_VISAO.md\n?? Docs/01_PILARES.md\n?? Docs/02_ESTADO_E_LACUNAS.md\n?? Docs/03_PRIORIDADES.md\n?? Docs/04_ARQUITETURA_E_INTEGRIDADE.md\n?? Docs/05_MIGRACAO_E_LIMPEZA.md\n?? Docs/README.md\n?? Docs/art/\n?? Docs/decisions/\n?? Docs/gameplay/\n?? Docs/references/\n?? Docs/systems/\n?? Docs/templates/\n?? Docs/validation/\n?? MANIFEST.json\n?? SourceArt/\n?? Tools/\n?? UnityValidation/",
+        "scene": "Assets/_Project/Scenes/NexusBlockout.unity",
+        "requested_seed": "0",
+        "screenshot_method": "Unity ScreenCapture.CaptureScreenshotAsTexture after WaitForEndOfFrame; includes Game View UI",
+        "setup": "current",
+        "limitations": "Fixed simulation steps do not prove bit-identical physics/NavMesh/animation or human game feel. Commands use existing public gameplay APIs, not keyboard binding coverage. No combat balance, immunity, mana, HP, AI enable state or assets are changed.",
+        "error": ""
+    },
+    "conditions": {
+        "scenario_version": 1,
+        "scene_guid": "d9c5ad58160cf614e984e1c4f2599d39",
+        "seed": "uncontrolled",
+        "weapon": 0,
+        "node_id": -1,
+        "enemy_count": 1,
+        "width": 1280,
+        "height": 720,
+        "simulation_fps": 0,
+        "capture_every_frames": 6,
+        "input_schedule": "{\"commands\":[]}",
+        "initial_actor_fingerprint": "ec0ceb8cfcecac70d8a806fea8b8c10f7b6f3c183fe8b07af7a87c2c7ca149cb",
+        "camera_json": "{\"name\":\"Nexus Camera\",\"position\":{\"x\":-11.0,\"y\":10.0,\"z\":3.5},\"rotation\":{\"x\":0.3826834261417389,\"y\":0.0,\"z\":0.0,\"w\":0.9238795638084412},\"orthographic\":false,\"orthographic_size\":10.0,\"field_of_view\":40.0,\"near\":0.20000000298023225,\"far\":500.0,\"rect\":{\"serializedVersion\":\"2\",\"x\":0.0,\"y\":0.0,\"width\":1.0,\"height\":1.0},\"hdr\":true,\"msaa\":true,\"clear_flags\":2,\"culling_mask\":-1,\"background\":{\"r\":0.014999999664723874,\"g\":0.02199999988079071,\"b\":0.054999999701976779,\"a\":1.0},\"follow_enabled\":true,\"follow_height\":10.0,\"follow_distance\":10.0,\"follow_angle\":0.0}",
+        "render_json": "{\"pipeline\":\"Assets/_Project/Settings/Rendering/UniversalRenderPipelineAsset.asset\",\"pipeline_guid\":\"f86b3aed054db7d4a983e73339478814\",\"pipeline_sha256\":\"272bedcae04702adb14bd4660c7437b28c5075acfc018809b7ee7eac749ae78b\",\"graphics_settings_sha256\":\"86e4f889e10af87ae81b2bf14c3b7aa98c922930a1b573375d8f867839634c99\",\"quality_settings_sha256\":\"e21713aaf6a14858fa1385f071f6a35c98c607de91d8ef2d9c6153a7e4d5cdb5\",\"color_space\":\"Linear\",\"quality\":5,\"quality_name\":\"Ultra\",\"gpu\":\"NVIDIA GeForce RTX 3060 Ti\",\"graphics_api\":\"Direct3D11\",\"post_processing\":true,\"anti_aliasing\":1,\"render_scale\":1.0,\"volume_profiles\":[\"Assets/_Project/Art/NexusLobby/NexusAtmosphere.asset:18cce3784ebcd69c53e6cbd1e8ce3111309a8549e181a99169b347e2aea9d86d\"]}",
+        "random_control": "uncontrolled current gameplay; observation only"
+    },
+    "frames": [
+        {
+            "index": 0,
+            "relative_frame": 0,
+            "time": 0.0,
+            "path": "frames/frame-000000.png",
+            "sha256": "18175fa5092fef9344434d4db9635d1a649143b548462c2ebdb814df0620c62b",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 1,
+            "relative_frame": 6,
+            "time": 0.10336220264434815,
+            "path": "frames/frame-000006.png",
+            "sha256": "f0ea6eab266604e9c8419c6d07356ce3edb1d47d7b7c8d7a3b9f71eab6a7bbfb",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 2,
+            "relative_frame": 12,
+            "time": 0.1856198012828827,
+            "path": "frames/frame-000012.png",
+            "sha256": "86848bbbe22fd0229fd9717dd62a4bbe1233a9c047a7d8fa6d7aeef59d9fa89f",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 3,
+            "relative_frame": 18,
+            "time": 0.2927877902984619,
+            "path": "frames/frame-000018.png",
+            "sha256": "744dbcd306a9aa6de5af215676cecc7e76360b6eafa44b7d93b1f2a5e44652b9",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 4,
+            "relative_frame": 24,
+            "time": 0.4040643870830536,
+            "path": "frames/frame-000024.png",
+            "sha256": "dca021a4c471b0b73a708b9c6b344dd293aeb34c2c7ebc3bb408fc24ce7182ea",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 5,
+            "relative_frame": 30,
+            "time": 0.5080376863479614,
+            "path": "frames/frame-000030.png",
+            "sha256": "001db9db6001c4902263d26c4291ca8a31f747d4bc716ad3ed9151137a4e3c50",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 6,
+            "relative_frame": 36,
+            "time": 0.6060602068901062,
+            "path": "frames/frame-000036.png",
+            "sha256": "560b2065759515027d23b7a44208a853e22789b997979fb6ab87d7b8d62694cc",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 7,
+            "relative_frame": 42,
+            "time": 0.7005035877227783,
+            "path": "frames/frame-000042.png",
+            "sha256": "97d8a79327c03ef1bf880e0b46ec7759bba2c178921daf636ad17d7f53327b6d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 8,
+            "relative_frame": 48,
+            "time": 0.7925722002983093,
+            "path": "frames/frame-000048.png",
+            "sha256": "7006f498f59d4cd4ae56916cc46bdc9dcc6c2786a380887be70ac42a7532ad66",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 9,
+            "relative_frame": 54,
+            "time": 0.8808205127716065,
+            "path": "frames/frame-000054.png",
+            "sha256": "01b89ee9f82bc2fca420af452fb98165fe02a2b75c8dd1c5efc21362ddfee686",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 10,
+            "relative_frame": 60,
+            "time": 0.9653288125991821,
+            "path": "frames/frame-000060.png",
+            "sha256": "b089b24fc8d4e68238ffd9e8266d228dc77ab7676a9e8086622b7867b806c75d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 11,
+            "relative_frame": 66,
+            "time": 1.0624252557754517,
+            "path": "frames/frame-000066.png",
+            "sha256": "520f69c34f9f4c072804f19c4cf22af78e7dbc267bab3123c0d7cc1f677808b3",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 12,
+            "relative_frame": 72,
+            "time": 1.1681828498840333,
+            "path": "frames/frame-000072.png",
+            "sha256": "fbc2375ccdc442463908fb88fd3055cb71fa377338bb954cdc2a379f4125ce65",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 13,
+            "relative_frame": 78,
+            "time": 1.2586885690689088,
+            "path": "frames/frame-000078.png",
+            "sha256": "f9ce9cf862dbdfd1635a4830448a955315864ad4220734962fb4b0b3b07ff198",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 14,
+            "relative_frame": 84,
+            "time": 1.3557541370391846,
+            "path": "frames/frame-000084.png",
+            "sha256": "4d0fdf5eda296493830a068fee9cada3eaefa5dd37124878d85bc78edfdab318",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 15,
+            "relative_frame": 90,
+            "time": 1.4647877216339112,
+            "path": "frames/frame-000090.png",
+            "sha256": "47c54a039831abea89a86e884cd97e0d0453edcafca9adc147b2ed4ab076ef88",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 16,
+            "relative_frame": 96,
+            "time": 1.5628242492675782,
+            "path": "frames/frame-000096.png",
+            "sha256": "47d6f0e5a6a4b8ca04caf6bae7343d6ff48eb9c98ded548fb52305bc751090dd",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 17,
+            "relative_frame": 102,
+            "time": 1.6600512266159058,
+            "path": "frames/frame-000102.png",
+            "sha256": "a620a62e5fb5bdf5ad4626a7b4ec615f8b7cb473891dcb33f1d2af4ffd7c87b7",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 18,
+            "relative_frame": 108,
+            "time": 1.7592523097991944,
+            "path": "frames/frame-000108.png",
+            "sha256": "091914c089568c058482e75ffbad0e5009b4d0c514f0258cf26db9ff7bf830bf",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 19,
+            "relative_frame": 114,
+            "time": 1.8561038970947266,
+            "path": "frames/frame-000114.png",
+            "sha256": "aa7db0eef6716ca806e09e86d83c2c7548c74439741d8990e0577618781df0be",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 20,
+            "relative_frame": 120,
+            "time": 1.9580624103546143,
+            "path": "frames/frame-000120.png",
+            "sha256": "1de43b5046f89d237c77d9524af228f58eba26a79102b29d42fcf839062a85ed",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 21,
+            "relative_frame": 126,
+            "time": 2.0803563594818117,
+            "path": "frames/frame-000126.png",
+            "sha256": "722aeb6da6c80dd5e6f513de55831b9748b350883046a423bd517a726ff2a532",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 22,
+            "relative_frame": 132,
+            "time": 2.193773031234741,
+            "path": "frames/frame-000132.png",
+            "sha256": "669c683496f5a5713c4102af26b8464b9ded120ff24dc13a42c79b0cc472c678",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 23,
+            "relative_frame": 138,
+            "time": 2.305783748626709,
+            "path": "frames/frame-000138.png",
+            "sha256": "dd8ecd56901d970c0d560ae292dff5d64d0b9772330b7680e5132d250e42c260",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 24,
+            "relative_frame": 144,
+            "time": 2.411562204360962,
+            "path": "frames/frame-000144.png",
+            "sha256": "8cefa4e86f89a4bec4ea1c41eed5020f7ccc2f3ed83d5464e18016122773f68c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 25,
+            "relative_frame": 150,
+            "time": 2.5175867080688478,
+            "path": "frames/frame-000150.png",
+            "sha256": "0047aa2bbe3fa5037022b467e6f1378d575598bd095793fc36fad0da81123c0d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 26,
+            "relative_frame": 156,
+            "time": 2.6264123916625978,
+            "path": "frames/frame-000156.png",
+            "sha256": "a6e4f45ccd6a8924fb8b44db2169558c0b0ce75ac0b3f32119129247be25b645",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 27,
+            "relative_frame": 162,
+            "time": 2.748997211456299,
+            "path": "frames/frame-000162.png",
+            "sha256": "a44e08550fdbbbad710cb9c6ac42b3bcb5027e2e90a24048a0665ddbb5749378",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 28,
+            "relative_frame": 168,
+            "time": 3.415020704269409,
+            "path": "frames/frame-000168.png",
+            "sha256": "fabd8fac8a0a9eb1d811ba344cba29f546e6205616097c2eaa5ad52f191fb32a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 29,
+            "relative_frame": 174,
+            "time": 3.5177202224731447,
+            "path": "frames/frame-000174.png",
+            "sha256": "f0d778603fac3e86dfc15e3faae7949b1e3965ee14f8597d9d064e4c5d7a4eb8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 30,
+            "relative_frame": 180,
+            "time": 3.6232964992523195,
+            "path": "frames/frame-000180.png",
+            "sha256": "69ab08ee5665869c0254ab4cedf7ec56721a0795399ea47d705ff9f580df2749",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 31,
+            "relative_frame": 186,
+            "time": 3.724546194076538,
+            "path": "frames/frame-000186.png",
+            "sha256": "f951e7428303504597e4e5f78b65af416d6ddf209f77d2aed295b4160d1905d2",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 32,
+            "relative_frame": 192,
+            "time": 3.819242000579834,
+            "path": "frames/frame-000192.png",
+            "sha256": "30be7328c1d2d9334f5c7d61d5b632652e69c19207b2a77e4622746ca6284535",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 33,
+            "relative_frame": 198,
+            "time": 3.9234442710876467,
+            "path": "frames/frame-000198.png",
+            "sha256": "d3ff6ce22ef1c44a3bf129eb7c5e8002470f0a717300afb84b4351f2165cff53",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 34,
+            "relative_frame": 204,
+            "time": 4.029356479644775,
+            "path": "frames/frame-000204.png",
+            "sha256": "2b2ad82bba62a44ba790dcc1eda06436b2c9f35571f1becabe6b29f184ab8359",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 35,
+            "relative_frame": 210,
+            "time": 4.123392105102539,
+            "path": "frames/frame-000210.png",
+            "sha256": "b78389a1264e28955813adb395de2d39e9866e87522fb6bf5d80a8ae604c4a53",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 36,
+            "relative_frame": 216,
+            "time": 4.225345611572266,
+            "path": "frames/frame-000216.png",
+            "sha256": "ff8e5420b9af9560fe62d901ec9268af11d5ba45805d50c4c14e16dbed8b298b",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 37,
+            "relative_frame": 222,
+            "time": 4.321877956390381,
+            "path": "frames/frame-000222.png",
+            "sha256": "d75c4d4e9978e39b23ef8ebf41ef78a4e6609e5f1aaac5e2a551d84ab838164e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 38,
+            "relative_frame": 228,
+            "time": 4.417762279510498,
+            "path": "frames/frame-000228.png",
+            "sha256": "4c3940c2f4b2968cae440114192374d88637c5705a92b2b6b05b767b7d4151e8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 39,
+            "relative_frame": 234,
+            "time": 4.507228851318359,
+            "path": "frames/frame-000234.png",
+            "sha256": "f377ec4396c94f4a38e688bb06686bd755d1c0f7d2704ca298c774c0944b667a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 40,
+            "relative_frame": 240,
+            "time": 4.610802173614502,
+            "path": "frames/frame-000240.png",
+            "sha256": "6a14fe58152b0acc5762b6519f46e5f3f4d59eccedd2d0af6af695cb91bea5ab",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 41,
+            "relative_frame": 246,
+            "time": 4.713475704193115,
+            "path": "frames/frame-000246.png",
+            "sha256": "5704116dabcfef246a6b93405c3855db96181d38705b15fcce2794fbb9eec42d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 42,
+            "relative_frame": 252,
+            "time": 4.81678581237793,
+            "path": "frames/frame-000252.png",
+            "sha256": "d754cd015240e12adee63bf8a910332f392bbdff67589a55813f243b5a74478c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 43,
+            "relative_frame": 258,
+            "time": 4.921648979187012,
+            "path": "frames/frame-000258.png",
+            "sha256": "e7d88ffda8d3893a05e122d9c236e9c234fcb54b69bd6454a6abc07251d13bcd",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 44,
+            "relative_frame": 264,
+            "time": 5.03103494644165,
+            "path": "frames/frame-000264.png",
+            "sha256": "f41c8c8b13d5a59556e1f9353f08b0cc7b0f1cadbf61845aac4410367010e965",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 45,
+            "relative_frame": 270,
+            "time": 5.143538475036621,
+            "path": "frames/frame-000270.png",
+            "sha256": "0964aa067e9e63d14690081976f0801d9d39546f7a312ea9671ade6e5c5fe1d7",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 46,
+            "relative_frame": 276,
+            "time": 5.263200759887695,
+            "path": "frames/frame-000276.png",
+            "sha256": "58fec1238c90660a4dd9bccc1950073b7e0c6293a9944acd0267bf9f0663fef8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 47,
+            "relative_frame": 282,
+            "time": 5.388341903686523,
+            "path": "frames/frame-000282.png",
+            "sha256": "d1d3fcdb8d2e80dd2f7e674bc1548ae5da0aacb33515fefdbf9402b4e00e8948",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 48,
+            "relative_frame": 288,
+            "time": 5.500212669372559,
+            "path": "frames/frame-000288.png",
+            "sha256": "0043d60d24efcf7963b725010c8497be218a4926938b77eff42fb4b6e73267f4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 49,
+            "relative_frame": 294,
+            "time": 5.600743770599365,
+            "path": "frames/frame-000294.png",
+            "sha256": "8e71a8eea06935967ca1e8f7bfe2d12fa649d3ccb65cfb18133d6644b85b56f0",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 50,
+            "relative_frame": 300,
+            "time": 5.713687419891357,
+            "path": "frames/frame-000300.png",
+            "sha256": "40b5fd35f062679ce4e8ee2afc09a07dcaca7aec27bac964736a8bec34d0dd92",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 51,
+            "relative_frame": 306,
+            "time": 5.817305088043213,
+            "path": "frames/frame-000306.png",
+            "sha256": "1a367c32a5747eecb570cce1ba35502ad589503b8e080a2db3bfcfdbe6602612",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 52,
+            "relative_frame": 312,
+            "time": 5.933510780334473,
+            "path": "frames/frame-000312.png",
+            "sha256": "3cf31c9c03945681a00f3dc8f0a077e1c6f2207ce75499b59baace8529cf93f4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 53,
+            "relative_frame": 318,
+            "time": 6.043001651763916,
+            "path": "frames/frame-000318.png",
+            "sha256": "78726ece9dbcbd7c6babc4e09a70984788231775b27919b71ee22d8fcfec036d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 54,
+            "relative_frame": 324,
+            "time": 6.163702964782715,
+            "path": "frames/frame-000324.png",
+            "sha256": "c880e54f1eaa05237283787aaa74ea5f17a66a571fc1e915776a513b4ac23663",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 55,
+            "relative_frame": 330,
+            "time": 6.27500057220459,
+            "path": "frames/frame-000330.png",
+            "sha256": "850745d3f2174a43e32ea63c29940f1f176e36eabd8f05dd70b357c916c5eef4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 56,
+            "relative_frame": 336,
+            "time": 6.366252422332764,
+            "path": "frames/frame-000336.png",
+            "sha256": "54d10efa5dc2bfe6129aec1526db2d7ac37e4d85519f97359d0f989275b98bb8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 57,
+            "relative_frame": 342,
+            "time": 6.462191581726074,
+            "path": "frames/frame-000342.png",
+            "sha256": "dbf9a00566ef4a479766b018779562dc92de2ed4e03ed5d15bdd3a3cdb1578f4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 58,
+            "relative_frame": 348,
+            "time": 6.540903568267822,
+            "path": "frames/frame-000348.png",
+            "sha256": "066d99f78b99ab2a9f9a8769f47c0846bdeadced5c3ee0b62b914893d104e8a8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 59,
+            "relative_frame": 354,
+            "time": 6.635076522827148,
+            "path": "frames/frame-000354.png",
+            "sha256": "a37a50c9f279739eb232db2a6c74b2c11ee84045a752b5582a14e17c54c419bc",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 60,
+            "relative_frame": 360,
+            "time": 6.73559045791626,
+            "path": "frames/frame-000360.png",
+            "sha256": "dcd652cadd33c9deefc06001e45c6ecaec3a36ac592083cb7989148112755881",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 61,
+            "relative_frame": 366,
+            "time": 6.823602676391602,
+            "path": "frames/frame-000366.png",
+            "sha256": "ac28f54be4761fbdd746c5ababda3187d8236caeab29489b47067f4061a3e1e3",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 62,
+            "relative_frame": 372,
+            "time": 6.910125255584717,
+            "path": "frames/frame-000372.png",
+            "sha256": "bbd3b9639534b2e1f7ccb309651fbb0e22dbffeac503e49140992d53169f7412",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 63,
+            "relative_frame": 378,
+            "time": 6.9997758865356449,
+            "path": "frames/frame-000378.png",
+            "sha256": "98f044c879fb39dc117e3fb6e17866dad389886064aead773b0c2dfe8908086d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 64,
+            "relative_frame": 384,
+            "time": 7.104909420013428,
+            "path": "frames/frame-000384.png",
+            "sha256": "5b6484933ae03371c0708d5e99c48a55aee568cf93f3a6aeba730a426ec690d6",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 65,
+            "relative_frame": 390,
+            "time": 7.208727836608887,
+            "path": "frames/frame-000390.png",
+            "sha256": "22777793ac757dc2d349dc11ffb17dfab4c123ecfacd5034ff9da6a2576736dc",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 66,
+            "relative_frame": 396,
+            "time": 7.316463470458984,
+            "path": "frames/frame-000396.png",
+            "sha256": "63f84b2a3700d4b70699959e3b438d3b20b602fd0d6c4f03f384f833fca7fea8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 67,
+            "relative_frame": 402,
+            "time": 7.427879333496094,
+            "path": "frames/frame-000402.png",
+            "sha256": "e7ee8562d1d110c9bba38c700f5de4a62a5283860839f79eafe926d5fc407510",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 68,
+            "relative_frame": 408,
+            "time": 7.5597758293151859,
+            "path": "frames/frame-000408.png",
+            "sha256": "31f2dc0e4e5e4a19e0f658554815e66952ca8a30c746354c2f579ae7da8739b3",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 69,
+            "relative_frame": 414,
+            "time": 7.663369655609131,
+            "path": "frames/frame-000414.png",
+            "sha256": "9afdb2d19b0a9d8730a373d0737cd81dfd345d76e42ae491ae49fb5267833556",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 70,
+            "relative_frame": 420,
+            "time": 7.760120391845703,
+            "path": "frames/frame-000420.png",
+            "sha256": "4ae11c69460c39199beaa6d3bfd8a8f92cc5a0783c5c21a10c06f0c3a90dcd08",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 71,
+            "relative_frame": 426,
+            "time": 7.858201026916504,
+            "path": "frames/frame-000426.png",
+            "sha256": "c61da6d696954600f69149deb21f20a535dc56afbc86571811b81d4fb5cddc6d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 72,
+            "relative_frame": 432,
+            "time": 7.9472222328186039,
+            "path": "frames/frame-000432.png",
+            "sha256": "0d0b33c03898c4457b72a4f2632f95dbb06909505d624f08c703406e04072f2c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 73,
+            "relative_frame": 438,
+            "time": 8.037686347961426,
+            "path": "frames/frame-000438.png",
+            "sha256": "0abe031ac6edd11334894c929c24310312a739225c45b01793e6fa831512d452",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 74,
+            "relative_frame": 444,
+            "time": 8.130379676818848,
+            "path": "frames/frame-000444.png",
+            "sha256": "f8f04b8646f7b7c34a4c5d1deb991347ee459be41ecbd512c4b3233d8c3f01c3",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 75,
+            "relative_frame": 450,
+            "time": 8.219924926757813,
+            "path": "frames/frame-000450.png",
+            "sha256": "7c5e0cd83b9ab991f9f7a1dcac3e3c9145a0b522fb7368014b1641c964d26d09",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 76,
+            "relative_frame": 456,
+            "time": 8.302093505859375,
+            "path": "frames/frame-000456.png",
+            "sha256": "bb66419c5bd33b387a42d8deefb6895c043466883b1cf8c49a28e1d60a02269f",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 77,
+            "relative_frame": 462,
+            "time": 8.388079643249512,
+            "path": "frames/frame-000462.png",
+            "sha256": "78ccc491e054232911a66eead31bb76fa822a8322b944d48e2c7e40c6d73b841",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 78,
+            "relative_frame": 468,
+            "time": 8.467340469360352,
+            "path": "frames/frame-000468.png",
+            "sha256": "cfb22fede78d5a27414d879265bbd03acf4a5b46bd6e3e636d56fa4f043da5ad",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 79,
+            "relative_frame": 474,
+            "time": 8.553411483764649,
+            "path": "frames/frame-000474.png",
+            "sha256": "a5c14ed28a539769dfbd20d0275777e6d9994d521dbdedf9550b2967d6851142",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 80,
+            "relative_frame": 480,
+            "time": 8.63652229309082,
+            "path": "frames/frame-000480.png",
+            "sha256": "ac31e1913a03522419b4b0e5028e7c0cf4c94c1234da3c7d076847941e5aaeb4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 81,
+            "relative_frame": 486,
+            "time": 8.725680351257325,
+            "path": "frames/frame-000486.png",
+            "sha256": "71891f2b6f417cb55032ffb820e5af0d214efb527da0a86be44ac1a321db43a6",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 82,
+            "relative_frame": 492,
+            "time": 8.808023452758789,
+            "path": "frames/frame-000492.png",
+            "sha256": "75aad9c0bf5555b6d4bf40007217fe1bda77c46e832c620767f5028ba4d09917",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 83,
+            "relative_frame": 498,
+            "time": 8.887693405151368,
+            "path": "frames/frame-000498.png",
+            "sha256": "4d75ef849363a202967f033bb8708c95374fa7962fd2952fe8cb741b4e63f68e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 84,
+            "relative_frame": 504,
+            "time": 8.971026420593262,
+            "path": "frames/frame-000504.png",
+            "sha256": "228e3983f7f511bbbd35b79d7c8c47d191ec62a22b6d00783a1ee72f67f5cf59",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 85,
+            "relative_frame": 510,
+            "time": 9.057546615600586,
+            "path": "frames/frame-000510.png",
+            "sha256": "6584b7807d7be7c53291b4806058d620e9bce9eb10c323cbd3845298b51f88c0",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 86,
+            "relative_frame": 516,
+            "time": 9.140167236328125,
+            "path": "frames/frame-000516.png",
+            "sha256": "c94bf355ea252fa197a3c65643f40a50da7778a2826b01ade3cd944eed81087a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 87,
+            "relative_frame": 522,
+            "time": 9.227951049804688,
+            "path": "frames/frame-000522.png",
+            "sha256": "f4a3269c6b740fb3211f0c7892afbb769f84a5b0e055d248a99df60260e26a6e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 88,
+            "relative_frame": 528,
+            "time": 9.316032409667969,
+            "path": "frames/frame-000528.png",
+            "sha256": "38950e07924e724a59cceb173eedb1274fc7b1a6967c0350ab747be3eb20afc1",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 89,
+            "relative_frame": 534,
+            "time": 9.41075325012207,
+            "path": "frames/frame-000534.png",
+            "sha256": "880ec80d78a3465fa6fa16aa918cf7d376ac4952c260f57242c5808174f12799",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 90,
+            "relative_frame": 540,
+            "time": 9.501347541809082,
+            "path": "frames/frame-000540.png",
+            "sha256": "ee82ad7a9e8a1c615abcd83ce718ebb6c0e7fa430dfbdaf08324c06e14feed50",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 91,
+            "relative_frame": 546,
+            "time": 9.610639572143555,
+            "path": "frames/frame-000546.png",
+            "sha256": "55db3aabe71c5ad8daa82f312e6f03553ef9afd9bbfd6d3344f0a3c25702f4c8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 92,
+            "relative_frame": 552,
+            "time": 9.733777046203614,
+            "path": "frames/frame-000552.png",
+            "sha256": "aa370a9293fb3b172db0583964e029458c67088bfce493f770280ed500d8cf90",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 93,
+            "relative_frame": 558,
+            "time": 9.835403442382813,
+            "path": "frames/frame-000558.png",
+            "sha256": "368497a68d39ea2113cd27213546cf5a73eada4f2c68cb6697a54ac6ac54c8ce",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 94,
+            "relative_frame": 564,
+            "time": 9.943351745605469,
+            "path": "frames/frame-000564.png",
+            "sha256": "1cc2219781510897c96a901398015e780f150d627fd2306bd2a7a78a69e2843c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 95,
+            "relative_frame": 570,
+            "time": 10.047868728637696,
+            "path": "frames/frame-000570.png",
+            "sha256": "19131e14267f8c6cf97fbe5bd2269308b9781f3eb901593f5e47adab223b0378",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 96,
+            "relative_frame": 576,
+            "time": 10.13499927520752,
+            "path": "frames/frame-000576.png",
+            "sha256": "f924a0b5f33dd656ada3a4efba233fab23800972f9602563a70f3f9900961878",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 97,
+            "relative_frame": 582,
+            "time": 10.76010799407959,
+            "path": "frames/frame-000582.png",
+            "sha256": "3f09d2664fb7425179eb1951655f50666eaf5d9d210ba4b58147f734c97329f5",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 98,
+            "relative_frame": 588,
+            "time": 10.864630699157715,
+            "path": "frames/frame-000588.png",
+            "sha256": "dd8bffe98b6f98463db467904ac6e7d5f5bf6fc1d2384d03bc6e1b4f9acac099",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 99,
+            "relative_frame": 594,
+            "time": 10.959677696228028,
+            "path": "frames/frame-000594.png",
+            "sha256": "1b87e51dde95aa881f43a786ec1d79ec3d40a0cdf6445f8cb65ae87cc9335925",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 100,
+            "relative_frame": 600,
+            "time": 11.043413162231446,
+            "path": "frames/frame-000600.png",
+            "sha256": "88611081b1decf460e8a620899385a876927e3ab0708dd2bd27f7ff50fe430eb",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 101,
+            "relative_frame": 606,
+            "time": 11.1293363571167,
+            "path": "frames/frame-000606.png",
+            "sha256": "fc2ab7c3e4b9a60423f6c78d9a5fd63cf6262575930f5811f86f6bf4856f7d0c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 102,
+            "relative_frame": 612,
+            "time": 11.213459968566895,
+            "path": "frames/frame-000612.png",
+            "sha256": "9f784a03c3fdd63f7741cca5fbd73486ed7383e8e3ba625d3885d73e8e5397c2",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 103,
+            "relative_frame": 618,
+            "time": 11.297039031982422,
+            "path": "frames/frame-000618.png",
+            "sha256": "f905bfa2a5c57d45b26eed592bd9e871994aa2c77741799fec8bf7e917031d36",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 104,
+            "relative_frame": 624,
+            "time": 11.382217407226563,
+            "path": "frames/frame-000624.png",
+            "sha256": "44760c83f305716cdd776f042cc3fd549ae36bab6244da669ecdd788693372d4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 105,
+            "relative_frame": 630,
+            "time": 11.478645324707032,
+            "path": "frames/frame-000630.png",
+            "sha256": "19c71de0c44b6d6b5522123b9d17dcb85d2b632fa52cf1111d799554a20a0a42",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 106,
+            "relative_frame": 636,
+            "time": 11.560014724731446,
+            "path": "frames/frame-000636.png",
+            "sha256": "2ae11414547e1560a2d8e4d2047ff1f64eb2faa055826857e2a223b5bdb5a8be",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 107,
+            "relative_frame": 642,
+            "time": 11.653205871582032,
+            "path": "frames/frame-000642.png",
+            "sha256": "6f5d8d74e5689955041a0e4fafd2e3b6433eff2f3f027e3faca35e011f7e2f97",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 108,
+            "relative_frame": 648,
+            "time": 11.743023872375489,
+            "path": "frames/frame-000648.png",
+            "sha256": "5b24ee2f30bb4fdfda0e2041a40ac48e18468a2339e467e5073e33b9a520292b",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 109,
+            "relative_frame": 654,
+            "time": 11.82638168334961,
+            "path": "frames/frame-000654.png",
+            "sha256": "a6c1a5b5837d652d8d5627a0c400da2edd46f711d4c12d7e6bc390a75d58a45b",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 110,
+            "relative_frame": 660,
+            "time": 11.916952133178711,
+            "path": "frames/frame-000660.png",
+            "sha256": "ce38cbcd7435b88c30fb24272f04bba0dfba9f6da23b073805fee5a9dca22468",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 111,
+            "relative_frame": 666,
+            "time": 12.000534057617188,
+            "path": "frames/frame-000666.png",
+            "sha256": "c5d300a13f2d65b5efc3e4ea0ca9ff6553379e5ee95213bced6c435ae1add3bb",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 112,
+            "relative_frame": 672,
+            "time": 12.105592727661133,
+            "path": "frames/frame-000672.png",
+            "sha256": "4b1832acba473f84bf886c1761d8f7c0f1036b6b069d84399bd6611f15dfdb89",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 113,
+            "relative_frame": 678,
+            "time": 12.215608596801758,
+            "path": "frames/frame-000678.png",
+            "sha256": "873b36ae74b76e46dee42d9a7639e1b5f5d05cb777b07b30f6790b14000c1972",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 114,
+            "relative_frame": 684,
+            "time": 12.314294815063477,
+            "path": "frames/frame-000684.png",
+            "sha256": "9809728a2e96de678446abbab81cf20f2b6ea3908fbec54d3c2c3aee975b1171",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 115,
+            "relative_frame": 690,
+            "time": 12.411957740783692,
+            "path": "frames/frame-000690.png",
+            "sha256": "16d7ae0a69cf2f717704ba1388a9e53e2fcdc7216cc0f8d2223f9dc2ad937135",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 116,
+            "relative_frame": 696,
+            "time": 12.510872840881348,
+            "path": "frames/frame-000696.png",
+            "sha256": "29178ce4d4297f98d792099b6fe7ca83c719f6fcf5ce294a649a7d431740c109",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 117,
+            "relative_frame": 702,
+            "time": 12.595841407775879,
+            "path": "frames/frame-000702.png",
+            "sha256": "3b8ad6696dcdaec078886fde1d2d1ca0e79000259e68e10d5b41e79d3407eab2",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 118,
+            "relative_frame": 708,
+            "time": 12.688901901245118,
+            "path": "frames/frame-000708.png",
+            "sha256": "18650026d4a569f977d5abea1b530e585b6518909f08a5201c11fe1a580a93b7",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 119,
+            "relative_frame": 714,
+            "time": 12.769123077392579,
+            "path": "frames/frame-000714.png",
+            "sha256": "204162792959cf750824c81c792a9ecff34c346755d35c9e99abb5b2116c2747",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 120,
+            "relative_frame": 720,
+            "time": 12.85207462310791,
+            "path": "frames/frame-000720.png",
+            "sha256": "1d8a28792c0487a538f0136aa0793d5e71145f2dc7bafdb53724ce704165536c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 121,
+            "relative_frame": 726,
+            "time": 12.930891990661621,
+            "path": "frames/frame-000726.png",
+            "sha256": "01e46691b049c2b6556de657de4b54aeb8f6ebf98a640222a13251338da1d74f",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 122,
+            "relative_frame": 732,
+            "time": 13.012094497680664,
+            "path": "frames/frame-000732.png",
+            "sha256": "d3ebeaa5083b1ac7385fb5de3f14835c852abdc563472929f61a18449259ee25",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 123,
+            "relative_frame": 738,
+            "time": 13.084884643554688,
+            "path": "frames/frame-000738.png",
+            "sha256": "e28d8b0562d15e178c7cccf631899223fcd0a1ec3832e7a353b7c68cc1d8d5f4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 124,
+            "relative_frame": 744,
+            "time": 13.15915298461914,
+            "path": "frames/frame-000744.png",
+            "sha256": "c8ad4f5f13e173a25e26886022b178a4a158f93088f2186fff9f3f61637858de",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 125,
+            "relative_frame": 750,
+            "time": 13.236085891723633,
+            "path": "frames/frame-000750.png",
+            "sha256": "d2a86a24243bb15296c95d38a51f5b220af621404cbc890d99bf6c0dda62d619",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 126,
+            "relative_frame": 756,
+            "time": 13.331880569458008,
+            "path": "frames/frame-000756.png",
+            "sha256": "30cae9537995611bb6d75696b2f55d965efdee5ff20fd0214984b4714b43cfee",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 127,
+            "relative_frame": 762,
+            "time": 13.421906471252442,
+            "path": "frames/frame-000762.png",
+            "sha256": "a1c152eec4798a62e9cd926a094723f4b5f368c06310e6835d3c0f0c32c5136d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 128,
+            "relative_frame": 768,
+            "time": 13.52357006072998,
+            "path": "frames/frame-000768.png",
+            "sha256": "9ddb7b31d68192c13ec03e59ab2e9d6e8c9757635b9fae2385b4880b26a72196",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 129,
+            "relative_frame": 774,
+            "time": 13.619213104248047,
+            "path": "frames/frame-000774.png",
+            "sha256": "9c2793a0ae152a76d35fb2130fd71ca5e8265f35a0b3369f65a0f34f4066bc03",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 130,
+            "relative_frame": 780,
+            "time": 13.705953598022461,
+            "path": "frames/frame-000780.png",
+            "sha256": "4177f3d1c174ccc533638dd3db7f438be859b2c6fc23bf7f81eb6772fb2e1774",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 131,
+            "relative_frame": 786,
+            "time": 13.791543006896973,
+            "path": "frames/frame-000786.png",
+            "sha256": "c9234fe5b7de36a822d5faf102014f653da15396e91d2138f1c821be62af4b43",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 132,
+            "relative_frame": 792,
+            "time": 13.893877029418946,
+            "path": "frames/frame-000792.png",
+            "sha256": "cc556dbe224af800d66a9624d85cab3f79f196ee1fc01d85af6a98d6ec790af1",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 133,
+            "relative_frame": 798,
+            "time": 13.986249923706055,
+            "path": "frames/frame-000798.png",
+            "sha256": "03bdc83c22f730d08da3c2406a7741e9cca7f05e1f0928d10324ba93f5d0263a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 134,
+            "relative_frame": 804,
+            "time": 14.071677207946778,
+            "path": "frames/frame-000804.png",
+            "sha256": "1cc5ad15fa3e9dabb08e3a5339136881c996287cc33e1a6e6dd013925b91adaa",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 135,
+            "relative_frame": 810,
+            "time": 14.152737617492676,
+            "path": "frames/frame-000810.png",
+            "sha256": "2ca6afbf3063f2d213a43644a0ee9a98b94ee0b5be9e12ccbe83a76b102a028c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 136,
+            "relative_frame": 816,
+            "time": 14.237886428833008,
+            "path": "frames/frame-000816.png",
+            "sha256": "9c5d65e4c953f57182f72eed53a867fca26a5a4688f0e9eafe7a2b462fde53b1",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 137,
+            "relative_frame": 822,
+            "time": 14.316872596740723,
+            "path": "frames/frame-000822.png",
+            "sha256": "7dfb6a721a3c5a7b69bdee14f8d7511d6988b5dc8db287aa408742d0efd36346",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 138,
+            "relative_frame": 828,
+            "time": 14.395285606384278,
+            "path": "frames/frame-000828.png",
+            "sha256": "c942cf236649eac620302946a2381a0346972dba611cef01f8219d43c07257b0",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 139,
+            "relative_frame": 834,
+            "time": 14.483790397644043,
+            "path": "frames/frame-000834.png",
+            "sha256": "093b8d16944b53158d60988b583b40bc7a823f13ebd7c657ba7113d2a6144e27",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 140,
+            "relative_frame": 840,
+            "time": 14.578067779541016,
+            "path": "frames/frame-000840.png",
+            "sha256": "2a9defb5f4f74c924382ae5563c577b7e01e919423c99eb1fd763463940d99c2",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 141,
+            "relative_frame": 846,
+            "time": 14.67922306060791,
+            "path": "frames/frame-000846.png",
+            "sha256": "0f311e0d795ba06794d7bfe697f55d1b076057d070ed287786acab3710530c94",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 142,
+            "relative_frame": 852,
+            "time": 14.788776397705079,
+            "path": "frames/frame-000852.png",
+            "sha256": "230ff867fefd9fef2eb945e3e9b0bea1009e3d7e9e3895e0fffcc9aaa9dde7a6",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 143,
+            "relative_frame": 858,
+            "time": 14.88770866394043,
+            "path": "frames/frame-000858.png",
+            "sha256": "a8da0ec398ac9aba02520aa7d252dab314e2de5abed19714fc26a707a95e3b1d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 144,
+            "relative_frame": 864,
+            "time": 14.98928165435791,
+            "path": "frames/frame-000864.png",
+            "sha256": "4aff2043c1c493f6bf402537ad1a0c62bfe55ccfa69fcea04ecdbddc5ec280e5",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 145,
+            "relative_frame": 870,
+            "time": 15.07193374633789,
+            "path": "frames/frame-000870.png",
+            "sha256": "ee39e3522ece54be14a6500a85586d3301a605a49d04d98563d167da7b4c51d7",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 146,
+            "relative_frame": 876,
+            "time": 15.156107902526856,
+            "path": "frames/frame-000876.png",
+            "sha256": "1c4570b245cf13cf10ded204aa9dfb31f6c58e499888651cc5408759e4fb96ce",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 147,
+            "relative_frame": 882,
+            "time": 15.241070747375489,
+            "path": "frames/frame-000882.png",
+            "sha256": "25eb5881353d92d84ac1c1b6fa568e317fd3886dced37d7999fe63fd9263aa03",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 148,
+            "relative_frame": 888,
+            "time": 15.322436332702637,
+            "path": "frames/frame-000888.png",
+            "sha256": "a67a0db77515952c7d046f13167738ca9fe8cbe172538cc7c5161edfb79aa64d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 149,
+            "relative_frame": 894,
+            "time": 15.405244827270508,
+            "path": "frames/frame-000894.png",
+            "sha256": "a9d31796ee791c0d998516d16bc6191ccd6115fb1b4a308740ec07809744d756",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 150,
+            "relative_frame": 900,
+            "time": 15.48674488067627,
+            "path": "frames/frame-000900.png",
+            "sha256": "08cb6522ea63fa18b0b4a2256d274a45307427cd1aa36a72fc8022fd7ecc6302",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 151,
+            "relative_frame": 906,
+            "time": 15.567805290222168,
+            "path": "frames/frame-000906.png",
+            "sha256": "be80b0c5035daf12fde2790c49c736caeb3726b585065c50cdffb8a8511bbc9e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 152,
+            "relative_frame": 912,
+            "time": 15.650469779968262,
+            "path": "frames/frame-000912.png",
+            "sha256": "6be5e4888d8499ee227af707ecd5be7a3e7d4dabf0f693c88745d0eab7329191",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 153,
+            "relative_frame": 918,
+            "time": 15.732321739196778,
+            "path": "frames/frame-000918.png",
+            "sha256": "b0e8c80eedd5160baaca4eb1419af96120de8af3db47530c3551223965b70f1e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 154,
+            "relative_frame": 924,
+            "time": 15.818964004516602,
+            "path": "frames/frame-000924.png",
+            "sha256": "fcb6c4064d0a7bf8e8fff18df48b975c8e524d5311ad29a0976bdd9605dce3ee",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 155,
+            "relative_frame": 930,
+            "time": 15.89970588684082,
+            "path": "frames/frame-000930.png",
+            "sha256": "0fe45c6cd7f0cebfc5b28a33dc5bd38e9b349d3cff43bb22b0db43b51e97b7bf",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 156,
+            "relative_frame": 936,
+            "time": 15.981180191040039,
+            "path": "frames/frame-000936.png",
+            "sha256": "248f2314bc38a95b05e1c9448368437589f64692eb4355828cfd05256f35ab7a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 157,
+            "relative_frame": 942,
+            "time": 16.0679874420166,
+            "path": "frames/frame-000942.png",
+            "sha256": "d1f677b68feb23d9bd8e302fffb4a7a877c29d0fd54a4e4f756600e02ae1ba76",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 158,
+            "relative_frame": 948,
+            "time": 16.150941848754884,
+            "path": "frames/frame-000948.png",
+            "sha256": "ddfb5bec812be7c1a9fea7f681835e60d5994626528777e371f252a330bfb270",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 159,
+            "relative_frame": 954,
+            "time": 16.237995147705079,
+            "path": "frames/frame-000954.png",
+            "sha256": "9ce9127787adc06fa89a1274d6a635ce5bb91d08c0864c84f2b2bda75663de1a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 160,
+            "relative_frame": 960,
+            "time": 16.834062576293947,
+            "path": "frames/frame-000960.png",
+            "sha256": "944da6551707ff23d2b346b43becb732a0d375b3d660db71db39165fc1028233",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 161,
+            "relative_frame": 966,
+            "time": 16.917476654052736,
+            "path": "frames/frame-000966.png",
+            "sha256": "b235ae8c9e82cd887723f3b44b090543fd9fbc0a0049ae92f0d4ae1bb4fcf79f",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 162,
+            "relative_frame": 972,
+            "time": 16.995840072631837,
+            "path": "frames/frame-000972.png",
+            "sha256": "6c63df38c3d6cfa8b054e0240dbde0e38ce75e05291000a49014b297f5e296eb",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 163,
+            "relative_frame": 978,
+            "time": 17.100385665893556,
+            "path": "frames/frame-000978.png",
+            "sha256": "ddff7594bfa593c2640f64d990492a4d564bfbbc0639d85d49cb863cc8eb7778",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 164,
+            "relative_frame": 984,
+            "time": 17.19846534729004,
+            "path": "frames/frame-000984.png",
+            "sha256": "62f5be716a1497ae25c3f942865ca93f0bfadaf56b09f7458494532841fddeff",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 165,
+            "relative_frame": 990,
+            "time": 17.289670944213868,
+            "path": "frames/frame-000990.png",
+            "sha256": "6528f3c03673eb395ee6c7083fa92adac4f410a77efe9e9677a8524f4b151b5a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 166,
+            "relative_frame": 996,
+            "time": 17.37898063659668,
+            "path": "frames/frame-000996.png",
+            "sha256": "63887664666d881c0c2b3affdaaa42e1deeb0eb188d9b120f58e6f2b7dfa70c9",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 167,
+            "relative_frame": 1002,
+            "time": 17.464860916137697,
+            "path": "frames/frame-001002.png",
+            "sha256": "227f1daec425a4985a607bfc83bcadd7c6bcdaf3c48db21153609f5037a531e7",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 168,
+            "relative_frame": 1008,
+            "time": 17.54533576965332,
+            "path": "frames/frame-001008.png",
+            "sha256": "9942b3e7335d12cf92c8455a1126f097fe8cbbeab0db96de0bb5bb4d975dfcc1",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 169,
+            "relative_frame": 1014,
+            "time": 17.624595642089845,
+            "path": "frames/frame-001014.png",
+            "sha256": "40cff46e1fef29abf3b4de0fce10621b2d30f1d5cf829c461ad6943718e892be",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 170,
+            "relative_frame": 1020,
+            "time": 17.712610244750978,
+            "path": "frames/frame-001020.png",
+            "sha256": "539013c03eeead9a1ae3ed33646c27a36f3547903d4d0f0a87c8908547f4988a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 171,
+            "relative_frame": 1026,
+            "time": 17.78528594970703,
+            "path": "frames/frame-001026.png",
+            "sha256": "59144cb33c201f8185eb4a17b0445d627153aabe335588f729ca6d36df70bde4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 172,
+            "relative_frame": 1032,
+            "time": 17.860576629638673,
+            "path": "frames/frame-001032.png",
+            "sha256": "dcf354c7ef409881397c9185d8c31fe1864eb807f88172251c3f4c6103f636ca",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 173,
+            "relative_frame": 1038,
+            "time": 17.938634872436525,
+            "path": "frames/frame-001038.png",
+            "sha256": "6cd3995c16d2cf3552dc928af206b32132d800d951ef3ba7e7ce78686d777f49",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 174,
+            "relative_frame": 1044,
+            "time": 18.021684646606447,
+            "path": "frames/frame-001044.png",
+            "sha256": "25b13448f94a67d9931871be6df4271742e0eba3a38934ad25d26da5791215bb",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 175,
+            "relative_frame": 1050,
+            "time": 18.10353660583496,
+            "path": "frames/frame-001050.png",
+            "sha256": "92ab032b4b6a2eb0571c20a056d719fe106f098f6c100fc8c4727782e6566cdd",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 176,
+            "relative_frame": 1056,
+            "time": 18.1872501373291,
+            "path": "frames/frame-001056.png",
+            "sha256": "80fc11875136511b39eeef3b6f13cbbbee3fbae973927bb58931949f4a56d133",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 177,
+            "relative_frame": 1062,
+            "time": 18.27132225036621,
+            "path": "frames/frame-001062.png",
+            "sha256": "511a54dc2c509b2b8088ecb094d7fa320ab81f45169517ae3f4a57ac55920803",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 178,
+            "relative_frame": 1068,
+            "time": 18.34880828857422,
+            "path": "frames/frame-001068.png",
+            "sha256": "eae0900b50af7a0c8438bc32935c9ec6953bd900ff6aa1fad78a2201b8a1031d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 179,
+            "relative_frame": 1074,
+            "time": 18.431894302368165,
+            "path": "frames/frame-001074.png",
+            "sha256": "f1edc2e02ee67d8399c7ca778927bd7f7fe7a16fdbbea6258357927fa9272acf",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 180,
+            "relative_frame": 1080,
+            "time": 18.51565933227539,
+            "path": "frames/frame-001080.png",
+            "sha256": "2541d1a5b35284c05495b0b19fe2c43f56314397930fd32eb910842c19d92e8b",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 181,
+            "relative_frame": 1086,
+            "time": 18.595191955566408,
+            "path": "frames/frame-001086.png",
+            "sha256": "3e7d777ef36128914e321427b2112a48a00c16db8e1b3e3f76448339fe242953",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 182,
+            "relative_frame": 1092,
+            "time": 18.68465232849121,
+            "path": "frames/frame-001092.png",
+            "sha256": "53a22efeb7a71603a189ba61248a849ad9fa1c217169eedeb0103467fd660009",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 183,
+            "relative_frame": 1098,
+            "time": 18.77350425720215,
+            "path": "frames/frame-001098.png",
+            "sha256": "79948f7633d968ee73e7961a0dd6883368402aa68dce73029a289adbf8d9e465",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 184,
+            "relative_frame": 1104,
+            "time": 18.857433319091798,
+            "path": "frames/frame-001104.png",
+            "sha256": "54ed29e1e842db4cb984fc728c68a3a8032be9bb63c9e60dc2f5d1749ada9cf4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 185,
+            "relative_frame": 1110,
+            "time": 18.93914031982422,
+            "path": "frames/frame-001110.png",
+            "sha256": "ed3e25383e9d4ee003c3cbffafdabeeafa3724a224e38d2a0b8e89247e751702",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 186,
+            "relative_frame": 1116,
+            "time": 19.02243995666504,
+            "path": "frames/frame-001116.png",
+            "sha256": "f212c94ae05918f726d9256e904e7a4be1799ae1c6770fb961e05a564c611e5a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 187,
+            "relative_frame": 1122,
+            "time": 19.10793113708496,
+            "path": "frames/frame-001122.png",
+            "sha256": "e26b7a2e46e1ea581c886873dc18ab3b8286b389ddc3e12600e96dad595648ce",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 188,
+            "relative_frame": 1128,
+            "time": 19.19031524658203,
+            "path": "frames/frame-001128.png",
+            "sha256": "055acdea9d9c060096098b8fb1887eb7c2752f15760b9c021eb9bc757d1c6a3c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 189,
+            "relative_frame": 1134,
+            "time": 19.268211364746095,
+            "path": "frames/frame-001134.png",
+            "sha256": "581d0575e9a9e67cd45af5cae20e3300f248c96e034ec7758368e9993783d00c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 190,
+            "relative_frame": 1140,
+            "time": 19.351083755493165,
+            "path": "frames/frame-001140.png",
+            "sha256": "aa74a0f20a5a33fa00d03efede5a0d845771db99d0b97a3357d62d751b49bdd5",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 191,
+            "relative_frame": 1146,
+            "time": 19.438928604125978,
+            "path": "frames/frame-001146.png",
+            "sha256": "5b24dd529add897cee4efcf40d4033e0e79921ebca9da31f3c31162c6ad3e409",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 192,
+            "relative_frame": 1152,
+            "time": 19.52210235595703,
+            "path": "frames/frame-001152.png",
+            "sha256": "30f0dc58d8340aa2e050afe7f317ec1856f0dea252e7ed54f0abea0ff24f1b1f",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 193,
+            "relative_frame": 1158,
+            "time": 19.624629974365236,
+            "path": "frames/frame-001158.png",
+            "sha256": "98305a400c187f1e3cea12b8c515cfd93d4c805500e5b854343b4d1c8adfbf6e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 194,
+            "relative_frame": 1164,
+            "time": 19.730785369873048,
+            "path": "frames/frame-001164.png",
+            "sha256": "6b3bd604648b4e7a71ed9da9702f698af9068ebc77b8ef566348961ccf8e9e7b",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 195,
+            "relative_frame": 1170,
+            "time": 19.832569122314454,
+            "path": "frames/frame-001170.png",
+            "sha256": "5a6917df5c44b764aab9cc3def6e8702607d042cfd8f5f39dc6eeaa1586671be",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 196,
+            "relative_frame": 1176,
+            "time": 19.936574935913087,
+            "path": "frames/frame-001176.png",
+            "sha256": "1fa7583172546cb6b9dd0b9576a3b4caabd85d2cbfb59086e8752a4752f548b9",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 197,
+            "relative_frame": 1182,
+            "time": 20.030406951904298,
+            "path": "frames/frame-001182.png",
+            "sha256": "7f72ebf52bf540cf3a8a2605dd8f154f0d8547c2638bc3b9114940efd8be19a7",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 198,
+            "relative_frame": 1188,
+            "time": 20.11486053466797,
+            "path": "frames/frame-001188.png",
+            "sha256": "7cd81e55a79cb4acb147c642d8e4f089eb58b0e2673d7b66e77f4f79f06afc34",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 199,
+            "relative_frame": 1194,
+            "time": 20.19236946105957,
+            "path": "frames/frame-001194.png",
+            "sha256": "32a2b8d8e4ea90c25b1775043b59e57a02b85ebeb9ee0c5c1fd3c9a233922b74",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 200,
+            "relative_frame": 1200,
+            "time": 20.278854370117189,
+            "path": "frames/frame-001200.png",
+            "sha256": "57a001146d9bc7844fe4dd162fd124a8a92b4cbc3cb8320ec3bf5ecda774dfb0",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 201,
+            "relative_frame": 1206,
+            "time": 20.370752334594728,
+            "path": "frames/frame-001206.png",
+            "sha256": "a20e7f5379d27a8bc737f6ff7e7eaa4c9175bbd56db344f5d7f193b68a0ff5a6",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 202,
+            "relative_frame": 1212,
+            "time": 20.46670913696289,
+            "path": "frames/frame-001212.png",
+            "sha256": "f8e5a4faf8124f1e0195689d99f8ee9940e3a0395a1d24fb89f2d0eaad07e3ff",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 203,
+            "relative_frame": 1218,
+            "time": 20.55161476135254,
+            "path": "frames/frame-001218.png",
+            "sha256": "b80ba0cfaefe94fd05b4fedb519edbbef89abb23ca8c548c839270360f7152cb",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 204,
+            "relative_frame": 1224,
+            "time": 20.632797241210939,
+            "path": "frames/frame-001224.png",
+            "sha256": "645196fd0b9057a7d7a6df8ca6c1fd3be75b6bae8a5f9d090c696ba188d1b012",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 205,
+            "relative_frame": 1230,
+            "time": 20.72509765625,
+            "path": "frames/frame-001230.png",
+            "sha256": "3da4b769d6f30862e4e6c7a0ecc8a5331afda7332a237e001962dcd5480875f4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 206,
+            "relative_frame": 1236,
+            "time": 20.809865951538087,
+            "path": "frames/frame-001236.png",
+            "sha256": "22c8419505bf205cec1af962f8fc39d4af6548fe02cad4edb405125d08abd9f8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 207,
+            "relative_frame": 1242,
+            "time": 20.896007537841798,
+            "path": "frames/frame-001242.png",
+            "sha256": "fd830ff432c01698714e00bc9a48f0d9084d3074db3a401385b8698f1f010d15",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 208,
+            "relative_frame": 1248,
+            "time": 20.979259490966798,
+            "path": "frames/frame-001248.png",
+            "sha256": "2c5477abdb96a84c422a81e4d3c61dbd62a06cba2477bfc1ae391badd4b98c4c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 209,
+            "relative_frame": 1254,
+            "time": 21.061500549316408,
+            "path": "frames/frame-001254.png",
+            "sha256": "45848cd0cfe08d639312a6442680a2b8ac43faaaaaad27e1feb1831d40278b63",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 210,
+            "relative_frame": 1260,
+            "time": 21.136764526367189,
+            "path": "frames/frame-001260.png",
+            "sha256": "ddd2fb639333d5554d9ff2834778f887a74c79c4532184759576c688de2a045d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 211,
+            "relative_frame": 1266,
+            "time": 21.215646743774415,
+            "path": "frames/frame-001266.png",
+            "sha256": "e47b163abd14709fa90fd51607dca78eec83f0fd068662e787412dd2dcceca5d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 212,
+            "relative_frame": 1272,
+            "time": 21.288917541503908,
+            "path": "frames/frame-001272.png",
+            "sha256": "be85908f511842191caee35bee4fd6abf9aa63715c31c6c5f77ab6cb2bd11f4e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 213,
+            "relative_frame": 1278,
+            "time": 21.368913650512697,
+            "path": "frames/frame-001278.png",
+            "sha256": "dbb116d1d210cc635a0302736547b409782b4aef83cb3eab650bd7219ee4a908",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 214,
+            "relative_frame": 1284,
+            "time": 21.44389533996582,
+            "path": "frames/frame-001284.png",
+            "sha256": "2e4fb07eedb6f8bb18f5666055102d84cd7bb2029e26dbb8c08a2356402fc3ee",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 215,
+            "relative_frame": 1290,
+            "time": 21.522884368896486,
+            "path": "frames/frame-001290.png",
+            "sha256": "d3367bb44f51941c2b8b6732e68a2b3144c335cef97def972ad736d7dcb54a8c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 216,
+            "relative_frame": 1296,
+            "time": 21.604572296142579,
+            "path": "frames/frame-001296.png",
+            "sha256": "458ae23699691084c8adb4678a19fb11c1a436d3e97f0c0c9dd02efd0351a9e1",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 217,
+            "relative_frame": 1302,
+            "time": 21.685871124267579,
+            "path": "frames/frame-001302.png",
+            "sha256": "a7bb98b54c5edd9f4cfdd63bd85766655e28af6f35260ab907a1652d6b2e444d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 218,
+            "relative_frame": 1308,
+            "time": 21.769912719726564,
+            "path": "frames/frame-001308.png",
+            "sha256": "77026b494d5b8bea053245e5269a827c62766e9346bf73b672917e77054d0b7c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 219,
+            "relative_frame": 1314,
+            "time": 21.85340690612793,
+            "path": "frames/frame-001314.png",
+            "sha256": "b50101454caf61761e1afde58bd22b755440f4e6594800233bd6379d5f7c9b48",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 220,
+            "relative_frame": 1320,
+            "time": 21.937528610229493,
+            "path": "frames/frame-001320.png",
+            "sha256": "6bcfef1f3f76407d84c17a56730505cfcfef72d2fff9686aaebfb455ee981bbe",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 221,
+            "relative_frame": 1326,
+            "time": 22.03081512451172,
+            "path": "frames/frame-001326.png",
+            "sha256": "b945ff5121a66b6f063e111ac5b86a37b2226288b75a4326b88e6d2fbfcb84d7",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 222,
+            "relative_frame": 1332,
+            "time": 22.127880096435548,
+            "path": "frames/frame-001332.png",
+            "sha256": "e510d47dac17501efb7528c9bbbda5e8b1147f53520b0c095f4853d365bb2df8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 223,
+            "relative_frame": 1338,
+            "time": 22.227596282958986,
+            "path": "frames/frame-001338.png",
+            "sha256": "addd4c48a07b94e88c8424be18679fba6df76e41139b172d26760359dcd7865e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 224,
+            "relative_frame": 1344,
+            "time": 22.317337036132814,
+            "path": "frames/frame-001344.png",
+            "sha256": "3179976b6efd5d6a4c317c09b6fa1592af004bbc7fa7d3d42a485554b9b3ee79",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 225,
+            "relative_frame": 1350,
+            "time": 22.417882919311525,
+            "path": "frames/frame-001350.png",
+            "sha256": "5e319fc946d8939e65ca62ab7ee63b6a07e3659775a9622320cd0a8375b15515",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 226,
+            "relative_frame": 1356,
+            "time": 22.516231536865236,
+            "path": "frames/frame-001356.png",
+            "sha256": "71967600d44fefa4201eeb4ad0351ba33a1616be04a04b5ab63ae6f9ba259cf0",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 227,
+            "relative_frame": 1362,
+            "time": 22.60078239440918,
+            "path": "frames/frame-001362.png",
+            "sha256": "51ee8fd1a7beb56ec52c91d8e6fe8d1d79b2da6503011ac283d7615997d41a22",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 228,
+            "relative_frame": 1368,
+            "time": 22.68688201904297,
+            "path": "frames/frame-001368.png",
+            "sha256": "f47c33a1d081f2c2576030e0d960ec051700777c616dc8569e634b94550dc8da",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 229,
+            "relative_frame": 1374,
+            "time": 22.769128799438478,
+            "path": "frames/frame-001374.png",
+            "sha256": "9a8d88eddc9b3cfa39f0f2c8efd36fae9243010a13d36f68935e74e050664f47",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 230,
+            "relative_frame": 1380,
+            "time": 22.849252700805665,
+            "path": "frames/frame-001380.png",
+            "sha256": "8a4a1bc3f57b268d2e0c3b2bab4de4f3c3eece920195e6336dd21507329df618",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 231,
+            "relative_frame": 1386,
+            "time": 22.92759132385254,
+            "path": "frames/frame-001386.png",
+            "sha256": "28a915f54a90d95d26eac0b34225b24423f1234dfa1f8edd18a51897564bcc5c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 232,
+            "relative_frame": 1392,
+            "time": 23.006166458129884,
+            "path": "frames/frame-001392.png",
+            "sha256": "ff4f2c94718b2f59dbc5b1770773f17701f4cf6664671c66f2df6a6ef40388a1",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 233,
+            "relative_frame": 1398,
+            "time": 23.551652908325197,
+            "path": "frames/frame-001398.png",
+            "sha256": "139e43176de0e9924adeecb8e3b3362c4926391fbadd4f6b493938d0861bb144",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 234,
+            "relative_frame": 1404,
+            "time": 23.63559913635254,
+            "path": "frames/frame-001404.png",
+            "sha256": "aef7e81da72ef6705181803c28975c2e44c1d67e6dec33854eee11caa6dec748",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 235,
+            "relative_frame": 1410,
+            "time": 23.71786117553711,
+            "path": "frames/frame-001410.png",
+            "sha256": "7afc2c32dda201db1714885dc1189d9c91a71e9b77a3e7c7e937a43ba9890388",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 236,
+            "relative_frame": 1416,
+            "time": 23.80028533935547,
+            "path": "frames/frame-001416.png",
+            "sha256": "602d6bd610f9905ca345e46eeb73e5bea2966e5094781831fa752209179532f8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 237,
+            "relative_frame": 1422,
+            "time": 23.883188247680665,
+            "path": "frames/frame-001422.png",
+            "sha256": "609fca9aabc9c27e9066c26b34a14791fde62046817ee192e2b77078eee11f2e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 238,
+            "relative_frame": 1428,
+            "time": 23.961328506469728,
+            "path": "frames/frame-001428.png",
+            "sha256": "b33cbc40a2c8ca986e54c62e7558fa1e9867a2a84a09d042c7bd2b4fd62c6da7",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 239,
+            "relative_frame": 1434,
+            "time": 24.052093505859376,
+            "path": "frames/frame-001434.png",
+            "sha256": "a5d778eaac8be53997eeb221066f7ff050d31f7f4d081cb3f79284efbe9b0241",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 240,
+            "relative_frame": 1440,
+            "time": 24.135622024536134,
+            "path": "frames/frame-001440.png",
+            "sha256": "ed5d087bbb42ffbb2686eb1d63d2af8dc2c76a4ec1a76a2519566619b4fdce34",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 241,
+            "relative_frame": 1446,
+            "time": 24.218544006347658,
+            "path": "frames/frame-001446.png",
+            "sha256": "5e7b74d790c4b0496b683552701bb1c19b05c15b88f5d5ae50dac387b6cf7965",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 242,
+            "relative_frame": 1452,
+            "time": 24.30177116394043,
+            "path": "frames/frame-001452.png",
+            "sha256": "6b4cc20826086c3b16c067acc1e45e805b23a34fce223970c45f0855ff975dfd",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 243,
+            "relative_frame": 1458,
+            "time": 24.386123657226564,
+            "path": "frames/frame-001458.png",
+            "sha256": "b47222e89fe72b136b8336cabae02617217dfbf575ce5f18a26d6802a3fc551f",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 244,
+            "relative_frame": 1464,
+            "time": 24.467060089111329,
+            "path": "frames/frame-001464.png",
+            "sha256": "0f12f461c5336c209a238a8c3cff9e2674b3cb711de253c96544dc8be5bdd6b3",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 245,
+            "relative_frame": 1470,
+            "time": 24.57870101928711,
+            "path": "frames/frame-001470.png",
+            "sha256": "aae1fe5cf7dcac3e3e0a903674028a34c074d165c8936eaa3eb226c7eb1bcc9d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 246,
+            "relative_frame": 1476,
+            "time": 24.675621032714845,
+            "path": "frames/frame-001476.png",
+            "sha256": "0dca06e7121d778e0e163ada1981b528806d34c7f8bb82d3c41dc9876a12ae8c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 247,
+            "relative_frame": 1482,
+            "time": 24.78653907775879,
+            "path": "frames/frame-001482.png",
+            "sha256": "f274405a3733a3857011dc1f5b7676288ce0d833c7e2cd2dced3247ddb04097d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 248,
+            "relative_frame": 1488,
+            "time": 24.89046287536621,
+            "path": "frames/frame-001488.png",
+            "sha256": "0b45f9dbcfebf307f68fe2714e8fb599203ee9ef56bd70e110d0fdf6773ef513",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 249,
+            "relative_frame": 1494,
+            "time": 24.987791061401368,
+            "path": "frames/frame-001494.png",
+            "sha256": "594dd192979e497ccc6a81ce352eb3fdd2fcc7de8b1f9117c1a7c656a2a05528",
+            "width": 1280,
+            "height": 720
+        }
+    ],
+    "events_path": "events.jsonl",
+    "events_sha256": "b6dbe2c6001a06949adaec12ff9ee8a660b299a41561359b0a85f38cae32fde5",
+    "restoration": {
+        "restored": true,
+        "success": true,
+        "preferences": true,
+        "scene_setup": true,
+        "editor_settings": true,
+        "game_view": true,
+        "error": ""
+    }
+}

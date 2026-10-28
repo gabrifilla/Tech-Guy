@@ -15,6 +15,8 @@ public sealed class GauntletImpactTransaction : IDisposable
     private bool _disposed;
     public GauntletImpactContext Context { get; }
     public bool HasBreak => _break != 0;
+    internal bool BudgetRejected { get; private set; }
+    internal void RejectForBudget() => BudgetRejected = true;
     public bool IsCollecting => !_disposed;
     public GauntletImpactTransaction(GauntletEnergyPolicy policy, GauntletImpactContext context, Action release,
         GauntletImpactTransaction parent = null)

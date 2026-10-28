@@ -1,0 +1,29 @@
+{
+  "checked": 1789,
+  "unchanged": 1767,
+  "changed": [
+    "Assets/_Project/Scenes/FirstSector.unity",
+    "Assets/_Project/Scenes/NexusBlockout.unity",
+    "Assets/_Project/Scenes/NexusLobby.unity",
+    "Assets/_Project/Scenes/PrologueTutorial.unity",
+    "Assets/_Project/Scripts/Abilities/Dash/DashScript.cs",
+    "Assets/_Project/Scripts/Abilities/Weapon/ArsenalCombat.cs",
+    "Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs",
+    "Assets/_Project/Scripts/Characters/Combat/CombatReactionController.cs",
+    "Assets/_Project/Scripts/Characters/Enemy/SoftGroupingService.cs",
+    "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs",
+    "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+    "Assets/_Project/Scripts/Characters/Player/PlayerActor.cs",
+    "Assets/_Project/Scripts/Core/GamePreferences.cs",
+    "Assets/_Project/Scripts/Core/KitingStepCoordinator.cs",
+    "Assets/_Project/Scripts/Editor/FirstSectorBuilder.cs",
+    "Assets/_Project/Scripts/Editor/LobbySceneBuilder.cs",
+    "Assets/_Project/Scripts/Editor/TutorialSceneBuilder.cs",
+    "Assets/_Project/Scripts/UI/ControlRemappingPanel.cs",
+    "Assets/_Project/Scripts/UI/LobbyInteraction.cs",
+    "Assets/_Project/Scripts/UI/MainMenuUI.cs",
+    "Assets/_Project/Scripts/UI/PauseMenuUI.cs",
+    "Assets/_Project/Scripts/UI/TutorialHUD.cs"
+  ],
+  "missing": []
+}

@@ -9,6 +9,10 @@ using UnityEngine.InputSystem;
 public sealed class PlayerHUD : MonoBehaviour
 {
     [SerializeField] private PlayerActor _player;
+    [SerializeField] private LobbyInteraction _lobby;
+    [SerializeField] private Transform _lobbyTrainingAnchor;
+    [SerializeField, Min(1f)] private float _lobbyTrainingRange = 4.5f;
+    private Canvas _canvas;
     [SerializeField] private RectTransform _dock;
     [SerializeField] private Image _healthFill;
     [SerializeField] private Image _manaFill;
@@ -23,6 +27,8 @@ public sealed class PlayerHUD : MonoBehaviour
     private AbilityHolder _holder;
     private CharControlScript _controls;
     private BreakerGauntletCombat _breaker;
+    private BowBoonCombat _bowBoons;
+    private SpearBoonCombat _spearBoons;
     private float _feedbackUntil;
     private float _nextRefresh;
     private bool _bound;
@@ -51,7 +57,7 @@ public sealed class PlayerHUD : MonoBehaviour
     public void Configure(PlayerActor player)
     {
         if (_player == player) return;
-        UnbindEvents(); _player = player; _holder = null; _controls = null; _breaker = null;
+        UnbindEvents(); _player = player; _holder = null; _controls = null; _breaker = null; _bowBoons = null; _spearBoons = null;
         if (_initialized && _player && _player.TryGetComponent(out _holder))
         {
             _controls = _player.GetComponent<CharControlScript>();
@@ -61,6 +67,7 @@ public sealed class PlayerHUD : MonoBehaviour
 
     private void Start()
     {
+        _canvas = GetComponent<Canvas>();
         if (!_player || !_player.TryGetComponent(out _holder) || !_dock || _slots == null || _slots.Length != 5
             || !_healthFill || !_manaFill || !_healthValue || !_manaValue || !_feedback || !_tooltip
             || !_asuraLabel || !_asuraFill || !_asuraRoot)
@@ -160,7 +167,7 @@ public sealed class PlayerHUD : MonoBehaviour
         _gauntletFeedbackMessage = _feedback.text;
     }
 
-    public bool BlocksPointer(Vector2 position) => isActiveAndEnabled && _dock &&
+    public bool BlocksPointer(Vector2 position) => isActiveAndEnabled && (!_canvas || _canvas.enabled) && _dock &&
         RectTransformUtility.RectangleContainsScreenPoint(_dock, position, null);
 
     private void OnHealthChanged(Actor actor) => RefreshResources();
@@ -179,9 +186,15 @@ public sealed class PlayerHUD : MonoBehaviour
     private void Update()
     {
         if (!_bound || !_player || !_holder) return;
+        // Only Nexus opts in through serialized references. The base kit stays visible at its training target.
+        if (_lobby && _canvas)
+            _canvas.enabled = !_lobby.IsPanelOpen && _lobbyTrainingAnchor &&
+                (_player.transform.position - _lobbyTrainingAnchor.position).sqrMagnitude <= _lobbyTrainingRange * _lobbyTrainingRange;
         if (Time.unscaledTime < _nextRefresh) return;
         _nextRefresh = Time.unscaledTime + .033f;
         if (!_breaker) _breaker = _player.GetComponent<BreakerGauntletCombat>();
+        if (!_bowBoons) _bowBoons = _player.GetComponent<BowBoonCombat>();
+        if (!_spearBoons) _spearBoons = _player.GetComponent<SpearBoonCombat>();
         bool hasAsura = _breaker && _breaker.isActiveAndEnabled && _breaker.IsEquipped && !_player.IsDead;
         ObserveEnergyPolicy(hasAsura ? _breaker.EnergyPolicy : null);
         if (!hasAsura && _gauntletFeedback) { SetFeedbackText(""); _gauntletFeedback = false; }
@@ -190,7 +203,9 @@ public sealed class PlayerHUD : MonoBehaviour
         if (hasAsura)
         {
             _asuraFill.fillAmount = _breaker.Energy/100f;
-            string asura = HudFormatter.Asura(_breaker.Energy, rUnavailable, _breaker.IsAsuraActive, _breaker.IsCadencedWaiting);
+            string waitingHint = HudFormatter.CadencedWait(GamePreferences.KeyLabel(_holder.GetAbilityKey(3)),
+                GamePreferences.BindingLabel(GameControl.FinishSequence));
+            string asura = HudFormatter.Asura(_breaker.Energy, rUnavailable, _breaker.IsAsuraActive, _breaker.IsCadencedWaiting, waitingHint);
             if (_asuraCache.HasChanged(asura)) _asuraLabel.text = asura;
         }
         Vector2 pointer = Vector2.zero;
@@ -211,12 +226,26 @@ public sealed class PlayerHUD : MonoBehaviour
             if (asuraSlot && _breaker && _breaker.IsAsuraActive) { active = true; remaining = 0f; ratio = 0f; }
             if (asuraSlot && !active) requirement = !rUnavailable.HasValue;
             string actionName = ActionName(i, ability);
+            string extensionStatus = i == 3 && _bowBoons && _bowBoons.IsCharging ? (_bowBoons.ChargeRatio * 100f).ToString("0") + "%" :
+                i == 3 && _spearBoons && _spearBoons.HasOrbit ? GamePreferences.BindingLabel(GameControl.FinishSequence) + " RETORNO" :
+                i == 2 && _bowBoons && _bowBoons.ActiveMines > 0 ? _bowBoons.ActiveMines + " MINAS" :
+                i == 2 && _spearBoons && _spearBoons.ActiveStakes > 0 ? _spearBoons.ActiveStakes + " HASTES" : null;
             _slots[i].Present(ability, i < 4 ? GamePreferences.KeyLabel(_holder.GetAbilityKey(i)) : GamePreferences.BindingLabel(GameControl.Dash), remaining, ratio,
                 active, ability && _player.HasMana(ability.ManaCost), requirement, actionName,
                 asuraSlot && hasAsura && _breaker.IsReady ? "BLOQUEADO" : null,
-                asuraSlot && _breaker && _breaker.IsCadencedWaiting ? "AGUARDA R" : null);
+                asuraSlot && _breaker && _breaker.IsCadencedWaiting
+                    ? GamePreferences.KeyLabel(_holder.GetAbilityKey(3)) + " / " + GamePreferences.BindingLabel(GameControl.FinishSequence) : extensionStatus);
             if (ability && RectTransformUtility.RectangleContainsScreenPoint(_slots[i].Rect, pointer, null))
+            {
                 tooltip = HudFormatter.Tooltip(actionName, ability.ManaCost, ability.cooldownTime);
+                if (i == 3 && _bowBoons && _bowBoons.Handles(ability as ArsenalAbility))
+                    tooltip += "\nSegure " + GamePreferences.KeyLabel(_holder.GetAbilityKey(3)) + ": concentração completa em 0,8s; solte para disparar.";
+                if (i == 3 && _spearBoons && _spearBoons.HasOrbit)
+                    tooltip += "\n[" + GamePreferences.BindingLabel(GameControl.FinishSequence) + "] retornar cedo · passagens omitidas não são redistribuídas.";
+                if (asuraSlot && _breaker && _breaker.IsCadencedAsura)
+                    tooltip += "\n" + HudFormatter.CadencedWait(GamePreferences.KeyLabel(_holder.GetAbilityKey(3)),
+                        GamePreferences.BindingLabel(GameControl.FinishSequence)) + " · após 1º: 75%; após 2º: 100% do dano/postura nativos de R.";
+            }
         }
         if (_tooltipCache.HasChanged(tooltip)) _tooltip.text = tooltip;
         if (Time.unscaledTime >= _feedbackUntil) { SetFeedbackText(""); _gauntletFeedback = false; }
@@ -226,6 +255,11 @@ public sealed class PlayerHUD : MonoBehaviour
     {
         if (!ability) return "";
         var modifiers = _player.RunModifiers;
+        if (modifiers != null && index >= 0 && index < 4)
+        {
+            string id = modifiers.Expansion.MutationId((BoonSlot)index);
+            if (BoonExpansionCatalog.TryDefinition(id, out var replacement)) return replacement.Title;
+        }
         var executing = _breaker ? _breaker.ExecutionSnapshot : null;
         if (executing != null && _breaker.IsExecuting && (int)executing.Slot == index)
             return executing.Mutation.HasValue ? GauntletContentAuthoring.MutationTitle(executing.Mutation.Value) : ability.DisplayName;

@@ -1,0 +1,9 @@
+{
+  "globalCheckPassed": false,
+  "exitCode": 1,
+  "error": "ValueError: path is on mount 'C:', start on mount 'D:'",
+  "cause": "collect_external_guids tenta os.path.relpath para um pacote Tripo3D localizado fora do volume do projeto",
+  "stdout": "checker-metadados.json (vazio, checker interrompido)",
+  "stderr": "checker-metadados.stderr.txt",
+  "alternative": "novos-guids.json e importacao/compilacao/testes reais no Unity; nao equivalem a checker global PASS"
+}

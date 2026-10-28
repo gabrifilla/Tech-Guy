@@ -1,0 +1,17 @@
+{
+  "scenario_id": "GAUNTLET_SMALL_GROUP",
+  "phase": "baseline",
+  "mode": "current",
+  "seed": "0",
+  "weapon": 0,
+  "node_id": 1,
+  "enemy_count": 5,
+  "width": 1280,
+  "height": 720,
+  "simulation_fps": 60,
+  "capture_every_frames": 60,
+  "duration_frames": 1800,
+  "observe_seconds": 30,
+  "control_enemy_rng": false,
+  "input_schedule": []
+}

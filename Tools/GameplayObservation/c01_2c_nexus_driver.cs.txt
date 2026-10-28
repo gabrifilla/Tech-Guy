@@ -1,0 +1,56 @@
+// Actual Nexus/production controller, virtual keyboard/mouse AND virtual focus; never human acceptance.
+if(!UnityEditor.EditorApplication.isPlaying) throw new System.Exception("Play Mode required");
+var player=UnityEngine.Object.FindFirstObjectByType<PlayerActor>();
+var control=player.GetComponent<CharControlScript>();
+if(!control.DirectMovementEnabled) throw new System.Exception("Published direct mode must already be enabled");
+var agent=player.GetComponent<UnityEngine.AI.NavMeshAgent>();
+var view=UnityEngine.Camera.main;
+var holder=player.GetComponent<AbilityHolder>();
+var oldKeyboard=UnityEngine.InputSystem.Keyboard.current;
+var oldMouse=UnityEngine.InputSystem.Mouse.current;
+var keyboard=UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Keyboard>("GPR-C01.2c Nexus virtual keyboard");
+var mouse=UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Mouse>("GPR-C01.2c Nexus virtual mouse");
+control.SendMessage("OnApplicationFocus",true);
+var dir=System.IO.Path.Combine(System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName,"Docs/validation/artifacts/gameplay-rework/c01-2c");
+var writer=new System.IO.StreamWriter(System.IO.Path.Combine(dir,"nexus-runtime.csv"));
+writer.WriteLine("t,frame,dt,x,y,z,actualSpeed,agentVelocity,authoredSpeed,stage,abilityUses");
+int uses=0,lastStage=-1,lastFrame=-1;bool finished=false;bool[] shots=new bool[5];
+System.Action<int> used=slot=>uses++; holder.AbilityUsed+=used;
+double started=UnityEngine.Time.realtimeSinceStartupAsDouble;
+System.Func<float,string> f=v=>v.ToString("R",System.Globalization.CultureInfo.InvariantCulture);
+UnityEditor.EditorApplication.CallbackFunction tick=null;
+tick=delegate {
+ if(finished)return;
+ try {
+  double t=UnityEngine.Time.realtimeSinceStartupAsDouble-started;
+  if(!UnityEditor.EditorApplication.isPlaying || !player || t>4.5) {
+   finished=true; if(player)player.GetComponent<PauseMenuUI>().Resume(); UnityEditor.EditorApplication.update-=tick; holder.AbilityUsed-=used; writer.Dispose();
+   UnityEngine.InputSystem.InputSystem.RemoveDevice(keyboard);UnityEngine.InputSystem.InputSystem.RemoveDevice(mouse);
+   if(oldKeyboard!=null)oldKeyboard.MakeCurrent();if(oldMouse!=null)oldMouse.MakeCurrent();
+   System.IO.File.WriteAllText(System.IO.Path.Combine(dir,"nexus-proveniencia.json"),Newtonsoft.Json.JsonConvert.SerializeObject(new {input="virtual Keyboard/Mouse + SendMessage focus",physicalHuman=false,scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().path,seconds=t,abilityUses=uses,actor=player.name,speed=agent.speed,direct=control.DirectMovementEnabled,bindings=GamePreferences.ReadBindings().Select(k=>k.ToString()).ToArray()}));
+   return;
+  }
+  int stage=t<.3?0:t<1?1:t<1.3?2:t<2?3:t<2.5?4:t<3?5:t<3.6?6:7;
+  if(stage!=lastStage) {
+   lastStage=stage;
+   if(stage==5)player.GetComponent<PauseMenuUI>().Pause();
+   if(stage==6)player.GetComponent<PauseMenuUI>().Resume();
+   var keys=stage==1?new[]{UnityEngine.InputSystem.Key.W}:(stage==3||stage==5||stage==6)?new[]{UnityEngine.InputSystem.Key.W,UnityEngine.InputSystem.Key.D}:new UnityEngine.InputSystem.Key[0];
+   UnityEngine.InputSystem.InputSystem.QueueStateEvent(keyboard,new UnityEngine.InputSystem.LowLevel.KeyboardState(keys));
+   var point=(UnityEngine.Vector2)view.WorldToScreenPoint(player.transform.position+UnityEngine.Vector3.right*8);
+   UnityEngine.InputSystem.InputSystem.QueueStateEvent(mouse,new UnityEngine.InputSystem.LowLevel.MouseState{position=point});
+  }
+  int shot=t>.65 && !shots[0]?0:t>1.65 && !shots[1]?1:t>2.3 && !shots[2]?2:t>2.75 && !shots[3]?3:t>3.4 && !shots[4]?4:-1;
+  if(shot>=0){shots[shot]=true;UnityEngine.ScreenCapture.CaptureScreenshot(System.IO.Path.Combine(dir,new[]{"nexus-wasd-walk.png","nexus-wasd-diagonal.png","nexus-wasd-stop.png","nexus-pause.png","nexus-resume-held.png"}[shot]));}
+  if(lastFrame==UnityEngine.Time.frameCount)return;lastFrame=UnityEngine.Time.frameCount;
+  var pos=player.transform.position;
+  writer.WriteLine(string.Join(",",new[]{f((float)t),lastFrame.ToString(),f(UnityEngine.Time.deltaTime),f(pos.x),f(pos.y),f(pos.z),f(control.ActualMovementVelocity.magnitude),f(agent.velocity.magnitude),f(agent.speed),stage.ToString(),uses.ToString()}));writer.Flush();
+ } catch(System.Exception error) {
+  finished=true;if(player)player.GetComponent<PauseMenuUI>().Resume();UnityEditor.EditorApplication.update-=tick;writer.Dispose();holder.AbilityUsed-=used;
+  if(keyboard.added)UnityEngine.InputSystem.InputSystem.RemoveDevice(keyboard);if(mouse.added)UnityEngine.InputSystem.InputSystem.RemoveDevice(mouse);
+  if(oldKeyboard!=null)oldKeyboard.MakeCurrent();if(oldMouse!=null)oldMouse.MakeCurrent();
+  System.IO.File.WriteAllText(System.IO.Path.Combine(dir,"nexus-driver-error.txt"),error.ToString());
+ }
+};
+UnityEditor.EditorApplication.update+=tick;
+return "4.5s actual Nexus, virtual keyboard/mouse/focus; no resource injection or save edits";

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 public class PlayerActor : Actor, IExternalPullTarget
 {
+    internal RunStatistics RunStatistics { get; set; }
     private ImpactFeedbackScope _feedbackScope;
     private HitStopRunner _reactionHitStop;
     internal bool IsCombatHitStopped => _reactionHitStop && _reactionHitStop.IsActive;
@@ -376,8 +377,15 @@ public class PlayerActor : Actor, IExternalPullTarget
             protocols ? protocols.ScopedProducer : ProtocolProducer.Direct;
         int protocolDepth = transaction != null ? protocolProducer == ProtocolProducer.Direct ? 0 : 1 :
             protocols ? protocols.ScopedDepth : 0;
-        if (protocolRoot != null && protocolDepth > 0 && !protocolRoot.ReserveImpact(protocolDepth)) protocolRoot = null;
+        if (protocols && protocolDepth > 0 && (protocolRoot == null || !protocolRoot.ReserveImpact(protocolDepth)))
+        { transaction?.RejectForBudget(); return 0f; }
+        float beforeProtocolAmplification = damage;
         if (protocols) damage = protocols.AmplifyChild(protocolRoot, protocolProducer, protocolBefore, damage);
+        var damageSource = transaction != null ? RunStatistics?.SourceFor(transaction.Context) :
+            protocolRoot?.AnalyticsSource ?? RunStatistics?.CurrentSource ?? RunStatistics?.UnknownSource();
+        damageSource = damageSource?.WithProducer(protocolProducer.ToString(), transaction?.Context.ProducerId ?? "",
+            transaction != null ? transaction.Context.Origin != GauntletImpactOrigin.Direct : protocols && protocols.ScopedAnalyticsSecondary);
+        if (damage != beforeProtocolAmplification) damageSource = damageSource?.WithModifier("resonance");
         float dealt = 0f;
         using (enemy.CaptureNextDamage(actual =>
         {
@@ -385,7 +393,7 @@ public class PlayerActor : Actor, IExternalPullTarget
             transaction?.ConfirmHp(actual);
             transaction?.HoldProtocolBatch(protocolRoot);
             _feedbackScope.ConfirmDamage(true);
-        }, transaction == null ? null : transaction.Notify)) enemy.TakeDamage(damage);
+        }, transaction == null ? null : transaction.Notify, damageSource)) enemy.TakeDamage(damage);
         if (dealt > 0f && modifiers != null) RestoreMana(2f * modifiers.Rank(WeaponBoon.Siphon));
         if (dealt > 0f && protocols)
         {
@@ -491,12 +499,12 @@ public class PlayerActor : Actor, IExternalPullTarget
             weaponDamage, skillMultiplier, addedDamage, reactionRequest, showEffect, effectColor, context, policy, impactIndex);
 
     internal int TryApplyGauntletBasicDamage(Vector3 origin, Vector3 forward, float range, Vector3 boxSize,
-        LayerMask layers, float damage, HitReactionRequest reaction)
+        LayerMask layers, float damage, HitReactionRequest reaction, bool finisher = false)
     {
         if (IsResolvingGauntletImpact) return 0;
         var combat = GetComponent<BreakerGauntletCombat>() ?? gameObject.AddComponent<BreakerGauntletCombat>();
         combat.Configure(CurrentWeapon);
-        var context = combat.BeginBasicExecution();
+        var context = combat.BeginBasicExecutionWithFinisher(finisher);
         if (context == null) return 0;
         try { return TryApplyGauntletAreaDamage(origin, forward, range, boxSize, AreaHitShape.Box, 0f,
             layers, damage, 1f, 0f, reaction, true, null, context, combat.EnergyPolicy, 0); }
@@ -595,7 +603,13 @@ public class PlayerActor : Actor, IExternalPullTarget
                     if (damaged && context.Slot == GauntletActionSlot.Basic && context.Origin == GauntletImpactOrigin.Direct)
                         transaction.Notify(() => RaiseBasicAttackHit(actor, dealt, healthBefore > 0 && dealt >= healthBefore));
                     // Posture confirmation is independent from the HP-immunity channel for this weapon.
-                    ApplyHitReaction(actor, reactionRequest, hit.ClosestPoint(center), normalizedForward);
+                    actor.TryGetComponent(out CombatReactionController postureReaction);
+                    float postureBefore = postureReaction ? postureReaction.CurrentStance : 0f;
+                    long launchBefore = postureReaction && postureReaction.IsAirborne ? postureReaction.LaunchSequence : 0;
+                    if (!transaction.BudgetRejected) ApplyHitReaction(actor, reactionRequest, hit.ClosestPoint(center), normalizedForward);
+                    bool postureConfirmed = transaction.HasBreak || postureReaction && postureReaction.CurrentStance < postureBefore;
+                    if ((damaged || postureConfirmed) && TryGetComponent(out BreakerGauntletCombat eclipseCombat))
+                        eclipseCombat.ConfirmEclipseImpact(targetContext, actor, roll.Amount, reactionRequest?.StanceDamage ?? 0f, launchBefore);
                     if (damaged && TryGetComponent(out ImpactGuardTracker guard) && guard.isActiveAndEnabled)
                         guard.ConfirmBasic(targetContext, actor, transaction);
                 }
@@ -767,6 +781,8 @@ public class PlayerActor : Actor, IExternalPullTarget
     /// </summary>
     /// <param name="source">The Hooker the player is pulled toward.</param>
     /// <param name="maxDuration">Upper bound on the pull duration in seconds (≤ 1.5s per R12.3/R12.6).</param>
+    internal bool HasExternalPull => _externalPullCoroutine != null;
+
     public void BeginExternalPull(Transform source, float maxDuration)
     {
         if (IsDead || source == null || !isActiveAndEnabled) return;
@@ -801,6 +817,8 @@ public class PlayerActor : Actor, IExternalPullTarget
                 bool sourceLocked = sourceAlive && sourceReaction && sourceReaction.IsControlLocked;
                 PullStep step = model.Evaluate(elapsed, sourceAlive, sourceLocked);
                 if (step.Ended) break;
+                if (MovementControl && MovementControl.DirectMovementEnabled && IsCombatHitStopped)
+                { yield return null; continue; }
 
                 // Recompute the pull toward the source's live position; it may have moved.
                 float fraction = model.Fraction(elapsed);
@@ -829,6 +847,7 @@ public class PlayerActor : Actor, IExternalPullTarget
     private void MoveAgentTo(Vector3 target)
     {
         NavMeshAgent agent = Agent;
+        if (PlayerNavigationMotor.TryMove(agent, target - transform.position, true, PlayerMovementSource.ExternalPull)) return;
         if (agent && agent.enabled && agent.isOnNavMesh)
         {
             Vector3 destination = target;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum GauntletActionSlot { Basic = -1, Q = 0, W = 1, E = 2, R = 3 }
-public enum GauntletMutation { DemolishingAdvance = 0, PressureField = 1, Epicenter = 2, CadencedAsura = 3 }
+public enum GauntletMutation { DemolishingAdvance = 0, PressureField = 1, Epicenter = 2, CadencedAsura = 3, EclipseUppercut = 4 }
 public enum GauntletContentType { Technique = 0, Mutation = 1 }
 
 /// <summary>Raw Inspector data. Validation precedes the immutable runtime copy.</summary>
@@ -85,7 +85,8 @@ public sealed class GauntletContentAuthoring
     public Ability ProfileSource => _overrideProfile ? _profileSource : null;
     public CombatActionProfile Profile => ProfileSource ? ProfileSource.CombatProfile : null;
     public string Id => _type == GauntletContentType.Technique
-        ? WeaponRunModifiers.CatalogId(_technique) : "gauntlet_mutation_" + _mutation;
+        ? WeaponRunModifiers.CatalogId(_technique) : _mutation == GauntletMutation.EclipseUppercut
+            ? BoonReworkCatalog.UppercutId : "gauntlet_mutation_" + _mutation;
 
     public static GauntletContentAuthoring ForTechnique(WeaponBoon kind) =>
         new GauntletContentAuthoring { _type = GauntletContentType.Technique, _technique = kind,
@@ -93,7 +94,7 @@ public sealed class GauntletContentAuthoring
 
     public static GauntletContentAuthoring ForMutation(GauntletMutation kind) =>
         new GauntletContentAuthoring { _type = GauntletContentType.Mutation, _mutation = kind,
-            _slot = (GauntletActionSlot)(int)kind, _maxRank = 1 };
+            _slot = GauntletMutationSelection.SlotOf(kind), _maxRank = 1 };
 
     public static bool TryMutation(string id, out GauntletMutation mutation)
     {
@@ -111,6 +112,7 @@ public sealed class GauntletContentAuthoring
             case GauntletMutation.PressureField: return "Campo de Pressão";
             case GauntletMutation.Epicenter: return "Epicentro";
             case GauntletMutation.CadencedAsura: return "Asura Cadenciada";
+            case GauntletMutation.EclipseUppercut: return "Uppercut do Eclipse";
             default: throw new ArgumentOutOfRangeException(nameof(mutation));
         }
     }
@@ -119,6 +121,8 @@ public sealed class GauntletContentAuthoring
     {
         switch (mutation)
         {
+            case GauntletMutation.EclipseUppercut:
+                return EclipseBoonCatalog.UppercutDescription;
             case GauntletMutation.DemolishingAdvance:
                 return "Q: avanço com golpes → travessia de corpos e uppercut final com o dano total. Launch somente na quebra. Mantém hurtbox, mana e cooldown; sólidos bloqueiam. Combina com Propulsor de combate; Punho sísmico não substitui Launch.";
             case GauntletMutation.PressureField:
@@ -126,7 +130,7 @@ public sealed class GauntletContentAuthoring
             case GauntletMutation.Epicenter:
                 return "E: impactos frontais → impactos radiais centrados no jogador, com +20% de raio. Mantém HP/postura por alvo, mana e cooldown. ShockRing é o mesmo conteúdo; até 2 quebras geram Asura por execução.";
             case GauntletMutation.CadencedAsura:
-                return "R: sequência automática → 3 pressionamentos, golpes com 25%/25%/50% do dano total. Até 0,8s para continuar. Custo único; espera permite movimento sem proteção. Asura reverberante replica somente o terceiro golpe; segurar R não continua.";
+                return "R: sequência automática → 3 pressionamentos normais, golpes com 25%/25%/50% do dano de HP/postura nativo total de R. Até 0,8s para continuar. Finalizar sequência durante a espera após o 1º inicia o golpe final, omitindo 25% (total 75%); após o 2º mantém 100%. Custo único; espera permite movimento sem proteção. Asura reverberante replica somente o finalizador realizado; segurar R não continua.";
             default: throw new ArgumentOutOfRangeException(nameof(mutation));
         }
     }
@@ -138,7 +142,7 @@ public sealed class GauntletContentAuthoring
             || !Enum.IsDefined(typeof(GauntletActionSlot), _slot)) error = "Invalid content type or slot.";
         else if (_type == GauntletContentType.Technique && !IsSelectedTechnique(_technique)) error = "Technique is not in the Phase 3 catalog.";
         else if (_type == GauntletContentType.Mutation && (!Enum.IsDefined(typeof(GauntletMutation), _mutation)
-            || (int)_slot != (int)_mutation)) error = "Mutation must match its authored slot.";
+            || _slot != GauntletMutationSelection.SlotOf(_mutation))) error = "Mutation must match its authored slot.";
         else if (_maxRank != (_type == GauntletContentType.Technique ? 3 : 1)) error = "Invalid content rank limit.";
         else if (!FiniteNonNegative(_duration) || !FiniteNonNegative(_interval)) error = "Timing must be finite and non-negative.";
         else if (_overrideProfile && (!_profileSource || _profileSource.CombatProfile == null)) error = "An enabled profile override requires an ability with a profile.";
@@ -199,6 +203,8 @@ public sealed class GauntletAuthoring : ScriptableObject
 {
     [SerializeField] private GauntletEnergyAuthoring _energy = new GauntletEnergyAuthoring();
     [SerializeField] private List<GauntletContentAuthoring> _content = DefaultContent();
+    [SerializeField] private EclipseCombatTuning _eclipse = new EclipseCombatTuning();
+    public EclipseCombatTuning Eclipse => _eclipse;
     public GauntletEnergyAuthoring Energy => _energy;
     public IReadOnlyList<GauntletContentAuthoring> Content => _content.AsReadOnly();
     internal GauntletContentAuthoring FindContent(string id)
@@ -212,6 +218,7 @@ public sealed class GauntletAuthoring : ScriptableObject
         error = null;
         if (_energy == null || _content == null) { error = "Energy and content data are required."; return false; }
         if (!_energy.TrySnapshot(out _, out error)) return false;
+        if (_eclipse == null || !_eclipse.TrySnapshot(out _, out error)) { error = error ?? "Missing Eclipse tuning."; return false; }
         var ids = new HashSet<string>();
         int techniques = 0, mutations = 0;
         foreach (var entry in _content)
@@ -237,7 +244,7 @@ public sealed class GauntletAuthoring : ScriptableObject
             WeaponBoon.GuardBreaker, WeaponBoon.HungryCombo, WeaponBoon.MomentumStrike,
             WeaponBoon.FlurryEcho, WeaponBoon.AsuraEcho, WeaponBoon.RocketAdvance, WeaponBoon.SeismicFist })
             result.Add(GauntletContentAuthoring.ForTechnique(kind));
-        foreach (GauntletMutation kind in Enum.GetValues(typeof(GauntletMutation)))
+        foreach (var kind in new[] { GauntletMutation.DemolishingAdvance, GauntletMutation.PressureField, GauntletMutation.Epicenter, GauntletMutation.CadencedAsura })
             result.Add(GauntletContentAuthoring.ForMutation(kind));
         return result;
     }

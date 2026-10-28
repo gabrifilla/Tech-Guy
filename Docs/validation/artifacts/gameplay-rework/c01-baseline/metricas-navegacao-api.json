@@ -1,0 +1,55 @@
+{
+  "metodo": "API TryRequestGroundMovement no controlador legado; sem WASD ou NavMeshAgent.Move novo",
+  "ordens": [
+    {
+      "kind": "Order",
+      "stage": 0,
+      "t": 0.011518799999976181,
+      "accepted": true,
+      "goal": [
+        -8.000007,
+        0.223333344,
+        14.0
+      ]
+    },
+    {
+      "kind": "Order",
+      "stage": 1,
+      "t": 2.001086900000246,
+      "accepted": true,
+      "goal": [
+        -10.0000067,
+        0.223333344,
+        12.0
+      ]
+    }
+  ],
+  "estagios": [
+    {
+      "estagio": 0,
+      "amostras": 261,
+      "amostras_move": 78,
+      "velocidade_mediana": 4.998843430000193,
+      "velocidade_max": 5.02009388083237,
+      "onMesh_todos": true,
+      "primeira_velocidade": [
+        4.998858,
+        1.24334861e-06,
+        0.0
+      ]
+    },
+    {
+      "estagio": 1,
+      "amostras": 405,
+      "amostras_move": 79,
+      "velocidade_mediana": 5.000067184340328,
+      "velocidade_max": 7.084157769814771,
+      "onMesh_todos": true,
+      "primeira_velocidade": [
+        -3.535399,
+        -5.018685,
+        -3.535399
+      ]
+    }
+  ]
+}

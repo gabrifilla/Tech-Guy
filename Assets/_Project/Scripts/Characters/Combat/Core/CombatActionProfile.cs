@@ -155,6 +155,8 @@ public struct ImpactEvent
 [Serializable]
 public struct CancelRuleData
 {
+    internal static CancelRuleData BowChannelDash() => new CancelRuleData
+        { target = CancelTarget.Dash, start = 0f, end = .8f };
     internal static CancelRuleData CadencedDash() => new CancelRuleData
         { target = CancelTarget.Dash, start = .775f, end = 1f };
     [Tooltip("Destination this rule authorizes a cancel into (Dash, Basic, Skill) (R4.1).")]
@@ -212,12 +214,26 @@ public struct CancelRuleData
 [Serializable]
 public class CombatActionProfile
 {
+    internal static CombatActionProfile BowBoonChannel() => new CombatActionProfile
+    {
+        startupEnd = 0f, activeEnd = .8f, commitment = CommitmentCategory.Channel,
+        channelTermination = ChannelTerminationMode.Hold,
+        startupMoveFraction = 0f, activeMoveFraction = 0f, recoveryMoveFraction = 0f,
+        cancelRules = new[] { CancelRuleData.BowChannelDash() }
+    };
     internal static CombatActionProfile CadencedStrike(int step) => new CombatActionProfile
     {
         startupEnd = .3f, activeEnd = .55f, commitment = CommitmentCategory.Committed,
         startupMoveFraction = 0f, activeMoveFraction = 0f, recoveryMoveFraction = 0f,
         cancelRules = new[] { CancelRuleData.CadencedDash() },
         impactEvents = new[] { ImpactEvent.Cadenced(step) }
+    };
+    internal static CombatActionProfile EclipseUppercut() => new CombatActionProfile
+    {
+        startupEnd = .3f, activeEnd = .55f, commitment = CommitmentCategory.Committed,
+        startupMoveFraction = 0f, activeMoveFraction = 0f, recoveryMoveFraction = 1f,
+        cancelRules = new[] { CancelRuleData.CadencedDash() },
+        impactEvents = new[] { ImpactEvent.Cadenced(0) }
     };
     internal CombatActionProfile Copy()
     {

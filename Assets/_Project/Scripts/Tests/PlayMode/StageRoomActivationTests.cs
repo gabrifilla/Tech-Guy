@@ -24,7 +24,7 @@ namespace TechGuy.Tests
     /// archetype wiring directly through <c>EnemyRespawnPoint.SpawnEnemy</c> + <c>EnemyVariant.Configure</c>,
     /// which is the exact mechanism the resolver uses, rather than failing on an unbakeable mesh.
     /// </summary>
-    public sealed class StageRoomActivationTests
+    public sealed class StageRoomActivationTests : RunSummaryIsolatedPlayModeFixture
     {
         private ProceduralStageTestRig _rig;
 

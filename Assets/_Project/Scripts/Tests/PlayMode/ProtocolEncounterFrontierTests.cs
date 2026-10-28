@@ -8,7 +8,7 @@ using UnityEngine.TestTools;
 
 namespace TechGuy.Tests
 {
-    public sealed class ProtocolEncounterFrontierTests
+    public sealed class ProtocolEncounterFrontierTests : RunSummaryIsolatedPlayModeFixture
     {
         private int _selection;
         [SetUp] public void Setup() { _selection = PlayerPrefs.GetInt(WeaponLoadout.PreferenceKey, 0); PlayerPrefs.SetInt(WeaponLoadout.PreferenceKey, 0); }

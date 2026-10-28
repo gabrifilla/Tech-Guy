@@ -8,6 +8,11 @@ public sealed class ArsenalProjectile : MonoBehaviour
     private PlayerActor _owner;
     private ProtocolRuntime _protocolRuntime;
     private ProtocolExecution _protocolExecution;
+    private BowBoonShot _boonShot;
+    private ProtocolProducer _shotProducer;
+    private readonly List<Vector3> _boonRoute = new List<Vector3>(128);
+    private bool _boonReturning;
+    private int _boonReturnIndex;
     private float _damage, _multiplier, _remaining;
     private bool _piercing;
     private readonly HashSet<Actor> _hit = new HashSet<Actor>();
@@ -69,30 +74,36 @@ public sealed class ArsenalProjectile : MonoBehaviour
 
     public static void Fire(PlayerActor owner, Vector3 origin, Vector3 direction, float damage,
         float multiplier, float range, bool piercing, Color color, bool returning = false,
-        ProtocolProducer producer = ProtocolProducer.Direct)
+        ProtocolProducer producer = ProtocolProducer.Direct, BowBoonShot boonShot = null)
     {
         if (!owner || owner.IsDead || direction.sqrMagnitude < .001f) return;
         owner.TryGetComponent(out ProtocolRuntime protocols);
         using (protocols ? protocols.BeginAreaScope(null) : null)
         {
+        boonShot ??= BowBoonShot.Native(owner);
+        if (boonShot == null || !boonShot.IgnorePriority) direction = BowBoonCombat.ResolvePriority(owner, origin, direction, range);
         WeaponRunModifiers mods = owner.RunModifiers;
         int twin = mods?.Rank(WeaponBoon.TwinShot) ?? 0;
         int count = 1 + 2 * twin;
+        bool concentrated = boonShot != null && boonShot.Concentrated;
+        if (concentrated) { multiplier *= count; count = 1; }
         for (int i = 0; i < count; i++)
             FireSingle(owner, origin, Quaternion.AngleAxis((i - (count - 1) * .5f) * 5, Vector3.up) * direction,
                 damage, multiplier / (1 + .5f * twin), range, piercing, color, mods, returning,
-                producer == ProtocolProducer.Direct && i != count / 2 ? ProtocolProducer.Technique : producer);
+                producer == ProtocolProducer.Direct && i != count / 2 ? ProtocolProducer.Technique : producer, boonShot);
         }
     }
 
     private static void FireSingle(PlayerActor owner, Vector3 origin, Vector3 direction, float damage,
         float multiplier, float range, bool piercing, Color color, WeaponRunModifiers mods, bool returning = false,
-        ProtocolProducer producer = ProtocolProducer.Direct)
+        ProtocolProducer producer = ProtocolProducer.Direct, BowBoonShot boonShot = null)
     {
         // R3.1: acquire a pooled instance (expands if empty) instead of `new GameObject`; the pooled
         // instance already owns its reused LineRenderer + Material created once by the factory.
         ArsenalProjectile arrow = Pool.Acquire();
         arrow.ResetForReuse(owner, origin, direction, damage, multiplier, range, piercing, color, mods, returning);
+        arrow._boonShot = boonShot; arrow._shotProducer = producer;
+        arrow._boonRoute.Clear(); arrow._boonRoute.Add(origin); arrow._boonReturning = false;
         arrow._protocolExecution?.Dispose();
         owner.TryGetComponent(out arrow._protocolRuntime);
         arrow._protocolExecution = arrow._protocolRuntime ? arrow._protocolRuntime.ReserveExecution(producer) : null;
@@ -136,13 +147,20 @@ public sealed class ArsenalProjectile : MonoBehaviour
         gameObject.SetActive(false);
         Pool.Release(this);
     }
-    private void OnDisable() { _protocolExecution?.Dispose(); _protocolExecution = null; }
+    private void OnDisable() { _protocolExecution?.Dispose(); _protocolExecution = null; _boonShot = null; _boonRoute.Clear(); }
 
     private void Update()
     {
         if (!_owner || _owner.IsDead || _owner.CurrentWeapon != _weapon || _remaining <= 0f ||
-            _protocolRuntime && (_protocolExecution == null || !_protocolExecution.IsLifecycleCurrent)) { ReleaseToPool(); return; }
-        if (_homing)
+            _protocolRuntime && (_protocolExecution == null || !_protocolExecution.IsLifecycleCurrent || !_protocolExecution.IsValid) ||
+            _boonShot != null && !_boonShot.IsCurrent) { ReleaseToPool(); return; }
+        if (_boonReturning)
+        {
+            while (_boonReturnIndex >= 0 && (transform.position - _boonRoute[_boonReturnIndex]).sqrMagnitude < .0025f) _boonReturnIndex--;
+            if (_boonReturnIndex < 0) { ReleaseToPool(); return; }
+            transform.rotation = Quaternion.LookRotation(_boonRoute[_boonReturnIndex] - transform.position);
+        }
+        if (_homing && !_boonReturning)
         {
             if (Time.time >= _nextSeek)
             {
@@ -158,10 +176,12 @@ public sealed class ArsenalProjectile : MonoBehaviour
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(aim), TurnRateDeg * Time.deltaTime);
             }
         }
-        float distance = Mathf.Min(_remaining, 24f * Time.deltaTime);
+        float delta = _owner.IsCombatHitStopped || _owner.TryGetComponent(out AbilityHolder inputHolder) && inputHolder.BlocksWorldInput ? 0 : Time.deltaTime;
+        float distance = Mathf.Min(_remaining, 24f * delta);
+        if (_boonReturning) distance = Mathf.Min(distance, Vector3.Distance(transform.position, _boonRoute[_boonReturnIndex]));
         // R1.1/R1.4: sweep radius comes from the central config (default 0.35 m — larger than the old
         // 0.12 m) so arrows reliably register grazing hits; missing config falls back to that default.
-        float sweepRadius = CombatBalance.Current?.ProjectileSweepRadius ?? 0.35f;
+        float sweepRadius = _boonShot != null && _boonShot.SweepRadius > 0 ? _boonShot.SweepRadius : CombatBalance.Current?.ProjectileSweepRadius ?? 0.35f;
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, sweepRadius, transform.forward,
             distance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
         Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
@@ -184,18 +204,27 @@ public sealed class ArsenalProjectile : MonoBehaviour
                     reflectedDamage = reflector.ResolveIncomingDamage(_damage, transform.position,
                         isPlayerProjectile: true, isAreaAttack: false);
 
+                long generation = actor.CombatGeneration;
+                float scale = _boonShot?.DamageScale(actor, _shotProducer) ?? 1f;
                 using (_protocolRuntime ? _protocolRuntime.OpenExecutionScope(_protocolExecution) : null)
                 {
-                if (_owner.TryApplyDamage(actor, reflectedDamage, _multiplier, 0f) &&
-                    _owner.TryGetComponent(out AbilityHolder holder))
-                    holder.NotifyAttackHits(_owner, new[] { actor });
+                    if (_boonReturning)
+                    {
+                        if (_protocolRuntime) _protocolRuntime.EmitBoonTarget(_protocolExecution, actor, generation,
+                            _owner.RollAttackDamage(reflectedDamage, _multiplier * scale).Amount);
+                    }
+                    else if (_owner.TryApplyDamage(actor, reflectedDamage, _multiplier * scale, 0f))
+                    {
+                        _boonShot?.Confirm(actor, generation, _shotProducer);
+                        if (_owner.TryGetComponent(out AbilityHolder holder)) holder.NotifyAttackHits(_owner, new[] { actor });
+                    }
                 }
 
                 // R1.1/R1.4: pierce every un-hit enemy on the current straight-line heading first.
                 if (_piercing && HasInlineTarget()) continue; // travels straight, no bounce consumed
 
                 // R1.2/R1.4: only ricochet once nothing remains in-line.
-                if (_bounces > 0)
+                if (_bounces > 0 && !_boonReturning)
                 {
                     Actor next = FindNextTarget(hit.point, 6f, false);
                     if (next)
@@ -214,9 +243,12 @@ public sealed class ArsenalProjectile : MonoBehaviour
             return;
         }
         transform.position += transform.forward * distance;
+        if (_boonShot != null && _boonShot.CuttingReturn && !_boonReturning && _boonRoute.Count < 128 &&
+            (transform.position - _boonRoute[_boonRoute.Count - 1]).sqrMagnitude >= .0625f) _boonRoute.Add(transform.position);
         _remaining -= distance;
         if (_remaining <= 0f)
         {
+            if (!_boonReturning && _boonShot != null && _boonShot.CuttingReturn && BeginBoonReturn()) return;
             // R7.4: a ReturnWave flips its heading toward the player exactly once at max range,
             // then travels home; a normal (or already-returned) wave is destroyed.
             if (_returning && !_returned && _owner && !_owner.IsDead)
@@ -233,6 +265,19 @@ public sealed class ArsenalProjectile : MonoBehaviour
             }
             ReleaseToPool();
         }
+    }
+    private bool BeginBoonReturn()
+    {
+        if (!_protocolRuntime || _protocolExecution == null || !_protocolExecution.IsValid) return false;
+        ProtocolExecution child;
+        using (_protocolRuntime.OpenExecutionScope(_protocolExecution)) child = _protocolRuntime.ReserveExecution(ProtocolProducer.Technique);
+        if (child == null || !child.IsValid) { child?.Dispose(); return false; }
+        _protocolExecution.Dispose(); _protocolExecution = child; _shotProducer = ProtocolProducer.Technique;
+        _boonReturning = true; _boonReturnIndex = _boonRoute.Count - 1; _multiplier *= .4f;
+        _remaining = 1f;
+        Vector3 point = transform.position;
+        for (int i = _boonReturnIndex; i >= 0; i--) { _remaining += Vector3.Distance(point, _boonRoute[i]); point = _boonRoute[i]; }
+        _hit.Clear(); return true;
     }
     // R1: is there an un-hit live enemy on the current straight-line heading?
     private bool HasInlineTarget()

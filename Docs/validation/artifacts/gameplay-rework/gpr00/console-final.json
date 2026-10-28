@@ -1,0 +1,155 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Retrieved 20 log entries.\",\"data\":[{\"type\":\"Warning\",\"message\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\",\"file\":\"Assets/_Project/Scripts/Abilities/AbilityHolder.cs\",\"line\":303,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"Efeito de clique não configurado!\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":348,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"DashScript nao configurado!\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":349,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"Main camera nao configurada!\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":350,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\",\"file\":\"Assets/_Project/Scripts/Abilities/AbilityHolder.cs\",\"line\":303,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"Animator is not playing an AnimatorController\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":881,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\",\"file\":\"Assets/_Project/Scripts/Abilities/AbilityHolder.cs\",\"line\":303,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"Efeito de clique não configurado!\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":348,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"DashScript nao configurado!\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":349,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"Main camera nao configurada!\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":350,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\",\"file\":\"Assets/_Project/Scripts/Abilities/AbilityHolder.cs\",\"line\":303,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"Animator is not playing an AnimatorController\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":881,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\",\"file\":\"Assets/_Project/Scripts/Abilities/AbilityHolder.cs\",\"line\":303,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"Efeito de clique não configurado!\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":348,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"DashScript nao configurado!\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":349,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"Main camera nao configurada!\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":350,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\",\"file\":\"Assets/_Project/Scripts/Abilities/AbilityHolder.cs\",\"line\":303,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"Animator is not playing an AnimatorController\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":881,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\",\"file\":\"Assets/_Project/Scripts/Abilities/AbilityHolder.cs\",\"line\":303,\"stackTrace\":null},{\"type\":\"Warning\",\"message\":\"Efeito de clique não configurado!\",\"file\":\"Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\",\"line\":348,\"stackTrace\":null}]}"
+    }
+  ],
+  "structuredContent": {
+    "success": true,
+    "message": "Retrieved 20 log entries.",
+    "data": [
+      {
+        "type": "Warning",
+        "message": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.",
+        "file": "Assets/_Project/Scripts/Abilities/AbilityHolder.cs",
+        "line": 303,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Efeito de clique não configurado!",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 348,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "DashScript nao configurado!",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 349,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Main camera nao configurada!",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 350,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.",
+        "file": "Assets/_Project/Scripts/Abilities/AbilityHolder.cs",
+        "line": 303,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Animator is not playing an AnimatorController",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 881,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.",
+        "file": "Assets/_Project/Scripts/Abilities/AbilityHolder.cs",
+        "line": 303,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Efeito de clique não configurado!",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 348,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "DashScript nao configurado!",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 349,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Main camera nao configurada!",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 350,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.",
+        "file": "Assets/_Project/Scripts/Abilities/AbilityHolder.cs",
+        "line": 303,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Animator is not playing an AnimatorController",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 881,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.",
+        "file": "Assets/_Project/Scripts/Abilities/AbilityHolder.cs",
+        "line": 303,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Efeito de clique não configurado!",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 348,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "DashScript nao configurado!",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 349,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Main camera nao configurada!",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 350,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.",
+        "file": "Assets/_Project/Scripts/Abilities/AbilityHolder.cs",
+        "line": 303,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Animator is not playing an AnimatorController",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 881,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.",
+        "file": "Assets/_Project/Scripts/Abilities/AbilityHolder.cs",
+        "line": 303,
+        "stackTrace": null
+      },
+      {
+        "type": "Warning",
+        "message": "Efeito de clique não configurado!",
+        "file": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+        "line": 348,
+        "stackTrace": null
+      }
+    ]
+  },
+  "isError": false
+}

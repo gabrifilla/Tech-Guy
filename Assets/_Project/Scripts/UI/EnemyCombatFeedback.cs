@@ -12,6 +12,7 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
     private Camera _camera;
     private float _damageAt = -10f, _trailingHealth = 1;
     private GUIStyle _label;
+    private DamagePopup _recentDamagePopup;
     private SectorBoss _boss;
     private float _focusUntil;
     public void ShowFocus() => _focusUntil = Time.time + .25f;
@@ -26,14 +27,23 @@ public sealed class EnemyCombatFeedback : MonoBehaviour
         _boss = GetComponent<SectorBoss>();
         _actor.DamageReceived += OnDamage;
     }
+    private void OnDisable()
+    {
+        // A pooled/re-enabled victim must not merge new damage into its previous appearance.
+        _recentDamagePopup = null;
+    }
+
     private void OnDamage(Actor actor, float amount)
     {
+        if (!isActiveAndEnabled || !DamageNumberBurst.IsValidAmount(amount)) return;
         _damageAt = Time.time;
-        DamagePopup.Show(transform.position + Vector3.up * (1.5f * transform.lossyScale.y), amount, actor.health <= 0);
+        Vector3 point = transform.position + Vector3.up * (1.5f * transform.lossyScale.y);
+        if (!_recentDamagePopup || !_recentDamagePopup.TryAccumulate(point, amount, actor.health <= 0))
+            _recentDamagePopup = DamagePopup.Create(point, amount, actor.health <= 0);
     }
     private void OnGUI()
     {
-        if (!_actor || _actor.IsDead) return;
+        if (Event.current.type != EventType.Repaint || !_actor || _actor.IsDead) return;
         if (!_reaction) TryGetComponent(out _reaction);
         if (!_camera) _camera = Camera.main;
         if (!_camera) return;

@@ -24,7 +24,7 @@ namespace TechGuy.Tests
     /// transitions that the seal-on-entry (R3.4) and open-on-clear (R3.6/R6.7) steps produce, in the
     /// runtime (PlayMode) context where the doors and their carving actually exist.
     /// </summary>
-    public sealed class StageDoorSealingTests
+    public sealed class StageDoorSealingTests : RunSummaryIsolatedPlayModeFixture
     {
         private ProceduralStageTestRig _rig;
 

@@ -1,0 +1,28 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Code executed successfully.\",\"data\":{\"result\":{\"values\":{\"TechGuy.Currency.Coins\":2597,\"TechGuy.Loadout.Weapon\":0,\"TechGuy.Loadout.Unlocked.0\":-999,\"TechGuy.Loadout.Unlocked.1\":1,\"TechGuy.Loadout.Unlocked.2\":1,\"TechGuy.Progress.TutorialSeen\":1},\"summaryLength\":42387,\"summarySHA256\":\"9751067523EABB7557FFEC504779DB853925D6665AE876DAF8C0C489D52189B3\"},\"compiler\":\"roslyn\"}}"
+    }
+  ],
+  "structuredContent": {
+    "success": true,
+    "message": "Code executed successfully.",
+    "data": {
+      "result": {
+        "values": {
+          "TechGuy.Currency.Coins": 2597,
+          "TechGuy.Loadout.Weapon": 0,
+          "TechGuy.Loadout.Unlocked.0": -999,
+          "TechGuy.Loadout.Unlocked.1": 1,
+          "TechGuy.Loadout.Unlocked.2": 1,
+          "TechGuy.Progress.TutorialSeen": 1
+        },
+        "summaryLength": 42387,
+        "summarySHA256": "9751067523EABB7557FFEC504779DB853925D6665AE876DAF8C0C489D52189B3"
+      },
+      "compiler": "roslyn"
+    }
+  },
+  "isError": false
+}

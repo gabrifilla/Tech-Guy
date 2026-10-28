@@ -17,6 +17,10 @@ public sealed class CombatGroundFill : MonoBehaviour
     private MeshRenderer _renderer;
     private Mesh _mesh;
     private Material _material;
+    private Vector3[] _vertices;
+    private int[] _triangles;
+    private int _topology = -1;
+    private bool _topologyApplied;
 
     /// <summary>
     /// Creates a fill helper under <paramref name="parent"/>, mirroring
@@ -69,8 +73,7 @@ public sealed class CombatGroundFill : MonoBehaviour
     public void SetArea(in EnemyAttackArea area, float progress)
     {
         progress = Mathf.Clamp01(progress);
-        _mesh.Clear();
-        if (progress <= 0f) return;
+        if (progress <= 0f || float.IsNaN(progress)) { Clear(); return; }
 
         switch (area.Shape)
         {
@@ -96,6 +99,7 @@ public sealed class CombatGroundFill : MonoBehaviour
     public void Clear()
     {
         if (_mesh) _mesh.Clear();
+        _topologyApplied = false;
     }
 
     // --- Mesh builders. Coordinates are world-space (matching CombatGroundRing.useWorldSpace). ---
@@ -107,15 +111,12 @@ public sealed class CombatGroundFill : MonoBehaviour
         Vector3 right = Vector3.Cross(Vector3.up, area.Forward) * (area.Width * 0.5f);
         Vector3 ahead = area.Forward * reach;
 
-        var verts = new[]
-        {
-            center - right,
-            center + right,
-            center + ahead + right,
-            center + ahead - right,
-        };
-        var tris = new[] { 0, 2, 1, 0, 3, 2 };
-        Assign(verts, tris);
+        PrepareBuffers(0, 4, 6);
+        _vertices[0] = center - right;
+        _vertices[1] = center + right;
+        _vertices[2] = center + ahead + right;
+        _vertices[3] = center + ahead - right;
+        Assign();
     }
 
     private void BuildCircle(in EnemyAttackArea area, float progress)
@@ -137,43 +138,29 @@ public sealed class CombatGroundFill : MonoBehaviour
         float outer = Mathf.Lerp(inner, area.Reach, progress);
         Vector3 center = area.Center;
 
-        var verts = new Vector3[(Segments + 1) * 2];
-        var tris = new int[Segments * 6];
+        PrepareBuffers(2, (Segments + 1) * 2, Segments * 6);
         for (int i = 0; i <= Segments; i++)
         {
             float degrees = 360f * i / Segments;
             Vector3 dir = Quaternion.AngleAxis(degrees, Vector3.up) * area.Forward;
-            verts[i * 2] = Lift(center + dir * inner);
-            verts[i * 2 + 1] = Lift(center + dir * outer);
+            _vertices[i * 2] = Lift(center + dir * inner);
+            _vertices[i * 2 + 1] = Lift(center + dir * outer);
         }
-        for (int i = 0; i < Segments; i++)
-        {
-            int a = i * 2, b = i * 2 + 1, c = (i + 1) * 2, d = (i + 1) * 2 + 1;
-            int t = i * 6;
-            tris[t] = a; tris[t + 1] = b; tris[t + 2] = d;
-            tris[t + 3] = a; tris[t + 4] = d; tris[t + 5] = c;
-        }
-        Assign(verts, tris);
+        Assign();
     }
 
     /// <summary>Builds a triangle fan from the center/apex sweeping <paramref name="arc"/> degrees.</summary>
     private void BuildFan(Vector3 apex, Vector3 center, Vector3 forward, float radius, float startDegrees, float arc)
     {
-        var verts = new Vector3[Segments + 2];
-        var tris = new int[Segments * 3];
-        verts[0] = apex;
+        PrepareBuffers(1, Segments + 2, Segments * 3);
+        _vertices[0] = apex;
         for (int i = 0; i <= Segments; i++)
         {
             float degrees = startDegrees + arc * i / Segments;
             Vector3 dir = Quaternion.AngleAxis(degrees, Vector3.up) * forward;
-            verts[i + 1] = Lift(center + dir * radius);
+            _vertices[i + 1] = Lift(center + dir * radius);
         }
-        for (int i = 0; i < Segments; i++)
-        {
-            int t = i * 3;
-            tris[t] = 0; tris[t + 1] = i + 1; tris[t + 2] = i + 2;
-        }
-        Assign(verts, tris);
+        Assign();
     }
 
     private static Vector3 Lift(Vector3 point)
@@ -182,11 +169,46 @@ public sealed class CombatGroundFill : MonoBehaviour
         return point;
     }
 
-    private void Assign(Vector3[] verts, int[] tris)
+    // Windup geometry changes every frame; the vertex/index buffers only change with topology.
+    private void PrepareBuffers(int topology, int vertexCount, int indexCount)
     {
+        if (_topology == topology) return;
+        _topology = topology;
+        _vertices = new Vector3[vertexCount];
+        _triangles = new int[indexCount];
         _mesh.Clear();
-        _mesh.vertices = verts;
-        _mesh.triangles = tris;
+        _topologyApplied = false;
+        if (topology == 0)
+        {
+            _triangles[0] = 0; _triangles[1] = 2; _triangles[2] = 1;
+            _triangles[3] = 0; _triangles[4] = 3; _triangles[5] = 2;
+            return;
+        }
+        for (int i = 0; i < Segments; i++)
+        {
+            if (topology == 1)
+            {
+                int t = i * 3;
+                _triangles[t] = 0; _triangles[t + 1] = i + 1; _triangles[t + 2] = i + 2;
+            }
+            else
+            {
+                int a = i * 2, b = a + 1, c = a + 2, d = a + 3;
+                int t = i * 6;
+                _triangles[t] = a; _triangles[t + 1] = b; _triangles[t + 2] = d;
+                _triangles[t + 3] = a; _triangles[t + 4] = d; _triangles[t + 5] = c;
+            }
+        }
+    }
+
+    private void Assign()
+    {
+        _mesh.vertices = _vertices;
+        if (!_topologyApplied)
+        {
+            _mesh.triangles = _triangles;
+            _topologyApplied = true;
+        }
         _mesh.RecalculateBounds();
     }
 

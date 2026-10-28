@@ -1,0 +1,423 @@
+{
+  "activity": "GPR-C01.2b",
+  "finalTestsPassed": 66,
+  "physicalHumanAcceptance": false,
+  "globalMetadataCheckerPassed": false,
+  "files": [
+    {
+      "path": "Assets/_Project/Scenes/FirstSector.unity",
+      "bytes": 51362,
+      "sha256": "6f75f5c9f4375351de96bed7d095b478e5746ab5a7c4de7f00d28985a1997682"
+    },
+    {
+      "path": "Assets/_Project/Scenes/NexusBlockout.unity",
+      "bytes": 436420,
+      "sha256": "d4e07d5f02b6b8fa23b3b6bf098584997f8bf918fc2bd79d747e6be39d52148e"
+    },
+    {
+      "path": "Assets/_Project/Scenes/NexusLobby.unity",
+      "bytes": 1613386,
+      "sha256": "6afdccfde07ea64fb25e500958f40d2c4e151b8fb6569bfd5f69e28f2bd28c0b"
+    },
+    {
+      "path": "Assets/_Project/Scenes/PrologueTutorial.unity",
+      "bytes": 366872,
+      "sha256": "767d3b2f2c2d257a3d3214e67dc5e9dd04cbe4997bc923e4a813f33cb3e0ab18"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Abilities/Dash/DashScript.cs",
+      "bytes": 9291,
+      "sha256": "6d4c494545265f5f87f445dd32ed198ed8423d94410f0846dad8d03da5dac262"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Abilities/Weapon/ArsenalCombat.cs",
+      "bytes": 49003,
+      "sha256": "eb8b0beefe8bb64f213cc11264eaa67d5926b288b43ac33cb2ff008853d103f4"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs",
+      "bytes": 59969,
+      "sha256": "b0b145b9d9b1495d88f782a8237257cb45114de9c2c8e4e154a21e4302b3f59f"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Characters/Combat/CombatReactionController.cs",
+      "bytes": 29602,
+      "sha256": "3d43bc4122483815bddb377a24c8a49961e6f6fa2b5d9acd441953a36287de6b"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Characters/Enemy/SoftGroupingService.cs",
+      "bytes": 5168,
+      "sha256": "6a16985dae93f28945ffe9aa732c3c20accb6b4a0c1de9fbf88f817513afd945"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs",
+      "bytes": 6713,
+      "sha256": "54b299172e8578ac210348827aad245b43887476b5b095045272caeabb18bfef"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs",
+      "bytes": 53979,
+      "sha256": "ca3670eedc922acf3447e03699eaff5a9d036fb15b5af960fd23588b6700e6df"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectMovement.cs",
+      "bytes": 6176,
+      "sha256": "a398713544e1d3a2621f3868fbcd0570546d3d2b66075f58a52dd089b66826c3"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectMovement.cs.meta",
+      "bytes": 59,
+      "sha256": "4b10420267a65b97727d29735fc5eda3d7e4962b2033f4de59099607d13df2f3"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Characters/Player/PlayerActor.cs",
+      "bytes": 53349,
+      "sha256": "3b1cafd92b722e0cdc80c5b1b1ddc0e7cf0e47a22f3e09e1f53c3df141991bf2"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Characters/Player/PlayerNavigationMotor.cs",
+      "bytes": 2948,
+      "sha256": "c49657211c77e8d71b7612f40d5dc132521553d719a6a39ff6122445d1698e85"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Characters/Player/PlayerNavigationMotor.cs.meta",
+      "bytes": 59,
+      "sha256": "86f9cc5d0ba5b0352cde31e5e60d1daa7736f1b525ded36eadf1c339f04c2f67"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Core/GamePreferences.cs",
+      "bytes": 12483,
+      "sha256": "42b5d1e7685c52a1ae38c154366b365b371b724db04f4e68e7485aba3f9ed5d5"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Core/KitingStepCoordinator.cs",
+      "bytes": 5614,
+      "sha256": "21c1e25367a0086e100b588aeaf7ab41f35538d299f9487eb1893c775efb8532"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Editor/FirstSectorBuilder.cs",
+      "bytes": 19870,
+      "sha256": "e541a40ed0d7eb263dd408841f02b041d7eaebc2d92cc50f3ad3bee4c8705bac"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Editor/LobbySceneBuilder.cs",
+      "bytes": 43134,
+      "sha256": "ed0f501c8d8e0b6a57d8f0d3f4f450e7c8e9f982e2e7f12524c2b1662ef83e88"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Editor/TutorialSceneBuilder.cs",
+      "bytes": 10247,
+      "sha256": "7855e1c0b113fc2732fd5b6f46c3aa240eb4be43eea3e25830110c596655ffa8"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs",
+      "bytes": 21711,
+      "sha256": "91f861316667c8af14510c7d9eee9648f1e699ac80e6426023d39fdf8a516380"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs.meta",
+      "bytes": 59,
+      "sha256": "797f0a3356ab32b85e5934810214105069cb5a5d49bb3854c5628a699accbb69"
+    },
+    {
+      "path": "Assets/_Project/Scripts/UI/ControlRemappingPanel.cs",
+      "bytes": 3070,
+      "sha256": "91373c3171af80c89eadc5ebaad39c0f12911b8ee80b3bed4150dbc12c19cec1"
+    },
+    {
+      "path": "Assets/_Project/Scripts/UI/LobbyInteraction.cs",
+      "bytes": 8414,
+      "sha256": "f6f4d5b11f4edd5678067c93d9b0aa6241e3dbfd40a5977bdb15693e1ae7b9e1"
+    },
+    {
+      "path": "Assets/_Project/Scripts/UI/MainMenuUI.cs",
+      "bytes": 18060,
+      "sha256": "3f5cfd6e9cb43ec5536804127677a74123b521d0a336914c1e0ff77458d2fd6c"
+    },
+    {
+      "path": "Assets/_Project/Scripts/UI/PauseMenuUI.cs",
+      "bytes": 12779,
+      "sha256": "62750430b5d75bf63210ed80317c05073f2123539b734c534b3e40f76777308f"
+    },
+    {
+      "path": "Assets/_Project/Scripts/UI/TutorialHUD.cs",
+      "bytes": 3991,
+      "sha256": "6c8f05dda1bee1cd11964493bd1e62737606c2acb0c2f95b31f9b9fc3226de42"
+    },
+    {
+      "path": "Docs/decisions/ADR-0006-GPR-DIRECAO-E-GATES.md",
+      "bytes": 18725,
+      "sha256": "2c1009a1fb1896b14f91267239b3d09e295090f3ebc5bd4d8f924138d796735d"
+    },
+    {
+      "path": "Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md",
+      "bytes": 5578,
+      "sha256": "d06e10e164e14bbe2e447d8a28b22a3ae04ef982a60d57e376fc09324646cdfe"
+    },
+    {
+      "path": "Docs/decisions/GPR-C01.2b_RELATORIO.md",
+      "bytes": 16527,
+      "sha256": "00a263eb2a4b5b471f70ebd53f0d8ec255ca5848dc87b90845b9e26e1036b106"
+    },
+    {
+      "path": "Docs/gameplay/GPR_CONTROL_MIGRATION.md",
+      "bytes": 17543,
+      "sha256": "a6c80ba5ef4a269fcdcc5552adad1eb8e4fe92c95dd2f4ca10af7bbe00067d1e"
+    },
+    {
+      "path": "Docs/gameplay/GPR_REQUIREMENTS.md",
+      "bytes": 5190,
+      "sha256": "f956a21bed1921fe7da3f65fb9f59482dd4686b327ca9fa1d1b195a8a736a934"
+    },
+    {
+      "path": "Docs/gameplay/GPR_TASKS.md",
+      "bytes": 5823,
+      "sha256": "07841832aee1edafcf92e5d414ee0b13e03846cc9b52114cb01a9edc6aab61e6"
+    },
+    {
+      "path": "Docs/gameplay/GPR_TECHNICAL_DESIGN.md",
+      "bytes": 12487,
+      "sha256": "28500d579ca5efda0885c08711660cb83d9e71139fbf6dd0013c73d86c3d7219"
+    },
+    {
+      "path": "Docs/gameplay/GPR_VALIDATION_PLAN.md",
+      "bytes": 13229,
+      "sha256": "5e166933121938e3571d62a92cfd5b53485363f1735068285c13a32c778250a2"
+    },
+    {
+      "path": "Docs/gameplay/README.md",
+      "bytes": 2022,
+      "sha256": "55002fb7887b9734c93cfd9ceb1c0513edd8b2ddc8bcc329bc83608197e90bea"
+    },
+    {
+      "path": "Docs/validation/01_MATRIZ_DE_VALIDACAO.md",
+      "bytes": 245014,
+      "sha256": "b3ba38fbdce4754a0c0056fde3f2fd10c8ad8d0332dbe82eaf4038a773bf6c71"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/ativacao-cenas.json",
+      "bytes": 1032,
+      "sha256": "1c89875fca913e8d94b88d5b88018381ecd17f51e17b4ed0a11e0f3586e8d4be"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/autorizacao.txt",
+      "bytes": 467,
+      "sha256": "484a1466bf224e6ef8f9b6fef901d943096bed833ea92325762a7a5fa7c5f0c0"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/checker-metadados-status.json",
+      "bytes": 470,
+      "sha256": "d646ac3182beff0d05291c3b64d5937b0fe41711c9e8c6a2590677e758abe386"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/checker-metadados.json",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/checker-metadados.stderr.txt",
+      "bytes": 1752,
+      "sha256": "ee683ced49fee53e5d1ac6a0a3f7bb82d84a87f3dbb08255a618da0a5f8a3e3f"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/console-final.json",
+      "bytes": 264,
+      "sha256": "a862bcab91735d1284c599736501b7770bdcb702cbcae5fa65574d816788e9dc"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/console-runtime.json",
+      "bytes": 264,
+      "sha256": "a862bcab91735d1284c599736501b7770bdcb702cbcae5fa65574d816788e9dc"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/diff-cenas-final.json",
+      "bytes": 541,
+      "sha256": "7c44780151b24ec41b1f71f1aba5c6aca4ec62e8b0b977e7a5ea721e521cbb39"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/diff-cenas.json",
+      "bytes": 3422,
+      "sha256": "710847389b3a39f853555372d4971051a940668da1d3197b39074cc63ba9f737"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/editor-inicial.json",
+      "bytes": 1031,
+      "sha256": "7a7bf2114dba2795ef7dddf15fd37b5b90d9445148d6ca448b9d2c8ba2320e8f"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/git-status-delta.json",
+      "bytes": 966,
+      "sha256": "b3b1b8368659913eae24b320cb514baabfa199ae24cab83cfcf2f25cf53071fc"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/git-status-final.txt",
+      "bytes": 66646,
+      "sha256": "ec2e6151a809bd2aa4430781bef5472d884e3e0058ba31b083ff7523415974d4"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/git-status-inicial.txt",
+      "bytes": 64946,
+      "sha256": "2522d49160d8350eca0786692f3c1748fcf73bb6e78e85c260ed079d8fe9df66"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/integration-movement.json",
+      "bytes": 88,
+      "sha256": "494cd688f601dfcfe836382e2190feda17cf2c90cb5291a6b3343d2354925028"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/integridade-final.json",
+      "bytes": 1438,
+      "sha256": "ce91853b1f8e30d7a7ea52d3e546aa18a932cfd489b440666a6d9977696de38f"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/integridade-inicial.json",
+      "bytes": 306878,
+      "sha256": "89295cdcfc2f70d7ad921af8053f4596a8412a68bf8de4fd4011e1a84f7f6eee"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/limpeza-final-tentativa.json",
+      "bytes": 687,
+      "sha256": "a228ed3996603a6527742ffe508d06e272b8b34c926f9f7e015952658f2e58d3"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/limpeza-final.json",
+      "bytes": 706,
+      "sha256": "7773db8983d8ef4b86eae0b4c1f5421b79ef2338ae7b50b5328acd144d75b4bb"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/mcp-tools-discovery.json",
+      "bytes": 121958,
+      "sha256": "1427dd518987fcb64cc6247f04e07fc83a902ce23d9924df3b8d1e88acef4916"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/nexus-driver-start.json",
+      "bytes": 513,
+      "sha256": "5580f18b6c8f2ad58656b0df9d263f2d25d77e717b58901edebd519ce6e05f1c"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/nexus-medicoes.json",
+      "bytes": 810,
+      "sha256": "ab3c43306b3a39f895ce87c5ab4ef776511cfcf98dd32edddf39f3fde968c100"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/nexus-proveniencia.json",
+      "bytes": 286,
+      "sha256": "9e151cca61de71d632457b83c3047f2d081dd63c51f8b9586ad8342c60917ee7"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/nexus-runtime.csv",
+      "bytes": 31840,
+      "sha256": "1af4747a9cf7e2889e76961a0cb3c00c7252e0ab88368c19a5e669afa681ed77"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/nexus-wasd-diagonal.png",
+      "bytes": 98199,
+      "sha256": "313f1f270ff766376dc01939ee30dc896e2e99227b4d4c262a365eddb87c608c"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/nexus-wasd-stop.png",
+      "bytes": 98008,
+      "sha256": "b6d39742c39292e2250d85ed4d99709fb49eb94a727e0b47ebc000bdb45ed4d9"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/nexus-wasd-walk.png",
+      "bytes": 90895,
+      "sha256": "889972dca93481b8af8f1e2ff0e26ddd618055aa1feac24471f6fef291582bb4"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/novos-guids.json",
+      "bytes": 497,
+      "sha256": "5cc3207a5a76423c19b536ceef1ab1e41fb34213a070d372ca0ef5c8f29919f5"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/persistencia-antes-ativacao.json",
+      "bytes": 1031,
+      "sha256": "7a7bf2114dba2795ef7dddf15fd37b5b90d9445148d6ca448b9d2c8ba2320e8f"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/persistencia-final.json",
+      "bytes": 1031,
+      "sha256": "7a7bf2114dba2795ef7dddf15fd37b5b90d9445148d6ca448b9d2c8ba2320e8f"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/README.md",
+      "bytes": 3063,
+      "sha256": "fbf505ed9865762d8122b8dba756294b83f1bc6919bb9c7370f368d42e02cb9c"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/recovery-isolado.json",
+      "bytes": 2994,
+      "sha256": "fb7fd719bb346069b00baa8e8b72ae365efb5fdabbe04c17d70f19d291d9885d"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/roundtrip-cenas.json",
+      "bytes": 1192,
+      "sha256": "14af94dcd586ac218a52796bbdb86effdc0a018d81d276c10b1c3434b054f924"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/testes-dash-8.json",
+      "bytes": 8712,
+      "sha256": "d7d48ea3551f1b610bc26987d6d7cd14d8d8bb1249dbfef8112f9a4985680402"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/testes-editmode-15.json",
+      "bytes": 11562,
+      "sha256": "b4f014fc11bc4a589c402e907f215cd8d2312ac824a23babab3e06dc2501149d"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/testes-integracao-dez.json",
+      "bytes": 9894,
+      "sha256": "7a3fcf7d00d580076df75b8dcc5600274e89d7600482f6374455161e721486d6"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/testes-integracao-final.json",
+      "bytes": 12234,
+      "sha256": "70d6bab11eb4062a33fceef7cab6b1dbe6683b74bb96465e000c93c52f568a8e"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/testes-integracao-onze.json",
+      "bytes": 10738,
+      "sha256": "765e74661a4338f9a3f06c006be75ea8a0edd9f8ceec7743d2ee67fac2e2fd8e"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/testes-integracao-primeira.json",
+      "bytes": 8519,
+      "sha256": "bc2feefd2ecbcfc32aa7efda7d3022bc04e66fca8b8e30e0a408150875afbcb1"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/testes-integracao-segunda.json",
+      "bytes": 7652,
+      "sha256": "17834d57dea76bd94bcce55f2b447852e1725813ec962ea2743a11c82a0113bd"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/testes-regressao-30.json",
+      "bytes": 43073,
+      "sha256": "6d8f110b429359b26baee21903a79c01ee6a89885678bac076e76715101f0838"
+    },
+    {
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2b/testes-regressao-final-30.json",
+      "bytes": 41526,
+      "sha256": "de637a0b8cb1daf45f9faeb6d251c79ce98656e49c8df2a8a08b8125811515c5"
+    },
+    {
+      "path": "Tools/GameplayObservation/c01_2b_audit.py",
+      "bytes": 1702,
+      "sha256": "98a19845839b83cac4ae2c48e41ed449959b02d46faddfd8029ea46695ac8387"
+    },
+    {
+      "path": "Tools/GameplayObservation/c01_2b_enable.cs.txt",
+      "bytes": 2632,
+      "sha256": "459abe860806221b5bd7672126517e019eaef59814323032535c1cac1fc63424"
+    },
+    {
+      "path": "Tools/GameplayObservation/c01_2b_mcp.py",
+      "bytes": 2715,
+      "sha256": "3e56ed010ab12b3c5e01a2e047c6daca426c005a431585c94938e0cdd0a7fe54"
+    },
+    {
+      "path": "Tools/GameplayObservation/c01_2b_nexus_driver.cs.txt",
+      "bytes": 4575,
+      "sha256": "3424ea52d9f6810bb99aca9ab9b254b21d2704a8dba0bbac34884d6ec7ecd812"
+    }
+  ]
+}

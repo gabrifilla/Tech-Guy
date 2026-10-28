@@ -10,7 +10,9 @@ public sealed partial class RunBoons : MonoBehaviour
     public sealed class Offer
     {
         public readonly string Id, Title, Description;
-        public Offer(string id, string title, string description) { Id = id; Title = title; Description = description; }
+        public readonly int SelectionWeight;
+        public Offer(string id, string title, string description, int selectionWeight = 1)
+        { Id = id; Title = title; Description = description; SelectionWeight = Math.Max(1, Math.Min(2, selectionWeight)); }
     }
     private readonly List<Offer> _choices = new List<Offer>();
     private readonly List<Offer> _acquired = new List<Offer>();
@@ -153,7 +155,7 @@ public sealed partial class RunBoons : MonoBehaviour
     public void OfferReward(int room)
     {
         if (_manualRewards != null) return;
-        if (IsChoosing || !_weapon || !_player || _player.IsDead) return;
+        if (IsChoosing || !_weapon || !_player || _player.IsDead || !InitializeProtocolInventory()) return;
         RewardRoom = room;
         var pool = new List<Offer>
         {
@@ -196,6 +198,10 @@ public sealed partial class RunBoons : MonoBehaviour
                 && !RetiredFamilyBoons.Contains(definition.Kind)                   // gauntlet-boon-playstyle-overhaul R2.2: skip retired family boons
                 && WeaponModifiers.Rank(definition.Kind) < definition.MaxRank)
                 pool.Add(new Offer(definition.Id, definition.Title, "Nível " + (WeaponModifiers.Rank(definition.Kind) + 1) + "/" + definition.MaxRank + "\n" + definition.Description));
+        pool.Add(EclipseBoonCatalog.FallOffer());
+        pool.AddRange(BoonExpansionCatalog.Offers(RunRewardKind.Mutation, WeaponModifiers, _weapon, Protocols));
+        pool.AddRange(BoonExpansionCatalog.Offers(RunRewardKind.Technique, WeaponModifiers, _weapon, Protocols));
+        pool = new List<Offer>(BoonOfferCompatibility.Filter(pool, WeaponModifiers, _weapon, Protocols));
         // Only single-use boons are removed once taken; repeatable ones (stats + elemental) stay in the pool.
         pool.RemoveAll(offer => IsSingleUse(offer.Id) && _acquired.Exists(owned => owned.Id == offer.Id));
         pool.RemoveAll(offer => ProtocolInventory.TryKind(offer.Id, out var kind) && !Protocols.CanAcquire(kind));
@@ -207,13 +213,14 @@ public sealed partial class RunBoons : MonoBehaviour
         bool rewriteAllowed = HasRewriteTarget() && (_rewriteRoll ?? _random.NextDouble)() <= 0.2;
         if (!rewriteAllowed)
             pool.RemoveAll(offer => RunModifierPresentation.IsRewriteId(offer.Id));
+        if (pool.Count == 0) pool.Add(RunBoonOfferCatalog.ExhaustedOffer());
         _choices.Clear();
         // Always include a skill-changing option while one remains, plus two different upgrades.
         // A Rewrite (when allowed) fills the skill slot; otherwise fall back to the focus upgrade.
         Offer skillOffer = pool.Find(offer => RunModifierPresentation.IsRewriteId(offer.Id)) ?? pool.Find(offer => offer.Id == "focus");
         if (skillOffer != null) { _choices.Add(skillOffer); pool.Remove(skillOffer); }
         var weaponOffers = pool.FindAll(offer => offer.Id.StartsWith("weapon_", StringComparison.Ordinal)
-            || GauntletContentAuthoring.TryMutation(offer.Id, out _));
+            || GauntletContentAuthoring.TryMutation(offer.Id, out _) || BoonExpansionCatalog.TryDefinition(offer.Id, out _));
         if (weaponOffers.Count > 0)
         {
             Offer weaponOffer = weaponOffers[_random.Next(weaponOffers.Count)];
@@ -224,6 +231,7 @@ public sealed partial class RunBoons : MonoBehaviour
             int index = _random.Next(pool.Count);
             _choices.Add(pool[index]); pool.RemoveAt(index);
         }
+        if (TryGetComponent(out CharControlScript inputOwner)) inputOwner.RequireAttackRelease();
         IsChoosing = true;
         if (_agent && _agent.enabled && _agent.isOnNavMesh)
         {
@@ -238,13 +246,29 @@ public sealed partial class RunBoons : MonoBehaviour
         if (Time.timeScale <= 0f || !IsChoosing || !_player || _player.IsDead || index < 0 || index >= _choices.Count || _holder.IsCasting) return false;
         if (_player.TryGetComponent(out PauseMenuUI pause) && pause.BlocksInput) return false;
         Offer offer = _choices[index];
+        if (offer.Id == RunBoonOfferCatalog.ExhaustedId)
+        {
+            IsChoosing = false; _choices.Clear();
+            if (_agent && _agent.enabled && _agent.isOnNavMesh) _agent.isStopped = false;
+            if (TryGetComponent(out CharControlScript controls)) controls.RequireAttackRelease();
+            RewardChosen?.Invoke();
+            return true;
+        }
         return ApplyOffer(offer, true);
     }
 
     private bool ApplyOfferCore(Offer offer, bool legacy)
     {
+        if (BoonExpansionCatalog.TryDefinition(offer.Id, out _))
+        {
+            if (!BoonExpansionCatalog.TryAcquire(offer.Id, WeaponModifiers, _weapon, Protocols, out _)) return false;
+            CompleteOffer(offer, legacy); return true;
+        }
         switch (offer.Id)
         {
+            case BoonReworkCatalog.ViolentFallId:
+                if (!WeaponModifiers.TryAcquireViolentFall()) return false;
+                break;
             default:
                 if (GauntletContentAuthoring.TryMutation(offer.Id, out var mutation))
                 {
@@ -585,6 +609,7 @@ public sealed partial class RunBoons : MonoBehaviour
     // leak into a later run.
     private void ClearRunState()
     {
+        WeaponModifiers?.Expansion.Clear();
         Protocols?.EndSession();
         if (_protocolRuntime) _protocolRuntime.EndOwnedState();
         // PlayerOnHitEffects.Clear() cascades to RunSynergyEffects.Clear() (it calls _synergies.Clear()),

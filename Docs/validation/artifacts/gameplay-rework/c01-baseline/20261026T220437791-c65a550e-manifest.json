@@ -1,0 +1,814 @@
+{
+    "schema_version": 1,
+    "run_id": "20261026T220437791-c65a550e",
+    "status": "complete",
+    "scenario_id": "GAUNTLET_SMALL_GROUP",
+    "phase": "baseline",
+    "unity_version": "6000.5.10f1",
+    "provenance": {
+        "utc": "2026-10-26T22:04:37.7919577Z",
+        "revision": "3a3f0ee8ad82734104511b63877d38df512ea146",
+        "working_tree": "M .gitignore\n D .kiro/settings/mcp.json\n D .kiro/specs/combat-foundation-rework/.config.kiro\n D .kiro/specs/combat-foundation-rework/contract-audit.md\n D .kiro/specs/combat-foundation-rework/design.md\n D .kiro/specs/combat-foundation-rework/requirements.md\n D .kiro/specs/combat-foundation-rework/tasks.md\n D .kiro/specs/combat-foundation-rework/tasks.meta.json\n D .kiro/specs/enemy-swarm-core-archetypes/.config.kiro\n D .kiro/specs/enemy-swarm-core-archetypes/design.md\n D .kiro/specs/enemy-swarm-core-archetypes/requirements.md\n D .kiro/specs/enemy-swarm-core-archetypes/tasks.md\n D .kiro/specs/enemy-swarm-core-archetypes/tasks.meta.json\n D .kiro/specs/gauntlet-2-rework/contract-audit.md\n D .kiro/specs/gauntlet-2-rework/design.md\n D .kiro/specs/gauntlet-2-rework/requirements.md\n D .kiro/specs/gauntlet-2-rework/tasks.md\n D .kiro/specs/gauntlet-2-rework/validation.md\n D .kiro/specs/gauntlet-boon-playstyle-overhaul/.config.kiro\n D .kiro/specs/gauntlet-boon-playstyle-overhaul/design.md\n D .kiro/specs/gauntlet-boon-playstyle-overhaul/requirements.md\n D .kiro/specs/gauntlet-boon-playstyle-overhaul/tasks.md\n D .kiro/specs/gauntlet-boon-playstyle-overhaul/tasks.meta.json\n D .kiro/specs/impactful-weapon-boons/.config.kiro\n D .kiro/specs/impactful-weapon-boons/design.md\n D .kiro/specs/impactful-weapon-boons/requirements.md\n D .kiro/specs/impactful-weapon-boons/tasks.md\n D .kiro/specs/impactful-weapon-boons/tasks.meta.json\n D .kiro/specs/modifier-synergies-theme17/.config.kiro\n D .kiro/specs/modifier-synergies-theme17/design.md\n D .kiro/specs/modifier-synergies-theme17/requirements.md\n D .kiro/specs/modifier-synergies-theme17/tasks.md\n D .kiro/specs/modifier-synergies-theme17/tasks.meta.json\n D .kiro/specs/nexus-lobby-menu-restructure/.config.kiro\n D .kiro/specs/nexus-lobby-menu-restructure/design.md\n D .kiro/specs/nexus-lobby-menu-restructure/requirements.md\n D .kiro/specs/nexus-lobby-menu-restructure/tasks.md\n D .kiro/specs/nexus-lobby-menu-restructure/tasks.meta.json\n D .kiro/specs/playable-procedural-run/.config.kiro\n D .kiro/specs/playable-procedural-run/design.md\n D .kiro/specs/playable-procedural-run/requirements.md\n D .kiro/specs/playable-procedural-run/tasks.md\n D .kiro/specs/playable-procedural-run/tasks.meta.json\n D .kiro/specs/posture-enemy-interaction/.config.kiro\n D .kiro/specs/posture-enemy-interaction/contract-audit.md\n D .kiro/specs/posture-enemy-interaction/design.md\n D .kiro/specs/posture-enemy-interaction/requirements.md\n D .kiro/specs/posture-enemy-interaction/tasks.md\n D .kiro/specs/posture-enemy-interaction/validation.md\n D .kiro/specs/procedural-stage-room-generation/.config.kiro\n D .kiro/specs/procedural-stage-room-generation/design.md\n D .kiro/specs/procedural-stage-room-generation/requirements.md\n D .kiro/specs/procedural-stage-room-generation/tasks.md\n D .kiro/specs/procedural-stage-room-generation/tasks.meta.json\n D .kiro/specs/project-cleanup-optimization/.config.kiro\n D .kiro/specs/project-cleanup-optimization/baseline.md\n D .kiro/specs/project-cleanup-optimization/design.md\n D .kiro/specs/project-cleanup-optimization/fastscriptreload-review.md\n D .kiro/specs/project-cleanup-optimization/requirements.md\n D .kiro/specs/project-cleanup-optimization/tasks.md\n D .kiro/specs/project-cleanup-optimization/tasks.meta.json\n D .kiro/specs/project-cleanup-optimization/validation.md\n D .kiro/specs/protocol-system/analyze-performance.ps1\n D .kiro/specs/protocol-system/contract-audit.md\n D .kiro/specs/protocol-system/design.md\n D .kiro/specs/protocol-system/performance.md\n D .kiro/specs/protocol-system/requirements.md\n D .kiro/specs/protocol-system/tasks.md\n D .kiro/specs/protocol-system/validation.md\n D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/.config.kiro\n D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/design.md\n D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/requirements.md\n D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/tasks.md\n D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/tasks.meta.json\n D .kiro/specs/run-structure/contract-audit.md\n D .kiro/specs/run-structure/design.md\n D .kiro/specs/run-structure/requirements.md\n D .kiro/specs/run-structure/task-1-review.md\n D .kiro/specs/run-structure/tasks.md\n D .kiro/specs/run-structure/validation.md\n M AGENTS.md\n D Assets/InitTestScene6bc04670-6937-4028-895d-1cee1b974ce9.unity\n D Assets/InitTestScene6bc04670-6937-4028-895d-1cee1b974ce9.unity.meta\n D Assets/InitTestScened26eadda-fec1-451a-bf30-c83fa74cc5bf.unity\n D Assets/InitTestScened26eadda-fec1-451a-bf30-c83fa74cc5bf.unity.meta\n D Assets/Resources/Weapons.meta\n D Assets/Resources/Weapons/Ranged.meta\n D Assets/Resources/Weapons/Ranged/Bow_arrow.meta\n D Assets/Screenshots.meta\n D Assets/Screenshots/ProceduralStageAuthoring_Layout.png\n D Assets/Screenshots/ProceduralStageAuthoring_Layout.png.meta\n D Assets/Screenshots/ProceduralStageAuthoring_PlayMode.png\n D Assets/Screenshots/ProceduralStageAuthoring_PlayMode.png.meta\n D Assets/Screenshots/firstsector_extraction_portal.png\n D Assets/Screenshots/firstsector_extraction_portal.png.meta\n D Assets/Screenshots/firstsector_play_start.png\n D Assets/Screenshots/firstsector_play_start.png.meta\n D Assets/Screenshots/firstsector_topdown_layout.png\n D Assets/Screenshots/firstsector_topdown_layout.png.meta\n D Assets/Screenshots/screenshot-20261001-125959.png\n D Assets/Screenshots/screenshot-20261001-125959.png.meta\n D Assets/Screenshots/screenshot-20261001-130034.png\n D Assets/Screenshots/screenshot-20261001-130034.png.meta\n D Assets/Screenshots/screenshot-20261001-130046.png\n D Assets/Screenshots/screenshot-20261001-130046.png.meta\n D Assets/Screenshots/screenshot-20261001-130905.png\n D Assets/Screenshots/screenshot-20261001-130905.png.meta\n D Assets/Screenshots/screenshot-20261001-131213.png\n D Assets/Screenshots/screenshot-20261001-131213.png.meta\n D Assets/Screenshots/screenshot-20261001-132414.png\n D Assets/Screenshots/screenshot-20261001-132414.png.meta\n D Assets/Screenshots/screenshot-20261001-133217.png\n D Assets/Screenshots/screenshot-20261001-133217.png.meta\n M \"Assets/_Project/Art/Character/Animator Controller Character.controller\"\n M Assets/_Project/Art/Toon/TechGuyToon.shader\n M Assets/_Project/Prefabs/EnemyArchetypes/Shooter.prefab\n M Assets/_Project/Scenes/CombatStudy.unity\n M Assets/_Project/Scenes/FirstSector.unity\n M Assets/_Project/Scenes/NexusLobby.unity\n M Assets/_Project/Scenes/Playground.unity\n M Assets/_Project/Scenes/ProceduralStageAuthoring.unity\n M Assets/_Project/Scenes/PrologueTutorial.unity\n D Assets/_Project/Screenshots.meta\n D Assets/_Project/Screenshots/telegraph_fill_shapes.png\n D Assets/_Project/Screenshots/telegraph_fill_shapes.png.meta\n D Assets/_Project/Screenshots/telegraph_fill_shapes_top.png\n D Assets/_Project/Screenshots/telegraph_fill_shapes_top.png.meta\n D Assets/_Project/Screenshots/telegraph_fill_validation.png\n D Assets/_Project/Screenshots/telegraph_fill_validation.png.meta\n D Assets/_Project/Screenshots/telegraph_fill_validation_top.png\n D Assets/_Project/Screenshots/telegraph_fill_validation_top.png.meta\n M Assets/_Project/ScriptableObjects/Run/FirstSectorManual.asset\n M Assets/_Project/Scripts/Abilities/AbilityHolder.cs\n M Assets/_Project/Scripts/Abilities/Weapon/ArsenalAbility.cs\n M Assets/_Project/Scripts/Abilities/Weapon/ArsenalCombat.cs\n M Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs\n M Assets/_Project/Scripts/Abilities/Weapon/GauntletAuthoring.cs\n M Assets/_Project/Scripts/Abilities/Weapon/GauntletExecutionSnapshot.cs\n M Assets/_Project/Scripts/Abilities/Weapon/GauntletMutationSelection.cs\n M Assets/_Project/Scripts/Abilities/Weapon/SkillAnimationPlayer.cs\n M Assets/_Project/Scripts/Camera/TG_TopDown_Camera.cs\n M Assets/_Project/Scripts/Characters/Actor.cs\n M Assets/_Project/Scripts/Characters/Combat/CombatReactionController.cs\n M Assets/_Project/Scripts/Characters/Combat/Core/BasicAttackDriver.cs\n M Assets/_Project/Scripts/Characters/Combat/Core/CombatActionProfile.cs\n M Assets/_Project/Scripts/Characters/Combat/GauntletImpactTransaction.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolElementStatus.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Status.cs\n M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.cs\n M Assets/_Project/Scripts/Characters/Enemy/EnemyAI.cs\n M Assets/_Project/Scripts/Characters/Enemy/EnemyCombatActions.cs\n M Assets/_Project/Scripts/Characters/Enemy/EnemyProjectile.cs\n M Assets/_Project/Scripts/Characters/Enemy/HazardCasterBehavior.cs\n M Assets/_Project/Scripts/Characters/Enemy/KiteController.cs\n M Assets/_Project/Scripts/Characters/Enemy/PreferredDistanceLayer.cs\n M Assets/_Project/Scripts/Characters/Enemy/SpawnerBehavior.cs\n M Assets/_Project/Scripts/Characters/Enemy/TutorialTrainingTarget.cs\n M Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs\n M Assets/_Project/Scripts/Characters/Player/Actions/WorldClickResolver.cs\n M Assets/_Project/Scripts/Characters/Player/PlayerActor.cs\n M Assets/_Project/Scripts/Core/GamePreferences.cs\n M Assets/_Project/Scripts/Core/Pooling/ComponentPool.cs\n M Assets/_Project/Scripts/Core/Run/ManualRewardCatalog.cs\n M Assets/_Project/Scripts/Core/Run/ManualRoutePolicy.cs\n M Assets/_Project/Scripts/Core/Run/ManualRouteSnapshot.cs\n M Assets/_Project/Scripts/Core/Run/ManualRouteValidator.cs\n M Assets/_Project/Scripts/Core/Run/ManualSceneBindings.cs\n M Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.cs\n M Assets/_Project/Scripts/Core/Run/ProgressionDirector.Encounter.cs\n M Assets/_Project/Scripts/Core/Run/ProgressionDirector.Lifecycle.cs\n M Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs\n D Assets/_Project/Scripts/Core/Run/ProtocolRewardSelection.cs\n D Assets/_Project/Scripts/Core/Run/ProtocolRewardSelection.cs.meta\n M Assets/_Project/Scripts/Core/Run/RunBoons.Manual.cs\n M Assets/_Project/Scripts/Core/Run/RunRewardPolicy.cs\n M Assets/_Project/Scripts/Core/RunBoons.cs\n M Assets/_Project/Scripts/Core/TutorialDirector.cs\n M Assets/_Project/Scripts/Editor/CombatPolishPreview.cs\n M Assets/_Project/Scripts/Editor/CombatStudyBuilder.cs\n M Assets/_Project/Scripts/Editor/CombatStudyValidation.cs\n M Assets/_Project/Scripts/Editor/FirstSectorBuilder.cs\n M Assets/_Project/Scripts/Editor/LobbyCompactLayout.cs\n M Assets/_Project/Scripts/Editor/LobbySceneBuilder.cs\n M Assets/_Project/Scripts/Editor/RunRewardPreview.cs\n M Assets/_Project/Scripts/Editor/SharedHudValidation.cs\n M Assets/_Project/Scripts/Editor/TitleTutorialPreview.cs\n M Assets/_Project/Scripts/Effects/CombatGroundFill.cs\n M Assets/_Project/Scripts/Effects/ProtocolFeedbackPool.cs\n M Assets/_Project/Scripts/Stages/ProgressionDirector.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationDeductsManaAndStartsRechargePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationDeductsManaAndStartsRechargePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationInvalidPreservesStatePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationInvalidPreservesStatePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ActionTimelinePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ActionTimelinePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AdaptiveCadencePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AdaptiveCadencePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AntiHeavyToolStrengthPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AntiHeavyToolStrengthPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetChaseExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetChaseExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ArrowRainRangeClampPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ArrowRainRangeClampPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ArsenalRicochetDecayInvariantTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ArsenalRicochetDecayInvariantTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AssetIsolationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AssetIsolationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraCategoryAlternationEnergyPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraCategoryAlternationEnergyPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDenyWhenNotFullPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDenyWhenNotFullPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDisplayedIffGauntletsEquippedPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDisplayedIffGauntletsEquippedPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFistPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFistPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraPullDisplacementBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraPullDisplacementBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AtMostOneTreasureAndSecretPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AtMostOneTreasureAndSecretPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackShapeEdgeCaseTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackShapeEdgeCaseTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackSlotConcurrencyLimitPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackSlotConcurrencyLimitPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicAttackDriverPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicAttackDriverPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicHitChannelPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicHitChannelPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BossSuppressesConventionalReactionsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BossSuppressesConventionalReactionsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BossUniqueAndEligiblePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BossUniqueAndEligiblePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BowFireReducedSpeedPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BowFireReducedSpeedPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BreakEffectDeterministicDegradePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/BreakEffectDeterministicDegradePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceAnimationGuardExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceAnimationGuardExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceJitterBandPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceJitterBandPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelConsumeOrBufferPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelConsumeOrBufferPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelResolverPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelResolverPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelRulePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelRulePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ChargedShotThresholdPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ChargedShotThresholdPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CleanupReportAndFallbackExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CleanupReportAndFallbackExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatActionProfileSmokeTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatActionProfileSmokeTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatBalanceBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatBalanceBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatGroundFillMeshExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatGroundFillMeshExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatRoomSpawnPointPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatRoomSpawnPointPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ComboNovaProcGateTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ComboNovaProcGateTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CommitmentRulesPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/CommitmentRulesPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ConsecutiveHitCounterPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ConsecutiveHitCounterPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGateDisplacementPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGateDisplacementPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGatePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGatePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DamageAbsorbedDecisionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DamageAbsorbedDecisionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityMonotonicByDepthPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityMonotonicByDepthPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityWithinBudgetPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityWithinBudgetPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DifferentSeedsDivergePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DifferentSeedsDivergePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementInvalidDowngradePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementInvalidDowngradePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementTierBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementTierBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeBandPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeBandPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeStrikePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeStrikePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ElementalOverflowGatePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ElementalOverflowGatePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EliteStanceBreakDifficultyPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EliteStanceBreakDifficultyPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EncounterGatesDirectionalTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EncounterGatesDirectionalTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyAttackAreaTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyAttackAreaTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyFacingConvergencePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyFacingConvergencePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyReactionFacingExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyReactionFacingExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ExecutionImpactLedgerPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ExecutionImpactLedgerPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FirstSectorProceduralTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FirstSectorProceduralTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryRegroupDisplacementPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryRegroupDisplacementPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryStrikesAndLockDurationPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryStrikesAndLockDurationPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FrameThrottlePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FrameThrottlePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FreeSlotWithoutEligibleEnemyExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FreeSlotWithoutEligibleEnemyExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FrontalArcReflectionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/FrontalArcReflectionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAdvanceNavMeshPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAdvanceNavMeshPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAuthoringAndContextTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAuthoringAndContextTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletEnergyPolicyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletEnergyPolicyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulCatalogExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulCatalogExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulInvariantPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulInvariantPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulPresentationExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulPresentationExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulTeardownPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulTeardownPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletSnapshotTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletSnapshotTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletStepsCloneIsolationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletStepsCloneIsolationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationDeterminismPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationDeterminismPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationIsolatedFromGlobalRngPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationIsolatedFromGlobalRngPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GuardBreakerPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/GuardBreakerPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaFrequencyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaFrequencyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HazardModelPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HazardModelPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HealthBarRecomputeFillPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HealthBarRecomputeFillPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HitStopPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HitStopPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HookPullBoundPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HookPullBoundPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HudFormatterMatchesInlineFormulaPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HudFormatterMatchesInlineFormulaPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HungryComboExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/HungryComboExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImmediateReactionClampPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImmediateReactionClampPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactFeedbackScopeTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactFeedbackScopeTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsAssetIsolationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsAssetIsolationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsMonotonicityTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsMonotonicityTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsOrderDeterminismTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsOrderDeterminismTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulVarietyPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulVarietyPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InputBufferPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InputBufferPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptCancellationPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptCancellationPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptWindowGatePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptWindowGatePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InvalidModifierIgnoredNoSideEffectPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/InvalidModifierIgnoredNoSideEffectPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KiteWindowCooldownPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KiteWindowCooldownPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingImpulsePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingImpulsePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingStandoffIntegrationExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingStandoffIntegrationExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KnockUpJuggleControlLockPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/KnockUpJuggleControlLockPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/LegendaryStaggerNoContinuousLockPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/LegendaryStaggerNoContinuousLockPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MainMenuFocusPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MainMenuFocusPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualAuthoredEnvironmentTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualAuthoredEnvironmentTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRoutePolicyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRoutePolicyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunDefinitionTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunDefinitionTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkAbsentDefaultTargetPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkAbsentDefaultTargetPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkReinforcesPriorityBehaviorsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkReinforcesPriorityBehaviorsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MeleeProfileDistinctnessPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MeleeProfileDistinctnessPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MissingProfileRankDefaultsFallbackExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MissingProfileRankDefaultsFallbackExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierApplicationOrderDeterminismPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierApplicationOrderDeterminismPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierRankMonotonicityPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierRankMonotonicityPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MomentumStackAndDamagePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MomentumStackAndDamagePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MoonShardFragmentBoundTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MoonShardFragmentBoundTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MovementBlendRangePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MovementBlendRangePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MutualExclusionDuringExecutionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/MutualExclusionDuringExecutionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/NextSeedDeterminismPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/NextSeedDeterminismPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OneConnectionPerPairPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OneConnectionPerPairPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OrbitCombinationHintTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OrbitCombinationHintTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OrphanCandidateReferenceScanPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/OrphanCandidateReferenceScanPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseIntegrationExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseIntegrationExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseRangePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseRangePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalActionResolutionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalActionResolutionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalEquippedExclusivePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalEquippedExclusivePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalProximitySelectionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalProximitySelectionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PerfectSpacingBandPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PerfectSpacingBandPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PikeWallPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PikeWallPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostBreakImmunityStancePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostBreakImmunityStancePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureBoundaryTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureBoundaryTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureMigrationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureMigrationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureReactionStateTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureReactionStateTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistancePositiveTargetPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistancePositiveTargetPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistanceRoleFallbackExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistanceRoleFallbackExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreservedBoonOfferExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PreservedBoonOfferExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PriorityMarkerPresencePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PriorityMarkerPresencePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileMotionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileMotionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileResetClearsTrackedStatePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileResetClearsTrackedStatePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolBudgetTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolBudgetTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolCatalogTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolCatalogTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolInventoryTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolInventoryTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolMixedTicketTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolMixedTicketTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolRewardSelectionTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolRewardSelectionTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PureLogicDeterminismPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/PureLogicDeterminismPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RainMarkPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RainMarkPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RankInterruptStaggerAccumulationPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RankInterruptStaggerAccumulationPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionChannelIndependencePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionChannelIndependencePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionConfigurationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionConfigurationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionGateDelayPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionGateDelayPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionPolicyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionPolicyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReduceCooldownsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReduceCooldownsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReentryIdempotencePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ReentryIdempotencePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RemainingArchetypeUnitTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RemainingArchetypeUnitTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ResourcesGuardNeverPureOrphanPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ResourcesGuardNeverPureOrphanPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RetirementOfferPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RetirementOfferPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RetreatSpeedMultiplierPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RetreatSpeedMultiplierPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteCategoryExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteCategoryExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteOfferConstraintTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteOfferConstraintTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCompositionResolverWarningsTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCompositionResolverWarningsTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCountBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCountBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomNonOverlapPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomNonOverlapPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRepairPolicyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRepairPolicyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRewardPolicyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRewardPolicyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunSelectionReleaseGateTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/RunSelectionReleaseGateTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SeismicFistPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SeismicFistPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ShieldHealPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ShieldHealPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ShockwaveAppendPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/ShockwaveAppendPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SimpleObjectPoolPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SimpleObjectPoolPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SingleTypePerRoomPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SingleTypePerRoomPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SlotReleaseRestoresCapacityPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SlotReleaseRestoresCapacityPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBowNoGroupingPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBowNoGroupingPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SourceAssetImmutabilityWhenPlanningPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SourceAssetImmutabilityWhenPlanningPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpacingBandPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpacingBandPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpawnerLivingCountPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpawnerLivingCountPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearFlowNoInterferenceWhenNotAccumulatingPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearFlowNoInterferenceWhenNotAccumulatingPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearModifierCatalogMetadataTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearModifierCatalogMetadataTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearPlanCorrectnessAndIsolationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearPlanCorrectnessAndIsolationTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearSweepDisplacementBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearSweepDisplacementBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpecialProbabilityBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SpecialProbabilityBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StageGeneratorCoreEdgeExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StageGeneratorCoreEdgeExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakRestoreRecoveryPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakRestoreRecoveryPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakSameStepPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakSameStepPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceSubtractionBoundsPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceSubtractionBoundsPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StandoffDistanceBandPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StandoffDistanceBandPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StartToBossConnectivityPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/StartToBossConnectivityPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SweetSpotStrictlyGreaterBonusPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SweetSpotStrictlyGreaterBonusPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakEscalationTierTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakEscalationTierTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakFeedbackPresentationTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakFeedbackPresentationTests.cs.meta\n M Assets/_Project/Scripts/Tests/EditMode/Editor/TechGuy.Tests.EditMode.asmdef\n M Assets/_Project/Scripts/Tests/EditMode/Editor/TechGuy.Tests.EditMode.asmdef.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphBeatPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphBeatPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphExecutionIntegrationExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphExecutionIntegrationExampleTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphFillProgressPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphFillProgressPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphRedBasePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphRedBasePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TreasureAccessibleOrDiscardedPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/TreasureAccessibleOrDiscardedPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/UiValueCacheDirtyDecisionPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/UiValueCacheDirtyDecisionPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/VarietySatisfiedPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/VarietySatisfiedPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/VulnerabilityWindowRankDowngradePropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/VulnerabilityWindowRankDowngradePropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCacheIdempotentPreloadPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCacheIdempotentPreloadPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCardContentPropertyTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCardContentPropertyTests.cs.meta\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponEnemyMatrixCompletenessFallbackExampleTests.cs\n D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponEnemyMatrixCompletenessFallbackExampleTests.cs.meta\n M Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1PlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/BreakerKitEmissionPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualAuthoredNavigationPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualPublishedRunPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunElitePlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunLifecyclePlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunMutationPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunPlayerFeedbackTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunRewardPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ManualRunWorldPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/PostureReactionPlayModeTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ProtocolEncounterFrontierTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/ProtocolPublishedCompositionTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/StageDoorSealingTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/StagePlayerDeathReturnTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/StageRoomActivationTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/StageTrophyRewardTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/TechGuy.Tests.PlayMode.asmdef\n M Assets/_Project/Scripts/UI/BreakerGauntletHUD.cs\n M Assets/_Project/Scripts/UI/ControlRemappingPanel.cs\n M Assets/_Project/Scripts/UI/DamagePopup.cs\n M Assets/_Project/Scripts/UI/EnemyCombatFeedback.cs\n M Assets/_Project/Scripts/UI/HudFormatter.cs\n M Assets/_Project/Scripts/UI/LobbyArsenal.cs\n M Assets/_Project/Scripts/UI/LobbyInteraction.cs\n M Assets/_Project/Scripts/UI/MainMenuUI.cs\n M Assets/_Project/Scripts/UI/ManualRunUI.cs\n M Assets/_Project/Scripts/UI/PauseMenuUI.cs\n M Assets/_Project/Scripts/UI/PlayerHUD.cs\n M Assets/_Project/Scripts/UI/RunModifierPresentation.cs\n M Assets/_Project/Scripts/UI/RunRewardUI.cs\n M Assets/_Project/Scripts/UI/WeaponCardView.cs\n M Assets/_Project/Scripts/Weapons/ArsenalProjectile.cs\n M Assets/_Project/Scripts/Weapons/HitboxDamage.cs\n D Assets/_Project/Scripts/Weapons/PlayerWeaponBootstrap.cs\n D Assets/_Project/Scripts/Weapons/PlayerWeaponBootstrap.cs.meta\n M Assets/_Project/Scripts/Weapons/WeaponRunModifiers.cs\n D Docs/Arsenal.md\n D Docs/Boons.md\n D Docs/BreakerGauntlet.md\n D Docs/Captures/cartoon-before.png\n D Docs/Captures/cartoon-combat-1.png\n D Docs/Captures/cartoon-combat.png\n D Docs/Captures/cartoon-lobby.png\n D Docs/Captures/illustrated-final.png\n D Docs/CombatPolish.md\n D Docs/CombatStudy.md\n D Docs/CombatStudy.png\n D Docs/EnemiesAndBoss.md\n D Docs/EnemyAttacks.md\n D Docs/EnemySwarmSpec.md\n D Docs/EnemyVariants.md\n D Docs/FirstSector-combat.png\n D Docs/FirstSector-guardian.png\n D Docs/FirstSector-overview.png\n D Docs/FirstSector.md\n D Docs/HUD-CombatStudy.png\n D Docs/HUD-NexusLobby.png\n D Docs/HUD-Playground.png\n D Docs/HUD-casting.png\n D Docs/HUD-no-mana.png\n D Docs/IllustratedLookAndInput.md\n D Docs/Modificadores.md\n D Docs/NexusLobby-gameplay.png\n D Docs/NexusLobby-preview.png\n D Docs/NexusLobby.md\n D Docs/PlayerHUD.md\n D Docs/PrologueAndMenus.md\n D Docs/RunLoop.md\n D Docs/RunSynergies.md\n D Docs/Tech-Guy_Gameplay_Rework.md\n D Docs/WeaponRunModifiers.md\n D Docs/WorkshopReference.png\n M Packages/manifest.json\n M Packages/packages-lock.json\n M ProjectSettings/EditorBuildSettings.asset\n M README.md\n M Tech-Guy.slnx\n?? .agents/\n?? Assets/_Project/Art/Characters.meta\n?? Assets/_Project/Art/Characters/\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutEdge.mat\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutEdge.mat.meta\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutFloorplan.asset\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutFloorplan.asset.meta\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutGray.mat\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutGray.mat.meta\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutNavMesh.asset\n?? Assets/_Project/Art/NexusLobby/NexusBlockoutNavMesh.asset.meta\n?? Assets/_Project/Resources/Combat.meta\n?? Assets/_Project/Resources/Combat/\n?? Assets/_Project/Scenes/NexusBlockout.unity\n?? Assets/_Project/Scenes/NexusBlockout.unity.meta\n?? Assets/_Project/ScriptableObjects/Run/BoonReworkCatalog.asset\n?? Assets/_Project/ScriptableObjects/Run/BoonReworkCatalog.asset.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonCombat.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonCombat.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonModel.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonModel.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonPresentation.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonPresentation.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Eclipse.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Eclipse.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Expansion.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Expansion.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/EclipseCombatTuning.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/EclipseCombatTuning.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonCombat.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonCombat.cs.meta\n?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonGeometry.cs\n?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonGeometry.cs.meta\n?? Assets/_Project/Scripts/Camera/CameraOcclusionFader.cs\n?? Assets/_Project/Scripts/Camera/CameraOcclusionFader.cs.meta\n?? Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Eclipse.cs\n?? Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Eclipse.cs.meta\n?? Assets/_Project/Scripts/Characters/Combat/Protocols/SpearBoonProtocolImpacts.cs\n?? Assets/_Project/Scripts/Characters/Combat/Protocols/SpearBoonProtocolImpacts.cs.meta\n?? Assets/_Project/Scripts/Characters/Enemy/EnemyLocomotionPresentation.cs\n?? Assets/_Project/Scripts/Characters/Enemy/EnemyLocomotionPresentation.cs.meta\n?? Assets/_Project/Scripts/Characters/Enemy/EnemyNavigation.cs\n?? Assets/_Project/Scripts/Characters/Enemy/EnemyNavigation.cs.meta\n?? Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs\n?? Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs.meta\n?? Assets/_Project/Scripts/Characters/Player/Actions/GroundMovementBuffer.cs\n?? Assets/_Project/Scripts/Characters/Player/Actions/GroundMovementBuffer.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonCapabilityGraph.cs\n?? Assets/_Project/Scripts/Core/Run/BoonCapabilityGraph.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonCatalogDefinition.cs\n?? Assets/_Project/Scripts/Core/Run/BoonCatalogDefinition.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonDefinition.cs\n?? Assets/_Project/Scripts/Core/Run/BoonDefinition.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonExpansionInventory.cs\n?? Assets/_Project/Scripts/Core/Run/BoonExpansionInventory.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonOfferCompatibility.cs\n?? Assets/_Project/Scripts/Core/Run/BoonOfferCompatibility.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonOfferDraw.cs\n?? Assets/_Project/Scripts/Core/Run/BoonOfferDraw.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BoonReworkCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/BoonReworkCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/BowBoonCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/BowBoonCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/EclipseBoonCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/EclipseBoonCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/GauntletExpansionCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/GauntletExpansionCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/ManualRunRandomizer.cs\n?? Assets/_Project/Scripts/Core/Run/ManualRunRandomizer.cs.meta\n?? Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.Procedural.cs\n?? Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.Procedural.cs.meta\n?? Assets/_Project/Scripts/Core/Run/ProceduralRunGeometryPlan.cs\n?? Assets/_Project/Scripts/Core/Run/ProceduralRunGeometryPlan.cs.meta\n?? Assets/_Project/Scripts/Core/Run/ProgressionDirector.Statistics.cs\n?? Assets/_Project/Scripts/Core/Run/ProgressionDirector.Statistics.cs.meta\n?? Assets/_Project/Scripts/Core/Run/RunBoonOfferCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/RunBoonOfferCatalog.cs.meta\n?? Assets/_Project/Scripts/Core/Run/RunDamageSource.cs\n?? Assets/_Project/Scripts/Core/Run/RunDamageSource.cs.meta\n?? Assets/_Project/Scripts/Core/Run/RunStatistics.cs\n?? Assets/_Project/Scripts/Core/Run/RunStatistics.cs.meta\n?? Assets/_Project/Scripts/Core/Run/RunSummary.cs\n?? Assets/_Project/Scripts/Core/Run/RunSummary.cs.meta\n?? Assets/_Project/Scripts/Core/Run/RunSummaryStore.cs\n?? Assets/_Project/Scripts/Core/Run/RunSummaryStore.cs.meta\n?? Assets/_Project/Scripts/Core/Run/SpearBoonCatalog.cs\n?? Assets/_Project/Scripts/Core/Run/SpearBoonCatalog.cs.meta\n?? Assets/_Project/Scripts/Editor/CombatPolishPreview.Observation.cs\n?? Assets/_Project/Scripts/Editor/CombatPolishPreview.Observation.cs.meta\n?? Assets/_Project/Scripts/Editor/CombatPolishPreview.ObservationTelemetry.cs\n?? Assets/_Project/Scripts/Editor/CombatPolishPreview.ObservationTelemetry.cs.meta\n?? Assets/_Project/Scripts/Editor/NewRoomRunAuthoring.cs\n?? Assets/_Project/Scripts/Editor/NewRoomRunAuthoring.cs.meta\n?? Assets/_Project/Scripts/Editor/NexusBlockoutBuilder.cs\n?? Assets/_Project/Scripts/Editor/NexusBlockoutBuilder.cs.meta\n?? Assets/_Project/Scripts/Editor/NexusBlockoutPlaySession.cs\n?? Assets/_Project/Scripts/Editor/NexusBlockoutPlaySession.cs.meta\n?? Assets/_Project/Scripts/Editor/NexusBlockoutSpatialRevision.cs\n?? Assets/_Project/Scripts/Editor/NexusBlockoutSpatialRevision.cs.meta\n?? Assets/_Project/Scripts/Editor/TGOutfitModelPostprocessor.cs\n?? Assets/_Project/Scripts/Editor/TGOutfitModelPostprocessor.cs.meta\n?? Assets/_Project/Scripts/Effects/EclipseMarkVfx.cs\n?? Assets/_Project/Scripts/Effects/EclipseMarkVfx.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFinishControlTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFinishControlTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonCapabilityGraphTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonCapabilityGraphTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonExpansionOfferTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonExpansionOfferTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonOfferCompatibilityTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonOfferCompatibilityTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRealRouteSimulationTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRealRouteSimulationTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRewardSeedTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRewardSeedTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BowBoonTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/BowBoonTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/DamageNumberBurstTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/DamageNumberBurstTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/EclipseBoonTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/EclipseBoonTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityGroundFillTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityGroundFillTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityRouteTestFactory.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityRouteTestFactory.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/GroundMovementBufferTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/GroundMovementBufferTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRouteMapPresentationTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRouteMapPresentationTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunRandomizerTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunRandomizerTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/NexusCardLayoutTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/NexusCardLayoutTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ObservationTelemetryTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ObservationTelemetryTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ProceduralRunGeometryPlanTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/ProceduralRunGeometryPlanTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RangedFluidityContractTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RangedFluidityContractTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RetainedRunRewardTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RetainedRunRewardTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunMapDiscoveryPresentationTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunMapDiscoveryPresentationTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunResultsModelTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunResultsModelTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/SpearBoonTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/SpearBoonTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/AsuraEarlyFinishPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/AsuraEarlyFinishPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackCursorFluidityTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackCursorFluidityTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1RunStatisticsTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1RunStatisticsTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/BoonPublishedEncounterPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/BoonPublishedEncounterPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/BowBoonPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/BowBoonPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/CameraOcclusionFadeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/CameraOcclusionFadeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/CombatResponsivenessPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/CombatResponsivenessPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/DamageConfirmationPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/DamageConfirmationPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/EclipseBoonPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/EclipseBoonPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/EnemyInteractionPresentationTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/EnemyInteractionPresentationTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/EnemyProjectileLifecyclePlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/EnemyProjectileLifecyclePlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/GauntletBasicImpactPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/GauntletBasicImpactPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/GauntletExpansionPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/GauntletExpansionPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/ManualRouteMapPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/ManualRouteMapPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/MeleeEngagementPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/MeleeEngagementPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusBlockoutPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusBlockoutPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusSpatialJourneyPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusSpatialJourneyPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusUsabilityPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/NexusUsabilityPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/PauseInspectionPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/PauseInspectionPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/PauseMapVisibilityPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/PauseMapVisibilityPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RangedFluidityPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RangedFluidityPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunStatisticsPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunStatisticsPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryIsolationPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryIsolationPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryPreferenceScope.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryPreferenceScope.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/SniperAimCommitmentPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/SniperAimCommitmentPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/SpearBoonPlayModeTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/SpearBoonPlayModeTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/WorldClickEnemyAssistTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/WorldClickEnemyAssistTests.cs.meta\n?? Assets/_Project/Scripts/UI/DamageNumberBurst.cs\n?? Assets/_Project/Scripts/UI/DamageNumberBurst.cs.meta\n?? Assets/_Project/Scripts/UI/ManualRouteMapPresentation.cs\n?? Assets/_Project/Scripts/UI/ManualRouteMapPresentation.cs.meta\n?? Assets/_Project/Scripts/UI/ManualRunUI.PauseMap.cs\n?? Assets/_Project/Scripts/UI/ManualRunUI.PauseMap.cs.meta\n?? Assets/_Project/Scripts/UI/RunMapDiscoveryPresentation.cs\n?? Assets/_Project/Scripts/UI/RunMapDiscoveryPresentation.cs.meta\n?? Assets/_Project/Scripts/UI/RunResultsFocus.cs\n?? Assets/_Project/Scripts/UI/RunResultsFocus.cs.meta\n?? Assets/_Project/Scripts/UI/RunResultsHandoff.cs\n?? Assets/_Project/Scripts/UI/RunResultsHandoff.cs.meta\n?? Assets/_Project/Scripts/UI/RunResultsModel.cs\n?? Assets/_Project/Scripts/UI/RunResultsModel.cs.meta\n?? Assets/_Project/Scripts/UI/RunResultsPresenter.cs\n?? Assets/_Project/Scripts/UI/RunResultsPresenter.cs.meta\n?? Assets/_Project/Scripts/UI/RunResultsView.cs\n?? Assets/_Project/Scripts/UI/RunResultsView.cs.meta\n?? Docs/00_VISAO.md\n?? Docs/01_PILARES.md\n?? Docs/02_ESTADO_E_LACUNAS.md\n?? Docs/03_PRIORIDADES.md\n?? Docs/04_ARQUITETURA_E_INTEGRIDADE.md\n?? Docs/05_MIGRACAO_E_LIMPEZA.md\n?? Docs/README.md\n?? Docs/art/\n?? Docs/decisions/\n?? Docs/gameplay/\n?? Docs/references/\n?? Docs/systems/\n?? Docs/templates/\n?? Docs/validation/\n?? MANIFEST.json\n?? SourceArt/\n?? Tools/\n?? UnityValidation/",
+        "scene": "Assets/_Project/Scenes/NexusBlockout.unity",
+        "requested_seed": "0",
+        "screenshot_method": "Unity ScreenCapture.CaptureScreenshotAsTexture after WaitForEndOfFrame; includes Game View UI",
+        "setup": "current",
+        "limitations": "Fixed simulation steps do not prove bit-identical physics/NavMesh/animation or human game feel. Commands use existing public gameplay APIs, not keyboard binding coverage. No combat balance, immunity, mana, HP, AI enable state or assets are changed.",
+        "error": ""
+    },
+    "conditions": {
+        "scenario_version": 1,
+        "scene_guid": "d9c5ad58160cf614e984e1c4f2599d39",
+        "seed": "uncontrolled",
+        "weapon": 0,
+        "node_id": -1,
+        "enemy_count": 1,
+        "width": 1280,
+        "height": 720,
+        "simulation_fps": 0,
+        "capture_every_frames": 6,
+        "input_schedule": "{\"commands\":[]}",
+        "initial_actor_fingerprint": "393d8efeac7358eeeac39e218bee7cc4ed53b89138b5fb014a26fd7cc1d77458",
+        "camera_json": "{\"name\":\"Nexus Camera\",\"position\":{\"x\":-11.000006675720215,\"y\":10.0,\"z\":4.0},\"rotation\":{\"x\":0.3826834261417389,\"y\":0.0,\"z\":0.0,\"w\":0.9238795638084412},\"orthographic\":false,\"orthographic_size\":10.0,\"field_of_view\":40.0,\"near\":0.20000000298023225,\"far\":500.0,\"rect\":{\"serializedVersion\":\"2\",\"x\":0.0,\"y\":0.0,\"width\":1.0,\"height\":1.0},\"hdr\":true,\"msaa\":true,\"clear_flags\":2,\"culling_mask\":-1,\"background\":{\"r\":0.014999999664723874,\"g\":0.02199999988079071,\"b\":0.054999999701976779,\"a\":1.0},\"follow_enabled\":true,\"follow_height\":10.0,\"follow_distance\":10.0,\"follow_angle\":0.0}",
+        "render_json": "{\"pipeline\":\"Assets/_Project/Settings/Rendering/UniversalRenderPipelineAsset.asset\",\"pipeline_guid\":\"f86b3aed054db7d4a983e73339478814\",\"pipeline_sha256\":\"272bedcae04702adb14bd4660c7437b28c5075acfc018809b7ee7eac749ae78b\",\"graphics_settings_sha256\":\"86e4f889e10af87ae81b2bf14c3b7aa98c922930a1b573375d8f867839634c99\",\"quality_settings_sha256\":\"e21713aaf6a14858fa1385f071f6a35c98c607de91d8ef2d9c6153a7e4d5cdb5\",\"color_space\":\"Linear\",\"quality\":5,\"quality_name\":\"Ultra\",\"gpu\":\"NVIDIA GeForce RTX 3060 Ti\",\"graphics_api\":\"Direct3D11\",\"post_processing\":true,\"anti_aliasing\":1,\"render_scale\":1.0,\"volume_profiles\":[\"Assets/_Project/Art/NexusLobby/NexusAtmosphere.asset:18cce3784ebcd69c53e6cbd1e8ce3111309a8549e181a99169b347e2aea9d86d\"]}",
+        "random_control": "uncontrolled current gameplay; observation only"
+    },
+    "frames": [
+        {
+            "index": 0,
+            "relative_frame": 0,
+            "time": 0.0,
+            "path": "frames/frame-000000.png",
+            "sha256": "48b4bc6aaf605629b64b7e9d631c9921b33e8bc938e3b2ba3906627e9068ef21",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 1,
+            "relative_frame": 6,
+            "time": 0.13771580159664155,
+            "path": "frames/frame-000006.png",
+            "sha256": "a98e7877cb270b2f0bbbe0c145d237900290bc005f16d687cc27ab97768652f0",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 2,
+            "relative_frame": 12,
+            "time": 0.2586950957775116,
+            "path": "frames/frame-000012.png",
+            "sha256": "333ff4278bb9b10360eb9ad6a67bbc34e0437aab650b78cda097a83ee6cec521",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 3,
+            "relative_frame": 18,
+            "time": 0.38362228870391848,
+            "path": "frames/frame-000018.png",
+            "sha256": "95d2f591d901cfa5dda75e5c161d73213872e1da88e158fda9dd259c173a75fc",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 4,
+            "relative_frame": 24,
+            "time": 0.5114678740501404,
+            "path": "frames/frame-000024.png",
+            "sha256": "320c02514b7264f63b88a1ec241cd26582348c24e223a2e7d17b8ccc87cb84bc",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 5,
+            "relative_frame": 30,
+            "time": 0.614071786403656,
+            "path": "frames/frame-000030.png",
+            "sha256": "c6a9ec866cd2cee6f23010a8ff72a48159ecc85d3d5c864f8f9a889be2bfaf3b",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 6,
+            "relative_frame": 36,
+            "time": 0.6964874863624573,
+            "path": "frames/frame-000036.png",
+            "sha256": "3e0e1fb5aab44cd43a8c50f992554dd459d39483dbcaf67f42b7d4d0a97da6ca",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 7,
+            "relative_frame": 42,
+            "time": 0.7840337157249451,
+            "path": "frames/frame-000042.png",
+            "sha256": "12151874c8b7ceeff3e4165e794ada552c77c57452e3f99c3ec7d35fee378623",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 8,
+            "relative_frame": 48,
+            "time": 0.8664842247962952,
+            "path": "frames/frame-000048.png",
+            "sha256": "0d145daf056655d09a6e3d932e13da6a167cdea5b8dd177cc9660c7dd7d74912",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 9,
+            "relative_frame": 54,
+            "time": 0.9476556181907654,
+            "path": "frames/frame-000054.png",
+            "sha256": "f0445d854af80c038ff9aa3a8b964eb9158c09ca9fe3c7f63cd8bdc752d3b97a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 10,
+            "relative_frame": 60,
+            "time": 1.0270341634750367,
+            "path": "frames/frame-000060.png",
+            "sha256": "12c441be1fbe7b35f24e8ce7ec4fe2499c3bed8800c9ee5f0fa4c8c11ea343b8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 11,
+            "relative_frame": 66,
+            "time": 1.1042059659957886,
+            "path": "frames/frame-000066.png",
+            "sha256": "e3ec365b9b5f15535e6fb8669ee33461e2eced101f09920bd89a37e6ab7ceb9f",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 12,
+            "relative_frame": 72,
+            "time": 1.18257737159729,
+            "path": "frames/frame-000072.png",
+            "sha256": "72718c8c5191271bd8899e0c39fd7b297d2b7a3042ee7a78e35d2f61ace6b11a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 13,
+            "relative_frame": 78,
+            "time": 1.272935390472412,
+            "path": "frames/frame-000078.png",
+            "sha256": "b8d643395c25b90340b5b52f2e2c165705b9a952e7dc0dd1058a9541d3fa473a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 14,
+            "relative_frame": 84,
+            "time": 1.3521769046783448,
+            "path": "frames/frame-000084.png",
+            "sha256": "be7a3665a82d4dd6deea5ea91beea750224d14ac6081e88a44e12a4460c6c6b9",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 15,
+            "relative_frame": 90,
+            "time": 1.4364688396453858,
+            "path": "frames/frame-000090.png",
+            "sha256": "6c9293a7fec1a87d21019364ba322bbf0ab309ec5229efba895999f61fd26be7",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 16,
+            "relative_frame": 96,
+            "time": 1.5182242393493653,
+            "path": "frames/frame-000096.png",
+            "sha256": "2d9fab4bcae11616b4eed7712a41483a6895122936b054ecacf470cc31651c95",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 17,
+            "relative_frame": 102,
+            "time": 1.600332260131836,
+            "path": "frames/frame-000102.png",
+            "sha256": "2fab0bfdfd3e10cbce757aeca25b6ab81e9d8333a26e121f00ebc341c6898390",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 18,
+            "relative_frame": 108,
+            "time": 1.6795395612716675,
+            "path": "frames/frame-000108.png",
+            "sha256": "30f7dcd583d1de065037ce27815fd86bd4ce360a0022daee12947fd9313d1b33",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 19,
+            "relative_frame": 114,
+            "time": 1.7655636072158814,
+            "path": "frames/frame-000114.png",
+            "sha256": "420f5410a0a957a8c24c03f89fa221e789667eb176064cb7bc82d1c71cf640ff",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 20,
+            "relative_frame": 120,
+            "time": 1.8723212480545045,
+            "path": "frames/frame-000120.png",
+            "sha256": "98cfe44b5c1e4b332b084ae72cb33a4dfedcb78111ffae0ecf43b3a3d939b806",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 21,
+            "relative_frame": 126,
+            "time": 1.950846552848816,
+            "path": "frames/frame-000126.png",
+            "sha256": "4453c2ca6da35f1dfa9720dbf90c9f904f463261bf71ece82bbe21c03bb62bd7",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 22,
+            "relative_frame": 132,
+            "time": 2.031306266784668,
+            "path": "frames/frame-000132.png",
+            "sha256": "082766e37c0d3e2b7d4ce52180995eeb222fb242fa2dc4ece9f8c95ed3622240",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 23,
+            "relative_frame": 138,
+            "time": 2.114821434020996,
+            "path": "frames/frame-000138.png",
+            "sha256": "065c21116fa1165feb2ca9d250c19afce22dbbf1780bce9185a0ee3c83ce8809",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 24,
+            "relative_frame": 144,
+            "time": 2.197510242462158,
+            "path": "frames/frame-000144.png",
+            "sha256": "e2d7f63f9059ffb9fc8fb4344c1b512d46dcd66b10c683745422dfb9b555ceaa",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 25,
+            "relative_frame": 150,
+            "time": 2.2974026203155519,
+            "path": "frames/frame-000150.png",
+            "sha256": "0df1657b5bd45e81653bcaec5d15320abdabd2f1ba2bbe91436ac0819148a600",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 26,
+            "relative_frame": 156,
+            "time": 2.4006927013397219,
+            "path": "frames/frame-000156.png",
+            "sha256": "f5e1b2e5e8bf68db8b53728788361d1839aef4112e0ef13f3395b4cd6d486f1c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 27,
+            "relative_frame": 162,
+            "time": 2.498399019241333,
+            "path": "frames/frame-000162.png",
+            "sha256": "68420e02c3fbdeb44d1aa60d404285a21dc7121eb94f54f7d071820e10c8eb1d",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 28,
+            "relative_frame": 168,
+            "time": 2.5949554443359377,
+            "path": "frames/frame-000168.png",
+            "sha256": "9e5dadd226bacafcf1abb6e7d3c8b6d5885319ff237d6ca4e1a12adfbdd3b72e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 29,
+            "relative_frame": 174,
+            "time": 2.6795554161071779,
+            "path": "frames/frame-000174.png",
+            "sha256": "546a15b8103bd5d777b8ed222bc5815f5bd0689734972f7b65c06c53b8ba315e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 30,
+            "relative_frame": 180,
+            "time": 2.7649333477020265,
+            "path": "frames/frame-000180.png",
+            "sha256": "8ccb379297c42e29ee9440efca47cf0b9359a7a2c881e3da47673354f5d9489c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 31,
+            "relative_frame": 186,
+            "time": 2.859419107437134,
+            "path": "frames/frame-000186.png",
+            "sha256": "3020e3459fcded63c2081bbe2104ac3132a740bbc62055602cc3096d1e2f498b",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 32,
+            "relative_frame": 192,
+            "time": 2.945908546447754,
+            "path": "frames/frame-000192.png",
+            "sha256": "5eccba9da677c58feece666429dd17e2694962ea4ab48a64eaa3c11f63910d41",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 33,
+            "relative_frame": 198,
+            "time": 3.031357526779175,
+            "path": "frames/frame-000198.png",
+            "sha256": "d49e5c870c06d2b9863d4eeedb8ba5f2ab29fd77f1822f43942c549b1834a929",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 34,
+            "relative_frame": 204,
+            "time": 3.1129448413848879,
+            "path": "frames/frame-000204.png",
+            "sha256": "33885e970488bfe7dd42af3f1d3b2d28aa0ca9c2c9a5081e3a54fea9c6993269",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 35,
+            "relative_frame": 210,
+            "time": 3.1859047412872316,
+            "path": "frames/frame-000210.png",
+            "sha256": "341116a477659b81ba71865f08ea8c8097464e672ed477f5544f677178442fec",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 36,
+            "relative_frame": 216,
+            "time": 3.267984390258789,
+            "path": "frames/frame-000216.png",
+            "sha256": "850ed57a3d40dd6f5d1113b31c0a044e66d5263348672bae8c553e2ef244f9e6",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 37,
+            "relative_frame": 222,
+            "time": 3.3456459045410158,
+            "path": "frames/frame-000222.png",
+            "sha256": "802989dfa91431140e6461e82aff0363c171c9fc75f869a2c5f9ee50d9f8cf6f",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 38,
+            "relative_frame": 228,
+            "time": 3.431924343109131,
+            "path": "frames/frame-000228.png",
+            "sha256": "b1ef3c2d2a3780b1799fb05d97015ae8af51d5502ff93cc424047826934c3f57",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 39,
+            "relative_frame": 234,
+            "time": 3.5207345485687258,
+            "path": "frames/frame-000234.png",
+            "sha256": "0c3c003b99e1f48c338364ba554f3d8991b9306cfd8975cf900d41d02aba2aa7",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 40,
+            "relative_frame": 240,
+            "time": 3.608342170715332,
+            "path": "frames/frame-000240.png",
+            "sha256": "834aa327787798e70f58e475d4f786aab6793837b5ddca483f59ea6391c55f34",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 41,
+            "relative_frame": 246,
+            "time": 3.6983389854431154,
+            "path": "frames/frame-000246.png",
+            "sha256": "31009f2252101024580edb2e87bf02ce55d1e2e04243c8cce80ffb7ca246e7d8",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 42,
+            "relative_frame": 252,
+            "time": 3.792026996612549,
+            "path": "frames/frame-000252.png",
+            "sha256": "08440a20d37415a82cbe1d77ef2770009034e0d4831d43625e053a5d252b0bb2",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 43,
+            "relative_frame": 258,
+            "time": 3.879957914352417,
+            "path": "frames/frame-000258.png",
+            "sha256": "4210193c03784e5e10cffeb0d4e99fa4ce3347ecbc01ed922db9ca589d688a8a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 44,
+            "relative_frame": 264,
+            "time": 3.973384141921997,
+            "path": "frames/frame-000264.png",
+            "sha256": "8c6e921cdeb62d67fb92dbb16dc192af50875d11015b561f4e6d104195c5fcc1",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 45,
+            "relative_frame": 270,
+            "time": 4.056009769439697,
+            "path": "frames/frame-000270.png",
+            "sha256": "49c4829b152d131dac02c3d2a964f93c9f476fc84b692e29e27a39af5416aa50",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 46,
+            "relative_frame": 276,
+            "time": 4.144813537597656,
+            "path": "frames/frame-000276.png",
+            "sha256": "b8959dbb0ac2b725b047cc7a4445168d3340a28811464b2a74f40f21570a66f2",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 47,
+            "relative_frame": 282,
+            "time": 4.234265327453613,
+            "path": "frames/frame-000282.png",
+            "sha256": "c029b3cc6927a97b4f6fda7133eb9cf94adb2a25457c6da8fb902678e8cfdf30",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 48,
+            "relative_frame": 288,
+            "time": 4.323705196380615,
+            "path": "frames/frame-000288.png",
+            "sha256": "d8ded2da3244b9b15c1a7065957f5345e7bf607cad4986533a1113127e58542f",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 49,
+            "relative_frame": 294,
+            "time": 4.88215446472168,
+            "path": "frames/frame-000294.png",
+            "sha256": "ab9f27286bab4a5b6e5f38f1dcc5d35d99bac1943b6933a3b0fed6b1315f4466",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 50,
+            "relative_frame": 300,
+            "time": 4.97310733795166,
+            "path": "frames/frame-000300.png",
+            "sha256": "02d615f27b8e51d56700dee70b8b558a017081cf864a12b0317c4d28580b3f5b",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 51,
+            "relative_frame": 306,
+            "time": 5.075699329376221,
+            "path": "frames/frame-000306.png",
+            "sha256": "f4e65f6593ee2315a54f0231ad2da94696df77f060f097e40e19435f15e87a99",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 52,
+            "relative_frame": 312,
+            "time": 5.179510593414307,
+            "path": "frames/frame-000312.png",
+            "sha256": "bca0246926623892756cff9c1a9eefd321afa4133d11bfe502b1ae53a3465a57",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 53,
+            "relative_frame": 318,
+            "time": 5.2858757972717289,
+            "path": "frames/frame-000318.png",
+            "sha256": "64dddec5c453f9b9a4cb106aa6dd678faf643d2b7ab8c29d9d37fca06bb5ab47",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 54,
+            "relative_frame": 324,
+            "time": 5.387674808502197,
+            "path": "frames/frame-000324.png",
+            "sha256": "fc9a48734b9600f4a55dc1f6f59a3d9933e9eee6ce93c050889b668548c688ac",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 55,
+            "relative_frame": 330,
+            "time": 5.490054607391357,
+            "path": "frames/frame-000330.png",
+            "sha256": "f35e2530590b3449859d3d0bdd6134eb3815d7cf81bec8b2fa411bd6dd7575a9",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 56,
+            "relative_frame": 336,
+            "time": 5.58758020401001,
+            "path": "frames/frame-000336.png",
+            "sha256": "1d11985a063e3d0fa52e99e83b191606743da1d10fef186038ae8955dfd59927",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 57,
+            "relative_frame": 342,
+            "time": 5.670646667480469,
+            "path": "frames/frame-000342.png",
+            "sha256": "1f4bf6c47d067207160592b54b041a40c77588d22bf7c9e42bad87c674ee1830",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 58,
+            "relative_frame": 348,
+            "time": 5.7509765625,
+            "path": "frames/frame-000348.png",
+            "sha256": "ed14978b7ca4c75fef512c6e662430f7196343dc1b42c9ce03cee27c712ba4e2",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 59,
+            "relative_frame": 354,
+            "time": 5.835901737213135,
+            "path": "frames/frame-000354.png",
+            "sha256": "76395f25f379fe1c5e6abfd4a88e1a21c59e4f4f02466c467abaa9d2996c6dbe",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 60,
+            "relative_frame": 360,
+            "time": 5.917703628540039,
+            "path": "frames/frame-000360.png",
+            "sha256": "320880636355435a3683526d88c001340d2d09a5a5d63b0cd122c1aa4f9f63fe",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 61,
+            "relative_frame": 366,
+            "time": 6.000987529754639,
+            "path": "frames/frame-000366.png",
+            "sha256": "a02086d02144e5eb9a4e37968435c99c24225bbd9c8892bd3a1342b84f177687",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 62,
+            "relative_frame": 372,
+            "time": 6.082399368286133,
+            "path": "frames/frame-000372.png",
+            "sha256": "6b7dbdb7552db7cefb7b2d27d6c2626defc0d4c15f4aee0b58166095ad0327fa",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 63,
+            "relative_frame": 378,
+            "time": 6.161561965942383,
+            "path": "frames/frame-000378.png",
+            "sha256": "b9e96e43a77ac11b5171f96413d8323adc97785a8bce103e20415051ab9daf8e",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 64,
+            "relative_frame": 384,
+            "time": 6.2383880615234379,
+            "path": "frames/frame-000384.png",
+            "sha256": "8a83c6f31e8b0a419b5a8a64ec3ad5d6a0f395c9824a7e0c24cb9fb1e2e40eec",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 65,
+            "relative_frame": 390,
+            "time": 6.318965911865234,
+            "path": "frames/frame-000390.png",
+            "sha256": "4f34b5a600cde70379c0c3940c4030b127577896fc794a0f02f0d3a469dd6f79",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 66,
+            "relative_frame": 396,
+            "time": 6.397994518280029,
+            "path": "frames/frame-000396.png",
+            "sha256": "fdf522f192994ba931127baf004f943bac8e3e3ff1e79637d422ecba9d7d5981",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 67,
+            "relative_frame": 402,
+            "time": 6.478285789489746,
+            "path": "frames/frame-000402.png",
+            "sha256": "ed4f0ac5dd4cc9dbad52cfbe8b56b027eeaa82c3788d717aa3e33a24728917a1",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 68,
+            "relative_frame": 408,
+            "time": 6.560528755187988,
+            "path": "frames/frame-000408.png",
+            "sha256": "954f354e5b835bca81d4b8f95f93f84518c5849388c0b937cf0955c87b51e7b4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 69,
+            "relative_frame": 414,
+            "time": 6.650675296783447,
+            "path": "frames/frame-000414.png",
+            "sha256": "cc7024adf3760432d695587cc1403c9b0d04125ad9262ceda4f5e81553881d19",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 70,
+            "relative_frame": 420,
+            "time": 6.730837821960449,
+            "path": "frames/frame-000420.png",
+            "sha256": "2367a043d0130f976eed93677df27533e652963f6c3cc20b1f10e48b26ca8bbe",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 71,
+            "relative_frame": 426,
+            "time": 6.8088765144348148,
+            "path": "frames/frame-000426.png",
+            "sha256": "55fe236efff76c1967a83404f3e8a3d15fbb2221b5c242065c74ebc72c31f377",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 72,
+            "relative_frame": 432,
+            "time": 6.889224529266357,
+            "path": "frames/frame-000432.png",
+            "sha256": "7664200a9a70739b2f72cf0cc56112265450dcd3946880afa90cd48bb063756c",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 73,
+            "relative_frame": 438,
+            "time": 6.965670585632324,
+            "path": "frames/frame-000438.png",
+            "sha256": "63076a60730a556c6e37d77d1f8c469d442b8f7f2d76418dccb9a676a2073816",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 74,
+            "relative_frame": 444,
+            "time": 7.052853107452393,
+            "path": "frames/frame-000444.png",
+            "sha256": "61ba974ad22a9d49d9c3d2ac366524827ec7e88179b0548acb383a1a1f5dae31",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 75,
+            "relative_frame": 450,
+            "time": 7.127819061279297,
+            "path": "frames/frame-000450.png",
+            "sha256": "141f7ea60683903bde626965d2b0e111d8b7ac44a9ca015bee1998e6f5273747",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 76,
+            "relative_frame": 456,
+            "time": 7.216965675354004,
+            "path": "frames/frame-000456.png",
+            "sha256": "13f45fc7d688a17537326251e03ba67ff8a7a0b2cfda2c6aad7bc1002fa44579",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 77,
+            "relative_frame": 462,
+            "time": 7.308462142944336,
+            "path": "frames/frame-000462.png",
+            "sha256": "5ccaa02b19010d1bb8c2f6a015bf9e315d8860ce0b814ddfd9a30a793d3a1db9",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 78,
+            "relative_frame": 468,
+            "time": 7.402458667755127,
+            "path": "frames/frame-000468.png",
+            "sha256": "29b9df6c29d772179181a42ea13e3a766706e2b062a6ce7250bec1bc07d671ab",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 79,
+            "relative_frame": 474,
+            "time": 7.507618427276611,
+            "path": "frames/frame-000474.png",
+            "sha256": "640524881b86901e0ab4f014df0204186ad375250f476d9086e271bd5efa778b",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 80,
+            "relative_frame": 480,
+            "time": 7.613519668579102,
+            "path": "frames/frame-000480.png",
+            "sha256": "9ce28a5c0cf534020a8560ff191286d14ce118073fb0f11205716c01c19b0f0a",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 81,
+            "relative_frame": 486,
+            "time": 7.7180304527282719,
+            "path": "frames/frame-000486.png",
+            "sha256": "b8531ad2e5387e2c58cc33f838711132a39355804ada27b7f7cd9808d9276f2b",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 82,
+            "relative_frame": 492,
+            "time": 7.81873893737793,
+            "path": "frames/frame-000492.png",
+            "sha256": "bb73a98761852070a14a7049e706839cb09ce8d57d78a786fe70bc82706a6bf4",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 83,
+            "relative_frame": 498,
+            "time": 7.914035320281982,
+            "path": "frames/frame-000498.png",
+            "sha256": "9a2ce03b9cf5c85ca209f74a3eaba3755cd76ddd882b2340db791ad39addff00",
+            "width": 1280,
+            "height": 720
+        },
+        {
+            "index": 84,
+            "relative_frame": 504,
+            "time": 8.013216972351075,
+            "path": "frames/frame-000504.png",
+            "sha256": "7a97959ec87c02e81a04fda99284429c7daa253d35acc91145a05b25b5753f69",
+            "width": 1280,
+            "height": 720
+        }
+    ],
+    "events_path": "events.jsonl",
+    "events_sha256": "595856d9675229dbb3a7a4f588c247253e04c710262db5a6c965b12e75df5545",
+    "restoration": {
+        "restored": true,
+        "success": true,
+        "preferences": true,
+        "scene_setup": true,
+        "editor_settings": true,
+        "game_view": true,
+        "error": ""
+    }
+}

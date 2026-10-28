@@ -8,10 +8,11 @@ public sealed partial class ProgressionDirector
 
     private void LateUpdate()
     {
+        _runStatistics?.Progress(ManualSession);
         if (ManualSession != null && _objective && _manualDisplayedPhase != ManualSession.Phase)
         {
             _manualDisplayedPhase = ManualSession.Phase;
-            _objective.text = "MANOPLA / ROTA MANUAL\n" +
+            _objective.text = "SETOR 01 / INCURSÃO\n" +
                 (ManualSession.Phase == RunPhase.ExtractionAvailable ? "Entre no portal para extrair ao Nexus." :
                  ManualSession.IsClosed ? "Resultado: " + ManualSession.Outcome + " · retornando ao Nexus" :
                  ManualSession.Route.Node(ManualSession.CurrentNode).Label + " · " + ManualSession.Phase + " · [M] mapa");
@@ -43,6 +44,7 @@ public sealed partial class ProgressionDirector
         if(_boons) _boons.CloseProtocolEncounter();
         _manualCompletionCandidate=false;
         ManualSession.IsEncounterClosing=false;
+        DetachManualSpawners();
         if(_manualEncounterRoot) { Destroy(_manualEncounterRoot); _manualEncounterRoot=null; }
         _manualEnvironment.ApplyGateState(ManualSession);
         if(ManualSession.Phase==RunPhase.RewardPending)

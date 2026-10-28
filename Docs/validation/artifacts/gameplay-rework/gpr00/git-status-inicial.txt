@@ -1,0 +1,902 @@
+ M .gitignore
+ D .kiro/settings/mcp.json
+ D .kiro/specs/combat-foundation-rework/.config.kiro
+ D .kiro/specs/combat-foundation-rework/contract-audit.md
+ D .kiro/specs/combat-foundation-rework/design.md
+ D .kiro/specs/combat-foundation-rework/requirements.md
+ D .kiro/specs/combat-foundation-rework/tasks.md
+ D .kiro/specs/combat-foundation-rework/tasks.meta.json
+ D .kiro/specs/enemy-swarm-core-archetypes/.config.kiro
+ D .kiro/specs/enemy-swarm-core-archetypes/design.md
+ D .kiro/specs/enemy-swarm-core-archetypes/requirements.md
+ D .kiro/specs/enemy-swarm-core-archetypes/tasks.md
+ D .kiro/specs/enemy-swarm-core-archetypes/tasks.meta.json
+ D .kiro/specs/gauntlet-2-rework/contract-audit.md
+ D .kiro/specs/gauntlet-2-rework/design.md
+ D .kiro/specs/gauntlet-2-rework/requirements.md
+ D .kiro/specs/gauntlet-2-rework/tasks.md
+ D .kiro/specs/gauntlet-2-rework/validation.md
+ D .kiro/specs/gauntlet-boon-playstyle-overhaul/.config.kiro
+ D .kiro/specs/gauntlet-boon-playstyle-overhaul/design.md
+ D .kiro/specs/gauntlet-boon-playstyle-overhaul/requirements.md
+ D .kiro/specs/gauntlet-boon-playstyle-overhaul/tasks.md
+ D .kiro/specs/gauntlet-boon-playstyle-overhaul/tasks.meta.json
+ D .kiro/specs/impactful-weapon-boons/.config.kiro
+ D .kiro/specs/impactful-weapon-boons/design.md
+ D .kiro/specs/impactful-weapon-boons/requirements.md
+ D .kiro/specs/impactful-weapon-boons/tasks.md
+ D .kiro/specs/impactful-weapon-boons/tasks.meta.json
+ D .kiro/specs/modifier-synergies-theme17/.config.kiro
+ D .kiro/specs/modifier-synergies-theme17/design.md
+ D .kiro/specs/modifier-synergies-theme17/requirements.md
+ D .kiro/specs/modifier-synergies-theme17/tasks.md
+ D .kiro/specs/modifier-synergies-theme17/tasks.meta.json
+ D .kiro/specs/nexus-lobby-menu-restructure/.config.kiro
+ D .kiro/specs/nexus-lobby-menu-restructure/design.md
+ D .kiro/specs/nexus-lobby-menu-restructure/requirements.md
+ D .kiro/specs/nexus-lobby-menu-restructure/tasks.md
+ D .kiro/specs/nexus-lobby-menu-restructure/tasks.meta.json
+ D .kiro/specs/playable-procedural-run/.config.kiro
+ D .kiro/specs/playable-procedural-run/design.md
+ D .kiro/specs/playable-procedural-run/requirements.md
+ D .kiro/specs/playable-procedural-run/tasks.md
+ D .kiro/specs/playable-procedural-run/tasks.meta.json
+ D .kiro/specs/posture-enemy-interaction/.config.kiro
+ D .kiro/specs/posture-enemy-interaction/contract-audit.md
+ D .kiro/specs/posture-enemy-interaction/design.md
+ D .kiro/specs/posture-enemy-interaction/requirements.md
+ D .kiro/specs/posture-enemy-interaction/tasks.md
+ D .kiro/specs/posture-enemy-interaction/validation.md
+ D .kiro/specs/procedural-stage-room-generation/.config.kiro
+ D .kiro/specs/procedural-stage-room-generation/design.md
+ D .kiro/specs/procedural-stage-room-generation/requirements.md
+ D .kiro/specs/procedural-stage-room-generation/tasks.md
+ D .kiro/specs/procedural-stage-room-generation/tasks.meta.json
+ D .kiro/specs/project-cleanup-optimization/.config.kiro
+ D .kiro/specs/project-cleanup-optimization/baseline.md
+ D .kiro/specs/project-cleanup-optimization/design.md
+ D .kiro/specs/project-cleanup-optimization/fastscriptreload-review.md
+ D .kiro/specs/project-cleanup-optimization/requirements.md
+ D .kiro/specs/project-cleanup-optimization/tasks.md
+ D .kiro/specs/project-cleanup-optimization/tasks.meta.json
+ D .kiro/specs/project-cleanup-optimization/validation.md
+ D .kiro/specs/protocol-system/analyze-performance.ps1
+ D .kiro/specs/protocol-system/contract-audit.md
+ D .kiro/specs/protocol-system/design.md
+ D .kiro/specs/protocol-system/performance.md
+ D .kiro/specs/protocol-system/requirements.md
+ D .kiro/specs/protocol-system/tasks.md
+ D .kiro/specs/protocol-system/validation.md
+ D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/.config.kiro
+ D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/design.md
+ D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/requirements.md
+ D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/tasks.md
+ D .kiro/specs/ranged-kiting-and-attack-telegraph-overhaul/tasks.meta.json
+ D .kiro/specs/run-structure/contract-audit.md
+ D .kiro/specs/run-structure/design.md
+ D .kiro/specs/run-structure/requirements.md
+ D .kiro/specs/run-structure/task-1-review.md
+ D .kiro/specs/run-structure/tasks.md
+ D .kiro/specs/run-structure/validation.md
+ M AGENTS.md
+ D Assets/InitTestScene6bc04670-6937-4028-895d-1cee1b974ce9.unity
+ D Assets/InitTestScene6bc04670-6937-4028-895d-1cee1b974ce9.unity.meta
+ D Assets/InitTestScened26eadda-fec1-451a-bf30-c83fa74cc5bf.unity
+ D Assets/InitTestScened26eadda-fec1-451a-bf30-c83fa74cc5bf.unity.meta
+ D Assets/Resources/Weapons.meta
+ D Assets/Resources/Weapons/Ranged.meta
+ D Assets/Resources/Weapons/Ranged/Bow_arrow.meta
+ D Assets/Screenshots.meta
+ D Assets/Screenshots/ProceduralStageAuthoring_Layout.png
+ D Assets/Screenshots/ProceduralStageAuthoring_Layout.png.meta
+ D Assets/Screenshots/ProceduralStageAuthoring_PlayMode.png
+ D Assets/Screenshots/ProceduralStageAuthoring_PlayMode.png.meta
+ D Assets/Screenshots/firstsector_extraction_portal.png
+ D Assets/Screenshots/firstsector_extraction_portal.png.meta
+ D Assets/Screenshots/firstsector_play_start.png
+ D Assets/Screenshots/firstsector_play_start.png.meta
+ D Assets/Screenshots/firstsector_topdown_layout.png
+ D Assets/Screenshots/firstsector_topdown_layout.png.meta
+ D Assets/Screenshots/screenshot-20261001-125959.png
+ D Assets/Screenshots/screenshot-20261001-125959.png.meta
+ D Assets/Screenshots/screenshot-20261001-130034.png
+ D Assets/Screenshots/screenshot-20261001-130034.png.meta
+ D Assets/Screenshots/screenshot-20261001-130046.png
+ D Assets/Screenshots/screenshot-20261001-130046.png.meta
+ D Assets/Screenshots/screenshot-20261001-130905.png
+ D Assets/Screenshots/screenshot-20261001-130905.png.meta
+ D Assets/Screenshots/screenshot-20261001-131213.png
+ D Assets/Screenshots/screenshot-20261001-131213.png.meta
+ D Assets/Screenshots/screenshot-20261001-132414.png
+ D Assets/Screenshots/screenshot-20261001-132414.png.meta
+ D Assets/Screenshots/screenshot-20261001-133217.png
+ D Assets/Screenshots/screenshot-20261001-133217.png.meta
+ M "Assets/_Project/Art/Character/Animator Controller Character.controller"
+ M Assets/_Project/Art/Toon/TechGuyToon.shader
+ M Assets/_Project/Prefabs/EnemyArchetypes/Shooter.prefab
+ M Assets/_Project/Scenes/CombatStudy.unity
+ M Assets/_Project/Scenes/FirstSector.unity
+ M Assets/_Project/Scenes/NexusLobby.unity
+ M Assets/_Project/Scenes/Playground.unity
+ M Assets/_Project/Scenes/ProceduralStageAuthoring.unity
+ M Assets/_Project/Scenes/PrologueTutorial.unity
+ D Assets/_Project/Screenshots.meta
+ D Assets/_Project/Screenshots/telegraph_fill_shapes.png
+ D Assets/_Project/Screenshots/telegraph_fill_shapes.png.meta
+ D Assets/_Project/Screenshots/telegraph_fill_shapes_top.png
+ D Assets/_Project/Screenshots/telegraph_fill_shapes_top.png.meta
+ D Assets/_Project/Screenshots/telegraph_fill_validation.png
+ D Assets/_Project/Screenshots/telegraph_fill_validation.png.meta
+ D Assets/_Project/Screenshots/telegraph_fill_validation_top.png
+ D Assets/_Project/Screenshots/telegraph_fill_validation_top.png.meta
+ M Assets/_Project/ScriptableObjects/Run/FirstSectorManual.asset
+ M Assets/_Project/Scripts/Abilities/AbilityHolder.cs
+ M Assets/_Project/Scripts/Abilities/Weapon/ArsenalAbility.cs
+ M Assets/_Project/Scripts/Abilities/Weapon/ArsenalCombat.cs
+ M Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs
+ M Assets/_Project/Scripts/Abilities/Weapon/GauntletAuthoring.cs
+ M Assets/_Project/Scripts/Abilities/Weapon/GauntletExecutionSnapshot.cs
+ M Assets/_Project/Scripts/Abilities/Weapon/GauntletMutationSelection.cs
+ M Assets/_Project/Scripts/Abilities/Weapon/SkillAnimationPlayer.cs
+ M Assets/_Project/Scripts/Camera/TG_TopDown_Camera.cs
+ M Assets/_Project/Scripts/Characters/Actor.cs
+ M Assets/_Project/Scripts/Characters/Combat/CombatReactionController.cs
+ M Assets/_Project/Scripts/Characters/Combat/Core/BasicAttackDriver.cs
+ M Assets/_Project/Scripts/Characters/Combat/Core/CombatActionProfile.cs
+ M Assets/_Project/Scripts/Characters/Combat/GauntletImpactTransaction.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolElementStatus.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Status.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.cs
+ M Assets/_Project/Scripts/Characters/Enemy/EnemyAI.cs
+ M Assets/_Project/Scripts/Characters/Enemy/EnemyCombatActions.cs
+ M Assets/_Project/Scripts/Characters/Enemy/EnemyProjectile.cs
+ M Assets/_Project/Scripts/Characters/Enemy/HazardCasterBehavior.cs
+ M Assets/_Project/Scripts/Characters/Enemy/KiteController.cs
+ M Assets/_Project/Scripts/Characters/Enemy/PreferredDistanceLayer.cs
+ M Assets/_Project/Scripts/Characters/Enemy/SpawnerBehavior.cs
+ M Assets/_Project/Scripts/Characters/Enemy/TutorialTrainingTarget.cs
+ M Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs
+ M Assets/_Project/Scripts/Characters/Player/Actions/WorldClickResolver.cs
+ M Assets/_Project/Scripts/Characters/Player/PlayerActor.cs
+ M Assets/_Project/Scripts/Core/GamePreferences.cs
+ M Assets/_Project/Scripts/Core/Pooling/ComponentPool.cs
+ M Assets/_Project/Scripts/Core/Run/ManualRewardCatalog.cs
+ M Assets/_Project/Scripts/Core/Run/ManualRoutePolicy.cs
+ M Assets/_Project/Scripts/Core/Run/ManualRouteSnapshot.cs
+ M Assets/_Project/Scripts/Core/Run/ManualRouteValidator.cs
+ M Assets/_Project/Scripts/Core/Run/ManualSceneBindings.cs
+ M Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.cs
+ M Assets/_Project/Scripts/Core/Run/ProgressionDirector.Encounter.cs
+ M Assets/_Project/Scripts/Core/Run/ProgressionDirector.Lifecycle.cs
+ M Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs
+ D Assets/_Project/Scripts/Core/Run/ProtocolRewardSelection.cs
+ D Assets/_Project/Scripts/Core/Run/ProtocolRewardSelection.cs.meta
+ M Assets/_Project/Scripts/Core/Run/RunBoons.Manual.cs
+ M Assets/_Project/Scripts/Core/Run/RunRewardPolicy.cs
+ M Assets/_Project/Scripts/Core/RunBoons.cs
+ M Assets/_Project/Scripts/Core/TutorialDirector.cs
+ M Assets/_Project/Scripts/Editor/CombatPolishPreview.cs
+ M Assets/_Project/Scripts/Editor/CombatStudyBuilder.cs
+ M Assets/_Project/Scripts/Editor/CombatStudyValidation.cs
+ M Assets/_Project/Scripts/Editor/FirstSectorBuilder.cs
+ M Assets/_Project/Scripts/Editor/LobbyCompactLayout.cs
+ M Assets/_Project/Scripts/Editor/LobbySceneBuilder.cs
+ M Assets/_Project/Scripts/Editor/RunRewardPreview.cs
+ M Assets/_Project/Scripts/Editor/SharedHudValidation.cs
+ M Assets/_Project/Scripts/Editor/TitleTutorialPreview.cs
+ M Assets/_Project/Scripts/Effects/CombatGroundFill.cs
+ M Assets/_Project/Scripts/Effects/ProtocolFeedbackPool.cs
+ M Assets/_Project/Scripts/Stages/ProgressionDirector.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationDeductsManaAndStartsRechargePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationDeductsManaAndStartsRechargePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationInvalidPreservesStatePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AbilityActivationInvalidPreservesStatePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ActionTimelinePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ActionTimelinePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AdaptiveCadencePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AdaptiveCadencePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AntiHeavyToolStrengthPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AntiHeavyToolStrengthPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetBoundsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetBoundsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetChaseExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ApproachOffsetChaseExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ArrowRainRangeClampPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ArrowRainRangeClampPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ArsenalRicochetDecayInvariantTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ArsenalRicochetDecayInvariantTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AssetIsolationTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AssetIsolationTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraCategoryAlternationEnergyPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraCategoryAlternationEnergyPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDenyWhenNotFullPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDenyWhenNotFullPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDisplayedIffGauntletsEquippedPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraDisplayedIffGauntletsEquippedPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFistPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFistPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraPullDisplacementBoundsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraPullDisplacementBoundsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AtMostOneTreasureAndSecretPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AtMostOneTreasureAndSecretPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackShapeEdgeCaseTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackShapeEdgeCaseTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackSlotConcurrencyLimitPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/AttackSlotConcurrencyLimitPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicAttackDriverPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicAttackDriverPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicHitChannelPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BasicHitChannelPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BossSuppressesConventionalReactionsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BossSuppressesConventionalReactionsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BossUniqueAndEligiblePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BossUniqueAndEligiblePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BowFireReducedSpeedPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BowFireReducedSpeedPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BreakEffectDeterministicDegradePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/BreakEffectDeterministicDegradePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceAnimationGuardExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceAnimationGuardExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceJitterBandPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CadenceJitterBandPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelConsumeOrBufferPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelConsumeOrBufferPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelResolverPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelResolverPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelRulePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CancelRulePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ChargedShotThresholdPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ChargedShotThresholdPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CleanupReportAndFallbackExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CleanupReportAndFallbackExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatActionProfileSmokeTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatActionProfileSmokeTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatBalanceBoundsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatBalanceBoundsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatGroundFillMeshExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatGroundFillMeshExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatRoomSpawnPointPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CombatRoomSpawnPointPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ComboNovaProcGateTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ComboNovaProcGateTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CommitmentRulesPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/CommitmentRulesPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ConsecutiveHitCounterPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ConsecutiveHitCounterPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGateDisplacementPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGateDisplacementPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGatePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ControlLockGatePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DamageAbsorbedDecisionPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DamageAbsorbedDecisionPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityMonotonicByDepthPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityMonotonicByDepthPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityWithinBudgetPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DensityWithinBudgetPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DifferentSeedsDivergePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DifferentSeedsDivergePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementInvalidDowngradePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementInvalidDowngradePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementTierBoundsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/DisplacementTierBoundsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeBandPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeBandPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeStrikePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EdgeStrikePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ElementalOverflowGatePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ElementalOverflowGatePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EliteStanceBreakDifficultyPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EliteStanceBreakDifficultyPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EncounterGatesDirectionalTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EncounterGatesDirectionalTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyAttackAreaTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyAttackAreaTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyFacingConvergencePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyFacingConvergencePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyReactionFacingExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/EnemyReactionFacingExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ExecutionImpactLedgerPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ExecutionImpactLedgerPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FirstSectorProceduralTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FirstSectorProceduralTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryRegroupDisplacementPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryRegroupDisplacementPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryStrikesAndLockDurationPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FlurryStrikesAndLockDurationPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FrameThrottlePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FrameThrottlePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FreeSlotWithoutEligibleEnemyExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FreeSlotWithoutEligibleEnemyExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FrontalArcReflectionPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/FrontalArcReflectionPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAdvanceNavMeshPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAdvanceNavMeshPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAuthoringAndContextTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletAuthoringAndContextTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletEnergyPolicyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletEnergyPolicyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulCatalogExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulCatalogExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulInvariantPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulInvariantPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulPresentationExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulPresentationExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulTeardownPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletOverhaulTeardownPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletSnapshotTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletSnapshotTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletStepsCloneIsolationTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GauntletStepsCloneIsolationTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationDeterminismPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationDeterminismPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationIsolatedFromGlobalRngPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GenerationIsolatedFromGlobalRngPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GuardBreakerPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/GuardBreakerPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaFrequencyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HasteComboNovaFrequencyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HazardModelPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HazardModelPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HealthBarRecomputeFillPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HealthBarRecomputeFillPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HitStopPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HitStopPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HookPullBoundPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HookPullBoundPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HudFormatterMatchesInlineFormulaPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HudFormatterMatchesInlineFormulaPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HungryComboExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/HungryComboExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImmediateReactionClampPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImmediateReactionClampPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactFeedbackScopeTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactFeedbackScopeTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsAssetIsolationTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsAssetIsolationTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsMonotonicityTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsMonotonicityTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsOrderDeterminismTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulBoonsOrderDeterminismTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulVarietyPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ImpactfulVarietyPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/InputBufferPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/InputBufferPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptCancellationPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptCancellationPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptWindowGatePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/InterruptWindowGatePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/InvalidModifierIgnoredNoSideEffectPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/InvalidModifierIgnoredNoSideEffectPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/KiteWindowCooldownPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/KiteWindowCooldownPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingImpulsePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingImpulsePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingStandoffIntegrationExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/KitingStandoffIntegrationExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/KnockUpJuggleControlLockPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/KnockUpJuggleControlLockPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/LegendaryStaggerNoContinuousLockPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/LegendaryStaggerNoContinuousLockPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MainMenuFocusPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MainMenuFocusPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualAuthoredEnvironmentTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualAuthoredEnvironmentTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRoutePolicyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRoutePolicyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunDefinitionTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunDefinitionTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkAbsentDefaultTargetPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkAbsentDefaultTargetPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkReinforcesPriorityBehaviorsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MarkReinforcesPriorityBehaviorsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MeleeProfileDistinctnessPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MeleeProfileDistinctnessPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MissingProfileRankDefaultsFallbackExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MissingProfileRankDefaultsFallbackExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierApplicationOrderDeterminismPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierApplicationOrderDeterminismPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierRankMonotonicityPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ModifierRankMonotonicityPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MomentumStackAndDamagePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MomentumStackAndDamagePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MoonShardFragmentBoundTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MoonShardFragmentBoundTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MovementBlendRangePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MovementBlendRangePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MutualExclusionDuringExecutionPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/MutualExclusionDuringExecutionPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/NextSeedDeterminismPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/NextSeedDeterminismPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/OneConnectionPerPairPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/OneConnectionPerPairPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/OrbitCombinationHintTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/OrbitCombinationHintTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/OrphanCandidateReferenceScanPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/OrphanCandidateReferenceScanPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseIntegrationExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseIntegrationExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseRangePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PatrolPauseRangePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalActionResolutionPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalActionResolutionPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalEquippedExclusivePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalEquippedExclusivePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalProximitySelectionPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PedestalProximitySelectionPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PerfectSpacingBandPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PerfectSpacingBandPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PikeWallPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PikeWallPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PostBreakImmunityStancePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PostBreakImmunityStancePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureBoundaryTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureBoundaryTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureMigrationTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureMigrationTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureReactionStateTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PostureReactionStateTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistancePositiveTargetPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistancePositiveTargetPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistanceRoleFallbackExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PreferredDistanceRoleFallbackExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PreservedBoonOfferExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PreservedBoonOfferExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PriorityMarkerPresencePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PriorityMarkerPresencePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileMotionPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileMotionPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileResetClearsTrackedStatePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProjectileResetClearsTrackedStatePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolBudgetTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolBudgetTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolCatalogTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolCatalogTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolInventoryTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolInventoryTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolMixedTicketTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolMixedTicketTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolRewardSelectionTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ProtocolRewardSelectionTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PureLogicDeterminismPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/PureLogicDeterminismPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RainMarkPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RainMarkPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RankInterruptStaggerAccumulationPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RankInterruptStaggerAccumulationPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionChannelIndependencePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionChannelIndependencePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionConfigurationTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionConfigurationTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionGateDelayPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionGateDelayPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionPolicyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReactionPolicyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReduceCooldownsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReduceCooldownsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReentryIdempotencePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ReentryIdempotencePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RemainingArchetypeUnitTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RemainingArchetypeUnitTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ResourcesGuardNeverPureOrphanPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ResourcesGuardNeverPureOrphanPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RetirementOfferPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RetirementOfferPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RetreatSpeedMultiplierPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RetreatSpeedMultiplierPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteCategoryExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteCategoryExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteOfferConstraintTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RewriteOfferConstraintTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCompositionResolverWarningsTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCompositionResolverWarningsTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCountBoundsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomCountBoundsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomNonOverlapPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RoomNonOverlapPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRepairPolicyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRepairPolicyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRewardPolicyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RunRewardPolicyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RunSelectionReleaseGateTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/RunSelectionReleaseGateTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SeismicFistPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SeismicFistPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ShieldHealPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ShieldHealPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ShockwaveAppendPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/ShockwaveAppendPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SimpleObjectPoolPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SimpleObjectPoolPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SingleTypePerRoomPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SingleTypePerRoomPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SlotReleaseRestoresCapacityPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SlotReleaseRestoresCapacityPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBoundsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBoundsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBowNoGroupingPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SoftGroupingBowNoGroupingPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SourceAssetImmutabilityWhenPlanningPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SourceAssetImmutabilityWhenPlanningPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpacingBandPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpacingBandPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpawnerLivingCountPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpawnerLivingCountPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearFlowNoInterferenceWhenNotAccumulatingPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearFlowNoInterferenceWhenNotAccumulatingPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearModifierCatalogMetadataTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearModifierCatalogMetadataTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearPlanCorrectnessAndIsolationTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearPlanCorrectnessAndIsolationTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearSweepDisplacementBoundsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpearSweepDisplacementBoundsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpecialProbabilityBoundsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SpecialProbabilityBoundsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StageGeneratorCoreEdgeExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StageGeneratorCoreEdgeExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakRestoreRecoveryPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakRestoreRecoveryPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakSameStepPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceBreakSameStepPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceSubtractionBoundsPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StanceSubtractionBoundsPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StandoffDistanceBandPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StandoffDistanceBandPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StartToBossConnectivityPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/StartToBossConnectivityPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SweetSpotStrictlyGreaterBonusPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SweetSpotStrictlyGreaterBonusPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakEscalationTierTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakEscalationTierTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakFeedbackPresentationTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/SystemBreakFeedbackPresentationTests.cs.meta
+ M Assets/_Project/Scripts/Tests/EditMode/Editor/TechGuy.Tests.EditMode.asmdef
+ M Assets/_Project/Scripts/Tests/EditMode/Editor/TechGuy.Tests.EditMode.asmdef.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphBeatPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphBeatPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphExecutionIntegrationExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphExecutionIntegrationExampleTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphFillProgressPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphFillProgressPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphRedBasePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/TelegraphRedBasePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/TreasureAccessibleOrDiscardedPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/TreasureAccessibleOrDiscardedPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/UiValueCacheDirtyDecisionPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/UiValueCacheDirtyDecisionPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/VarietySatisfiedPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/VarietySatisfiedPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/VulnerabilityWindowRankDowngradePropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/VulnerabilityWindowRankDowngradePropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCacheIdempotentPreloadPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCacheIdempotentPreloadPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCardContentPropertyTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponCardContentPropertyTests.cs.meta
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponEnemyMatrixCompletenessFallbackExampleTests.cs
+ D Assets/_Project/Scripts/Tests/EditMode/Editor/WeaponEnemyMatrixCompletenessFallbackExampleTests.cs.meta
+ M Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1PlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/BreakerKitEmissionPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ManualAuthoredNavigationPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ManualPublishedRunPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ManualRunElitePlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ManualRunLifecyclePlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ManualRunMutationPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ManualRunPlayerFeedbackTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ManualRunRewardPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ManualRunWorldPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/PostureReactionPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ProtocolEncounterFrontierTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ProtocolPublishedCompositionTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/StageDoorSealingTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/StagePlayerDeathReturnTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/StageRoomActivationTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/StageTrophyRewardTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/TechGuy.Tests.PlayMode.asmdef
+ M Assets/_Project/Scripts/UI/BreakerGauntletHUD.cs
+ M Assets/_Project/Scripts/UI/ControlRemappingPanel.cs
+ M Assets/_Project/Scripts/UI/DamagePopup.cs
+ M Assets/_Project/Scripts/UI/EnemyCombatFeedback.cs
+ M Assets/_Project/Scripts/UI/HudFormatter.cs
+ M Assets/_Project/Scripts/UI/LobbyArsenal.cs
+ M Assets/_Project/Scripts/UI/LobbyInteraction.cs
+ M Assets/_Project/Scripts/UI/MainMenuUI.cs
+ M Assets/_Project/Scripts/UI/ManualRunUI.cs
+ M Assets/_Project/Scripts/UI/PauseMenuUI.cs
+ M Assets/_Project/Scripts/UI/PlayerHUD.cs
+ M Assets/_Project/Scripts/UI/RunModifierPresentation.cs
+ M Assets/_Project/Scripts/UI/RunRewardUI.cs
+ M Assets/_Project/Scripts/UI/WeaponCardView.cs
+ M Assets/_Project/Scripts/Weapons/ArsenalProjectile.cs
+ M Assets/_Project/Scripts/Weapons/HitboxDamage.cs
+ D Assets/_Project/Scripts/Weapons/PlayerWeaponBootstrap.cs
+ D Assets/_Project/Scripts/Weapons/PlayerWeaponBootstrap.cs.meta
+ M Assets/_Project/Scripts/Weapons/WeaponRunModifiers.cs
+ D Docs/Arsenal.md
+ D Docs/Boons.md
+ D Docs/BreakerGauntlet.md
+ D Docs/Captures/cartoon-before.png
+ D Docs/Captures/cartoon-combat-1.png
+ D Docs/Captures/cartoon-combat.png
+ D Docs/Captures/cartoon-lobby.png
+ D Docs/Captures/illustrated-final.png
+ D Docs/CombatPolish.md
+ D Docs/CombatStudy.md
+ D Docs/CombatStudy.png
+ D Docs/EnemiesAndBoss.md
+ D Docs/EnemyAttacks.md
+ D Docs/EnemySwarmSpec.md
+ D Docs/EnemyVariants.md
+ D Docs/FirstSector-combat.png
+ D Docs/FirstSector-guardian.png
+ D Docs/FirstSector-overview.png
+ D Docs/FirstSector.md
+ D Docs/HUD-CombatStudy.png
+ D Docs/HUD-NexusLobby.png
+ D Docs/HUD-Playground.png
+ D Docs/HUD-casting.png
+ D Docs/HUD-no-mana.png
+ D Docs/IllustratedLookAndInput.md
+ D Docs/Modificadores.md
+ D Docs/NexusLobby-gameplay.png
+ D Docs/NexusLobby-preview.png
+ D Docs/NexusLobby.md
+ D Docs/PlayerHUD.md
+ D Docs/PrologueAndMenus.md
+ D Docs/RunLoop.md
+ D Docs/RunSynergies.md
+ D Docs/Tech-Guy_Gameplay_Rework.md
+ D Docs/WeaponRunModifiers.md
+ D Docs/WorkshopReference.png
+ M Packages/manifest.json
+ M Packages/packages-lock.json
+ M ProjectSettings/EditorBuildSettings.asset
+ M README.md
+ M Tech-Guy.slnx
+?? .agents/
+?? Assets/_Project/Art/Characters.meta
+?? Assets/_Project/Art/Characters/
+?? Assets/_Project/Art/NexusLobby/NexusBlockoutEdge.mat
+?? Assets/_Project/Art/NexusLobby/NexusBlockoutEdge.mat.meta
+?? Assets/_Project/Art/NexusLobby/NexusBlockoutFloorplan.asset
+?? Assets/_Project/Art/NexusLobby/NexusBlockoutFloorplan.asset.meta
+?? Assets/_Project/Art/NexusLobby/NexusBlockoutGray.mat
+?? Assets/_Project/Art/NexusLobby/NexusBlockoutGray.mat.meta
+?? Assets/_Project/Art/NexusLobby/NexusBlockoutNavMesh.asset
+?? Assets/_Project/Art/NexusLobby/NexusBlockoutNavMesh.asset.meta
+?? Assets/_Project/Resources/Combat.meta
+?? Assets/_Project/Resources/Combat/
+?? Assets/_Project/Scenes/NexusBlockout.unity
+?? Assets/_Project/Scenes/NexusBlockout.unity.meta
+?? Assets/_Project/ScriptableObjects/Run/BoonReworkCatalog.asset
+?? Assets/_Project/ScriptableObjects/Run/BoonReworkCatalog.asset.meta
+?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonCombat.cs
+?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonCombat.cs.meta
+?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonModel.cs
+?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonModel.cs.meta
+?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonPresentation.cs
+?? Assets/_Project/Scripts/Abilities/Weapon/BowBoonPresentation.cs.meta
+?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Eclipse.cs
+?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Eclipse.cs.meta
+?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Expansion.cs
+?? Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.Expansion.cs.meta
+?? Assets/_Project/Scripts/Abilities/Weapon/EclipseCombatTuning.cs
+?? Assets/_Project/Scripts/Abilities/Weapon/EclipseCombatTuning.cs.meta
+?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonCombat.cs
+?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonCombat.cs.meta
+?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonGeometry.cs
+?? Assets/_Project/Scripts/Abilities/Weapon/SpearBoonGeometry.cs.meta
+?? Assets/_Project/Scripts/Camera/CameraOcclusionFader.cs
+?? Assets/_Project/Scripts/Camera/CameraOcclusionFader.cs.meta
+?? Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Eclipse.cs
+?? Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Eclipse.cs.meta
+?? Assets/_Project/Scripts/Characters/Combat/Protocols/SpearBoonProtocolImpacts.cs
+?? Assets/_Project/Scripts/Characters/Combat/Protocols/SpearBoonProtocolImpacts.cs.meta
+?? Assets/_Project/Scripts/Characters/Enemy/EnemyLocomotionPresentation.cs
+?? Assets/_Project/Scripts/Characters/Enemy/EnemyLocomotionPresentation.cs.meta
+?? Assets/_Project/Scripts/Characters/Enemy/EnemyNavigation.cs
+?? Assets/_Project/Scripts/Characters/Enemy/EnemyNavigation.cs.meta
+?? Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs
+?? Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs.meta
+?? Assets/_Project/Scripts/Characters/Player/Actions/GroundMovementBuffer.cs
+?? Assets/_Project/Scripts/Characters/Player/Actions/GroundMovementBuffer.cs.meta
+?? Assets/_Project/Scripts/Core/Run/BoonCapabilityGraph.cs
+?? Assets/_Project/Scripts/Core/Run/BoonCapabilityGraph.cs.meta
+?? Assets/_Project/Scripts/Core/Run/BoonCatalogDefinition.cs
+?? Assets/_Project/Scripts/Core/Run/BoonCatalogDefinition.cs.meta
+?? Assets/_Project/Scripts/Core/Run/BoonDefinition.cs
+?? Assets/_Project/Scripts/Core/Run/BoonDefinition.cs.meta
+?? Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs
+?? Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs.meta
+?? Assets/_Project/Scripts/Core/Run/BoonExpansionInventory.cs
+?? Assets/_Project/Scripts/Core/Run/BoonExpansionInventory.cs.meta
+?? Assets/_Project/Scripts/Core/Run/BoonOfferCompatibility.cs
+?? Assets/_Project/Scripts/Core/Run/BoonOfferCompatibility.cs.meta
+?? Assets/_Project/Scripts/Core/Run/BoonOfferDraw.cs
+?? Assets/_Project/Scripts/Core/Run/BoonOfferDraw.cs.meta
+?? Assets/_Project/Scripts/Core/Run/BoonReworkCatalog.cs
+?? Assets/_Project/Scripts/Core/Run/BoonReworkCatalog.cs.meta
+?? Assets/_Project/Scripts/Core/Run/BowBoonCatalog.cs
+?? Assets/_Project/Scripts/Core/Run/BowBoonCatalog.cs.meta
+?? Assets/_Project/Scripts/Core/Run/EclipseBoonCatalog.cs
+?? Assets/_Project/Scripts/Core/Run/EclipseBoonCatalog.cs.meta
+?? Assets/_Project/Scripts/Core/Run/GauntletExpansionCatalog.cs
+?? Assets/_Project/Scripts/Core/Run/GauntletExpansionCatalog.cs.meta
+?? Assets/_Project/Scripts/Core/Run/ManualRunRandomizer.cs
+?? Assets/_Project/Scripts/Core/Run/ManualRunRandomizer.cs.meta
+?? Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.Procedural.cs
+?? Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.Procedural.cs.meta
+?? Assets/_Project/Scripts/Core/Run/ProceduralRunGeometryPlan.cs
+?? Assets/_Project/Scripts/Core/Run/ProceduralRunGeometryPlan.cs.meta
+?? Assets/_Project/Scripts/Core/Run/ProgressionDirector.Statistics.cs
+?? Assets/_Project/Scripts/Core/Run/ProgressionDirector.Statistics.cs.meta
+?? Assets/_Project/Scripts/Core/Run/RunBoonOfferCatalog.cs
+?? Assets/_Project/Scripts/Core/Run/RunBoonOfferCatalog.cs.meta
+?? Assets/_Project/Scripts/Core/Run/RunDamageSource.cs
+?? Assets/_Project/Scripts/Core/Run/RunDamageSource.cs.meta
+?? Assets/_Project/Scripts/Core/Run/RunStatistics.cs
+?? Assets/_Project/Scripts/Core/Run/RunStatistics.cs.meta
+?? Assets/_Project/Scripts/Core/Run/RunSummary.cs
+?? Assets/_Project/Scripts/Core/Run/RunSummary.cs.meta
+?? Assets/_Project/Scripts/Core/Run/RunSummaryStore.cs
+?? Assets/_Project/Scripts/Core/Run/RunSummaryStore.cs.meta
+?? Assets/_Project/Scripts/Core/Run/SpearBoonCatalog.cs
+?? Assets/_Project/Scripts/Core/Run/SpearBoonCatalog.cs.meta
+?? Assets/_Project/Scripts/Editor/CombatPolishPreview.Observation.cs
+?? Assets/_Project/Scripts/Editor/CombatPolishPreview.Observation.cs.meta
+?? Assets/_Project/Scripts/Editor/CombatPolishPreview.ObservationTelemetry.cs
+?? Assets/_Project/Scripts/Editor/CombatPolishPreview.ObservationTelemetry.cs.meta
+?? Assets/_Project/Scripts/Editor/NewRoomRunAuthoring.cs
+?? Assets/_Project/Scripts/Editor/NewRoomRunAuthoring.cs.meta
+?? Assets/_Project/Scripts/Editor/NexusBlockoutBuilder.cs
+?? Assets/_Project/Scripts/Editor/NexusBlockoutBuilder.cs.meta
+?? Assets/_Project/Scripts/Editor/NexusBlockoutPlaySession.cs
+?? Assets/_Project/Scripts/Editor/NexusBlockoutPlaySession.cs.meta
+?? Assets/_Project/Scripts/Editor/NexusBlockoutSpatialRevision.cs
+?? Assets/_Project/Scripts/Editor/NexusBlockoutSpatialRevision.cs.meta
+?? Assets/_Project/Scripts/Editor/TGOutfitModelPostprocessor.cs
+?? Assets/_Project/Scripts/Editor/TGOutfitModelPostprocessor.cs.meta
+?? Assets/_Project/Scripts/Effects/EclipseMarkVfx.cs
+?? Assets/_Project/Scripts/Effects/EclipseMarkVfx.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFinishControlTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/AsuraFinishControlTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonCapabilityGraphTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonCapabilityGraphTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonExpansionOfferTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonExpansionOfferTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonOfferCompatibilityTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonOfferCompatibilityTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRealRouteSimulationTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRealRouteSimulationTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRewardSeedTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRewardSeedTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BowBoonTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/BowBoonTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/DamageNumberBurstTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/DamageNumberBurstTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/EclipseBoonTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/EclipseBoonTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityGroundFillTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityGroundFillTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityRouteTestFactory.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityRouteTestFactory.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/GroundMovementBufferTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/GroundMovementBufferTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRouteMapPresentationTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRouteMapPresentationTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunRandomizerTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/ManualRunRandomizerTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/NexusCardLayoutTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/NexusCardLayoutTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/ObservationTelemetryTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/ObservationTelemetryTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/ProceduralRunGeometryPlanTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/ProceduralRunGeometryPlanTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/RangedFluidityContractTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/RangedFluidityContractTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/RetainedRunRewardTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/RetainedRunRewardTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunMapDiscoveryPresentationTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunMapDiscoveryPresentationTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunResultsModelTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunResultsModelTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/SpearBoonTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/SpearBoonTests.cs.meta
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs
+?? Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/AsuraEarlyFinishPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/AsuraEarlyFinishPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackCursorFluidityTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackCursorFluidityTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1RunStatisticsTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1RunStatisticsTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/BoonPublishedEncounterPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/BoonPublishedEncounterPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/BowBoonPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/BowBoonPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/CameraOcclusionFadeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/CameraOcclusionFadeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/CombatResponsivenessPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/CombatResponsivenessPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/DamageConfirmationPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/DamageConfirmationPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/EclipseBoonPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/EclipseBoonPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/EnemyInteractionPresentationTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/EnemyInteractionPresentationTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/EnemyProjectileLifecyclePlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/EnemyProjectileLifecyclePlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/GauntletBasicImpactPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/GauntletBasicImpactPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/GauntletExpansionPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/GauntletExpansionPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/ManualRouteMapPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/ManualRouteMapPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/MeleeEngagementPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/MeleeEngagementPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/NexusBlockoutPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/NexusBlockoutPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/NexusSpatialJourneyPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/NexusSpatialJourneyPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/NexusUsabilityPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/NexusUsabilityPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/PauseInspectionPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/PauseInspectionPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/PauseMapVisibilityPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/PauseMapVisibilityPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/RangedFluidityPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/RangedFluidityPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/RunStatisticsPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/RunStatisticsPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryIsolationPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryIsolationPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryPreferenceScope.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/RunSummaryPreferenceScope.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/SniperAimCommitmentPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/SniperAimCommitmentPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/SpearBoonPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/SpearBoonPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/WorldClickEnemyAssistTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/WorldClickEnemyAssistTests.cs.meta
+?? Assets/_Project/Scripts/UI/DamageNumberBurst.cs
+?? Assets/_Project/Scripts/UI/DamageNumberBurst.cs.meta
+?? Assets/_Project/Scripts/UI/ManualRouteMapPresentation.cs
+?? Assets/_Project/Scripts/UI/ManualRouteMapPresentation.cs.meta
+?? Assets/_Project/Scripts/UI/ManualRunUI.PauseMap.cs
+?? Assets/_Project/Scripts/UI/ManualRunUI.PauseMap.cs.meta
+?? Assets/_Project/Scripts/UI/RunMapDiscoveryPresentation.cs
+?? Assets/_Project/Scripts/UI/RunMapDiscoveryPresentation.cs.meta
+?? Assets/_Project/Scripts/UI/RunResultsFocus.cs
+?? Assets/_Project/Scripts/UI/RunResultsFocus.cs.meta
+?? Assets/_Project/Scripts/UI/RunResultsHandoff.cs
+?? Assets/_Project/Scripts/UI/RunResultsHandoff.cs.meta
+?? Assets/_Project/Scripts/UI/RunResultsModel.cs
+?? Assets/_Project/Scripts/UI/RunResultsModel.cs.meta
+?? Assets/_Project/Scripts/UI/RunResultsPresenter.cs
+?? Assets/_Project/Scripts/UI/RunResultsPresenter.cs.meta
+?? Assets/_Project/Scripts/UI/RunResultsView.cs
+?? Assets/_Project/Scripts/UI/RunResultsView.cs.meta
+?? Docs/00_VISAO.md
+?? Docs/01_PILARES.md
+?? Docs/02_ESTADO_E_LACUNAS.md
+?? Docs/03_PRIORIDADES.md
+?? Docs/04_ARQUITETURA_E_INTEGRIDADE.md
+?? Docs/05_MIGRACAO_E_LIMPEZA.md
+?? Docs/README.md
+?? Docs/art/
+?? Docs/decisions/
+?? Docs/references/
+?? Docs/systems/
+?? Docs/templates/
+?? Docs/validation/
+?? MANIFEST.json
+?? SourceArt/
+?? Tools/
+?? UnityValidation/

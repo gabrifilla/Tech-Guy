@@ -41,6 +41,144 @@ namespace TechGuy.Tests
     /// </summary>
     public sealed class BreakerKitEmissionPlayModeTests
     {
+        [Test]
+        public void GauntletSkillMotionsLoadThroughTheProductionResourcePath()
+        {
+            var library = Resources.Load<SkillAnimationLibrary>(SkillAnimationLibrary.ResourcePath);
+            Assert.IsNotNull(library, "Accepted gauntlet skills must not silently lose their body animation.");
+            foreach (var motion in new[] { SkillMotion.PunchLeft, SkillMotion.PunchRight, SkillMotion.Slam })
+            {
+                var entry = library.Get(motion);
+                Assert.IsNotNull(entry, motion.ToString());
+                Assert.IsNotNull(entry.clip, motion.ToString());
+                Assert.IsTrue(entry.clip.humanMotion, "Reuse the existing humanoid motions.");
+                Assert.Greater(entry.clip.length, 0f);
+                Assert.That(entry.contact, Is.InRange(.05f, .95f));
+                Assert.IsEmpty(entry.clip.events, "Presentation must not introduce animation-event damage.");
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator GauntletSkillPoseCanBeReappliedAfterControllerEvaluationAndReleased()
+        {
+#if UNITY_EDITOR
+            var prefab = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Art/Characters/TG/TG_Rigged.fbx");
+            Assert.IsNotNull(prefab);
+            var model = Object.Instantiate(prefab);
+            try
+            {
+                var animator = model.GetComponent<Animator>();
+                Assert.IsTrue(animator && animator.avatar && animator.avatar.isHuman);
+                animator.runtimeAnimatorController = UnityEditor.AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>("Assets/_Project/Art/Character/Animator Controller Character.controller");
+                animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+                animator.Update(0f);
+                bool rootMotion = animator.applyRootMotion;
+                Vector3 rootPosition = model.transform.position;
+                var player = model.AddComponent<SkillAnimationPlayer>();
+                var library = Resources.Load<SkillAnimationLibrary>(SkillAnimationLibrary.ResourcePath);
+                Assert.IsNotNull(library);
+                foreach (var motion in new[] { SkillMotion.PunchLeft, SkillMotion.PunchRight, SkillMotion.Slam })
+                {
+                    player.Strike(motion, 0f, 0f, .2f, .5f);
+                    Assert.IsTrue(player.IsPlaying, motion.ToString());
+                    Vector3 left = animator.GetBoneTransform(HumanBodyBones.LeftHand).localPosition;
+                    Quaternion right = animator.GetBoneTransform(HumanBodyBones.RightUpperArm).localRotation;
+                    player.Contact(motion);
+                    Assert.AreEqual(library.Get(motion).contact, player.NormalizedTime, .0001f);
+                    Assert.AreEqual(motion, player.CurrentMotion);
+                    float poseChange = Vector3.Distance(left, animator.GetBoneTransform(HumanBodyBones.LeftHand).localPosition)
+                        + Quaternion.Angle(right, animator.GetBoneTransform(HumanBodyBones.RightUpperArm).localRotation);
+                    Assert.Greater(poseChange, .001f, "The actual model must change pose, not only report a playing graph.");
+                    Quaternion contactPose = animator.GetBoneTransform(HumanBodyBones.RightUpperArm).localRotation;
+                    yield return null;
+                    player.ReapplyPose();
+                    Assert.Less(Quaternion.Angle(contactPose, animator.GetBoneTransform(HumanBodyBones.RightUpperArm).localRotation), .1f,
+                        "The contact pose must survive the engine's animation update until combat samples another pose.");
+                    player.Strike(motion, .5f, 0f, .2f, .5f);
+                    Assert.AreEqual(1f, player.NormalizedTime);
+                    Assert.AreEqual(rootPosition, model.transform.position, "Presentation cannot move the gameplay root.");
+                    player.Release();
+                    Assert.IsFalse(player.IsPlaying);
+                    Assert.AreEqual(rootMotion, animator.applyRootMotion);
+                }
+                player.Contact(SkillMotion.PunchLeft);
+                player.enabled = false;
+                Assert.IsFalse(player.IsPlaying, "Disable must release the existing graph.");
+            }
+            finally { Object.DestroyImmediate(model); }
+            yield return null;
+#else
+            Assert.Ignore("Uses the shipped player model through AssetDatabase.");
+            yield break;
+#endif
+        }
+
+        [UnityTest] public IEnumerator NativeQContactSurvivesToRenderAndPause() => CheckNativeContacts(new[] { 0 }, true);
+        [UnityTest] public IEnumerator NativeWContactSurvivesToRenderAndPause() => CheckNativeContacts(new[] { 1 }, true);
+        [UnityTest] public IEnumerator NativeEContactSurvivesToRenderAndPause() => CheckNativeContacts(new[] { 2 }, true);
+        [UnityTest] public IEnumerator ConsecutiveNativeSkillsReleaseTheirPreviousContact() => CheckNativeContacts(new[] { 0, 2, 1 }, false);
+
+        private static IEnumerator CheckNativeContacts(int[] slots, bool pauseAtContact)
+        {
+#if UNITY_EDITOR
+            // Real TG model and shipped skills, isolated from AI/navigation. The observation runs
+            // exercise untouched production encounters; this fixture isolates the render boundary.
+            var model = Object.Instantiate(UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Art/Characters/TG/TG_Rigged.fbx"));
+            float scale = Time.timeScale;
+            try
+            {
+                var animator = model.GetComponent<Animator>();
+                animator.runtimeAnimatorController = UnityEditor.AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>("Assets/_Project/Art/Character/Animator Controller Character.controller");
+                animator.cullingMode = AnimatorCullingMode.AlwaysAnimate; animator.Update(0f);
+                var hand = animator.GetBoneTransform(HumanBodyBones.RightHand);
+                model.SetActive(false);
+                var actor = model.AddComponent<PlayerActor>();
+                var flags = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic;
+                actor.handTransform = hand;
+                actor.mana = 1500f;
+                var holder = model.AddComponent<AbilityHolder>();
+                holder.keys = new[] { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R };
+                model.SetActive(true); Time.timeScale = 1f;
+                actor.EquipWeapon(Resources.Load<WeaponScript>("Weapons/Melee/Gauntlet/Gauntlet")); holder.RefreshLoadout();
+                yield return null;
+                var combat = model.GetComponent<BreakerGauntletCombat>();
+                var motion = model.GetComponent<SkillAnimationPlayer>();
+                var finisher = typeof(BreakerGauntletCombat).GetField("_finisherApplied", flags);
+                var library = Resources.Load<SkillAnimationLibrary>(SkillAnimationLibrary.ResourcePath);
+                foreach (int slot in slots)
+                {
+                    Assert.IsFalse(motion.IsPlaying, "Previous cast must release its graph before another starts.");
+                    Assert.IsTrue(holder.TryUseAbility(slot));
+                    var ability = (BreakerGauntletAbility)holder.ActiveAbilities[slot];
+                    int lastStep = ability.HitSteps.Count - 1;
+                    var expected = slot == 2 ? SkillMotion.Slam : lastStep % 2 == 0 ? SkillMotion.PunchLeft : SkillMotion.PunchRight;
+                    float contact = library.Get(expected).contact;
+                    float deadline = Time.realtimeSinceStartup + 6f;
+                    while (!(bool)finisher.GetValue(combat) && combat.IsExecuting && Time.realtimeSinceStartup < deadline)
+                        yield return new WaitForEndOfFrame();
+                    Assert.IsTrue((bool)finisher.GetValue(combat), "The production scheduler must emit its final impact.");
+                    Assert.AreEqual(expected, motion.CurrentMotion, "Render must keep the emitted impact's motion.");
+                    Assert.AreEqual(contact, motion.NormalizedTime, .0001f, "Coroutine advancement must not erase contact before render.");
+                    if (pauseAtContact)
+                    {
+                        Time.timeScale = 0f;
+                        for (int frame = 0; frame < 3; frame++)
+                        {
+                            yield return new WaitForEndOfFrame();
+                            Assert.AreEqual(contact, motion.NormalizedTime, .0001f, "Pause must preserve the contact pose.");
+                        }
+                        Time.timeScale = 1f;
+                    }
+                    while (combat.IsExecuting && Time.realtimeSinceStartup < deadline) yield return null;
+                    Assert.IsFalse(combat.IsExecuting); Assert.IsFalse(motion.IsPlaying);
+                }
+            }
+            finally { Time.timeScale = scale; Object.DestroyImmediate(model); }
+#else
+            Assert.Ignore("Uses the shipped TG model and skills in the Editor."); yield break;
+#endif
+        }
+
         private const string AssetDir = "Assets/_Project/ScriptableObjects/Abilities/Weapon/";
 
         // R2.8 (Q): Avanço Relâmpago authors the advance plus 2 punches as 2 discrete ImpactEvents;

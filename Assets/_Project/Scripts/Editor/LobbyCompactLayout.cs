@@ -61,8 +61,8 @@ public static class LobbyCompactLayout
         PositionGameplayCamera(camera, player.transform.position);
         EditorSceneManager.SaveScene(scene);
         AssetDatabase.SaveAssets();
-        Capture(camera, "Docs/NexusLobby-gameplay.png", false);
-        Capture(camera, "Docs/NexusLobby-preview.png", true);
+        Capture(camera, "Docs/validation/artifacts/lobby/NexusLobby-gameplay.png", false);
+        Capture(camera, "Docs/validation/artifacts/lobby/NexusLobby-preview.png", true);
         Debug.Log("NEXUS_COMPACT_SUCCESS: scene, prefab, saved NavMesh and all station paths (portals, pedestals, dummy) validated.");
     }
 
@@ -182,7 +182,7 @@ public static class LobbyCompactLayout
             RenderTexture.active = texture;
             image.ReadPixels(new Rect(0, 0, 1600, 1000), 0, 0);
             image.Apply();
-            Directory.CreateDirectory("Docs");
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
             File.WriteAllBytes(path, image.EncodeToPNG());
         }
         finally

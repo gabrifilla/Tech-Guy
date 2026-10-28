@@ -4,12 +4,13 @@ using UnityEngine.AI;
 
 /// <summary>Owns the equipped gauntlet's cast and energy; assets contain configuration only.</summary>
 [RequireComponent(typeof(PlayerActor), typeof(AbilityHolder))]
-public sealed class BreakerGauntletCombat : MonoBehaviour
+public sealed partial class BreakerGauntletCombat : MonoBehaviour
 {
     private readonly AsuraMomentum _momentum = new AsuraMomentum();
     private PlayerActor _player;
     private AbilityHolder _holder;
     private SkillAnimationPlayer _animation;
+    private int _presentedImpact = -1, _presentedImpactFrame = -1;
 
     private NavMeshAgent _agent;
     private WeaponScript _weapon;
@@ -30,6 +31,8 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     private bool _cadencedWaiting;
     private bool _cadencedImpactEmitted;
     private float _cadencedWaitUntil;
+    private bool _perfectCadence;
+    private int _perfectContinuations;
     private float _cadencedClock;
     private int _cadencedClockFrame;
     internal float CadencedNow
@@ -49,10 +52,26 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     internal long CadencedExecution => IsCadencedAsura ? _castContext.Execution : 0;
     internal bool CanBufferCadencedContinuation => IsCadencedAsura && !_cadencedWaiting && _cadencedStrike < 2 && _elapsed >= _snapshot.CadencedRecoveryStart;
 
+    internal bool CanFinishCadenced => IsCadencedWaiting && _cadencedStrike < 2 && CadencedNow <= _cadencedWaitUntil;
+
+    internal bool TryFinishCadenced(long execution)
+    {
+        if (!this || !isActiveAndEnabled || !IsEquipped || !IsCadencedAsura || execution != CadencedExecution || !_cadencedWaiting || _cadencedStrike >= 2 ||
+            !_holder || _holder.BlocksWorldInput || !_holder.isActiveAndEnabled || _player.IsDead ||
+            _player.IsCombatHitStopped || _player.IsResolvingGauntletImpact) return false;
+        if (CadencedNow > _cadencedWaitUntil) { CancelCast(); return false; }
+        _perfectCadence = false;
+        _cadencedStrike = 2; _cadencedWaiting = false;
+        PrepareCadencedStrike();
+        return true;
+    }
+
     internal bool TryContinueCadenced(long execution)
     {
         if (!IsCadencedAsura || execution != CadencedExecution || !_cadencedWaiting || _player.IsResolvingGauntletImpact) return false;
         if (CadencedNow > _cadencedWaitUntil) { CancelCast(); return false; }
+        float waitAge = CadencedNow - (_cadencedWaitUntil - _snapshot.CadencedWaitDuration);
+        _perfectCadence &= waitAge >= .1f && waitAge <= .35f; _perfectContinuations++;
         _cadencedStrike++; _cadencedWaiting = false;
         PrepareCadencedStrike();
         return true;
@@ -60,6 +79,12 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
 
     private void LateUpdate()
     {
+        TickEclipse();
+        if (IsExecuting && _animation)
+        {
+            if (UsesAuthoredPresentation) SampleAuthoredPresentation();
+            _animation.ReapplyPose();
+        }
         // Inputs are serviced in Update first, including the inclusive end of the wait.
         if (!IsCadencedAsura) return;
         float now = CadencedNow;
@@ -269,11 +294,13 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         else _momentum.AddEnergy(amount); // Preserve pre-Awake injection into the same meter.
     }
 
-    internal GauntletImpactContext BeginBasicExecution()
+    internal GauntletImpactContext BeginBasicExecution() => BeginBasicExecutionWithFinisher(false);
+
+    internal GauntletImpactContext BeginBasicExecutionWithFinisher(bool finisher)
     {
         if (!IsEquipped || _energyPolicy == null || (_phase3Authoring && !_phase3Authoring.Validate(out _))) return null;
         var mods = _player.RunModifiers;
-        var snapshot = GauntletExecutionSnapshot.CaptureBasic(mods, _phase3Authoring);
+        var snapshot = GauntletExecutionSnapshot.CaptureBasic(mods, _phase3Authoring, finisher);
         return _contexts.Begin(GauntletActionSlot.Basic, asuraFistRank: snapshot.Rank(WeaponBoon.AsuraFist), snapshot: snapshot);
     }
 
@@ -286,6 +313,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         if (_weapon == weapon) return;
         CancelCast();
         CancelChildren();
+        ClearEclipse();
         _energyPolicy.Reset();
         _weapon = weapon;
     }
@@ -410,12 +438,13 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
             bool schedulerOwnsImpacts = _scheduler != null;
             var applied = new bool[steps.Count];
             int animatedStep = 0;
-            while (elapsed < duration)
+            while (elapsed < duration || _snapshot.Mutation == GauntletMutation.EclipseUppercut && schedulerOwnsImpacts && !_finisherApplied)
             {
                 if (!_player || _player.IsDead || _player.CurrentWeapon != _weapon || !_holder.isActiveAndEnabled)
                     break;
                 float delta = Time.deltaTime;
-                if (delta <= 0f) { yield return null; continue; }
+                if (delta <= 0f || _snapshot.Mutation == GauntletMutation.EclipseUppercut && _player.IsCombatHitStopped)
+                { yield return null; continue; }
                 if (_snapshot.Asura)
                 {
                     // Let the earned burst follow the fight instead of firing into empty space.
@@ -431,10 +460,11 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
                     Vector3 destination = transform.position + direction * distance;
                     if (_bodyTraversal) destination = LimitTraversalToSolids(direction, distance);
                     if (_agent.Raycast(destination, out NavMeshHit edge)) destination = edge.position;
-                    _agent.Move(destination - transform.position);
+                    bool directMove = PlayerNavigationMotor.TryMove(_agent, destination - transform.position, true, PlayerMovementSource.Action, _bodyTraversal);
+                    if (!directMove) _agent.Move(destination - transform.position);
                     // A delayed agent pose must not leave a due uppercut at the pre-advance position.
                     // Copy only the position already validated by the agent and solid sweep.
-                    if (_bodyTraversal && _agent.updatePosition) transform.position = _agent.nextPosition;
+                    if (!directMove && _bodyTraversal && _agent.updatePosition) transform.position = _agent.nextPosition;
                 }
                 else if (_bodyTraversal) RestoreBodyTraversal();
                 // Weapon-applied soft grouping, reapplied every frame during the cast (well within the
@@ -459,10 +489,15 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
                     elapsed = holdActiveEnd * duration;
                     _elapsed = elapsed;
                 }
-                while (animatedStep+1 < steps.Count && elapsed > steps[animatedStep].delay + Mathf.Min(.04f,(steps[animatedStep+1].delay-steps[animatedStep].delay)*.25f)) animatedStep++;
-                float start = animatedStep == 0 ? 0 : steps[animatedStep-1].delay + Mathf.Min(.04f,(steps[animatedStep].delay-steps[animatedStep-1].delay)*.25f);
-                float end = animatedStep+1 < steps.Count ? steps[animatedStep].delay + Mathf.Min(.04f,(steps[animatedStep+1].delay-steps[animatedStep].delay)*.25f) : duration;
-                _animation.Strike(Motion(ability,animatedStep),elapsed,start,steps[animatedStep].delay,end);
+                // Native Q/W/E presentation is committed in LateUpdate from the authored events.
+                // R, mutations and unauthored actions retain their existing sampling path.
+                if (!UsesAuthoredPresentation)
+                {
+                    while (animatedStep+1 < steps.Count && elapsed > steps[animatedStep].delay + Mathf.Min(.04f,(steps[animatedStep+1].delay-steps[animatedStep].delay)*.25f)) animatedStep++;
+                    float start = animatedStep == 0 ? 0 : steps[animatedStep-1].delay + Mathf.Min(.04f,(steps[animatedStep].delay-steps[animatedStep-1].delay)*.25f);
+                    float end = animatedStep+1 < steps.Count ? steps[animatedStep].delay + Mathf.Min(.04f,(steps[animatedStep+1].delay-steps[animatedStep].delay)*.25f) : duration;
+                    _animation.Strike(Motion(ability,animatedStep),elapsed,start,steps[animatedStep].delay,end);
+                }
                 // Legacy per-step impact fallback — only when no authored ImpactEvent scheduler owns
                 // emission (task 15.1). When a scheduler is active, FixedUpdate advances it and it
                 // emits each impact once through the ledger, so this loop stays idle to avoid duplicates.
@@ -492,7 +527,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         var steps = _snapshot.CopySteps();
         _activeSteps = steps;
         if (TryGetComponent(out CharControlScript control)) control.CancelCombo();
-        _asuraPulled.Clear(); PrepareCadencedStrike();
+        _asuraPulled.Clear(); _perfectCadence = true; _perfectContinuations = 0; PrepareCadencedStrike();
         try
         {
             while (IsExecuting)
@@ -574,6 +609,13 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     private void FixedUpdate()
     {
         if (_scheduler == null || !IsExecuting) return;
+        if (_snapshot.Mutation == GauntletMutation.EclipseUppercut && !_finisherApplied &&
+            !_player.IsCombatHitStopped && _elapsed >= _snapshot.Eclipse.Duration * .3f)
+        {
+            // Observe the crossed contact in the single scheduler before a coarse frame enters recovery.
+            _scheduler.Advance(.3f);
+            if (_scheduler == null || !IsExecuting) return;
+        }
         if (IsCadencedAsura && _elapsed >= _snapshot.CadencedImpactTime && !_cadencedImpactEmitted)
         {
             _cadencedImpactEmitted = true;
@@ -600,6 +642,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         System.Collections.Generic.IReadOnlyList<AreaHitStep> steps)
     {
         _scheduler = null;
+        _presentedImpact = _presentedImpactFrame = -1;
         CombatActionProfile profile = _activeProfile;
         if (profile == null || profile.ImpactEvents == null || profile.ImpactEvents.Count == 0) return;
 
@@ -627,6 +670,10 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         if (stepIndex < 0 || stepIndex >= steps.Count) return;
         AreaHitStep step = steps[stepIndex];
         if (step == null) return;
+        if (UsesAuthoredPresentation)
+            for (int i = 0; i < _activeProfile.ImpactEvents.Count; i++)
+                if (_activeProfile.ImpactEvents[i].Index == impact.Index)
+                { _presentedImpact = i; _presentedImpactFrame = Time.frameCount; break; }
         using (_player.BeginImpactFeedback(HitStopDuration(ability, impact), _scheduler != null ? _scheduler.ExecutionId.Value : 0, impact.Index))
             Impact(ability, step, stepIndex);
     }
@@ -658,8 +705,42 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         return profiles[hitStopIndex].ClampedDuration;
     }
 
+    // Presentation reads the accepted action clock; it never advances or signals the scheduler.
+    private bool UsesAuthoredPresentation => _scheduler != null && _snapshot != null &&
+        !_snapshot.Mutation.HasValue && _snapshot.Slot >= GauntletActionSlot.Q && _snapshot.Slot <= GauntletActionSlot.E;
+
+    private float PresentationEnd(int index)
+    {
+        var events = _activeProfile.ImpactEvents;
+        if (index + 1 >= events.Count) return ExecutionDuration;
+        float contact = events[index].At * ExecutionDuration;
+        // Preserve the existing short follow-through convention, measured from actual authored contact.
+        return contact + Mathf.Min(.04f, (events[index + 1].At - events[index].At) * ExecutionDuration * .25f);
+    }
+
+    private void SampleAuthoredPresentation()
+    {
+        if (Time.timeScale <= 0f) return; // ReapplyPose keeps the last sample during menu pause.
+        var events = _activeProfile.ImpactEvents;
+        bool stopped = _player && _player.IsCombatHitStopped;
+        if (_presentedImpact >= 0 && (_presentedImpactFrame == Time.frameCount || stopped))
+        {
+            _animation.Contact(Motion(_activeAbility, events[_presentedImpact].AreaHitStepIndex));
+            return;
+        }
+        if (stopped) return;
+        int index = Mathf.Max(0, _presentedImpact);
+        if (_presentedImpact >= 0 && index + 1 < events.Count && _elapsed > PresentationEnd(index)) index++;
+        float start = index == 0 ? 0f : PresentationEnd(index - 1);
+        float contact = events[index].At * ExecutionDuration;
+        // Do not enter follow-through before the authority has actually emitted this impact.
+        float sample = index > _presentedImpact ? Mathf.Min(_elapsed, contact - .00001f) : _elapsed;
+        _animation.Strike(Motion(_activeAbility, events[index].AreaHitStepIndex), sample, start, contact, PresentationEnd(index));
+    }
+
     private SkillMotion Motion(BreakerGauntletAbility ability,int index)
     {
+        if (_snapshot.Mutation == GauntletMutation.EclipseUppercut) return SkillMotion.PunchRight;
         if (_snapshot.Shock && index >= _snapshot.DirectStepCount-1) return SkillMotion.Slam;
         return index%2==0 ? SkillMotion.PunchLeft : SkillMotion.PunchRight;
     }
@@ -670,18 +751,24 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     private int Impact(BreakerGauntletAbility ability,AreaHitStep step,int index)
     {
         var snapshot = _snapshot;
+        if (snapshot.PerfectRhythm && IsCadencedAsura && index == 2 && _perfectCadence && _perfectContinuations == 2)
+        {
+            step = step.Copy(); step.hitShape = AreaHitShape.Sphere; step.sphereRadius = 3f;
+            step.rangeOverride = .01f; step.localOffset = new Vector3(0f, -2f, 0f);
+        }
         bool finisher=index>=snapshot.LastDirectProducer;
         if (finisher) _finisherApplied=true;
         _animation.Contact(Motion(ability,index));
         var context = _castContext;
-        if (context != null && _contexts.ClaimProducer(context, index))
-            ScheduleChildren(context, snapshot);
+        bool claimedProducer = context != null && _contexts.ClaimProducer(context, index);
+        if (claimedProducer) ScheduleChildren(context, snapshot);
         bool secondary = context != null && index >= snapshot.DirectStepCount;
         if (secondary) context = _contexts.BeginChild(context, GauntletImpactOrigin.Echo,
             WeaponRunModifiers.CatalogId(snapshot.Asura ? WeaponBoon.AsuraEcho : WeaponBoon.FlurryEcho));
         int enemiesDamaged;
         try { enemiesDamaged = SequencedAreaAttackAbility.ApplyHitStep(transform,_player,_weapon,step,true,snapshot.EffectColor,context,_energyPolicy,index); }
         finally { if (secondary) _energyPolicy.Close(context); }
+        if (claimedProducer && enemiesDamaged > 0) ScheduleExpansionEchoes(context, snapshot, step);
         bool radial=step.hitShape==AreaHitShape.Sphere;
         Vector3 origin=transform.TransformPoint(step.localOffset)+(radial ? Vector3.up*(step.sphereRadius-1f) : Vector3.zero);
         GauntletImpactVfx.Spawn(origin,transform.forward,
@@ -905,6 +992,7 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
         // finished execution never leaves a window alive or a stale scheduler ticking (task 15.1, R2.6).
         if (_scheduler != null) { _scheduler.StopAndCloseWindows(); _scheduler = null; }
         _activeAbility = null; _activeSteps = null; _snapshot = null; _activeProfile = null;
+        _presentedImpact = _presentedImpactFrame = -1;
         _flurryTarget = null; _asuraPulled.Clear();
     }
 
@@ -948,11 +1036,11 @@ public sealed class BreakerGauntletCombat : MonoBehaviour
     public bool TryStopEncounterOffense()
     {
         if(_player && (_player.IsResolvingGauntletImpact || _player.HasOpenImpactFeedback)) return false;
-        CancelCast(); CancelChildren(); return true;
+        CancelCast(); CancelChildren(); ClearEclipse(); return true;
     }
 
-    private void OnDeath(Actor actor) { CancelCast(); CancelChildren(); _energyPolicy?.Reset(); }
-    private void OnDisable() { CancelCast(); CancelChildren(); _energyPolicy?.Reset(); }
+    private void OnDeath(Actor actor) { CancelCast(); CancelChildren(); ClearEclipse(); _energyPolicy?.Reset(); }
+    private void OnDisable() { CancelCast(); CancelChildren(); ClearEclipse(); _energyPolicy?.Reset(); }
     private void OnDestroy() { if (_player) _player.Died -= OnDeath; }
 
 }

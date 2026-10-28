@@ -1,0 +1,546 @@
+{
+  "baked-wall": {
+    "frames": 50,
+    "requestedDt": 0.033333,
+    "meanPlanarSpeed": 1.95600572,
+    "minSpeed": 0.0,
+    "maxSpeed": 5.00061,
+    "speedStdDev": 2.4149319394826847,
+    "distanceFromSamples": 3.259976933238,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      3.26001,
+      0.04,
+      0.0
+    ],
+    "stepCpuMedianUs": 19.65,
+    "stepCpuP95Us": 70.2
+  },
+  "corner": {
+    "frames": 60,
+    "requestedDt": 0.033333,
+    "meanPlanarSpeed": 0.00410005,
+    "minSpeed": 0.0,
+    "maxSpeed": 0.246003,
+    "speedStdDev": 0.031493081623548684,
+    "distanceFromSamples": 0.008200017999000001,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      3.265808,
+      0.04,
+      0.005798
+    ],
+    "stepCpuMedianUs": 14.6,
+    "stepCpuP95Us": 24.0
+  },
+  "wall-parallel-to-corner": {
+    "frames": 60,
+    "requestedDt": 0.033333,
+    "meanPlanarSpeed": 1.8670958166666667,
+    "minSpeed": 0.0,
+    "maxSpeed": 5.00061,
+    "speedStdDev": 2.3979882849088003,
+    "distanceFromSamples": 3.734154291417,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      3.265808,
+      0.04,
+      3.73999
+    ],
+    "stepCpuMedianUs": 12.1,
+    "stepCpuP95Us": 16.8
+  },
+  "corner-escape": {
+    "frames": 12,
+    "requestedDt": 0.033333,
+    "meanPlanarSpeed": 5.00061,
+    "minSpeed": 5.00061,
+    "maxSpeed": 5.00061,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 2.00022399756,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      3.265808,
+      0.04,
+      1.739746
+    ],
+    "stepCpuMedianUs": 10.149999999999999,
+    "stepCpuP95Us": 13.1
+  },
+  "obstacle": {
+    "frames": 60,
+    "requestedDt": 0.033333,
+    "meanPlanarSpeed": 1.19000235,
+    "minSpeed": 0.0,
+    "maxSpeed": 5.00061,
+    "speedStdDev": 2.109722031343899,
+    "distanceFromSamples": 2.379980899953,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      -3.0,
+      0.04,
+      -5.619995
+    ],
+    "stepCpuMedianUs": 10.5,
+    "stepCpuP95Us": 16.4
+  },
+  "boundary": {
+    "frames": 30,
+    "requestedDt": 0.1,
+    "meanPlanarSpeed": 0.7933349666666667,
+    "minSpeed": 0.0,
+    "maxSpeed": 5.0,
+    "speedStdDev": 1.7847405163619814,
+    "distanceFromSamples": 2.3800049,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      -14.380005
+    ],
+    "stepCpuMedianUs": 11.05,
+    "stepCpuP95Us": 15.4
+  },
+  "camera-0.033333": {
+    "frames": 30,
+    "requestedDt": 0.033333,
+    "meanPlanarSpeed": 5.00061,
+    "minSpeed": 5.00061,
+    "maxSpeed": 5.00061,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 5.0005599939,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      5.00061,
+      0.04,
+      -10.0
+    ],
+    "stepCpuMedianUs": 12.75,
+    "stepCpuP95Us": 19.3
+  },
+  "camera-0.016667": {
+    "frames": 60,
+    "requestedDt": 0.016667,
+    "meanPlanarSpeed": 4.998779,
+    "minSpeed": 4.998779,
+    "maxSpeed": 4.998779,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 4.99887897558,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      4.998779,
+      0.04,
+      -10.0
+    ],
+    "stepCpuMedianUs": 11.4,
+    "stepCpuP95Us": 16.2
+  },
+  "camera-0.006944": {
+    "frames": 144,
+    "requestedDt": 0.006944,
+    "meanPlanarSpeed": 5.000977,
+    "minSpeed": 5.000977,
+    "maxSpeed": 5.000977,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 5.000656937472,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      5.000977,
+      0.04,
+      -10.0
+    ],
+    "stepCpuMedianUs": 10.7,
+    "stepCpuP95Us": 14.0
+  },
+  "world": {
+    "frames": 60,
+    "requestedDt": 0.016667,
+    "meanPlanarSpeed": 4.998779,
+    "minSpeed": 4.998779,
+    "maxSpeed": 4.998779,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 4.99887897558,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      -5.001221
+    ],
+    "stepCpuMedianUs": 10.7,
+    "stepCpuP95Us": 19.5
+  },
+  "cardinal": {
+    "frames": 60,
+    "requestedDt": 0.016667,
+    "meanPlanarSpeed": 4.998779,
+    "minSpeed": 4.998779,
+    "maxSpeed": 4.998779,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 4.99887897558,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      -3.001221
+    ],
+    "stepCpuMedianUs": 14.1,
+    "stepCpuP95Us": 22.4
+  },
+  "diagonal": {
+    "frames": 60,
+    "requestedDt": 0.016667,
+    "meanPlanarSpeed": 4.997739,
+    "minSpeed": 4.997739,
+    "maxSpeed": 4.997739,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 4.997838954780001,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      2.533936,
+      0.04,
+      -5.466064
+    ],
+    "stepCpuMedianUs": 11.6,
+    "stepCpuP95Us": 19.2
+  },
+  "release": {
+    "frames": 10,
+    "requestedDt": 0.016667,
+    "meanPlanarSpeed": 0.0,
+    "minSpeed": 0.0,
+    "maxSpeed": 0.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      2.533936,
+      0.04,
+      -5.466064
+    ],
+    "stepCpuMedianUs": 2.45,
+    "stepCpuP95Us": 3.9
+  },
+  "cursor-dash-first": {
+    "frames": 1,
+    "requestedDt": 0.05,
+    "meanPlanarSpeed": 20.0,
+    "minSpeed": 20.0,
+    "maxSpeed": 20.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 1.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      -9.0
+    ],
+    "stepCpuMedianUs": 20.9,
+    "stepCpuP95Us": 20.9
+  },
+  "dash-hitstop": {
+    "frames": 4,
+    "requestedDt": 0.05,
+    "meanPlanarSpeed": 0.0,
+    "minSpeed": 0.0,
+    "maxSpeed": 0.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      -9.0
+    ],
+    "stepCpuMedianUs": 0.9,
+    "stepCpuP95Us": 1.5
+  },
+  "cursor-dash-end": {
+    "frames": 4,
+    "requestedDt": 0.05,
+    "meanPlanarSpeed": 20.0,
+    "minSpeed": 20.0,
+    "maxSpeed": 20.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 4.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      -5.0
+    ],
+    "stepCpuMedianUs": 13.649999999999999,
+    "stepCpuP95Us": 23.4
+  },
+  "wasd-dash-alternative": {
+    "frames": 5,
+    "requestedDt": 0.05,
+    "meanPlanarSpeed": 20.0,
+    "minSpeed": 20.0,
+    "maxSpeed": 20.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 5.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      5.0,
+      0.04,
+      -10.0
+    ],
+    "stepCpuMedianUs": 11.3,
+    "stepCpuP95Us": 14.5
+  },
+  "raw-unbaked-wall": {
+    "frames": 12,
+    "requestedDt": 0.1,
+    "meanPlanarSpeed": 5.0,
+    "minSpeed": 5.0,
+    "maxSpeed": 5.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 6.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      -5.0,
+      0.04,
+      -7.0
+    ],
+    "stepCpuMedianUs": 4.3,
+    "stepCpuP95Us": 8.2
+  },
+  "guarded-dash-thin-wall": {
+    "frames": 8,
+    "requestedDt": 0.1,
+    "meanPlanarSpeed": 6.175003,
+    "minSpeed": 0.0,
+    "maxSpeed": 20.0,
+    "speedStdDev": 5.469402558786745,
+    "distanceFromSamples": 4.9400024,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      -8.559998,
+      0.04,
+      -4.5
+    ],
+    "stepCpuMedianUs": 16.1,
+    "stepCpuP95Us": 18.7
+  },
+  "RootedAttack": {
+    "frames": 5,
+    "requestedDt": 0.02,
+    "meanPlanarSpeed": 0.0,
+    "minSpeed": 0.0,
+    "maxSpeed": 0.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      0.0
+    ],
+    "stepCpuMedianUs": 0.9,
+    "stepCpuP95Us": 2.4
+  },
+  "RootedCast": {
+    "frames": 5,
+    "requestedDt": 0.02,
+    "meanPlanarSpeed": 0.0,
+    "minSpeed": 0.0,
+    "maxSpeed": 0.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      0.0
+    ],
+    "stepCpuMedianUs": 1.0,
+    "stepCpuP95Us": 1.3
+  },
+  "Hitstop": {
+    "frames": 5,
+    "requestedDt": 0.02,
+    "meanPlanarSpeed": 0.0,
+    "minSpeed": 0.0,
+    "maxSpeed": 0.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      0.0
+    ],
+    "stepCpuMedianUs": 0.9,
+    "stepCpuP95Us": 1.4
+  },
+  "Paused": {
+    "frames": 5,
+    "requestedDt": 0.02,
+    "meanPlanarSpeed": 0.0,
+    "minSpeed": 0.0,
+    "maxSpeed": 0.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      0.0
+    ],
+    "stepCpuMedianUs": 1.0,
+    "stepCpuP95Us": 1.3
+  },
+  "FocusLost": {
+    "frames": 5,
+    "requestedDt": 0.02,
+    "meanPlanarSpeed": 0.0,
+    "minSpeed": 0.0,
+    "maxSpeed": 0.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      0.0
+    ],
+    "stepCpuMedianUs": 1.0,
+    "stepCpuP95Us": 1.3
+  },
+  "held-after-focus": {
+    "frames": 5,
+    "requestedDt": 0.02,
+    "meanPlanarSpeed": 0.0,
+    "minSpeed": 0.0,
+    "maxSpeed": 0.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      0.0
+    ],
+    "stepCpuMedianUs": 2.8,
+    "stepCpuP95Us": 3.6
+  },
+  "release-latch": {
+    "frames": 1,
+    "requestedDt": 0.02,
+    "meanPlanarSpeed": 0.0,
+    "minSpeed": 0.0,
+    "maxSpeed": 0.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      0.0
+    ],
+    "stepCpuMedianUs": 3.5,
+    "stepCpuP95Us": 3.5
+  },
+  "fresh-press": {
+    "frames": 5,
+    "requestedDt": 0.02,
+    "meanPlanarSpeed": 4.998779,
+    "minSpeed": 4.998779,
+    "maxSpeed": 4.998779,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.4998779,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      0.499878
+    ],
+    "stepCpuMedianUs": 11.7,
+    "stepCpuP95Us": 18.3
+  },
+  "pull-over-root": {
+    "frames": 10,
+    "requestedDt": 0.02,
+    "meanPlanarSpeed": 1.998901,
+    "minSpeed": 1.998901,
+    "maxSpeed": 1.998901,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.39978020000000003,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      -0.39978,
+      0.04,
+      0.499878
+    ],
+    "stepCpuMedianUs": 9.85,
+    "stepCpuP95Us": 13.3
+  },
+  "paused-external": {
+    "frames": 3,
+    "requestedDt": 0.02,
+    "meanPlanarSpeed": 0.0,
+    "minSpeed": 0.0,
+    "maxSpeed": 0.0,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.0,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      -0.39978,
+      0.04,
+      0.499878
+    ],
+    "stepCpuMedianUs": 1.0,
+    "stepCpuP95Us": 1.1
+  },
+  "slope-up": {
+    "frames": 65,
+    "requestedDt": 0.016667,
+    "meanPlanarSpeed": 4.998779,
+    "minSpeed": 4.998779,
+    "maxSpeed": 4.998779,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 5.415452223545,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      -7.0,
+      1.914841,
+      10.115356
+    ],
+    "stepCpuMedianUs": 13.9,
+    "stepCpuP95Us": 21.5
+  },
+  "slope-down": {
+    "frames": 65,
+    "requestedDt": 0.016667,
+    "meanPlanarSpeed": 4.998779,
+    "minSpeed": 4.998779,
+    "maxSpeed": 4.998779,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 5.415452223545,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      -7.0,
+      0.070822,
+      4.700012
+    ],
+    "stepCpuMedianUs": 12.0,
+    "stepCpuP95Us": 16.8
+  },
+  "before-zero-dt": {
+    "frames": 3,
+    "requestedDt": 0.02,
+    "meanPlanarSpeed": 4.998779,
+    "minSpeed": 4.998779,
+    "maxSpeed": 4.998779,
+    "speedStdDev": 0.0,
+    "distanceFromSamples": 0.29992673999999997,
+    "agentVelocityMax": 0.0,
+    "lastXYZ": [
+      0.0,
+      0.04,
+      -0.299927
+    ],
+    "stepCpuMedianUs": 28.1,
+    "stepCpuP95Us": 31.5
+  }
+}

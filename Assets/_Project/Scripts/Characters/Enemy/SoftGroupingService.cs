@@ -91,6 +91,7 @@ public sealed class SoftGroupingService : MonoBehaviour
     // existentes NavMeshAgent/CharacterController").
     private void MoveStep(Vector3 delta)
     {
+        if (PlayerNavigationMotor.TryMove(agent, delta)) return;
         if (agent && agent.enabled && agent.isOnNavMesh) { agent.Move(delta); return; }
         if (characterController && characterController.enabled) { characterController.Move(delta); return; }
         transform.position += delta;

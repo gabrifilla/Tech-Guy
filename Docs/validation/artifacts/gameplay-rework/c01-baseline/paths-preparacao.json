@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": [
+      {
+        "goal": "(7.06, 0.06, -3.79)",
+        "sampled": true,
+        "valid": true,
+        "status": "PathComplete",
+        "corners": 2
+      },
+      {
+        "goal": "(-11.00, 0.00, 13.50)",
+        "sampled": true,
+        "valid": true,
+        "status": "PathComplete",
+        "corners": 6
+      },
+      {
+        "goal": "(0.00, 0.00, -6.80)",
+        "sampled": false,
+        "valid": false,
+        "status": "PathInvalid",
+        "corners": 0
+      }
+    ],
+    "compiler": "codedom"
+  }
+}

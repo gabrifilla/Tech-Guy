@@ -1,11 +1,13 @@
 using System;
 using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public sealed partial class RunBoons
 {
     private ManualRoutePolicy _manualRoute;
+    private readonly Dictionary<RunWeaponFamily, WeaponRunModifiers> _manualFamilyModifiers = new Dictionary<RunWeaponFamily, WeaponRunModifiers>();
     private RunRewardPolicy _manualRewards;
     private RunRewardTicket _manualTicket;
     private bool _manualAgentWasStopped;
@@ -34,21 +36,27 @@ public sealed partial class RunBoons
         RewardChosen -= EvaluateSystemBreak;
         ManualRewardChosen = null;
         ClearRunState();
+        foreach (var modifiers in _manualFamilyModifiers.Values) modifiers.ClearRunInventory();
+        _manualFamilyModifiers.Clear();
+        WeaponModifiers?.ClearRunInventory();
+        _acquired.Clear(); _choices.Clear(); IsChoosing = false;
         // The player still owns the equipped clone until scene unload. OnDestroy releases its assets.
     }
 
     public bool BindManualRun(ManualRoutePolicy route)
     {
         if (route == null || _manualRoute != null || IsChoosing || WeaponModifiers == null ||
-            WeaponModifiers.Family != RunWeaponFamily.Gauntlet) return false;
+            !ManualRouteValidator.ValidateLoadout(_weapon, out _)) return false;
         if (!InitializeProtocolInventory() || !Protocols.TryBindFreshSession(route.Session.Id)) return false;
-        _manualRoute = route; _manualRewards = new RunRewardPolicy(route); return true;
+        _manualRoute = route; _manualRewards = new RunRewardPolicy(route);
+        _manualFamilyModifiers[WeaponModifiers.Family] = WeaponModifiers;
+        return true;
     }
 
     public bool OfferReward(RunRewardRequest request)
     {
         if (_manualRewards == null || !_weapon || !_player || _player.CurrentWeapon != _weapon ||
-            WeaponModifiers?.Family != RunWeaponFamily.Gauntlet || !ManualRewardContext().CanConfirm) return false;
+            WeaponModifiers == null || WeaponModifiers.Family != WeaponRunModifiers.Identify(_weapon) || !ManualRewardContext().CanConfirm) return false;
         var node = _manualRoute.Session.Route.Node(request.NodeId);
         if (node == null || IsChoosing && (_manualTicket == null || !_manualTicket.Request.Equals(request))) return false;
         var ticket = PrepareManualReward(request);
@@ -58,6 +66,7 @@ public sealed partial class RunBoons
         _choices.Clear(); _choices.AddRange(ticket.Choices);
         if (!IsChoosing && _agent && _agent.enabled && _agent.isOnNavMesh)
         { _manualAgentWasStopped = _agent.isStopped; _agent.ResetPath(); _agent.isStopped = true; }
+        if (TryGetComponent(out CharControlScript inputOwner)) inputOwner.RequireAttackRelease();
         IsChoosing = true;
         if (TryGetComponent(out CharControlScript controls)) controls.CancelCombo();
         return true;
@@ -70,7 +79,8 @@ public sealed partial class RunBoons
         var ticket = _manualRewards.Open(request, new RunActionContext(true),
             ManualInventoryKey(),
             ManualRewardCatalog.Eligible(node.RewardAt(request.Ordinal), WeaponModifiers, _weapon, Protocols,
-                _manualRoute.Session.ProtocolAcquisitions + 1));
+                _manualRoute.Session.ProtocolAcquisitions + 1),
+            ManualRewardCatalog.Alternatives(node.RewardAt(request.Ordinal), WeaponModifiers, _weapon, Protocols));
         if (ticket == null) return null;
         _manualTicket = ticket;
         if(ManualRecoveryRequired && _reportedRecovery != ticket)
@@ -99,13 +109,15 @@ public sealed partial class RunBoons
         { OfferReward(ticket.Request); return false; }
         var offer = _choices[index];
         bool chosen = _manualRewards.TryChoose(ticket.Request, ticket.Revision, offer.Id, ManualRewardContext(),
-            () => _player.CurrentWeapon == _weapon && WeaponModifiers.Family == RunWeaponFamily.Gauntlet &&
-                ManualRewardContext().CanConfirm && (ticket.IsAlternative && offer.Id == "bulwark" ||
+            () => _player.CurrentWeapon == _weapon && WeaponModifiers.Family == WeaponRunModifiers.Identify(_weapon) &&
+                ManualRewardContext().CanConfirm && (ticket.IsAlternative &&
+                ManualRewardCatalog.Alternatives(ticket.AnnouncedKind, WeaponModifiers, _weapon, Protocols).Any(o => o.Id == offer.Id) ||
                 ManualRewardCatalog.Eligible(ticket.AnnouncedKind, WeaponModifiers, _weapon, Protocols,
                     _manualRoute.Session.ProtocolAcquisitions + 1).Any(o => o.Id == offer.Id)),
             () =>
             {
-                if (!ApplyOffer(offer, false)) return false;
+                if (offer.Id == RunBoonOfferCatalog.ExhaustedId) { IsChoosing = false; _choices.Clear(); }
+                else if (!ApplyOffer(offer, false)) return false;
                 if (!ManualRewardContext().CanConfirm) throw new InvalidOperationException("Player state changed while applying reward.");
                 _manualSelectionGate.RequireRelease(Time.frameCount);
                 return true;
@@ -149,6 +161,11 @@ public sealed partial class RunBoons
         copy.abilities=new Ability[requested.abilities.Length];
         for(int i=0;i<copy.abilities.Length;i++)
         { copy.abilities[i]=Instantiate(requested.abilities[i]); _owned.Add(copy.abilities[i]); }
+        _manualFamilyModifiers[WeaponModifiers.Family] = WeaponModifiers;
+        var family = WeaponRunModifiers.Identify(copy);
+        if (!_manualFamilyModifiers.TryGetValue(family, out var modifiers))
+        { modifiers = new WeaponRunModifiers(family); _manualFamilyModifiers.Add(family, modifiers); }
+        WeaponModifiers = modifiers;
         _weapon=copy; _baseGauntletQ=copy.abilities[0] as BreakerGauntletAbility; _baseGauntletQFocused=false;
         prepared=copy; return true;
     }

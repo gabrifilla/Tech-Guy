@@ -4,7 +4,7 @@ using Unity.AI.Navigation;
 using UnityEngine;
 
 /// <summary>Authored scene adapter. No route decisions, geometry generation or runtime bake.</summary>
-public sealed class ManualStageEnvironment : MonoBehaviour
+public sealed partial class ManualStageEnvironment : MonoBehaviour
 {
     [SerializeField] private GameObject _geometryRoot;
     [SerializeField] private NavMeshSurface _navigation;

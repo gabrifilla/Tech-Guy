@@ -1,23 +1,9 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 /// <summary>
-/// Thin, additive layer on top of <see cref="EnemyAI"/> that makes a non-attacking enemy tend toward
-/// its archetype's preferred combat distance while keeping collision separation from its neighbors
-/// (R6.1/R6.2). It never duplicates perception or the attack pipeline: it only nudges the existing
-/// <see cref="NavMeshAgent"/> toward a positioning target when the enemy is idle-in-combat (in sight,
-/// not winding up an attack, not control-locked). All decision math lives in the pure
-/// <see cref="PreferredDistanceResolver"/> so it can be property-tested without a scene.
+/// Provides authored positioning suggestions. EnemyAI alone authorizes and applies destinations, so
+/// preferred distance cannot overwrite reaction, retreat cooldown, attacks or control locks.
 /// </summary>
-/// <remarks>
-/// Feature: weapon-gameplay-swarm-rework, task 7.1. Requirements: 6.1, 6.2, 6.4.
-/// <para>
-/// The preferred distance is authored data (<see cref="PreferredDistanceProfile"/>) keyed by
-/// <see cref="ArchetypeId"/>. When the enemy's archetype has no entry, the resolver falls back to the
-/// enemy's <see cref="CombatRole"/> default (always &gt; 0) and this layer logs the absence exactly
-/// once with a stable identifier so the gap is traceable (R6.4), without interrupting behavior.
-/// </para>
-/// </remarks>
 [RequireComponent(typeof(EnemyAI))]
 public sealed class PreferredDistanceLayer : MonoBehaviour
 {
@@ -28,10 +14,7 @@ public sealed class PreferredDistanceLayer : MonoBehaviour
     [SerializeField, Min(0.05f)] private float _arriveTolerance = 0.5f;
 
     private EnemyAI _ai;
-    private NavMeshAgent _agent;
-    private CombatReactionController _reaction;
     private EnemyVariant _variant;
-    private Actor _owner;
 
     // Log the missing-configuration fallback once per enemy so the console isn't spammed every frame (R6.4).
     private bool _loggedMissingConfig;
@@ -39,57 +22,38 @@ public sealed class PreferredDistanceLayer : MonoBehaviour
     private void Awake()
     {
         _ai = GetComponent<EnemyAI>();
-        _agent = GetComponent<NavMeshAgent>();
-        _reaction = GetComponent<CombatReactionController>();
         _variant = GetComponent<EnemyVariant>();
-        _owner = GetComponent<Actor>();
     }
 
-    private void Update()
+    /// <summary>Suggests a target without issuing movement or independently running a player loop.</summary>
+    public bool TryGetPositioningTarget(out Vector3 target)
     {
-        if (Time.timeScale <= 0f) return;
-        if (!ShouldReposition()) return;
-
-        Transform player = _ai.player;
+        target = transform.position;
+        if (!isActiveAndEnabled || _ai == null || _ai.player == null) return false;
         PreferredDistanceResolver.Resolution resolution = ResolvePreferredDistance();
-
-        Vector3 target = PreferredDistanceResolver.PositioningTarget(
-            player.position, transform.position, resolution.PreferredDistance);
-
-        // Separation: keep the target off any neighbor's collision volume so enemies don't stack. This
-        // is a small, bounded nudge on the already-computed positioning target, not a second solver.
+        float attackRange = _ai.PositioningAttackRange;
+        bool meleeApproach = !float.IsInfinity(attackRange) && attackRange > 0f;
+        // Perception's melee gate measures centers in 3D. Positioning operates on the ground
+        // plane, so reserve the vertical component and preserve the center-distance convention.
+        float height = transform.position.y - _ai.player.position.y;
+        float planarRange = meleeApproach ? Mathf.Sqrt(Mathf.Max(0f, attackRange * attackRange - height * height)) : float.PositiveInfinity;
+        if (meleeApproach && planarRange <= Mathf.Epsilon) return false;
+        float preferred = meleeApproach ? Mathf.Min(resolution.PreferredDistance, planarRange * .9f) : resolution.PreferredDistance;
+        target = PreferredDistanceResolver.PositioningTarget(
+            _ai.player.position, transform.position, preferred);
         target = ApplySeparation(target, resolution.SeparationRadius);
-
-        // Only reposition when meaningfully off the preferred distance, so the enemy settles instead of
-        // jittering. Movement goes exclusively through the existing NavMeshAgent (no raw transform move).
+        if (meleeApproach)
+        {
+            // Separation may spread approach angles, but cannot choose a holding point outside
+            // attack reach. Physical collision and NavMesh avoidance remain authoritative.
+            Vector3 away = target - _ai.player.position; away.y = 0f;
+            target = _ai.player.position + Vector3.ClampMagnitude(away, preferred);
+            target.y = transform.position.y;
+        }
         Vector3 planar = target - transform.position;
         planar.y = 0f;
-        if (planar.magnitude <= _arriveTolerance) return;
-
-        if (NavMesh.SamplePosition(target, out NavMeshHit hit, resolution.PreferredDistance + 1f, NavMesh.AllAreas))
-        {
-            _agent.SetDestination(hit.position);
-        }
-    }
-
-    /// <summary>
-    /// True only when the enemy is idle-in-combat: alive, has a player and a usable agent, is not
-    /// control-locked (stunned/airborne), and is not currently winding up an attack. This defers to
-    /// <see cref="EnemyAI"/> for attack state so the layer never fights the attack pipeline (R6.2 "while
-    /// not executing an attack").
-    /// </summary>
-    private bool ShouldReposition()
-    {
-        if (_ai == null || _agent == null) return false;
-        if (!_agent.enabled || !_agent.isOnNavMesh || _agent.isStopped) return false;
-        if (_ai.player == null) return false;
-        if (_owner && _owner.IsDead) return false;
-        if (_reaction && _reaction.IsControlLocked) return false;
-        if (_ai.IsWindingUp) return false;
-
-        // Only hold position once the player is actually in sight; out of sight, EnemyAI's patrol owns
-        // movement and we must not override it.
-        return _ai.playerInSightRange;
+        float tolerance = meleeApproach ? Mathf.Min(_arriveTolerance, planarRange - preferred) : _arriveTolerance;
+        return planar.sqrMagnitude > tolerance * tolerance;
     }
 
     /// <summary>

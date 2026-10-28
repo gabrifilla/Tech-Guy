@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
@@ -39,7 +40,7 @@ namespace TechGuy.Tests
     /// production surface is widened for the test.
     /// </para>
     /// </summary>
-    public sealed partial class BasicAttackR1PlayModeTests
+    public sealed partial class BasicAttackR1PlayModeTests : RunSummaryIsolatedPlayModeFixture
     {
         [UnityTest]
         public IEnumerator GauntletPhase3AuthoredCadenceUsesCapturedProfileAndDuration()
@@ -342,7 +343,7 @@ namespace TechGuy.Tests
 
         // gauntlet-2-rework task 14: real reward selection, explicit legacy Q replacement and run cleanup.
         [UnityTest]
-        public IEnumerator GauntletPhase3RewardsOfferUniqueMutationsAndPreserveLegacyQUntilSelected()
+        public IEnumerator GauntletPhase3RewardsOfferExecutableMutationsAndPreserveLegacyQ()
         {
             Assert.IsTrue(TryBakeFullFloor()); BuildPlayer(Vector3.zero);
             var holder = _player.gameObject.AddComponent<AbilityHolder>();
@@ -365,38 +366,31 @@ namespace TechGuy.Tests
             run.OfferReward(1);
             Assert.AreSame(legacyQ, run.RunWeapon.abilities[0], "opening rewards does not automatically migrate Q");
             Assert.AreEqual(72, combat.Energy, "room transition preserves energy");
-            int focus = -1;
-            for (int i = 0; i < run.Choices.Count; i++) if (run.Choices[i].Id == "focus") focus = i;
-            Assert.GreaterOrEqual(focus, 0); Assert.IsTrue(run.Choose(focus));
+            int protocol = run.Choices.ToList().FindIndex(o => ProtocolInventory.TryKind(o.Id, out _));
+            Assert.GreaterOrEqual(protocol, 0); Assert.IsTrue(run.Choose(protocol));
             Assert.AreSame(legacyQ, run.RunWeapon.abilities[0]);
-            var selected = new HashSet<GauntletMutation>();
-            for (int room = 2; room <= 5; room++)
-            {
-                run.OfferReward(room);
-                int choice = -1;
-                for (int i = 0; i < run.Choices.Count; i++)
-                {
-                    var offer = run.Choices[i];
-                    Assert.AreNotEqual("transform", offer.Id);
-                    Assert.IsFalse(offer.Id.StartsWith("weapon_"), "max-rank Techniques and legacy boons are absent");
-                    if (!GauntletContentAuthoring.TryMutation(offer.Id, out var mutation)) continue;
-                    Assert.IsFalse(selected.Contains(mutation));
-                    if (mutation == GauntletMutation.DemolishingAdvance)
-                        StringAssert.Contains("SUBSTITUI EXPLICITAMENTE", offer.Description);
-                    choice = i;
-                }
-                Assert.GreaterOrEqual(choice, 0, "remaining mutation occupies the family reward choice");
-                var id = run.Choices[choice].Id; GauntletContentAuthoring.TryMutation(id, out var chosen);
-                Assert.IsTrue(run.Choose(choice)); Assert.IsTrue(selected.Add(chosen));
-                Assert.AreEqual(1, RunModifierPresentation.Count(run, id));
-                Assert.AreEqual(72, combat.Energy);
-            }
-            Assert.AreEqual(4, selected.Count);
-            Assert.AreSame(oldQ, run.RunWeapon.abilities[0]); Assert.IsTrue(legacyQ);
-            Assert.AreEqual(sourceWeapon.abilities[0].ManaCost * .75f, oldQ.ManaCost, .0001f);
+            run.OfferReward(2);
+            string cadenceId = GauntletContentAuthoring.ForMutation(GauntletMutation.CadencedAsura).Id;
+            int cadence = run.Choices.ToList().FindIndex(o => o.Id == cadenceId);
+            Assert.GreaterOrEqual(cadence, 0); Assert.IsTrue(run.Choose(cadence));
+            Assert.AreEqual(72, combat.Energy); Assert.AreSame(legacyQ, run.RunWeapon.abilities[0]);
+            run.OfferReward(3);
+            Assert.IsFalse(run.Choices.Any(o => GauntletContentAuthoring.TryMutation(o.Id, out _)),
+                "The retired Q transformation is not an executable Uppercut target.");
+            int support = run.Choices.ToList().FindIndex(o => ProtocolInventory.TryKind(o.Id, out _));
+            Assert.GreaterOrEqual(support, 0); Assert.IsTrue(run.Choose(support));
+            // Restore the native fixture explicitly; opening rewards never performs this migration.
+            run.RunWeapon.abilities[0] = oldQ; holder.RefreshLoadout();
+            run.OfferReward(4);
+            int uppercut = run.Choices.ToList().FindIndex(o => o.Id == BoonReworkCatalog.UppercutId);
+            Assert.GreaterOrEqual(uppercut, 0); Assert.IsTrue(run.Choose(uppercut));
+            Assert.AreEqual(1, RunModifierPresentation.Count(run, BoonReworkCatalog.UppercutId));
+            Assert.AreEqual(1, RunModifierPresentation.Count(run, cadenceId));
+            Assert.AreEqual(72, combat.Energy); Assert.AreSame(oldQ, run.RunWeapon.abilities[0]);
+            Assert.AreEqual(sourceWeapon.abilities[0].ManaCost, oldQ.ManaCost, .0001f);
             Assert.IsTrue(acquired.Exists(offer => offer.Id == "transform"));
-            run.OfferReward(6);
-            foreach (var offer in run.Choices) Assert.IsFalse(GauntletContentAuthoring.TryMutation(offer.Id, out _));
+            run.OfferReward(5);
+            Assert.IsFalse(run.Choices.Any(o => GauntletContentAuthoring.TryMutation(o.Id, out _)));
             UnityEngine.Object.Destroy(run); yield return null;
             Assert.AreEqual(0, combat.Energy); Assert.AreEqual(0, mods.Rank(WeaponBoon.AsuraReserve));
             foreach (GauntletMutation mutation in Enum.GetValues(typeof(GauntletMutation)))
@@ -559,7 +553,10 @@ namespace TechGuy.Tests
             Assert.IsTrue(combat.IsCadencedWaiting); Assert.AreEqual(1, typeof(BreakerGauntletCombat).GetField("_cadencedStrike", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(combat));
             Assert.AreEqual(0, combat.PendingChildCount);
             // No further press: holding/absence of input never manufactures the third producer.
-            yield return new WaitForSeconds(.85f);
+            float continuationEnd = (float)typeof(BreakerGauntletCombat).GetField("_cadencedWaitUntil", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(combat);
+            float timeoutDeadline = Time.realtimeSinceStartup + 3f;
+            while (combat.IsExecuting && combat.CadencedNow <= continuationEnd && Time.realtimeSinceStartup < timeoutDeadline) yield return null;
+            yield return null; // Expiry is serviced in LateUpdate after the input boundary.
             Assert.IsFalse(combat.IsExecuting); Assert.AreEqual(0, combat.PendingChildCount);
             Assert.AreEqual(0, combat.EnergyPolicy.RetainedRootCount);
         }

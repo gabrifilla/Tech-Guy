@@ -19,7 +19,8 @@ public sealed class GauntletMutationSelection
     {
         switch (mutation)
         {
-            case GauntletMutation.DemolishingAdvance: return GauntletActionSlot.Q;
+            case GauntletMutation.DemolishingAdvance:
+            case GauntletMutation.EclipseUppercut: return GauntletActionSlot.Q;
             case GauntletMutation.PressureField: return GauntletActionSlot.W;
             case GauntletMutation.Epicenter: return GauntletActionSlot.E;
             case GauntletMutation.CadencedAsura: return GauntletActionSlot.R;

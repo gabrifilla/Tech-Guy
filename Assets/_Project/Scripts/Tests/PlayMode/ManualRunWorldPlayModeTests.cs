@@ -16,11 +16,23 @@ namespace TechGuy.Tests
             .GetField(name, BindingFlags.Instance | BindingFlags.NonPublic).SetValue(target, value);
 
         private (ProgressionDirector director, ManualStageEnvironment environment, GameObject root, ManualRunDefinition definition, GameObject proceduralRoot)
-            CreateManualWorldFixture(bool missingNavigation = false, int firstEncounterEnemies = 1)
+            CreateManualWorldFixture(bool missingNavigation = false, int firstEncounterEnemies = 1, bool firstEncounterSpawner = false)
         {
             var template = new GameObject("Manual actor template"); template.SetActive(false); _spawned.Add(template);
             var actor = template.AddComponent<Actor>(); actor.health = 100f;
             template.AddComponent<BoxCollider>();
+            if (firstEncounterSpawner)
+            {
+                var swarm = new GameObject("Produced swarm template"); swarm.SetActive(false); _spawned.Add(swarm);
+                swarm.AddComponent<Actor>().health = 25f; swarm.AddComponent<BoxCollider>();
+                template.AddComponent<UnityEngine.AI.NavMeshAgent>();
+                template.AddComponent<EnemyAI>().enabled = false;
+                var spawner = template.AddComponent<SpawnerBehavior>();
+                SetManualField(spawner, "_swarmPrefab", swarm);
+                SetManualField(spawner, "_spawnInterval", 1000f);
+                SetManualField(spawner, "_livingCap", 1);
+                SetManualField(spawner, "_spawnRadius", .2f);
+            }
             var definition = ManualRunFixture.Create(template, true);
             if(firstEncounterEnemies>1)
             {
@@ -98,6 +110,55 @@ namespace TechGuy.Tests
         }
 
         [UnityTest]
+        public IEnumerator ManualProducedSwarmKeepsEncounterOpenAndIsRemovedOnCompletion()
+        {
+            bool hadSelection = PlayerPrefs.HasKey(WeaponLoadout.PreferenceKey);
+            int oldIndex = PlayerPrefs.GetInt(WeaponLoadout.PreferenceKey, 0);
+            PlayerPrefs.SetInt(WeaponLoadout.PreferenceKey, 0);
+            Assert.IsTrue(TryBakeFullFloor()); BuildPlayer(Vector3.zero);
+            _player.EquipWeapon(WeaponLoadout.LoadSelected());
+            var fixture = CreateManualWorldFixture(firstEncounterSpawner: true);
+            try
+            {
+                if (_navMeshInstance.valid) _navMeshInstance.Remove();
+                fixture.director.gameObject.SetActive(true); yield return null; yield return null; yield return null;
+                var session = fixture.director.ManualSession;
+                Assert.IsNotNull(session);
+                Assert.IsTrue(fixture.director.TryCommitDestination(session.Id, 1));
+                Assert.IsTrue(fixture.director.TryEnterNode(session.Id, 1));
+                var spawner = fixture.director.GetComponentsInChildren<SpawnerBehavior>().Single();
+                Assert.AreEqual(1, fixture.director.ManualEnemiesRemaining);
+                typeof(SpawnerBehavior).GetMethod("TrySpawnOne", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(spawner, null);
+                var produced = fixture.director.GetComponentsInChildren<Actor>(true).Single(enemy => enemy != spawner.GetComponent<Actor>());
+                produced.gameObject.SetActive(true);
+                Assert.AreEqual(2, fixture.director.ManualEnemiesRemaining, "A produced enemy joins the owning encounter before rewards can resolve.");
+                Assert.IsTrue(produced.transform.IsChildOf(fixture.director.transform));
+                var membership = produced.GetComponent<ProtocolEncounterMembership>();
+                Assert.IsNotNull(membership);
+                Assert.IsTrue(membership.Matches(session.Id, 1));
+                spawner.GetComponent<Actor>().TakeDamage(1000000f);
+                yield return null;
+                Assert.AreEqual(RunPhase.Encounter, session.Phase, "Killing the original Spawner cannot ignore a surviving Swarm.");
+                Assert.AreEqual(1, fixture.director.ManualEnemiesRemaining);
+                Assert.IsFalse(fixture.director.HasManualCompletionCandidate);
+                produced.TakeDamage(1000000f);
+                float deadline = Time.realtimeSinceStartup + 3f;
+                while (session.Phase == RunPhase.Encounter)
+                { Assert.Less(Time.realtimeSinceStartup, deadline); yield return null; }
+                Assert.AreEqual(RunPhase.RewardPending, session.Phase);
+                Assert.AreEqual(0, fixture.director.ManualEnemiesRemaining);
+                yield return null;
+                Assert.IsTrue(!produced, "Encounter cleanup removes the produced actor with its encounter root.");
+                Assert.IsEmpty(fixture.director.GetComponentsInChildren<Actor>(true));
+            }
+            finally
+            {
+                if (hadSelection) PlayerPrefs.SetInt(WeaponLoadout.PreferenceKey, oldIndex); else PlayerPrefs.DeleteKey(WeaponLoadout.PreferenceKey);
+                UnityEngine.Object.DestroyImmediate(fixture.definition);
+            }
+        }
+
+        [UnityTest]
         public IEnumerator ManualSliceInvalidEnvironmentRefusesBeforeAnyWorldMaterialization()
         {
             int oldIndex = PlayerPrefs.GetInt(WeaponLoadout.PreferenceKey, 0); PlayerPrefs.SetInt(WeaponLoadout.PreferenceKey, 0);
@@ -116,7 +177,7 @@ namespace TechGuy.Tests
         }
 
         [UnityTest]
-        public IEnumerator ManualSliceBowSelectionRetainsWeaponAndSelectsProceduralBeforeDependencyChecks()
+        public IEnumerator ManualSliceBowSelectionRetainsWeaponAndBindsCompatibleInventoryBeforeLegacyDependencyChecks()
         {
             const string unlockKey = "TechGuy.Loadout.Unlocked.1";
             int oldIndex = PlayerPrefs.GetInt(WeaponLoadout.PreferenceKey, 0);
@@ -127,13 +188,17 @@ namespace TechGuy.Tests
             var fixture = CreateManualWorldFixture();
             try
             {
-                // This minimal fixture intentionally lacks the procedural dependencies; the log
-                // proves selection has reached that preserved path before any manual validation.
-                LogAssert.Expect(LogType.Error, "ProgressionDirector is missing required dependencies: _generationParams (StageGenerationParams), _enemyPrefab (enemy prefab), _archetypeCatalog (EnemyArchetype catalog), _objective (TMP_Text objective).");
-                fixture.director.gameObject.SetActive(true); yield return null;
-                Assert.AreEqual(RunProgressionMode.ProceduralLegacy, fixture.director.ActiveProgressionMode);
+                if (_navMeshInstance.valid) _navMeshInstance.Remove();
+                fixture.director.gameObject.SetActive(true); yield return null; yield return null; yield return null;
+                Assert.AreEqual(RunProgressionMode.ManualSlice, fixture.director.ActiveProgressionMode);
                 Assert.AreEqual(RunWeaponFamily.Bow, WeaponRunModifiers.Identify(_player.CurrentWeapon));
-                Assert.IsNull(fixture.director.ManualSession); Assert.IsFalse(fixture.root.activeSelf);
+                Assert.IsNotNull(fixture.director.ManualSession); Assert.IsTrue(fixture.root.activeSelf);
+                Assert.IsFalse(fixture.proceduralRoot.activeSelf); Assert.IsNull(fixture.director.CurrentGraph);
+                var run = _player.GetComponent<RunBoons>();
+                Assert.IsNotNull(run); Assert.AreEqual(RunWeaponFamily.Bow, run.WeaponModifiers.Family);
+                Assert.AreEqual(fixture.director.ManualSession.Id, run.Protocols.SessionId);
+                Assert.AreSame(run.Protocols,_player.GetComponent<ProtocolRuntime>().Inventory);
+                Assert.IsNotEmpty(ManualRewardCatalog.Eligible(RunRewardKind.Mutation,run.WeaponModifiers,_player.CurrentWeapon,run.Protocols));
             }
             finally
             {

@@ -1,0 +1,194 @@
+{
+  "metodo": "Entrada virtual Keyboard/Mouse; pausa/resume por API; player e tuning publicados",
+  "tentativa_descartada": "nexus-input-virtual.jsonl: filtro de currentUpdateType no onBeforeUpdate impediu entradas; somente câmera/ambiente, não baseline de comandos",
+  "janelas": [
+    {
+      "nome": "cardinal",
+      "amostras": 61,
+      "velocidade_agente_max": 5.000026251030496,
+      "posicoes_extremas": [
+        [
+          5.66016054,
+          0.0566666722,
+          -6.78810167
+        ],
+        [
+          2.47720671,
+          0.0566666722,
+          -6.74301
+        ]
+      ],
+      "basicos_extremos": [
+        0,
+        0
+      ]
+    },
+    {
+      "nome": "diagonal_pedido_sem_movimento",
+      "amostras": 97,
+      "velocidade_agente_max": 0.0,
+      "posicoes_extremas": [
+        [
+          2.47720671,
+          0.0566666722,
+          -6.74301
+        ],
+        [
+          2.47720671,
+          0.0566666722,
+          -6.74301
+        ]
+      ],
+      "basicos_extremos": [
+        0,
+        0
+      ]
+    },
+    {
+      "nome": "retorno_lmb_chao",
+      "amostras": 82,
+      "velocidade_agente_max": 5.000030533428498,
+      "posicoes_extremas": [
+        [
+          3.32263279,
+          0.0566666722,
+          -6.74306774
+        ],
+        [
+          6.52294254,
+          0.0566666722,
+          -6.74328947
+        ]
+      ],
+      "basicos_extremos": [
+        0,
+        0
+      ]
+    },
+    {
+      "nome": "tap_shift_lmb",
+      "amostras": 54,
+      "velocidade_agente_max": 0.0,
+      "posicoes_extremas": [
+        [
+          6.52294254,
+          0.0566666722,
+          -6.74328947
+        ],
+        [
+          6.52294254,
+          0.0566666722,
+          -6.74328947
+        ]
+      ],
+      "basicos_extremos": [
+        0,
+        1
+      ]
+    },
+    {
+      "nome": "hold_shift_lmb",
+      "amostras": 9,
+      "velocidade_agente_max": 0.0,
+      "posicoes_extremas": [
+        [
+          6.52294254,
+          0.0566666722,
+          -6.74328947
+        ],
+        [
+          6.52294254,
+          0.0566666722,
+          -6.74328947
+        ]
+      ],
+      "basicos_extremos": [
+        1,
+        2
+      ]
+    },
+    {
+      "nome": "dash",
+      "amostras": 30,
+      "velocidade_agente_max": 0.0,
+      "posicoes_extremas": [
+        [
+          6.52294254,
+          0.0566666722,
+          -6.74328947
+        ],
+        [
+          1.66666687,
+          0.0566666722,
+          -6.743313
+        ]
+      ],
+      "basicos_extremos": [
+        2,
+        2
+      ]
+    },
+    {
+      "nome": "pausa",
+      "amostras": 69,
+      "velocidade_agente_max": 0.0,
+      "posicoes_extremas": [
+        [
+          1.66666687,
+          0.0566666722,
+          -6.743313
+        ],
+        [
+          1.66666687,
+          0.0566666722,
+          -6.743313
+        ]
+      ],
+      "basicos_extremos": [
+        2,
+        2
+      ]
+    }
+  ],
+  "eventos": [
+    {
+      "kind": "AbilityUsed",
+      "slot": 4,
+      "t": 11.03815110000005
+    },
+    {
+      "kind": "AbilityUsed",
+      "slot": 0,
+      "t": 13.513828499999818
+    },
+    {
+      "kind": "AbilityUsed",
+      "slot": 1,
+      "t": 14.531518299999789
+    },
+    {
+      "kind": "AbilityUsed",
+      "slot": 2,
+      "t": 16.50081679999994
+    },
+    {
+      "kind": "AbilityRejected",
+      "slot": 3,
+      "reason": "Requirement",
+      "t": 18.038800099999662
+    },
+    {
+      "kind": "Cleanup",
+      "basics": 2,
+      "used": 4,
+      "rejected": 1,
+      "input_devices_restored": true
+    }
+  ],
+  "ressalvas": [
+    "Nenhum WASD novo exercitado",
+    "Pedido diagonal nesta agenda não produziu caminho; não prova problema do motor",
+    "Coleta PNG/Editor introduz overhead; sem benchmark de latência ou aceleração subframe",
+    "Dash usa deslocamento manual; agent.velocity não mede sua velocidade"
+  ]
+}

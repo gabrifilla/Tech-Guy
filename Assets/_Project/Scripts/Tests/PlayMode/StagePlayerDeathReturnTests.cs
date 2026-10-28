@@ -28,7 +28,7 @@ namespace TechGuy.Tests
     /// return toward the Nexus is attempted (R8.2 intent) — and expects the missing-scene error rather
     /// than loading a scene the harness does not ship.
     /// </summary>
-    public sealed class StagePlayerDeathReturnTests
+    public sealed class StagePlayerDeathReturnTests : RunSummaryIsolatedPlayModeFixture
     {
         private ProceduralStageTestRig _rig;
         private GameObject _directorGo;

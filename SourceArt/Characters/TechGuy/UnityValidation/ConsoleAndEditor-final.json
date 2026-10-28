@@ -1,0 +1,28 @@
+{
+  "errors": 0,
+  "warnings": [
+    {
+      "message": "AbilityHolder keys array has fewer entries than weapon abilities; existing Q/W/E/R fallback warning.",
+      "file": "Assets/_Project/Scripts/Abilities/AbilityHolder.cs",
+      "line": 265
+    }
+  ],
+  "consoleCleared": false,
+  "editorScene": "Assets/_Project/Scenes/NexusLobby.unity",
+  "playMode": false,
+  "timeScale": 1,
+  "sceneDirty": false,
+  "controllerSha256": "06e16fac601f2bd0918dec189a7c87230b8c959049407e51891e7953b006d007",
+  "controllerMatchesBackup": true,
+  "gettersCleanup": {
+    "extraPlayerOnHitEffects": false,
+    "capsuleSharedMaterial": null,
+    "newTmpOverridesRemoved": 48
+  },
+  "limitations": [
+    "Dense 318872-triangle character still has no LOD/retopology.",
+    "Gauntlet prefab geometry origin offset reproduced on both old and new models (approximately 1.0541m).",
+    "Player skill animation library Combat/SkillAnimations was absent before this task.",
+    "Walking and attack captures demonstrate sampled poses, not human combat-feel acceptance."
+  ]
+}

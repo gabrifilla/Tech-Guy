@@ -64,6 +64,7 @@ public sealed class ProtocolElementStatus : MonoBehaviour
 
 public sealed class ProtocolElementApplication
 {
+    internal RunDamageSource AnalyticsBurnSource;
     internal bool Registered { get; set; }
     internal int LastUpdatedFrame { get; set; } = -1;
     public ProtocolRuntime Owner { get; internal set; }

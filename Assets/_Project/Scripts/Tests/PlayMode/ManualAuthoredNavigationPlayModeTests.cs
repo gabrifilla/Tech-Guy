@@ -11,7 +11,7 @@ using UnityEditor;
 
 namespace TechGuy.Tests
 {
-    public sealed class ManualAuthoredNavigationPlayModeTests
+    public sealed class ManualAuthoredNavigationPlayModeTests : RunSummaryIsolatedPlayModeFixture
     {
 #if UNITY_EDITOR
         // Exercises saved geometry/gates/NavMesh, with pure-policy commits standing in for enemy
@@ -28,6 +28,33 @@ namespace TechGuy.Tests
             try
             {
                 environment.SetActive(true);
+                yield return VerifyPhysicalPaths(route, environment);
+            }
+            finally { UnityEngine.Object.DestroyImmediate(instance); }
+        }
+
+        [UnityTest] public IEnumerator GeneratedPathsAreNavigableAndRejectedBranchesRemainPhysicallySealed()
+        {
+            var definition = AssetDatabase.LoadAssetAtPath<ManualRunDefinition>("Assets/_Project/ScriptableObjects/Run/FirstSectorManual.asset");
+            Assert.IsTrue(ManualRouteValidator.TrySnapshot(definition, Resources.Load<WeaponScript>(WeaponLoadout.ResourcePaths[0]), out var source, out string error), error);
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Run/FirstSectorManualEnvironment.prefab");
+            foreach (ulong seed in new ulong[] { 17, 1701 })
+            {
+                var instance = UnityEngine.Object.Instantiate(prefab);
+                try
+                {
+                    var route = ManualRunRandomizer.Generate(source, seed, null);
+                    var environment = instance.GetComponent<ManualStageEnvironment>();
+                    Assert.IsTrue(environment.BuildGenerated(route, out error), error);
+                    Assert.IsTrue(environment.Validate(route, out error), error);
+                    yield return VerifyPhysicalPaths(route, environment);
+                }
+                finally { UnityEngine.Object.DestroyImmediate(instance); }
+            }
+        }
+
+        private static IEnumerator VerifyPhysicalPaths(ManualRouteSnapshot route, ManualStageEnvironment environment)
+        {
                 foreach (var path in route.Paths)
                 {
                     var policy = new ManualRoutePolicy(route); var ready = new RunActionContext(true);
@@ -55,8 +82,8 @@ namespace TechGuy.Tests
                         else
                         {
                             Assert.IsTrue(policy.TryResolveEncounter(policy.Session.Id, next, true, ready));
-                            for (int ordinal = 0; ordinal < route.Node(next).Acquisitions; ordinal++)
-                                Assert.IsTrue(policy.TryCompleteReward(policy.Session.Id, next, ordinal, route.Node(next).Reward == RunRewardKind.Mutation, ready));
+                            for (int ordinal = 0; ordinal < route.Node(next).TotalAcquisitions; ordinal++)
+                                Assert.IsTrue(policy.TryCompleteReward(policy.Session.Id, next, ordinal, route.Node(next).RewardAt(ordinal) == RunRewardKind.Mutation, ready));
                         }
                         environment.ApplyGateState(policy.Session);
                         if (route.Node(next).Kind != ManualNodeKind.Boss)
@@ -71,8 +98,6 @@ namespace TechGuy.Tests
                                 Assert.IsTrue(environment.Connections.Single(c => c.ConnectionId == edge.Id).Barrier.activeInHierarchy);
                     }
                 }
-            }
-            finally { UnityEngine.Object.DestroyImmediate(instance); }
         }
 
         [UnityTest] public IEnumerator AuthoredClosedGateStopsRealDashAndGauntletAdvance()

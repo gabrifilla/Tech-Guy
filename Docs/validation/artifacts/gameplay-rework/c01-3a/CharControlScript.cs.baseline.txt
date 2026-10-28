@@ -1,0 +1,1216 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.AI;
+
+public partial class CharControlScript : MonoBehaviour
+{
+    private const string IDLE = "Idle";
+    private const string WALK = "Walk";
+
+    // ComboNova proc gate (R6). The nova fires on exactly every third basic attack and no other:
+    // the gate is purely _runBasicCount % 3 == 0 with Rank(ComboNova) > 0, so the attack-speed
+    // multiplier (Haste) only changes proc frequency over time, never which basic procs.
+    private const int ComboNovaBasicInterval = 3;   // every third basic attack
+    private const float ComboNovaRadius = 2.5f;     // R6.1 area radius in meters
+    private const float ComboNovaDamagePerRank = .6f; // R6.1 damage = 0.6 x rank x weaponDamage
+
+    [Header("Movement")]
+    [SerializeField] private ParticleSystem clickEffect;
+    [SerializeField] private LayerMask clickableLayers;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private float lookRotationSpeed = 8f;
+    [SerializeField] private int clickEffectPoolSize = 8;
+    [SerializeField] private Transform clickEffectPoolRoot;
+    [SerializeField] private bool debugClickLog = false;
+    [SerializeField, Min(0f)] private float _movementClickDeadZone = .55f;
+    [SerializeField, Range(0f, 40f)] private float _enemyPointerRadiusPixels = 18f;
+
+    [SerializeField, Min(0f)] private float _recoveryMoveBufferDuration = .35f;
+    [SerializeField, Range(0f, .2f)] private float _locomotionBlendDuration = .08f;
+    private readonly GroundMovementBuffer _groundMoveBuffer = new GroundMovementBuffer();
+    private NavMeshPath _groundMovePath;
+    private AbilityHolder _boundMovementHolder;
+    private float _movementInputClock;
+    private bool _locomotionMoving;
+    private int _locomotionState;
+
+    [Header("Attack")]
+    [SerializeField] private string[] attackAnimations = { "Attack1", "Attack2", "Attack3" };
+    [SerializeField] private AudioClip[] footstepAudioClips;
+    [Range(0, 1)] [SerializeField] private float footstepAudioVolume = 0.5f;
+    [SerializeField] private float attackRange = 1.8f;
+    [SerializeField] private float attackInterval = 0.7f;
+    [SerializeField] private float attackBusyDuration = 0.45f;
+    [SerializeField] private float attackHitboxDuration = 0.2f;
+    [SerializeField] private float comboResetTime = 1.0f;
+    [SerializeField] private Vector3 attackBoxSize = new Vector3(2f, 2f, 0f);
+    [SerializeField] private LayerMask attackLayers;
+
+    [Header("Attack Reaction")]
+    // The basic attack reaction is purely COSMETIC (combat-foundation-rework task 16.2, R7.6-R7.9/R7.11):
+    // Push nudges the enemy a little and plays the flinch animation but, unlike Stagger, never calls
+    // InterruptCurrentAction (no EnemyAI.InterruptAttack / NavMeshAgent.ResetPath / control lock), so a
+    // basic hit does NOT interrupt the enemy's AI/attack on any rank (common, elite or boss). Hard CC and
+    // mechanical interruption stay with the Stance Break channel and authored skill reactions (e.g. the
+    // E/BreakerShock AreaHitStep Stagger+stun), which this basic path leaves untouched. defaultAttackBreakEffect
+    // stays None so single swings never request a stance-break effect.
+    [SerializeField] private HitReactionType defaultAttackReaction = HitReactionType.Push;
+    [SerializeField] private HitStrength defaultAttackStrength = HitStrength.Light;
+    [SerializeField, Min(0f)] private float defaultAttackStanceDamage = 12f;
+    [SerializeField, Min(0f)] private float defaultAttackPushDistance = 0.35f;
+    [Tooltip("Hard CC applied only if a basic hit actually breaks stance. Keep None so combos, not single swings, decide CC.")]
+    [SerializeField] private StanceBreakEffect defaultAttackBreakEffect = StanceBreakEffect.None;
+    [SerializeField] private HitReactionType[] comboReactions;
+    [SerializeField] private HitStrength[] comboStrengths;
+    [SerializeField] private float[] comboStanceDamage;
+
+    public bool isDashing = false;
+
+    private NavMeshAgent agent;
+    private Animator animator;
+    private Interactable target;
+    private WeaponScript weapon;
+    private AbilityHolder _abilityHolder;
+    [SerializeField] private PlayerHUD _playerHUD;
+
+    // combat-foundation-rework R1 (task 13.1): decides, as pure logic, how many basic attacks the
+    // player's input authorizes. Removing the persistent auto-combat means the mere existence of an
+    // Alvo_Interno (target) no longer authorizes an attack (R1.6/R1.7/R1.12); only an explicit
+    // Toque_de_Ataque (QueueTap) or Segurar_Ataque (SetHold) does. Tap/hold feeding is wired in a
+    // later subtask (13.3), so until then no attack is authorized while following a target.
+    private readonly BasicAttackDriver _basicAttackDriver = new BasicAttackDriver();
+
+    /// <summary>
+    /// The scene HUD explicitly bound to this player (may be null in headless/test scenes).
+    /// Exposed so run-scoped feedback holders (e.g. Momentum Strike) can push cosmetic cues
+    /// through the same serialized reference instead of a scene lookup.
+    /// </summary>
+    public PlayerHUD HUD => _playerHUD;
+
+    private float baseAttackRange;
+    private float baseAttackInterval;
+    private float baseAttackBusyDuration;
+    private float baseAttackHitboxDuration;
+    private Vector3 baseAttackBoxSize;
+    private float baseMoveSpeed;
+    private float cachedAttackSpeedMultiplier = -1f;
+    private float cachedMovementSpeedMultiplier = -1f;
+
+    private int currentComboCount = 0;
+    private bool playerBusy = false;
+    private float lastAttackTime;
+    private float nextAttackTime;
+    private float defaultStoppingDistance;
+    private Coroutine attackBusyCoroutine;
+    private Coroutine hitboxCoroutine;
+
+    public DashScript dashScript;
+    public PlayerActor playerActor;
+
+    private readonly List<ParticleSystem> clickEffectPool = new List<ParticleSystem>();
+    private int lastMoveRequestFrame = -1;
+    private bool _waitForAttackRelease;
+    private int _runBasicCount;
+    // Charged Shot (R3): how long the primary attack input has been continuously held while the boon
+    // is active and the weapon fires arrows. Consumed when a bow basic resolves into an arrow to pick
+    // between a charged (piercing, boosted) and a normal shot, and pushed to the HUD as a charge ratio.
+    private float _primaryHeldSeconds;
+    private bool _primaryHeldLast;
+    public event System.Action BasicAttackPerformed;
+    public void RequireAttackRelease() { _waitForAttackRelease = true; InvalidateDirectGameplayInput(); }
+
+    /// <summary>
+    /// gauntlet-boon-playstyle-overhaul R8: the player's already-computed locomotion direction, read
+    /// straight off the <see cref="NavMeshAgent"/>'s current velocity (horizontal, normalized). This is a
+    /// thin, read-only view of the movement the agent is already performing — no new movement logic is
+    /// introduced. <see cref="Vector3.zero"/> when standing still or when the agent is unavailable, so the
+    /// Kiting Step boon grants no impulse unless the player is actually moving (R8.1/R8.4).
+    /// </summary>
+    public Vector3 CurrentMoveDirection
+    {
+        get
+        {
+            if (_directKeyboardMovement) return _directLocomotionVelocity.sqrMagnitude > .0001f ? _directLocomotionVelocity.normalized : Vector3.zero;
+            if (agent == null) return Vector3.zero;
+            Vector3 velocity = agent.velocity;
+            velocity.y = 0f;
+            return velocity.sqrMagnitude > Mathf.Epsilon ? velocity.normalized : Vector3.zero;
+        }
+    }
+
+    void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        _groundMovePath = new NavMeshPath();
+        _abilityHolder = GetComponent<AbilityHolder>();
+        animator = GetComponent<Animator>();
+        if (playerActor == null)
+        {
+            playerActor = GetComponent<PlayerActor>();
+        }
+
+        defaultStoppingDistance = agent != null ? agent.stoppingDistance : 0f;
+        baseMoveSpeed = agent != null ? agent.speed : 0f;
+        InitializeDirectMovement();
+        baseAttackRange = attackRange;
+        baseAttackInterval = attackInterval;
+        baseAttackBusyDuration = attackBusyDuration;
+        baseAttackHitboxDuration = attackHitboxDuration;
+        baseAttackBoxSize = attackBoxSize;
+    }
+
+    private void OnValidate()
+    {
+        _recoveryMoveBufferDuration = float.IsNaN(_recoveryMoveBufferDuration) || float.IsInfinity(_recoveryMoveBufferDuration)
+            ? .35f : Mathf.Clamp(_recoveryMoveBufferDuration, 0f, 1f);
+        _locomotionBlendDuration = float.IsNaN(_locomotionBlendDuration) || float.IsInfinity(_locomotionBlendDuration)
+            ? .08f : Mathf.Clamp(_locomotionBlendDuration, 0f, .2f);
+    }
+
+    private void Start()
+    {
+        ValidateComponents();
+        InitializeClickEffectPool();
+        if (debugClickLog) Debug.Log($"CharControlScript active on {gameObject.name}");
+        RefreshWeaponStats();
+        RefreshMovementStats();
+    }
+
+    private void OnEnable()
+    {
+        if (_directKeyboardMovement) InitializeDirectMovement();
+        BindMovementActions();
+    }
+    private void BindMovementActions()
+    {
+        if (_boundMovementHolder == _abilityHolder) return;
+        if (_boundMovementHolder) _boundMovementHolder.AbilityUsed -= OnOffensiveActionStarted;
+        _boundMovementHolder = _abilityHolder;
+        if (_boundMovementHolder) _boundMovementHolder.AbilityUsed += OnOffensiveActionStarted;
+    }
+    private void OnOffensiveActionStarted(int slot) => _groundMoveBuffer.Discard();
+    void OnDisable()
+    {
+        RequireAttackRelease();
+        _directVelocity = Vector3.zero; _directLocomotionVelocity = Vector3.zero; _keyboardOwnsMovement = false; _directMovementRelease = true;
+        if (_boundMovementHolder) _boundMovementHolder.AbilityUsed -= OnOffensiveActionStarted;
+        _boundMovementHolder = null;
+        _groundMoveBuffer.Discard(); _locomotionState = 0;
+        CancelCombo(); ClearTarget();
+    }
+
+    void Update()
+    {
+        _keyboardOwnsMovement = false;
+        if (!playerActor || playerActor.IsDead) { _groundMoveBuffer.Discard(); return; }
+        RefreshWeaponStats();
+        RefreshMovementStats();
+        if (!GameplayInputReady) return;
+        TrackChargedShot();
+
+        if (_abilityHolder && _abilityHolder.BlocksWorldInput)
+        { _groundMoveBuffer.Discard(); if (_directKeyboardMovement) _directMovementRelease = true; return; }
+        // Hitstop freezes locomotion and its clock, while offensive input still reaches
+        // the existing dash/attack gates (combat foundation R5.10).
+        bool hitStopped = playerActor.IsCombatHitStopped;
+        if (!hitStopped) _movementInputClock += Time.unscaledDeltaTime;
+
+        isDashing = dashScript != null && dashScript.IsDashing(gameObject);
+        HandleDashInput();
+        // R10.1: a normal cast pins the player, but a Bow cast fires on the move — let movement keep
+        // running at the reduced speed the agent was set to. Basic attacks and new ability casts stay
+        // gated by their own IsCasting checks, so only locomotion is unblocked here.
+        if (_abilityHolder && _abilityHolder.IsCasting && !_abilityHolder.MovementAllowedWhileCasting)
+        {
+            _locomotionState = 0;
+            if (!hitStopped && !_directKeyboardMovement) CaptureRecoveryMovement();
+            return;
+        }
+
+        if (isDashing) _groundMoveBuffer.Discard();
+        if (!isDashing)
+        {
+            HandlePointerInput();
+            if (hitStopped) return;
+            if (_directKeyboardMovement)
+            {
+                HandleDirectMovement();
+                HandleComboReset();
+                return;
+            }
+            ResumeRecoveryMovement();
+            HandleMovement();
+            SetAnimations();
+            HandleComboReset();
+        }
+    }
+
+    private void HandlePointerInput()
+    {
+        bool primary = GamePreferences.IsHeld(GameControl.Primary);
+        if (!primary && !GamePreferences.IsHeld(GameControl.Move)) _waitForAttackRelease = false;
+        if (_waitForAttackRelease) return;
+        if (IsDirectionalAttackGestureHeld())
+        {
+            TryDirectionalBasicAttackAtPointer();
+            return;
+        }
+        if (GamePreferences.WasPressed(GameControl.Primary) || GamePreferences.WasPressed(GameControl.Move))
+            RequestMove();
+    }
+
+    public static bool IsDirectionalAttackGesturePressed()
+    {
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null) return false;
+        bool shiftHeld = keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed;
+        return ShouldTriggerDirectionalBasicAttack(shiftHeld,
+            GamePreferences.WasPressed(GameControl.Primary), GamePreferences.WasPressed(GameControl.Move));
+    }
+
+    private static bool IsDirectionalAttackGestureHeld()
+    {
+        Keyboard keyboard = Keyboard.current;
+        return keyboard != null && (keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed)
+            && (GamePreferences.IsHeld(GameControl.Primary) || GamePreferences.IsHeld(GameControl.Move));
+    }
+
+    public static bool ShouldTriggerDirectionalBasicAttack(bool shiftHeld, bool leftPressed, bool rightPressed) =>
+        shiftHeld && (leftPressed || rightPressed);
+
+    private bool UsesGauntletBasic => weapon && WeaponRunModifiers.Identify(weapon) == RunWeaponFamily.Gauntlet;
+    private float BasicAttackReach => UsesGauntletBasic && CombatBalance.Current != null
+        ? CombatBalance.Current.GauntletBasicReach : attackRange;
+    private Vector3 BasicAttackBoxSize => UsesGauntletBasic && CombatBalance.Current != null
+        ? CombatBalance.Current.GauntletBasicBoxSize : attackBoxSize;
+    private float EffectiveAttackRange => BasicAttackReach * (weapon && weapon.FiresArrows ? 1f : playerActor?.RunModifiers?.MeleeScale ?? 1f);
+
+    // Charged Shot (R3): the boon only applies while a bow is equipped and the run modifier is owned.
+    // Rank 0 means the boon is absent, so charging is inert and basic arrows behave normally (R3.3).
+    private int ChargedShotRank => weapon && weapon.FiresArrows
+        ? playerActor?.RunModifiers?.Rank(WeaponBoon.ChargedShot) ?? 0 : 0;
+
+    private bool CanReachTarget(Actor actor)
+    {
+        if (!actor || actor.IsDead || !actor.isActiveAndEnabled) return false;
+        Vector3 delta = actor.transform.position - transform.position;
+        if (Mathf.Abs(delta.y) > Mathf.Max(2f, attackBoxSize.y)) return false;
+        delta.y = 0;
+        if (delta.sqrMagnitude > EffectiveAttackRange * EffectiveAttackRange) return false;
+        Vector3 start = transform.position + Vector3.up;
+        Vector3 end = actor.transform.position + Vector3.up;
+        foreach (RaycastHit hit in Physics.RaycastAll(start, end - start, Vector3.Distance(start, end),
+            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+        {
+            Actor blocker = hit.collider.GetComponentInParent<Actor>();
+            if (blocker == playerActor || blocker == actor) continue;
+            if (!blocker) return false;
+        }
+        return true;
+    }
+
+    public bool TryBasicAttack(Vector3 aimPoint)
+    {
+        RefreshWeaponStats();
+        Actor actor = target ? target.myActor ? target.myActor : target.GetComponentInParent<Actor>() : null;
+        if (!actor)
+        {
+            foreach (Collider candidate in Physics.OverlapSphere(aimPoint, .6f,
+                attackLayers.value != 0 ? attackLayers.value : Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
+            {
+                Actor found = candidate.GetComponentInParent<Actor>();
+                if (found && found != playerActor && CanReachTarget(found)) { actor = found; break; }
+            }
+        }
+        if (!CanStartBasicAttack() || !CanReachTarget(actor)) return false;
+        if (agent && agent.enabled && agent.isOnNavMesh) agent.ResetPath();
+        FacePosition(actor.transform.position);
+        PerformAttack(actor);
+        return true;
+    }
+
+    public bool TryDirectionalBasicAttack(Vector3 aimPoint)
+    {
+        if (_abilityHolder && _abilityHolder.BlocksWorldInput) return false;
+        Vector3 direction = aimPoint - transform.position;
+        direction.y = 0f;
+        if (direction.sqrMagnitude <= Mathf.Epsilon) return false;
+
+        ClearTarget();
+        if (agent && agent.enabled && agent.isOnNavMesh) agent.ResetPath();
+        RefreshWeaponStats();
+        if (!CanStartBasicAttack()) return false;
+
+        FaceDirection(direction);
+        PerformAttack(null);
+        return true;
+    }
+
+    private bool CanStartBasicAttack() => isActiveAndEnabled && playerActor && !playerActor.IsDead && weapon &&
+        Time.timeScale > 0f && !playerActor.IsCombatHitStopped &&
+        !playerActor.IsResolvingGauntletImpact && !playerBusy && Time.time >= nextAttackTime && !isDashing &&
+        (!_abilityHolder || (!_abilityHolder.BlocksWorldInput && (!_abilityHolder.IsCasting || _abilityHolder.IsCadencedWaiting)));
+
+    // Método para validar componentes essenciais
+    private void ValidateComponents()
+    {
+        if (agent == null) Debug.LogError("NavMeshAgent não encontrado!");
+        if (animator == null) Debug.LogError("Animator não encontrado!");
+        if (clickEffect == null) Debug.LogWarning("Efeito de clique não configurado!");
+        if (dashScript == null) Debug.LogWarning("DashScript nao configurado!");
+        if (mainCamera == null && Camera.main == null) Debug.LogWarning("Main camera nao configurada!");
+    }
+
+    // Lógica principal para movimentação
+    private void HandleMovement()
+    {
+        FollowTarget();
+        FaceTarget();
+    }
+
+    // Gerencia o reset de combo
+    private void HandleComboReset()
+    {
+        if (Time.time - lastAttackTime > comboResetTime)
+        {
+            currentComboCount = 0;
+        }
+    }
+
+    private void RefreshWeaponStats()
+    {
+        if (!_abilityHolder) _abilityHolder = GetComponent<AbilityHolder>();
+        BindMovementActions();
+        WeaponScript currentWeapon = playerActor != null ? playerActor.CurrentWeapon : null;
+        float currentAttackSpeedMultiplier = playerActor != null && playerActor.Stats != null
+            ? playerActor.Stats.AttackSpeedMultiplier
+            : 1f;
+        if (currentWeapon == weapon && Mathf.Approximately(currentAttackSpeedMultiplier, cachedAttackSpeedMultiplier)) return;
+
+        weapon = currentWeapon;
+        cachedAttackSpeedMultiplier = currentAttackSpeedMultiplier;
+        ApplyWeaponStats(weapon);
+    }
+
+    private void RefreshMovementStats()
+    {
+        if (agent == null) return;
+
+        float currentMovementSpeedMultiplier = playerActor != null && playerActor.Stats != null
+            ? playerActor.Stats.MovementSpeedMultiplier
+            : 1f;
+        if (Mathf.Approximately(currentMovementSpeedMultiplier, cachedMovementSpeedMultiplier)) return;
+
+        cachedMovementSpeedMultiplier = currentMovementSpeedMultiplier;
+        agent.speed = baseMoveSpeed * currentMovementSpeedMultiplier;
+    }
+
+    private void ApplyWeaponStats(WeaponScript currentWeapon)
+    {
+        if (currentWeapon == null)
+        {
+            attackRange = baseAttackRange;
+            attackInterval = baseAttackInterval;
+            attackBusyDuration = baseAttackBusyDuration;
+            attackHitboxDuration = baseAttackHitboxDuration;
+            attackBoxSize = baseAttackBoxSize;
+        }
+        else
+        {
+            attackRange = currentWeapon.attackDistance > 0f ? currentWeapon.attackDistance : baseAttackRange;
+            attackInterval = currentWeapon.attackSpeed > 0f ? currentWeapon.attackSpeed : baseAttackInterval;
+            if (playerActor != null)
+            {
+                attackInterval = playerActor.GetAttackInterval(attackInterval);
+            }
+            attackBoxSize = currentWeapon.attackBoxSize != Vector3.zero ? currentWeapon.attackBoxSize : baseAttackBoxSize;
+            attackBusyDuration = baseAttackBusyDuration;
+            if (attackBusyDuration > 0f && attackInterval > 0f && attackBusyDuration > attackInterval)
+            {
+                attackBusyDuration = attackInterval;
+            }
+            attackHitboxDuration = baseAttackHitboxDuration;
+        }
+
+        if (attackInterval > 0f && Time.time + attackInterval < nextAttackTime)
+        {
+            nextAttackTime = Time.time + attackInterval;
+        }
+
+        if (target != null && agent != null && target.interactionType == InteractableType.Enemy)
+        {
+            agent.stoppingDistance = Mathf.Max(0f, EffectiveAttackRange - .1f);
+        }
+    }
+
+    private void HandleDashInput()
+    {
+        if (dashScript == null || isDashing) return;
+
+        if (IsDashPressed())
+        {
+            if (_abilityHolder && _abilityHolder.TryUseDash(dashScript)) isDashing = true;
+        }
+    }
+
+    private void RequestMove()
+    {
+        // R10.1: allow move orders during a Bow cast (fires on the move); block them for melee casts.
+        if (_abilityHolder && (_abilityHolder.BlocksWorldInput ||
+            (_abilityHolder.IsCasting && !_abilityHolder.MovementAllowedWhileCasting))) return;
+        if (lastMoveRequestFrame == Time.frameCount)
+        {
+            return;
+        }
+
+        lastMoveRequestFrame = Time.frameCount;
+        ClickToMove();
+    }
+
+    private bool IsDashPressed() => GamePreferences.WasPressed(GameControl.Dash);
+
+    private Vector3 GetPointerPosition()
+    {
+        Vector3 position = Input.mousePosition;
+#if ENABLE_INPUT_SYSTEM
+        Mouse mouse = Mouse.current;
+        if (mouse != null)
+        {
+            Vector2 inputSystemPos = mouse.position.ReadValue();
+            if (inputSystemPos != Vector2.zero || position == Vector3.zero)
+            {
+                position = inputSystemPos;
+            }
+        }
+#endif
+        return position;
+    }
+
+    private void TryDirectionalBasicAttackAtPointer()
+    {
+        if (!CanStartBasicAttack()) return;
+        Vector3 pointerPosition = GetPointerPosition();
+        if (_playerHUD && _playerHUD.BlocksPointer(pointerPosition)) return;
+
+        Camera cameraToUse = mainCamera != null ? mainCamera : Camera.main;
+        if (cameraToUse == null) return;
+
+        Ray pointerRay = cameraToUse.ScreenPointToRay(pointerPosition);
+        int mask = clickableLayers.value != 0 ? clickableLayers.value : Physics.DefaultRaycastLayers;
+        if (WorldClickResolver.TryResolveWithEnemyAssist(cameraToUse, pointerPosition, transform, mask,
+            out RaycastHit hit, out _, _enemyPointerRadiusPixels,
+            cameraToUse.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>()))
+        {
+            var interactable = hit.collider.GetComponentInParent<Interactable>();
+            if (interactable && interactable.interactionType == InteractableType.Enemy)
+            {
+                Actor actor = interactable.myActor ? interactable.myActor : interactable.GetComponentInParent<Actor>();
+                if (actor && !actor.IsDead) { TryDirectionalBasicAttack(actor.transform.position); return; }
+            }
+        }
+        var aimPlane = new Plane(Vector3.up, transform.position);
+        if (!aimPlane.Raycast(pointerRay, out float distance) || distance < 0f) return;
+        TryDirectionalBasicAttack(pointerRay.GetPoint(distance));
+    }
+
+    void ClickToMove()
+    {
+        if (_abilityHolder && _abilityHolder.BlocksWorldInput) return;
+        if (_playerHUD && _playerHUD.BlocksPointer(GetPointerPosition())) return;
+        // R10.1: a Bow cast fires on the move, so it does not block a click-to-move; a melee cast does.
+        if (_abilityHolder && _abilityHolder.IsCasting && !_abilityHolder.MovementAllowedWhileCasting) return;
+        if (isDashing)
+        {
+            if (debugClickLog) Debug.Log("ClickToMove: ignored because isDashing");
+            return;
+        }
+
+        Camera cameraToUse = mainCamera != null ? mainCamera : Camera.main;
+        Vector3 pointerPosition = GetPointerPosition();
+        if (cameraToUse == null)
+        {
+            if (debugClickLog) Debug.LogWarning("ClickToMove: no camera found");
+            return;
+        }
+
+        int mask = clickableLayers.value != 0 ? clickableLayers.value : Physics.DefaultRaycastLayers;
+        bool hitSomething = WorldClickResolver.TryResolveWithEnemyAssist(cameraToUse, pointerPosition,
+            transform, mask, out RaycastHit hit, out bool crossedPlayer, _enemyPointerRadiusPixels,
+            cameraToUse.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>());
+
+        if (debugClickLog)
+        {
+            string camName = cameraToUse != null ? cameraToUse.name : "null";
+            if (hitSomething && hit.collider != null)
+            {
+                Debug.Log($"ClickToMove: hit {hit.collider.name} at {hit.point} cam={camName} mask={mask}");
+            }
+            else
+            {
+                Debug.Log($"ClickToMove: no hit pointer={pointerPosition} cam={camName} mask={mask}");
+            }
+        }
+
+        if (hitSomething && hit.collider != null)
+        {
+            Interactable interactable = hit.transform.GetComponentInParent<Interactable>();
+            if (interactable != null)
+            {
+                HandleClickEffect(hit);
+                HandleInteractable(hit);
+                return;
+            }
+
+            // Clicking the avatar is not a new move order and must not cancel combat/selection.
+            if (crossedPlayer || WorldClickResolver.IsNearPlayer(hit.point, transform.position, _movementClickDeadZone)) return;
+            if (!agent || !agent.enabled || !agent.isOnNavMesh) return;
+            if (!NavMesh.SamplePosition(hit.point, out NavMeshHit destination, .75f, agent.areaMask)) return;
+            if (WorldClickResolver.IsNearPlayer(destination.position, transform.position, _movementClickDeadZone)) return;
+            if (TryRequestGroundMovement(destination.position)) HandleClickEffect(hit);
+        }
+    }
+
+    private void CaptureRecoveryMovement()
+    {
+        if (!_abilityHolder.CanQueueRecoveryMovement || _waitForAttackRelease || IsDirectionalAttackGesturePressed()) return;
+        if (!GamePreferences.WasPressed(GameControl.Primary) && !GamePreferences.WasPressed(GameControl.Move)) return;
+        Vector3 pointer = GetPointerPosition();
+        if (_playerHUD && _playerHUD.BlocksPointer(pointer)) return;
+        Camera camera = mainCamera ? mainCamera : Camera.main;
+        if (!camera) return;
+        int mask = clickableLayers.value != 0 ? clickableLayers.value : Physics.DefaultRaycastLayers;
+        if (!WorldClickResolver.TryResolve(camera.ScreenPointToRay(pointer), transform, mask,
+            out RaycastHit hit, out bool crossedPlayer, camera.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>())
+            || crossedPlayer || hit.collider.GetComponentInParent<Interactable>()) return;
+        if (TryRequestGroundMovement(hit.point)) HandleClickEffect(hit);
+    }
+
+    internal bool HasPendingGroundMovement => _groundMoveBuffer.HasPending;
+    internal void DiscardPendingGroundMovement() => _groundMoveBuffer.Discard();
+
+    internal bool TryRequestGroundMovement(Vector3 requestedDestination)
+    {
+        if (_directKeyboardMovement) return false;
+        if (!isActiveAndEnabled || !playerActor || playerActor.IsDead || isDashing
+            || (dashScript && dashScript.IsDashing(gameObject))
+            || playerActor.IsCombatHitStopped || Time.timeScale <= 0f
+            || (_abilityHolder && _abilityHolder.BlocksWorldInput)) return false;
+        if (!TryValidateGroundDestination(requestedDestination, out Vector3 destination)) return false;
+        if (_abilityHolder && _abilityHolder.IsCasting && !_abilityHolder.MovementAllowedWhileCasting)
+        {
+            return _abilityHolder.CanQueueRecoveryMovement
+                && _groundMoveBuffer.Store(destination, _movementInputClock, _recoveryMoveBufferDuration);
+        }
+        _groundMoveBuffer.Discard();
+        MoveToPosition(destination);
+        return true;
+    }
+
+    private bool TryValidateGroundDestination(Vector3 requested, out Vector3 destination)
+    {
+        destination = default;
+        if (!GroundMovementBuffer.IsFinite(requested) || !agent || !agent.enabled || !agent.isOnNavMesh
+            || WorldClickResolver.IsNearPlayer(requested, transform.position, _movementClickDeadZone)) return false;
+        if (!NavMesh.SamplePosition(requested, out NavMeshHit sample, .75f, agent.areaMask)
+            || WorldClickResolver.IsNearPlayer(sample.position, transform.position, _movementClickDeadZone)
+            || !agent.CalculatePath(sample.position, _groundMovePath)
+            || _groundMovePath.status != NavMeshPathStatus.PathComplete) return false;
+        destination = sample.position;
+        return true;
+    }
+
+    private void ResumeRecoveryMovement()
+    {
+        if (_abilityHolder && _abilityHolder.HasBufferedOffensiveIntent) { _groundMoveBuffer.Discard(); return; }
+        if (!_groundMoveBuffer.TryTake(_movementInputClock, out Vector3 requested)) return;
+        if (TryValidateGroundDestination(requested, out Vector3 destination)) MoveToPosition(destination);
+    }
+
+    private void HandleClickEffect(RaycastHit hit)
+    {
+        if (clickEffect != null)
+        {
+            ParticleSystem effect = GetClickEffectInstance();
+            effect.transform.position = hit.point + Vector3.up * 0.1f;
+            effect.transform.rotation = clickEffect.transform.rotation;
+            effect.gameObject.SetActive(true);
+            effect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            effect.Play(true);
+        }
+    }
+
+    private void InitializeClickEffectPool()
+    {
+        if (clickEffect == null || clickEffectPoolSize <= 0) return;
+
+        clickEffectPool.Clear();
+        EnsureClickEffectPoolRoot();
+
+        if (clickEffect.gameObject.scene.IsValid())
+        {
+            clickEffect.transform.SetParent(clickEffectPoolRoot, false);
+            clickEffect.gameObject.SetActive(false);
+            ConfigureClickEffectInstance(clickEffect);
+            clickEffectPool.Add(clickEffect);
+        }
+
+        int toCreate = clickEffectPoolSize - clickEffectPool.Count;
+        for (int i = 0; i < toCreate; i++)
+        {
+            clickEffectPool.Add(CreateClickEffectInstance());
+        }
+    }
+
+    private void EnsureClickEffectPoolRoot()
+    {
+        if (clickEffectPoolRoot != null) return;
+
+        GameObject root = new GameObject("ClickEffectPool");
+        clickEffectPoolRoot = root.transform;
+    }
+
+    private ParticleSystem GetClickEffectInstance()
+    {
+        foreach (ParticleSystem ps in clickEffectPool)
+        {
+            if (!ps.gameObject.activeSelf)
+            {
+                return ps;
+            }
+        }
+
+        ParticleSystem extra = CreateClickEffectInstance();
+        clickEffectPool.Add(extra);
+        return extra;
+    }
+
+    private ParticleSystem CreateClickEffectInstance()
+    {
+        ParticleSystem ps = Instantiate(clickEffect, clickEffectPoolRoot);
+        ps.gameObject.SetActive(false);
+        ConfigureClickEffectInstance(ps);
+        return ps;
+    }
+
+    private void ConfigureClickEffectInstance(ParticleSystem ps)
+    {
+        var main = ps.main;
+        main.stopAction = ParticleSystemStopAction.Callback;
+
+        if (ps.GetComponent<AutoDisableOnStop>() == null)
+        {
+            ps.gameObject.AddComponent<AutoDisableOnStop>();
+        }
+    }
+
+    private void ClearTarget()
+    {
+        // The Alvo_Interno is gone, so the attack authorization tied to it must go too: wipe the driver
+        // so a stale pending tap / hold never fires at the next target, and never pick another enemy by
+        // proximity (R1.12). This covers every target-loss path (follow loss, Ordem_de_Movimento, disable).
+        _basicAttackDriver.Clear();
+        target = null;
+        if (agent != null)
+        {
+            agent.stoppingDistance = defaultStoppingDistance;
+        }
+
+        EnemyTargetUI ui = EnemyTargetUI.Instance;
+        if (ui != null)
+        {
+            ui.ClearTarget();
+        }
+    }
+
+    private void SetTarget(Interactable newTarget)
+    {
+        if (newTarget == null || agent == null || !agent.enabled || !agent.isOnNavMesh) return;
+
+        _groundMoveBuffer.Discard();
+        target = newTarget;
+        agent.stoppingDistance = Mathf.Max(0f, EffectiveAttackRange - .1f);
+
+        Actor targetActor = target.myActor;
+        if (targetActor == null)
+        {
+            targetActor = target.GetComponentInParent<Actor>();
+        }
+
+        EnemyTargetUI ui = EnemyTargetUI.Ensure();
+        if (ui != null)
+        {
+            ui.SetTarget(targetActor);
+        }
+    }
+
+    void HandleInteractable(RaycastHit hit)
+    {
+        Interactable interactable = hit.transform.GetComponentInParent<Interactable>();
+        if (interactable != null)
+        {
+            if (interactable.interactionType == InteractableType.Enemy)
+            {
+                // Ataque_Alvo (R1.1): the enemy is the one explicitly UNDER THE CURSOR (the pointer
+                // raycast in ClickToMove resolved this Interactable), never one chosen by proximity
+                // (R1.11). Selecting it as the Alvo_Interno approaches to range (FollowTarget) while a
+                // single QueueTap authorizes exactly one attack once reachable (TryAttackTarget). The
+                // driver gate means target existence alone still never attacks (R1.6/R1.7); only this
+                // explicit tap does. Hold/repeat tracking is out of scope here (task 13.3).
+                SetTarget(interactable);
+                _basicAttackDriver.QueueTap();
+                interactable.Interact(gameObject); // Exibe barra de vida/feedback
+            }
+            else
+            {
+                MoveToPosition(hit.point);
+                interactable.Interact(gameObject);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Nenhum componente Interactable encontrado no objeto clicado.");
+        }
+    }
+
+    private void MoveToPosition(Vector3 destination)
+    {
+        if (_directKeyboardMovement) return;
+        _groundMoveBuffer.Discard();
+        CancelCombo();
+        if (agent != null && agent.enabled && agent.isOnNavMesh)
+        {
+            agent.stoppingDistance = defaultStoppingDistance;
+            agent.SetDestination(destination);
+        }
+        ClearTarget();
+    }
+
+    private void FollowTarget()
+    {
+        if (target == null || agent == null || !agent.enabled || !agent.isOnNavMesh) return;
+
+        if (target.interactionType != InteractableType.Enemy)
+        {
+            // Target ineligible: ClearTarget wipes both the attack authorization and the Alvo_Interno,
+            // and does not pick another enemy by proximity (R1.12).
+            ClearTarget();
+            return;
+        }
+
+        Actor targetActor = target.myActor;
+        if (targetActor == null)
+        {
+            targetActor = target.GetComponentInParent<Actor>();
+        }
+        if (targetActor == null || targetActor.IsDead || !targetActor.isActiveAndEnabled)
+        {
+            // Target died or became inactive: ClearTarget clears the authorization and the Alvo_Interno (R1.12).
+            agent.ResetPath();
+            ClearTarget();
+            return;
+        }
+
+        if (playerBusy) return;
+        // Tracking a selected enemy does not authorize an endless chase after the tap is spent.
+        if (!_basicAttackDriver.HasAttackIntent) { agent.ResetPath(); return; }
+        agent.stoppingDistance = Mathf.Max(0f, EffectiveAttackRange - .1f);
+        bool inRange = CanReachTarget(targetActor);
+        if (!inRange)
+        {
+            // Keep closing to EffectiveAttackRange, but no longer attack from here. Following toward a
+            // target is movement only; it must not trigger a basic on its own (R1.6/R1.7).
+            agent.SetDestination(target.transform.position);
+            return;
+        }
+        agent.ResetPath();
+        TryAttackTarget();
+    }
+
+    // The Alvo_Interno is used only for facing/aim here. An attack is executed solely when the
+    // BasicAttackDriver authorizes it (an explicit Toque_de_Ataque or active Segurar_Ataque), never
+    // because a target merely exists and is in range (R1.6/R1.7). The tap/hold feeding that authorizes
+    // the driver is wired in task 13.3; until then this stays a no-op while a target is followed.
+    private void TryAttackTarget()
+    {
+        // Keep a tap pending through recovery/cadence instead of consuming a rejected execution.
+        if (target == null || !CanStartBasicAttack()) return;
+
+        Vector3 direction = target.transform.position - transform.position;
+        direction.y = 0;
+        FaceDirection(direction);
+
+        if (!_basicAttackDriver.TryTakeAttack(Time.unscaledTime, attackInterval)) return;
+
+        TryBasicAttack(target.transform.position);
+    }
+
+    private void FacePosition(Vector3 targetPoint)
+    {
+        Vector3 direction = targetPoint - transform.position;
+        direction.y = 0f;
+        FaceDirection(direction);
+    }
+
+    private void FaceDirection(Vector3 direction)
+    {
+        if (direction.sqrMagnitude > Mathf.Epsilon)
+        {
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
+    }
+
+    private void FaceTarget()
+    {
+        if (agent.velocity.sqrMagnitude > Mathf.Epsilon)
+        {
+            Vector3 direction = agent.desiredVelocity.sqrMagnitude > .001f ? agent.desiredVelocity : agent.velocity;
+            direction.y = 0;
+            if (direction.sqrMagnitude < .0001f) return;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 1f - Mathf.Exp(-Mathf.Max(0f, lookRotationSpeed) * Time.deltaTime));
+        }
+    }
+
+    
+    void SetAnimations()
+    {
+        if (playerBusy) { _locomotionState = 0; return; }
+        if (!animator || !animator.runtimeAnimatorController || animator.layerCount == 0 || !agent) return;
+        Vector3 velocity = ActualMovementVelocity; velocity.y = 0f;
+        _locomotionMoving = velocity.sqrMagnitude > (_locomotionMoving ? .0016f : .0144f);
+        int state = Animator.StringToHash(_locomotionMoving ? WALK : IDLE);
+        bool stateStillPlaying = animator.GetCurrentAnimatorStateInfo(0).shortNameHash == state
+            || (animator.IsInTransition(0) && animator.GetNextAnimatorStateInfo(0).shortNameHash == state);
+        if ((_locomotionState != state || !stateStillPlaying) && animator.HasState(0, state))
+        {
+            animator.CrossFadeInFixedTime(state, _locomotionBlendDuration, 0);
+            _locomotionState = state;
+        }
+    }
+
+    private bool TryPlayAttackAnimation(string stateName)
+    {
+        if (animator == null || animator.layerCount == 0) return false;
+        if (string.IsNullOrWhiteSpace(stateName)) return false;
+
+        int layer = 0;
+        int stateHash = Animator.StringToHash(stateName);
+        if (animator.HasState(layer, stateHash))
+        {
+            animator.Play(stateHash, layer, 0f);
+            return true;
+        }
+
+        if (stateName == "Attack1")
+        {
+            int fallbackHash = Animator.StringToHash("Attack");
+            if (animator.HasState(layer, fallbackHash))
+            {
+                animator.Play(fallbackHash, layer, 0f);
+                return true;
+            }
+        }
+
+        string triggerName = stateName == "Attack1" ? "Attack" : stateName;
+        if (HasParameter(triggerName, AnimatorControllerParameterType.Trigger))
+        {
+            animator.ResetTrigger(triggerName);
+            animator.SetTrigger(triggerName);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool HasParameter(string paramName, AnimatorControllerParameterType type)
+    {
+        if (animator == null) return false;
+
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.type == type && param.name == paramName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private IEnumerator ClearBusyAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        EndGauntletBasicImpact();
+        playerBusy = false;
+        attackBusyCoroutine = null;
+    }
+
+    private IEnumerator DeactivateHitboxAfter(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (playerActor != null)
+        {
+            playerActor.DeactivateHitbox();
+        }
+        hitboxCoroutine = null;
+    }
+
+    public void CancelCombo()
+    {
+        EndGauntletBasicImpact();
+        _groundMoveBuffer.Discard();
+        currentComboCount = 0;
+        playerBusy = false;
+        lastAttackTime = 0f;
+
+        if (attackBusyCoroutine != null)
+        {
+            StopCoroutine(attackBusyCoroutine);
+            attackBusyCoroutine = null;
+        }
+
+        if (hitboxCoroutine != null)
+        {
+            StopCoroutine(hitboxCoroutine);
+            hitboxCoroutine = null;
+        }
+
+        if (playerActor != null)
+        {
+            playerActor.DeactivateHitbox();
+        }
+    }
+
+    public void StopEncounterOffense()
+    {
+        CancelCombo(); ClearTarget(); RequireAttackRelease();
+    }
+
+    public void Attack()
+    {
+        if (target) TryBasicAttack(target.transform.position);
+    }
+
+    private void PerformAttack(Actor victim)
+    {
+        if (!CanStartBasicAttack() || (victim && !CanReachTarget(victim))) return;
+        using var statisticsAction = playerActor?.RunStatistics?.BeginAction("Basic");
+        _groundMoveBuffer.Discard();
+        if (_abilityHolder) _abilityHolder.EndCadencedForBasic();
+        nextAttackTime = Time.time + Mathf.Max(.05f, attackInterval);
+
+        string attackName = null;
+        if (attackAnimations != null && attackAnimations.Length > 0)
+        {
+            if (currentComboCount < 0 || currentComboCount >= attackAnimations.Length)
+            {
+                currentComboCount = 0;
+            }
+
+            attackName = attackAnimations[currentComboCount];
+        }
+
+        bool played = TryPlayAttackAnimation(attackName);
+        if (!played && debugClickLog)
+        {
+            Debug.LogWarning($"Attack animation not found: {attackName}");
+        }
+
+        int attackIndex = currentComboCount;
+        float busyDuration = attackBusyDuration > 0 ? attackBusyDuration : attackInterval;
+        if (busyDuration <= 0f) busyDuration = 0.1f;
+        // Basic attacks resolve once through the area/projectile path, never a second trigger hitbox.
+
+        if (playerActor != null && weapon && weapon.FiresArrows)
+        {
+            // Charged Shot (R3): when the boon is owned, the held duration decides the shot. A hold of at
+            // least ChargeTime fires a piercing arrow with (1 + 0.75 * rank) damage (R3.1/R3.2); a shorter
+            // hold (or no boon) fires the normal arrow with multiplier 1 and no piercing (R3.3).
+            int chargedRank = ChargedShotRank;
+            bool charged = chargedRank > 0 && ChargedShot.IsCharged(_primaryHeldSeconds);
+            float multiplier = charged ? ChargedShot.DamageMultiplier(chargedRank) : 1f;
+            Color arrowColor = charged ? new Color(1f, .8f, .3f) : new Color(.25f, .85f, 1f);
+            ArsenalProjectile.Fire(playerActor, transform.position + Vector3.up, transform.forward,
+                weapon.attackDamage, multiplier, attackRange, charged, arrowColor);
+            // Consume the charge so a follow-up basic in the same hold starts fresh rather than
+            // firing a second charged arrow off the same accumulated time.
+            _primaryHeldSeconds = 0f;
+        }
+        else if (playerActor != null)
+        {
+            float authoredRange = attackRange > 0f ? attackRange : defaultStoppingDistance;
+            // Approach and impact share the same weapon geometry. Only Gauntlet uses the
+            // central Gauntlet balance override; Spear keeps its authored reach and narrow box.
+            float range = BasicAttackReach > 0f ? BasicAttackReach : authoredRange;
+            Vector3 basicBoxSize = BasicAttackBoxSize;
+            float scale = playerActor.RunModifiers?.MeleeScale ?? 1f;
+            bool scheduled = weapon && WeaponRunModifiers.Identify(weapon) == RunWeaponFamily.Gauntlet &&
+                BeginGauntletBasicImpact(attackIndex, busyDuration, range, scale, basicBoxSize);
+            if (!scheduled && weapon && WeaponRunModifiers.Identify(weapon) == RunWeaponFamily.Gauntlet)
+                playerActor.TryApplyGauntletBasicDamage(transform.position, transform.forward, range * scale,
+                    basicBoxSize * scale, attackLayers, weapon.attackDamage, BuildBasicAttackReaction(attackIndex, range),
+                    attackAnimations != null && attackAnimations.Length > 0 && attackIndex == attackAnimations.Length - 1);
+            else if (!scheduled) playerActor.TryApplyAreaDamage(
+                transform.position,
+                transform.forward,
+                range * scale,
+                basicBoxSize * scale,
+                attackLayers,
+                weapon ? weapon.attackDamage : -1f,
+                1f,
+                0f,
+                BuildBasicAttackReaction(attackIndex, range));
+            if (!scheduled) { _runBasicCount++; TryProcComboNova(); }
+        }
+
+        if (attackAnimations != null && attackAnimations.Length > 0)
+        {
+            currentComboCount = (currentComboCount + 1) % attackAnimations.Length;
+        }
+
+        lastAttackTime = Time.time;
+        playerBusy = true;
+
+        if (attackBusyCoroutine != null)
+        {
+            StopCoroutine(attackBusyCoroutine);
+        }
+
+        attackBusyCoroutine = StartCoroutine(ClearBusyAfter(busyDuration));
+        BasicAttackPerformed?.Invoke();
+    }
+
+    // ComboNova (R6): applies area damage on every third basic attack while ComboNova is owned.
+    // The proc is gated solely on the every-third-basic rule (_runBasicCount % 3 == 0) and a rank
+    // above 0. Rank 0 (not owned) fires no nova and leaves the basic outcome otherwise unchanged.
+    // Haste feeds this only indirectly: a shorter basic interval (base / AttackSpeedMultiplier, via
+    // PlayerActor.GetAttackInterval) means more basics per window, so more third-hits per window,
+    // without ever changing which basic attack triggers the nova.
+    private void TryProcComboNova()
+    {
+        int nova = playerActor.RunModifiers?.Rank(WeaponBoon.ComboNova) ?? 0;
+        if (nova <= 0 || _runBasicCount % ComboNovaBasicInterval != 0) return;
+
+        // Nova is centered on the player: pass a negligible reach so the sphere resolves around the
+        // caster, and let TryApplyAreaDamage resolve the ComboNovaRadius sphere.
+        playerActor.TryApplyAreaDamage(
+            transform.position + Vector3.up * (1f - ComboNovaRadius),
+            transform.forward,
+            .01f,
+            Vector3.one,
+            AreaHitShape.Sphere,
+            ComboNovaRadius,
+            attackLayers,
+            weapon.attackDamage,
+            ComboNovaDamagePerRank * nova,
+            0f,
+            null);
+    }
+
+    // Charged Shot (R3): accumulate how long the primary attack input has been held while the boon is
+    // active and a bow is equipped, and surface the charge ratio to the HUD. The held time only decides
+    // whether the *next* resolved bow arrow is charged; it never fires an arrow itself (PerformAttack
+    // owns the cadence). Releasing the input, switching off the boon, or unequipping the bow resets it.
+    //
+    // combat-foundation-rework (task 13.3): the RAW primary-held signal (and its fresh-press edge via
+    // _primaryHeldLast) is tracked here once per frame and reused by FeedTargetedTapHold below to drive
+    // the BasicAttackDriver's Segurar_Ataque. Charged-shot accumulation stays gated by ChargedShotRank,
+    // but _primaryHeldLast now reflects the raw button state so the hold feeding shares the same edge.
+    private void TrackChargedShot()
+    {
+        bool primaryHeld = GamePreferences.IsHeld(GameControl.Primary);
+        bool charging = ChargedShotRank > 0 && primaryHeld;
+        if (charging)
+        {
+            // Reset the accumulator on a fresh press so each hold is measured from zero (R3.1/R3.3).
+            if (!_primaryHeldLast) _primaryHeldSeconds = 0f;
+            _primaryHeldSeconds += Time.deltaTime;
+            // R3.4: the indicator reaches full exactly at ChargeTime.
+            float ratio = Mathf.Clamp01(_primaryHeldSeconds / ChargedShot.ChargeTime);
+            if (_playerHUD) _playerHUD.SetChargeIndicator(ratio);
+        }
+        else
+        {
+            _primaryHeldSeconds = 0f;
+            // Clear the indicator only on the raw release edge while the boon was charging last frame.
+            if (_primaryHeldLast && ChargedShotRank > 0 && _playerHUD) _playerHUD.SetChargeIndicator(0f);
+        }
+
+        FeedTargetedTapHold(primaryHeld);
+        _primaryHeldLast = primaryHeld;
+    }
+
+    // combat-foundation-rework R1.3/R1.4/R1.5/R5.11 (task 13.3): translate the raw primary-held signal
+    // into the BasicAttackDriver's Segurar_Ataque, reusing the same held state and fresh-press edge that
+    // TrackChargedShot reads. This feeds only the HOLD side — the targeted tap is already queued once per
+    // explicit enemy-click in HandleInteractable (task 13.2), so we never QueueTap here and never double
+    // the same press into a backlog.
+    //
+    // Hold is enabled only while there is a valid targeted-attack intent: an enemy Alvo_Interno exists
+    // AND the primary is held. While held, SetHold(true) lets TryTakeAttack authorize one attack per
+    // attackInterval once the target is reachable (R1.3). On the raw release edge we call ReleaseHold()
+    // so future repeats stop WITHOUT cutting an already-started hit (R1.4/R5.11); a release after only a
+    // tap keeps the pending/executed tap intact because ReleaseHold() leaves the pending tap untouched
+    // (R1.5). The Shift directional path never reaches here with a target (TryDirectionalBasicAttack
+    // clears the target), so it is not treated as a targeted hold. O-10: while _waitForAttackRelease is
+    // armed we do not open a new hold, matching HandlePointerInput's early-return on the release gate.
+    private void FeedTargetedTapHold(bool primaryHeld)
+    {
+        bool releaseGate = primaryHeld && _waitForAttackRelease;
+        bool hasEnemyTarget = target != null && target.interactionType == InteractableType.Enemy;
+        bool holdActive = primaryHeld && hasEnemyTarget && !releaseGate;
+
+        if (holdActive)
+        {
+            _basicAttackDriver.SetHold(true);
+        }
+        else if (_primaryHeldLast && !primaryHeld)
+        {
+            // Raw release edge: stop hold repeats without cutting an already-authorized hit (R1.4/R5.11).
+            _basicAttackDriver.ReleaseHold();
+        }
+        else if (!hasEnemyTarget || releaseGate)
+        {
+            // Held but no valid targeted intent (or release-gated): keep hold off so target existence or
+            // a resume-click never authorizes repeats on its own (R1.6/R1.7, O-10).
+            _basicAttackDriver.SetHold(false);
+        }
+    }
+
+    private HitReactionRequest BuildBasicAttackReaction(int attackIndex, float range)
+    {
+        HitReactionType reactionType = GetComboValue(comboReactions, attackIndex,
+            weapon && weapon.OverridesBasicReaction ? weapon.BasicReaction : defaultAttackReaction);
+        HitStrength strength = GetComboValue(comboStrengths, attackIndex, defaultAttackStrength);
+        float stanceDamage = GetComboValue(comboStanceDamage, attackIndex, defaultAttackStanceDamage);
+
+        return new HitReactionRequest(
+            playerActor,
+            transform.position + transform.forward * Mathf.Max(0f, range),
+            transform.forward,
+            reactionType,
+            strength,
+            stanceDamage,
+            defaultAttackBreakEffect,
+            defaultAttackPushDistance).WithInterruptContribution(weapon && weapon.OverridesBasicReaction
+                ? weapon.BasicInterruptContribution(attackIndex) : reactionType == HitReactionType.Stagger ? 1f : 0f);
+    }
+
+    private static T GetComboValue<T>(IReadOnlyList<T> values, int index, T fallback)
+    {
+        return values != null && index >= 0 && index < values.Count ? values[index] : fallback;
+    }
+
+    void OnFootstep()
+    {
+        if (!playerBusy && footstepAudioClips != null && footstepAudioClips.Length > 0)
+        {
+            int index = Random.Range(0, footstepAudioClips.Length);
+            AudioClip clip = footstepAudioClips[index];
+            AudioSource.PlayClipAtPoint(clip, transform.position, footstepAudioVolume);
+        }
+    }
+}

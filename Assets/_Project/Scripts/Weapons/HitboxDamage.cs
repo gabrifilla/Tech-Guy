@@ -126,6 +126,7 @@ public class HitboxDamage : MonoBehaviour
             // OnHit/OnKill — R3.4) and surface it as a basic hit (R3.1/R3.2). Skill hits never reach
             // this branch, so they never fire the basic channel (R3.3).
             float healthBefore = actor.health;
+            using var statisticsContact = attacker.RunStatistics?.BeginAction("Basic");
             dealt = attacker.ResolveAttackDamage(actor, finalDamage, false);
             attacker.RaiseBasicAttackHit(actor, dealt, healthBefore > 0 && dealt >= healthBefore);
         }

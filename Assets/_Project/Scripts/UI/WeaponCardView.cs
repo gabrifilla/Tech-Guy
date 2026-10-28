@@ -1,11 +1,10 @@
 using UnityEngine;
 
 /// <summary>
-/// Hades-style IMGUI drawing for a weapon card, kept SEPARATE from the pure text assembly
+/// IMGUI drawing for a proximity weapon card, separate from the pure text assembly
 /// (<see cref="WeaponCardContent"/>). It consumes an already-assembled
-/// <see cref="WeaponCardContent.CardContent"/> and renders it as a compact card anchored beside a
-/// projected screen position (offset from the pedestal's on-screen anchor), rather than as a central
-/// panel — the aesthetic that characterizes the Hades hub cards (Requisito 2.3).
+/// <see cref="WeaponCardContent.CardContent"/> and renders it in a screen margin,
+/// leaving the avatar's lane and physical signs visible.
 ///
 /// The view owns only its lazily-built <see cref="GUIStyle"/>s and a background texture; it carries
 /// no gameplay state. The thin <c>LobbyArsenal</c> MonoBehaviour (task 5) builds the content, projects
@@ -14,7 +13,7 @@ using UnityEngine;
 /// Scaling mirrors the lobby convention exactly (<see cref="Scale"/> = <c>Mathf.Min(Screen.width/1280f,
 /// Screen.height/720f)</c>) so the card stays legible across resolutions like the rest of the lobby
 /// panels (Requisito 7.1). <see cref="Draw"/> sets and restores <c>GUI.matrix</c> itself, so the caller
-/// passes the anchor in raw screen pixels and does not need to pre-scale.
+/// passes the avatar position in raw screen pixels and does not need to pre-scale.
 /// </summary>
 public sealed class WeaponCardView
 {
@@ -30,13 +29,45 @@ public sealed class WeaponCardView
     private const float StateHeight = 26f;
     private const float SectionGap = 8f;
 
-    // Offset (in scaled space) from the projected anchor to the card's top-left, placing the card
-    // beside/above the pedestal so it never sits centered on the anchor.
-    private const float AnchorOffsetX = 28f;
-    private const float AnchorOffsetY = 18f;
+    public Rect LastRect { get; private set; }
+
+    /// <summary>Keep the proximity card below the signs and outside the avatar's central lane.</summary>
+    public static Rect PlaceCard(Vector2 referenceScreen, float cardHeight, Vector2 player)
+    {
+        float y = Mathf.Max(156f, referenceScreen.y - cardHeight - 24f);
+        float right = referenceScreen.x - CardWidth - 24f;
+        var avatar = new Rect(player.x - 68f, player.y - 135f, 136f, 190f);
+        var card = new Rect(24f, y, CardWidth, cardHeight);
+        if (card.Overlaps(avatar)) card.x = right;
+        return card;
+    }
 
     private GUIStyle _title, _family, _ability, _detail, _state;
     private Texture2D _background;
+
+    // Same view/content/state contract; only isolated scenes opt in. No extra equipment UI.
+    public bool DrawCompact(WeaponCardContent.CardContent content, Vector2 player, bool details, string detailKey)
+    {
+        if (details) Draw(content, player);
+        EnsureStyles();
+        Matrix4x4 old = GUI.matrix;
+        float scale = Scale;
+        GUI.matrix = Matrix4x4.Scale(Vector3.one * scale);
+        if (!details)
+        {
+            LastRect = PlaceCard(new Vector2(Screen.width / scale, Screen.height / scale), 126, player / scale);
+            GUI.DrawTexture(LastRect, _background);
+            GUI.Label(new Rect(LastRect.x + 16, LastRect.y + 10, 308, 28), content.FamilyLabel, _title);
+            GUI.Label(new Rect(LastRect.x + 16, LastRect.y + 41, 308, 25), content.StateLabel, _state);
+        }
+        Rect button = new Rect(LastRect.x + 16, LastRect.yMax - 43, 308, 30);
+        // Full card's state footer sits above the extra disclosure control.
+        if (details) button = new Rect(LastRect.x + 16, LastRect.y - 34, 308, 30);
+        bool clicked = GUI.Button(button, "[" + detailKey + "] " + (details ? "Fechar detalhes do kit" : "Consultar detalhes do kit"));
+        if (details) LastRect = new Rect(LastRect.x, button.y, LastRect.width, LastRect.yMax - button.y);
+        GUI.matrix = old;
+        return clicked ? !details : details;
+    }
 
     /// <summary>
     /// Per-resolution scale shared with the lobby panels: <c>Mathf.Min(Screen.width/1280f,
@@ -45,15 +76,13 @@ public sealed class WeaponCardView
     public static float Scale => Mathf.Min(Screen.width / 1280f, Screen.height / 720f);
 
     /// <summary>
-    /// Draws the card for <paramref name="content"/> anchored beside <paramref name="anchorScreenPosition"/>.
+    /// Draws the proximity card in a margin clear of the avatar.
     /// </summary>
     /// <param name="content">The assembled card content from <see cref="WeaponCardContent.Build"/>.</param>
-    /// <param name="anchorScreenPosition">
-    /// The pedestal anchor projected to screen space, in raw screen pixels (e.g. from
-    /// <c>Camera.WorldToScreenPoint</c>, with Y already flipped to GUI space by the caller). The card is
-    /// offset from this point, Hades-style, and clamped to stay on screen.
+    /// <param name="playerScreenPosition">
+    /// Avatar screen position with Y flipped to GUI space, before reference scaling.
     /// </param>
-    public void Draw(WeaponCardContent.CardContent content, Vector2 anchorScreenPosition)
+    public void Draw(WeaponCardContent.CardContent content, Vector2 playerScreenPosition)
     {
         EnsureStyles();
 
@@ -64,19 +93,13 @@ public sealed class WeaponCardView
         // Work in the scaled reference space so metrics and the screen bounds share one coordinate system.
         float screenWidth = Screen.width / scale;
         float screenHeight = Screen.height / scale;
-        Vector2 anchor = anchorScreenPosition / scale;
 
         int abilityCount = content.Abilities?.Count ?? 0;
         float cardHeight = MeasureHeight(content, abilityCount);
 
-        // Anchor the card beside the pedestal (offset), not centered on it, then clamp on-screen so the
-        // whole card stays readable regardless of where the pedestal projects.
-        float x = anchor.x + AnchorOffsetX;
-        float y = anchor.y - cardHeight - AnchorOffsetY;
-        x = Mathf.Clamp(x, 8f, Mathf.Max(8f, screenWidth - CardWidth - 8f));
-        y = Mathf.Clamp(y, 8f, Mathf.Max(8f, screenHeight - cardHeight - 8f));
-
-        var card = new Rect(x, y, CardWidth, cardHeight);
+        // Proximity still selects the physical pedestal; only its information moves to a safe margin.
+        var card = PlaceCard(new Vector2(screenWidth, screenHeight), cardHeight, playerScreenPosition / scale);
+        LastRect = card;
         if (_background) GUI.DrawTexture(card, _background);
 
         float cursorY = card.y + Padding;

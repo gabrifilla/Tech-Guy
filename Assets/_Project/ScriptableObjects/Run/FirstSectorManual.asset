@@ -69,19 +69,19 @@ MonoBehaviour:
     _spawns:
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: -5, y: 0, z: 4}
+      _offset: {x: -4, y: 0, z: -3}
       _rank: 0
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: 5, y: 0, z: 4}
+      _offset: {x: 4, y: 0, z: -3}
       _rank: 0
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: -5, y: 0, z: -4}
+      _offset: {x: -4, y: 0, z: 2}
       _rank: 0
-    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+    - _prefab: {fileID: 4167539456224763756, guid: e25a7dbca51260445a69765ec85b53d8,
         type: 3}
-      _offset: {x: 5, y: 0, z: -4}
+      _offset: {x: 0, y: 0, z: 5}
       _rank: 0
     _rewardSteps:
     - _kind: 1
@@ -109,19 +109,19 @@ MonoBehaviour:
     _spawns:
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: -5, y: 0, z: 4}
+      _offset: {x: -4, y: 0, z: -3}
       _rank: 0
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: 5, y: 0, z: 4}
+      _offset: {x: 4, y: 0, z: -3}
       _rank: 0
-    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+    - _prefab: {fileID: 3940814554349077579, guid: b03ff1d5a644f2449b9d309eb7d16b4d,
         type: 3}
-      _offset: {x: -5, y: 0, z: -4}
+      _offset: {x: -4, y: 0, z: 2}
       _rank: 0
-    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+    - _prefab: {fileID: 4167539456224763756, guid: e25a7dbca51260445a69765ec85b53d8,
         type: 3}
-      _offset: {x: 5, y: 0, z: -4}
+      _offset: {x: 0, y: 0, z: 5}
       _rank: 0
     _rewardSteps: []
   - _id: 5
@@ -135,19 +135,19 @@ MonoBehaviour:
     _spawns:
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: -5, y: 0, z: 4}
+      _offset: {x: -4, y: 0, z: -3}
       _rank: 0
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: 5, y: 0, z: 4}
+      _offset: {x: 4, y: 0, z: -3}
       _rank: 0
-    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+    - _prefab: {fileID: 1008936893400956933, guid: 5403a846fcc86a644a4a480b2a86fd54,
         type: 3}
-      _offset: {x: -5, y: 0, z: -4}
+      _offset: {x: -4, y: 0, z: 2}
       _rank: 0
-    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+    - _prefab: {fileID: 4167539456224763756, guid: e25a7dbca51260445a69765ec85b53d8,
         type: 3}
-      _offset: {x: 5, y: 0, z: -4}
+      _offset: {x: 0, y: 0, z: 5}
       _rank: 0
     _rewardSteps: []
   - _id: 6
@@ -161,19 +161,19 @@ MonoBehaviour:
     _spawns:
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: -5, y: 0, z: 4}
+      _offset: {x: -4, y: 0, z: -3}
       _rank: 0
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: 5, y: 0, z: 4}
+      _offset: {x: 4, y: 0, z: -3}
       _rank: 0
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: -5, y: 0, z: -4}
+      _offset: {x: -4, y: 0, z: 2}
       _rank: 0
-    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+    - _prefab: {fileID: 1126346926043812644, guid: a920964c92f463c479c7a49be2ee3c1d,
         type: 3}
-      _offset: {x: 5, y: 0, z: -4}
+      _offset: {x: 0, y: 0, z: 5}
       _rank: 0
     _rewardSteps: []
   - _id: 7
@@ -187,23 +187,23 @@ MonoBehaviour:
     _spawns:
     - _prefab: {fileID: 1998223512859658206, guid: 7ad64f0969af38949ae2fecd537e32ae,
         type: 3}
-      _offset: {x: 0, y: 0, z: 3}
+      _offset: {x: 0, y: 0, z: 1}
       _rank: 1
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: -5, y: 0, z: 4}
+      _offset: {x: 4, y: 0, z: -3}
       _rank: 0
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: 5, y: 0, z: 4}
+      _offset: {x: -4, y: 0, z: 2}
       _rank: 0
-    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+    - _prefab: {fileID: 3940814554349077579, guid: b03ff1d5a644f2449b9d309eb7d16b4d,
         type: 3}
-      _offset: {x: -5, y: 0, z: -4}
+      _offset: {x: 4, y: 0, z: 2}
       _rank: 0
-    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+    - _prefab: {fileID: 4167539456224763756, guid: e25a7dbca51260445a69765ec85b53d8,
         type: 3}
-      _offset: {x: 5, y: 0, z: -4}
+      _offset: {x: 0, y: 0, z: 5}
       _rank: 0
     _rewardSteps: []
   - _id: 8
@@ -217,19 +217,19 @@ MonoBehaviour:
     _spawns:
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: -5, y: 0, z: 4}
+      _offset: {x: -4, y: 0, z: -3}
       _rank: 0
     - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: 5, y: 0, z: 4}
+      _offset: {x: 4, y: 0, z: -3}
       _rank: 0
-    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+    - _prefab: {fileID: 3940814554349077579, guid: b03ff1d5a644f2449b9d309eb7d16b4d,
         type: 3}
-      _offset: {x: -5, y: 0, z: -4}
+      _offset: {x: -4, y: 0, z: 2}
       _rank: 0
-    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
+    - _prefab: {fileID: 4167539456224763756, guid: e25a7dbca51260445a69765ec85b53d8,
         type: 3}
-      _offset: {x: 5, y: 0, z: -4}
+      _offset: {x: 0, y: 0, z: 5}
       _rank: 0
     _rewardSteps:
     - _kind: 2
@@ -245,19 +245,19 @@ MonoBehaviour:
     _spawns:
     - _prefab: {fileID: 1008936893400956933, guid: 5403a846fcc86a644a4a480b2a86fd54,
         type: 3}
-      _offset: {x: -5, y: 0, z: 4}
+      _offset: {x: -4, y: 0, z: -3}
       _rank: 0
     - _prefab: {fileID: 1008936893400956933, guid: 5403a846fcc86a644a4a480b2a86fd54,
         type: 3}
-      _offset: {x: 5, y: 0, z: 4}
+      _offset: {x: 4, y: 0, z: -3}
       _rank: 0
-    - _prefab: {fileID: 1008936893400956933, guid: 5403a846fcc86a644a4a480b2a86fd54,
+    - _prefab: {fileID: 3940814554349077579, guid: b03ff1d5a644f2449b9d309eb7d16b4d,
         type: 3}
-      _offset: {x: -5, y: 0, z: -4}
+      _offset: {x: -4, y: 0, z: 2}
       _rank: 0
-    - _prefab: {fileID: 1008936893400956933, guid: 5403a846fcc86a644a4a480b2a86fd54,
+    - _prefab: {fileID: 2226700599049654890, guid: dc9eafdda9c1cb44a96a6090631d4871,
         type: 3}
-      _offset: {x: 5, y: 0, z: -4}
+      _offset: {x: 4, y: 0, z: 2}
       _rank: 0
     _rewardSteps:
     - _kind: 1

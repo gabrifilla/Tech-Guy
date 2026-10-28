@@ -59,7 +59,8 @@ public static class RunRewardPreview
         }
         else if (_phase == 1)
         {
-            ScreenCapture.CaptureScreenshot(Path.Combine(Application.dataPath,"../RewardCards.png")); _phase = 2; _next = EditorApplication.timeSinceStartup + 5;
+            Directory.CreateDirectory(Path.GetFullPath(Path.Combine(Application.dataPath,"../Docs/validation/artifacts/rewards")));
+            ScreenCapture.CaptureScreenshot(Path.Combine(Application.dataPath,"../Docs/validation/artifacts/rewards/RewardCards.png")); _phase = 2; _next = EditorApplication.timeSinceStartup + 5;
         }
         else if (_phase == 2)
         {
@@ -72,12 +73,12 @@ public static class RunRewardPreview
         }
         else if (_phase == 3)
         {
-            ScreenCapture.CaptureScreenshot(Path.Combine(Application.dataPath,"../RewardBuild.png"));
+            ScreenCapture.CaptureScreenshot(Path.Combine(Application.dataPath,"../Docs/validation/artifacts/rewards/RewardBuild.png"));
             _phase = 4; _next = EditorApplication.timeSinceStartup + 5;
         }
         else
         {
-            bool captured = File.Exists(Path.Combine(Application.dataPath,"../RewardCards.png")) && File.Exists(Path.Combine(Application.dataPath,"../RewardBuild.png"));
+            bool captured = File.Exists(Path.Combine(Application.dataPath,"../Docs/validation/artifacts/rewards/RewardCards.png")) && File.Exists(Path.Combine(Application.dataPath,"../Docs/validation/artifacts/rewards/RewardBuild.png"));
             Debug.Log(captured ? "REWARD_PREVIEW_SUCCESS" : "REWARD_PREVIEW_FAILED");
             SessionState.SetBool(Pending, false); EditorApplication.update -= Tick; EditorApplication.Exit(captured ? 0 : 1);
         }

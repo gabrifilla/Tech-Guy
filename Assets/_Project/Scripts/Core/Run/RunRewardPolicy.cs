@@ -43,7 +43,7 @@ public sealed class RunRewardPolicy
         request.NodeId == _route.Session.CurrentNode && request.Ordinal == _route.Session.RewardOrdinal;
 
     public RunRewardTicket Open(RunRewardRequest request, RunActionContext context, string inventoryKey,
-        IReadOnlyList<RunBoons.Offer> eligible)
+        IReadOnlyList<RunBoons.Offer> eligible, IReadOnlyList<RunBoons.Offer> alternatives = null)
     {
         if (!Authorize(request, context) || eligible == null || inventoryKey == null) return null;
         var node = _route.Session.Route.Node(request.NodeId);
@@ -59,14 +59,16 @@ public sealed class RunRewardPolicy
         var ordered = eligible.GroupBy(o => o.Id).Select(g => g.First()).OrderBy(o => o.Id, StringComparer.Ordinal).ToList();
         ticket.IsAlternative = ordered.Count == 0 && (rewardKind != RunRewardKind.Mutation || _route.Session.MutationAcquisitions > 0);
         if (ticket.IsAlternative)
-            ordered.Add(new RunBoons.Offer("bulwark", "ALTERNATIVA — DEFESA", "+40 Armor. Não cura e não conta como Mutation."));
+            ordered.AddRange(alternatives != null && alternatives.Count > 0 ? alternatives : new[] { RunBoonOfferCatalog.ExhaustedOffer() });
+        ordered = ordered.GroupBy(o => o.Id).Select(g => g.First()).OrderBy(o => o.Id, StringComparer.Ordinal).ToList();
         if (ordered.Count == 0) ticket.Diagnostic = "No eligible first Mutation; Boss remains blocked. Abort and return to Nexus.";
         // A derived seed, rather than shared RNG, makes reopening/revision independent of unrelated rolls.
-        int seed = StableSeed(request.SessionId.ToString("N") + ":" + request.NodeId + ":" + request.Ordinal + ":" + ticket.Revision);
+        string rewardIdentity = _route.Session.Route.RewardSeed.HasValue
+            ? _route.Session.Route.RewardSeed.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)
+            : request.SessionId.ToString("N");
+        int seed = StableSeed(rewardIdentity + ":" + request.NodeId + ":" + request.Ordinal + ":" + ticket.Revision);
         var random = new Random(seed);
-        for (int i = ordered.Count - 1; i > 0; i--)
-        { int j = random.Next(i + 1); var swap = ordered[i]; ordered[i] = ordered[j]; ordered[j] = swap; }
-        ticket.Choices = ordered.Take(3).ToList().AsReadOnly();
+        ticket.Choices = BoonOfferDraw.Draw(ordered, random);
         return ticket;
     }
 
@@ -83,7 +85,8 @@ public sealed class RunRewardPolicy
             { ticket.State = RunRewardTicketState.Pending; return false; }
             bool mutation = ticket.AnnouncedKind == RunRewardKind.Mutation && !ticket.IsAlternative;
             // Synchronous effect callbacks may kill/close the session; never force progression afterward.
-            if (!_route.TryCompleteReward(request.SessionId, request.NodeId, request.Ordinal, mutation, context))
+            if (!_route.TryCompleteReward(request.SessionId, request.NodeId, request.Ordinal, mutation, context,
+                ProtocolInventory.TryKind(id, out _)))
                 throw new InvalidOperationException("Reward applied but session changed during commit.");
             ticket.ResultId = id; ticket.State = RunRewardTicketState.Resolved;
         }

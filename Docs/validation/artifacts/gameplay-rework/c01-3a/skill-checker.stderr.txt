@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "C:\Users\gabri\.codex\skills\unity-csharp-scripting\scripts\check_unity_project.py", line 348, in collect_external_guids
+    into[guid] = meta_path.relative_to(root).as_posix()
+                 ~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Python314\Lib\pathlib\__init__.py", line 490, in relative_to
+    raise ValueError(f"{str(self)!r} is not in the subpath of {str(other)!r}")
+ValueError: 'C:\\Users\\gabri\\Downloads\\Tripo3d_Unity_Bridge-latest\\Tripo3d_Unity_Bridge\\Editor.meta' is not in the subpath of 'D:\\Dev\\Personal\\My_games\\Tech-Guy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\gabri\.codex\skills\unity-csharp-scripting\scripts\check_unity_project.py", line 915, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "C:\Users\gabri\.codex\skills\unity-csharp-scripting\scripts\check_unity_project.py", line 878, in main
+    scan = run(root)
+  File "C:\Users\gabri\.codex\skills\unity-csharp-scripting\scripts\check_unity_project.py", line 799, in run
+    packages = find_packages(root)
+  File "C:\Users\gabri\.codex\skills\unity-csharp-scripting\scripts\check_unity_project.py", line 437, in find_packages
+    collect_external_guids(folder, result.external_guids, root)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\gabri\.codex\skills\unity-csharp-scripting\scripts\check_unity_project.py", line 350, in collect_external_guids
+    into[guid] = Path(os.path.relpath(meta_path, root)).as_posix()
+                      ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "<frozen ntpath>", line 763, in relpath
+ValueError: path is on mount 'C:', start on mount 'D:'

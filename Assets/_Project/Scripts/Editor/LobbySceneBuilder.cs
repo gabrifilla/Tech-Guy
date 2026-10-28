@@ -664,6 +664,7 @@ public static class LobbySceneBuilder
         if (!controls || !player.GetComponent<NavMeshAgent>())
             throw new InvalidOperationException("Source player must have click movement and NavMeshAgent.");
         var serialized = new SerializedObject(controls);
+        serialized.FindProperty("_directKeyboardMovement").boolValue = true;
         serialized.FindProperty("mainCamera").objectReferenceValue = camera;
         serialized.FindProperty("clickableLayers").intValue = 1 << LayerMask.NameToLayer("Ground");
         serialized.FindProperty("clickEffectPoolRoot").objectReferenceValue = null;
@@ -748,8 +749,8 @@ public static class LobbySceneBuilder
             RenderTexture.active = texture;
             image.ReadPixels(new Rect(0, 0, 1600, 1000), 0, 0);
             image.Apply();
-            Directory.CreateDirectory("Docs");
-            File.WriteAllBytes(overview ? "Docs/NexusLobby-preview.png" : "Docs/NexusLobby-gameplay.png", image.EncodeToPNG());
+            Directory.CreateDirectory("Docs/validation/artifacts/lobby");
+            File.WriteAllBytes(overview ? "Docs/validation/artifacts/lobby/NexusLobby-preview.png" : "Docs/validation/artifacts/lobby/NexusLobby-gameplay.png", image.EncodeToPNG());
         }
         finally
         {

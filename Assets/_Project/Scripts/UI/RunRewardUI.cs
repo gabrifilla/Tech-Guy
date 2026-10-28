@@ -1,12 +1,20 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>Reward cards and passive build strip. RunBoons owns input blocking.</summary>
+/// <summary>Transient reward cards and a build inspection page owned by the player pause menu.</summary>
 public sealed class RunRewardUI : MonoBehaviour
 {
     private RunBoons _run;
-    private GUIStyle _heading, _title, _body, _small, _badge, _symbol;
+    private PauseMenuUI _pause;
+    private Vector2 _buildScroll;
+    private float _buildCardWidth = -1f;
+    private string[] _buildDescriptions = Array.Empty<string>();
+    private string[] _buildCategoryHeaders = Array.Empty<string>();
+    private float[] _buildTitleHeights = Array.Empty<float>();
+    private float[] _buildCardHeights = Array.Empty<float>();
+    [NonSerialized] private GUIStyle _heading, _title, _body, _small, _badge, _symbol;
     private int _selected, _knownRoom = -1, _knownCount = -1;
     private readonly List<RunBoons.Offer> _owned = new List<RunBoons.Offer>();
     private readonly Dictionary<string, RunModifierPresentation> _presentation = new Dictionary<string, RunModifierPresentation>();
@@ -27,15 +35,36 @@ public sealed class RunRewardUI : MonoBehaviour
     // Build-screen caches, keyed by Acquired.Count (the only thing that changes the owned list, ranks
     // and header). Rebuilt alongside the owned-list rebuild that already gates on _knownCount.
     private string _buildHeader = "";
+    private string _comboHints = "";
     private string[] _tileLevels = System.Array.Empty<string>();
     private static readonly Color Ink = new Color(.035f,.045f,.065f,.98f);
     private static readonly Color Muted = new Color(.6f,.67f,.75f);
-    public void Bind(RunBoons run) => _run = run;
+    public bool IsBuildVisible => _run && _pause && _pause.IsUpgradesVisible;
+    public bool IsRewardSelectionVisible => _run && _run.IsChoosing && Time.timeScale > 0f && (!_pause || !_pause.BlocksInput);
+
+    public void Bind(RunBoons run)
+    {
+        _run = run;
+        _pause = run ? run.GetComponent<PauseMenuUI>() : null;
+        if (_pause) _pause.BindRewards(this);
+        _knownCount = _knownRoom = -1;
+        _selected = 0;
+        _buildScroll = Vector2.zero;
+        _presentation.Clear();
+        _choiceGate.Invalidate();
+    }
+
+    private void OnEnable()
+    {
+        _heading = _title = _body = _small = _badge = _symbol = null;
+        _knownCount = -1;
+        _choiceGate.Invalidate();
+    }
     public float BuildTop { get; set; } = 96f;
 
     private void Update()
     {
-        if (Time.timeScale <= 0f || !_run || !_run.IsChoosing) return;
+        if (!IsRewardSelectionVisible) return;
         if (_knownRoom != _run.RewardRoom) { _knownRoom = _run.RewardRoom; _selected = 0; }
         var keyboard = Keyboard.current;
         if (keyboard == null) return;
@@ -59,7 +88,7 @@ public sealed class RunRewardUI : MonoBehaviour
     }
     private void Styles()
     {
-        if (_heading != null) return;
+        if (_heading != null && _title != null && _body != null && _small != null && _badge != null && _symbol != null) return;
         _heading = Style(34, FontStyle.Bold); _title = Style(23, FontStyle.Bold);
         _body = Style(17, FontStyle.Normal); _small = Style(12, FontStyle.Normal);
         _badge = Style(12, FontStyle.Bold); _badge.alignment = TextAnchor.MiddleCenter;
@@ -79,7 +108,7 @@ public sealed class RunRewardUI : MonoBehaviour
     }
     private void OnGUI()
     {
-        if (Time.timeScale <= 0f || !_run) return;
+        if (!IsRewardSelectionVisible) return;
         Styles();
         Matrix4x4 previous = GUI.matrix;
         Color oldColor = GUI.color;
@@ -88,8 +117,7 @@ public sealed class RunRewardUI : MonoBehaviour
         float width = Screen.width / scale, height = Screen.height / scale;
         try
         {
-            if (_run.IsChoosing) DrawChoices(width, height);
-            else DrawBuild(width, height);
+            DrawChoices(width, height);
         }
         finally { GUI.matrix = previous; GUI.color = oldColor; }
     }
@@ -103,7 +131,7 @@ public sealed class RunRewardUI : MonoBehaviour
         _roomHeader = "RECOMPENSA DE SALA  /  " + _run.RewardRoom.ToString("00");
         if (_run.ManualTicket != null)
         {
-            _roomHeader += " · " + _run.ManualTicket.AnnouncedKind + (_run.ManualTicket.IsAlternative ? " · ALTERNATIVA: ARMOR +40" : "");
+            _roomHeader += " · " + _run.ManualTicket.AnnouncedKind + (_run.ManualTicket.IsAlternative ? " · CATEGORIA ESGOTADA: ALTERNATIVA" : "");
             var request = _run.ManualTicket.Request;
             var node = _run.ProtocolSession.Route.Node(request.NodeId);
             _roomHeader += " · escolha " + (request.Ordinal + 1) + "/" + node.TotalAcquisitions;
@@ -122,9 +150,9 @@ public sealed class RunRewardUI : MonoBehaviour
             var offer = _run.Choices[i];
             var view = Present(offer);
             int rank = RunModifierPresentation.Count(_run, offer.Id);
-            _cardLevels[i] = view.MaxRank == 1 ? "ÚNICO" : "NÍVEL " + (rank + 1) + (view.MaxRank > 0 ? "/" + view.MaxRank : "");
+            _cardLevels[i] = offer.Id == RunBoonOfferCatalog.ExhaustedId ? "SEM AQUISIÇÃO" : view.MaxRank == 1 ? "ÚNICO" : "NÍVEL " + (rank + 1) + (view.MaxRank > 0 ? "/" + view.MaxRank : "");
             _cardHints[i] = RunModifierPresentation.Hint(_run, offer.Id);
-            _cardActions[i] = "[" + (i + 1) + "]   " + (rank > 0 ? "MELHORAR" : "ADQUIRIR");
+            _cardActions[i] = "[" + (i + 1) + "]   " + (offer.Id == RunBoonOfferCatalog.ExhaustedId ? "CONTINUAR" : rank > 0 ? "MELHORAR" : "ADQUIRIR");
         }
     }
     private void DrawChoices(float width, float height)
@@ -146,9 +174,9 @@ public sealed class RunRewardUI : MonoBehaviour
         }
         Text(new Rect(left,top+610,1100,24), "[1] [2] [3] escolher     •     ← → navegar + Enter     •     ou clique no cartão", _body, Muted);
         Text(new Rect(left,top+646,1100,20), _acquiredFooter, _small, Muted);
-        if (_run.ManualTicket != null && GUI.Button(new Rect(left+800,top+33,290,40),"Fechar · manter pendente [M]")) _run.CloseManualReward();
+        if (_run.ManualTicket != null && GUI.Button(new Rect(left+800,top+33,290,40),"Fechar · manter pendente")) _run.CloseManualReward();
         if (_run.ManualRecoveryRequired)
-            Text(new Rect(left,top+150,1000,90),"Mutation indisponível: slots incompatíveis ou ocupados. Boss continua bloqueado. Feche e use o mapa [M] para abortar ao Nexus.",_body,Muted);
+            Text(new Rect(left,top+150,1000,90),"Mutation indisponível: slots incompatíveis ou ocupados. Boss continua bloqueado. Abra a pausa [Esc] e escolha Abandonar incursão para retornar ao Nexus.",_body,Muted);
     }
     private bool DrawCard(Rect rect, RunBoons.Offer offer, int index)
     {
@@ -173,54 +201,115 @@ public sealed class RunRewardUI : MonoBehaviour
         Text(new Rect(x,rect.yMax-54,w,32), _cardActions[index], _badge, active ? Ink : Color.white);
         return GUI.Button(rect, GUIContent.none, GUIStyle.none);
     }
-    private void DrawBuild(float width, float height)
+    private void RebuildBuildCache(float cardWidth)
     {
-        if (_knownCount != _run.Acquired.Count)
+        bool inventoryChanged = _knownCount != _run.Acquired.Count;
+        if (inventoryChanged)
         {
-            _owned.Clear(); var seen = new HashSet<string>();
-            foreach (var offer in _run.Acquired) if (seen.Add(offer.Id))
-                _owned.Add(_run.Protocols != null && ProtocolInventory.TryKind(offer.Id, out var protocol)
-                    ? ProtocolOfferPresentation.Create(_run.Protocols, protocol, true) : offer);
+            _owned.Clear();
+            var seen = new HashSet<string>();
+            foreach (var offer in _run.Acquired)
+                if (seen.Add(offer.Id))
+                    _owned.Add(_run.Protocols != null && ProtocolInventory.TryKind(offer.Id, out var protocol)
+                        ? ProtocolOfferPresentation.Create(_run.Protocols, protocol, true) : offer);
             _knownCount = _run.Acquired.Count;
-            // Rebuild the build-strip strings in the same gate (R2.3): the header and the per-tile
-            // level labels change only when the acquired set changes. Same strings as before (R2.6).
-            _buildHeader = "SUA BUILD  /  " + _run.Acquired.Count + " AQUISIÇÕES   ·   passe o mouse para detalhes";
-            if (_tileLevels.Length != _owned.Count) _tileLevels = new string[_owned.Count];
+            _buildHeader = _owned.Count + " upgrades diferentes  ·  " + _run.Acquired.Count + " aquisições nesta incursão";
+            _comboHints = string.Join("\n", BoonExpansionCatalog.ComboHints(_run.WeaponModifiers));
+            if (_tileLevels.Length != _owned.Count || _buildDescriptions.Length != _owned.Count ||
+                _buildCategoryHeaders.Length != _owned.Count || _buildTitleHeights.Length != _owned.Count || _buildCardHeights.Length != _owned.Count)
+            {
+                _tileLevels = new string[_owned.Count];
+                _buildDescriptions = new string[_owned.Count];
+                _buildCategoryHeaders = new string[_owned.Count];
+                _buildTitleHeights = new float[_owned.Count];
+                _buildCardHeights = new float[_owned.Count];
+            }
             for (int i = 0; i < _owned.Count; i++)
-                _tileLevels[i] = "NÍVEL " + RunModifierPresentation.Count(_run, _owned[i].Id);
+            {
+                var view = Present(_owned[i]);
+                int rank = RunModifierPresentation.Count(_run, _owned[i].Id);
+                _tileLevels[i] = view.MaxRank == 1 ? "ÚNICO" : "NÍVEL " + rank + (view.MaxRank > 0 ? "/" + view.MaxRank : "");
+                _buildDescriptions[i] = RunModifierPresentation.Emphasize(view.Description ?? "");
+                _buildCategoryHeaders[i] = view.Category + "  /  " + view.Scope;
+            }
         }
-        if (_owned.Count == 0) return;
-        float x = 24, y = BuildTop;
-        Text(new Rect(x,y,480,18), _buildHeader, _small, Muted);
-        RunBoons.Offer hovered = null; Rect hoveredRect = default;
-        int columns = 3;
+        if (!inventoryChanged && Mathf.Approximately(_buildCardWidth, cardWidth)) return;
+        _buildCardWidth = cardWidth;
         for (int i = 0; i < _owned.Count; i++)
         {
-            var offer = _owned[i]; var view = Present(offer);
-            var tile = new Rect(x + i % columns * 158, y + 30 + i / columns * 56, 150, 50);
-            Fill(tile, view.Accent); Fill(new Rect(tile.x+1,tile.y+1,148,48), Ink);
-            Text(new Rect(tile.x,tile.y,36,50), view.Symbol, _badge, view.Accent);
-            GUI.Label(new Rect(tile.x+38,tile.y+5,106,28), offer.Title, _small);
-            Text(new Rect(tile.x+38,tile.y+33,106,14), _tileLevels[i], _small, view.Accent);
-            if (tile.Contains(Event.current.mousePosition)) { hovered = offer; hoveredRect = tile; }
+            float titleHeight = Mathf.Max(30f, _title.CalcHeight(new GUIContent(_owned[i].Title), cardWidth - 110f));
+            float bodyHeight = _body.CalcHeight(new GUIContent(_buildDescriptions[i]), cardWidth - 40f);
+            _buildTitleHeights[i] = titleHeight;
+            _buildCardHeights[i] = Mathf.Max(150f, 90f + titleHeight + bodyHeight);
         }
-        if (hovered == null) return;
-        var data = Present(hovered);
-        float tooltipX = Mathf.Min(hoveredRect.x, width - 364);
-        float tooltipY = Mathf.Min(hoveredRect.yMax+12, height - 350);
-        var panel = new Rect(tooltipX,tooltipY,340,340);
-        Fill(panel, data.Accent); Fill(new Rect(panel.x+1,panel.y+1,338,338), Ink);
-        Text(new Rect(panel.x+18,panel.y+16,304,20), TooltipHeader(hovered.Id, data), _small, data.Accent);
-        GUI.Label(new Rect(panel.x+18,panel.y+46,304,55), hovered.Title, _title);
-        Description(new Rect(panel.x+18,panel.y+110,304,210), data.Description);
     }
-    // Caches the tooltip header string for the hovered tile (R2.3): rebuilt only when the hovered item
-    // changes, not every frame the pointer rests on it. Same "Category  /  Scope" text as before (R2.6).
-    private readonly UiValueCache<string> _tooltipGate = new UiValueCache<string>();
-    private string _tooltipHeader = "";
-    private string TooltipHeader(string id, RunModifierPresentation data)
+
+    /// <summary>Read-only acquired upgrades. Uses the pause menu's virtual canvas and remains hidden during play.</summary>
+    public void DrawPauseBuild(Rect area)
     {
-        if (_tooltipGate.HasChanged(id)) _tooltipHeader = data.Category + "  /  " + data.Scope;
-        return _tooltipHeader;
+        if (!IsBuildVisible) return;
+        Styles();
+        Color color = GUI.color, contentColor = GUI.contentColor, backgroundColor = GUI.backgroundColor;
+        bool enabled = GUI.enabled;
+        try
+        {
+            GUI.color = GUI.contentColor = Color.white;
+            float cardWidth = Mathf.Max(100f, (area.width - 36f) * .5f);
+            RebuildBuildCache(cardWidth);
+            Text(new Rect(area.x, area.y, area.width, 28), _buildHeader, _body, Muted);
+            if (_owned.Count == 0)
+            {
+                Fill(new Rect(area.x, area.y + 54, area.width, 180), Ink);
+                GUI.Label(new Rect(area.x + 26, area.y + 80, area.width - 52, 40), "Sua build começa na próxima recompensa", _title);
+                Text(new Rect(area.x + 26, area.y + 134, area.width - 52, 72),
+                    "Os upgrades que você escolher aparecerão aqui, com seus níveis e efeitos. Eles duram até o fim da incursão.", _body, Muted);
+                return;
+            }
+            float contentHeight = 0f;
+            for (int i = 0; i < _owned.Count; i += 2)
+                contentHeight += Mathf.Max(_buildCardHeights[i], i + 1 < _owned.Count ? _buildCardHeights[i + 1] : 0f) + 16f;
+            float comboHeight = string.IsNullOrEmpty(_comboHints) ? 0f : _small.CalcHeight(new GUIContent("COMBINAÇÕES POSSÍVEIS\n" + _comboHints), area.width - 44f) + 24f;
+            contentHeight += comboHeight;
+            var viewport = new Rect(area.x, area.y + 44f, area.width, area.height - 44f);
+            _buildScroll = GUI.BeginScrollView(viewport, _buildScroll,
+                new Rect(0, 0, area.width - 20f, contentHeight), false, false);
+            try
+            {
+                float rowTop = 0f;
+                for (int i = 0; i < _owned.Count; i += 2)
+                {
+                    float rowHeight = Mathf.Max(_buildCardHeights[i], i + 1 < _owned.Count ? _buildCardHeights[i + 1] : 0f);
+                    DrawOwnedCard(new Rect(0, rowTop, cardWidth, rowHeight), i);
+                    if (i + 1 < _owned.Count) DrawOwnedCard(new Rect(cardWidth + 16f, rowTop, cardWidth, rowHeight), i + 1);
+                    rowTop += rowHeight + 16f;
+                }
+                if (comboHeight > 0f)
+                    Text(new Rect(12f, rowTop + 8f, area.width - 44f, comboHeight - 16f), "COMBINAÇÕES POSSÍVEIS\n" + _comboHints, _small, Muted);
+            }
+            finally { GUI.EndScrollView(); }
+        }
+        finally
+        {
+            GUI.color = color;
+            GUI.contentColor = contentColor;
+            GUI.backgroundColor = backgroundColor;
+            GUI.enabled = enabled;
+        }
+    }
+
+    private void DrawOwnedCard(Rect rect, int index)
+    {
+        var offer = _owned[index];
+        var view = Present(offer);
+        Fill(rect, Ink);
+        Fill(new Rect(rect.x, rect.y, 3f, rect.height), view.Accent);
+        Text(new Rect(rect.x + 20f, rect.y + 16f, rect.width - 146f, 20f), _buildCategoryHeaders[index], _small, view.Accent);
+        Text(new Rect(rect.xMax - 122f, rect.y + 16f, 102f, 20f), _tileLevels[index], _badge, view.Accent);
+        Fill(new Rect(rect.x + 20f, rect.y + 46f, 50f, 50f), new Color(view.Accent.r, view.Accent.g, view.Accent.b, .12f));
+        Text(new Rect(rect.x + 20f, rect.y + 46f, 50f, 50f), view.Symbol, _symbol, view.Accent);
+        float titleHeight = _buildTitleHeights[index];
+        GUI.Label(new Rect(rect.x + 88f, rect.y + 46f, rect.width - 110f, titleHeight), offer.Title, _title);
+        GUI.Label(new Rect(rect.x + 20f, rect.y + 66f + titleHeight, rect.width - 40f,
+            rect.height - 82f - titleHeight), _buildDescriptions[index], _body);
     }
 }

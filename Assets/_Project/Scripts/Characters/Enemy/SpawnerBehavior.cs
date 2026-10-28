@@ -123,7 +123,11 @@ public sealed class SpawnerBehavior : ArchetypeBehavior
 
         GameObject instance = Instantiate(_swarmPrefab, position, transform.rotation,
             _spawnedParent ? _spawnedParent : transform.parent);
-        if (instance.TryGetComponent(out EnemyAI childAI)) childAI.player = GetComponent<EnemyAI>().player;
+        if (instance.TryGetComponent(out EnemyAI childAI))
+        {
+            childAI.player = GetComponent<EnemyAI>().player;
+            if (_hasArenaBounds) childAI.ConfigureEncounterBounds(_arenaCenter, _arenaSize);
+        }
 
         if (instance.TryGetComponent(out NavMeshAgent spawnedAgent) && spawnedAgent.enabled)
         {

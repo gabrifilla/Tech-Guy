@@ -10,6 +10,8 @@ public sealed partial class ProtocolRuntime
     private ProtocolExecution _activeExecution;
     public ProtocolProducer ScopedProducer => _areaScopes > 0 ? _scopeProducer : ProtocolProducer.Direct;
     public int ScopedDepth => _areaScopes > 0 ? _scopeDepth : 0;
+    internal bool ScopedAnalyticsSecondary => _scopeProducer != ProtocolProducer.Direct &&
+        !(_activeExecution != null && _activeExecution.OwnsRoot && _activeExecution.Producer == _scopeProducer);
     public ProtocolExecution BeginExecution(ProtocolProducer producer = ProtocolProducer.Direct)
     { using (Profile()) return new ProtocolExecution(this, BeginStandalone(producer), producer, 0, true, producer == ProtocolProducer.Direct ? 0 : 1); }
     public ProtocolExecution ReserveExecution(ProtocolProducer producer)
@@ -96,6 +98,7 @@ public sealed class ProtocolExecution : IDisposable
     private readonly long _id;
     internal long ReservationId => _id;
     private readonly bool _ownsRoot;
+    internal bool OwnsRoot => _ownsRoot;
     private bool _closed;
     private readonly Guid _sessionId;
     private readonly int _encounterId;
