@@ -1,0 +1,981 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "105797bf38f34a6f8fba593219c2303d",
+    "status": "failed",
+    "mode": "PlayMode",
+    "started_unix_ms": 1793208586722,
+    "finished_unix_ms": 1793208650494,
+    "last_update_unix_ms": 1793208650494,
+    "progress": {
+      "completed": 103,
+      "total": 103,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.RunStatisticsPlayModeTests.ThreeConsecutiveSessionsFinalizeAllOutcomesWithoutMixingListenersOrPersistence",
+      "last_finished_unix_ms": 1793208649796,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [
+        {
+          "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualExhaustedTechniqueAppliesRetainedProtocolOnceAndPreservesResourcesAndSourceAssets",
+          "message": "  Expected: True\r\n  But was:  False\r\n"
+        },
+        {
+          "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition",
+          "message": "  Expected: True\r\n  But was:  False\r\n"
+        }
+      ],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "PlayMode",
+      "summary": {
+        "total": 103,
+        "passed": 101,
+        "failed": 2,
+        "skipped": 0,
+        "durationSeconds": 54.6988409,
+        "resultState": "Failed(Child)"
+      },
+      "results": [
+        {
+          "name": "AcceptedDashClearsRecoveryMovementWithoutAnOldOrderAfterTheDash",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AcceptedDashClearsRecoveryMovementWithoutAnOldOrderAfterTheDash",
+          "state": "Passed",
+          "durationSeconds": 1.2810461,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAnimator does not have an AnimatorController\r\n"
+        },
+        {
+          "name": "AnalyticsCancelBeforeContactDoesNotFabricateDamage",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsCancelBeforeContactDoesNotFabricateDamage",
+          "state": "Passed",
+          "durationSeconds": 0.1632201,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "AnalyticsEclipseKeepsTransformedQIdentity",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsEclipseKeepsTransformedQIdentity",
+          "state": "Passed",
+          "durationSeconds": 0.588335,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "AnalyticsNativeQMatchesRealHp",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeQMatchesRealHp",
+          "state": "Passed",
+          "durationSeconds": 0.7519295,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "AnalyticsNativeWMultihitMatchesRealHp",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeWMultihitMatchesRealHp",
+          "state": "Passed",
+          "durationSeconds": 1.5224866,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "AsuraEarlyFinishAfterFirstStrikeUsesOneCostAndThreeQuarterNativePower",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishAfterFirstStrikeUsesOneCostAndThreeQuarterNativePower",
+          "state": "Passed",
+          "durationSeconds": 0.8195744,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "AsuraEarlyFinishAfterSecondStrikePreservesTheFullThreeStrikePower",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishAfterSecondStrikePreservesTheFullThreeStrikePower",
+          "state": "Passed",
+          "durationSeconds": 1.2131995,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "AsuraEarlyFinishInterruptedBeforeContactNeverCreatesFinalizerEchoOrRetainedWork",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishInterruptedBeforeContactNeverCreatesFinalizerEchoOrRetainedWork",
+          "state": "Passed",
+          "durationSeconds": 2.7670184,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\n"
+        },
+        {
+          "name": "AsuraEarlyFinishRealReboundInputWinsOverSimultaneousRAndHoldingDoesNotRepeat",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishRealReboundInputWinsOverSimultaneousRAndHoldingDoesNotRepeat",
+          "state": "Passed",
+          "durationSeconds": 0.3306922,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "AsuraEarlyFinishRejectedDuringCommittedPhasesPreservesTheBufferedNormalContinuation",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishRejectedDuringCommittedPhasesPreservesTheBufferedNormalContinuation",
+          "state": "Passed",
+          "durationSeconds": 0.3250226,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "AsuraEarlyFinishWaitAndContactRespectPauseMenusAndRealHitstop",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishWaitAndContactRespectPauseMenusAndRealHitstop",
+          "state": "Passed",
+          "durationSeconds": 2.1202619,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "CadencedRContinuationDiscardsRecoveryMovementWithoutPublishingAnotherAbilityUse",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CadencedRContinuationDiscardsRecoveryMovementWithoutPublishingAnotherAbilityUse",
+          "state": "Passed",
+          "durationSeconds": 1.2281967,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "CursorFluidity_PrimaryClickWithoutShiftHitsAtZeroManaWithoutResourceCost",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_PrimaryClickWithoutShiftHitsAtZeroManaWithoutResourceCost",
+          "state": "Passed",
+          "durationSeconds": 0.8327484,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "CursorFluidity_ReleaseGateRequiresBothPointerActionsBeforeShiftMoveCanResume",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_ReleaseGateRequiresBothPointerActionsBeforeShiftMoveCanResume",
+          "state": "Passed",
+          "durationSeconds": 0.9452301,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "CursorFluidity_ShiftWithReboundPrimaryRepeatsUntilReleaseWithoutMouseClick",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_ShiftWithReboundPrimaryRepeatsUntilReleaseWithoutMouseClick",
+          "state": "Passed",
+          "durationSeconds": 1.0530726,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "CursorFluidity_SpearBasicKeepsItsAuthoredReachWithGauntletBalanceLoaded",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_SpearBasicKeepsItsAuthoredReachWithGauntletBalanceLoaded",
+          "state": "Passed",
+          "durationSeconds": 0.0290232,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "CursorFluidity_TargetedTapSurvivesAttackCadenceAndExecutesExactlyOnce",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_TargetedTapSurvivesAttackCadenceAndExecutesExactlyOnce",
+          "state": "Passed",
+          "durationSeconds": 0.6985815,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "CursorFluidity_TargetedTapSurvivesBusyRecoveryAndExecutesExactlyOnce",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_TargetedTapSurvivesBusyRecoveryAndExecutesExactlyOnce",
+          "state": "Passed",
+          "durationSeconds": 1.3290015,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "CursorFluidity_TargetWithoutAttackIntentDoesNotPursue",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_TargetWithoutAttackIntentDoesNotPursue",
+          "state": "Passed",
+          "durationSeconds": 0.3779744,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "DisableAndExternalPullDiscardRecoveryMovement",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.DisableAndExternalPullDiscardRecoveryMovement",
+          "state": "Passed",
+          "durationSeconds": 0.6238692,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "EncounterOffenseCleanupAndDeathCannotKeepQueuedMovement",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.EncounterOffenseCleanupAndDeathCannotKeepQueuedMovement",
+          "state": "Passed",
+          "durationSeconds": 0.8312025,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAnimator does not have an AnimatorController\r\n"
+        },
+        {
+          "name": "GI15SkillAcceptedDuringBasicHitstopKeepsOneUseAndResumesItsPresentation",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GI15SkillAcceptedDuringBasicHitstopKeepsOneUseAndResumesItsPresentation",
+          "state": "Passed",
+          "durationSeconds": 0.8514987,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "GIBasicAcceptedAttackWaitsForAuthoredContact",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicAcceptedAttackWaitsForAuthoredContact",
+          "state": "Passed",
+          "durationSeconds": 0.5630115,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "GIBasicCritProtocolAndEnergyKeepOneCausalRoot",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicCritProtocolAndEnergyKeepOneCausalRoot",
+          "state": "Passed",
+          "durationSeconds": 0.2994786,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "GIBasicPreImpactMovementCancelsWithoutGhostHitOrEnergy",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicPreImpactMovementCancelsWithoutGhostHitOrEnergy",
+          "state": "Passed",
+          "durationSeconds": 0.3879759,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "GIBasicRapidSequenceKeepsCadenceSingleTransactionsAndRecovery",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicRapidSequenceKeepsCadenceSingleTransactionsAndRecovery",
+          "state": "Passed",
+          "durationSeconds": 1.4097362,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "GPRAsuraCadencedThreeRmbPressesKeepSingleExecutionAndCost",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRAsuraCadencedThreeRmbPressesKeepSingleExecutionAndCost",
+          "state": "Passed",
+          "durationSeconds": 1.0709734,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+        },
+        {
+          "name": "GPRConfigMigrationKeepsPersonalizedSecondaryAndHasThreeSkills",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRConfigMigrationKeepsPersonalizedSecondaryAndHasThreeSkills",
+          "state": "Passed",
+          "durationSeconds": 0.0112838,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "GPRSpecialRemapsExistingThreeKitsWithoutXOrF11Alias",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSpecialRemapsExistingThreeKitsWithoutXOrF11Alias",
+          "state": "Passed",
+          "durationSeconds": 0.864528,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "GPRThreeSkillsRemapAndHudKeepsSeparateSpecialWithoutX",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRThreeSkillsRemapAndHudKeepsSeparateSpecialWithoutX",
+          "state": "Passed",
+          "durationSeconds": 3.4927863,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+        },
+        {
+          "name": "HitStopPreservesRecoveryIntentWithoutUsingItsRealTimeForExpiry",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.HitStopPreservesRecoveryIntentWithoutUsingItsRealTimeForExpiry",
+          "state": "Passed",
+          "durationSeconds": 1.1268482,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "InvalidGroundDestinationPreservesTheCurrentValidPath",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.InvalidGroundDestinationPreservesTheCurrentValidPath",
+          "state": "Passed",
+          "durationSeconds": 0.2305544,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "ManualEliteDeathBetweenOrdinalsCannotAcquireSecondReward",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualEliteDeathBetweenOrdinalsCannotAcquireSecondReward",
+          "state": "Passed",
+          "durationSeconds": 0.2533817,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\n"
+        },
+        {
+          "name": "ManualExhaustedTechniqueAppliesRetainedProtocolOnceAndPreservesResourcesAndSourceAssets",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualExhaustedTechniqueAppliesRetainedProtocolOnceAndPreservesResourcesAndSourceAssets",
+          "state": "Failed",
+          "durationSeconds": 0.0589942,
+          "message": "  Expected: True\r\n  But was:  False\r\n",
+          "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualExhaustedTechniqueAppliesRetainedProtocolOnceAndPreservesResourcesAndSourceAssets>d__303.MoveNext () [0x0028e] in D:\\Projetos\\Gabriel\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunRewardPlayModeTests.cs:47\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "ManualProtocolTicketsApplyEachRetainedEffectFromActualCompatibleOffers",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualProtocolTicketsApplyEachRetainedEffectFromActualCompatibleOffers",
+          "state": "Passed",
+          "durationSeconds": 0.2225405,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition",
+          "state": "Failed",
+          "durationSeconds": 0.0465499,
+          "message": "  Expected: True\r\n  But was:  False\r\n",
+          "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition>d__304.MoveNext () [0x000fc] in D:\\Projetos\\Gabriel\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunRewardPlayModeTests.cs:74\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "MovementDuringRecoveryKeepsTheCast_UsesLatestValidOrderOnce",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.MovementDuringRecoveryKeepsTheCast_UsesLatestValidOrderOnce",
+          "state": "Passed",
+          "durationSeconds": 0.8279661,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "PauseDiscardsRecoveryMovementAndDoesNotReplayOnResume",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseDiscardsRecoveryMovementAndDoesNotReplayOnResume",
+          "state": "Passed",
+          "durationSeconds": 1.0211754,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "SpearBoonEarlyReturnLosesSkippedPassagesAndNeverPaysAgain",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonEarlyReturnLosesSkippedPassagesAndNeverPaysAgain",
+          "state": "Passed",
+          "durationSeconds": 1.4568881,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "UnreachableNavMeshIslandCannotReplaceTheValidMovementOrder",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.UnreachableNavMeshIslandCannotReplaceTheValidMovementOrder",
+          "state": "Passed",
+          "durationSeconds": 0.0558155,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "BowBoonQAndEReuseConfiguredReducedMovementAndRestoreItOnCancelAndCompletion",
+          "fullName": "TechGuy.Tests.BowBoonPlayModeTests.BowBoonQAndEReuseConfiguredReducedMovementAndRestoreItOnCancelAndCompletion",
+          "state": "Passed",
+          "durationSeconds": 0.9534747,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "BowBoonReboundRUsesActualHoldAndReleaseWithoutASecondActivation",
+          "fullName": "TechGuy.Tests.BowBoonPlayModeTests.BowBoonReboundRUsesActualHoldAndReleaseWithoutASecondActivation",
+          "state": "Passed",
+          "durationSeconds": 0.4888015,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "ConcurrentPlayerDeathHasPriorityOverProtocolClear",
+          "fullName": "TechGuy.Tests.ProtocolEncounterFrontierTests.ConcurrentPlayerDeathHasPriorityOverProtocolClear",
+          "state": "Passed",
+          "durationSeconds": 3.9643423,
+          "message": null,
+          "stackTrace": null,
+          "output": "ProgressionDirector Run_Seed = 5643605165540429173 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nHitboxDamage: Player hit Grunt(Clone) for 10\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+        },
+        {
+          "name": "LastBurnTickDeathOpensRewardWithoutWaitingForStatusLifetime",
+          "fullName": "TechGuy.Tests.ProtocolEncounterFrontierTests.LastBurnTickDeathOpensRewardWithoutWaitingForStatusLifetime",
+          "state": "Passed",
+          "durationSeconds": 1.4866933,
+          "message": null,
+          "stackTrace": null,
+          "output": "ProgressionDirector Run_Seed = 5065094891988311596 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nHitboxDamage: Player hit Charger(Clone) for 10\r\n"
+        },
+        {
+          "name": "LastDetonationCascadeCompletesBeforeReward",
+          "fullName": "TechGuy.Tests.ProtocolEncounterFrontierTests.LastDetonationCascadeCompletesBeforeReward",
+          "state": "Passed",
+          "durationSeconds": 0.8136718,
+          "message": null,
+          "stackTrace": null,
+          "output": "ProgressionDirector Run_Seed = 5134952108322546598 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nHitboxDamage: Player hit SpreadShooter(Clone) for 10\r\n"
+        },
+        {
+          "name": "LastOverflowDeathKeepsNativeBasicKillUncreditedAndOpensOneTicket",
+          "fullName": "TechGuy.Tests.ProtocolEncounterFrontierTests.LastOverflowDeathKeepsNativeBasicKillUncreditedAndOpensOneTicket",
+          "state": "Passed",
+          "durationSeconds": 0.8059582,
+          "message": null,
+          "stackTrace": null,
+          "output": "ProgressionDirector Run_Seed = 5276129827276276013 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nHitboxDamage: Player hit Heavy(Clone) for 10\r\n"
+        },
+        {
+          "name": "BurnRefreshKeepsStrongestReactorDpsAndTickClockAndPauseFreezesTimers",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.BurnRefreshKeepsStrongestReactorDpsAndTickClockAndPauseFreezesTimers",
+          "state": "Passed",
+          "durationSeconds": 4.9503401,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "FrostExpiresAndRestoresOwnedSpeed",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.FrostExpiresAndRestoresOwnedSpeed",
+          "state": "Passed",
+          "durationSeconds": 2.8831948,
+          "message": null,
+          "stackTrace": null,
+          "output": "Failed to create agent because it is not close enough to the NavMesh\r\n"
+        },
+        {
+          "name": "FrostRespectsSmallHeavyEliteLegendaryAndBossProfiles",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.FrostRespectsSmallHeavyEliteLegendaryAndBossProfiles",
+          "state": "Passed",
+          "durationSeconds": 0.0325471,
+          "message": null,
+          "stackTrace": null,
+          "output": "Failed to create agent because it is not close enough to the NavMesh\r\nFailed to create agent because it is not close enough to the NavMesh\r\nFailed to create agent because it is not close enough to the NavMesh\r\nFailed to create agent because it is not close enough to the NavMesh\r\nFailed to create agent because it is not close enough to the NavMesh\r\n"
+        },
+        {
+          "name": "FullRootDropsOnlyProtocolDamageAndPreservesEveryNativeHpReceipt",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.FullRootDropsOnlyProtocolDamageAndPreservesEveryNativeHpReceipt",
+          "state": "Passed",
+          "durationSeconds": 0.0065708,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "HeavyChillCleanupDoesNotOverwriteAnotherSpeedOwner",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.HeavyChillCleanupDoesNotOverwriteAnotherSpeedOwner",
+          "state": "Passed",
+          "durationSeconds": 0.0031667,
+          "message": null,
+          "stackTrace": null,
+          "output": "Failed to create agent because it is not close enough to the NavMesh\r\n"
+        },
+        {
+          "name": "HitstopFreezesBurnChillAndVisualTimersAndClosingInvalidatesReservedProjectile",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.HitstopFreezesBurnChillAndVisualTimersAndClosingInvalidatesReservedProjectile",
+          "state": "Passed",
+          "durationSeconds": 0.335033,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "NextSessionInvalidatesOldProjectileAndClearsOwnedApplications",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.NextSessionInvalidatesOldProjectileAndClearsOwnedApplications",
+          "state": "Passed",
+          "durationSeconds": 0.0275456,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PiercingProjectileRetainsRootAndRanksAcrossFramesAndReleasesLease",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.PiercingProjectileRetainsRootAndRanksAcrossFramesAndReleasesLease",
+          "state": "Passed",
+          "durationSeconds": 0.2861735,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SaturatedBurnTicksRotateWithoutCatchupOrStarvationAndDeathTicksDetonate",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.SaturatedBurnTicksRotateWithoutCatchupOrStarvationAndDeathTicksDetonate",
+          "state": "Passed",
+          "durationSeconds": 2.7749209,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SiblingProjectilesAndMultitargetAreaShareOneExecution",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.SiblingProjectilesAndMultitargetAreaShareOneExecution",
+          "state": "Passed",
+          "durationSeconds": 0.0792673,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "BurnApplicationCapRejectsOverflowAndReleasesCapacityOnDeath",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.BurnApplicationCapRejectsOverflowAndReleasesCapacityOnDeath",
+          "state": "Passed",
+          "durationSeconds": 0.0519953,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CleanupPreservesLegacyStatusAndRebindInvalidatesExistingRoots",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.CleanupPreservesLegacyStatusAndRebindInvalidatesExistingRoots",
+          "state": "Passed",
+          "durationSeconds": 0.0041018,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(1)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(1)",
+          "state": "Passed",
+          "durationSeconds": 0.0056059,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(2)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(2)",
+          "state": "Passed",
+          "durationSeconds": 0.0018318,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(3)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(3)",
+          "state": "Passed",
+          "durationSeconds": 0.0017807,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConductorSkipsAlliesNeutralWallsAndDuplicateCollidersAndStillConductsLethalHit",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ConductorSkipsAlliesNeutralWallsAndDuplicateCollidersAndStillConductsLethalHit",
+          "state": "Passed",
+          "durationSeconds": 0.0034317,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DepthFourDealsItsConfirmedDamageWithoutCreatingElementsOrChildren",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.DepthFourDealsItsConfirmedDamageWithoutCreatingElementsOrChildren",
+          "state": "Passed",
+          "durationSeconds": 0.0021141,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(1,92.5f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(1,92.5f)",
+          "state": "Passed",
+          "durationSeconds": 0.0028286,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(2,90.0f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(2,90.0f)",
+          "state": "Passed",
+          "durationSeconds": 0.0015778,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(3,87.5f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(3,87.5f)",
+          "state": "Passed",
+          "durationSeconds": 0.0011242,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DetonationUsesPreDeathStatusAndActualHpInsteadOfOverkill",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.DetonationUsesPreDeathStatusAndActualHpInsteadOfOverkill",
+          "state": "Passed",
+          "durationSeconds": 0.0028232,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ElementCallbackRecyclingTargetCannotApplyFrostToItsNewGeneration",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ElementCallbackRecyclingTargetCannotApplyFrostToItsNewGeneration",
+          "state": "Passed",
+          "durationSeconds": 0.0023931,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "FirstThermalBurstDeathCancelsRemainingBurstsAndDetonatesItsOwnDamage",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.FirstThermalBurstDeathCancelsRemainingBurstsAndDetonatesItsOwnDamage",
+          "state": "Passed",
+          "durationSeconds": 0.0024751,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "FrostChanceScalesPerRankAndRankThreeIncludesRandomUpperEndpoint",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.FrostChanceScalesPerRankAndRankThreeIncludesRandomUpperEndpoint",
+          "state": "Passed",
+          "durationSeconds": 0.0012945,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "IgniteDoesNotTickImmediatelyAndOverflowUsesConfirmedDamageOnce",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.IgniteDoesNotTickImmediatelyAndOverflowUsesConfirmedDamageOnce",
+          "state": "Passed",
+          "durationSeconds": 0.0017819,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "LethalReceiptKeepsOriginalPositionWhenDeathCallbackMovesSource",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.LethalReceiptKeepsOriginalPositionWhenDeathCallbackMovesSource",
+          "state": "Passed",
+          "durationSeconds": 0.0022795,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "NonlethalReceiptFromPreviousTargetGenerationCannotApplyElements",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.NonlethalReceiptFromPreviousTargetGenerationCannotApplyElements",
+          "state": "Passed",
+          "durationSeconds": 0.0020186,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "OverflowDeathDetonatesFromItsOwnLethalHpReceipt",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.OverflowDeathDetonatesFromItsOwnLethalHpReceipt",
+          "state": "Passed",
+          "durationSeconds": 0.0020971,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReactorUsesCapturedRanksAndConfirmedDamage(1,7.2f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ReactorUsesCapturedRanksAndConfirmedDamage(1,7.2f)",
+          "state": "Passed",
+          "durationSeconds": 0.0015996,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReactorUsesCapturedRanksAndConfirmedDamage(2,14.4f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ReactorUsesCapturedRanksAndConfirmedDamage(2,14.4f)",
+          "state": "Passed",
+          "durationSeconds": 0.000894,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReactorUsesCapturedRanksAndConfirmedDamage(3,21.6f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ReactorUsesCapturedRanksAndConfirmedDamage(3,21.6f)",
+          "state": "Passed",
+          "durationSeconds": 0.000748,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReplayedReceiptCannotRefreshElementsOrRepeatOverflow",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ReplayedReceiptCannotRefreshElementsOrRepeatOverflow",
+          "state": "Passed",
+          "durationSeconds": 0.0017053,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResonanceAmplifiesEachThermalShockExactlyOnce(1,926.0f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesEachThermalShockExactlyOnce(1,926.0f)",
+          "state": "Passed",
+          "durationSeconds": 0.0022567,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResonanceAmplifiesEachThermalShockExactlyOnce(2,902.0f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesEachThermalShockExactlyOnce(2,902.0f)",
+          "state": "Passed",
+          "durationSeconds": 0.0014322,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResonanceAmplifiesEachThermalShockExactlyOnce(3,878.0f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesEachThermalShockExactlyOnce(3,878.0f)",
+          "state": "Passed",
+          "durationSeconds": 0.0012288,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(1,981.0f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(1,981.0f)",
+          "state": "Passed",
+          "durationSeconds": 0.0029406,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(2,977.0f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(2,977.0f)",
+          "state": "Passed",
+          "durationSeconds": 0.0012471,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(3,973.0f)",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(3,973.0f)",
+          "state": "Passed",
+          "durationSeconds": 0.0010344,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SaturatedExplosionBufferCannotExceedRootDamageBudget",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.SaturatedExplosionBufferCannotExceedRootDamageBudget",
+          "state": "Passed",
+          "durationSeconds": 0.0177317,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SecondaryAbsorbedDamageStillConsumesAttempt",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.SecondaryAbsorbedDamageStillConsumesAttempt",
+          "state": "Passed",
+          "durationSeconds": 0.0019654,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ShatterPrecedesCombustionAndLimitsExplosionToSixDistinctVictims",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ShatterPrecedesCombustionAndLimitsExplosionToSixDistinctVictims",
+          "state": "Passed",
+          "durationSeconds": 0.0035865,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "TechniqueCannotOverflowAndEnvironmentCannotApplyElements",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.TechniqueCannotOverflowAndEnvironmentCannotApplyElements",
+          "state": "Passed",
+          "durationSeconds": 0.0013534,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ThermalShockAndOverflowPreserveExistingTimersAndDoNotPropagateElements",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ThermalShockAndOverflowPreserveExistingTimersAndDoNotPropagateElements",
+          "state": "Passed",
+          "durationSeconds": 0.0016627,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "TwoOppositeElementApplicationsProduceTwoBurstsWithoutDuplicateDamage",
+          "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.TwoOppositeElementApplicationsProduceTwoBurstsWithoutDuplicateDamage",
+          "state": "Passed",
+          "durationSeconds": 0.0017545,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "BurnOriginsFromDifferentSessionsCannotCreditTheCurrentRun",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.BurnOriginsFromDifferentSessionsCannotCreditTheCurrentRun",
+          "state": "Passed",
+          "durationSeconds": 0.0057842,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CorruptAndUnsupportedStoredSummaryAreRejectedWithoutTouchingOtherPreferences",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.CorruptAndUnsupportedStoredSummaryAreRejectedWithoutTouchingOtherPreferences",
+          "state": "Passed",
+          "durationSeconds": 0.0036516,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DamageReceivedUsesHpLossAndSnapshotsCannotMutateCollector",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.DamageReceivedUsesHpLossAndSnapshotsCannotMutateCollector",
+          "state": "Passed",
+          "durationSeconds": 0.003987,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DelayedArrowRetainsOriginAfterTheAmbientActionChangesAndPause",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.DelayedArrowRetainsOriginAfterTheAmbientActionChangesAndPause",
+          "state": "Passed",
+          "durationSeconds": 0.2027327,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EffectiveHpAndOverkillPartitionExactlyOnceAcrossTargetsAndChildren",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.EffectiveHpAndOverkillPartitionExactlyOnceAcrossTargetsAndChildren",
+          "state": "Passed",
+          "durationSeconds": 0.005145,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "MixedBurnOriginsRemainAmbiguousInsteadOfLastWriterAttribution",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.MixedBurnOriginsRemainAmbiguousInsteadOfLastWriterAttribution",
+          "state": "Passed",
+          "durationSeconds": 0.0056988,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "NativePersistentProducerIsNotMisclassifiedAsAProc",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.NativePersistentProducerIsNotMisclassifiedAsAProc",
+          "state": "Passed",
+          "durationSeconds": 0.003467,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "QueuedReversedAndRepeatedPublicationsRetainTheirOwnHpTransaction",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.QueuedReversedAndRepeatedPublicationsRetainTheirOwnHpTransaction",
+          "state": "Passed",
+          "durationSeconds": 0.0043758,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReactivatedActorGenerationKeepsBothConfirmedLivesWithoutDuplicateReceipts",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.ReactivatedActorGenerationKeepsBothConfirmedLivesWithoutDuplicateReceipts",
+          "state": "Passed",
+          "durationSeconds": 0.008552,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RealProtocolOverflowKeepsOriginAndAddsOnlyConfirmedChildHp",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.RealProtocolOverflowKeepsOriginAndAddsOnlyConfirmedChildHp",
+          "state": "Passed",
+          "durationSeconds": 0.0057252,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReentrantPublicationRestoresOuterTransactionAndDoesNotLoseEarlierDamage",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.ReentrantPublicationRestoresOuterTransactionAndDoesNotLoseEarlierDamage",
+          "state": "Passed",
+          "durationSeconds": 0.0039159,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RejectedAndUnattributedHpCannotBeCreditedToThePlayer",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.RejectedAndUnattributedHpCannotBeCreditedToThePlayer",
+          "state": "Passed",
+          "durationSeconds": 0.0034606,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ThreeConsecutiveSessionsFinalizeAllOutcomesWithoutMixingListenersOrPersistence",
+          "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.ThreeConsecutiveSessionsFinalizeAllOutcomesWithoutMixingListenersOrPersistence",
+          "state": "Passed",
+          "durationSeconds": 0.0120834,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        }
+      ]
+    }
+  },
+  "hint": null
+}

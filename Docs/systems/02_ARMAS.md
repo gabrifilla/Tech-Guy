@@ -1,5 +1,19 @@
 # Identidade das armas — três estilos, não três ranges
 
+## Estado vigente — GPR-01.1,28/10/2026
+
+GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
+
+Direção experimental A→A+B→A+B+C aceita, parâmetros1,5×/0,60× provisórios; autorizada **exclusivamente GPR-01.1**. [Relatório da fundação](../decisions/GPR-01.1_RELATORIO.md) / [fatia e próximo escopo](../gameplay/GPR_01_VERTICAL_SLICE.md). Sem asset/boonTitanic Fists habilitado, onda ou transformação visual de produção. STOP para revisão antes de01.2;01.3–6 também exigem autorização posterior.
+
+Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecânica nova. SwapAvanço→Uppercut adiado por redução aprovada de escopo; aquisição/substituição modular Q/E/R permanece requisito **NÃO IMPLEMENTADO/NÃO VALIDADO**, rastreado em GPR-03.1/RF-TROCA. Gates e decisões históricos abaixo não sobrepõem esta autorização.
+
+## Input vigente — C01.4,28/10/2026
+
+Decisão mais recente: **três skills Q/E/R + especial permanente RMB**, sem X/quarta modular. Binding é apresentação/entrada, não identidade de execução. No modo direto, índices0/1/2 correspondem às três skills e index3 ao especial; o array autorado de quatro entradas não foi alterado. Identidades legadas Q/W/E/R de boons/analytics permanecem internas. Asura e quarta ação nativa Bow/Spear mantêm os executores existentes, sem redesenho. Settings remapeia ações; InteractG e finisherF são distintos por padrão. DashCursor padrão ou Movimento; neste último, sem vetor, usa o facing atual. As tabelas autoradas/históricas abaixo não sobrepõem esses controles. Ver [consolidado4](../decisions/GPR-C01.4_RELATORIO.md).
+
+
+
 **Direção de design vigente:** preservar identidades distintas e kit base divertido sem boons. **Implementação:** inspeção estática em 18/10/2026, `gameplayOverhaul`, HEAD `3a3f0ee` com alterações locais; não houve teste Unity nem aceite de gameplay nesta consolidação. As seções de runtime são `IMPLEMENTADO_NAO_VALIDADO` para esta revisão. Resultados técnicos históricos não aprovam feel; consultar a [matriz](../validation/01_MATRIZ_DE_VALIDACAO.md).
 
 | | Manopla | Lança | Arco |

@@ -85,7 +85,7 @@ public static class FirstSectorBuilder
         data.FindProperty("_environment").objectReferenceValue = environment;
         data.FindProperty("_stageCount").intValue = 1;
         data.FindProperty("_requiredBossAccessFragments").intValue = 3;
-        data.FindProperty("_returnScene").stringValue = "NexusLobby";
+        data.FindProperty("_returnScene").stringValue = "NexusBlockout";
         SharedHudBuilder.InstallInScene(scene);
         data.FindProperty("_objective").objectReferenceValue = CreateObjective();
         var parameters = data.FindProperty("_generationParams");

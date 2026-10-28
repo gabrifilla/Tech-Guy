@@ -183,6 +183,7 @@ namespace TechGuy.Tests.CharacterIntegration
         }
 
         [TestCase("NexusLobby", true)]
+        [TestCase("NexusBlockout", true)]
         [TestCase("FirstSector", true)]
         [TestCase("PrologueTutorial", true)]
         [TestCase("Playground", true)]
@@ -222,6 +223,34 @@ namespace TechGuy.Tests.CharacterIntegration
                 }
                 Assert.That(AssetDatabase.GetAssetPath(animator.runtimeAnimatorController),
                     Is.EqualTo(hasController ? ControllerPath : string.Empty));
+            }
+            finally { EditorSceneManager.ClosePreviewScene(scene); }
+        }
+
+        [TestCase("MainMenu", "MainMenuUI", "_lobbyScene")]
+        [TestCase("PrologueTutorial", "TutorialDirector", "_lobbyScene")]
+        [TestCase("FirstSector", "ProgressionDirector", "_returnScene")]
+        [TestCase("ProceduralStageAuthoring", "ProgressionDirector", "_returnScene")]
+        public void SavedProductionRoutesUseTheRoomBasedNexus(string sceneName, string componentType, string field)
+        {
+            Assert.That(EditorBuildSettings.scenes.Any(s => s.enabled && s.path == "Assets/_Project/Scenes/NexusBlockout.unity"), Is.True);
+            var scene = EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/" + sceneName + ".unity");
+            try
+            {
+                var component = scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<MonoBehaviour>(true))
+                    .Single(c => c && c.GetType().Name == componentType);
+                Assert.That(new SerializedObject(component).FindProperty(field).stringValue, Is.EqualTo("NexusBlockout"));
+            }
+            finally { EditorSceneManager.ClosePreviewScene(scene); }
+        }
+
+        [Test]
+        public void MainMenuDioramaContainsNoInteractiveArsenal()
+        {
+            var scene = EditorSceneManager.OpenPreviewScene("Assets/_Project/Scenes/MainMenu.unity");
+            try
+            {
+                Assert.That(scene.GetRootGameObjects().SelectMany(r => r.GetComponentsInChildren<LobbyArsenal>(true)), Is.Empty);
             }
             finally { EditorSceneManager.ClosePreviewScene(scene); }
         }

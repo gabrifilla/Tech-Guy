@@ -4,8 +4,8 @@ using UnityEngine;
 
 public enum BoonFamily { Mutation, Augment, Protocol, Resonance, Mythic }
 [Flags] public enum BoonWeaponMask { None = 0, Gauntlet = 1, Bow = 2, Spear = 4, Universal = 7 }
-public enum BoonSlot { Q = 0, W = 1, E = 2, R = 3 }
-[Flags] public enum BoonSlotMask { None = 0, Q = 1, W = 2, E = 4, R = 8, Any = 15 }
+public enum BoonSlot { Q = 0, W = 1, E = 2, R = 3, Basic = 4 }
+[Flags] public enum BoonSlotMask { None = 0, Q = 1, W = 2, E = 4, R = 8, Any = 15, Basic = 16, AllTargets = Any | Basic }
 
 // Keep serialized capability flags within Unity's 32-bit enum representation.
 [Flags]

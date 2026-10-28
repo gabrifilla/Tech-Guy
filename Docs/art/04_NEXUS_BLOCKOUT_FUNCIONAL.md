@@ -4,6 +4,10 @@
 
 Projeto MCP: D:/Dev/Personal/My_games/Tech-Guy, Unity6000.5.10f1, Tech-Guy@fccafb2b47cd7671. Abra Assets/_Project/Scenes/NexusBlockout.unity e dê Play. NexusLobby, sua câmera, FirstSector e prefabs de produção são preservados.
 
+## Atualização de uso — 28/10/2026
+
+Por solicitação do desenvolvedor, esta cena passa a ser o Nexus do fluxo normal. Menu, conclusão/skip do prólogo e retorno de run apontam para NexusBlockout. O progresso persiste normalmente no Editor; a proteção/restauração de uma sessão de revisão exige selecionar explicitamente `Tools → Tech Guy → Nexus Blockout → Protect Next Review Session Save` antes do Play. O texto abaixo descreve a entrega histórica isolada; controles atuais seguem GPR-C01.4 (WASD, interação G configurável, Q/E/R e especial RMB). Ver [restauração](../decisions/NEXUS_RESTAURACAO_20261028.md).
+
 ## Planta construída
 
 Referência principal: planta à direita de Library/GameplayObservation/vs033-direction/nexus-direction.png, indicada na proposta03. Reutiliza suas relações espaciais e vazios; não copia as medidas esquemáticas.

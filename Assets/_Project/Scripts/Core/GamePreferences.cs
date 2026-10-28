@@ -3,7 +3,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
-public enum GameControl { Primary = 0, Move = 1, Dash = 2, Skill1 = 3, Skill2 = 4, Skill3 = 5, Skill4 = 6, FinishSequence = 7 }
+public enum DashDirectionMode { Mouse = 0, Movement = 1 }
+
+public enum GameControl { Primary = 0, Move = 1, Dash = 2, Skill1 = 3, Skill2 = 4, Skill3 = 5, Skill4 = 6, FinishSequence = 7, Interact = 8, MoveUp = 9, MoveDown = 10, MoveLeft = 11, MoveRight = 12, Pause = 13 }
 
 /// <summary>Presentation and control preferences; never clears equipment, currency or run progress.</summary>
 public static class GamePreferences
@@ -16,17 +18,38 @@ public static class GamePreferences
     private static KeyCode[] _directBindings;
     public static bool UsesDirectControls => _directInputOwner != null;
     // C01 compatibility adapter: reuse the configured secondary channel; no preference/schema rewrite.
+    public static GameControl InteractionAction => UsesDirectControls ? GameControl.Interact : GameControl.Skill3;
     public static KeyCode WeaponSpecialBinding => Binding(GameControl.Move);
     public static bool WasWeaponSpecialPressed() => WasPressed(WeaponSpecialBinding);
-    public static string MovementLabel => UsesDirectControls ? "WASD" : BindingLabel(GameControl.Move);
+    public static readonly GameControl[] DirectActions = { GameControl.MoveUp, GameControl.MoveDown, GameControl.MoveLeft, GameControl.MoveRight,
+        GameControl.Primary, GameControl.Move, GameControl.Skill1, GameControl.Skill2, GameControl.Skill3,
+        GameControl.Dash, GameControl.Interact, GameControl.FinishSequence, GameControl.Pause };
+    public static string MovementLabel => UsesDirectControls ? BindingLabel(GameControl.MoveUp) + "/" + BindingLabel(GameControl.MoveLeft) + "/" + BindingLabel(GameControl.MoveDown) + "/" + BindingLabel(GameControl.MoveRight) : BindingLabel(GameControl.Move);
+    public static Vector2 MovementInput => Vector2.ClampMagnitude(new Vector2((IsHeld(GameControl.MoveRight) ? 1 : 0) - (IsHeld(GameControl.MoveLeft) ? 1 : 0),
+        (IsHeld(GameControl.MoveUp) ? 1 : 0) - (IsHeld(GameControl.MoveDown) ? 1 : 0)), 1);
+    public static string ActionLabel(GameControl action) => action == GameControl.Move ? "Especial da arma" : action == GameControl.Primary ? "Ataque básico" :
+        action == GameControl.MoveUp ? "Mover para frente" : action == GameControl.MoveDown ? "Mover para trás" : action == GameControl.MoveLeft ? "Mover à esquerda" :
+        action == GameControl.MoveRight ? "Mover à direita" : action == GameControl.Dash ? "Esquiva" : action == GameControl.Interact ? "Interagir" :
+        action == GameControl.Pause ? "Pausa (Esc sempre disponível)" : action == GameControl.FinishSequence ? "Finalizar / retornar" : action == GameControl.Skill1 ? "Habilidade 1" : action == GameControl.Skill2 ? "Habilidade 2" : "Habilidade 3";
+    public static bool AnyGameplayHeld
+    {
+        get { foreach (var action in DirectActions) if (IsHeld(action)) return true; return false; }
+    }
     internal static void UseDirectControls(Object owner) { _directInputOwner = owner; _directBindingFrame = -1; }
     internal static void ReleaseDirectControls(Object owner)
     { if (_directInputOwner == owner) { _directInputOwner = null; _directBindingFrame = -1; } }
+    public static DashDirectionMode DashDirection => PlayerPrefs.GetInt(Prefix + "DashDirection", 0) == 1 ? DashDirectionMode.Movement : DashDirectionMode.Mouse;
+    public static void SaveDashDirection(DashDirectionMode mode)
+    {
+        if (mode != DashDirectionMode.Mouse && mode != DashDirectionMode.Movement) throw new System.ArgumentException("Direção de esquiva inválida.");
+        PlayerPrefs.SetInt(Prefix + "DashDirection", (int)mode); PlayerPrefs.Save();
+    }
     public static bool TutorialSeen => PlayerPrefs.GetInt(TutorialSeenKey, 0) == 1;
 
     public sealed class Options
     {
         public float Volume;
+        public DashDirectionMode DashDirection;
         public int Quality, Width, Height;
         public bool Fullscreen, VSync;
         public KeyCode[] Bindings = UsesDirectControls ? DefaultDirectBindings() : DefaultBindings();
@@ -52,6 +75,7 @@ public static class GamePreferences
         return new Options
         {
             Bindings = ReadBindings(),
+            DashDirection = GamePreferences.DashDirection,
             Volume = Mathf.Clamp01(PlayerPrefs.GetFloat(Prefix + "Volume", defaults.Volume)),
             Quality = Mathf.Clamp(PlayerPrefs.GetInt(Prefix + "Quality", defaults.Quality), 0, Mathf.Max(0, QualitySettings.names.Length - 1)),
             Width = Mathf.Max(640, PlayerPrefs.GetInt(Prefix + "Width", defaults.Width)),
@@ -76,7 +100,10 @@ public static class GamePreferences
 
     public static void Save(Options options)
     {
+        if (UsesDirectControls && !ValidateDirectBindings(options.Bindings, out string error)) throw new System.ArgumentException(error);
+        if (!System.Enum.IsDefined(typeof(DashDirectionMode), options.DashDirection)) throw new System.ArgumentException("Direção de esquiva inválida.");
         Apply(options);
+        SaveDashDirection(options.DashDirection);
         PlayerPrefs.SetFloat(Prefix + "Volume", Mathf.Clamp01(options.Volume));
         PlayerPrefs.SetInt(Prefix + "Quality", options.Quality);
         PlayerPrefs.SetInt(Prefix + "Width", options.Width);
@@ -92,7 +119,7 @@ public static class GamePreferences
 
     public static KeyCode Binding(GameControl control)
     {
-        if (!UsesDirectControls) return LegacyBinding(control);
+        if (!UsesDirectControls && (int)control < 8) return LegacyBinding(control);
         if (_directBindings == null || _directBindingFrame != Time.frameCount)
         { _directBindings = ReadDirectBindings(); _directBindingFrame = Time.frameCount; }
         int index = (int)control;
@@ -141,7 +168,7 @@ public static class GamePreferences
 
     public static KeyCode[] ReadBindings()
     {
-        var result = DefaultBindings();
+        var result = UsesDirectControls ? DefaultDirectBindings() : DefaultBindings();
         for (int i = 0; i < result.Length; i++) result[i] = Binding((GameControl)i);
         return result;
     }
@@ -150,11 +177,9 @@ public static class GamePreferences
     {
         if (UsesDirectControls)
         {
-            if (bindings == null || bindings.Length != DefaultDirectBindings().Length) throw new System.ArgumentException("Invalid direct control bindings");
-            for (int i = 0; i < bindings.Length; i++)
-                if (!IsBindable(bindings[i]) || IsMovementKey(bindings[i]) || System.Array.IndexOf(bindings, bindings[i]) != i)
-                    throw new System.ArgumentException("Direct bindings conflict with movement or another action");
-            for (int i = 0; i < bindings.Length; i++) PlayerPrefs.SetInt(DirectPrefix + (GameControl)i, (int)bindings[i]);
+            if (!ValidateDirectBindings(bindings, out string error)) throw new System.ArgumentException(error);
+            // Action names remain stable: extend v2 without rewriting legacy keys or saving on read.
+            foreach (var action in DirectActions) PlayerPrefs.SetInt(DirectPrefix + action, (int)bindings[(int)action]);
             _directBindingFrame = -1;
             PlayerPrefs.Save();
             return;
@@ -166,7 +191,7 @@ public static class GamePreferences
 
     // Index 3 remains the legacy special, NOT a fourth modular skill or X/Asura alias.
     public static KeyCode[] DefaultDirectBindings() => new[] { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.Space,
-        KeyCode.Q, KeyCode.E, KeyCode.R, KeyCode.F11, KeyCode.F };
+        KeyCode.Q, KeyCode.E, KeyCode.R, KeyCode.F11, KeyCode.F, KeyCode.G, KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, KeyCode.Escape };
 
     public static bool IsMovementKey(KeyCode key) => key == KeyCode.W || key == KeyCode.A || key == KeyCode.S || key == KeyCode.D;
 
@@ -174,26 +199,44 @@ public static class GamePreferences
     {
         var oldDefaults = DefaultBindings();
         var proposed = DefaultDirectBindings();
-        for (int i = 0; i < proposed.Length && i < legacy.Count; i++)
-            if (legacy[i] != oldDefaults[i]) proposed[i] = legacy[i];
+        for (int i = 0; i < oldDefaults.Length && i < legacy.Count; i++)
+            if (legacy[i] != oldDefaults[i] && !IsMovementKey(legacy[i])) proposed[i] = legacy[i];
         return NormalizeDirectBindings(proposed);
+    }
+
+    public static bool ValidateDirectBindings(KeyCode[] bindings, out string error)
+    {
+        if (bindings == null || bindings.Length != DefaultDirectBindings().Length) { error = "Configuração de controles inválida."; return false; }
+        var used = new Dictionary<KeyCode, GameControl>();
+        foreach (var action in DirectActions)
+        {
+            var key = bindings[(int)action];
+            if (!IsBindable(key) && !(action == GameControl.Pause && key == KeyCode.Escape)) { error = "Tecla inválida para " + ActionLabel(action) + ". Esc permanece reservado."; return false; }
+            if (used.TryGetValue(key, out var other)) { error = ActionLabel(action) + " conflita com " + ActionLabel(other) + "."; return false; }
+            used.Add(key, action);
+        }
+        error = null; return true;
     }
 
     private static KeyCode[] NormalizeDirectBindings(KeyCode[] preferred)
     {
-        var defaults = DefaultDirectBindings();
-        var result = new KeyCode[defaults.Length];
-        // Preserve explicit non-conflicting custom choices before assigning new defaults.
-        for (int i = 0; i < result.Length; i++)
-            if (preferred[i] != defaults[i] && IsBindable(preferred[i]) && !IsMovementKey(preferred[i]) && !ContainsBinding(result, preferred[i])) result[i] = preferred[i];
-        var fallback = new[] { KeyCode.F11, KeyCode.F10, KeyCode.F9, KeyCode.F8, KeyCode.T, KeyCode.Y, KeyCode.U, KeyCode.G, KeyCode.H, KeyCode.J, KeyCode.K, KeyCode.L };
-        for (int i = 0; i < result.Length; i++)
+        var defaults = DefaultDirectBindings(); var result = new KeyCode[defaults.Length];
+        var used = new HashSet<KeyCode>();
+        // Preserve valid custom assignments first. Repair only invalid/duplicate/missing entries in memory.
+        foreach (var action in DirectActions)
         {
-            if (result[i] != KeyCode.None) continue;
-            KeyCode candidate = defaults[i];
-            if (!ContainsBinding(result, candidate)) { result[i] = candidate; continue; }
-            foreach (var key in fallback) if (!ContainsBinding(result, key)) { result[i] = key; break; }
+            int i = (int)action;
+            if (preferred[i] != defaults[i] && IsBindable(preferred[i]) && used.Add(preferred[i])) result[i] = preferred[i];
         }
+        foreach (var action in DirectActions)
+        {
+            int i = (int)action; if (result[i] != KeyCode.None) continue;
+            if (used.Add(defaults[i])) { result[i] = defaults[i]; continue; }
+            foreach (KeyCode candidate in System.Enum.GetValues(typeof(KeyCode)))
+                if (IsBindable(candidate) && used.Add(candidate)) { result[i] = candidate; break; }
+        }
+        // Historical execution index is retained, but never a configurable modular action.
+        result[(int)GameControl.Skill4] = preferred[(int)GameControl.Skill4];
         return result;
     }
 
@@ -210,6 +253,7 @@ public static class GamePreferences
     public static string BindingLabel(GameControl control) => KeyLabel(Binding(control));
     public static string KeyLabel(KeyCode key) => key == KeyCode.Mouse0 ? "Mouse esquerdo" :
         key == KeyCode.Mouse1 ? "Mouse direito" : key == KeyCode.Mouse2 ? "Mouse central" :
+        key == KeyCode.Mouse3 ? "Mouse lateral atrás" : key == KeyCode.Mouse4 ? "Mouse lateral frente" :
         key == KeyCode.Space ? "Espaço" : key.ToString();
 
     public static bool IsBindable(KeyCode key) => key != KeyCode.None && key != KeyCode.Escape &&

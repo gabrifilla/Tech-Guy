@@ -42,6 +42,8 @@ public class AbilityHolder : MonoBehaviour
     public bool IsGamePaused => Time.timeScale <= 0f || (_pause && _pause.BlocksInput);
     public void BindRun(RunBoons run) => _runBoons = run;
     public void RefreshLoadout() => RefreshWeaponAbilities(true);
+    // Acquisition is not a new equip. Preserve clocks only for identical execution references.
+    internal void RefreshAfterBoonAcquisition() => RefreshWeaponAbilities(true, true);
     public bool TryStopEncounterOffense()
     {
         if(playerActor && (playerActor.IsResolvingGauntletImpact || playerActor.HasOpenImpactFeedback)) return false;
@@ -142,6 +144,7 @@ public class AbilityHolder : MonoBehaviour
     }
     private bool _manualInitializationBlocked;
     internal void SetManualInitializationBlocked(bool blocked) => _manualInitializationBlocked = blocked;
+    internal bool HasPriorityInteraction => _lobbyInteraction && _lobbyInteraction.InteractionPending;
     public bool BlocksWorldInput => _manualInitializationBlocked || Time.timeScale <= 0f || (_pause && _pause.BlocksInput) || (_lobbyInteraction && (_lobbyInteraction.IsPanelOpen || _lobbyInteraction.BlocksWorldPointer)) ||
         (_runBoons && (_runBoons.IsChoosing || _runBoons.BlocksManualOffense));
 
@@ -328,21 +331,33 @@ public class AbilityHolder : MonoBehaviour
         AttackHitsResolved?.Invoke(owner, damagedActors);
     }
 
-    private void RefreshWeaponAbilities(bool force)
+    private void RefreshWeaponAbilities(bool force, bool preserveUnchanged = false)
     {
         WeaponScript equippedWeapon = playerActor ? playerActor.CurrentWeapon : null;
         if (!force && equippedWeapon == currentWeapon) return;
 
+        var previousAbilities = activeAbilities;
+        var previousCooldowns = cooldownTimers; var previousActive = activeTimers;
+        var previousStates = states; var previousExpanded = _expandedActive;
+        bool sameWeapon = currentWeapon == equippedWeapon;
         currentWeapon = equippedWeapon;
         if (_arsenalCombat) _arsenalCombat.Cancel();
         activeAbilities = currentWeapon && currentWeapon.abilities is not null
-            ? currentWeapon.abilities
+            ? (Ability[])currentWeapon.abilities.Clone()
             : Array.Empty<Ability>();
 
         cooldownTimers = new float[activeAbilities.Length];
         activeTimers = new float[activeAbilities.Length];
         _expandedActive = new bool[activeAbilities.Length];
         states = new AbilityState[activeAbilities.Length];
+
+        if (preserveUnchanged && sameWeapon)
+            for (int i = 0; i < activeAbilities.Length && i < previousAbilities.Length; i++)
+                if (activeAbilities[i] == previousAbilities[i])
+                {
+                    cooldownTimers[i] = previousCooldowns[i]; activeTimers[i] = previousActive[i];
+                    states[i] = previousStates[i]; _expandedActive[i] = previousExpanded[i];
+                }
 
         bool usesBreaker = Array.Exists(activeAbilities, ability => ability is BreakerGauntletAbility);
         if (Array.Exists(activeAbilities, ability => ability is ArsenalAbility) && !_arsenalCombat)
@@ -805,7 +820,8 @@ public class AbilityHolder : MonoBehaviour
     internal bool UsesDirectAsuraInput => _characterControl && _characterControl.DirectMovementEnabled &&
         playerActor && WeaponRunModifiers.Identify(playerActor.CurrentWeapon) == RunWeaponFamily.Gauntlet &&
         activeAbilities.Length > 3 && activeAbilities[3] is BreakerGauntletAbility asura && asura.AsuraBurst;
-    public KeyCode GetAbilityKey(int index) => index == 3 && UsesDirectAsuraInput ? GamePreferences.WeaponSpecialBinding : ResolveKey(index);
+    internal bool UsesDirectWeaponSpecial => _characterControl && _characterControl.DirectMovementEnabled && activeAbilities.Length > 3;
+    public KeyCode GetAbilityKey(int index) => ResolveKey(index);
     public float GetCooldownRatio(int index) => index >= 0 && index < activeAbilities.Length
         ? Mathf.Clamp01(GetRemainingCooldown(index) / Mathf.Max(0.001f, GetCooldownDuration(activeAbilities[index]))) : 0f;
 
@@ -841,16 +857,16 @@ public class AbilityHolder : MonoBehaviour
 
     private bool IsAbilityKeyPressed(int index)
     {
-        bool legacy = GamePreferences.WasPressed(ResolveKey(index));
-        if (index != 3 || !UsesDirectAsuraInput) return legacy;
+        if (index != 3 || !UsesDirectWeaponSpecial) return GamePreferences.WasPressed(ResolveKey(index));
         bool special = GamePreferences.WasWeaponSpecialPressed();
         if (special && _characterControl.DirectPointerIsOverUi)
         { _characterControl.RequireAttackRelease(); return false; }
-        // One delivery into the SAME holder state/executor, even if legacy F11 is pressed too.
-        return special || legacy;
+        // Direct weapon specials belong exclusively to the configured secondary channel.
+        // Keep the saved legacy binding intact, but do not use it as an activation alias.
+        return special;
     }
 
-    private KeyCode ResolveKey(int index) => index >= 0 && index < 4
+    private KeyCode ResolveKey(int index) => index == 3 && UsesDirectWeaponSpecial ? GamePreferences.WeaponSpecialBinding : index >= 0 && index < 4
         ? GamePreferences.Binding((GameControl)((int)GameControl.Skill1 + index)) : KeyCode.None;
 
     private float GetCooldownDuration(Ability ability)

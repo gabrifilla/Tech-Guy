@@ -51,12 +51,24 @@ public sealed class LobbyInteraction : MonoBehaviour
         _stations = stations;
     }
 
+    public bool InteractionPending
+    {
+        get
+        {
+            if (!GamePreferences.WasPressed(GamePreferences.InteractionAction) || !_player) return false;
+            if (_arsenal && _arsenal.HasInteractionInRange) return true;
+            if (_stations != null) foreach (var station in _stations)
+                if (station?.anchor && (_player.position - station.anchor.position).sqrMagnitude < _interactionRange * _interactionRange) return true;
+            return false;
+        }
+    }
+
     public bool BlocksAbilityInput(KeyCode key)
     {
-        if (IsPanelOpen) return true;
+        if (IsPanelOpen || InteractionPending) return true;
         // The scene's arsenal is a separate object. Reserve its interaction before AbilityHolder polls input.
         if (_arsenal && _arsenal.BlocksAbilityInput(key)) return true;
-        if (key != GamePreferences.Binding(GameControl.Skill3) || !_player || _stations == null) return false;
+        if (key != GamePreferences.Binding(GamePreferences.InteractionAction) || !_player || _stations == null) return false;
         foreach (Station station in _stations)
             if (station?.anchor && (_player.position - station.anchor.position).sqrMagnitude < _interactionRange * _interactionRange)
                 return true;
@@ -76,6 +88,7 @@ public sealed class LobbyInteraction : MonoBehaviour
     {
         if (Time.timeScale <= 0f || !_player || _loading || (_results && _results.BlocksInput)) return;
         if (_player.TryGetComponent(out PauseMenuUI pause) && pause.BlocksInput) return;
+        if (!_showDetails && _player.TryGetComponent(out CharControlScript controls) && !controls.GameplayInputReady) return;
         Station nearest = null;
         float bestDistance = _interactionRange * _interactionRange;
         if (_stations != null)
@@ -89,7 +102,7 @@ public sealed class LobbyInteraction : MonoBehaviour
             }
         if (_nearest != nearest) _showDetails = false;
         _nearest = nearest;
-        if (_nearest == null || !GamePreferences.WasPressed(GameControl.Skill3)) return;
+        if (_nearest == null || !GamePreferences.WasPressed(GamePreferences.InteractionAction)) return;
         if (_player.TryGetComponent(out CharControlScript inputOwner)) inputOwner.RequireAttackRelease();
         if (string.IsNullOrEmpty(_nearest.destinationScene)) _showDetails = !_showDetails;
         else if (Application.CanStreamedLevelBeLoaded(_nearest.destinationScene))
@@ -110,8 +123,9 @@ public sealed class LobbyInteraction : MonoBehaviour
     {
         if (Time.timeScale <= 0f || !_player || (_results && _results.BlocksInput)) return;
         if (_player.TryGetComponent(out PauseMenuUI pause) && pause.BlocksInput) return;
-        if (_heading == null)
+        if (_heading == null || _body == null || !_panel)
         {
+            if (_panel) Destroy(_panel);
             _heading = new GUIStyle(GUI.skin.label) { fontSize = 18, fontStyle = FontStyle.Bold };
             _heading.normal.textColor = new Color(0.78f, 0.85f, 0.87f);
             _body = new GUIStyle(GUI.skin.label) { fontSize = 15, wordWrap = true };
@@ -140,7 +154,7 @@ public sealed class LobbyInteraction : MonoBehaviour
         GUI.Label(new Rect(40, 34, 338, 28), "NEXUS · Equipada: " + equipped, _heading);
         GUI.Label(new Rect(40, 66, 338, 50),
             (_blockoutGuide ? "Travessia via conexão central\n[" : "Arsenal à esquerda · Treino logo adiante\n[") + GamePreferences.MovementLabel +
-            "] Mover · [" + GamePreferences.BindingLabel(GameControl.Skill3) + "] Interagir", _body);
+            "] Mover · [" + GamePreferences.BindingLabel(GamePreferences.InteractionAction) + "] Interagir", _body);
         DrawIncursionDirection(width, height, scale);
         if (_nearest != null)
         {
@@ -150,7 +164,7 @@ public sealed class LobbyInteraction : MonoBehaviour
             GUI.Label(new Rect(box.x + 18, box.y + 10, 505, 30), _nearest.title, _heading);
             GUI.Label(new Rect(box.x + 18, box.y + 46, 505, panelHeight - 50),
                 _loading ? "Conectando ao mundo..." : _showDetails ? _nearest.description :
-                string.IsNullOrEmpty(_nearest.destinationScene) ? "[" + GamePreferences.BindingLabel(GameControl.Skill3) + "] Acessar terminal" : "[" + GamePreferences.BindingLabel(GameControl.Skill3) + "] Iniciar incursão", _body);
+                string.IsNullOrEmpty(_nearest.destinationScene) ? "[" + GamePreferences.BindingLabel(GamePreferences.InteractionAction) + "] Acessar terminal" : "[" + GamePreferences.BindingLabel(GamePreferences.InteractionAction) + "] Iniciar incursão", _body);
         }
         GUI.matrix = oldMatrix;
     }

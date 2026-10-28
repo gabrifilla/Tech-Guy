@@ -1,5 +1,21 @@
 # Boons — poder que modifica gameplay
 
+## Estado vigente — GPR-01.1,28/10/2026
+
+GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
+
+Direção experimental A→A+B→A+B+C aceita, parâmetros1,5×/0,60× provisórios; autorizada **exclusivamente GPR-01.1**. [Relatório da fundação](../decisions/GPR-01.1_RELATORIO.md) / [fatia e próximo escopo](../gameplay/GPR_01_VERTICAL_SLICE.md). Sem asset/boonTitanic Fists habilitado, onda ou transformação visual de produção. STOP para revisão antes de01.2;01.3–6 também exigem autorização posterior.
+
+Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecânica nova. SwapAvanço→Uppercut adiado por redução aprovada de escopo; aquisição/substituição modular Q/E/R permanece requisito **NÃO IMPLEMENTADO/NÃO VALIDADO**, rastreado em GPR-03.1/RF-TROCA. Gates e decisões históricos abaixo não sobrepõem esta autorização.
+
+## Proposta atual de transformação do básico — GPR-01
+
+[Fatia para revisão](../gameplay/GPR_01_VERTICAL_SLICE.md): A/Punhos Titânicos é conteúdo novo proposto para Basic, B=conductor e C=detonation reutilizam IDs/executores atuais. Sem catálogo habilitado ou asset criado nesta rodada. A hipótese geométrica1,5×/dano0,60× e restrições por linhagem exigem aprovação.
+
+Basic existe como GauntletActionSlot=-1, mas BoonSlot/BoonSlotMask e o grafo ainda configuram quatro identidades históricas. A extensão proposta não converte o especial index3 em modular e não expande Any silenciosamente. Preservar uma Mutation por alvo, dois Augments por habilidade e duas Resonances/run; Mythics continuam gated. Restauração/snapshots/ofertas atuais devem permanecer compatíveis.
+
+
+
 **Objetivo:** boons transformam *como* lutar, não apenas o dano. Fonte documental principal deste sistema; os catálogos no projeto são a autoridade dos IDs e dados executáveis. Decisões de design abaixo continuam vigentes; implementação não equivale a aceite de gameplay.
 
 ## Taxonomia de design

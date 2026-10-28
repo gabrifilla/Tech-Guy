@@ -167,6 +167,9 @@ namespace TechGuy.Tests
             Assert.AreEqual(RunWeaponFamily.Gauntlet, WeaponRunModifiers.Identify(_player.CurrentWeapon));
             yield return KeyPress(Key.Escape);
             Assert.IsTrue(_player.GetComponent<PauseMenuUI>().IsPaused);
+            // This legacy layout fixture returns to its own source scene, independently of the production hub.
+            typeof(ProgressionDirector).GetField("_returnScene", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                .SetValue(Object.FindFirstObjectByType<ProgressionDirector>(), "NexusLobby");
             // The test runner does not deliver native IMGUI pointer events reliably. Keep this
             // integration step explicitly API-driven; navigation and equipment remain virtual input.
             Assert.IsTrue(_player.GetComponent<PauseMenuUI>().TryRequestRunAbort());

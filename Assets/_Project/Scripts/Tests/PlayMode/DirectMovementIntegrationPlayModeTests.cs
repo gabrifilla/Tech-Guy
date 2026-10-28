@@ -17,8 +17,8 @@ namespace TechGuy.Tests
         {
             private readonly Keyboard _oldKeyboard = Keyboard.current;
             private readonly Mouse _oldMouse = Mouse.current;
-            internal readonly Keyboard Keyboard = InputSystem.AddDevice<Keyboard>("GPR-C01.2b virtual keyboard");
-            internal readonly Mouse Mouse = InputSystem.AddDevice<Mouse>("GPR-C01.2b virtual mouse");
+            internal readonly Keyboard Keyboard;
+            internal readonly Mouse Mouse;
             private readonly bool _restoreKeyboard, _restoreMouse;
             private readonly InputSettings.BackgroundBehavior _background = InputSystem.settings.backgroundBehavior;
             private readonly InputSettings.EditorInputBehaviorInPlayMode _editorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
@@ -30,6 +30,10 @@ namespace TechGuy.Tests
                 _restoreMouse = _oldMouse != null && _oldMouse.enabled;
                 if (_restoreKeyboard) InputSystem.DisableDevice(_oldKeyboard);
                 if (_restoreMouse) InputSystem.DisableDevice(_oldMouse);
+                // AddDevice applies the current background policy immediately. Configure it
+                // first so a background Editor cannot create disabled virtual devices.
+                Keyboard = InputSystem.AddDevice<Keyboard>("GPR-C01.2b virtual keyboard");
+                Mouse = InputSystem.AddDevice<Mouse>("GPR-C01.2b virtual mouse");
                 Keyboard.MakeCurrent(); Mouse.MakeCurrent();
             }
             internal void Keys(params Key[] keys) => InputSystem.QueueStateEvent(Keyboard, new KeyboardState(keys));
@@ -73,7 +77,7 @@ namespace TechGuy.Tests
             CollectionAssert.DoesNotContain(migrated, KeyCode.X);
             Assert.That(legacy, Is.EqualTo(copy));
             legacy[(int)GameControl.Skill1] = KeyCode.A;
-            foreach (var key in GamePreferences.MigrateLegacyBindings(legacy)) Assert.That(GamePreferences.IsMovementKey(key), Is.False);
+            foreach (var key in System.Linq.Enumerable.Take(GamePreferences.MigrateLegacyBindings(legacy), 8)) Assert.That(GamePreferences.IsMovementKey(key), Is.False);
         }
 
         [UnityTest]
@@ -342,8 +346,9 @@ namespace TechGuy.Tests
             using (var input = new DirectInputScope())
             {
                 const string prefix = "TechGuy.Settings.DirectBinding.v2.";
-                var existed = new bool[8]; var values = new int[8]; var legacy = new int[8];
-                for (int i = 0; i < 8; i++)
+                int count = GamePreferences.DefaultDirectBindings().Length;
+                var existed = new bool[count]; var values = new int[count]; var legacy = new int[count];
+                for (int i = 0; i < count; i++)
                 {
                     string key = prefix + (GameControl)i;
                     existed[i] = PlayerPrefs.HasKey(key); values[i] = PlayerPrefs.GetInt(key);
@@ -358,14 +363,14 @@ namespace TechGuy.Tests
                     bindings[(int)GameControl.Skill1] = custom;
                     GamePreferences.SaveBindings(bindings);
                     Assert.That(GamePreferences.Binding(GameControl.Skill1), Is.EqualTo(custom));
-                    for (int i = 0; i < 8; i++) Assert.That(PlayerPrefs.GetInt("TechGuy.Settings.Binding." + (GameControl)i, -999), Is.EqualTo(legacy[i]));
+                    for (int i = 0; i < count; i++) Assert.That(PlayerPrefs.GetInt("TechGuy.Settings.Binding." + (GameControl)i, -999), Is.EqualTo(legacy[i]));
                     bindings[(int)GameControl.Skill1] = KeyCode.W;
                     Assert.Throws<ArgumentException>(() => GamePreferences.SaveBindings(bindings));
                     Assert.That(GamePreferences.Binding(GameControl.Skill1), Is.EqualTo(custom), "Rejected Apply cannot partially write bindings.");
                 }
                 finally
                 {
-                    for (int i = 0; i < 8; i++)
+                    for (int i = 0; i < count; i++)
                     {
                         string key = prefix + (GameControl)i;
                         if (existed[i]) PlayerPrefs.SetInt(key, values[i]); else PlayerPrefs.DeleteKey(key);
@@ -579,11 +584,11 @@ namespace TechGuy.Tests
                 var holder = _player.GetComponent<AbilityHolder>(); SetPrivate(holder, "_lobbyInteraction", lobby);
                 owner.SetActive(true); yield return null;
                 int uses = 0; holder.AbilityUsed += _ => uses++;
-                Assert.That(lobby.BlocksAbilityInput(GamePreferences.Binding(GameControl.Skill3)), Is.True);
-                input.Keys(Key.R); yield return null; yield return null;
+                Assert.That(lobby.BlocksAbilityInput(GamePreferences.Binding(GameControl.Skill3)), Is.False);
+                input.Keys(Key.G); yield return null; yield return null;
                 Assert.That(lobby.IsPanelOpen, Is.True); Assert.That(uses, Is.EqualTo(0));
                 input.Keys(); yield return null; yield return null;
-                input.Keys(Key.R, Key.W); yield return null; yield return null;
+                input.Keys(Key.G, Key.W); yield return null; yield return null;
                 Assert.That(lobby.IsPanelOpen, Is.False); Assert.That(uses, Is.EqualTo(0));
                 Assert.That(_controls.GameplayInputReady, Is.False);
                 input.Keys(); yield return null; yield return null;

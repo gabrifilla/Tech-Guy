@@ -226,6 +226,7 @@ public sealed class PlayerHUD : MonoBehaviour
             if (asuraSlot && _breaker && _breaker.IsAsuraActive) { active = true; remaining = 0f; ratio = 0f; }
             if (asuraSlot && !active) requirement = !rUnavailable.HasValue;
             string actionName = ActionName(i, ability);
+            if (i == 3 && _holder.UsesDirectWeaponSpecial) actionName = "Especial · " + actionName;
             string extensionStatus = i == 3 && _bowBoons && _bowBoons.IsCharging ? (_bowBoons.ChargeRatio * 100f).ToString("0") + "%" :
                 i == 3 && _spearBoons && _spearBoons.HasOrbit ? GamePreferences.BindingLabel(GameControl.FinishSequence) + " RETORNO" :
                 i == 2 && _bowBoons && _bowBoons.ActiveMines > 0 ? _bowBoons.ActiveMines + " MINAS" :

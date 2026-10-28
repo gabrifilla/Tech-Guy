@@ -1,0 +1,158 @@
+[
+  {
+    "scene": "Assets\\_Project\\Scenes\\CombatStudy.unity",
+    "guid": "0476bd2adfdec0e4f86ca246e077b7a9",
+    "references": [
+      "Assets/_Project/Scripts/Editor/CombatPolishBuilder.cs",
+      "Assets/_Project/Scripts/Editor/CombatStudyBuilder.cs",
+      "Assets/_Project/Scripts/Editor/CombatStudyValidation.cs",
+      "Assets/_Project/Scripts/Editor/FirstSectorBuilder.cs",
+      "Assets/_Project/Scripts/Editor/ProjectSceneMenu.cs",
+      "Assets/_Project/Scripts/Editor/SharedHudValidation.cs",
+      "Assets/_Project/Scripts/Editor/TutorialSceneBuilder.cs",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\FirstSector.unity",
+    "guid": "f62bb8b29264e014aa2e95e916388ed9",
+    "references": [
+      "Assets/_Project/Prefabs/FirstSectorHazard.prefab",
+      "Assets/_Project/Scenes/NexusBlockout.unity",
+      "Assets/_Project/Scenes/NexusLobby.unity",
+      "Assets/_Project/Prefabs/Run/FirstSectorManualEnvironment.prefab",
+      "Assets/_Project/ScriptableObjects/Run/FirstSectorManual.asset",
+      "Assets/_Project/ScriptableObjects/Run/FirstSectorManualNavigation.asset",
+      "Assets/_Project/Scripts/Core/EncounterGates.cs",
+      "Assets/_Project/Scripts/Core/FirstSectorDirector.cs",
+      "Assets/_Project/Scripts/Editor/ArsenalValidation.cs",
+      "Assets/_Project/Scripts/Editor/CombatPolishPreview.Observation.cs",
+      "Assets/_Project/Scripts/Editor/FirstSectorBuilder.cs",
+      "Assets/_Project/Scripts/Editor/LobbySceneBuilder.cs",
+      "Assets/_Project/Scripts/Editor/NewRoomRunAuthoring.cs",
+      "Assets/_Project/Scripts/Editor/NexusBlockoutBuilder.cs",
+      "Assets/_Project/Scripts/Editor/NexusBlockoutPlaySession.cs",
+      "Assets/_Project/Scripts/Editor/ProjectSceneMenu.cs",
+      "Assets/_Project/Scripts/Editor/RunLoopValidation.cs",
+      "Assets/_Project/Scripts/Editor/RunStructureAuthoring.cs",
+      "Assets/_Project/Scripts/Editor/TutorialSceneBuilder.cs",
+      "Assets/_Project/Scripts/Stages/ProgressionDirector.cs",
+      "Assets/_Project/Scripts/Stages/RoomCompositionResolver.cs",
+      "Assets/_Project/Scripts/Characters/Enemy/EnemyRespawnPoint.cs",
+      "Assets/_Project/Scripts/Core/Run/ProtocolBenchmark.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/BoonPublishedEncounterPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/ManualAuthoredNavigationPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/ManualPublishedRunPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/ManualRouteMapPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/ManualRunElitePlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/ManualRunPlayerFeedbackTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/NexusBlockoutPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/NexusSpatialJourneyPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/NexusUsabilityPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/PauseMapVisibilityPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/ProtocolEncounterFrontierTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/ProtocolPublishedCompositionTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunStatisticsPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunSummaryPreferenceScope.cs",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/BoonRealRouteSimulationTests.cs",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/FluidityRouteTestFactory.cs",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\MainMenu.unity",
+    "guid": "f16ee50fc4945e3439698630abb7b413",
+    "references": [
+      "Assets/_Project/Scenes/NexusBlockout.unity",
+      "Assets/_Project/Scenes/NexusLobby.unity",
+      "Assets/_Project/Art/MainMenu/MainMenuAtmosphere.asset",
+      "Assets/_Project/Scripts/Editor/CombatPolishValidation.cs",
+      "Assets/_Project/Scripts/Editor/MainMenuSceneBuilder.cs",
+      "Assets/_Project/Scripts/Editor/ProjectSceneMenu.cs",
+      "Assets/_Project/Scripts/Editor/TitleTutorialPreview.cs",
+      "Assets/_Project/Scripts/Editor/TutorialSceneBuilder.cs",
+      "Assets/_Project/Scripts/Editor/TutorialValidation.cs",
+      "Assets/_Project/Scripts/UI/LobbyInteraction.cs",
+      "Assets/_Project/Scripts/UI/MainMenuFocus.cs",
+      "Assets/_Project/Scripts/UI/MainMenuUI.cs",
+      "Assets/_Project/Scripts/UI/PauseMenuUI.cs",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\NexusBlockout.unity",
+    "guid": "d9c5ad58160cf614e984e1c4f2599d39",
+    "references": [
+      "Assets/_Project/Scenes/FirstSector.unity",
+      "Assets/_Project/Scenes/MainMenu.unity",
+      "Assets/_Project/Scenes/ProceduralStageAuthoring.unity",
+      "Assets/_Project/Scenes/PrologueTutorial.unity",
+      "Assets/_Project/Art/NexusLobby/NexusBlockoutFloorplan.asset",
+      "Assets/_Project/Scripts/Core/FirstSectorDirector.cs",
+      "Assets/_Project/Scripts/Core/TutorialDirector.cs",
+      "Assets/_Project/Scripts/Editor/FirstSectorBuilder.cs",
+      "Assets/_Project/Scripts/Editor/NexusBlockoutBuilder.cs",
+      "Assets/_Project/Scripts/Editor/NexusBlockoutPlaySession.cs",
+      "Assets/_Project/Scripts/Editor/NexusBlockoutSpatialRevision.cs",
+      "Assets/_Project/Scripts/Editor/ProjectSceneMenu.cs",
+      "Assets/_Project/Scripts/Editor/RunLoopValidation.cs",
+      "Assets/_Project/Scripts/Editor/TutorialValidation.cs",
+      "Assets/_Project/Scripts/Stages/ProgressionDirector.cs",
+      "Assets/_Project/Scripts/UI/MainMenuUI.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/ManualPublishedRunPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/NexusBlockoutPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/ProtocolEncounterFrontierTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/ProtocolPublishedCompositionTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\NexusLobby.unity",
+    "guid": "6dc47f6cb7b15754c9cc7622d8a39b39",
+    "references": [
+      "Assets/_Project/Scripts/Editor/LobbyCompactLayout.cs",
+      "Assets/_Project/Scripts/Editor/LobbyLayoutValidation.cs",
+      "Assets/_Project/Scripts/Editor/LobbySceneBuilder.cs",
+      "Assets/_Project/Scripts/Editor/MainMenuSceneBuilder.cs",
+      "Assets/_Project/Scripts/Editor/NexusBlockoutBuilder.cs",
+      "Assets/_Project/Scripts/Editor/NexusBlockoutSpatialRevision.cs",
+      "Assets/_Project/Scripts/Editor/SharedHudValidation.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/NexusSpatialJourneyPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/NexusUsabilityPlayModeTests.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/StagePlayerDeathReturnTests.cs",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\Playground.unity",
+    "guid": "e9017d5f96b9f09489b4b37e1d6eb914",
+    "references": [
+      "Assets/_Project/Scripts/Editor/CombatStudyBuilder.cs",
+      "Assets/_Project/Scripts/Editor/LobbySceneBuilder.cs",
+      "Assets/_Project/Scripts/Editor/LobbySceneValidation.cs",
+      "Assets/_Project/Scripts/Editor/ProjectSceneMenu.cs",
+      "Assets/_Project/Scripts/Editor/SharedHudValidation.cs",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\ProceduralStageAuthoring.unity",
+    "guid": "8b991139675c4024a9878469d4157917",
+    "references": [
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs"
+    ]
+  },
+  {
+    "scene": "Assets\\_Project\\Scenes\\PrologueTutorial.unity",
+    "guid": "b9dbd7d995ad4d840b7dc123c9000987",
+    "references": [
+      "Assets/_Project/Scenes/MainMenu.unity",
+      "Assets/_Project/Scripts/Editor/TutorialSceneBuilder.cs",
+      "Assets/_Project/Scripts/Editor/TutorialValidation.cs",
+      "Assets/_Project/Scripts/UI/MainMenuUI.cs",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs"
+    ]
+  }
+]

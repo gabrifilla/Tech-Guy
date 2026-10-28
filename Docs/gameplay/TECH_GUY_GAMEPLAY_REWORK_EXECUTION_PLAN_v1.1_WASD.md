@@ -1,5 +1,23 @@
 # TECH GUY — Gameplay Rework: Execution Plan, Approval Gates & Activity Reports
 
+## Estado vigente — GPR-01.1,28/10/2026
+
+GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
+
+Direção experimental A→A+B→A+B+C aceita, parâmetros1,5×/0,60× provisórios; autorizada **exclusivamente GPR-01.1**. [Relatório da fundação](../decisions/GPR-01.1_RELATORIO.md) / [fatia e próximo escopo](GPR_01_VERTICAL_SLICE.md). Sem asset/boonTitanic Fists habilitado, onda ou transformação visual de produção. STOP para revisão antes de01.2;01.3–6 também exigem autorização posterior.
+
+Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecânica nova. SwapAvanço→Uppercut adiado por redução aprovada de escopo; aquisição/substituição modular Q/E/R permanece requisito **NÃO IMPLEMENTADO/NÃO VALIDADO**, rastreado em GPR-03.1/RF-TROCA. Gates e decisões históricos abaixo não sobrepõem esta autorização.
+
+## Histórico aprovado C01.4 — três skills + especial,28/10/2026
+
+A decisão direta mais recente **substitui todo modelo de quatro slots modulares Q/E/R/X**: exatamente três slots modulares Q/E/R e um especial permanente separado no RMB. X não tem ação/placeholder; index3 e arrays de quatro referências permanecem compatibilidade interna, nunca uma quarta skill modular. Asura mantém executor, custos, duração, cooldown, animação, danos e continuação; F11 não é alias direto. Bow/Spear reutilizam sua quarta ação existente no canal especial, sem mecânica/asset novo. A futura aquisição/substituição é restrita aos três slots e continua fora de C01.4.
+
+WASD e demais ações configuráveis no Settings; InteractG dedicado e finisherF distintos por padrão, sem sobrescrever personalizações. Dash padrãoCursor; opçãoMovimento usa vetor configurado/câmera normalizado e **facing atual quando não há direção pressionada**, conforme esclarecimento posterior do desenvolvedor. A sugestão histórica de fallbackcursor no modoMovimento está superada. Escape reservado à pausa/cancel seguro. Migração só lê/repara em memória, Apply explícito grava nomes de ações; sem reset de progresso.
+
+Registro histórico de C01.4: implementação e116 casos cumulativos concluídos antes do aceite físico. A pendência humana foi encerrada por C01.5; o estado vigente e o novo STOP de GPR-01 estão no início deste documento.
+
+
+
 **Document type:** Execution directive and staged implementation plan for Codex (Unity 3D / C#).  
 **Version:** 1.1 — 2026-10-26 (new WASD + mouse-combo control direction).  
 **Decision status:** **New control direction approved in principle by developer; GPR-00 audit/design only authorized.** Control implementation and later phases require explicit developer approval.  
@@ -22,7 +40,7 @@ Evolve the existing Tech Guy ARPG/roguelite toward:
 6. **Weapon identity maintained.** Gauntlet = close-range commitment/boxing/impact; Bow and Spear later demonstrate their own semantics rather than copies of Gauntlet effects.
 7. **Fair, readable encounters.** Player effects never obscure essential enemy tells, the player silhouette, HP/resources, or boss mechanics.
 8. **A traceable run.** Reward decisions, skill changes, damage provenance and derived effects remain consistent in the existing run and results systems.
-9. **Direct action-game controls:** WASD movement, mouse aiming and two mouse attack channels, with four remappable skills on Q/E/R/X. This replaces click-to-move as the intended gameplay interaction; specific secondary combo semantics and legacy action remapping require audit and explicit design sign-off.
+9. **Direct action-game controls:** WASD movement, mouse aiming and two mouse attack channels, with exactly three remappable modular skills on Q/E/R and a permanent RMB weapon special. This replaces click-to-move as the intended gameplay interaction; specific secondary combo semantics and legacy action remapping require audit and explicit design sign-off.
 
 **Never** sacrifice the validated input/contact/reaction improvements of Gameplay Intelligence 1.0–1.8 to make modularity easier. No basic-hit stun-locking of common/Elite/Boss AI, no duplicate damage, no ghost hits, no unbounded proc chains, and no hidden changes to attack cadence or cancel windows.
 
@@ -120,22 +138,26 @@ This reorganizes—but does **not** replace—the original vision's proposed pha
 - **GPR-C01.2 — Direct WASD movement.** Implement responsive, camera-relative or agreed world-relative planar input (choose from actual camera contract), normalized diagonals, collision/NavMesh/world limits, input disabled during menus/CC/locked states, motion/animation and facing coherence. No click-to-move in gameplay; cursor remains for aiming/targeting and menu selection. Avoid physics/agent competing controllers, path warping, root-motion desync and movement during pause. Record numerical baselines instead of inventing speed/acceleration.
 - **GPR-C01.3 — Mouse attack/combo channel.** LMB = primary basic combo; RMB = secondary basic/combo command with meaningful differentiated behavior, designed for Gauntlet first. Basic sequences may mix LMB/RMB, with explicit timing/cancel/hold/targeting rules and no duplicate hits/costs. Aim by cursor, independently from movement; never let RMB or LMB accidentally issue a movement destination during gameplay. Define what RMB does for Bow/Spear before enabling their control route, ensuring no weapon becomes nonfunctional.
 - **GPR-C01.4 — Q/E/R/X skill binding migration + complete rebind UI.** Keep exactly four logical skill slots, with defaults Q,E,R,X but without changing skill identities/scheduler/cooldowns. Move legacy E-interaction to a distinct semantic `Interact` action; preserve weapon special/Asura and contextual finisher using explicit approved mappings, not silent deletions. Implement action-based rebinding/persistence/reset/conflict detection, keyboard/mouse primary and optional secondary bindings, correct icon/text prompts and UI focus gates, rejection of unusable/duplicate assignments. Verify repeated run/scene sessions and no impact on player prefs. Update HUD/UI to reflect currently bound actions.
-- **GPR-C01.5 — Integrated feel and regression gate.** Real developer physical mouse+keyboard encounter with strafing while attacking, diagonals, dash direction, moving/aiming independently, primary/secondary combos, Q/E/R/X, menus, rewards, interactions, pause, transition, death, Nexus and FirstSector. Run Unity focused tests for hit timing, mana, Asura, cancel, proc ownership, multi-weapon attack/skill slots, InputSystem device hotplug/rebinding, pointer over UI and Editor PlayMode lifecycle. Compare baseline captures and record human verdict. **STOP for developer approval before GPR-01.**
+- **GPR-C01.5 — Integrated feel and regression gate.** Real developer physical mouse+keyboard encounter with strafing while attacking, diagonals, dash direction, moving/aiming independently, primary/secondary combos, Q/E/R, menus, rewards, interactions, pause, transition, death, Nexus and FirstSector. Run Unity focused tests for hit timing, mana, Asura, cancel, proc ownership, multi-weapon attack/skill slots, InputSystem device hotplug/rebinding, pointer over UI and Editor PlayMode lifecycle. Compare baseline captures and record human verdict. **STOP for developer approval before GPR-01.**
 
-**GPR-C01 exit gate:** The developer can fight intuitively using WASD + mouse attacks + Q/E/R/X, modify bindings in Settings, interact with hub/rewards without attacks leaking through UI, retain expected attack impact/cancel/ability identity, and explain the assigned role of every remaining special move. Human feedback and technical proof are both required.
+**GPR-C01 exit gate:** The developer can fight intuitively using WASD + LMB basic + RMB special + Q/E/R, modify bindings in Settings, interact with hub/rewards without attacks leaking through UI, retain expected attack impact/cancel/ability identity, and explain the assigned role of every remaining special move. Human feedback and technical proof are both required.
 
-### Phase GPR-01 — Thin vertical slice (NOT YET AUTHORIZED)
+### GPR-01 — direção experimental aceita / fundação01.1 concluída / conteúdo aguardando aprovação
 
-- **GPR-01.1 — Red/green baseline and seam:** capture real Gauntlet unmodified before state; add focused regression for primary vs secondary damage, cancellation and proc eligibility; implement only the smallest required extension of **existing** combat/proc owners.
-- **GPR-01.2 — Mutable basic:** add **one** meaningful basic-attack transformation (e.g. final-combo shockwave) to a production-representative Gauntlet profile. It must change area/targeting/timing/decision in an explicitly approved way and preserve confirmed damage, range/facing, basic cancel and enemy resistance contracts. Avoid arbitrary stun.
-- **GPR-01.3 — Two-item synergy:** add one compatible modifier that **changes the new behavior** (e.g. lightning propagation from the actual shockwave), not merely an unconditional bonus. Use existing ancestry/ledger/budget semantics, suppress illegal child chains deterministically.
-- **GPR-01.4 — One safe modular skill swap:** during an existing safe reward/transition state, acquire and replace an *approved* active skill in one slot. Transaction covers compatibility, costs/cooldowns, dependent investments, visual/HUD state, and rollback. **Do not remap Asura or move the Gauntlet finisher unilaterally.**
-- **GPR-01.5 — Minimal visual manifestation:** actual equipped character/attack visibly changes with the chosen mutation; reversible on unequip/end-run/restart. Use placeholder art on the production rig if needed; no new final character. Ensure telegraphs and HP/resources remain readable.
-- **GPR-01.6 — Integrated run and human playtest:** demonstrate the change through an actually reachable reward flow, one selected combat encounter and a subsequent restart/replay. Verify a build differs tactically from base kit and the existing run summary reconciles damage. Before/after comparable captures + human feel check. **STOP for approval.**
+Plano vigente detalhado em [GPR_01_VERTICAL_SLICE.md](GPR_01_VERTICAL_SLICE.md). C01 está completa;01.P1 aceita;01.1 autorizada exclusivamente e concluída tecnicamente. O pedido mais recente traz três modificadores à primeira fatia, antes previstos para GPR-02.
 
-**GPR-01 exit gate:** a playable Gauntlet starts strong, acquires and combines **two** effects, modifies the basic, safely replaces **one** skill, visibly transforms, preserves combat fidelity and clears run state. Automated green **does not** substitute for player approval of feel.
+- **01.1 CONCLUÍDA:** Basic no grafo/restore, receipt→reserva de filho, permissões opt-in da linhagem e aquisição sem reset;90 EditMode+120 PlayMode selecionados. STOP para revisão.
+- **01.2:** A/Punhos Titânicos: terminal LMB confirmado gera onda frontal limitada e attachment visual da run, sem alterar timings/cancel/base.
+- **01.3:** B/Conductor existente compõe com a onda, mesma raiz/budget, ordem equivalente.
+- **01.4:** C/Detonation existente cria consequência on-kill em posição distinta, caps específicos do novo ramo.
+- **01.5:** oferta/tickets/seed legal, seis ordens, duas runs/Nexus/reset, telemetria e visual/performance proporcionais.
+- **01.6:** relatório e aceite humano apenas da nova mutação/sinergia/visual; sem reabrir aceite completo dos controles.
 
-### Phase GPR-02 — Composition + cumulative visuals (FUTURE)
+**Saída proposta:** base/A/A+B/A+B+C demonstrados; Q nativo integra aproximação; visual reversível; custos/recursos/cancel/reação/HP legítimos; tickets e cooldowns preservados. SwapAvanço→Uppercut é adiado para manter o menor recorte e depende de concordância nesta revisão. Somente01.1 autorizada e executada. STOP para revisão da fundação e nova autorização01.2; nenhum conteúdoA/visual implementado.
+
+### Phase GPR-02 — composição geral e visuais cumulativos (FUTURA)
+
+A única combinação de três vias da proposta01 não autoriza antecipar o framework geral, ecos ou demais conteúdos desta fase.
 
 - **GPR-02.1:** formalize modifier priorities, additive/transformative/exclusive resolution, tags/capabilities compatible with existing types; tests for ordering, exclusivity, acquisition order and deterministic choice.
 - **GPR-02.2:** demonstrate **one** three-way synergy whose result is recognizable, with strict primary/secondary/proc eligibility and bounded depth/work. Record exactly which child effect can inherit which modifier.
@@ -181,13 +203,13 @@ This reorganizes—but does **not** replace—the original vision's proposed pha
 | Move | W/A/S/D | Direct directional movement, independent of pointer; normalize diagonal speed; honor collisions, CC, pauses and current animation/cancel constraints. |
 | Aim / select target | Mouse position | Cursor raycast/project to gameplay plane, rotation/facing policy verified per weapon; movement never auto-selects an enemy. |
 | Primary basic / combo | Left Mouse Button | Basic combo from the **current weapon's existing attack system**; preserve authored contact and response. |
-| Secondary basic / combo | Right Mouse Button | A second **basic-chain action**, not a generic fifth ability or click-to-move; its exact Gauntlet/Bow/Spear combo semantics are a design decision and must be prototyped. |
+| Especial permanente da arma | RMB | Especial atual, Asura na Manopla; executor/recursos existentes, sem básico concorrente. |
 | Skill slot 1 | Q | Skill logical index 0, after verifying the current actual slot mapping. |
 | Skill slot 2 | E | Skill logical index 1, after verifying the current actual slot mapping. |
 | Skill slot 3 | R | Skill logical index 2, after verifying the current actual slot mapping. |
-| Skill slot 4 / ultimate | X | Skill logical index 3, after verifying the current actual slot mapping; do not assume X must be an ultimate or higher power. |
+| Quarta modular / X | Nenhuma | Não existe; index3 legado é o especialRMB e não um slot modular. |
 | Dash/dodge | Space | Provisional existing default; agree on movement-vector direction versus cursor/facing fallback and test priority. |
-| Interact | F (RECOMMENDED) | New default proposal; E must no longer serve as interaction in combat/lobby because it is Skill 2. |
+| Interact | G, configurável | Ação própria; finisherF separado, sem conflito com skills. |
 | Weapon special / Asura | C (RECOMMENDED) | Migrates inaccessible F11 default while preserving the mechanic; exact action must be audited and approved. |
 | Contextual finisher | V (RECOMMENDED) | Prevents ambiguity with Interact on F; only bind if separate action exists; confirm whether any execution belongs to the weapon's E-skill instead. |
 | Pause / menu | Escape | Preserve current menu/state ownership, with UI gate and release barrier. |

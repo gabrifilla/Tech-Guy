@@ -49,7 +49,7 @@ public sealed partial class ProtocolRuntime : MonoBehaviour
     {
         using (Profile())
         {
-        if (!IsOpen || context == null || context.Owner != _player || _boons && _boons.ProtocolSession?.IsEncounterClosing == true) return;
+        if (ScopedBasicLineage != null || !IsOpen || context == null || context.Owner != _player || _boons && _boons.ProtocolSession?.IsEncounterClosing == true) return;
         TouchFrame(); var key = (context.Epoch, context.RootExecution);
         if (context.Execution == context.RootExecution)
         {
@@ -89,7 +89,7 @@ public sealed partial class ProtocolRuntime : MonoBehaviour
     {
         using (Profile())
         {
-        if (!IsOpen || _boons && _boons.ProtocolSession?.IsEncounterClosing == true) return null;
+        if (ScopedBasicLineage != null || !IsOpen || _boons && _boons.ProtocolSession?.IsEncounterClosing == true) return null;
         TouchFrame(); var root = Budget.BeginRoot(_inventory.SessionId, EncounterId, _inventory, producer);
         if (root != null) root.AnalyticsSource = _player.RunStatistics?.CurrentSource ?? _player.RunStatistics?.UnknownSource();
         return root;

@@ -80,7 +80,8 @@ public static class BoonCatalogValidator
         else if (string.IsNullOrWhiteSpace(entry.Title)) error = "Missing presentation title.";
         else if (!Enum.IsDefined(typeof(BoonFamily), entry.Family)) error = "Unknown boon family.";
         else if (entry.Weapons == BoonWeaponMask.None || (entry.Weapons & ~BoonWeaponMask.Universal) != 0) error = "Invalid weapon mask.";
-        else if (entry.Slots == BoonSlotMask.None || (entry.Slots & ~BoonSlotMask.Any) != 0) error = "Invalid slot mask.";
+        else if (entry.Slots == BoonSlotMask.None || (entry.Slots & ~BoonSlotMask.AllTargets) != 0) error = "Invalid slot mask.";
+        else if ((entry.Slots & BoonSlotMask.Basic) != 0 && entry.Weapons != BoonWeaponMask.Gauntlet) error = "Basic targeting is limited to Gauntlet in this stage.";
         else if (!ValidCapabilities(entry.RequiredCapabilities | entry.AnyRequiredCapabilities | entry.ProvidedCapabilities | entry.RemovedCapabilities)) error = "Unknown capability flag.";
         else if (entry.RequiredBoonIds == null || entry.BlockedBoonIds == null) error = "Missing prerequisite/block list.";
         else if (!ValidateIds(entry.RequiredBoonIds, entry.Id) || !ValidateIds(entry.BlockedBoonIds, entry.Id)) error = "Invalid, duplicate, or self-referencing prerequisite/block ID.";

@@ -1,0 +1,126 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "72ac6eb4bdff49a0b3f24ca9acee45c0",
+    "status": "succeeded",
+    "mode": "PlayMode",
+    "started_unix_ms": 1793207641246,
+    "finished_unix_ms": 1793207651166,
+    "last_update_unix_ms": 1793207651166,
+    "progress": {
+      "completed": 9,
+      "total": 9,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.GPR01FoundationTests.ProtocolAcquisitionKeepsAllUnchangedCooldownsIncludingSpecial",
+      "last_finished_unix_ms": 1793207651099,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "PlayMode",
+      "summary": {
+        "total": 9,
+        "passed": 9,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 2.9771304,
+        "resultState": "Passed"
+      },
+      "results": [
+        {
+          "name": "GPR01BranchAllowsConductorThenKillDetonationWithoutRecursion",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01BranchAllowsConductorThenKillDetonationWithoutRecursion",
+          "state": "Passed",
+          "durationSeconds": 0.3531542,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "GPR01BranchBudgetDenialAndRunEndCannotDealGhostDamage",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01BranchBudgetDenialAndRunEndCannotDealGhostDamage",
+          "state": "Passed",
+          "durationSeconds": 0.0529642,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "GPR01BranchDedupesExcludesNativeVictimAndCannotMintRoot",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01BranchDedupesExcludesNativeVictimAndCannotMintRoot",
+          "state": "Passed",
+          "durationSeconds": 0.0442921,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "GPR01OnlyConfirmedTerminalReservesOneChildOnSameRoot",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01OnlyConfirmedTerminalReservesOneChildOnSameRoot",
+          "state": "Passed",
+          "durationSeconds": 0.039072,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "GPR01WhiffImmunityAndNonterminalCannotAuthorizeChild",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01WhiffImmunityAndNonterminalCannotAuthorizeChild",
+          "state": "Passed",
+          "durationSeconds": 0.0344176,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "BasicMutationAcceptsExplicitTargetWithoutExpandingLegacyAny",
+          "fullName": "TechGuy.Tests.GPR01FoundationTests.BasicMutationAcceptsExplicitTargetWithoutExpandingLegacyAny",
+          "state": "Passed",
+          "durationSeconds": 0.0324334,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "LegacyConfigurationAndBasicAcquisitionRoundTripWithAtomicRejection",
+          "fullName": "TechGuy.Tests.GPR01FoundationTests.LegacyConfigurationAndBasicAcquisitionRoundTripWithAtomicRejection",
+          "state": "Passed",
+          "durationSeconds": 0.011257,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "LegacyUniversalDoesNotAcquireBasicOrBecomeAnotherCastSlot",
+          "fullName": "TechGuy.Tests.GPR01FoundationTests.LegacyUniversalDoesNotAcquireBasicOrBecomeAnotherCastSlot",
+          "state": "Passed",
+          "durationSeconds": 0.002835,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ProtocolAcquisitionKeepsAllUnchangedCooldownsIncludingSpecial",
+          "fullName": "TechGuy.Tests.GPR01FoundationTests.ProtocolAcquisitionKeepsAllUnchangedCooldownsIncludingSpecial",
+          "state": "Passed",
+          "durationSeconds": 2.3009534,
+          "message": null,
+          "stackTrace": null,
+          "output": "ProgressionDirector Run_Seed = 5486228167049391577 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        }
+      ]
+    }
+  },
+  "hint": null
+}

@@ -1,6 +1,42 @@
 # Gameplay Rework — desenho técnico mínimo
 
-27/10/2026. **GPR-C01.3a concluída tecnicamente, aguardando revisão.** C01.2c aceita no escopo técnico. LMB direcional por clique implementado; hold do básico somente com ChargedShot por decisão explícita; Asura no RMB da Manopla incluída por autorização adicional.102/102 testes normais; aceite físico pendente. C01.3b/GPR-01 não iniciadas. [Relatório C01.3a](../decisions/GPR-C01.3a_RELATORIO.md).
+## Estado vigente — GPR-01.1,28/10/2026
+
+GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
+
+Direção experimental A→A+B→A+B+C aceita, parâmetros1,5×/0,60× provisórios; autorizada **exclusivamente GPR-01.1**. [Relatório da fundação](../decisions/GPR-01.1_RELATORIO.md) / [fatia e próximo escopo](GPR_01_VERTICAL_SLICE.md). Sem asset/boonTitanic Fists habilitado, onda ou transformação visual de produção. STOP para revisão antes de01.2;01.3–6 também exigem autorização posterior.
+
+Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecânica nova. SwapAvanço→Uppercut adiado por redução aprovada de escopo; aquisição/substituição modular Q/E/R permanece requisito **NÃO IMPLEMENTADO/NÃO VALIDADO**, rastreado em GPR-03.1/RF-TROCA. Gates e decisões históricos abaixo não sobrepõem esta autorização.
+
+## Desenho proposto da fatia atual
+
+Contrato detalhado, seams, parâmetros e gates em [GPR_01_VERTICAL_SLICE.md](GPR_01_VERTICAL_SLICE.md). Reusar BasicImpact/scheduler/ledger/PlayerActor/BreakerGauntletCombat/ProtocolRuntime/RunBoons. Os gaps concretos são Basic no grafo, autorização de filho por receipt, whitelist por linhagem e aquisição sem reset global de timers. Nenhum novo pipeline/manager de combate, mutação em assets originais ou mudança em Asura.
+
+A recomendação de Basic=4/flag16 é extensão de alvo de boon, com mapping explícito para GauntletActionSlot.Basic=-1; Any15 legado permanece. O desenho não cria mais uma skill modular. Índices0/1/2 são Q/E/R físicas e3 é especial. ProtocolEligibility admite cascatas no código atual: restringir somente o novo ramo A requer decisão/implementação específica, não pressuposto falso de que Conductor já pare sozinho.
+
+Troca Avanço→Uppercut, transação de swap e visual de eco descritos no histórico abaixo deixam de ser obrigação desta primeira fatia proposta. O refresh de aquisição existente ainda exige um ajuste limitado para preservar timers sem implementar swap universal.
+
+## Desenhos históricos — aplicar somente onde compatíveis
+
+## Histórico aprovado C01.4 — três skills + especial,28/10/2026
+
+A decisão direta mais recente **substitui todo modelo de quatro slots modulares Q/E/R/X**: exatamente três slots modulares Q/E/R e um especial permanente separado no RMB. X não tem ação/placeholder; index3 e arrays de quatro referências permanecem compatibilidade interna, nunca uma quarta skill modular. Asura mantém executor, custos, duração, cooldown, animação, danos e continuação; F11 não é alias direto. Bow/Spear reutilizam sua quarta ação existente no canal especial, sem mecânica/asset novo. A futura aquisição/substituição é restrita aos três slots e continua fora de C01.4.
+
+WASD e demais ações configuráveis no Settings; InteractG dedicado e finisherF distintos por padrão, sem sobrescrever personalizações. Dash padrãoCursor; opçãoMovimento usa vetor configurado/câmera normalizado e **facing atual quando não há direção pressionada**, conforme esclarecimento posterior do desenvolvedor. A sugestão histórica de fallbackcursor no modoMovimento está superada. Escape reservado à pausa/cancel seguro. Migração só lê/repara em memória, Apply explícito grava nomes de ações; sem reset de progresso.
+
+Registro histórico de C01.4: implementação e116 casos cumulativos concluídos antes do aceite físico. A pendência humana foi encerrada por C01.5; o estado vigente e o novo STOP de GPR-01 estão no início deste documento.
+
+
+
+## Histórico C01.3b — fechamento na data,28/10/2026
+
+**CONCLUÍDA TECNICAMENTE:105/105 casos distintos finais, zero ignorados**, via Unity MCP no checkout correto/Editor6000.5.10f1. Aceite humano anterior das últimas correções recebido para WASD, básicos, Q/E/R e Asura/RMB; básicos rápidos ficam como refinamento futuro, sem mudar cadência. [Relatório](../decisions/GPR-C01.3b_RELATORIO.md).
+
+Corrigidas fixtures que criavam dispositivos virtuais antes da política de foco, e o gate de soltura que descartava o primeiro comando novo no frame seguinte. Dois testes falharam0/2 antes da correção de produção;22 básicos/input+23 movimento+7 contextos+30 combate+8 dash+15 EditMode passaram após as correções. Ajustado teste Cadenciada para agir no frame de recovery observado, mantendo asserções/tempos. Outputs e falhas anteriores preservados em c01-3b/correcao e gate; não suíte global. Runtime publicado com input virtual:3 básicos0/1/2 e1 Asura por RMB,4 PNG; não novo teste físico.
+
+F11 deixou de ativar Asura direta por decisão explícita; binding salva/executor/custos/estágios preservados. Frame de soltura continua bloqueado; held não atravessa UI/foco/pausa. Editor final NexusLobby limpa/Edit Mode; permanece erro de pacote Tripo3D preexistente. Causa física do incidente RMB antigo não confirmada retrospectivamente; aceite humano posterior inclui RMB funcional.
+
+**Gate de C01.4 satisfeito;4a–4d já autorizadas, ainda não implementadas.** Não iniciar C01.5/GPR-01. Interact separado precisa respeitar F/finisher; X pode ficar vazio, nunca duplicar Asura. Autorizações e evidências3a abaixo são históricas onde conflitam com este fechamento.
 
 ## Delta C01.3a — básico direcional e adapter Asura
 
@@ -88,3 +124,13 @@ GPR-C01: GamePreferences, ControlRemappingPanel, CharControlScript, fronteira de
 GPR-01 posterior: RunBoons/WeaponRunModifiers/grafo/catálogos, BasicImpact/BreakerGauntletCombat/ProtocolRuntime somente no seam aprovado, operação seletiva do holder, UI reward/HUD/visual e fontes autoradas mínimas de A/adaptador. Não reescrever Actor/RunStatistics, mapas, inimigos ou três armas.
 
 Rollback futuro: commits pequenos por tarefa, registrar hashes/assets/meta; reverter apenas commits do rework por revisão explícita, sem git reset sobre alterações anteriores e sem restaurar prefs humanas antigas. Nova configuração de bindings deve guardar versão e fallback legível, sem apagar chaves antigas; rollback não apaga progresso.
+
+## Contratos implementados em GPR-01.1
+
+BoonSlot.Basic4/flag16/AllTargets31 anexados; Any15 preservado. Grafo aceita as quatro configurações legadas e Basic opcional, com mapeamento explícito para GauntletActionSlot.Basic=-1. AlvoBasic limitado à Manopla; nenhuma configuração de cast/HUD acrescentada. Snapshots/records incluem Basic sem alterar referências/GUIDs existentes.
+
+PlayerActor registra ConfirmedHpReceipt no callback de HP efetivo da transação; ProtocolRootContext registra apenas terminal direto elegível e vítimas/generation. ReserveConfirmedBasicChild rejeita callbacks/batches ainda abertos, permite uma reserva e mantém parent/root existentes. ProtocolExecution/lineage carregam a proveniência e a lista de exclusão. Não há chamado desse contrato no input de produção nem onda criada.
+
+ProtocolBasicEffects.None é o padrão. Grants explícitos Conductor/Detonation habilitam só as arestas permitidas, com uma emissão de cada, sem recursão e sem elementos/Overflow/Resonance ou hooks de recurso herdados. Fila, LOS, dedupe, geração, lifecycle e caps são os existentes. Nenhuma política nativa global ou limite autorado foi mudado.
+
+RefreshAfterBoonAcquisition conserva estados/timers de referências de habilidade idênticas; equip/reset explícito continua separado. Identidade substituída mantém reset legado; isso não é transação de swap. ID desconhecido é rejeitado antes de completar uma aquisição. Evidência e limites no relatório01.1.

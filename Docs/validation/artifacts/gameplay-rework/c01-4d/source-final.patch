@@ -1,0 +1,1305 @@
+diff --git a/Assets/_Project/Scripts/Abilities/AbilityHolder.cs b/Assets/_Project/Scripts/Abilities/AbilityHolder.cs
+index e148e55..54cc06d 100644
+--- a/Assets/_Project/Scripts/Abilities/AbilityHolder.cs
++++ b/Assets/_Project/Scripts/Abilities/AbilityHolder.cs
+@@ -142,6 +142,7 @@ public class AbilityHolder : MonoBehaviour
+     }
+     private bool _manualInitializationBlocked;
+     internal void SetManualInitializationBlocked(bool blocked) => _manualInitializationBlocked = blocked;
++    internal bool HasPriorityInteraction => _lobbyInteraction && _lobbyInteraction.InteractionPending;
+     public bool BlocksWorldInput => _manualInitializationBlocked || Time.timeScale <= 0f || (_pause && _pause.BlocksInput) || (_lobbyInteraction && (_lobbyInteraction.IsPanelOpen || _lobbyInteraction.BlocksWorldPointer)) ||
+         (_runBoons && (_runBoons.IsChoosing || _runBoons.BlocksManualOffense));
+ 
+@@ -805,7 +806,8 @@ public class AbilityHolder : MonoBehaviour
+     internal bool UsesDirectAsuraInput => _characterControl && _characterControl.DirectMovementEnabled &&
+         playerActor && WeaponRunModifiers.Identify(playerActor.CurrentWeapon) == RunWeaponFamily.Gauntlet &&
+         activeAbilities.Length > 3 && activeAbilities[3] is BreakerGauntletAbility asura && asura.AsuraBurst;
+-    public KeyCode GetAbilityKey(int index) => index == 3 && UsesDirectAsuraInput ? GamePreferences.WeaponSpecialBinding : ResolveKey(index);
++    internal bool UsesDirectWeaponSpecial => _characterControl && _characterControl.DirectMovementEnabled && activeAbilities.Length > 3;
++    public KeyCode GetAbilityKey(int index) => ResolveKey(index);
+     public float GetCooldownRatio(int index) => index >= 0 && index < activeAbilities.Length
+         ? Mathf.Clamp01(GetRemainingCooldown(index) / Mathf.Max(0.001f, GetCooldownDuration(activeAbilities[index]))) : 0f;
+ 
+@@ -841,16 +843,16 @@ public class AbilityHolder : MonoBehaviour
+ 
+     private bool IsAbilityKeyPressed(int index)
+     {
+-        bool legacy = GamePreferences.WasPressed(ResolveKey(index));
+-        if (index != 3 || !UsesDirectAsuraInput) return legacy;
++        if (index != 3 || !UsesDirectWeaponSpecial) return GamePreferences.WasPressed(ResolveKey(index));
+         bool special = GamePreferences.WasWeaponSpecialPressed();
+         if (special && _characterControl.DirectPointerIsOverUi)
+         { _characterControl.RequireAttackRelease(); return false; }
+-        // One delivery into the SAME holder state/executor, even if legacy F11 is pressed too.
+-        return special || legacy;
++        // Direct weapon specials belong exclusively to the configured secondary channel.
++        // Keep the saved legacy binding intact, but do not use it as an activation alias.
++        return special;
+     }
+ 
+-    private KeyCode ResolveKey(int index) => index >= 0 && index < 4
++    private KeyCode ResolveKey(int index) => index == 3 && UsesDirectWeaponSpecial ? GamePreferences.WeaponSpecialBinding : index >= 0 && index < 4
+         ? GamePreferences.Binding((GameControl)((int)GameControl.Skill1 + index)) : KeyCode.None;
+ 
+     private float GetCooldownDuration(Ability ability)
+diff --git a/Assets/_Project/Scripts/Abilities/Dash/DashScript.cs b/Assets/_Project/Scripts/Abilities/Dash/DashScript.cs
+index 637a5b8..cd4ce59 100644
+--- a/Assets/_Project/Scripts/Abilities/Dash/DashScript.cs
++++ b/Assets/_Project/Scripts/Abilities/Dash/DashScript.cs
+@@ -95,6 +95,14 @@ public class DashScript : Ability
+ 
+     private static Vector3 ResolveDashDirection(Transform parentTransform, Camera mainCamera, Vector3 fallbackDirection)
+     {
++        var control = parentTransform.GetComponent<CharControlScript>();
++        if (control && control.DirectMovementEnabled && GamePreferences.DashDirection == DashDirectionMode.Movement)
++        {
++            Vector3 movement = control.ConfiguredMovementDirection;
++            if (movement.sqrMagnitude > .0001f) return movement.normalized;
++            return Flatten(fallbackDirection).normalized;
++        }
++        // Cursor mode preserves the original cursor policy; movement mode falls back to facing.
+         Ray ray = mainCamera.ScreenPointToRay(GetMousePosition());
+         Plane groundPlane = new Plane(Vector3.up, parentTransform.position);
+         if (!groundPlane.Raycast(ray, out float distance))
+diff --git a/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectBasicInput.cs b/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectBasicInput.cs
+index 92f91b4..25666fe 100644
+--- a/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectBasicInput.cs
++++ b/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectBasicInput.cs
+@@ -44,7 +44,8 @@ public partial class CharControlScript
+ 
+     private void HandleDirectBasicInput()
+     {
+-        if (UsesGauntletBasic && GamePreferences.WasWeaponSpecialPressed()) return; // Special wins a simultaneous press.
++        if (_abilityHolder && _abilityHolder.HasPriorityInteraction) return;
++        if (_abilityHolder && _abilityHolder.UsesDirectWeaponSpecial && GamePreferences.WasWeaponSpecialPressed()) return; // Special wins a simultaneous press.
+         bool primaryHeld = GamePreferences.IsHeld(GameControl.Primary);
+         if (!primaryHeld && !GamePreferences.IsHeld(GameControl.Move)) _waitForAttackRelease = false;
+         if (_waitForAttackRelease || !_abilityHolder) return;
+@@ -58,9 +59,23 @@ public partial class CharControlScript
+         _abilityHolder.TryRequestDirectionalBasic(direction, pressed);
+     }
+ 
++    [SerializeField, Min(.1f)] private float _directInteractionRange = 3.5f;
++    private bool HandleDirectWorldInteraction()
++    {
++        if (!_directKeyboardMovement || !GamePreferences.WasPressed(GameControl.Interact) ||
++            _abilityHolder && _abilityHolder.HasPriorityInteraction || BasicPointerIsOverUi(GetPointerPosition())) return false;
++        Camera view = mainCamera ? mainCamera : Camera.main;
++        if (!view) return false;
++        int mask = clickableLayers.value != 0 ? clickableLayers.value : Physics.DefaultRaycastLayers;
++        if (!WorldClickResolver.TryResolve(view.ScreenPointToRay(GetPointerPosition()), transform, mask, out var hit, out _, view.GetComponent<TechGuy.Cameras.TG_TopDown_Camera>())) return false;
++        var item = hit.collider.GetComponentInParent<Interactable>();
++        if (!item || item.interactionType != InteractableType.Item || Vector3.Distance(transform.position, hit.point) > _directInteractionRange) return false;
++        item.Interact(gameObject); RequireAttackRelease(); return true;
++    }
++
+     private void HandleLegacySecondaryPointerInput()
+     {
+-        if (UsesGauntletBasic || _waitForAttackRelease || GamePreferences.WasPressed(GameControl.Primary)) return;
++        if (_abilityHolder && _abilityHolder.UsesDirectWeaponSpecial || UsesGauntletBasic || _waitForAttackRelease || GamePreferences.WasPressed(GameControl.Primary)) return;
+         // Bow/Spear retain their pre-existing secondary interaction/Shift gesture.
+         var keyboard = UnityEngine.InputSystem.Keyboard.current;
+         bool shift = keyboard != null && (keyboard.leftShiftKey.isPressed || keyboard.rightShiftKey.isPressed);
+diff --git a/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectMovement.cs b/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectMovement.cs
+index e00bd86..cf46019 100644
+--- a/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectMovement.cs
++++ b/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectMovement.cs
+@@ -27,10 +27,13 @@ public partial class CharControlScript
+             { InvalidateDirectGameplayInput(); return false; }
+             if (_gameplayReleaseRequired)
+             {
+-                var keyboard = Keyboard.current;
+-                bool held = keyboard != null && (keyboard.wKey.isPressed || keyboard.aKey.isPressed || keyboard.sKey.isPressed || keyboard.dKey.isPressed);
+-                for (int i = 0; i <= (int)GameControl.FinishSequence; i++) held |= GamePreferences.IsHeld((GameControl)i);
++                bool held = GamePreferences.AnyGameplayHeld;
+                 if (held) return false;
++                // The shared gate has observed release for every gameplay control.
++                // Local gates must agree now; otherwise a fresh press on the following
++                // frame would require a second release just because Update ran later.
++                _waitForAttackRelease = false;
++                _directMovementRelease = false;
+                 _gameplayReleaseRequired = false;
+                 _gameplayReleaseFrame = Time.frameCount;
+             }
+@@ -109,13 +112,15 @@ public partial class CharControlScript
+         return Vector3.Cross(Vector3.up, forward) * input.x + forward * input.y;
+     }
+ 
++    internal Vector3 ConfiguredMovementDirection
++    {
++        get { var view = mainCamera ? mainCamera : Camera.main; return ResolveDirectDirection(GamePreferences.MovementInput, view ? view.transform.rotation : Quaternion.identity); }
++    }
++
+     private void HandleDirectMovement()
+     {
+         _groundMoveBuffer.Discard();
+-        var keyboard = Keyboard.current;
+-        if (keyboard == null) { _directMovementRelease = true; return; }
+-        Vector2 input = new Vector2((keyboard.dKey.isPressed ? 1 : 0) - (keyboard.aKey.isPressed ? 1 : 0),
+-            (keyboard.wKey.isPressed ? 1 : 0) - (keyboard.sKey.isPressed ? 1 : 0));
++        Vector2 input = GamePreferences.MovementInput;
+         if (_directMovementRelease)
+         {
+             if (input.sqrMagnitude > .0001f) return;
+diff --git a/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs b/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs
+index 520c487..083f4be 100644
+--- a/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs
++++ b/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs
+@@ -208,6 +208,7 @@ public partial class CharControlScript : MonoBehaviour
+         RefreshWeaponStats();
+         RefreshMovementStats();
+         if (!GameplayInputReady) return;
++        if (HandleDirectWorldInteraction()) return;
+         TrackChargedShot();
+ 
+         if (_abilityHolder && _abilityHolder.BlocksWorldInput)
+diff --git a/Assets/_Project/Scripts/Core/GamePreferences.cs b/Assets/_Project/Scripts/Core/GamePreferences.cs
+index b8e6d80..2dc05e6 100644
+--- a/Assets/_Project/Scripts/Core/GamePreferences.cs
++++ b/Assets/_Project/Scripts/Core/GamePreferences.cs
+@@ -3,7 +3,9 @@ using UnityEngine;
+ using UnityEngine.InputSystem;
+ using UnityEngine.InputSystem.Controls;
+ 
+-public enum GameControl { Primary = 0, Move = 1, Dash = 2, Skill1 = 3, Skill2 = 4, Skill3 = 5, Skill4 = 6, FinishSequence = 7 }
++public enum DashDirectionMode { Mouse = 0, Movement = 1 }
++
++public enum GameControl { Primary = 0, Move = 1, Dash = 2, Skill1 = 3, Skill2 = 4, Skill3 = 5, Skill4 = 6, FinishSequence = 7, Interact = 8, MoveUp = 9, MoveDown = 10, MoveLeft = 11, MoveRight = 12, Pause = 13 }
+ 
+ /// <summary>Presentation and control preferences; never clears equipment, currency or run progress.</summary>
+ public static class GamePreferences
+@@ -16,17 +18,38 @@ public static class GamePreferences
+     private static KeyCode[] _directBindings;
+     public static bool UsesDirectControls => _directInputOwner != null;
+     // C01 compatibility adapter: reuse the configured secondary channel; no preference/schema rewrite.
++    public static GameControl InteractionAction => UsesDirectControls ? GameControl.Interact : GameControl.Skill3;
+     public static KeyCode WeaponSpecialBinding => Binding(GameControl.Move);
+     public static bool WasWeaponSpecialPressed() => WasPressed(WeaponSpecialBinding);
+-    public static string MovementLabel => UsesDirectControls ? "WASD" : BindingLabel(GameControl.Move);
++    public static readonly GameControl[] DirectActions = { GameControl.MoveUp, GameControl.MoveDown, GameControl.MoveLeft, GameControl.MoveRight,
++        GameControl.Primary, GameControl.Move, GameControl.Skill1, GameControl.Skill2, GameControl.Skill3,
++        GameControl.Dash, GameControl.Interact, GameControl.FinishSequence, GameControl.Pause };
++    public static string MovementLabel => UsesDirectControls ? BindingLabel(GameControl.MoveUp) + "/" + BindingLabel(GameControl.MoveLeft) + "/" + BindingLabel(GameControl.MoveDown) + "/" + BindingLabel(GameControl.MoveRight) : BindingLabel(GameControl.Move);
++    public static Vector2 MovementInput => Vector2.ClampMagnitude(new Vector2((IsHeld(GameControl.MoveRight) ? 1 : 0) - (IsHeld(GameControl.MoveLeft) ? 1 : 0),
++        (IsHeld(GameControl.MoveUp) ? 1 : 0) - (IsHeld(GameControl.MoveDown) ? 1 : 0)), 1);
++    public static string ActionLabel(GameControl action) => action == GameControl.Move ? "Especial da arma" : action == GameControl.Primary ? "Ataque básico" :
++        action == GameControl.MoveUp ? "Mover para frente" : action == GameControl.MoveDown ? "Mover para trás" : action == GameControl.MoveLeft ? "Mover à esquerda" :
++        action == GameControl.MoveRight ? "Mover à direita" : action == GameControl.Dash ? "Esquiva" : action == GameControl.Interact ? "Interagir" :
++        action == GameControl.Pause ? "Pausa (Esc sempre disponível)" : action == GameControl.FinishSequence ? "Finalizar / retornar" : action == GameControl.Skill1 ? "Habilidade 1" : action == GameControl.Skill2 ? "Habilidade 2" : "Habilidade 3";
++    public static bool AnyGameplayHeld
++    {
++        get { foreach (var action in DirectActions) if (IsHeld(action)) return true; return false; }
++    }
+     internal static void UseDirectControls(Object owner) { _directInputOwner = owner; _directBindingFrame = -1; }
+     internal static void ReleaseDirectControls(Object owner)
+     { if (_directInputOwner == owner) { _directInputOwner = null; _directBindingFrame = -1; } }
++    public static DashDirectionMode DashDirection => PlayerPrefs.GetInt(Prefix + "DashDirection", 0) == 1 ? DashDirectionMode.Movement : DashDirectionMode.Mouse;
++    public static void SaveDashDirection(DashDirectionMode mode)
++    {
++        if (mode != DashDirectionMode.Mouse && mode != DashDirectionMode.Movement) throw new System.ArgumentException("Direção de esquiva inválida.");
++        PlayerPrefs.SetInt(Prefix + "DashDirection", (int)mode); PlayerPrefs.Save();
++    }
+     public static bool TutorialSeen => PlayerPrefs.GetInt(TutorialSeenKey, 0) == 1;
+ 
+     public sealed class Options
+     {
+         public float Volume;
++        public DashDirectionMode DashDirection;
+         public int Quality, Width, Height;
+         public bool Fullscreen, VSync;
+         public KeyCode[] Bindings = UsesDirectControls ? DefaultDirectBindings() : DefaultBindings();
+@@ -52,6 +75,7 @@ public static class GamePreferences
+         return new Options
+         {
+             Bindings = ReadBindings(),
++            DashDirection = GamePreferences.DashDirection,
+             Volume = Mathf.Clamp01(PlayerPrefs.GetFloat(Prefix + "Volume", defaults.Volume)),
+             Quality = Mathf.Clamp(PlayerPrefs.GetInt(Prefix + "Quality", defaults.Quality), 0, Mathf.Max(0, QualitySettings.names.Length - 1)),
+             Width = Mathf.Max(640, PlayerPrefs.GetInt(Prefix + "Width", defaults.Width)),
+@@ -76,7 +100,10 @@ public static class GamePreferences
+ 
+     public static void Save(Options options)
+     {
++        if (UsesDirectControls && !ValidateDirectBindings(options.Bindings, out string error)) throw new System.ArgumentException(error);
++        if (!System.Enum.IsDefined(typeof(DashDirectionMode), options.DashDirection)) throw new System.ArgumentException("Direção de esquiva inválida.");
+         Apply(options);
++        SaveDashDirection(options.DashDirection);
+         PlayerPrefs.SetFloat(Prefix + "Volume", Mathf.Clamp01(options.Volume));
+         PlayerPrefs.SetInt(Prefix + "Quality", options.Quality);
+         PlayerPrefs.SetInt(Prefix + "Width", options.Width);
+@@ -92,7 +119,7 @@ public static class GamePreferences
+ 
+     public static KeyCode Binding(GameControl control)
+     {
+-        if (!UsesDirectControls) return LegacyBinding(control);
++        if (!UsesDirectControls && (int)control < 8) return LegacyBinding(control);
+         if (_directBindings == null || _directBindingFrame != Time.frameCount)
+         { _directBindings = ReadDirectBindings(); _directBindingFrame = Time.frameCount; }
+         int index = (int)control;
+@@ -141,7 +168,7 @@ public static class GamePreferences
+ 
+     public static KeyCode[] ReadBindings()
+     {
+-        var result = DefaultBindings();
++        var result = UsesDirectControls ? DefaultDirectBindings() : DefaultBindings();
+         for (int i = 0; i < result.Length; i++) result[i] = Binding((GameControl)i);
+         return result;
+     }
+@@ -150,11 +177,9 @@ public static class GamePreferences
+     {
+         if (UsesDirectControls)
+         {
+-            if (bindings == null || bindings.Length != DefaultDirectBindings().Length) throw new System.ArgumentException("Invalid direct control bindings");
+-            for (int i = 0; i < bindings.Length; i++)
+-                if (!IsBindable(bindings[i]) || IsMovementKey(bindings[i]) || System.Array.IndexOf(bindings, bindings[i]) != i)
+-                    throw new System.ArgumentException("Direct bindings conflict with movement or another action");
+-            for (int i = 0; i < bindings.Length; i++) PlayerPrefs.SetInt(DirectPrefix + (GameControl)i, (int)bindings[i]);
++            if (!ValidateDirectBindings(bindings, out string error)) throw new System.ArgumentException(error);
++            // Action names remain stable: extend v2 without rewriting legacy keys or saving on read.
++            foreach (var action in DirectActions) PlayerPrefs.SetInt(DirectPrefix + action, (int)bindings[(int)action]);
+             _directBindingFrame = -1;
+             PlayerPrefs.Save();
+             return;
+@@ -166,7 +191,7 @@ public static class GamePreferences
+ 
+     // Index 3 remains the legacy special, NOT a fourth modular skill or X/Asura alias.
+     public static KeyCode[] DefaultDirectBindings() => new[] { KeyCode.Mouse0, KeyCode.Mouse1, KeyCode.Space,
+-        KeyCode.Q, KeyCode.E, KeyCode.R, KeyCode.F11, KeyCode.F };
++        KeyCode.Q, KeyCode.E, KeyCode.R, KeyCode.F11, KeyCode.F, KeyCode.G, KeyCode.W, KeyCode.S, KeyCode.A, KeyCode.D, KeyCode.Escape };
+ 
+     public static bool IsMovementKey(KeyCode key) => key == KeyCode.W || key == KeyCode.A || key == KeyCode.S || key == KeyCode.D;
+ 
+@@ -174,26 +199,44 @@ public static class GamePreferences
+     {
+         var oldDefaults = DefaultBindings();
+         var proposed = DefaultDirectBindings();
+-        for (int i = 0; i < proposed.Length && i < legacy.Count; i++)
+-            if (legacy[i] != oldDefaults[i]) proposed[i] = legacy[i];
++        for (int i = 0; i < oldDefaults.Length && i < legacy.Count; i++)
++            if (legacy[i] != oldDefaults[i] && !IsMovementKey(legacy[i])) proposed[i] = legacy[i];
+         return NormalizeDirectBindings(proposed);
+     }
+ 
++    public static bool ValidateDirectBindings(KeyCode[] bindings, out string error)
++    {
++        if (bindings == null || bindings.Length != DefaultDirectBindings().Length) { error = "Configuração de controles inválida."; return false; }
++        var used = new Dictionary<KeyCode, GameControl>();
++        foreach (var action in DirectActions)
++        {
++            var key = bindings[(int)action];
++            if (!IsBindable(key) && !(action == GameControl.Pause && key == KeyCode.Escape)) { error = "Tecla inválida para " + ActionLabel(action) + ". Esc permanece reservado."; return false; }
++            if (used.TryGetValue(key, out var other)) { error = ActionLabel(action) + " conflita com " + ActionLabel(other) + "."; return false; }
++            used.Add(key, action);
++        }
++        error = null; return true;
++    }
++
+     private static KeyCode[] NormalizeDirectBindings(KeyCode[] preferred)
+     {
+-        var defaults = DefaultDirectBindings();
+-        var result = new KeyCode[defaults.Length];
+-        // Preserve explicit non-conflicting custom choices before assigning new defaults.
+-        for (int i = 0; i < result.Length; i++)
+-            if (preferred[i] != defaults[i] && IsBindable(preferred[i]) && !IsMovementKey(preferred[i]) && !ContainsBinding(result, preferred[i])) result[i] = preferred[i];
+-        var fallback = new[] { KeyCode.F11, KeyCode.F10, KeyCode.F9, KeyCode.F8, KeyCode.T, KeyCode.Y, KeyCode.U, KeyCode.G, KeyCode.H, KeyCode.J, KeyCode.K, KeyCode.L };
+-        for (int i = 0; i < result.Length; i++)
++        var defaults = DefaultDirectBindings(); var result = new KeyCode[defaults.Length];
++        var used = new HashSet<KeyCode>();
++        // Preserve valid custom assignments first. Repair only invalid/duplicate/missing entries in memory.
++        foreach (var action in DirectActions)
++        {
++            int i = (int)action;
++            if (preferred[i] != defaults[i] && IsBindable(preferred[i]) && used.Add(preferred[i])) result[i] = preferred[i];
++        }
++        foreach (var action in DirectActions)
+         {
+-            if (result[i] != KeyCode.None) continue;
+-            KeyCode candidate = defaults[i];
+-            if (!ContainsBinding(result, candidate)) { result[i] = candidate; continue; }
+-            foreach (var key in fallback) if (!ContainsBinding(result, key)) { result[i] = key; break; }
++            int i = (int)action; if (result[i] != KeyCode.None) continue;
++            if (used.Add(defaults[i])) { result[i] = defaults[i]; continue; }
++            foreach (KeyCode candidate in System.Enum.GetValues(typeof(KeyCode)))
++                if (IsBindable(candidate) && used.Add(candidate)) { result[i] = candidate; break; }
+         }
++        // Historical execution index is retained, but never a configurable modular action.
++        result[(int)GameControl.Skill4] = preferred[(int)GameControl.Skill4];
+         return result;
+     }
+ 
+@@ -210,6 +253,7 @@ public static class GamePreferences
+     public static string BindingLabel(GameControl control) => KeyLabel(Binding(control));
+     public static string KeyLabel(KeyCode key) => key == KeyCode.Mouse0 ? "Mouse esquerdo" :
+         key == KeyCode.Mouse1 ? "Mouse direito" : key == KeyCode.Mouse2 ? "Mouse central" :
++        key == KeyCode.Mouse3 ? "Mouse lateral atrás" : key == KeyCode.Mouse4 ? "Mouse lateral frente" :
+         key == KeyCode.Space ? "Espaço" : key.ToString();
+ 
+     public static bool IsBindable(KeyCode key) => key != KeyCode.None && key != KeyCode.Escape &&
+diff --git a/Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs b/Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs
+index c94d64a..0f79f7e 100644
+--- a/Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs
++++ b/Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs
+@@ -249,16 +249,20 @@ namespace TechGuy.Tests
+             // The shipped pulse recovers for 180 ms, while offensive input lasts 120 ms.
+             // Issue this fresh continuation in the last 15% (at most 60 ms) of the real pulse,
+             // so the assertion exercises priority/consumption rather than legitimate input expiry.
+-            yield return WaitForMovementRecovery(holder, .85f);
+             Vector3 queued = Vector3.right * 9f;
+-            Assert.IsTrue(_controls.TryRequestGroundMovement(queued));
+-            Assert.IsTrue(_controls.HasPendingGroundMovement);
+-            Assert.IsTrue(holder.TryUseAbility(3), "A fresh R press in recovery buffers the next pulse of the same execution.");
+-            Assert.IsTrue(holder.HasBufferedOffensiveIntent);
+-            Assert.IsFalse(_controls.HasPendingGroundMovement, "Accepted offensive continuation supersedes ground input immediately.");
+-            Assert.IsFalse(_controls.TryRequestGroundMovement(Vector3.left * 9f), "Pending offensive input owns the next opportunity before ground movement.");
+-            Assert.AreEqual(1, uses, "A continuation must not publish a second AbilityUsed for the same R execution.");
+-            Assert.AreEqual(manaAfterStart, _player.mana);
++            yield return WaitForMovementRecovery(holder, .85f, () =>
++            {
++                // Act in the observed recovery frame. Returning from a nested coroutine
++                // first can advance into the wait state, where movement is immediate.
++                Assert.IsTrue(_controls.TryRequestGroundMovement(queued));
++                Assert.IsTrue(_controls.HasPendingGroundMovement);
++                Assert.IsTrue(holder.TryUseAbility(3), "A fresh R press in recovery buffers the next pulse of the same execution.");
++                Assert.IsTrue(holder.HasBufferedOffensiveIntent);
++                Assert.IsFalse(_controls.HasPendingGroundMovement, "Accepted offensive continuation supersedes ground input immediately.");
++                Assert.IsFalse(_controls.TryRequestGroundMovement(Vector3.left * 9f), "Pending offensive input owns the next opportunity before ground movement.");
++                Assert.AreEqual(1, uses, "A continuation must not publish a second AbilityUsed for the same R execution.");
++                Assert.AreEqual(manaAfterStart, _player.mana);
++            });
+ 
+             // Observe the real runner advancing its pulse index. No cast state/timing is assigned by this test.
+             var strike = typeof(BreakerGauntletCombat).GetField("_cadencedStrike",
+@@ -428,7 +432,7 @@ namespace TechGuy.Tests
+             return holder;
+         }
+ 
+-        private IEnumerator WaitForMovementRecovery(AbilityHolder holder, float minimumGlobalProgress = 0f)
++        private IEnumerator WaitForMovementRecovery(AbilityHolder holder, float minimumGlobalProgress = 0f, System.Action onRecovery = null)
+         {
+             var combat = _player.GetComponent<BreakerGauntletCombat>();
+             Assert.IsTrue(combat);
+@@ -436,7 +440,7 @@ namespace TechGuy.Tests
+             while (holder.IsCasting && Time.realtimeSinceStartup < deadline)
+             {
+                 if (holder.CanQueueRecoveryMovement && combat.TryGetCancelContext(out _, out float progress)
+-                    && progress >= minimumGlobalProgress) yield break;
++                    && progress >= minimumGlobalProgress) { onRecovery?.Invoke(); yield break; }
+                 yield return null;
+             }
+             Assert.Fail("The authored action must expose its real recovery window while it is still executing.");
+diff --git a/Assets/_Project/Scripts/Tests/PlayMode/DirectBasicInputPlayModeTests.cs b/Assets/_Project/Scripts/Tests/PlayMode/DirectBasicInputPlayModeTests.cs
+index 4b9ce13..dfdbf5a 100644
+--- a/Assets/_Project/Scripts/Tests/PlayMode/DirectBasicInputPlayModeTests.cs
++++ b/Assets/_Project/Scripts/Tests/PlayMode/DirectBasicInputPlayModeTests.cs
+@@ -38,12 +38,318 @@ namespace TechGuy.Tests
+             while (!_controls.CanStartDirectionalBasic)
+             { Assert.That(Time.realtimeSinceStartup, Is.LessThan(guard)); yield return null; }
+         }
++
++        [UnityTest] public IEnumerator GPRVirtualDeviceDeliverySurvivesPlayerLoop()
++        {
++            using (var input = new DirectInputScope())
++            {
++                Camera view = BuildDirectRig(true); yield return ReadyBasicInput(input, view);
++                Vector2 expected = view.WorldToScreenPoint(Vector3.right * 10);
++                var trace = new System.Text.StringBuilder();
++                trace.AppendLine("background=" + Application.runInBackground + " focused=" + Application.isFocused + " settings=" + InputSystem.settings.backgroundBehavior);
++                System.Action sample = () => trace.AppendLine("frame=" + Time.frameCount + " update=" +
++                    UnityEngine.InputSystem.LowLevel.InputState.currentUpdateType + " position=" + input.Mouse.position.ReadValue() +
++                    " left=" + input.Mouse.leftButton.isPressed + " w=" + input.Keyboard.wKey.isPressed +
++                    " mouseCurrent=" + (Mouse.current == input.Mouse) + " keyboardCurrent=" + (Keyboard.current == input.Keyboard));
++                InputSystem.onAfterUpdate += sample;
++                try
++                {
++                    Assert.That(input.Keyboard.enabled, Is.True, "Virtual keyboard must be enabled before injection.");
++                    Assert.That(input.Mouse.enabled, Is.True, "Virtual mouse must be enabled before injection.");
++                    input.Keys(Key.W); BasicMouse(input, view, Vector3.right * 10, true);
++                    yield return null; yield return null;
++                    sample();
++                    Assert.That(input.Keyboard.wKey.isPressed, Is.True, trace.ToString());
++                    Assert.That(input.Mouse.leftButton.isPressed, Is.True, trace.ToString());
++                    Assert.That(Vector2.Distance(input.Mouse.position.ReadValue(), expected), Is.LessThan(.01f), trace.ToString());
++                }
++                finally { InputSystem.onAfterUpdate -= sample; }
++            }
++        }
++        internal sealed class ConfigPreferenceScope : IDisposable
++        {
++            private readonly Dictionary<string, int?> _values = new Dictionary<string, int?>();
++            internal ConfigPreferenceScope()
++            {
++                _values["TechGuy.Settings.DashDirection"] = PlayerPrefs.HasKey("TechGuy.Settings.DashDirection") ? (int?)PlayerPrefs.GetInt("TechGuy.Settings.DashDirection") : null;
++                foreach (GameControl action in Enum.GetValues(typeof(GameControl)))
++                {
++                    string key = "TechGuy.Settings.DirectBinding.v2." + action;
++                    _values[key] = PlayerPrefs.HasKey(key) ? (int?)PlayerPrefs.GetInt(key) : null;
++                }
++            }
++            public void Dispose()
++            {
++                foreach (var pair in _values) { if (pair.Value.HasValue) PlayerPrefs.SetInt(pair.Key, pair.Value.Value); else PlayerPrefs.DeleteKey(pair.Key); }
++                PlayerPrefs.Save();
++            }
++        }
++
++        [Test] public void GPRConfigMigrationKeepsPersonalizedSecondaryAndHasThreeSkills()
++        {
++            var legacy = GamePreferences.DefaultBindings(); legacy[1] = KeyCode.Mouse3; var copy = (KeyCode[])legacy.Clone();
++            var migrated = GamePreferences.MigrateLegacyBindings(legacy);
++            CollectionAssert.AreEqual(copy, legacy);
++            Assert.That(migrated[1], Is.EqualTo(KeyCode.Mouse3));
++            Assert.That(migrated[(int)GameControl.MoveUp], Is.EqualTo(KeyCode.W));
++            Assert.That(GamePreferences.ValidateDirectBindings(migrated, out _), Is.True);
++            CollectionAssert.DoesNotContain(GamePreferences.DirectActions, GameControl.Skill4);
++            CollectionAssert.DoesNotContain(migrated, KeyCode.X);
++        }
++
++        [UnityTest] public IEnumerator GPRConfigRoundTripConflictCaptureAndDefaults()
++        {
++            using (var prefs = new ConfigPreferenceScope()) using (var input = new DirectInputScope())
++            {
++                BuildDirectRig(); yield return null;
++                var bindings = GamePreferences.DefaultDirectBindings();
++                bindings[(int)GameControl.Skill1] = KeyCode.F8;
++                bindings[(int)GameControl.Move] = KeyCode.Mouse3;
++                bindings[(int)GameControl.MoveUp] = KeyCode.T;
++                GamePreferences.SaveBindings(bindings);
++                CollectionAssert.AreEqual(bindings, GamePreferences.ReadBindings());
++                var invalid = (KeyCode[])bindings.Clone(); invalid[0] = invalid[1];
++                Assert.Throws<ArgumentException>(() => GamePreferences.SaveBindings(invalid));
++                CollectionAssert.AreEqual(bindings, GamePreferences.ReadBindings());
++                var panel = new ControlRemappingPanel(); panel.BeginCapture(GameControl.Skill2);
++                Assert.That(panel.TryAssign(bindings, bindings[0]), Is.False);
++                Assert.That(panel.IsCapturing, Is.True);
++                Assert.That(panel.TryAssign(bindings, KeyCode.Escape), Is.False);
++                Assert.That(panel.TryAssign(bindings, KeyCode.Mouse4), Is.True);
++                Assert.That(panel.IsCapturing, Is.False);
++                Assert.That(panel.CanApply, Is.False, "Capture click cannot also apply Settings in the same frame.");
++                yield return null; Assert.That(panel.CanApply, Is.True);
++                Assert.That(GamePreferences.Binding(GameControl.Skill2), Is.Not.EqualTo(KeyCode.Mouse4), "Draft must not save itself.");
++                panel.BeginCapture(GameControl.Skill3); panel.Cancel(); Assert.That(panel.IsCapturing, Is.False);
++                GamePreferences.SaveBindings(GamePreferences.DefaultDirectBindings());
++                CollectionAssert.AreEqual(GamePreferences.DefaultDirectBindings(), GamePreferences.ReadBindings());
++            }
++            if (_controls) GamePreferences.UseDirectControls(_controls);
++        }
++
++        [UnityTest] public IEnumerator GPRConfigReboundMovementAndMousePrimaryUseExistingOwners()
++        {
++            using (var prefs = new ConfigPreferenceScope()) using (var input = new DirectInputScope())
++            {
++                Camera view = BuildDirectRig(true);
++                var bindings = GamePreferences.DefaultDirectBindings(); bindings[0] = KeyCode.Mouse3; bindings[(int)GameControl.MoveUp] = KeyCode.T;
++                GamePreferences.SaveBindings(bindings); yield return ReadyBasicInput(input, view);
++                Vector3 start = _player.transform.position;
++                input.Keys(Key.W); yield return new WaitForSeconds(.1f);
++                Assert.That(Vector3.Distance(start, _player.transform.position), Is.LessThan(.01f));
++                input.Keys(Key.T); yield return new WaitForSeconds(.1f);
++                Assert.That(Vector3.Distance(start, _player.transform.position), Is.GreaterThan(.1f));
++                input.Keys(); yield return null; yield return null;
++                int attacks = 0; _controls.BasicAttackPerformed += () => attacks++;
++                BasicMouse(input, view, Vector3.right * 10, true); yield return new WaitForSeconds(.1f);
++                Assert.That(attacks, Is.Zero, "Old primary must not remain as an alias.");
++                InputSystem.QueueStateEvent(input.Mouse, new MouseState { position = (Vector2)view.WorldToScreenPoint(Vector3.right * 10) }.WithButton(MouseButton.Back));
++                yield return new WaitForSeconds(.1f); Assert.That(attacks, Is.EqualTo(1));
++            }
++            if (_controls) GamePreferences.UseDirectControls(_controls);
++        }
++
++        [UnityTest] public IEnumerator GPRDashModesUseNormalizedMovementAndFacingFallback()
++        {
++            using (var prefs = new ConfigPreferenceScope()) using (var input = new DirectInputScope())
++            {
++                Camera view = BuildDirectRig(); GamePreferences.SaveBindings(GamePreferences.DefaultDirectBindings());
++                yield return ReadyBasicInput(input, view);
++                var resolve = typeof(DashScript).GetMethod("ResolveDashDirection", BindingFlags.Static | BindingFlags.NonPublic);
++                BasicMouse(input, view, Vector3.right * 10, false); input.Keys(Key.W, Key.D); yield return null;
++                GamePreferences.SaveDashDirection(DashDirectionMode.Mouse);
++                Vector3 cursor = (Vector3)resolve.Invoke(null, new object[] { _player.transform, view, Vector3.forward });
++                Assert.That(cursor.x, Is.GreaterThan(.9));
++                GamePreferences.SaveDashDirection(DashDirectionMode.Movement);
++                Assert.That(GamePreferences.Read().DashDirection, Is.EqualTo(DashDirectionMode.Movement));
++                Vector3 movement = (Vector3)resolve.Invoke(null, new object[] { _player.transform, view, Vector3.forward });
++                Assert.That(movement.magnitude, Is.EqualTo(1).Within(.001));
++                Assert.That(Vector3.Dot(movement, _controls.ConfiguredMovementDirection.normalized), Is.GreaterThan(.999));
++                Assert.That(Vector3.Distance(movement, cursor), Is.GreaterThan(.1));
++                input.Keys(); yield return null;
++                _player.transform.rotation = Quaternion.LookRotation(Vector3.back);
++                Vector3 fallback = (Vector3)resolve.Invoke(null, new object[] { _player.transform, view, _player.transform.forward });
++                Assert.That(Vector3.Dot(fallback, Vector3.back), Is.GreaterThan(.99));
++                Assert.That(Vector3.Dot(fallback, cursor), Is.LessThan(.1));
++                Assert.Throws<ArgumentException>(() => GamePreferences.SaveDashDirection((DashDirectionMode)99));
++            }
++            if (_controls) GamePreferences.UseDirectControls(_controls);
++        }
++
++        [UnityTest] public IEnumerator GPRInteractRebindCollectsOnlyNearbyItemWithoutBasicOrMovement()
++        {
++            using (var prefs = new ConfigPreferenceScope()) using (var input = new DirectInputScope())
++            {
++                Camera view = BuildDirectRig(true); var bindings = GamePreferences.DefaultDirectBindings(); bindings[(int)GameControl.Interact] = KeyCode.H;
++                GamePreferences.SaveBindings(bindings); yield return ReadyBasicInput(input, view);
++                var item = GameObject.CreatePrimitive(PrimitiveType.Cube); _spawned.Add(item);
++                item.transform.position = new Vector3(0, .5f, 1.5f);
++                item.AddComponent<Interactable>().interactionType = InteractableType.Item;
++                Physics.SyncTransforms(); BasicMouse(input, view, item.transform.position, false);
++                int attacks = 0; _controls.BasicAttackPerformed += () => attacks++;
++                Vector3 start = _player.transform.position;
++                input.Keys(Key.G); yield return null; yield return null;
++                Assert.That(item, Is.Not.Null); Assert.That(item == null, Is.False);
++                input.Keys(); yield return null; yield return null;
++                input.Keys(Key.H); yield return null; yield return null;
++                Assert.That(item == null, Is.True);
++                Assert.That(attacks, Is.Zero); Assert.That(Vector3.Distance(start, _player.transform.position), Is.LessThan(.01f));
++            }
++            if (_controls) GamePreferences.UseDirectControls(_controls);
++        }
++
++        [UnityTest] public IEnumerator GPRSpecialRemapsExistingThreeKitsWithoutXOrF11Alias()
++        {
++            using (var prefs = new ConfigPreferenceScope()) using (var input = new DirectInputScope())
++            {
++                Camera view = BuildDirectRig(true); var bindings = GamePreferences.DefaultDirectBindings(); bindings[1] = KeyCode.Mouse4;
++                GamePreferences.SaveBindings(bindings); yield return ReadyBasicInput(input, view);
++                SetPrivate(_player, "baseMaxMana", 1500f); SetPrivate(_player, "_manaRegenerationPercentPerSecond", 0f); _player.RefreshResourceStats(true);
++                var holder = _player.GetComponent<AbilityHolder>(); int uses = 0, basics = 0;
++                holder.AbilityUsed += slot => { if (slot == 3) uses++; }; _controls.BasicAttackPerformed += () => basics++;
++                for (int weapon = 0; weapon < 3; weapon++)
++                {
++                    _player.EquipWeapon(Resources.Load<WeaponScript>(WeaponLoadout.ResourcePaths[weapon])); holder.RefreshLoadout();
++                    _player.mana = 1500; input.Keys(); BasicMouse(input, view, Vector3.forward * 5, false);
++                    yield return null; yield return null;
++                    var original = holder.ActiveAbilities[3]; float before = _player.mana;
++                    if (weapon == 0) _player.GetComponent<BreakerGauntletCombat>().AddAsuraEnergy(100);
++                    Assert.That(holder.GetAbilityKey(3), Is.EqualTo(KeyCode.Mouse4));
++                    input.Keys(Key.F11, Key.X); yield return new WaitForSeconds(.1f);
++                    Assert.That(uses, Is.EqualTo(weapon)); Assert.That(_player.mana, Is.EqualTo(before));
++                    input.Keys(); yield return null;
++                    InputSystem.QueueStateEvent(input.Mouse, new MouseState { position = (Vector2)view.WorldToScreenPoint(Vector3.forward * 5) }.WithButton(MouseButton.Forward));
++                    yield return new WaitForSeconds(.1f);
++                    Assert.That(uses, Is.EqualTo(weapon + 1)); Assert.That(basics, Is.Zero);
++                    Assert.That(holder.ActiveAbilities[3], Is.SameAs(original));
++                    Assert.That(_player.mana, Is.EqualTo(before - original.ManaCost).Within(.001));
++                    BasicMouse(input, view, Vector3.forward * 5, false); yield return null;
++                }
++            }
++            if (_controls) GamePreferences.UseDirectControls(_controls);
++        }
++
++        [UnityTest] public IEnumerator GPRThreeSkillsRemapAndHudKeepsSeparateSpecialWithoutX()
++        {
++            using (var prefs = new ConfigPreferenceScope()) using (var input = new DirectInputScope())
++            {
++                Camera view = BuildDirectRig(); var bindings = GamePreferences.DefaultDirectBindings();
++                bindings[3] = KeyCode.F6; bindings[4] = KeyCode.Mouse3; bindings[5] = KeyCode.F7;
++                GamePreferences.SaveBindings(bindings); yield return ReadyBasicInput(input, view);
++                var holder = _player.GetComponent<AbilityHolder>(); int used = -1, uses = 0;
++                holder.AbilityUsed += slot => { used = slot; uses++; };
++                for (int slot = 0; slot < 3; slot++)
++                {
++                    var ability = holder.ActiveAbilities[slot]; float mana = _player.mana;
++                    BasicMouse(input, view, Vector3.forward * 3, false);
++                    if (slot == 1) InputSystem.QueueStateEvent(input.Mouse, new MouseState { position = (Vector2)view.WorldToScreenPoint(Vector3.forward * 3) }.WithButton(MouseButton.Back));
++                    else input.Keys(slot == 0 ? Key.F6 : Key.F7);
++                    yield return new WaitForSeconds(.1f);
++                    Assert.That(used, Is.EqualTo(slot)); Assert.That(uses, Is.EqualTo(slot + 1));
++                    Assert.That(holder.ActiveAbilities[slot], Is.SameAs(ability)); Assert.That(_player.mana, Is.EqualTo(mana - ability.ManaCost).Within(.001));
++                    input.Keys(); BasicMouse(input, view, Vector3.forward * 3, false);
++                    float end = Time.realtimeSinceStartup + 4;
++                    while (holder.IsCasting) { Assert.That(Time.realtimeSinceStartup, Is.LessThan(end)); yield return null; }
++                }
++                var hud = BuildSharedHud(); yield return null; yield return new WaitForSeconds(.08f);
++                Assert.That(hud.Slots.Length, Is.EqualTo(5), "Three skills, one special, one dash; serialized references stay intact.");
++                for (int slot = 0; slot < 4; slot++)
++                {
++                    var text = (TMPro.TMP_Text)BasicField(hud.Slots[slot], "_key");
++                    Assert.That(text.text, Is.EqualTo(GamePreferences.KeyLabel(holder.GetAbilityKey(slot))));
++                    Assert.That(text.text, Is.Not.EqualTo("X"));
++                }
++                Assert.That(((TMPro.TMP_Text)BasicField(hud.Slots[3], "_name")).text, Does.StartWith("ESPECIAL"));
++                var special = holder.ActiveAbilities[3]; bindings[1] = KeyCode.T; GamePreferences.SaveBindings(bindings);
++                yield return new WaitForSeconds(.08f);
++                Assert.That(((TMPro.TMP_Text)BasicField(hud.Slots[3], "_key")).text, Is.EqualTo("T"));
++                Assert.That(holder.ActiveAbilities[3], Is.SameAs(special));
++            }
++            if (_controls) GamePreferences.UseDirectControls(_controls);
++        }
++
++        [UnityTest] public IEnumerator GPRCaptureDeviceChangeCancelsWithoutSavingDraft()
++        {
++            using (var input = new DirectInputScope())
++            {
++                BuildDirectRig(); yield return null;
++                var draft = GamePreferences.ReadBindings(); var original = (KeyCode[])draft.Clone();
++                var panel = new ControlRemappingPanel(); panel.BeginCapture(GameControl.Skill1);
++                var replacement = InputSystem.AddDevice<Keyboard>();
++                try
++                {
++                    replacement.MakeCurrent(); Assert.That(panel.Update(draft), Is.True);
++                    Assert.That(panel.IsCapturing, Is.False); CollectionAssert.AreEqual(original, draft);
++                    Assert.That(panel.CanApply, Is.False);
++                }
++                finally { InputSystem.RemoveDevice(replacement); input.Keyboard.MakeCurrent(); }
++            }
++        }
++
++        [UnityTest] public IEnumerator GPRPauseRebindPreservesEscapeSafetyWithoutWorldInput()
++        {
++            using (var prefs = new ConfigPreferenceScope()) using (var input = new DirectInputScope())
++            {
++                Camera view = BuildDirectRig(true); var bindings = GamePreferences.DefaultDirectBindings(); bindings[(int)GameControl.Pause] = KeyCode.F12;
++                GamePreferences.SaveBindings(bindings); yield return ReadyBasicInput(input, view);
++                var pause = _player.GetComponent<PauseMenuUI>(); int attacks = 0; _controls.BasicAttackPerformed += () => attacks++;
++                input.Keys(Key.F12); yield return null; yield return null;
++                Assert.That(pause.IsPaused, Is.True); Assert.That(Time.timeScale, Is.Zero);
++                input.Keys(); yield return null;
++                input.Keys(Key.Escape); yield return null; yield return null;
++                Assert.That(pause.IsPaused, Is.False); Assert.That(attacks, Is.Zero);
++                input.Keys(); yield return null; yield return null;
++            }
++            if (_controls) GamePreferences.UseDirectControls(_controls);
++        }
++
++        [UnityTest] public IEnumerator GPRInteractionRecreatesLostGuiTextureWithoutChangingContext()
++        {
++            using (var input = new DirectInputScope())
++            {
++                BuildDirectRig(); yield return null; yield return null;
++                var anchor = new GameObject("C01.4 texture station"); _spawned.Add(anchor);
++                var owner = new GameObject("C01.4 lobby texture"); _spawned.Add(owner); owner.SetActive(false);
++                var lobby = owner.AddComponent<LobbyInteraction>();
++                lobby.Configure(_player.transform, new[] { new LobbyInteraction.Station { anchor = anchor.transform, title = "Test" } });
++                owner.SetActive(true); yield return null; yield return null;
++                var texture = (Texture2D)BasicField(lobby, "_panel"); Assert.That(texture, Is.Not.Null);
++                UnityEngine.Object.DestroyImmediate(texture); yield return null; yield return null;
++                var recreated = (Texture2D)BasicField(lobby, "_panel");
++                Assert.That(recreated == null, Is.False, "A surviving GUIStyle cannot suppress lost texture reconstruction.");
++                Assert.That(lobby.IsPanelOpen, Is.False);
++            }
++        }
++
+         private IEnumerator ClickBasic(DirectInputScope input, Camera view, Vector3 point)
+         {
+             BasicMouse(input, view, point, true); yield return new WaitForSecondsRealtime(.025f);
+             BasicMouse(input, view, point, false); yield return new WaitForSecondsRealtime(.025f);
+         }
+ 
++        [UnityTest] public IEnumerator GPRReleasedContextAcceptsFirstFreshClickOnFollowingFrame() => RunReleasedContextInput(true);
++        [UnityTest] public IEnumerator GPRReleasedContextAcceptsFirstFreshMovementOnFollowingFrame() => RunReleasedContextInput(false);
++
++        private IEnumerator RunReleasedContextInput(bool attack)
++        {
++            using (var input = new DirectInputScope())
++            {
++                Camera view = BuildDirectRig(true); yield return ReadyBasicInput(input, view);
++                int attacks = 0; _controls.BasicAttackPerformed += () => attacks++;
++                Vector3 start = _player.transform.position;
++                _controls.RequireAttackRelease();
++                // The holder can observe all keys released before the controller's Update.
++                // This frame stays blocked; a new physical press arrives in the next input update.
++                Assert.That(_controls.GameplayInputReady, Is.False);
++                if (attack) BasicMouse(input, view, Vector3.forward * 10, true);
++                else input.Keys(Key.W);
++                yield return null; yield return null;
++                Assert.That(_controls.GameplayInputReady, Is.True);
++                if (attack) Assert.That(attacks, Is.EqualTo(1));
++                else Assert.That(Vector3.Distance(start, _player.transform.position), Is.GreaterThan(.01f));
++            }
++        }
++
+         [Serializable] private sealed class DirectComboObservation
+         { public string input = "virtual Mouse"; public bool physical; public float interval; public float[] times; public int[] stages; }
+ 
+@@ -79,7 +385,7 @@ namespace TechGuy.Tests
+                 yield return ReadyNextBasic(); yield return new WaitForSeconds(.15f);
+                 CollectionAssert.AreEqual(new[] { 0, 1, 2 }, stages);
+                 for (int i = 1; i < times.Count; i++) Assert.That(times[i] - times[i - 1], Is.GreaterThanOrEqualTo(interval - .001f));
+-                System.IO.File.WriteAllText(System.IO.Path.Combine(Application.dataPath, "../Docs/validation/artifacts/gameplay-rework/c01-3a/combo-observation.json"),
++                System.IO.File.WriteAllText(System.IO.Path.Combine(Application.dataPath, "../Docs/validation/artifacts/gameplay-rework/" + UnityEditor.SessionState.GetString("TechGuy.Tests.GprPhase", "c01-3a") + "/combo-observation.json"),
+                     JsonUtility.ToJson(new DirectComboObservation { physical = false, interval = interval, times = times.ToArray(), stages = stages.ToArray() }));
+             }
+         }
+@@ -175,8 +481,11 @@ namespace TechGuy.Tests
+                     yield return new WaitForSeconds(.2f);
+                     Assert.That(attacks, Is.EqualTo(context));
+                     BasicMouse(input, view, Vector3.forward * 10, false); yield return null; yield return null;
++                    Assert.That(_controls.GameplayInputReady, Is.True, "Released context=" + context);
++                    Assert.That(input.Mouse.enabled, Is.True, "Mouse context=" + context);
++                    Assert.That(_controls.CanStartDirectionalBasic, Is.True, "Basic readiness context=" + context);
+                     yield return ClickBasic(input, view, Vector3.forward * 10);
+-                    Assert.That(attacks, Is.EqualTo(context + 1)); yield return ReadyNextBasic();
++                    Assert.That(attacks, Is.EqualTo(context + 1), "Fresh click context=" + context + " release=" + BasicField(_controls, "_waitForAttackRelease") + " pointer=" + input.Mouse.position.ReadValue()); yield return ReadyNextBasic();
+                 }
+             }
+         }
+@@ -281,6 +590,12 @@ namespace TechGuy.Tests
+                 var original = holder.ActiveAbilities[3]; float before = _player.mana, cost = original.ManaCost;
+                 combat.AddAsuraEnergy(100); int uses = 0, basics = 0;
+                 holder.AbilityUsed += slot => { if (slot == 3) uses++; }; _controls.BasicAttackPerformed += () => basics++;
++                input.Keys(Key.F11);
++                yield return new WaitForSeconds(.1f);
++                Assert.That(uses, Is.EqualTo(0), "Legacy Skill4 must not activate direct Asura.");
++                Assert.That(_player.mana, Is.EqualTo(before).Within(.001f));
++                Assert.That(combat.Energy, Is.EqualTo(100));
++                input.Keys(); yield return null;
+                 input.Keys(Key.F11); BasicMouse(input, view, Vector3.forward * 10, true, true);
+                 yield return new WaitForSeconds(.2f);
+                 Assert.That(uses, Is.EqualTo(1)); Assert.That(basics, Is.EqualTo(0));
+diff --git a/Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs b/Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs
+index 1e5ce3e..3c1f665 100644
+--- a/Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs
++++ b/Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs
+@@ -17,8 +17,8 @@ namespace TechGuy.Tests
+         {
+             private readonly Keyboard _oldKeyboard = Keyboard.current;
+             private readonly Mouse _oldMouse = Mouse.current;
+-            internal readonly Keyboard Keyboard = InputSystem.AddDevice<Keyboard>("GPR-C01.2b virtual keyboard");
+-            internal readonly Mouse Mouse = InputSystem.AddDevice<Mouse>("GPR-C01.2b virtual mouse");
++            internal readonly Keyboard Keyboard;
++            internal readonly Mouse Mouse;
+             private readonly bool _restoreKeyboard, _restoreMouse;
+             private readonly InputSettings.BackgroundBehavior _background = InputSystem.settings.backgroundBehavior;
+             private readonly InputSettings.EditorInputBehaviorInPlayMode _editorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
+@@ -30,6 +30,10 @@ namespace TechGuy.Tests
+                 _restoreMouse = _oldMouse != null && _oldMouse.enabled;
+                 if (_restoreKeyboard) InputSystem.DisableDevice(_oldKeyboard);
+                 if (_restoreMouse) InputSystem.DisableDevice(_oldMouse);
++                // AddDevice applies the current background policy immediately. Configure it
++                // first so a background Editor cannot create disabled virtual devices.
++                Keyboard = InputSystem.AddDevice<Keyboard>("GPR-C01.2b virtual keyboard");
++                Mouse = InputSystem.AddDevice<Mouse>("GPR-C01.2b virtual mouse");
+                 Keyboard.MakeCurrent(); Mouse.MakeCurrent();
+             }
+             internal void Keys(params Key[] keys) => InputSystem.QueueStateEvent(Keyboard, new KeyboardState(keys));
+@@ -73,7 +77,7 @@ namespace TechGuy.Tests
+             CollectionAssert.DoesNotContain(migrated, KeyCode.X);
+             Assert.That(legacy, Is.EqualTo(copy));
+             legacy[(int)GameControl.Skill1] = KeyCode.A;
+-            foreach (var key in GamePreferences.MigrateLegacyBindings(legacy)) Assert.That(GamePreferences.IsMovementKey(key), Is.False);
++            foreach (var key in System.Linq.Enumerable.Take(GamePreferences.MigrateLegacyBindings(legacy), 8)) Assert.That(GamePreferences.IsMovementKey(key), Is.False);
+         }
+ 
+         [UnityTest]
+@@ -342,8 +346,9 @@ namespace TechGuy.Tests
+             using (var input = new DirectInputScope())
+             {
+                 const string prefix = "TechGuy.Settings.DirectBinding.v2.";
+-                var existed = new bool[8]; var values = new int[8]; var legacy = new int[8];
+-                for (int i = 0; i < 8; i++)
++                int count = GamePreferences.DefaultDirectBindings().Length;
++                var existed = new bool[count]; var values = new int[count]; var legacy = new int[count];
++                for (int i = 0; i < count; i++)
+                 {
+                     string key = prefix + (GameControl)i;
+                     existed[i] = PlayerPrefs.HasKey(key); values[i] = PlayerPrefs.GetInt(key);
+@@ -358,14 +363,14 @@ namespace TechGuy.Tests
+                     bindings[(int)GameControl.Skill1] = custom;
+                     GamePreferences.SaveBindings(bindings);
+                     Assert.That(GamePreferences.Binding(GameControl.Skill1), Is.EqualTo(custom));
+-                    for (int i = 0; i < 8; i++) Assert.That(PlayerPrefs.GetInt("TechGuy.Settings.Binding." + (GameControl)i, -999), Is.EqualTo(legacy[i]));
++                    for (int i = 0; i < count; i++) Assert.That(PlayerPrefs.GetInt("TechGuy.Settings.Binding." + (GameControl)i, -999), Is.EqualTo(legacy[i]));
+                     bindings[(int)GameControl.Skill1] = KeyCode.W;
+                     Assert.Throws<ArgumentException>(() => GamePreferences.SaveBindings(bindings));
+                     Assert.That(GamePreferences.Binding(GameControl.Skill1), Is.EqualTo(custom), "Rejected Apply cannot partially write bindings.");
+                 }
+                 finally
+                 {
+-                    for (int i = 0; i < 8; i++)
++                    for (int i = 0; i < count; i++)
+                     {
+                         string key = prefix + (GameControl)i;
+                         if (existed[i]) PlayerPrefs.SetInt(key, values[i]); else PlayerPrefs.DeleteKey(key);
+@@ -579,11 +584,11 @@ namespace TechGuy.Tests
+                 var holder = _player.GetComponent<AbilityHolder>(); SetPrivate(holder, "_lobbyInteraction", lobby);
+                 owner.SetActive(true); yield return null;
+                 int uses = 0; holder.AbilityUsed += _ => uses++;
+-                Assert.That(lobby.BlocksAbilityInput(GamePreferences.Binding(GameControl.Skill3)), Is.True);
+-                input.Keys(Key.R); yield return null; yield return null;
++                Assert.That(lobby.BlocksAbilityInput(GamePreferences.Binding(GameControl.Skill3)), Is.False);
++                input.Keys(Key.G); yield return null; yield return null;
+                 Assert.That(lobby.IsPanelOpen, Is.True); Assert.That(uses, Is.EqualTo(0));
+                 input.Keys(); yield return null; yield return null;
+-                input.Keys(Key.R, Key.W); yield return null; yield return null;
++                input.Keys(Key.G, Key.W); yield return null; yield return null;
+                 Assert.That(lobby.IsPanelOpen, Is.False); Assert.That(uses, Is.EqualTo(0));
+                 Assert.That(_controls.GameplayInputReady, Is.False);
+                 input.Keys(); yield return null; yield return null;
+diff --git a/Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs b/Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs
+index f6c353b..fcb41e9 100644
+--- a/Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs
++++ b/Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs
+@@ -16,6 +16,8 @@ namespace TechGuy.Tests
+         private Keyboard _keyboard, _oldKeyboard;
+         private Mouse _mouse, _oldMouse;
+         private bool _keyboardEnabled, _mouseEnabled;
++        private InputSettings.BackgroundBehavior _background;
++        private InputSettings.EditorInputBehaviorInPlayMode _editorInput;
+         private float _scale;
+         private bool _audio, _cursor;
+         private CursorLockMode _lock;
+@@ -23,6 +25,10 @@ namespace TechGuy.Tests
+         [UnitySetUp] public IEnumerator SetupScene()
+         {
+             _scale=Time.timeScale;_audio=AudioListener.pause;_cursor=Cursor.visible;_lock=Cursor.lockState;
++            _background = InputSystem.settings.backgroundBehavior;
++            _editorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
++            InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
++            InputSystem.settings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+             _oldKeyboard=Keyboard.current;_oldMouse=Mouse.current;
+             _keyboardEnabled=_oldKeyboard!=null&&_oldKeyboard.enabled;_mouseEnabled=_oldMouse!=null&&_oldMouse.enabled;
+             if(_keyboardEnabled)InputSystem.DisableDevice(_oldKeyboard);if(_mouseEnabled)InputSystem.DisableDevice(_oldMouse);
+@@ -37,9 +43,35 @@ namespace TechGuy.Tests
+             InputSystem.RemoveDevice(_keyboard);InputSystem.RemoveDevice(_mouse);
+             if(_keyboardEnabled&&_oldKeyboard!=null)InputSystem.EnableDevice(_oldKeyboard);
+             if(_mouseEnabled&&_oldMouse!=null)InputSystem.EnableDevice(_oldMouse);
++            _oldKeyboard?.MakeCurrent();_oldMouse?.MakeCurrent();
++            InputSystem.settings.backgroundBehavior = _background;
++            InputSystem.settings.editorInputBehaviorInPlayMode = _editorInput;
+             Time.timeScale=_scale;AudioListener.pause=_audio;Cursor.visible=_cursor;Cursor.lockState=_lock;
+             yield return null;
+         }
++        [UnityTest] public IEnumerator GPRResultsReboundSideMouseButtonRequiresRelease()
++        {
++            var controls = UnityEngine.Object.FindFirstObjectByType<PlayerActor>().GetComponent<CharControlScript>();
++            try
++            {
++                using (var prefs = new BasicAttackR1PlayModeTests.ConfigPreferenceScope())
++                {
++                    var bindings = GamePreferences.DefaultDirectBindings(); bindings[(int)GameControl.Move] = KeyCode.Mouse4;
++                    GamePreferences.SaveBindings(bindings);
++                    Store(Data()); _presenter.OpenManual(); yield return null;
++                    InputSystem.QueueStateEvent(_mouse, new MouseState().WithButton(MouseButton.Forward));
++                    yield return null; yield return null;
++                    _presenter.Close(); yield return null; yield return null;
++                    Assert.That(_presenter.BlocksInput, Is.True, "Rebound side mouse button must retain modal ownership until release.");
++                    InputSystem.QueueStateEvent(_mouse, new MouseState()); yield return null; yield return null;
++                    Assert.That(_presenter.BlocksInput, Is.False);
++                    yield return SceneManager.LoadSceneAsync("NexusLobby"); yield return null; yield return null;
++                    Assert.That(GamePreferences.WeaponSpecialBinding, Is.EqualTo(KeyCode.Mouse4), "Binding survives a scene reload.");
++                }
++            }
++            finally { var activePlayer = UnityEngine.Object.FindFirstObjectByType<PlayerActor>(); if (activePlayer) GamePreferences.UseDirectControls(activePlayer.GetComponent<CharControlScript>()); }
++        }
++
+         private static RunSummary Data(string outcome="Victory",double total=100)
+         {
+             var s=new RunSummary {SessionId=Guid.NewGuid().ToString(),Seed="42",InitialWeapon="Gauntlet",StartedUtc=DateTime.UtcNow.ToString("o"),
+diff --git a/Assets/_Project/Scripts/UI/ControlRemappingPanel.cs b/Assets/_Project/Scripts/UI/ControlRemappingPanel.cs
+index 37a815a..2cb22bc 100644
+--- a/Assets/_Project/Scripts/UI/ControlRemappingPanel.cs
++++ b/Assets/_Project/Scripts/UI/ControlRemappingPanel.cs
+@@ -4,56 +4,75 @@ using UnityEngine;
+ /// <summary>Instance-owned capture state, shared presentation for title settings and pause.</summary>
+ public sealed class ControlRemappingPanel
+ {
+-    private int _capturing = -1, _captureFrame;
++    private int _capturing = -1, _captureFrame, _captureFinishedFrame = -1;
+     private string _message;
+     private GUIStyle _hint;
+     private readonly KeyCode[] _keys = (KeyCode[])Enum.GetValues(typeof(KeyCode));
+     private readonly string[] _labels = { "Atacar (segure para repetir) / mover", "Mover / interagir", "Esquiva",
+         "Habilidade 1", "Habilidade 2", "Habilidade 3 / interagir no Nexus", "Habilidade 4", "Finalizar / retornar projeção" };
+-    private string Label(int index) => !GamePreferences.UsesDirectControls ? _labels[index] :
+-        index == 0 ? "Básico (clique; hold só ChargedShot)" :
+-        index == 1 ? "Secundário / Asura (Manopla)" :
+-        index == 6 ? "Habilidade 4 / compatibilidade Asura" : _labels[index];
++    private Vector2 _scroll;
++    private int _keyboardId, _mouseId;
++    private GameControl[] Actions => GamePreferences.UsesDirectControls ? GamePreferences.DirectActions :
++        new[] { GameControl.Primary, GameControl.Move, GameControl.Dash, GameControl.Skill1, GameControl.Skill2, GameControl.Skill3, GameControl.Skill4, GameControl.FinishSequence };
++    private string Label(int index) => GamePreferences.UsesDirectControls ? GamePreferences.ActionLabel((GameControl)index) : _labels[index];
++    public string Message => _message;
++    public void BeginCapture(GameControl action)
++    {
++        _capturing = (int)action; _captureFrame = Time.frameCount;
++        _keyboardId = UnityEngine.InputSystem.Keyboard.current?.deviceId ?? -1;
++        _mouseId = UnityEngine.InputSystem.Mouse.current?.deviceId ?? -1;
++        _message = "Esc cancela. Teclado e botões do mouse aceitos.";
++    }
++    public bool TryAssign(KeyCode[] bindings, KeyCode key)
++    {
++        if (!IsCapturing || !GamePreferences.IsBindable(key)) return false;
++        foreach (var action in Actions)
++            if ((int)action != _capturing && bindings[(int)action] == key)
++            { _message = "Já usado por " + Label((int)action) + ". Escolha outra tecla."; return false; }
++        bindings[_capturing] = key; _message = "Alteração pronta. Clique em Aplicar para salvar."; Cancel(); return true;
++    }
+     public bool IsCapturing => _capturing >= 0;
+-    public void Cancel() { _capturing = -1; }
++    public bool CanApply => !IsCapturing && Time.frameCount > _captureFinishedFrame;
++    public void Cancel() { if (IsCapturing) _captureFinishedFrame = Time.frameCount; _capturing = -1; }
+ 
+     public bool Update(KeyCode[] bindings)
+     {
+         if (!IsCapturing) return false;
++        if (!Application.isFocused || _keyboardId != (UnityEngine.InputSystem.Keyboard.current?.deviceId ?? -1) ||
++            _mouseId != (UnityEngine.InputSystem.Mouse.current?.deviceId ?? -1)) { Cancel(); _message = "Captura cancelada: foco ou dispositivo mudou."; return true; }
+         if (GamePreferences.WasPressed(KeyCode.Escape)) { Cancel(); return true; }
+         if (Time.frameCount <= _captureFrame) return true;
+         foreach (KeyCode key in _keys)
+         {
+-            if (!GamePreferences.IsBindable(key) || !GamePreferences.WasPressed(key)) continue;
+-            if (GamePreferences.UsesDirectControls && GamePreferences.IsMovementKey(key))
+-            { _message = "W/A/S/D estão reservadas ao movimento nesta etapa."; return true; }
+-            int conflict = Array.IndexOf(bindings, key);
+-            if (conflict >= 0 && conflict != _capturing)
+-            {
+-                _message = "Já usado por " + Label(conflict) + ". Escolha outra tecla.";
+-                return true;
+-            }
+-            bindings[_capturing] = key;
+-            _message = "Alteração pronta. Clique em Aplicar para salvar.";
+-            Cancel();
+-            return true;
++            if (!GamePreferences.WasPressed(key)) continue;
++            if (TryAssign(bindings, key)) return true;
+         }
+         return true;
+     }
+ 
++    public void DrawDashDirection(Rect area, ref DashDirectionMode mode)
++    {
++        GUI.Label(new Rect(area.x, area.y, area.width * .48f, 32), "Direção da esquiva");
++        if (GUI.Button(new Rect(area.x + area.width * .5f, area.y, area.width * .5f, 32),
++            mode == DashDirectionMode.Mouse ? "Cursor (padrão)" : "Movimento / olhar") && CanApply)
++            mode = mode == DashDirectionMode.Mouse ? DashDirectionMode.Movement : DashDirectionMode.Mouse;
++        GUI.Label(new Rect(area.x, area.y + 34, area.width, 22), mode == DashDirectionMode.Movement ? "Sem direção pressionada, segue a direção do personagem." : "Segue a direção do cursor.");
++    }
++
+     public void Draw(Rect area, KeyCode[] bindings)
+     {
+         if (_hint == null) _hint = new GUIStyle(GUI.skin.label) { wordWrap = true };
+-        float rowHeight = Mathf.Min(34f, (area.height - 40f) / _labels.Length);
+-        for (int i = 0; i < _labels.Length; i++)
++        var actions = Actions;
++        const float rowHeight = 36f;
++        _scroll = GUI.BeginScrollView(area, _scroll, new Rect(0, 0, area.width - 22, actions.Length * rowHeight + 46));
++        for (int row = 0; row < actions.Length; row++)
+         {
+-            float y = area.y + i * rowHeight;
+-            string label = Label(i);
+-            GUI.Label(new Rect(area.x, y + 3, area.width * .53f, rowHeight - 2), label);
+-            if (GUI.Button(new Rect(area.x + area.width * .54f, y, area.width * .46f, rowHeight - 5),
+-                _capturing == i ? "Pressione uma tecla..." : GamePreferences.KeyLabel(bindings[i])))
+-            { _capturing = i; _captureFrame = Time.frameCount; _message = "Esc cancela. Teclado e botões do mouse aceitos."; }
++            int i = (int)actions[row]; float y = row * rowHeight;
++            GUI.Label(new Rect(0, y + 3, area.width * .53f, rowHeight - 2), Label(i));
++            if (GUI.Button(new Rect(area.width * .54f, y, area.width * .40f, rowHeight - 5),
++                _capturing == i ? "Pressione uma tecla..." : GamePreferences.KeyLabel(bindings[i]))) BeginCapture(actions[row]);
+         }
+-        GUI.Label(new Rect(area.x, area.y + rowHeight * _labels.Length + 3, area.width, 36), _message ?? "Clique em um controle para alterar. Esc permanece reservado para pausa.", _hint);
++        GUI.Label(new Rect(0, actions.Length * rowHeight, area.width - 26, 44), _message ?? "Clique para alterar. Esc cancela a captura e permanece reservado para pausa.", _hint);
++        GUI.EndScrollView();
+     }
+ }
+diff --git a/Assets/_Project/Scripts/UI/LobbyArsenal.cs b/Assets/_Project/Scripts/UI/LobbyArsenal.cs
+index 907fd43..6ced625 100644
+--- a/Assets/_Project/Scripts/UI/LobbyArsenal.cs
++++ b/Assets/_Project/Scripts/UI/LobbyArsenal.cs
+@@ -5,7 +5,7 @@ using UnityEngine;
+ /// Thin runtime component that replaces the single <c>ARSENAL / ARMAS</c> panel of
+ /// <see cref="LobbyInteraction"/> with the Hades-style physical pedestals: it reads the nearest
+ /// pedestal by proximity, draws its weapon card anchored to the pedestal, and equips/unlocks the
+-/// weapon in place with the same interaction key already used in the lobby (<see cref="GameControl.Skill3"/>).
++/// weapon in place with the same interaction key already used in the lobby (<see cref="GamePreferences.InteractionAction"/>).
+ ///
+ /// All decision logic lives in the pure, scene-free classes this MonoBehaviour consumes:
+ /// <see cref="PedestalProximity"/> (nearest-in-range selection), <see cref="WeaponPedestalState"/>
+@@ -85,11 +85,13 @@ public sealed class LobbyArsenal : MonoBehaviour
+     /// pedestal is not also consumed as an ability: returns true when the pressed key is the
+     /// interaction key and the player stands within a pedestal's reach.
+     /// </summary>
++    public bool HasInteractionInRange => _player && NearestInRange() != PedestalProximity.None;
++
+     public bool BlocksAbilityInput(KeyCode key)
+     {
+         if (!_player || _pedestals == null) return false;
+-        if (key != GamePreferences.Binding(GameControl.Skill3) &&
+-            !(_compactPresentation && key == GamePreferences.Binding(GameControl.Skill4))) return false;
++        if (key != GamePreferences.Binding(GamePreferences.InteractionAction) &&
++            !(!GamePreferences.UsesDirectControls && _compactPresentation && key == GamePreferences.Binding(GameControl.Skill4))) return false;
+         return NearestInRange() != PedestalProximity.None;
+     }
+ 
+@@ -124,9 +126,11 @@ public sealed class LobbyArsenal : MonoBehaviour
+         _nearestIndex = NearestInRange();
+         if (_nearestIndex != previous) _detailsRequested = false;
+         if (_nearestIndex == PedestalProximity.None) return;
+-        if (_compactPresentation && GamePreferences.WasPressed(GameControl.Skill4))
++        if (!GamePreferences.UsesDirectControls && _compactPresentation && GamePreferences.WasPressed(GameControl.Skill4))
+             _detailsRequested = !_detailsRequested;
+-        if (!GamePreferences.WasPressed(GameControl.Skill3)) return;
++        if (_player.TryGetComponent(out CharControlScript controls) && !controls.GameplayInputReady) return;
++        if (!GamePreferences.WasPressed(GamePreferences.InteractionAction)) return;
++        if (controls) controls.RequireAttackRelease();
+ 
+         Interact(_pedestals[_nearestIndex]);
+     }
+@@ -180,7 +184,7 @@ public sealed class LobbyArsenal : MonoBehaviour
+         var playerPoint = new Vector2(playerProjected.x, Screen.height - playerProjected.y);
+         if (_compactPresentation)
+             _detailsRequested = _cardView.DrawCompact(BuildCardContent(pedestal), playerPoint, _detailsRequested,
+-                GamePreferences.BindingLabel(GameControl.Skill4));
++                GamePreferences.UsesDirectControls ? "Clique" : GamePreferences.BindingLabel(GameControl.Skill4));
+         else _cardView.Draw(BuildCardContent(pedestal), playerPoint);
+     }
+ 
+@@ -200,7 +204,7 @@ public sealed class LobbyArsenal : MonoBehaviour
+         else if (CurrencyWallet.CanAfford(state.UnlockCost)) kind = WeaponCardContent.StateKind.Unlockable;
+         else kind = WeaponCardContent.StateKind.Insufficient;
+ 
+-        return WeaponCardContent.Build(weapon, kind, state.UnlockCost, GamePreferences.BindingLabel(GameControl.Skill3));
++        return WeaponCardContent.Build(weapon, kind, state.UnlockCost, GamePreferences.BindingLabel(GamePreferences.InteractionAction));
+     }
+ 
+     /// <summary>Runs the pure proximity selection over the cached anchor/radius buffers.</summary>
+diff --git a/Assets/_Project/Scripts/UI/LobbyInteraction.cs b/Assets/_Project/Scripts/UI/LobbyInteraction.cs
+index b7d8065..ec5d7e3 100644
+--- a/Assets/_Project/Scripts/UI/LobbyInteraction.cs
++++ b/Assets/_Project/Scripts/UI/LobbyInteraction.cs
+@@ -51,12 +51,24 @@ public sealed class LobbyInteraction : MonoBehaviour
+         _stations = stations;
+     }
+ 
++    public bool InteractionPending
++    {
++        get
++        {
++            if (!GamePreferences.WasPressed(GamePreferences.InteractionAction) || !_player) return false;
++            if (_arsenal && _arsenal.HasInteractionInRange) return true;
++            if (_stations != null) foreach (var station in _stations)
++                if (station?.anchor && (_player.position - station.anchor.position).sqrMagnitude < _interactionRange * _interactionRange) return true;
++            return false;
++        }
++    }
++
+     public bool BlocksAbilityInput(KeyCode key)
+     {
+-        if (IsPanelOpen) return true;
++        if (IsPanelOpen || InteractionPending) return true;
+         // The scene's arsenal is a separate object. Reserve its interaction before AbilityHolder polls input.
+         if (_arsenal && _arsenal.BlocksAbilityInput(key)) return true;
+-        if (key != GamePreferences.Binding(GameControl.Skill3) || !_player || _stations == null) return false;
++        if (key != GamePreferences.Binding(GamePreferences.InteractionAction) || !_player || _stations == null) return false;
+         foreach (Station station in _stations)
+             if (station?.anchor && (_player.position - station.anchor.position).sqrMagnitude < _interactionRange * _interactionRange)
+                 return true;
+@@ -76,6 +88,7 @@ public sealed class LobbyInteraction : MonoBehaviour
+     {
+         if (Time.timeScale <= 0f || !_player || _loading || (_results && _results.BlocksInput)) return;
+         if (_player.TryGetComponent(out PauseMenuUI pause) && pause.BlocksInput) return;
++        if (!_showDetails && _player.TryGetComponent(out CharControlScript controls) && !controls.GameplayInputReady) return;
+         Station nearest = null;
+         float bestDistance = _interactionRange * _interactionRange;
+         if (_stations != null)
+@@ -89,7 +102,7 @@ public sealed class LobbyInteraction : MonoBehaviour
+             }
+         if (_nearest != nearest) _showDetails = false;
+         _nearest = nearest;
+-        if (_nearest == null || !GamePreferences.WasPressed(GameControl.Skill3)) return;
++        if (_nearest == null || !GamePreferences.WasPressed(GamePreferences.InteractionAction)) return;
+         if (_player.TryGetComponent(out CharControlScript inputOwner)) inputOwner.RequireAttackRelease();
+         if (string.IsNullOrEmpty(_nearest.destinationScene)) _showDetails = !_showDetails;
+         else if (Application.CanStreamedLevelBeLoaded(_nearest.destinationScene))
+@@ -110,8 +123,9 @@ public sealed class LobbyInteraction : MonoBehaviour
+     {
+         if (Time.timeScale <= 0f || !_player || (_results && _results.BlocksInput)) return;
+         if (_player.TryGetComponent(out PauseMenuUI pause) && pause.BlocksInput) return;
+-        if (_heading == null)
++        if (_heading == null || _body == null || !_panel)
+         {
++            if (_panel) Destroy(_panel);
+             _heading = new GUIStyle(GUI.skin.label) { fontSize = 18, fontStyle = FontStyle.Bold };
+             _heading.normal.textColor = new Color(0.78f, 0.85f, 0.87f);
+             _body = new GUIStyle(GUI.skin.label) { fontSize = 15, wordWrap = true };
+@@ -140,7 +154,7 @@ public sealed class LobbyInteraction : MonoBehaviour
+         GUI.Label(new Rect(40, 34, 338, 28), "NEXUS · Equipada: " + equipped, _heading);
+         GUI.Label(new Rect(40, 66, 338, 50),
+             (_blockoutGuide ? "Travessia via conexão central\n[" : "Arsenal à esquerda · Treino logo adiante\n[") + GamePreferences.MovementLabel +
+-            "] Mover · [" + GamePreferences.BindingLabel(GameControl.Skill3) + "] Interagir", _body);
++            "] Mover · [" + GamePreferences.BindingLabel(GamePreferences.InteractionAction) + "] Interagir", _body);
+         DrawIncursionDirection(width, height, scale);
+         if (_nearest != null)
+         {
+@@ -150,7 +164,7 @@ public sealed class LobbyInteraction : MonoBehaviour
+             GUI.Label(new Rect(box.x + 18, box.y + 10, 505, 30), _nearest.title, _heading);
+             GUI.Label(new Rect(box.x + 18, box.y + 46, 505, panelHeight - 50),
+                 _loading ? "Conectando ao mundo..." : _showDetails ? _nearest.description :
+-                string.IsNullOrEmpty(_nearest.destinationScene) ? "[" + GamePreferences.BindingLabel(GameControl.Skill3) + "] Acessar terminal" : "[" + GamePreferences.BindingLabel(GameControl.Skill3) + "] Iniciar incursão", _body);
++                string.IsNullOrEmpty(_nearest.destinationScene) ? "[" + GamePreferences.BindingLabel(GamePreferences.InteractionAction) + "] Acessar terminal" : "[" + GamePreferences.BindingLabel(GamePreferences.InteractionAction) + "] Iniciar incursão", _body);
+         }
+         GUI.matrix = oldMatrix;
+     }
+diff --git a/Assets/_Project/Scripts/UI/MainMenuUI.cs b/Assets/_Project/Scripts/UI/MainMenuUI.cs
+index 220d4e5..06903ca 100644
+--- a/Assets/_Project/Scripts/UI/MainMenuUI.cs
++++ b/Assets/_Project/Scripts/UI/MainMenuUI.cs
+@@ -87,6 +87,7 @@ public sealed class MainMenuUI : MonoBehaviour
+     }
+     public void ApplySettings()
+     {
++        if (!_remapping.CanApply) return;
+         bool displayChanged = _draft.Width != _saved.Width || _draft.Height != _saved.Height || _draft.Fullscreen != _saved.Fullscreen;
+         if (displayChanged && !Application.isEditor)
+         {
+@@ -96,6 +97,7 @@ public sealed class MainMenuUI : MonoBehaviour
+     }
+     public void CommitSettings()
+     {
++        if (!_remapping.CanApply) return;
+         GamePreferences.Save(_draft); _saved = _draft.Copy(); _confirmDisplay = false;
+         _message = "Configurações salvas.";
+     }
+@@ -104,6 +106,8 @@ public sealed class MainMenuUI : MonoBehaviour
+         GamePreferences.Apply(_saved); _draft = _saved.Copy(); _confirmDisplay = false;
+         _message = "Alterações de vídeo revertidas.";
+     }
++    private void OnApplicationFocus(bool focused) { if (!focused) _remapping.Cancel(); }
++
+     private void OnDestroy() { if (_confirmDisplay) GamePreferences.Apply(_saved); GamePreferences.ReleaseDirectControls(this); }
+ 
+     private static GUIStyle Style(int size, bool bold = false) => new GUIStyle(GUI.skin.label)
+@@ -239,7 +243,7 @@ public sealed class MainMenuUI : MonoBehaviour
+             if (Button(new Rect(635,450,440,43),_draft.VSync ? "Ativada" : "Desativada")) _draft.VSync=!_draft.VSync;
+             Label(new Rect(190,510,880,36),Application.isEditor ? "No Editor, resolução e modo de tela são usados apenas no jogo compilado." : "Mudanças de tela pedem confirmação e revertem após 15 segundos.",_small,Muted);
+         }
+-        else if (_tab == 2) _remapping.Draw(new Rect(190,275,885,275),_draft.Bindings);
++        else if (_tab == 2) { _remapping.Draw(new Rect(190,275,885,225),_draft.Bindings); _remapping.DrawDashDirection(new Rect(190,515,885,36), ref _draft.DashDirection); }
+         else
+         {
+             RowLabel(300,"Volume geral");
+@@ -248,7 +252,7 @@ public sealed class MainMenuUI : MonoBehaviour
+             Label(new Rect(190,376,830,64),"Controla o volume de todos os sons do jogo. Use 0% para silenciar.",_body,Muted);
+         }
+         if (Button(new Rect(190,572,200,44),"Voltar")) Open(Page.Home);
+-        if (Button(new Rect(408,572,244,44),"Restaurar padrões")) { _remapping.Cancel(); _draft=GamePreferences.Defaults(); AddResolution(_draft.Width,_draft.Height); _message="Padrões carregados. Clique em Aplicar para salvar."; }
++        if (Button(new Rect(408,572,244,44),"Restaurar padrões")) { _remapping.Cancel(); if (_tab == 2) { _draft.Bindings=GamePreferences.DefaultDirectBindings(); _draft.DashDirection=DashDirectionMode.Mouse; } else { _draft=GamePreferences.Defaults(); AddResolution(_draft.Width,_draft.Height); } _message="Padrões carregados. Clique em Aplicar para salvar."; }
+         if (Button(new Rect(859,572,216,44),"Aplicar",true)) ApplySettings();
+         if (!string.IsNullOrEmpty(_message)) Label(new Rect(190,646,900,26),_message,_small,Cyan);
+     }
+@@ -264,16 +268,16 @@ public sealed class MainMenuUI : MonoBehaviour
+     {
+         Panel("Controles","Aponte o cursor na direção em que deseja agir.");
+         string[] keys = { GamePreferences.MovementLabel, GamePreferences.BindingLabel(GameControl.Primary), GamePreferences.BindingLabel(GameControl.Dash),
+-            GamePreferences.BindingLabel(GameControl.Skill1)+" / "+GamePreferences.BindingLabel(GameControl.Skill2)+" / "+GamePreferences.BindingLabel(GameControl.Skill3), GamePreferences.BindingLabel(GameControl.Skill4), GamePreferences.BindingLabel(GameControl.FinishSequence), "1 / 2 / 3" };
+-        string[] actions = { "Mover diretamente; mire com o mouse", "Clique no alvo ao alcance; segure: comportamento legado", "Esquivar para o cursor", "Usar habilidades da arma", "Usar o especial legado da arma", "Finalizar Asura na espera / retornar Órbita da Lança", "Escolher um modificador na recompensa" };
++            GamePreferences.BindingLabel(GameControl.Skill1)+" / "+GamePreferences.BindingLabel(GameControl.Skill2)+" / "+GamePreferences.BindingLabel(GameControl.Skill3), GamePreferences.KeyLabel(GamePreferences.WeaponSpecialBinding), GamePreferences.BindingLabel(GameControl.Interact), GamePreferences.BindingLabel(GameControl.FinishSequence), "1 / 2 / 3" };
++        string[] actions = { "Mover diretamente; mire com o mouse", "Um clique pede um básico; hold só com ChargedShot", "Esquiva configurável: cursor ou movimento/facing", "Três habilidades modulares da arma", "Especial permanente da arma", "Interagir com estações e objetos", "Finalizar Asura na espera / retornar Órbita da Lança", "Escolher um modificador na recompensa" };
+         for (int i=0;i<keys.Length;i++)
+         {
+-            float y=215+i*43;
++            float y=215+i*37;
+             Fill(new Rect(190,y,885,38),i%2==0 ? new Color(.065f,.105f,.14f) : new Color(.045f,.08f,.11f));
+             Label(new Rect(203,y+9,250,28),keys[i],_small,Cyan);
+             Label(new Rect(475,y+6,590,32),actions[i],_body,Color.white);
+         }
+-        Label(new Rect(190,522,880,40),"Aproxime-se com WASD. Clique no inimigo para atacar; o cursor não define destinos de movimento.",_small,Muted);
++        Label(new Rect(190,522,880,40),"Aproxime-se com " + GamePreferences.MovementLabel + ". Um clique pede um ataque na direção do cursor, mesmo sem alvo.",_small,Muted);
+         if (Button(new Rect(190,572,210,44),"Voltar")) Open(Page.Home);
+         if (Button(new Rect(815,572,260,44),"Praticar no prólogo",true)) StartJourney(true);
+     }
+diff --git a/Assets/_Project/Scripts/UI/PauseMenuUI.cs b/Assets/_Project/Scripts/UI/PauseMenuUI.cs
+index f32aae3..1c15605 100644
+--- a/Assets/_Project/Scripts/UI/PauseMenuUI.cs
++++ b/Assets/_Project/Scripts/UI/PauseMenuUI.cs
+@@ -12,6 +12,7 @@ public sealed class PauseMenuUI : MonoBehaviour
+     private enum PausePage { Home, Upgrades, Map, Controls }
+ 
+     [SerializeField] private string _mainMenuScene = "MainMenu";
++    private DashDirectionMode _dashDirection;
+     private readonly ControlRemappingPanel _remapping = new ControlRemappingPanel();
+     private KeyCode[] _bindings;
+     private PausePage _page;
+@@ -77,7 +78,7 @@ public sealed class PauseMenuUI : MonoBehaviour
+             return;
+         }
+         if (_page == PausePage.Controls && _remapping.Update(_bindings)) return;
+-        if (Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame) return;
++        if (!(Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) && !GamePreferences.WasPressed(GameControl.Pause)) return;
+         if (IsPaused) NavigateBack();
+         else Pause();
+     }
+@@ -264,6 +265,7 @@ public sealed class PauseMenuUI : MonoBehaviour
+         {
+             _page = PausePage.Controls;
+             _bindings = GamePreferences.ReadBindings();
++            _dashDirection = GamePreferences.DashDirection;
+         }
+         float nextY = 460f;
+         if (_map && _map.CanAbortRun)
+@@ -280,18 +282,24 @@ public sealed class PauseMenuUI : MonoBehaviour
+         }
+     }
+ 
++    private void OnApplicationFocus(bool focused) { if (!focused) _remapping.Cancel(); }
++
+     private void DrawControls()
+     {
+-        _remapping.Draw(new Rect(390, 200, 500, 292), _bindings);
++        _remapping.Draw(new Rect(390, 200, 500, 240), _bindings);
++        _remapping.DrawDashDirection(new Rect(390, 455, 500, 36), ref _dashDirection);
+         if (GUI.Button(new Rect(390, 540, 145, 44), "Voltar", _button)) ReturnToPauseHome();
+         if (GUI.Button(new Rect(548, 540, 150, 44), "Padrões", _button))
+         {
+             _remapping.Cancel();
+             _bindings = GamePreferences.UsesDirectControls ? GamePreferences.DefaultDirectBindings() : GamePreferences.DefaultBindings();
++            _dashDirection = DashDirectionMode.Mouse;
+         }
+         if (GUI.Button(new Rect(711, 540, 179, 44), "Aplicar", _button))
+         {
++            if (!_remapping.CanApply) return;
+             GamePreferences.SaveBindings(_bindings);
++            GamePreferences.SaveDashDirection(_dashDirection);
+             ReturnToPauseHome();
+         }
+     }
+diff --git a/Assets/_Project/Scripts/UI/PlayerHUD.cs b/Assets/_Project/Scripts/UI/PlayerHUD.cs
+index 1a8168d..5bbc338 100644
+--- a/Assets/_Project/Scripts/UI/PlayerHUD.cs
++++ b/Assets/_Project/Scripts/UI/PlayerHUD.cs
+@@ -226,6 +226,7 @@ public sealed class PlayerHUD : MonoBehaviour
+             if (asuraSlot && _breaker && _breaker.IsAsuraActive) { active = true; remaining = 0f; ratio = 0f; }
+             if (asuraSlot && !active) requirement = !rUnavailable.HasValue;
+             string actionName = ActionName(i, ability);
++            if (i == 3 && _holder.UsesDirectWeaponSpecial) actionName = "Especial · " + actionName;
+             string extensionStatus = i == 3 && _bowBoons && _bowBoons.IsCharging ? (_bowBoons.ChargeRatio * 100f).ToString("0") + "%" :
+                 i == 3 && _spearBoons && _spearBoons.HasOrbit ? GamePreferences.BindingLabel(GameControl.FinishSequence) + " RETORNO" :
+                 i == 2 && _bowBoons && _bowBoons.ActiveMines > 0 ? _bowBoons.ActiveMines + " MINAS" :
+diff --git a/Assets/_Project/Scripts/UI/RunResultsPresenter.cs b/Assets/_Project/Scripts/UI/RunResultsPresenter.cs
+index 0f9f741..b3099b3 100644
+--- a/Assets/_Project/Scripts/UI/RunResultsPresenter.cs
++++ b/Assets/_Project/Scripts/UI/RunResultsPresenter.cs
+@@ -65,7 +65,7 @@ public sealed class RunResultsPresenter : MonoBehaviour
+     private static bool Held()
+     {
+         var k=Keyboard.current;var m=Mouse.current;var g=Gamepad.current;
+-        return k!=null&&k.anyKey.isPressed || m!=null&&(m.leftButton.isPressed||m.rightButton.isPressed||m.middleButton.isPressed) ||
++        return GamePreferences.AnyGameplayHeld || k!=null&&k.anyKey.isPressed || m!=null&&(m.leftButton.isPressed||m.rightButton.isPressed||m.middleButton.isPressed) ||
+             g!=null&&(g.buttonSouth.isPressed||g.buttonEast.isPressed||g.startButton.isPressed);
+     }
+     private void Update()
+diff --git a/Assets/_Project/Scripts/UI/TutorialHUD.cs b/Assets/_Project/Scripts/UI/TutorialHUD.cs
+index 09b1bcf..9bf97ca 100644
+--- a/Assets/_Project/Scripts/UI/TutorialHUD.cs
++++ b/Assets/_Project/Scripts/UI/TutorialHUD.cs
+@@ -46,7 +46,7 @@ public sealed class TutorialHUD : MonoBehaviour
+         switch (_tutorial.Stage)
+         {
+             case TutorialStage.Movement:
+-            case TutorialStage.Departure: return GamePreferences.UsesDirectControls ? "WASD" : GamePreferences.BindingLabel(GameControl.Primary) + " / " + GamePreferences.BindingLabel(GameControl.Move);
++            case TutorialStage.Departure: return GamePreferences.UsesDirectControls ? GamePreferences.MovementLabel : GamePreferences.BindingLabel(GameControl.Primary) + " / " + GamePreferences.BindingLabel(GameControl.Move);
+             case TutorialStage.Dodge: return GamePreferences.BindingLabel(GameControl.Dash);
+             case TutorialStage.BasicAttack: return TutorialDirector.BasicAttackControl;
+             case TutorialStage.Skill: return GamePreferences.BindingLabel(GameControl.Skill1);
+@@ -54,9 +54,9 @@ public sealed class TutorialHUD : MonoBehaviour
+         }
+     }
+     private string Instruction() => GamePreferences.UsesDirectControls && (_tutorial.Stage == TutorialStage.Movement || _tutorial.Stage == TutorialStage.Departure)
+-        ? "Use WASD para chegar ao marcador. O mouse controla a mira, independentemente do movimento."
++        ? "Use " + GamePreferences.MovementLabel + " para chegar ao marcador. O mouse controla a mira, independentemente do movimento."
+         : GamePreferences.UsesDirectControls && _tutorial.Stage == TutorialStage.BasicAttack
+-        ? "Aproxime-se do alvo com WASD e clique nele para atacar. Acompanhe o contato e a reação."
++        ? "Aproxime-se com " + GamePreferences.MovementLabel + " e use " + GamePreferences.BindingLabel(GameControl.Primary) + " para atacar. Acompanhe o contato e a reação."
+         : _tutorial.Stage == TutorialStage.BasicAttack
+         ? TutorialDirector.BasicAttackInstruction
+         : _tutorial.Stage == TutorialStage.Skill ? "Aponte para o alvo e use a habilidade 1. Observe a mana e a recarga."

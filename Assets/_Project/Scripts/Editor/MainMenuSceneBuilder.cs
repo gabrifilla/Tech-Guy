@@ -86,6 +86,10 @@ public static class MainMenuSceneBuilder
         diorama.name = "Nexus Diorama";
         diorama.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
 
+        // The menu has no player; its decorative copy must not run lobby interactions.
+        foreach (var arsenal in diorama.GetComponentsInChildren<LobbyArsenal>(true))
+            Object.DestroyImmediate(arsenal);
+
         foreach (var surface in diorama.GetComponentsInChildren<Unity.AI.Navigation.NavMeshSurface>(true))
             Object.DestroyImmediate(surface);
     }

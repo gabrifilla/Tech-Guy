@@ -1,0 +1,86 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "6ba44d4103c54b148b5f3e2dcefddc44",
+    "status": "failed",
+    "mode": "PlayMode",
+    "started_unix_ms": 1793207517631,
+    "finished_unix_ms": 1793207527278,
+    "last_update_unix_ms": 1793207527278,
+    "progress": {
+      "completed": 4,
+      "total": 4,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.GPR01FoundationTests.ProtocolAcquisitionKeepsAllUnchangedCooldownsIncludingSpecial",
+      "last_finished_unix_ms": 1793207527211,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [
+        {
+          "full_name": "TechGuy.Tests.GPR01FoundationTests.ProtocolAcquisitionKeepsAllUnchangedCooldownsIncludingSpecial",
+          "message": "  Expected: False\r\n  But was:  True\r\n"
+        }
+      ],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "PlayMode",
+      "summary": {
+        "total": 4,
+        "passed": 3,
+        "failed": 1,
+        "skipped": 0,
+        "durationSeconds": 2.6519238,
+        "resultState": "Failed(Child)"
+      },
+      "results": [
+        {
+          "name": "BasicMutationAcceptsExplicitTargetWithoutExpandingLegacyAny",
+          "fullName": "TechGuy.Tests.GPR01FoundationTests.BasicMutationAcceptsExplicitTargetWithoutExpandingLegacyAny",
+          "state": "Passed",
+          "durationSeconds": 0.0458567,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "LegacyConfigurationAndBasicAcquisitionRoundTripWithAtomicRejection",
+          "fullName": "TechGuy.Tests.GPR01FoundationTests.LegacyConfigurationAndBasicAcquisitionRoundTripWithAtomicRejection",
+          "state": "Passed",
+          "durationSeconds": 0.011866,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "LegacyUniversalDoesNotAcquireBasicOrBecomeAnotherCastSlot",
+          "fullName": "TechGuy.Tests.GPR01FoundationTests.LegacyUniversalDoesNotAcquireBasicOrBecomeAnotherCastSlot",
+          "state": "Passed",
+          "durationSeconds": 0.0018166,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ProtocolAcquisitionKeepsAllUnchangedCooldownsIncludingSpecial",
+          "fullName": "TechGuy.Tests.GPR01FoundationTests.ProtocolAcquisitionKeepsAllUnchangedCooldownsIncludingSpecial",
+          "state": "Failed",
+          "durationSeconds": 2.5188087,
+          "message": "  Expected: False\r\n  But was:  True\r\n",
+          "stackTrace": "at TechGuy.Tests.GPR01FoundationTests+<ProtocolAcquisitionKeepsAllUnchangedCooldownsIncludingSpecial>d__3.MoveNext () [0x00172] in D:\\Projetos\\Gabriel\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\GPR01FoundationTests.cs:88\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": "ProgressionDirector Run_Seed = 5219040162954006580 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        }
+      ]
+    }
+  },
+  "hint": null
+}

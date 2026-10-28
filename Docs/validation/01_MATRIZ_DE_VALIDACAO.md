@@ -1,6 +1,47 @@
 # Matriz de validação: prova antes de declarar pronto
 
-**Atualização mais recente: preparação do playtest VS-03.3, 24/10/2026**, registrada ao final. Os resultados anteriores mantêm sua data e seus limites; a validação assistida de runs e de Mutation→Elite não equivale a partida natural nem a aceite humano.
+## Estado vigente — GPR-01.1,28/10/2026
+
+GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
+
+Direção experimental A→A+B→A+B+C aceita, parâmetros1,5×/0,60× provisórios; autorizada **exclusivamente GPR-01.1**. [Relatório da fundação](../decisions/GPR-01.1_RELATORIO.md) / [fatia e próximo escopo](../gameplay/GPR_01_VERTICAL_SLICE.md). Sem asset/boonTitanic Fists habilitado, onda ou transformação visual de produção. STOP para revisão antes de01.2;01.3–6 também exigem autorização posterior.
+
+Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecânica nova. SwapAvanço→Uppercut adiado por redução aprovada de escopo; aquisição/substituição modular Q/E/R permanece requisito **NÃO IMPLEMENTADO/NÃO VALIDADO**, rastreado em GPR-03.1/RF-TROCA. Gates e decisões históricos abaixo não sobrepõem esta autorização.
+
+## Fechamento GPR-C01.5 e readiness GPR-01.P1
+
+| Critério | Resultado | Fonte e limite |
+|---|---|---|
+| C01 técnica |116 nomes distintos Passed/0failed/0skipped em seis filtros finais, relidos nesta rodada | final-input31, final-ui9, final-movement23, final-combat30, final-dash8, final-edit15 em artifacts/gameplay-rework/c01-4d; não suíte global/nova execução |
+| C01 humano |APROVADO por declaração direta nesta conversa,28/10/2026 | WASD/mira/dash/LMB/combos/RMB-Asura/QER/fluidez/configuração/interação experimentadas; não aprovação de catálogo/arte futura |
+| C01.5a/b |CONCLUÍDAS, faseC01 COMPLETA | [Relatório5](../decisions/GPR-C01.5_RELATORIO.md) e [consolidado](../decisions/GPR-C01_PHASE_SUMMARY.md); sem exigir outro playtest completo |
+| Refinamentos |DIFERIDOS NÃO BLOQUEADORES | Moonwalk: strafe/backpedal/forward/blend2D local futuro; básicos rápidos: tuning futuro. Nenhuma alteração de timing/animação nesta rodada |
+| Cobertura não certificada |PENDENTE quando relevante | Standalone/restart, hotplug/dispositivos físicos completos, gamepad, crowd64/móveis/overlap. Pendência não é falha demonstrada do controle aprovado |
+| GPR-01.P1 |PLANEJAMENTO CONCLUÍDO; design aguardando revisão | [FatiaA/B/C](../gameplay/GPR_01_VERTICAL_SLICE.md); leitura estática do grafo/receipt/protocolos/timers; zero gameplay novo/zero testes Unity novos |
+
+As evidências anteriores mantêm seus resultados, revisões e limites. O aceite atual encerra somente a pendência humana dos controles atuais; não transforma capturas virtuais antigas em playtest humano, nem aprova GPR-01.
+
+
+
+## Histórico do fechamento C01.4,28/10/2026
+
+**CONCLUÍDA TECNICAMENTE; aguardando playtest humano.** Três skillsQ/E/R + especialRMB, semX/aliasF11; InteractG e finisherF, pausa remapeável/Escape seguro. DashCursor padrão ou Movimento com fallbackolhar por decisão direta.116 casos distintos aprovados em filtros agregados (115 na rodada completa +9UI posterior com1 novo), zero ignorados; não suíte global. Snapshots automatizados iguais e mudanças posteriores do perfil preservadas. Editor finalNexusLobby limpa/Edit Mode; Tripo3D preexistente pendente. [Consolidado](../decisions/GPR-C01.4_RELATORIO.md). Não iniciar C01.5/GPR-01 sem autorização.
+
+
+## Histórico C01.4 — layout revisado, execução sequencial
+
+C01.3b aceita tecnicamente pelo desenvolvedor. Decisão mais recente substitui quatro slots Q/E/R/X por **três Q/E/R + especial separado RMB**, preservando índices/assets/executores.4a concluída tecnicamente4/4 focados, relatório individual e captura real; cumulativa pendente.4b concluída:1/1 política/persistência e8/8 dash; Movimento sem input usa facing por decisão direta mais recente.4c concluída2/2: InteractG separado de skills/finisherF; contexto e objetos/remap validados.4d concluída tecnicamente: Q/E/R+especial separado, semX;116 casos distintos finais agregados, capturas1280x720, relatórios4a/b/c/d e consolidado. Preservadas falhas intermediárias; sem suíte global/aceite físico novo. STOP após4,5/GPR-01 exigem aprovação. Sem C01.5/GPR-01.
+
+
+## Histórico C01.3b — fechamento na data,28/10/2026
+
+**CONCLUÍDA TECNICAMENTE:105/105 casos distintos finais, zero ignorados**, via Unity MCP no checkout correto/Editor6000.5.10f1. Aceite humano anterior das últimas correções recebido para WASD, básicos, Q/E/R e Asura/RMB; básicos rápidos ficam como refinamento futuro, sem mudar cadência. [Relatório](../decisions/GPR-C01.3b_RELATORIO.md).
+
+Corrigidas fixtures que criavam dispositivos virtuais antes da política de foco, e o gate de soltura que descartava o primeiro comando novo no frame seguinte. Dois testes falharam0/2 antes da correção de produção;22 básicos/input+23 movimento+7 contextos+30 combate+8 dash+15 EditMode passaram após as correções. Ajustado teste Cadenciada para agir no frame de recovery observado, mantendo asserções/tempos. Outputs e falhas anteriores preservados em c01-3b/correcao e gate; não suíte global. Runtime publicado com input virtual:3 básicos0/1/2 e1 Asura por RMB,4 PNG; não novo teste físico.
+
+F11 deixou de ativar Asura direta por decisão explícita; binding salva/executor/custos/estágios preservados. Frame de soltura continua bloqueado; held não atravessa UI/foco/pausa. Editor final NexusLobby limpa/Edit Mode; permanece erro de pacote Tripo3D preexistente. Causa física do incidente RMB antigo não confirmada retrospectivamente; aceite humano posterior inclui RMB funcional.
+
+**Gate de C01.4 satisfeito;4a–4d já autorizadas, ainda não implementadas.** Não iniciar C01.5/GPR-01. Interact separado precisa respeitar F/finisher; X pode ficar vazio, nunca duplicar Asura. Autorizações e evidências3a abaixo são históricas onde conflitam com este fechamento.
 
 | Mudança | Inspeção/diff | Unity compila/import | EditMode | PlayMode/cena | Imagens/vídeo | Humano |
 |---|---|---|---|---|---|---|
@@ -1356,3 +1397,20 @@ Artefatos: `artifacts/gameplay-rework/c01-2c/`. A captura inicial em background 
 | Limites/STOP |PENDENTE físico/3b |Animação directional/strafe/backpedal, dash configurável, Interact/Settings/QERX/extração completa, outros especiais e GPR-01 fora.3b não iniciada. |
 
 Intermediários de compilação/fixture estão arquivados em artifacts/gameplay-rework/c01-3a; não contar como PASS. Primeiras falhas vieram de input virtual concorrendo com dispositivos físicos e de helper de clique escalado atravessando hitstop; isolamento/restauração e relógio real de input corrigidos sem alterar assert/TTL/cadência de produção. MCP nativo e cliente HTTP com IDs RPC únicos usados. Git/push de todo o acumulado solicitado não significa validação global das alterações preexistentes.
+
+## GPR-01.1 — fundação,28/10/2026
+
+[Relatório](../decisions/GPR-01.1_RELATORIO.md) / [pedidos exatos](artifacts/gameplay-rework/gpr-01-1/test-requests.json) / [resumo verificado](artifacts/gameplay-rework/gpr-01-1/verification-summary.json).
+
+| Critério | Resultado observado | Limite |
+|---|---|---|
+| EditMode grafo/compatibilidade/ofertas/seeds/Asura |90/90, job1e87e68d7b7e47cc817df8f05a495354 | Resultado recuperado após desconexão durante simulação longa |
+| PlayMode fundação+GI/Protocols/recursos/tickets/analytics |120/120, jobb13bdf682a7247a7a9d6fc74005e9d23 |15 focados já incluídos,210 nomes distintos com EditMode; não suíte global |
+| Vermelho→verde |0/2 no job386bebd3…; Basic inválido e cooldown2→0 | Mesmas condições centrais passaram depois; falhas intermediárias arquivadas |
+| Aquisição/fixtures |ID desconhecido rejeitado; timers mantidos; duas fixtures legadas preparadas pelo pool atual | Não ativar conteúdo aposentado nem flexibilizar asserts para obter verde |
+| Serialização/importação |Basic4/flag16, Any15; JSON antigo + asset temporário save/unload/reload | Scratch e meta removidos; não prova save/resume de run inteira |
+| Causalidade/cleanup |Receipt real, reserva única, cap negado, geração, reentrância, pausa, disable e cena; parent/HP reconciliados | Filhos técnicos injetados, sem onda de produção; políticaNone por padrão |
+| Integridade/Editor |1596/1613 hashes protegidos iguais;17 fontes intencionais; sem asset/scene/meta/config preexistente alterado | NexusBlockout limpa/Edit Mode; prefs consultadas iguais; Tripo3D pendente |
+| Humano/conteúdo |C01 já aceita; mutação/visual novos NÃO IMPLEMENTADOS/NÃO ACEITOS | Somente01.1 concluída; STOP antes01.2 |
+
+RF-TROCA Q/E/R continua NÃO VALIDADO em GPR-03.1. Q/Avanço para aproximar é compatibilidade, não uma nova sinergia skill↔básico. Comparações A/B/C e economia natural exigem as etapas futuras aprovadas.

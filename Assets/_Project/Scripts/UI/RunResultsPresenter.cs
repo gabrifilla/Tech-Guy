@@ -65,7 +65,7 @@ public sealed class RunResultsPresenter : MonoBehaviour
     private static bool Held()
     {
         var k=Keyboard.current;var m=Mouse.current;var g=Gamepad.current;
-        return k!=null&&k.anyKey.isPressed || m!=null&&(m.leftButton.isPressed||m.rightButton.isPressed||m.middleButton.isPressed) ||
+        return GamePreferences.AnyGameplayHeld || k!=null&&k.anyKey.isPressed || m!=null&&(m.leftButton.isPressed||m.rightButton.isPressed||m.middleButton.isPressed) ||
             g!=null&&(g.buttonSouth.isPressed||g.buttonEast.isPressed||g.startButton.isPressed);
     }
     private void Update()

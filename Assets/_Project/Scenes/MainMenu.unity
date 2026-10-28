@@ -246,7 +246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuUI
   _tutorialScene: PrologueTutorial
-  _lobbyScene: NexusLobby
+  _lobbyScene: NexusBlockout
 --- !u!4 &866537598
 Transform:
   m_ObjectHideFlags: 0
@@ -611,6 +611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3780636606335280073, guid: 52399c86ac3a7c64db08b003ff0a7579, type: 3}
+    - {fileID: 7945880378187069917, guid: 52399c86ac3a7c64db08b003ff0a7579, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

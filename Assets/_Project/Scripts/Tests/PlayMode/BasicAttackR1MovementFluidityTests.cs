@@ -249,16 +249,20 @@ namespace TechGuy.Tests
             // The shipped pulse recovers for 180 ms, while offensive input lasts 120 ms.
             // Issue this fresh continuation in the last 15% (at most 60 ms) of the real pulse,
             // so the assertion exercises priority/consumption rather than legitimate input expiry.
-            yield return WaitForMovementRecovery(holder, .85f);
             Vector3 queued = Vector3.right * 9f;
-            Assert.IsTrue(_controls.TryRequestGroundMovement(queued));
-            Assert.IsTrue(_controls.HasPendingGroundMovement);
-            Assert.IsTrue(holder.TryUseAbility(3), "A fresh R press in recovery buffers the next pulse of the same execution.");
-            Assert.IsTrue(holder.HasBufferedOffensiveIntent);
-            Assert.IsFalse(_controls.HasPendingGroundMovement, "Accepted offensive continuation supersedes ground input immediately.");
-            Assert.IsFalse(_controls.TryRequestGroundMovement(Vector3.left * 9f), "Pending offensive input owns the next opportunity before ground movement.");
-            Assert.AreEqual(1, uses, "A continuation must not publish a second AbilityUsed for the same R execution.");
-            Assert.AreEqual(manaAfterStart, _player.mana);
+            yield return WaitForMovementRecovery(holder, .85f, () =>
+            {
+                // Act in the observed recovery frame. Returning from a nested coroutine
+                // first can advance into the wait state, where movement is immediate.
+                Assert.IsTrue(_controls.TryRequestGroundMovement(queued));
+                Assert.IsTrue(_controls.HasPendingGroundMovement);
+                Assert.IsTrue(holder.TryUseAbility(3), "A fresh R press in recovery buffers the next pulse of the same execution.");
+                Assert.IsTrue(holder.HasBufferedOffensiveIntent);
+                Assert.IsFalse(_controls.HasPendingGroundMovement, "Accepted offensive continuation supersedes ground input immediately.");
+                Assert.IsFalse(_controls.TryRequestGroundMovement(Vector3.left * 9f), "Pending offensive input owns the next opportunity before ground movement.");
+                Assert.AreEqual(1, uses, "A continuation must not publish a second AbilityUsed for the same R execution.");
+                Assert.AreEqual(manaAfterStart, _player.mana);
+            });
 
             // Observe the real runner advancing its pulse index. No cast state/timing is assigned by this test.
             var strike = typeof(BreakerGauntletCombat).GetField("_cadencedStrike",
@@ -428,7 +432,7 @@ namespace TechGuy.Tests
             return holder;
         }
 
-        private IEnumerator WaitForMovementRecovery(AbilityHolder holder, float minimumGlobalProgress = 0f)
+        private IEnumerator WaitForMovementRecovery(AbilityHolder holder, float minimumGlobalProgress = 0f, System.Action onRecovery = null)
         {
             var combat = _player.GetComponent<BreakerGauntletCombat>();
             Assert.IsTrue(combat);
@@ -436,7 +440,7 @@ namespace TechGuy.Tests
             while (holder.IsCasting && Time.realtimeSinceStartup < deadline)
             {
                 if (holder.CanQueueRecoveryMovement && combat.TryGetCancelContext(out _, out float progress)
-                    && progress >= minimumGlobalProgress) yield break;
+                    && progress >= minimumGlobalProgress) { onRecovery?.Invoke(); yield break; }
                 yield return null;
             }
             Assert.Fail("The authored action must expose its real recovery window while it is still executing.");

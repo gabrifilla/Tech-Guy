@@ -1,5 +1,30 @@
 # GPR-00.2 — Ownership, dependências e lacunas
 
+## Estado vigente — GPR-01.1,28/10/2026
+
+GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
+
+Direção experimental A→A+B→A+B+C aceita, parâmetros1,5×/0,60× provisórios; autorizada **exclusivamente GPR-01.1**. [Relatório da fundação](../decisions/GPR-01.1_RELATORIO.md) / [fatia e próximo escopo](GPR_01_VERTICAL_SLICE.md). Sem asset/boonTitanic Fists habilitado, onda ou transformação visual de produção. STOP para revisão antes de01.2;01.3–6 também exigem autorização posterior.
+
+Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecânica nova. SwapAvanço→Uppercut adiado por redução aprovada de escopo; aquisição/substituição modular Q/E/R permanece requisito **NÃO IMPLEMENTADO/NÃO VALIDADO**, rastreado em GPR-03.1/RF-TROCA. Gates e decisões históricos abaixo não sobrepõem esta autorização.
+
+## Delta de ownership após fechamento C01
+
+Movimento/input/rebinding/contextos agora são entregues e aceitos no escopoC01; linhas antigas classificadas EXTEND/UNDECIDED sobre esses controles são baseline histórica. C01 não implementou InputAction asset/PlayerInput; a fachada GamePreferences/Input System existente continua a solução atual, sem segundo backend.
+
+GPR-01 proposta: BasicImpact→receipt de PlayerActor→reserva em BreakerGauntletCombat/ProtocolRuntime; RunBoons/WeaponRunModifiers/grafo continuam inventário. As extensões pendentes são alvoBasic, política restrita do novo ramo e aquisição sem refresh destrutivo de timers. Swap genérico não é parte desta fatia proposta. [Seams detalhados](GPR_01_VERTICAL_SLICE.md).
+
+
+## Histórico aprovado C01.4 — três skills + especial,28/10/2026
+
+A decisão direta mais recente **substitui todo modelo de quatro slots modulares Q/E/R/X**: exatamente três slots modulares Q/E/R e um especial permanente separado no RMB. X não tem ação/placeholder; index3 e arrays de quatro referências permanecem compatibilidade interna, nunca uma quarta skill modular. Asura mantém executor, custos, duração, cooldown, animação, danos e continuação; F11 não é alias direto. Bow/Spear reutilizam sua quarta ação existente no canal especial, sem mecânica/asset novo. A futura aquisição/substituição é restrita aos três slots e continua fora de C01.4.
+
+WASD e demais ações configuráveis no Settings; InteractG dedicado e finisherF distintos por padrão, sem sobrescrever personalizações. Dash padrãoCursor; opçãoMovimento usa vetor configurado/câmera normalizado e **facing atual quando não há direção pressionada**, conforme esclarecimento posterior do desenvolvedor. A sugestão histórica de fallbackcursor no modoMovimento está superada. Escape reservado à pausa/cancel seguro. Migração só lê/repara em memória, Apply explícito grava nomes de ações; sem reset de progresso.
+
+Registro histórico de C01.4: implementação e116 casos cumulativos concluídos antes do aceite físico. A pendência humana foi encerrada por C01.5; o estado vigente e o novo STOP de GPR-01 estão no início deste documento.
+
+
+
 26/10/2026. Inspeção estática do checkout D:, HEAD3a3f0ee + alterações locais; evidência Unity limitada aos relatórios. Fontes principais: [arquitetura canônica](../04_ARQUITETURA_E_INTEGRIDADE.md), [combate](../systems/01_COMBATE.md), [boons](../systems/04_BOONS.md). Caminhos abaixo são relativos a `Assets/_Project/Scripts/`; métodos foram localizados no código atual.
 
 **Revisão C01.1:** mapa histórico de owners preservado. Política atual éLMB clique→um pedido eRMB→especialAsura; a linha histórica de dois canais básicos não autorizaRMB alternativo. Ver [migração vigente](GPR_CONTROL_MIGRATION.md) para o acoplamento index3/snapshot/boonsR e separação proposta dos quatro slots.

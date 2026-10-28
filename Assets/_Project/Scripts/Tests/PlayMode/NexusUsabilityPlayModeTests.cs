@@ -178,6 +178,9 @@ namespace TechGuy.Tests
             _player = Object.FindFirstObjectByType<PlayerActor>();
             Assert.AreEqual(RunWeaponFamily.Gauntlet, WeaponRunModifiers.Identify(_player.CurrentWeapon));
             Assert.IsTrue(Object.FindFirstObjectByType<PlayerHUD>().GetComponent<Canvas>().enabled);
+            // This legacy layout fixture returns to its own source scene, independently of the production hub.
+            typeof(ProgressionDirector).GetField("_returnScene", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                .SetValue(Object.FindFirstObjectByType<ProgressionDirector>(), "NexusLobby");
             var director = Object.FindFirstObjectByType<ProgressionDirector>();
             var session = director.ManualSession.Id;
             // Lifecycle API regression, explicitly distinct from the pointer/keyboard journey above.

@@ -1,0 +1,47 @@
+// Published Nexus; virtual input only. No persistent grants or Settings Apply.
+var player=UnityEngine.Object.FindFirstObjectByType<PlayerActor>();
+var controls=player.GetComponent<CharControlScript>();var holder=player.GetComponent<AbilityHolder>();
+var lobby=UnityEngine.Object.FindFirstObjectByType<LobbyInteraction>();
+var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+var stations=(LobbyInteraction.Station[])typeof(LobbyInteraction).GetField("_stations",flags).GetValue(lobby);
+LobbyInteraction.Station selected=null;
+foreach(var station in stations)if(station.anchor&&string.IsNullOrEmpty(station.destinationScene)){selected=station;break;}
+if(selected==null)throw new System.Exception("No informational station in published Nexus");
+UnityEngine.AI.NavMeshHit sample;
+if(!UnityEngine.AI.NavMesh.SamplePosition(selected.anchor.position+UnityEngine.Vector3.back, out sample,2,UnityEngine.AI.NavMesh.AllAreas))throw new System.Exception("No station navigation surface");
+player.GetComponent<UnityEngine.AI.NavMeshAgent>().Warp(sample.position);
+var oldK=UnityEngine.InputSystem.Keyboard.current;var oldM=UnityEngine.InputSystem.Mouse.current;
+bool enabledK=oldK!=null&&oldK.enabled,enabledM=oldM!=null&&oldM.enabled;
+var settings=UnityEngine.InputSystem.InputSystem.settings;var background=settings.backgroundBehavior;var editorInput=settings.editorInputBehaviorInPlayMode;
+settings.backgroundBehavior=UnityEngine.InputSystem.InputSettings.BackgroundBehavior.IgnoreFocus;
+settings.editorInputBehaviorInPlayMode=UnityEngine.InputSystem.InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+if(enabledK)UnityEngine.InputSystem.InputSystem.DisableDevice(oldK);if(enabledM)UnityEngine.InputSystem.InputSystem.DisableDevice(oldM);
+var keyboard=UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Keyboard>("C01.4 interaction");
+var mouse=UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Mouse>("C01.4 interaction");
+controls.SendMessage("OnApplicationFocus",true);
+UnityEngine.InputSystem.Key interact=(UnityEngine.InputSystem.Key)System.Enum.Parse(typeof(UnityEngine.InputSystem.Key),GamePreferences.Binding(GameControl.Interact).ToString(),true);
+int basics=0,casts=0,last=-1;bool openSeen=false,closedSeen=false,captured=false,finished=false;
+System.Action basic=()=>basics++;System.Action<int> cast=slot=>casts++;
+controls.BasicAttackPerformed+=basic;holder.AbilityUsed+=cast;
+string dir="D:/Projetos/Gabriel/Tech-Guy/Docs/validation/artifacts/gameplay-rework/c01-4d/runtime/final-interact";
+double started=UnityEngine.Time.realtimeSinceStartupAsDouble;
+UnityEditor.EditorApplication.CallbackFunction tick=null;
+System.Action cleanup=()=>{UnityEditor.EditorApplication.update-=tick;controls.BasicAttackPerformed-=basic;holder.AbilityUsed-=cast;
+ UnityEngine.InputSystem.InputSystem.RemoveDevice(keyboard);UnityEngine.InputSystem.InputSystem.RemoveDevice(mouse);
+ if(enabledK&&oldK!=null)UnityEngine.InputSystem.InputSystem.EnableDevice(oldK);if(enabledM&&oldM!=null)UnityEngine.InputSystem.InputSystem.EnableDevice(oldM);
+ if(oldK!=null)oldK.MakeCurrent();if(oldM!=null)oldM.MakeCurrent();settings.backgroundBehavior=background;settings.editorInputBehaviorInPlayMode=editorInput;};
+tick=delegate{
+ if(finished)return;
+ try{
+  double t=UnityEngine.Time.realtimeSinceStartupAsDouble-started;
+  if(!UnityEditor.EditorApplication.isPlaying||t>1.8){finished=true;cleanup();System.IO.File.WriteAllText(dir+"/interaction-result.json",Newtonsoft.Json.JsonConvert.SerializeObject(new{virtualInput=true,physicalHuman=false,station=selected.title,interaction=interact.ToString(),openSeen=openSeen,closedSeen=closedSeen,basics=basics,casts=casts}));return;}
+  int stage=t<.35?0:t<.50?1:t<1.15?2:t<1.30?3:4;
+  if(stage!=last){last=stage;UnityEngine.InputSystem.InputSystem.QueueStateEvent(keyboard,stage==1||stage==3?new UnityEngine.InputSystem.LowLevel.KeyboardState(interact):new UnityEngine.InputSystem.LowLevel.KeyboardState());
+   var state=new UnityEngine.InputSystem.LowLevel.MouseState{position=(UnityEngine.Vector2)UnityEngine.Camera.main.WorldToScreenPoint(selected.anchor.position)};
+   if(stage==1)state=state.WithButton(UnityEngine.InputSystem.LowLevel.MouseButton.Left);
+   UnityEngine.InputSystem.InputSystem.QueueStateEvent(mouse,state);}
+  if(t>.8&&!captured){captured=true;openSeen=lobby.IsPanelOpen;UnityEngine.ScreenCapture.CaptureScreenshot(dir+"/interaction.png");}
+  if(t>1.6)closedSeen=!lobby.IsPanelOpen;
+ }catch(System.Exception error){finished=true;cleanup();System.IO.File.WriteAllText(dir+"/interaction-error.txt",error.ToString());}
+};UnityEditor.EditorApplication.update+=tick;
+return new{seconds=1.8,physicalHuman=false,station=selected.title};

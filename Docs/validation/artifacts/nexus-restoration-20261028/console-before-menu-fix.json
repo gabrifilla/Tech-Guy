@@ -1,0 +1,36 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Retrieved 3 log entries.\",\"data\":[{\"type\":\"Error\",\"message\":\"An error occurred while resolving packages:\\n  Project has invalid dependencies:\\n    com.tripo3d.unitybridge: The file [C:\\\\Users\\\\gabri\\\\Downloads\\\\Tripo3d_Unity_Bridge-latest\\\\Tripo3d_Unity_Bridge\\\\package.json] cannot be found\\n\",\"file\":\"\",\"line\":0,\"stackTrace\":null},{\"type\":\"Error\",\"message\":\"LobbyArsenal requires a player reference.\",\"file\":\"Assets/_Project/Scripts/UI/LobbyArsenal.cs\",\"line\":102,\"stackTrace\":\"UnityEngine.Debug:LogError (object,UnityEngine.Object)\\nLobbyArsenal:Awake () (at Assets/_Project/Scripts/UI/LobbyArsenal.cs:102)\\n\"},{\"type\":\"Warning\",\"message\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\",\"file\":\"Assets/_Project/Scripts/Abilities/AbilityHolder.cs\",\"line\":358,\"stackTrace\":\"UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\\nAbilityHolder:RefreshWeaponAbilities (bool) (at Assets/_Project/Scripts/Abilities/AbilityHolder.cs:358)\\nAbilityHolder:Start () (at Assets/_Project/Scripts/Abilities/AbilityHolder.cs:190)\\n\"}]}"
+    }
+  ],
+  "structuredContent": {
+    "success": true,
+    "message": "Retrieved 3 log entries.",
+    "data": [
+      {
+        "type": "Error",
+        "message": "An error occurred while resolving packages:\n  Project has invalid dependencies:\n    com.tripo3d.unitybridge: The file [C:\\Users\\gabri\\Downloads\\Tripo3d_Unity_Bridge-latest\\Tripo3d_Unity_Bridge\\package.json] cannot be found\n",
+        "file": "",
+        "line": 0,
+        "stackTrace": null
+      },
+      {
+        "type": "Error",
+        "message": "LobbyArsenal requires a player reference.",
+        "file": "Assets/_Project/Scripts/UI/LobbyArsenal.cs",
+        "line": 102,
+        "stackTrace": "UnityEngine.Debug:LogError (object,UnityEngine.Object)\nLobbyArsenal:Awake () (at Assets/_Project/Scripts/UI/LobbyArsenal.cs:102)\n"
+      },
+      {
+        "type": "Warning",
+        "message": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.",
+        "file": "Assets/_Project/Scripts/Abilities/AbilityHolder.cs",
+        "line": 358,
+        "stackTrace": "UnityEngine.Debug:LogWarning (object,UnityEngine.Object)\nAbilityHolder:RefreshWeaponAbilities (bool) (at Assets/_Project/Scripts/Abilities/AbilityHolder.cs:358)\nAbilityHolder:Start () (at Assets/_Project/Scripts/Abilities/AbilityHolder.cs:190)\n"
+      }
+    ]
+  },
+  "isError": false
+}

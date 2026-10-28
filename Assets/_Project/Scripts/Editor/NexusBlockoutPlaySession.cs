@@ -19,12 +19,21 @@ public static class NexusBlockoutPlaySession
         SceneManager.sceneLoaded += OnScene;
     }
 
+    [MenuItem("Tools/Tech Guy/Nexus Blockout/Protect Next Review Session Save")]
+    private static void ProtectNextReviewSession()
+    {
+        if (EditorApplication.isPlayingOrWillChangePlaymode) return;
+        SessionState.SetBool("TechGuy.NexusBlockout.ReviewRequested", true);
+    }
+
     private static void OnState(PlayModeStateChange state)
     {
         if (state == PlayModeStateChange.ExitingEditMode &&
             EditorSceneManager.GetActiveScene().path == NexusBlockoutBuilder.ScenePath &&
+            SessionState.GetBool("TechGuy.NexusBlockout.ReviewRequested", false) &&
             !SessionState.GetBool("VS034.Automated", false))
         {
+            SessionState.SetBool("TechGuy.NexusBlockout.ReviewRequested", false);
             if (SessionState.GetBool(Active, false)) Restore();
             var keys = new[] { WeaponLoadout.PreferenceKey, CurrencyWallet.PreferenceKey,
                 "TechGuy.Loadout.Unlocked.1", "TechGuy.Loadout.Unlocked.2", RunSummaryStore.PreferenceKey };

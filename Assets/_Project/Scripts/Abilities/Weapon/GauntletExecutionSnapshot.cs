@@ -22,6 +22,7 @@ public sealed class GauntletExecutionSnapshot
     public EclipseCombatSettings Eclipse { get; }
     public bool ViolentFall { get; }
     public bool BasicFinisher { get; }
+    public string BasicMutationId { get; }
     public bool EchoingFist { get; }
     public bool TemporalEcho { get; }
     public bool PerfectRhythm { get; }
@@ -37,6 +38,7 @@ public sealed class GauntletExecutionSnapshot
         BreakerGauntletAbility ability, GauntletMutationSelection selections = null, GauntletAuthoring authoring = null, bool basicFinisher = false)
     {
         Slot = slot;
+        BasicMutationId = slot == GauntletActionSlot.Basic ? modifiers?.Expansion.MutationId(BoonSlot.Basic) : null;
         BasicFinisher = basicFinisher; ViolentFall = modifiers?.HasViolentFall == true;
         EchoingFist = modifiers?.Expansion.Has(GauntletExpansionCatalog.EchoingFistId, slot) == true;
         TemporalEcho = modifiers?.Expansion.Has(GauntletExpansionCatalog.TemporalEchoId, slot) == true;

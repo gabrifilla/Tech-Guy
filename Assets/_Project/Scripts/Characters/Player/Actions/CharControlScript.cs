@@ -208,6 +208,7 @@ public partial class CharControlScript : MonoBehaviour
         RefreshWeaponStats();
         RefreshMovementStats();
         if (!GameplayInputReady) return;
+        if (HandleDirectWorldInteraction()) return;
         TrackChargedShot();
 
         if (_abilityHolder && _abilityHolder.BlocksWorldInput)

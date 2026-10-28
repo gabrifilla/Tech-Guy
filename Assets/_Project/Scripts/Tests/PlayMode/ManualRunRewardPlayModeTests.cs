@@ -25,6 +25,31 @@ namespace TechGuy.Tests
             UnityEngine.Object.DestroyImmediate(definition); return new ManualRoutePolicy(snapshot);
         }
 
+        // Fixture preparation follows the executable pool, including existing Augments.
+        // It deliberately grants test inventory; it is not evidence of a natural reward economy.
+        private static void AcquireRewardFixtureOffer(RunBoons run, string id)
+        {
+            if (BoonExpansionCatalog.TryDefinition(id, out _))
+                Assert.IsTrue(BoonExpansionCatalog.TryAcquire(id, run.WeaponModifiers, run.RunWeapon, run.Protocols, out var error), error);
+            else if (id == BoonReworkCatalog.ViolentFallId)
+                Assert.IsTrue(run.WeaponModifiers.TryAcquireViolentFall());
+            else
+            {
+                Assert.IsTrue(WeaponRunModifiers.TryDefinition(id, out var definition), id);
+                Assert.IsTrue(run.WeaponModifiers.Add(definition), id);
+            }
+        }
+        private static void ExhaustCurrentTechniqueFixture(RunBoons run)
+        {
+            for (int guard = 0; guard < 200; guard++)
+            {
+                var pool = ManualRewardCatalog.Eligible(RunRewardKind.Technique, run.WeaponModifiers, run.RunWeapon, run.Protocols);
+                if (pool.Count == 0) return;
+                AcquireRewardFixtureOffer(run, pool[0].Id);
+            }
+            Assert.Fail("Technique fixture did not exhaust the real compatible pool.");
+        }
+
         [UnityTest] public IEnumerator ManualExhaustedTechniqueAppliesRetainedProtocolOnceAndPreservesResourcesAndSourceAssets()
         {
             Assert.IsTrue(TryBakeFullFloor()); BuildPlayer(Vector3.zero);
@@ -36,8 +61,7 @@ namespace TechGuy.Tests
             _player.EquipWeapon(source); holder.RefreshLoadout();
             var run=_player.gameObject.AddComponent<RunBoons>(); yield return null;
             var route=BuildManualRewardRoute(); Assert.IsTrue(run.BindManualRun(route));
-            foreach(var d in WeaponRunModifiers.Catalog.Where(d=>d.Family==run.WeaponModifiers.Family&&RunBoonOfferCatalog.IsTechnique(d.Kind)))
-                for(int i=0;i<d.MaxRank;i++) Assert.IsTrue(run.WeaponModifiers.Add(d));
+            ExhaustCurrentTechniqueFixture(run);
             ReachManualReward(route,1); var request=new RunRewardRequest(route.Session.Id,1,0);
             var combat=_player.GetComponent<BreakerGauntletCombat>(); combat.AddAsuraEnergy(52);
             _player.health=123; _player.mana=81;
@@ -71,10 +95,11 @@ namespace TechGuy.Tests
             var run=_player.gameObject.AddComponent<RunBoons>(); yield return null;
             var route=BuildManualRewardRoute(); Assert.IsTrue(run.BindManualRun(route)); ReachManualReward(route,1);
             var request=new RunRewardRequest(route.Session.Id,1,0); Assert.IsTrue(run.OfferReward(request));
-            Assert.IsTrue(WeaponRunModifiers.TryDefinition(run.Choices[0].Id,out var d));
-            for(int i=0;i<d.MaxRank;i++) Assert.IsTrue(run.WeaponModifiers.Add(d));
+            string staleId = run.Choices[0].Id;
+            int maxRank = WeaponRunModifiers.TryDefinition(staleId, out var d) ? d.MaxRank : 1;
+            for (int i = 0; i < maxRank; i++) AcquireRewardFixtureOffer(run, staleId);
             Assert.IsFalse(run.Choose(0)); Assert.AreEqual(1,run.ManualTicket.Revision);
-            Assert.IsFalse(run.Choices.Any(o=>o.Id==d.Id)); Assert.IsEmpty(run.Acquired);
+            Assert.IsFalse(run.Choices.Any(o=>o.Id==staleId)); Assert.IsEmpty(run.Acquired);
             Assert.IsTrue(run.Choose(0)); ReachManualReward(route,2);
             Assert.IsTrue(route.TryCompleteReward(route.Session.Id,2,0,false,RewardReady));
             Assert.IsTrue(route.TryCommitDestination(route.Session.Id,3,RewardReady)); Assert.IsTrue(route.TryEnterNode(route.Session.Id,3,RewardReady));

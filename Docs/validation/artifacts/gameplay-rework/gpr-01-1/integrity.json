@@ -1,0 +1,31 @@
+{
+  "protectedCount": 1613,
+  "unchangedCount": 1596,
+  "changed": [
+    "Assets/_Project/Scripts/Abilities/AbilityHolder.cs",
+    "Assets/_Project/Scripts/Abilities/Weapon/GauntletExecutionSnapshot.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolImpactIdentity.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.cs",
+    "Assets/_Project/Scripts/Characters/Player/PlayerActor.cs",
+    "Assets/_Project/Scripts/Core/Run/BoonCapabilityGraph.cs",
+    "Assets/_Project/Scripts/Core/Run/BoonCatalogDefinition.cs",
+    "Assets/_Project/Scripts/Core/Run/BoonDefinition.cs",
+    "Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs",
+    "Assets/_Project/Scripts/Core/Run/BoonExpansionInventory.cs",
+    "Assets/_Project/Scripts/Core/Run/BoonOfferCompatibility.cs",
+    "Assets/_Project/Scripts/Core/Run/RunStatistics.cs",
+    "Assets/_Project/Scripts/Core/RunBoons.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/ManualRunRewardPlayModeTests.cs"
+  ],
+  "unexpectedAssetChanges": [],
+  "newAssetPaths": [
+    "Assets/_Project/Scripts/Tests/PlayMode/GPR01BasicReceiptPlayModeTests.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/GPR01BasicReceiptPlayModeTests.cs.meta",
+    "Assets/_Project/Scripts/Tests/PlayMode/GPR01FoundationTests.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/GPR01FoundationTests.cs.meta"
+  ],
+  "duplicateProjectGuids": []
+}

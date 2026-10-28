@@ -108,6 +108,26 @@ public sealed class ProtocolRootContext
         Producer = producer; ExecutionId = executionId;
         for (int i = 0; i < _ranks.Length; i++) _ranks[i] = capturedRanks == null ? inventory.Rank((ProtocolKind)i) : capturedRanks.Rank((ProtocolKind)i);
     }
+    private readonly HashSet<ProtocolTargetHandle> _basicTerminalTargets = new HashSet<ProtocolTargetHandle>();
+    private bool _basicChildReserved;
+    private string _basicProducerId = "basic-derived";
+    internal void ConfirmBasicTerminal(ConfirmedHpReceipt receipt)
+    {
+        var c = receipt.Context;
+        if (IsValid && c != null && c.RootExecution == ExecutionId && c.Execution == ExecutionId &&
+            c.Slot == GauntletActionSlot.Basic && c.Origin == GauntletImpactOrigin.Direct &&
+            c.Snapshot != null && c.Snapshot.BasicFinisher && receipt.Damage > 0)
+        {
+            _basicProducerId = c.Snapshot.BasicMutationId ?? "basic-derived";
+            _basicTerminalTargets.Add(new ProtocolTargetHandle(c.TargetId, c.TargetGeneration));
+        }
+    }
+    internal ProtocolBasicLineage ReserveBasicTerminalChild(long producerId, ProtocolBasicEffects effects)
+    {
+        if (_basicChildReserved || _basicTerminalTargets.Count == 0 || !ReserveChild(producerId)) return null;
+        _basicChildReserved = true;
+        return new ProtocolBasicLineage(ExecutionId, RootId, _basicTerminalTargets, _basicProducerId, effects);
+    }
     public int Rank(ProtocolKind kind) => (int)kind >= 0 && (int)kind < _ranks.Length ? _ranks[(int)kind] : 0;
     public bool ReserveImpact(int depth)
     {

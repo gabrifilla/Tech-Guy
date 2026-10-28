@@ -20,6 +20,7 @@ public static class BoonExpansionCatalog
     {
         if (definition == null || !weapon || weapon.abilities == null || weapon.abilities.Length != 4 ||
             (definition.Weapons & Mask(WeaponRunModifiers.Identify(weapon))) == 0) return false;
+        if ((definition.Slots & BoonSlotMask.Basic) != 0 && WeaponRunModifiers.Identify(weapon) == RunWeaponFamily.Gauntlet && weapon.BasicProfile != null) return true;
         for (int i = 0; i < 4; i++)
         {
             if ((definition.Slots & (BoonSlotMask)(1 << i)) == 0) continue;

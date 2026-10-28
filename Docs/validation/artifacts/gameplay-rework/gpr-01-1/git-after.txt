@@ -1,0 +1,98 @@
+ M Assets/_Project/Scenes/FirstSector.unity
+ M Assets/_Project/Scenes/MainMenu.unity
+ M Assets/_Project/Scenes/ProceduralStageAuthoring.unity
+ M Assets/_Project/Scenes/PrologueTutorial.unity
+ M Assets/_Project/Scripts/Abilities/AbilityHolder.cs
+ M Assets/_Project/Scripts/Abilities/Dash/DashScript.cs
+ M Assets/_Project/Scripts/Abilities/Weapon/GauntletExecutionSnapshot.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolImpactIdentity.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.cs
+ M Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectBasicInput.cs
+ M Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.DirectMovement.cs
+ M Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.cs
+ M Assets/_Project/Scripts/Characters/Player/PlayerActor.cs
+ M Assets/_Project/Scripts/Core/FirstSectorDirector.cs
+ M Assets/_Project/Scripts/Core/GamePreferences.cs
+ M Assets/_Project/Scripts/Core/Run/BoonCapabilityGraph.cs
+ M Assets/_Project/Scripts/Core/Run/BoonCatalogDefinition.cs
+ M Assets/_Project/Scripts/Core/Run/BoonDefinition.cs
+ M Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs
+ M Assets/_Project/Scripts/Core/Run/BoonExpansionInventory.cs
+ M Assets/_Project/Scripts/Core/Run/BoonOfferCompatibility.cs
+ M Assets/_Project/Scripts/Core/Run/RunStatistics.cs
+ M Assets/_Project/Scripts/Core/RunBoons.cs
+ M Assets/_Project/Scripts/Core/TutorialDirector.cs
+ M Assets/_Project/Scripts/Editor/FirstSectorBuilder.cs
+ M Assets/_Project/Scripts/Editor/MainMenuSceneBuilder.cs
+ M Assets/_Project/Scripts/Editor/NexusBlockoutPlaySession.cs
+ M Assets/_Project/Scripts/Editor/ProjectSceneMenu.cs
+ M Assets/_Project/Scripts/Editor/RunLoopValidation.cs
+ M Assets/_Project/Scripts/Editor/TutorialValidation.cs
+ M Assets/_Project/Scripts/Stages/ProgressionDirector.cs
+ M Assets/_Project/Scripts/Tests/EditMode/Editor/TGCharacterIntegrationTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1MovementFluidityTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/DirectBasicInputPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ManualPublishedRunPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ManualRunRewardPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/NexusSpatialJourneyPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/NexusUsabilityPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ProtocolEncounterFrontierTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ProtocolPublishedCompositionTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/RunResultsPlayModeTests.cs
+ M Assets/_Project/Scripts/UI/ControlRemappingPanel.cs
+ M Assets/_Project/Scripts/UI/LobbyArsenal.cs
+ M Assets/_Project/Scripts/UI/LobbyInteraction.cs
+ M Assets/_Project/Scripts/UI/MainMenuUI.cs
+ M Assets/_Project/Scripts/UI/PauseMenuUI.cs
+ M Assets/_Project/Scripts/UI/PlayerHUD.cs
+ M Assets/_Project/Scripts/UI/RunResultsPresenter.cs
+ M Assets/_Project/Scripts/UI/TutorialHUD.cs
+ M Docs.zip
+ M Docs/02_ESTADO_E_LACUNAS.md
+ M Docs/03_PRIORIDADES.md
+ M Docs/art/04_NEXUS_BLOCKOUT_FUNCIONAL.md
+ M Docs/decisions/ADR-0006-GPR-DIRECAO-E-GATES.md
+ M Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md
+ M Docs/gameplay/GPR_CONTROL_MIGRATION.md
+ M Docs/gameplay/GPR_OWNERSHIP.md
+ M Docs/gameplay/GPR_REQUIREMENTS.md
+ M Docs/gameplay/GPR_TASKS.md
+ M Docs/gameplay/GPR_TECHNICAL_DESIGN.md
+ M Docs/gameplay/GPR_VALIDATION_PLAN.md
+ M Docs/gameplay/README.md
+ M Docs/gameplay/TECH_GUY_GAMEPLAY_MUTACOES_SINERGIAS_E_SKILLS_MODULARES(1).md
+ M Docs/gameplay/TECH_GUY_GAMEPLAY_REWORK_EXECUTION_PLAN_v1.1_WASD.md
+ M Docs/systems/01_COMBATE.md
+ M Docs/systems/02_ARMAS.md
+ M Docs/systems/04_BOONS.md
+ M Docs/validation/01_MATRIZ_DE_VALIDACAO.md
+ M Docs/validation/artifacts/gameplay-rework/c01-2c/recovery-normal.csv
+ M ProjectSettings/EditorBuildSettings.asset
+ M README.md
+?? Assets/_Project/Scripts/Tests/PlayMode/GPR01BasicReceiptPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/GPR01BasicReceiptPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/GPR01FoundationTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/GPR01FoundationTests.cs.meta
+?? Docs/decisions/GPR-01.1_RELATORIO.md
+?? Docs/decisions/GPR-01.P1_RELATORIO.md
+?? Docs/decisions/GPR-C01.3b_RELATORIO.md
+?? Docs/decisions/GPR-C01.4_RELATORIO.md
+?? Docs/decisions/GPR-C01.4a_RELATORIO.md
+?? Docs/decisions/GPR-C01.4b_RELATORIO.md
+?? Docs/decisions/GPR-C01.4c_RELATORIO.md
+?? Docs/decisions/GPR-C01.4d_RELATORIO.md
+?? Docs/decisions/GPR-C01.5_RELATORIO.md
+?? Docs/decisions/GPR-C01_PHASE_SUMMARY.md
+?? Docs/decisions/NEXUS_RESTAURACAO_20261028.md
+?? Docs/gameplay/GPR_01_VERTICAL_SLICE.md
+?? Docs/validation/artifacts/gameplay-rework/c01-3b/
+?? Docs/validation/artifacts/gameplay-rework/c01-4a/
+?? Docs/validation/artifacts/gameplay-rework/c01-4b/
+?? Docs/validation/artifacts/gameplay-rework/c01-4c/
+?? Docs/validation/artifacts/gameplay-rework/c01-4d/
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-1/
+?? Docs/validation/artifacts/nexus-restoration-20261028/

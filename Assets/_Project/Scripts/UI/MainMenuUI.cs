@@ -8,7 +8,7 @@ public sealed class MainMenuUI : MonoBehaviour
 {
     public enum Page { Home, Settings, Controls, Quit }
     [SerializeField] private string _tutorialScene = "PrologueTutorial";
-    [SerializeField] private string _lobbyScene = "NexusLobby";
+    [SerializeField] private string _lobbyScene = "NexusBlockout";
     private Page _page;
     private readonly ControlRemappingPanel _remapping = new ControlRemappingPanel();
     private GamePreferences.Options _draft, _saved;
@@ -87,6 +87,7 @@ public sealed class MainMenuUI : MonoBehaviour
     }
     public void ApplySettings()
     {
+        if (!_remapping.CanApply) return;
         bool displayChanged = _draft.Width != _saved.Width || _draft.Height != _saved.Height || _draft.Fullscreen != _saved.Fullscreen;
         if (displayChanged && !Application.isEditor)
         {
@@ -96,6 +97,7 @@ public sealed class MainMenuUI : MonoBehaviour
     }
     public void CommitSettings()
     {
+        if (!_remapping.CanApply) return;
         GamePreferences.Save(_draft); _saved = _draft.Copy(); _confirmDisplay = false;
         _message = "Configurações salvas.";
     }
@@ -104,6 +106,8 @@ public sealed class MainMenuUI : MonoBehaviour
         GamePreferences.Apply(_saved); _draft = _saved.Copy(); _confirmDisplay = false;
         _message = "Alterações de vídeo revertidas.";
     }
+    private void OnApplicationFocus(bool focused) { if (!focused) _remapping.Cancel(); }
+
     private void OnDestroy() { if (_confirmDisplay) GamePreferences.Apply(_saved); GamePreferences.ReleaseDirectControls(this); }
 
     private static GUIStyle Style(int size, bool bold = false) => new GUIStyle(GUI.skin.label)
@@ -239,7 +243,7 @@ public sealed class MainMenuUI : MonoBehaviour
             if (Button(new Rect(635,450,440,43),_draft.VSync ? "Ativada" : "Desativada")) _draft.VSync=!_draft.VSync;
             Label(new Rect(190,510,880,36),Application.isEditor ? "No Editor, resolução e modo de tela são usados apenas no jogo compilado." : "Mudanças de tela pedem confirmação e revertem após 15 segundos.",_small,Muted);
         }
-        else if (_tab == 2) _remapping.Draw(new Rect(190,275,885,275),_draft.Bindings);
+        else if (_tab == 2) { _remapping.Draw(new Rect(190,275,885,225),_draft.Bindings); _remapping.DrawDashDirection(new Rect(190,515,885,36), ref _draft.DashDirection); }
         else
         {
             RowLabel(300,"Volume geral");
@@ -248,7 +252,7 @@ public sealed class MainMenuUI : MonoBehaviour
             Label(new Rect(190,376,830,64),"Controla o volume de todos os sons do jogo. Use 0% para silenciar.",_body,Muted);
         }
         if (Button(new Rect(190,572,200,44),"Voltar")) Open(Page.Home);
-        if (Button(new Rect(408,572,244,44),"Restaurar padrões")) { _remapping.Cancel(); _draft=GamePreferences.Defaults(); AddResolution(_draft.Width,_draft.Height); _message="Padrões carregados. Clique em Aplicar para salvar."; }
+        if (Button(new Rect(408,572,244,44),"Restaurar padrões")) { _remapping.Cancel(); if (_tab == 2) { _draft.Bindings=GamePreferences.DefaultDirectBindings(); _draft.DashDirection=DashDirectionMode.Mouse; } else { _draft=GamePreferences.Defaults(); AddResolution(_draft.Width,_draft.Height); } _message="Padrões carregados. Clique em Aplicar para salvar."; }
         if (Button(new Rect(859,572,216,44),"Aplicar",true)) ApplySettings();
         if (!string.IsNullOrEmpty(_message)) Label(new Rect(190,646,900,26),_message,_small,Cyan);
     }
@@ -264,16 +268,16 @@ public sealed class MainMenuUI : MonoBehaviour
     {
         Panel("Controles","Aponte o cursor na direção em que deseja agir.");
         string[] keys = { GamePreferences.MovementLabel, GamePreferences.BindingLabel(GameControl.Primary), GamePreferences.BindingLabel(GameControl.Dash),
-            GamePreferences.BindingLabel(GameControl.Skill1)+" / "+GamePreferences.BindingLabel(GameControl.Skill2)+" / "+GamePreferences.BindingLabel(GameControl.Skill3), GamePreferences.BindingLabel(GameControl.Skill4), GamePreferences.BindingLabel(GameControl.FinishSequence), "1 / 2 / 3" };
-        string[] actions = { "Mover diretamente; mire com o mouse", "Clique no alvo ao alcance; segure: comportamento legado", "Esquivar para o cursor", "Usar habilidades da arma", "Usar o especial legado da arma", "Finalizar Asura na espera / retornar Órbita da Lança", "Escolher um modificador na recompensa" };
+            GamePreferences.BindingLabel(GameControl.Skill1)+" / "+GamePreferences.BindingLabel(GameControl.Skill2)+" / "+GamePreferences.BindingLabel(GameControl.Skill3), GamePreferences.KeyLabel(GamePreferences.WeaponSpecialBinding), GamePreferences.BindingLabel(GameControl.Interact), GamePreferences.BindingLabel(GameControl.FinishSequence), "1 / 2 / 3" };
+        string[] actions = { "Mover diretamente; mire com o mouse", "Um clique pede um básico; hold só com ChargedShot", "Esquiva configurável: cursor ou movimento/facing", "Três habilidades modulares da arma", "Especial permanente da arma", "Interagir com estações e objetos", "Finalizar Asura na espera / retornar Órbita da Lança", "Escolher um modificador na recompensa" };
         for (int i=0;i<keys.Length;i++)
         {
-            float y=215+i*43;
+            float y=215+i*37;
             Fill(new Rect(190,y,885,38),i%2==0 ? new Color(.065f,.105f,.14f) : new Color(.045f,.08f,.11f));
             Label(new Rect(203,y+9,250,28),keys[i],_small,Cyan);
             Label(new Rect(475,y+6,590,32),actions[i],_body,Color.white);
         }
-        Label(new Rect(190,522,880,40),"Aproxime-se com WASD. Clique no inimigo para atacar; o cursor não define destinos de movimento.",_small,Muted);
+        Label(new Rect(190,522,880,40),"Aproxime-se com " + GamePreferences.MovementLabel + ". Um clique pede um ataque na direção do cursor, mesmo sem alvo.",_small,Muted);
         if (Button(new Rect(190,572,210,44),"Voltar")) Open(Page.Home);
         if (Button(new Rect(815,572,260,44),"Praticar no prólogo",true)) StartJourney(true);
     }

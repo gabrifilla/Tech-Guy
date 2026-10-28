@@ -119,7 +119,7 @@ public static class TutorialValidation
                     Require(_tutorial.Stage == TutorialStage.Departure && _target.gameObject.activeSelf,"Practice and exit unlocked");
                     Require(_player.GetComponent<NavMeshAgent>().Warp(Field<Transform>("_exit").position),"Exit navigable"); Next(3); break;
                 case 10:
-                    Require(SceneManager.GetActiveScene().name == "NexusLobby","Completion reaches lobby");
+                    Require(SceneManager.GetActiveScene().name == "NexusBlockout","Completion reaches lobby");
                     Require(!Components<RunBoons>().Any(),"Training modifier does not leak to lobby");
                     SceneManager.LoadScene("PrologueTutorial"); Next(2); break;
                 case 11:
@@ -128,7 +128,7 @@ public static class TutorialValidation
                     Resolve(); Require(!_player.IsDead && _tutorial.Stage == TutorialStage.Movement,"Death restarts tutorial");
                     _tutorial.Skip(); Next(2); break;
                 case 13:
-                    Require(SceneManager.GetActiveScene().name == "NexusLobby","Skip reaches lobby");
+                    Require(SceneManager.GetActiveScene().name == "NexusBlockout","Skip reaches lobby");
                     Require(PlayerPrefs.GetInt(WeaponLoadout.PreferenceKey,0) == _savedWeapon,"Saved weapon preserved");
                     Require(GamePreferences.TutorialSeen,"Completion/skip unlocks continue");
                     SceneManager.LoadScene("MainMenu"); Next(2); break;
@@ -148,7 +148,7 @@ public static class TutorialValidation
                     menu.Open(MainMenuUI.Page.Controls); Require(menu.CurrentPage == MainMenuUI.Page.Controls,"Controls accessible");
                     menu.Open(MainMenuUI.Page.Home); menu.StartJourney(); Next(2); break;
                 case 15:
-                    Require(SceneManager.GetActiveScene().name == "NexusLobby","Continue routes directly to lobby");
+                    Require(SceneManager.GetActiveScene().name == "NexusBlockout","Continue routes directly to lobby");
                     Components<LobbyInteraction>().Single().ReturnToMainMenu(); Next(2); break;
                 case 16: Components<MainMenuUI>().Single().StartJourney(true); Next(2); break;
                 case 17:

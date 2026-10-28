@@ -25,7 +25,7 @@ namespace TechGuy.Tests
             var seen = new System.Collections.Generic.HashSet<string>();
             for (int build = 0; build < sequences.Length; build++)
             {
-                yield return SceneManager.LoadSceneAsync("NexusLobby"); yield return null;
+                yield return SceneManager.LoadSceneAsync("NexusBlockout"); yield return null;
                 yield return SceneManager.LoadSceneAsync("FirstSector"); yield return null; yield return null; yield return null;
                 var director = Object.FindFirstObjectByType<ProgressionDirector>();
                 var player = Object.FindFirstObjectByType<PlayerActor>(); var run = player.GetComponent<RunBoons>();
@@ -85,7 +85,7 @@ namespace TechGuy.Tests
                 if (build == 4) Assert.That(run.Protocols.Rank(ProtocolKind.Ignite), Is.EqualTo(2));
             }
             Assert.That(seen.Count, Is.EqualTo(7));
-            yield return SceneManager.LoadSceneAsync("NexusLobby"); yield return null;
+            yield return SceneManager.LoadSceneAsync("NexusBlockout"); yield return null;
         }
     }
 }

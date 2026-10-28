@@ -95,6 +95,14 @@ public class DashScript : Ability
 
     private static Vector3 ResolveDashDirection(Transform parentTransform, Camera mainCamera, Vector3 fallbackDirection)
     {
+        var control = parentTransform.GetComponent<CharControlScript>();
+        if (control && control.DirectMovementEnabled && GamePreferences.DashDirection == DashDirectionMode.Movement)
+        {
+            Vector3 movement = control.ConfiguredMovementDirection;
+            if (movement.sqrMagnitude > .0001f) return movement.normalized;
+            return Flatten(fallbackDirection).normalized;
+        }
+        // Cursor mode preserves the original cursor policy; movement mode falls back to facing.
         Ray ray = mainCamera.ScreenPointToRay(GetMousePosition());
         Plane groundPlane = new Plane(Vector3.up, parentTransform.position);
         if (!groundPlane.Raycast(ray, out float distance))

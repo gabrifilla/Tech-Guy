@@ -1,0 +1,20 @@
+{
+  "scene": "Assets/_Project/Scenes/NexusBlockout.unity",
+  "player": "Player - Nexus",
+  "direct": true,
+  "nav": true,
+  "roots": [
+    "Player - Nexus",
+    "Cool key light",
+    "Magenta rim light",
+    "Nexus atmosphere",
+    "Nexus Camera",
+    "Lobby Guide",
+    "PlayerHUD",
+    "Nexus EventSystem",
+    "Run Results UI",
+    "NEXUS BLOCKOUT - Asymmetric connected volumes",
+    "ClickEffectPool"
+  ],
+  "reviewActive": false
+}

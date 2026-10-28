@@ -1,11 +1,17 @@
 # Estado verificado, conflitos e lacunas
 
-**Inspeção: 18/10/2026.** Branch `gameplayOverhaul`, commit-base `3a3f0ee8ad82734104511b63877d38df512ea146`, com alterações locais. O commit-base não identifica sozinho o conteúdo inspecionado ou testado. Método desta consolidação: leitura de código, YAML, configuração, Git e resultados históricos; nenhuma execução Unity, compilação ou sessão de gameplay nova.
+## Estado vigente — GPR-01.1,28/10/2026
+
+GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
+
+Direção experimental A→A+B→A+B+C aceita, parâmetros1,5×/0,60× provisórios; autorizada **exclusivamente GPR-01.1**. [Relatório da fundação](decisions/GPR-01.1_RELATORIO.md) / [fatia e próximo escopo](gameplay/GPR_01_VERTICAL_SLICE.md). Sem asset/boonTitanic Fists habilitado, onda ou transformação visual de produção. STOP para revisão antes de01.2;01.3–6 também exigem autorização posterior.
+
+Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecânica nova. SwapAvanço→Uppercut adiado por redução aprovada de escopo; aquisição/substituição modular Q/E/R permanece requisito **NÃO IMPLEMENTADO/NÃO VALIDADO**, rastreado em GPR-03.1/RF-TROCA. Gates e decisões históricos abaixo não sobrepõem esta autorização.
 
 ## Ambiente e fronteiras
 
 - [ProjectVersion](../ProjectSettings/ProjectVersion.txt): Unity **6000.5.10f1**. [Packages](../Packages/manifest.json): URP **17.5.0**, Input System **1.20.0**, Test Framework **1.7.0**, Unity MCP declarado em **v10.3.0**. [GraphicsSettings](../ProjectSettings/GraphicsSettings.asset) aponta para o asset URP em `_Project/Settings/Rendering`.
-- [Build Settings](../ProjectSettings/EditorBuildSettings.asset): `MainMenu → PrologueTutorial → NexusLobby → FirstSector` são as cenas habilitadas; o destino real depende de tutorial/save e das transições de runtime. `Playground` e `CombatStudy` estão desabilitadas no build; `ProceduralStageAuthoring` existe fora dessa lista.
+- Fluxo atual (28/10/2026): `MainMenu → PrologueTutorial → NexusBlockout → FirstSector → NexusBlockout` (o prólogo depende do save). `NexusBlockout` é o Nexus com salas. `NexusLobby` permanece habilitada apenas para fixtures legadas e como fonte de ferramentas; `Playground` e `CombatStudy` permanecem desabilitadas, mas são fontes de geradores; `ProceduralStageAuthoring` é usada pela validação de rig fora do build. Ver [restauração e auditoria de cenas](decisions/NEXUS_RESTAURACAO_20261028.md).
 - Código próprio, arte e cenas em `Assets/_Project`; terceiros em `Assets/_ThirdParty`; duas raízes Resources com chaves distintas. Ver [arquitetura](04_ARQUITETURA_E_INTEGRIDADE.md).
 - Tripo3D usa caminho absoluto local no manifest de pacotes: portabilidade para outra máquina não comprovada. Pacotes não foram alterados nesta consolidação.
 - Na consolidação inicial não havia MCP exposto. Na implementação de observação em 18/10/2026, a conexão ao vivo foi confirmada com `Tech-Guy@fccafb2b47cd7671`, projeto `D:/Dev/Personal/My_games/Tech-Guy`, inicialmente NexusLobby em Edit Mode. Captura e testes posteriores estão na matriz; reconfirmar a conexão em cada sessão.

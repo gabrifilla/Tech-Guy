@@ -1,0 +1,30 @@
+{
+  "mode": "PlayMode",
+  "test_names": [
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectBindingsMigrateWithoutLosingCustomSpecialOrChangingLegacy",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectVirtualMovementNormalizesDiagonalsAndDoesNotCastW",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectRootedBasicKeepsPoseContactAndDamage",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectMotorPullAndDashRespectTheSameUnbakedWall",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectFocusAndPauseRequireKeyboardRelease",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectGauntletAdvanceRetainsExclusiveCastOwnership",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectSpearCastDoesNotAcquireKeyboardOwnership",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectDashHitstopSuspendsDisplacementWithoutMintingExtraDash",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectBowKitingStepUsesLastActualLocomotionAtAttackAcceptance",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectPullTakesOwnershipFromAnActiveDash",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectTraversalContactPoseIsImmediateAndCannotCrossSolid",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectSettingsRoundTripPreservesLegacyBindings",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectBowCastMovesWithItsAuthoredSpeedAndRestoresIt",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetySlidingPreservesWallCornerAndDistanceBudget",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyNavEdgeSlidesButNeverLeavesTheMesh",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyPauseFocusDisableRequireAllGameplayKeysReleased",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyModalSameFrameOpenCloseDropsUncommittedInput",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyRewardCloseRequiresReleaseBeforeMovementOrSkill",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyRecoveryIntentExpiresDuringMeasuredHalfSecondHitch",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyIntegratedMotorFollowsBakedSlopeWithoutLeavingItsSurface",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyContextualRHasOneOwnerAndCannotFallThroughOnClose",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyDiscardingUncommittedBasicInputPreservesCadence",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyPausingKeepsAcceptedBasicImpactButDropsFutureInput"
+  ],
+  "include_details": true,
+  "init_timeout": 120000
+}

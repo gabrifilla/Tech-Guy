@@ -1,0 +1,164 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Test job status retrieved.\",\"error\":null,\"data\":{\"job_id\":\"cda0ae0d22d24855a10cb5c03c6d1d69\",\"status\":\"succeeded\",\"mode\":\"EditMode\",\"started_unix_ms\":1793205536368,\"finished_unix_ms\":1793205544534,\"last_update_unix_ms\":1793205544534,\"progress\":{\"completed\":12,\"total\":12,\"current_test_full_name\":null,\"current_test_started_unix_ms\":null,\"last_finished_test_full_name\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedProductionRoutesUseTheRoomBasedNexus(\\\"ProceduralStageAuthoring\\\",\\\"ProgressionDirector\\\",\\\"_returnScene\\\")\",\"last_finished_unix_ms\":1793205544347,\"stuck_suspected\":false,\"editor_is_focused\":false,\"run_in_background\":true,\"focus_nudge_attempts\":null,\"focus_nudge_limit\":null,\"focus_nudge_status\":null,\"blocked_reason\":null,\"failures_so_far\":[],\"failures_capped\":false},\"error\":null,\"result\":{\"mode\":\"EditMode\",\"summary\":{\"total\":12,\"passed\":12,\"failed\":0,\"skipped\":0,\"durationSeconds\":1.5654986,\"resultState\":\"Passed\"},\"results\":[{\"name\":\"MainMenuDioramaContainsNoInteractiveArsenal\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.MainMenuDioramaContainsNoInteractiveArsenal\",\"state\":\"Passed\",\"durationSeconds\":0.0569842,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"NexusLobby\\\",True)\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"NexusLobby\\\",True)\",\"state\":\"Passed\",\"durationSeconds\":0.2623605,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"NexusBlockout\\\",True)\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"NexusBlockout\\\",True)\",\"state\":\"Passed\",\"durationSeconds\":0.0296104,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"FirstSector\\\",True)\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"FirstSector\\\",True)\",\"state\":\"Passed\",\"durationSeconds\":0.233498,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"PrologueTutorial\\\",True)\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"PrologueTutorial\\\",True)\",\"state\":\"Passed\",\"durationSeconds\":0.0413701,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"Playground\\\",True)\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"Playground\\\",True)\",\"state\":\"Passed\",\"durationSeconds\":0.0946095,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"CombatStudy\\\",True)\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"CombatStudy\\\",True)\",\"state\":\"Passed\",\"durationSeconds\":0.0399045,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"ProceduralStageAuthoring\\\",False)\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\\\"ProceduralStageAuthoring\\\",False)\",\"state\":\"Passed\",\"durationSeconds\":0.022542,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SavedProductionRoutesUseTheRoomBasedNexus(\\\"MainMenu\\\",\\\"MainMenuUI\\\",\\\"_lobbyScene\\\")\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedProductionRoutesUseTheRoomBasedNexus(\\\"MainMenu\\\",\\\"MainMenuUI\\\",\\\"_lobbyScene\\\")\",\"state\":\"Passed\",\"durationSeconds\":0.02141,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SavedProductionRoutesUseTheRoomBasedNexus(\\\"PrologueTutorial\\\",\\\"TutorialDirector\\\",\\\"_lobbyScene\\\")\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedProductionRoutesUseTheRoomBasedNexus(\\\"PrologueTutorial\\\",\\\"TutorialDirector\\\",\\\"_lobbyScene\\\")\",\"state\":\"Passed\",\"durationSeconds\":0.0259176,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SavedProductionRoutesUseTheRoomBasedNexus(\\\"FirstSector\\\",\\\"ProgressionDirector\\\",\\\"_returnScene\\\")\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedProductionRoutesUseTheRoomBasedNexus(\\\"FirstSector\\\",\\\"ProgressionDirector\\\",\\\"_returnScene\\\")\",\"state\":\"Passed\",\"durationSeconds\":0.0273592,\"message\":null,\"stackTrace\":null,\"output\":\"\"},{\"name\":\"SavedProductionRoutesUseTheRoomBasedNexus(\\\"ProceduralStageAuthoring\\\",\\\"ProgressionDirector\\\",\\\"_returnScene\\\")\",\"fullName\":\"TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedProductionRoutesUseTheRoomBasedNexus(\\\"ProceduralStageAuthoring\\\",\\\"ProgressionDirector\\\",\\\"_returnScene\\\")\",\"state\":\"Passed\",\"durationSeconds\":0.0066961,\"message\":null,\"stackTrace\":null,\"output\":\"\"}]}},\"hint\":null}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "success": true,
+      "message": "Test job status retrieved.",
+      "error": null,
+      "data": {
+        "job_id": "cda0ae0d22d24855a10cb5c03c6d1d69",
+        "status": "succeeded",
+        "mode": "EditMode",
+        "started_unix_ms": 1793205536368,
+        "finished_unix_ms": 1793205544534,
+        "last_update_unix_ms": 1793205544534,
+        "progress": {
+          "completed": 12,
+          "total": 12,
+          "current_test_full_name": null,
+          "current_test_started_unix_ms": null,
+          "last_finished_test_full_name": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedProductionRoutesUseTheRoomBasedNexus(\"ProceduralStageAuthoring\",\"ProgressionDirector\",\"_returnScene\")",
+          "last_finished_unix_ms": 1793205544347,
+          "stuck_suspected": false,
+          "editor_is_focused": false,
+          "run_in_background": true,
+          "focus_nudge_attempts": null,
+          "focus_nudge_limit": null,
+          "focus_nudge_status": null,
+          "blocked_reason": null,
+          "failures_so_far": [],
+          "failures_capped": false
+        },
+        "error": null,
+        "result": {
+          "mode": "EditMode",
+          "summary": {
+            "total": 12,
+            "passed": 12,
+            "failed": 0,
+            "skipped": 0,
+            "durationSeconds": 1.5654986,
+            "resultState": "Passed"
+          },
+          "results": [
+            {
+              "name": "MainMenuDioramaContainsNoInteractiveArsenal",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.MainMenuDioramaContainsNoInteractiveArsenal",
+              "state": "Passed",
+              "durationSeconds": 0.0569842,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"NexusLobby\",True)",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"NexusLobby\",True)",
+              "state": "Passed",
+              "durationSeconds": 0.2623605,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"NexusBlockout\",True)",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"NexusBlockout\",True)",
+              "state": "Passed",
+              "durationSeconds": 0.0296104,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"FirstSector\",True)",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"FirstSector\",True)",
+              "state": "Passed",
+              "durationSeconds": 0.233498,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"PrologueTutorial\",True)",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"PrologueTutorial\",True)",
+              "state": "Passed",
+              "durationSeconds": 0.0413701,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"Playground\",True)",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"Playground\",True)",
+              "state": "Passed",
+              "durationSeconds": 0.0946095,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"CombatStudy\",True)",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"CombatStudy\",True)",
+              "state": "Passed",
+              "durationSeconds": 0.0399045,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"ProceduralStageAuthoring\",False)",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedPlayerKeepsControllerAndWeaponHandOnTheImportedRig(\"ProceduralStageAuthoring\",False)",
+              "state": "Passed",
+              "durationSeconds": 0.022542,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SavedProductionRoutesUseTheRoomBasedNexus(\"MainMenu\",\"MainMenuUI\",\"_lobbyScene\")",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedProductionRoutesUseTheRoomBasedNexus(\"MainMenu\",\"MainMenuUI\",\"_lobbyScene\")",
+              "state": "Passed",
+              "durationSeconds": 0.02141,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SavedProductionRoutesUseTheRoomBasedNexus(\"PrologueTutorial\",\"TutorialDirector\",\"_lobbyScene\")",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedProductionRoutesUseTheRoomBasedNexus(\"PrologueTutorial\",\"TutorialDirector\",\"_lobbyScene\")",
+              "state": "Passed",
+              "durationSeconds": 0.0259176,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SavedProductionRoutesUseTheRoomBasedNexus(\"FirstSector\",\"ProgressionDirector\",\"_returnScene\")",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedProductionRoutesUseTheRoomBasedNexus(\"FirstSector\",\"ProgressionDirector\",\"_returnScene\")",
+              "state": "Passed",
+              "durationSeconds": 0.0273592,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            },
+            {
+              "name": "SavedProductionRoutesUseTheRoomBasedNexus(\"ProceduralStageAuthoring\",\"ProgressionDirector\",\"_returnScene\")",
+              "fullName": "TechGuy.Tests.CharacterIntegration.TGCharacterIntegrationTests.SavedProductionRoutesUseTheRoomBasedNexus(\"ProceduralStageAuthoring\",\"ProgressionDirector\",\"_returnScene\")",
+              "state": "Passed",
+              "durationSeconds": 0.0066961,
+              "message": null,
+              "stackTrace": null,
+              "output": ""
+            }
+          ]
+        }
+      },
+      "hint": null
+    }
+  },
+  "isError": false
+}

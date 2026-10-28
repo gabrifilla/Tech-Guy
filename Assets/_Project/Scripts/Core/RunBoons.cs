@@ -283,6 +283,7 @@ public sealed partial class RunBoons : MonoBehaviour
                         RestoreGauntletQ();
                     break;
                 }
+                if (!WeaponRunModifiers.TryDefinition(offer.Id, out _)) return false;
                 foreach (var definition in WeaponRunModifiers.Catalog)
                     if (definition.Id == offer.Id && !WeaponModifiers.Add(definition)) return false;
                 // impactful-weapon-boons R4.3: on the first Perfect Spacing pick, attach the cosmetic
@@ -480,7 +481,7 @@ public sealed partial class RunBoons : MonoBehaviour
     private void CompleteOffer(Offer offer, bool legacy)
     {
         _acquired.Add(offer);
-        _holder.RefreshLoadout();
+        _holder.RefreshAfterBoonAcquisition();
         IsChoosing = false;
         if (legacy && _agent && _agent.enabled && _agent.isOnNavMesh) _agent.isStopped = false;
         if (TryGetComponent(out CharControlScript controls)) controls.RequireAttackRelease();

@@ -136,7 +136,7 @@ public static class BoonOfferCompatibility
             BoonCapability.MeleeHit | BoonCapability.PiercingLine;
         var result = BoonSlotMask.None;
         foreach (BoonSlot slot in Enum.GetValues(typeof(BoonSlot)))
-            if ((graph.Capabilities(slot) & required) == required) result |= (BoonSlotMask)(1 << (int)slot);
+            if (slot != BoonSlot.Basic && (graph.Capabilities(slot) & required) == required) result |= (BoonSlotMask)(1 << (int)slot);
         return result;
     }
 

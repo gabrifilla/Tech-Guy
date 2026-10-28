@@ -44,7 +44,7 @@ public sealed partial class ProgressionDirector : MonoBehaviour
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private EnemyArchetype[] _archetypeCatalog;
     [SerializeField] private EnemyVariant[] _archetypePrefabs;
-    [SerializeField] private string _returnScene = "NexusLobby";
+    [SerializeField] private string _returnScene = "NexusBlockout";
     [SerializeField] private TMP_Text _objective;
     [SerializeField] private ProceduralStageEnvironment _environment;
     [Header("Boss access")]

@@ -23,7 +23,7 @@ public sealed class FirstSectorDirector : MonoBehaviour
     [SerializeField] private Transform _exit;
     [SerializeField] private GameObject _exitGlow;
     [SerializeField] private TMP_Text _objective;
-    [SerializeField] private string _returnScene = "NexusLobby";
+    [SerializeField] private string _returnScene = "NexusBlockout";
     private int _current;
     private bool _leaving;
     private bool _awaitingTrophy;

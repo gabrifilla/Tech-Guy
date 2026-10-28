@@ -1,0 +1,24 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Test job started.\",\"error\":null,\"data\":{\"job_id\":\"71ecf329a4734418923daa79435c30e2\",\"status\":\"running\",\"mode\":\"PlayMode\",\"include_details\":true,\"include_failed_tests\":false},\"hint\":null}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "success": true,
+      "message": "Test job started.",
+      "error": null,
+      "data": {
+        "job_id": "71ecf329a4734418923daa79435c30e2",
+        "status": "running",
+        "mode": "PlayMode",
+        "include_details": true,
+        "include_failed_tests": false
+      },
+      "hint": null
+    }
+  },
+  "isError": false
+}

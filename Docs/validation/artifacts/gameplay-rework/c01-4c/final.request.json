@@ -1,0 +1,9 @@
+{
+  "mode": "PlayMode",
+  "test_names": [
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyContextualRHasOneOwnerAndCannotFallThroughOnClose",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRInteractRebindCollectsOnlyNearbyItemWithoutBasicOrMovement"
+  ],
+  "include_details": true,
+  "init_timeout": 120000
+}

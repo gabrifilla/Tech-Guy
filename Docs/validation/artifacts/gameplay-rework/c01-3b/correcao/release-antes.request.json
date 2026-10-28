@@ -1,0 +1,9 @@
+{
+  "mode": "PlayMode",
+  "test_names": [
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRReleasedContextAcceptsFirstFreshClickOnFollowingFrame",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRReleasedContextAcceptsFirstFreshMovementOnFollowingFrame"
+  ],
+  "include_details": true,
+  "init_timeout": 120000
+}

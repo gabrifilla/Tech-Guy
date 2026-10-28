@@ -27,10 +27,13 @@ public partial class CharControlScript
             { InvalidateDirectGameplayInput(); return false; }
             if (_gameplayReleaseRequired)
             {
-                var keyboard = Keyboard.current;
-                bool held = keyboard != null && (keyboard.wKey.isPressed || keyboard.aKey.isPressed || keyboard.sKey.isPressed || keyboard.dKey.isPressed);
-                for (int i = 0; i <= (int)GameControl.FinishSequence; i++) held |= GamePreferences.IsHeld((GameControl)i);
+                bool held = GamePreferences.AnyGameplayHeld;
                 if (held) return false;
+                // The shared gate has observed release for every gameplay control.
+                // Local gates must agree now; otherwise a fresh press on the following
+                // frame would require a second release just because Update ran later.
+                _waitForAttackRelease = false;
+                _directMovementRelease = false;
                 _gameplayReleaseRequired = false;
                 _gameplayReleaseFrame = Time.frameCount;
             }
@@ -109,13 +112,15 @@ public partial class CharControlScript
         return Vector3.Cross(Vector3.up, forward) * input.x + forward * input.y;
     }
 
+    internal Vector3 ConfiguredMovementDirection
+    {
+        get { var view = mainCamera ? mainCamera : Camera.main; return ResolveDirectDirection(GamePreferences.MovementInput, view ? view.transform.rotation : Quaternion.identity); }
+    }
+
     private void HandleDirectMovement()
     {
         _groundMoveBuffer.Discard();
-        var keyboard = Keyboard.current;
-        if (keyboard == null) { _directMovementRelease = true; return; }
-        Vector2 input = new Vector2((keyboard.dKey.isPressed ? 1 : 0) - (keyboard.aKey.isPressed ? 1 : 0),
-            (keyboard.wKey.isPressed ? 1 : 0) - (keyboard.sKey.isPressed ? 1 : 0));
+        Vector2 input = GamePreferences.MovementInput;
         if (_directMovementRelease)
         {
             if (input.sqrMagnitude > .0001f) return;

@@ -1,0 +1,10 @@
+{
+  "mode": "PlayMode",
+  "test_names": [
+    "TechGuy.Tests.RunResultsPlayModeTests.GPRResultsReboundSideMouseButtonRequiresRelease",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRCaptureDeviceChangeCancelsWithoutSavingDraft",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRConfigRoundTripConflictCaptureAndDefaults"
+  ],
+  "include_details": true,
+  "init_timeout": 120000
+}

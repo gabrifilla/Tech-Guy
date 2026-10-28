@@ -66,7 +66,7 @@ namespace TechGuy.Tests
             float deadline = Time.realtimeSinceStartup + 8;
             if (playerDies)
             {
-                while (SceneManager.GetActiveScene().name != "NexusLobby") { Assert.That(Time.realtimeSinceStartup, Is.LessThan(deadline)); yield return null; }
+                while (SceneManager.GetActiveScene().name != "NexusBlockout") { Assert.That(Time.realtimeSinceStartup, Is.LessThan(deadline)); yield return null; }
                 Assert.That(session.Outcome, Is.EqualTo(RunOutcome.Dead)); Assert.That(session.Phase, Is.EqualTo(RunPhase.Ended));
             }
             else

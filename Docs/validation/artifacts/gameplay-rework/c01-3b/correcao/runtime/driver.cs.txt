@@ -1,0 +1,55 @@
+// Real Nexus actor, virtual input and test-only energy grant; never physical acceptance.
+if(!UnityEditor.EditorApplication.isPlaying)throw new System.Exception("Play Mode required");
+var player=UnityEngine.Object.FindFirstObjectByType<PlayerActor>();
+var control=player.GetComponent<CharControlScript>();var holder=player.GetComponent<AbilityHolder>();
+var combat=player.GetComponent<BreakerGauntletCombat>();var view=UnityEngine.Camera.main;
+if(!control.DirectMovementEnabled)throw new System.Exception("Direct player required");
+var oldKeyboard=UnityEngine.InputSystem.Keyboard.current;var oldMouse=UnityEngine.InputSystem.Mouse.current;
+bool oldK=oldKeyboard!=null&&oldKeyboard.enabled,oldM=oldMouse!=null&&oldMouse.enabled;
+var settings=UnityEngine.InputSystem.InputSystem.settings;var background=settings.backgroundBehavior;var editorInput=settings.editorInputBehaviorInPlayMode;
+settings.backgroundBehavior=UnityEngine.InputSystem.InputSettings.BackgroundBehavior.IgnoreFocus;
+settings.editorInputBehaviorInPlayMode=UnityEngine.InputSystem.InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+if(oldK)UnityEngine.InputSystem.InputSystem.DisableDevice(oldKeyboard);if(oldM)UnityEngine.InputSystem.InputSystem.DisableDevice(oldMouse);
+var keyboard=UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Keyboard>("GPR-C01.3a virtual keyboard");
+var mouse=UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Mouse>("GPR-C01.3a virtual mouse");
+control.SendMessage("OnApplicationFocus",true);
+var gameView=UnityEditor.EditorWindow.GetWindow(typeof(UnityEditor.EditorWindow).Assembly.GetType("UnityEditor.GameView"));gameView.Show();gameView.Focus();
+var dir=System.IO.Path.Combine(System.IO.Directory.GetParent(UnityEngine.Application.dataPath).FullName,"Docs/validation/artifacts/gameplay-rework/c01-3b/correcao/runtime");
+var writer=new System.IO.StreamWriter(System.IO.Path.Combine(dir,"nexus-input.csv"));writer.WriteLine("frame,t,dt,x,y,z,basicCount,asuraUses,stage,basicProgress,scheduled,forwardX,forwardZ,energy,mana");
+var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
+float interval=(float)typeof(CharControlScript).GetField("attackInterval",flags).GetValue(control);
+float busy=(float)typeof(CharControlScript).GetField("attackBusyDuration",flags).GetValue(control);
+double spacing=System.Math.Max(interval,busy)+.15, specialAt=.4+3*spacing+.2, finishAt=specialAt+3.5;
+combat.AddAsuraEnergy(100);float manaBefore=player.mana,cost=holder.ActiveAbilities[3].ManaCost;
+int basics=0,uses=0,lastFrame=-1,lastStage=-1;bool finished=false;bool[] shots=new bool[4];
+var observed=new System.Collections.Generic.List<object>();
+System.Action basic=()=>{basics++;observed.Add(new{kind="Basic",frame=UnityEngine.Time.frameCount,stage=(int)typeof(CharControlScript).GetField("_basicAttackIndex",flags).GetValue(control),x=player.transform.forward.x,z=player.transform.forward.z});};
+System.Action<int> used=slot=>{if(slot==3)uses++;};control.BasicAttackPerformed+=basic;holder.AbilityUsed+=used;
+double started=UnityEngine.Time.realtimeSinceStartupAsDouble;
+System.Func<float,string> f=v=>v.ToString("R",System.Globalization.CultureInfo.InvariantCulture);
+UnityEditor.EditorApplication.CallbackFunction tick=null;
+System.Action cleanup=()=>{UnityEditor.EditorApplication.update-=tick;control.BasicAttackPerformed-=basic;holder.AbilityUsed-=used;writer.Dispose();
+ UnityEngine.InputSystem.InputSystem.RemoveDevice(keyboard);UnityEngine.InputSystem.InputSystem.RemoveDevice(mouse);
+ if(oldK&&oldKeyboard!=null)UnityEngine.InputSystem.InputSystem.EnableDevice(oldKeyboard);if(oldM&&oldMouse!=null)UnityEngine.InputSystem.InputSystem.EnableDevice(oldMouse);
+ if(oldKeyboard!=null)oldKeyboard.MakeCurrent();if(oldMouse!=null)oldMouse.MakeCurrent();settings.backgroundBehavior=background;settings.editorInputBehaviorInPlayMode=editorInput;};
+tick=delegate {
+ if(finished)return;
+ try {
+  double t=UnityEngine.Time.realtimeSinceStartupAsDouble-started;
+  if(!UnityEditor.EditorApplication.isPlaying||!player||t>finishAt){finished=true;cleanup();
+   System.IO.File.WriteAllText(System.IO.Path.Combine(dir,"nexus-proveniencia.json"),Newtonsoft.Json.JsonConvert.SerializeObject(new{physicalHuman=false,input="virtual Keyboard/Mouse/focus; energy100 granted only in memory",scene=UnityEngine.SceneManagement.SceneManager.GetActiveScene().path,seconds=t,basics=basics,asuraUses=uses,interval=interval,busy=busy,manaBefore=manaBefore,manaAfter=player?player.mana:0,cost=cost,observed=observed}));return;}
+  int stage=0;
+  for(int i=0;i<3;i++)if(t>=.4+i*spacing&&t<.48+i*spacing)stage=i+1;
+  if(t>=specialAt&&t<specialAt+.12)stage=4;
+  if(stage!=lastStage){lastStage=stage;var point=(UnityEngine.Vector2)view.WorldToScreenPoint(player.transform.position+UnityEngine.Vector3.right*8);
+   var state=new UnityEngine.InputSystem.LowLevel.MouseState{position=point};
+   if(stage>=1&&stage<=3)state=state.WithButton(UnityEngine.InputSystem.LowLevel.MouseButton.Left);
+   if(stage==4)state=state.WithButton(UnityEngine.InputSystem.LowLevel.MouseButton.Right);
+   UnityEngine.InputSystem.InputSystem.QueueStateEvent(mouse,state);UnityEngine.InputSystem.InputSystem.QueueStateEvent(keyboard,new UnityEngine.InputSystem.LowLevel.KeyboardState());}
+  for(int i=0;i<3;i++)if(!shots[i]&&t>.435+i*spacing){shots[i]=true;UnityEngine.ScreenCapture.CaptureScreenshot(System.IO.Path.Combine(dir,"nexus-basic-"+(i+1)+".png"));}
+  if(!shots[3]&&t>specialAt+.35){shots[3]=true;UnityEngine.ScreenCapture.CaptureScreenshot(System.IO.Path.Combine(dir,"nexus-asura-rmb.png"));}
+  if(lastFrame==UnityEngine.Time.frameCount)return;lastFrame=UnityEngine.Time.frameCount;var pos=player.transform.position;var forward=player.transform.forward;
+  writer.WriteLine(string.Join(",",new[]{lastFrame.ToString(),f((float)t),f(UnityEngine.Time.deltaTime),f(pos.x),f(pos.y),f(pos.z),basics.ToString(),uses.ToString(),stage.ToString(),f(control.BasicImpactProgress),control.HasScheduledBasic.ToString(),f(forward.x),f(forward.z),combat.Energy.ToString(),f(player.mana)}));writer.Flush();
+ }catch(System.Exception error){finished=true;cleanup();System.IO.File.WriteAllText(System.IO.Path.Combine(dir,"nexus-driver-error.txt"),error.ToString());}
+};UnityEditor.EditorApplication.update+=tick;
+return new{seconds=finishAt,interval=interval,actor=player.name,energyGrant=100,physicalHuman=false};

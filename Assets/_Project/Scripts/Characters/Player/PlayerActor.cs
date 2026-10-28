@@ -373,17 +373,20 @@ public class PlayerActor : Actor, IExternalPullTarget
         // asset — the registry only reads its run-scoped window state.
         EdgeVulnerabilityRegistry edgeVuln = EdgeVulnerabilities;
         if (edgeVuln != null) damage *= edgeVuln.AmplifierFor(enemy);
+        var basicLineage = protocols ? protocols.ScopedBasicLineage : null;
+        if (basicLineage != null && !protocols.CanResolveBasicBranch) return 0f;
         var protocolProducer = transaction != null ? ProtocolRuntime.ProducerFor(transaction.Context) :
             protocols ? protocols.ScopedProducer : ProtocolProducer.Direct;
         int protocolDepth = transaction != null ? protocolProducer == ProtocolProducer.Direct ? 0 : 1 :
             protocols ? protocols.ScopedDepth : 0;
         if (protocols && protocolDepth > 0 && (protocolRoot == null || !protocolRoot.ReserveImpact(protocolDepth)))
         { transaction?.RejectForBudget(); return 0f; }
+        if (basicLineage != null && !basicLineage.ClaimTarget(protocolBefore.Handle)) return 0f;
         float beforeProtocolAmplification = damage;
         if (protocols) damage = protocols.AmplifyChild(protocolRoot, protocolProducer, protocolBefore, damage);
         var damageSource = transaction != null ? RunStatistics?.SourceFor(transaction.Context) :
             protocolRoot?.AnalyticsSource ?? RunStatistics?.CurrentSource ?? RunStatistics?.UnknownSource();
-        damageSource = damageSource?.WithProducer(protocolProducer.ToString(), transaction?.Context.ProducerId ?? "",
+        damageSource = damageSource?.WithProducer(protocolProducer.ToString(), transaction?.Context.ProducerId ?? (protocols ? protocols.ScopedProducerId : ""),
             transaction != null ? transaction.Context.Origin != GauntletImpactOrigin.Direct : protocols && protocols.ScopedAnalyticsSecondary);
         if (damage != beforeProtocolAmplification) damageSource = damageSource?.WithModifier("resonance");
         float dealt = 0f;
@@ -391,16 +394,18 @@ public class PlayerActor : Actor, IExternalPullTarget
         {
             dealt = actual;
             transaction?.ConfirmHp(actual);
+            if (actual > 0 && transaction != null && protocols)
+                protocols.ConfirmBasicTerminal(new ConfirmedHpReceipt(transaction.Context, actual));
             transaction?.HoldProtocolBatch(protocolRoot);
             _feedbackScope.ConfirmDamage(true);
         }, transaction == null ? null : transaction.Notify, damageSource)) enemy.TakeDamage(damage);
-        if (dealt > 0f && modifiers != null) RestoreMana(2f * modifiers.Rank(WeaponBoon.Siphon));
+        if (dealt > 0f && modifiers != null && basicLineage == null) RestoreMana(2f * modifiers.Rank(WeaponBoon.Siphon));
         if (dealt > 0f && protocols)
         {
             float confirmed = dealt;
             var producer = protocolProducer;
             System.Action notification = () => {
-                if (protocols) protocols.SubmitConfirmedImpact(protocolRoot, enemy, protocolBefore, confirmed, producer, protocolDepth);
+                if (protocols) protocols.SubmitConfirmedImpact(protocolRoot, enemy, protocolBefore, confirmed, producer, protocolDepth, basicLineage);
             };
             if (transaction != null) transaction.Notify(notification); else notification();
         }

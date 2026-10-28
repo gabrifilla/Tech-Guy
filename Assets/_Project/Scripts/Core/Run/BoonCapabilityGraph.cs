@@ -45,7 +45,7 @@ public sealed class BoonCapabilityGraph
     public const int MaxAugmentsPerAbility = 2;
     public const int MaxResonancesPerRun = 2;
     private readonly BoonCatalogSnapshot _catalog;
-    private readonly BoonAbilityConfiguration[] _baseAbilities = new BoonAbilityConfiguration[4];
+    private readonly BoonAbilityConfiguration[] _baseAbilities = new BoonAbilityConfiguration[5];
     private Dictionary<string, BoonAcquisition> _acquisitions = new Dictionary<string, BoonAcquisition>(StringComparer.Ordinal);
     private BoonAbilityConfiguration[] _abilities;
     public BoonWeaponMask Weapon { get; }
@@ -57,7 +57,7 @@ public sealed class BoonCapabilityGraph
         _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
         if (weapon != BoonWeaponMask.Gauntlet && weapon != BoonWeaponMask.Bow && weapon != BoonWeaponMask.Spear)
             throw new ArgumentException("A build must identify exactly one equipped weapon family.", nameof(weapon));
-        if (abilities == null || abilities.Count != 4) throw new ArgumentException("A build requires Q/W/E/R configurations.", nameof(abilities));
+        if (abilities == null || (abilities.Count != 4 && abilities.Count != 5)) throw new ArgumentException("A build requires Q/W/E/R configurations.", nameof(abilities));
         Weapon = weapon;
         foreach (var ability in abilities)
         {
@@ -68,6 +68,11 @@ public sealed class BoonCapabilityGraph
             if (_baseAbilities[(int)ability.Slot] != null) throw new ArgumentException("Duplicate configured slot.", nameof(abilities));
             _baseAbilities[(int)ability.Slot] = ability.Copy();
         }
+        for (int i = 0; i < 4; i++)
+            if (_baseAbilities[i] == null) throw new ArgumentException("Missing legacy ability identity.", nameof(abilities));
+        if (_baseAbilities[4] == null)
+            _baseAbilities[4] = new BoonAbilityConfiguration(BoonSlot.Basic,
+                weapon == BoonWeaponMask.Gauntlet ? BoonCapability.MeleeHit | BoonCapability.Finisher : BoonCapability.None, 0, 0);
         _abilities = _baseAbilities.Select(a => a.Copy()).ToArray();
     }
 
@@ -185,8 +190,8 @@ public sealed class BoonCapabilityGraph
     {
         abilities = null; diagnostic = null;
         RebindRetainedProducers(acquisitions);
-        var replacements = new BoonDefinitionSnapshot[4];
-        var augmentCounts = new int[4]; int resonances = 0;
+        var replacements = new BoonDefinitionSnapshot[5];
+        var augmentCounts = new int[5]; int resonances = 0;
         var pending = new List<KeyValuePair<BoonAcquisition, BoonDefinitionSnapshot>>();
         foreach (var acquisition in acquisitions.Values.OrderBy(a => a.Id, StringComparer.Ordinal))
         {
@@ -195,7 +200,8 @@ public sealed class BoonCapabilityGraph
             if (definition.Family == BoonFamily.Mythic)
             { diagnostic = definition.Id + ": Mythics are disabled in this implementation stage."; return false; }
             if ((definition.Weapons & Weapon) == 0 || acquisition.Slots == BoonSlotMask.None ||
-                (acquisition.Slots & ~definition.Slots) != 0 || (acquisition.Slots & ~BoonSlotMask.Any) != 0)
+                (acquisition.Slots & ~definition.Slots) != 0 || (acquisition.Slots & ~BoonSlotMask.AllTargets) != 0 ||
+                (acquisition.Slots & BoonSlotMask.Basic) != 0 && Weapon != BoonWeaponMask.Gauntlet)
             { diagnostic = definition.Id + ": incompatible equipped weapon or target skill."; return false; }
             if (acquisition.Rank < 1 || acquisition.Rank > definition.MaxRank)
             { diagnostic = definition.Id + ": restored rank is outside its declared limit."; return false; }
@@ -254,7 +260,7 @@ public sealed class BoonCapabilityGraph
             if (!progressed)
             { diagnostic = pending[0].Value.Id + ": missing capabilities on its bound skill; cross-slot and self-provided requirements are invalid."; return false; }
         }
-        abilities = new BoonAbilityConfiguration[4];
+        abilities = new BoonAbilityConfiguration[5];
         for (int i = 0; i < abilities.Length; i++)
             abilities[i] = new BoonAbilityConfiguration((BoonSlot)i, capabilities[i], mana[i], cooldowns[i]);
         return true;

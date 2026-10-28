@@ -5,7 +5,7 @@ using UnityEngine;
 /// Thin runtime component that replaces the single <c>ARSENAL / ARMAS</c> panel of
 /// <see cref="LobbyInteraction"/> with the Hades-style physical pedestals: it reads the nearest
 /// pedestal by proximity, draws its weapon card anchored to the pedestal, and equips/unlocks the
-/// weapon in place with the same interaction key already used in the lobby (<see cref="GameControl.Skill3"/>).
+/// weapon in place with the same interaction key already used in the lobby (<see cref="GamePreferences.InteractionAction"/>).
 ///
 /// All decision logic lives in the pure, scene-free classes this MonoBehaviour consumes:
 /// <see cref="PedestalProximity"/> (nearest-in-range selection), <see cref="WeaponPedestalState"/>
@@ -85,11 +85,13 @@ public sealed class LobbyArsenal : MonoBehaviour
     /// pedestal is not also consumed as an ability: returns true when the pressed key is the
     /// interaction key and the player stands within a pedestal's reach.
     /// </summary>
+    public bool HasInteractionInRange => _player && NearestInRange() != PedestalProximity.None;
+
     public bool BlocksAbilityInput(KeyCode key)
     {
         if (!_player || _pedestals == null) return false;
-        if (key != GamePreferences.Binding(GameControl.Skill3) &&
-            !(_compactPresentation && key == GamePreferences.Binding(GameControl.Skill4))) return false;
+        if (key != GamePreferences.Binding(GamePreferences.InteractionAction) &&
+            !(!GamePreferences.UsesDirectControls && _compactPresentation && key == GamePreferences.Binding(GameControl.Skill4))) return false;
         return NearestInRange() != PedestalProximity.None;
     }
 
@@ -124,9 +126,11 @@ public sealed class LobbyArsenal : MonoBehaviour
         _nearestIndex = NearestInRange();
         if (_nearestIndex != previous) _detailsRequested = false;
         if (_nearestIndex == PedestalProximity.None) return;
-        if (_compactPresentation && GamePreferences.WasPressed(GameControl.Skill4))
+        if (!GamePreferences.UsesDirectControls && _compactPresentation && GamePreferences.WasPressed(GameControl.Skill4))
             _detailsRequested = !_detailsRequested;
-        if (!GamePreferences.WasPressed(GameControl.Skill3)) return;
+        if (_player.TryGetComponent(out CharControlScript controls) && !controls.GameplayInputReady) return;
+        if (!GamePreferences.WasPressed(GamePreferences.InteractionAction)) return;
+        if (controls) controls.RequireAttackRelease();
 
         Interact(_pedestals[_nearestIndex]);
     }
@@ -180,7 +184,7 @@ public sealed class LobbyArsenal : MonoBehaviour
         var playerPoint = new Vector2(playerProjected.x, Screen.height - playerProjected.y);
         if (_compactPresentation)
             _detailsRequested = _cardView.DrawCompact(BuildCardContent(pedestal), playerPoint, _detailsRequested,
-                GamePreferences.BindingLabel(GameControl.Skill4));
+                GamePreferences.UsesDirectControls ? "Clique" : GamePreferences.BindingLabel(GameControl.Skill4));
         else _cardView.Draw(BuildCardContent(pedestal), playerPoint);
     }
 
@@ -200,7 +204,7 @@ public sealed class LobbyArsenal : MonoBehaviour
         else if (CurrencyWallet.CanAfford(state.UnlockCost)) kind = WeaponCardContent.StateKind.Unlockable;
         else kind = WeaponCardContent.StateKind.Insufficient;
 
-        return WeaponCardContent.Build(weapon, kind, state.UnlockCost, GamePreferences.BindingLabel(GameControl.Skill3));
+        return WeaponCardContent.Build(weapon, kind, state.UnlockCost, GamePreferences.BindingLabel(GamePreferences.InteractionAction));
     }
 
     /// <summary>Runs the pure proximity selection over the cached anchor/radius buffers.</summary>

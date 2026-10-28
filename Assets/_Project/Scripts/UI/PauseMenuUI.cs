@@ -12,6 +12,7 @@ public sealed class PauseMenuUI : MonoBehaviour
     private enum PausePage { Home, Upgrades, Map, Controls }
 
     [SerializeField] private string _mainMenuScene = "MainMenu";
+    private DashDirectionMode _dashDirection;
     private readonly ControlRemappingPanel _remapping = new ControlRemappingPanel();
     private KeyCode[] _bindings;
     private PausePage _page;
@@ -77,7 +78,7 @@ public sealed class PauseMenuUI : MonoBehaviour
             return;
         }
         if (_page == PausePage.Controls && _remapping.Update(_bindings)) return;
-        if (Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame) return;
+        if (!(Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) && !GamePreferences.WasPressed(GameControl.Pause)) return;
         if (IsPaused) NavigateBack();
         else Pause();
     }
@@ -264,6 +265,7 @@ public sealed class PauseMenuUI : MonoBehaviour
         {
             _page = PausePage.Controls;
             _bindings = GamePreferences.ReadBindings();
+            _dashDirection = GamePreferences.DashDirection;
         }
         float nextY = 460f;
         if (_map && _map.CanAbortRun)
@@ -280,18 +282,24 @@ public sealed class PauseMenuUI : MonoBehaviour
         }
     }
 
+    private void OnApplicationFocus(bool focused) { if (!focused) _remapping.Cancel(); }
+
     private void DrawControls()
     {
-        _remapping.Draw(new Rect(390, 200, 500, 292), _bindings);
+        _remapping.Draw(new Rect(390, 200, 500, 240), _bindings);
+        _remapping.DrawDashDirection(new Rect(390, 455, 500, 36), ref _dashDirection);
         if (GUI.Button(new Rect(390, 540, 145, 44), "Voltar", _button)) ReturnToPauseHome();
         if (GUI.Button(new Rect(548, 540, 150, 44), "Padrões", _button))
         {
             _remapping.Cancel();
             _bindings = GamePreferences.UsesDirectControls ? GamePreferences.DefaultDirectBindings() : GamePreferences.DefaultBindings();
+            _dashDirection = DashDirectionMode.Mouse;
         }
         if (GUI.Button(new Rect(711, 540, 179, 44), "Aplicar", _button))
         {
+            if (!_remapping.CanApply) return;
             GamePreferences.SaveBindings(_bindings);
+            GamePreferences.SaveDashDirection(_dashDirection);
             ReturnToPauseHome();
         }
     }

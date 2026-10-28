@@ -16,6 +16,8 @@ namespace TechGuy.Tests
         private Keyboard _keyboard, _oldKeyboard;
         private Mouse _mouse, _oldMouse;
         private bool _keyboardEnabled, _mouseEnabled;
+        private InputSettings.BackgroundBehavior _background;
+        private InputSettings.EditorInputBehaviorInPlayMode _editorInput;
         private float _scale;
         private bool _audio, _cursor;
         private CursorLockMode _lock;
@@ -23,12 +25,16 @@ namespace TechGuy.Tests
         [UnitySetUp] public IEnumerator SetupScene()
         {
             _scale=Time.timeScale;_audio=AudioListener.pause;_cursor=Cursor.visible;_lock=Cursor.lockState;
+            _background = InputSystem.settings.backgroundBehavior;
+            _editorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
+            InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
+            InputSystem.settings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
             _oldKeyboard=Keyboard.current;_oldMouse=Mouse.current;
             _keyboardEnabled=_oldKeyboard!=null&&_oldKeyboard.enabled;_mouseEnabled=_oldMouse!=null&&_oldMouse.enabled;
             if(_keyboardEnabled)InputSystem.DisableDevice(_oldKeyboard);if(_mouseEnabled)InputSystem.DisableDevice(_oldMouse);
             _keyboard=InputSystem.AddDevice<Keyboard>();_mouse=InputSystem.AddDevice<Mouse>();
             Time.timeScale=1;AudioListener.pause=false;
-            yield return SceneManager.LoadSceneAsync("NexusLobby");yield return null;yield return null;
+            yield return SceneManager.LoadSceneAsync("NexusBlockout");yield return null;yield return null;
             _presenter=UnityEngine.Object.FindFirstObjectByType<RunResultsPresenter>();Assert.IsNotNull(_presenter);
         }
         [UnityTearDown] public IEnumerator Cleanup()
@@ -37,9 +43,35 @@ namespace TechGuy.Tests
             InputSystem.RemoveDevice(_keyboard);InputSystem.RemoveDevice(_mouse);
             if(_keyboardEnabled&&_oldKeyboard!=null)InputSystem.EnableDevice(_oldKeyboard);
             if(_mouseEnabled&&_oldMouse!=null)InputSystem.EnableDevice(_oldMouse);
+            _oldKeyboard?.MakeCurrent();_oldMouse?.MakeCurrent();
+            InputSystem.settings.backgroundBehavior = _background;
+            InputSystem.settings.editorInputBehaviorInPlayMode = _editorInput;
             Time.timeScale=_scale;AudioListener.pause=_audio;Cursor.visible=_cursor;Cursor.lockState=_lock;
             yield return null;
         }
+        [UnityTest] public IEnumerator GPRResultsReboundSideMouseButtonRequiresRelease()
+        {
+            var controls = UnityEngine.Object.FindFirstObjectByType<PlayerActor>().GetComponent<CharControlScript>();
+            try
+            {
+                using (var prefs = new BasicAttackR1PlayModeTests.ConfigPreferenceScope())
+                {
+                    var bindings = GamePreferences.DefaultDirectBindings(); bindings[(int)GameControl.Move] = KeyCode.Mouse4;
+                    GamePreferences.SaveBindings(bindings);
+                    Store(Data()); _presenter.OpenManual(); yield return null;
+                    InputSystem.QueueStateEvent(_mouse, new MouseState().WithButton(MouseButton.Forward));
+                    yield return null; yield return null;
+                    _presenter.Close(); yield return null; yield return null;
+                    Assert.That(_presenter.BlocksInput, Is.True, "Rebound side mouse button must retain modal ownership until release.");
+                    InputSystem.QueueStateEvent(_mouse, new MouseState()); yield return null; yield return null;
+                    Assert.That(_presenter.BlocksInput, Is.False);
+                    yield return SceneManager.LoadSceneAsync("NexusBlockout"); yield return null; yield return null;
+                    Assert.That(GamePreferences.WeaponSpecialBinding, Is.EqualTo(KeyCode.Mouse4), "Binding survives a scene reload.");
+                }
+            }
+            finally { var activePlayer = UnityEngine.Object.FindFirstObjectByType<PlayerActor>(); if (activePlayer) GamePreferences.UseDirectControls(activePlayer.GetComponent<CharControlScript>()); }
+        }
+
         private static RunSummary Data(string outcome="Victory",double total=100)
         {
             var s=new RunSummary {SessionId=Guid.NewGuid().ToString(),Seed="42",InitialWeapon="Gauntlet",StartedUtc=DateTime.UtcNow.ToString("o"),
@@ -63,7 +95,7 @@ namespace TechGuy.Tests
             foreach(var outcome in new[]{"Victory","Death","Aborted"})
             {
                 var s=Data(outcome);Store(s);RunResultsHandoff.Expect(s.SessionId);
-                yield return SceneManager.LoadSceneAsync("NexusLobby");yield return null;yield return null;
+                yield return SceneManager.LoadSceneAsync("NexusBlockout");yield return null;yield return null;
                 _presenter=UnityEngine.Object.FindFirstObjectByType<RunResultsPresenter>();
                 Assert.IsTrue(_presenter.IsOpen);Assert.AreEqual(outcome,_presenter.Model.Outcome);Assert.AreEqual(s.SessionId,_presenter.Model.SessionId);
                 Assert.IsNull(RunResultsHandoff.Consume());_presenter.Close();yield return null;yield return null;
@@ -158,7 +190,7 @@ namespace TechGuy.Tests
         }
         [UnityTest] public IEnumerator PersistedSummarySurvivesSceneReloadWithoutAutomaticOldResult()
         {
-            var s=Data();Store(s);yield return SceneManager.LoadSceneAsync("NexusLobby");yield return null;yield return null;
+            var s=Data();Store(s);yield return SceneManager.LoadSceneAsync("NexusBlockout");yield return null;yield return null;
             _presenter=UnityEngine.Object.FindFirstObjectByType<RunResultsPresenter>();Assert.IsFalse(_presenter.IsOpen);
             _presenter.OpenManual();Assert.AreEqual(s.SessionId,_presenter.Model.SessionId);
             Assert.AreEqual(1,UnityEngine.Object.FindObjectsByType<EventSystem>(FindObjectsSortMode.None).Length);
@@ -172,7 +204,7 @@ namespace TechGuy.Tests
                 var director=UnityEngine.Object.FindFirstObjectByType<ProgressionDirector>();var session=director.ManualSession;
                 Assert.IsTrue(director.TryAbortManualRun(session.Id));
                 float deadline=Time.realtimeSinceStartup+12;
-                while(SceneManager.GetActiveScene().name!="NexusLobby"){Assert.Less(Time.realtimeSinceStartup,deadline);yield return null;}
+                while(SceneManager.GetActiveScene().name!="NexusBlockout"){Assert.Less(Time.realtimeSinceStartup,deadline);yield return null;}
                 yield return null;yield return null;
                 _presenter=UnityEngine.Object.FindFirstObjectByType<RunResultsPresenter>();Assert.IsTrue(_presenter.IsOpen);
                 Assert.AreEqual(session.Id.ToString(),_presenter.Model.SessionId);Assert.AreEqual("Aborted",_presenter.Model.Outcome);
@@ -201,7 +233,7 @@ namespace TechGuy.Tests
         [UnityTest] public IEnumerator GPRSafetySceneReloadRequiresHeldGameplayKeysReleased()
         {
             InputSystem.QueueStateEvent(_keyboard, new KeyboardState(Key.W, Key.Q)); yield return null;
-            yield return SceneManager.LoadSceneAsync("NexusLobby"); yield return null;
+            yield return SceneManager.LoadSceneAsync("NexusBlockout"); yield return null;
             _presenter = UnityEngine.Object.FindFirstObjectByType<RunResultsPresenter>();
             var player = UnityEngine.Object.FindFirstObjectByType<PlayerActor>();
             var control = player.GetComponent<CharControlScript>(); control.SendMessage("OnApplicationFocus", true);

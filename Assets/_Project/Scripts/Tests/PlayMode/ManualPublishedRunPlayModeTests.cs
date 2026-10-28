@@ -44,7 +44,7 @@ namespace TechGuy.Tests
             for(int path=0;path<4;path++)
             {
                 PlayerPrefs.SetInt(WeaponLoadout.PreferenceKey,family);
-                yield return Load("NexusLobby");
+                yield return Load("NexusBlockout");
                 Assert.IsNotNull(Object.FindFirstObjectByType<LobbyInteraction>());
                 yield return Load("FirstSector");
                 var director=Object.FindFirstObjectByType<ProgressionDirector>(); var player=Object.FindFirstObjectByType<PlayerActor>();
@@ -87,7 +87,7 @@ namespace TechGuy.Tests
                 Assert.IsTrue(player.GetComponent<NavMeshAgent>().Warp(portal.transform.position)); Assert.IsTrue(portal.TryEnter());
                 Assert.AreEqual(RunOutcome.Extracted,session.Outcome);
                 float end=Time.realtimeSinceStartup+8f;
-                while(SceneManager.GetActiveScene().name!="NexusLobby") { Assert.Less(Time.realtimeSinceStartup,end); yield return null; }
+                while(SceneManager.GetActiveScene().name!="NexusBlockout") { Assert.Less(Time.realtimeSinceStartup,end); yield return null; }
                 yield return null; Assert.AreEqual(RunPhase.Ended,session.Phase);
             }
         }
@@ -98,7 +98,7 @@ namespace TechGuy.Tests
             var director=Object.FindFirstObjectByType<ProgressionDirector>(); var session=director.ManualSession;
             Object.FindFirstObjectByType<PlayerActor>().TakeDamage(1000000f);
             float end=Time.realtimeSinceStartup+8f;
-            while(SceneManager.GetActiveScene().name!="NexusLobby") { Assert.Less(Time.realtimeSinceStartup,end); yield return null; }
+            while(SceneManager.GetActiveScene().name!="NexusBlockout") { Assert.Less(Time.realtimeSinceStartup,end); yield return null; }
             Assert.AreEqual(RunOutcome.Dead,session.Outcome); Assert.AreEqual(RunPhase.Ended,session.Phase);
             PlayerPrefs.SetInt(WeaponLoadout.PreferenceKey,1); yield return Load("FirstSector");
             director=Object.FindFirstObjectByType<ProgressionDirector>();

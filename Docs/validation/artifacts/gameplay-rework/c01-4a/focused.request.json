@@ -1,0 +1,11 @@
+{
+  "mode": "PlayMode",
+  "test_names": [
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRConfigMigrationKeepsPersonalizedSecondaryAndHasThreeSkills",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRConfigRoundTripConflictCaptureAndDefaults",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRConfigReboundMovementAndMousePrimaryUseExistingOwners",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectSettingsRoundTripPreservesLegacyBindings"
+  ],
+  "include_details": true,
+  "init_timeout": 120000
+}

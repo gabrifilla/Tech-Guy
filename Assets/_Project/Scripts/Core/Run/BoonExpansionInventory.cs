@@ -9,7 +9,8 @@ public sealed class BoonExpansionInventory
     public IReadOnlyList<BoonAcquisition> Acquisitions => _records.Values.OrderBy(a => a.Id, StringComparer.Ordinal).Select(a => a.Copy()).ToList().AsReadOnly();
     public bool Has(string id) => id != null && _records.ContainsKey(id);
     public bool Has(string id, GauntletActionSlot slot) => _records.TryGetValue(id, out var record) &&
-        slot >= GauntletActionSlot.Q && slot <= GauntletActionSlot.R && (record.Slots & (BoonSlotMask)(1 << (int)slot)) != 0;
+        (record.Slots & (slot == GauntletActionSlot.Basic ? BoonSlotMask.Basic :
+            slot >= GauntletActionSlot.Q && slot <= GauntletActionSlot.R ? (BoonSlotMask)(1 << (int)slot) : BoonSlotMask.None)) != 0;
     public string MutationId(BoonSlot slot)
     {
         var mask = BoonCapabilityGraph.Mask(slot);

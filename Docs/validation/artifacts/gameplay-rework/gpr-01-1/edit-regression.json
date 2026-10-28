@@ -1,0 +1,855 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "1e87e68d7b7e47cc817df8f05a495354",
+    "status": "succeeded",
+    "mode": "EditMode",
+    "started_unix_ms": 1793208332844,
+    "finished_unix_ms": 1793208516375,
+    "last_update_unix_ms": 1793208516375,
+    "progress": {
+      "completed": 90,
+      "total": 90,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.RetainedCatalogExcludesTheOtherOldBoonsAtEveryProtocolOpportunity",
+      "last_finished_unix_ms": 1793208516237,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "EditMode",
+      "summary": {
+        "total": 90,
+        "passed": 90,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 177.3077715,
+        "resultState": "Passed"
+      },
+      "results": [
+        {
+          "name": "AFreeBindablePreferenceWinsBeforeFallbackCandidates(Z)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AFreeBindablePreferenceWinsBeforeFallbackCandidates(Z)",
+          "state": "Passed",
+          "durationSeconds": 0.0016664,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "AFreeBindablePreferenceWinsBeforeFallbackCandidates(Mouse3)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AFreeBindablePreferenceWinsBeforeFallbackCandidates(Mouse3)",
+          "state": "Passed",
+          "durationSeconds": 0.0001115,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "AFreeBindablePreferenceWinsBeforeFallbackCandidates(K)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AFreeBindablePreferenceWinsBeforeFallbackCandidates(K)",
+          "state": "Passed",
+          "durationSeconds": 0.0000808,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "AFreePreferenceStillWorksWhenAllFallbackCandidatesAreOccupied",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AFreePreferenceStillWorksWhenAllFallbackCandidatesAreOccupied",
+          "state": "Passed",
+          "durationSeconds": 0.0002461,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "AnArtificiallyExhaustedFallbackSetReturnsNoneInsteadOfADuplicate",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AnArtificiallyExhaustedFallbackSetReturnsNoneInsteadOfADuplicate",
+          "state": "Passed",
+          "durationSeconds": 0.005516,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "AnExistingFBindingIsPreservedAndTheNewControlChoosesG",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AnExistingFBindingIsPreservedAndTheNewControlChoosesG",
+          "state": "Passed",
+          "durationSeconds": 0.0016558,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "AnOccupiedPreferredKeyFallsBackWithoutChangingTheOriginalOwner",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.AnOccupiedPreferredKeyFallsBackWithoutChangingTheOriginalOwner",
+          "state": "Passed",
+          "durationSeconds": 0.000413,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DefaultsPreserveAllSevenOriginalControlsAndAddAnIndependentFinishKey",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.DefaultsPreserveAllSevenOriginalControlsAndAddAnIndependentFinishKey",
+          "state": "Passed",
+          "durationSeconds": 0.003693,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "FallbackOrderAlwaysLeavesOneUniqueChoiceForSevenExistingControls",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.FallbackOrderAlwaysLeavesOneUniqueChoiceForSevenExistingControls",
+          "state": "Passed",
+          "durationSeconds": 0.0008022,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "FinishSequenceAppendsItsIdentityWithoutReorderingExistingControls",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.FinishSequenceAppendsItsIdentityWithoutReorderingExistingControls",
+          "state": "Passed",
+          "durationSeconds": 0.0002739,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "InvalidPreferencesChooseTheFirstFreeBindableFallback(None)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.InvalidPreferencesChooseTheFirstFreeBindableFallback(None)",
+          "state": "Passed",
+          "durationSeconds": 0.0005799,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "InvalidPreferencesChooseTheFirstFreeBindableFallback(Escape)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.InvalidPreferencesChooseTheFirstFreeBindableFallback(Escape)",
+          "state": "Passed",
+          "durationSeconds": 0.0001112,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "InvalidPreferencesChooseTheFirstFreeBindableFallback(2147483647)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.InvalidPreferencesChooseTheFirstFreeBindableFallback(2147483647)",
+          "state": "Passed",
+          "durationSeconds": 0.0013058,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "InvalidPreferencesChooseTheFirstFreeBindableFallback(-1)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.InvalidPreferencesChooseTheFirstFreeBindableFallback(-1)",
+          "state": "Passed",
+          "durationSeconds": 0.0000954,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResolutionIsDeterministicAndDoesNotDependOnExistingControlOrder",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests.ResolutionIsDeterministicAndDoesNotDependOnExistingControlOrder",
+          "state": "Passed",
+          "durationSeconds": 0.0029731,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "AlternativeCapabilityPrerequisiteAcceptsLaunchOrAscensionMarkInTheSameSlot",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.AlternativeCapabilityPrerequisiteAcceptsLaunchOrAscensionMarkInTheSameSlot",
+          "state": "Passed",
+          "durationSeconds": 0.0016979,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "AuthoredCatalogPersistsAfterSaveUnloadAndReload",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.AuthoredCatalogPersistsAfterSaveUnloadAndReload",
+          "state": "Passed",
+          "durationSeconds": 0.4241426,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CadencedAsuraOccupiesRWhileItsRetainedFinisherEchoRemainsCompatible",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.CadencedAsuraOccupiesRWhileItsRetainedFinisherEchoRemainsCompatible",
+          "state": "Passed",
+          "durationSeconds": 0.0029397,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CapabilitiesCannotBeBorrowedFromAnotherSkillOrWeapon",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.CapabilitiesCannotBeBorrowedFromAnotherSkillOrWeapon",
+          "state": "Passed",
+          "durationSeconds": 0.0005199,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CatalogRejectsDuplicateUnknownAndCyclicPrerequisiteIds",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.CatalogRejectsDuplicateUnknownAndCyclicPrerequisiteIds",
+          "state": "Passed",
+          "durationSeconds": 0.0003805,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DerivedEffectsCannotRenewRootsEnergyEntitiesOrExceedSharedDeclarations",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.DerivedEffectsCannotRenewRootsEnergyEntitiesOrExceedSharedDeclarations",
+          "state": "Passed",
+          "durationSeconds": 0.0004944,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DraftsMythicsRankAndResonanceLimitsCannotLeakIntoAcquisition",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.DraftsMythicsRankAndResonanceLimitsCannotLeakIntoAcquisition",
+          "state": "Passed",
+          "durationSeconds": 0.0007987,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "OneReplacementAndTwoAugmentsPerSkillAreEnforcedButExistingSupportsRemainComposable",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.OneReplacementAndTwoAugmentsPerSkillAreEnforcedButExistingSupportsRemainComposable",
+          "state": "Passed",
+          "durationSeconds": 0.0012203,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "OneSidedBlocksApplyInEitherAcquisitionOrder",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.OneSidedBlocksApplyInEitherAcquisitionOrder",
+          "state": "Passed",
+          "durationSeconds": 0.0008101,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RawCostValuesAreValidatedEvenWhenOverridesAreDisabled(float.NaN)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.RawCostValuesAreValidatedEvenWhenOverridesAreDisabled(float.NaN)",
+          "state": "Passed",
+          "durationSeconds": 0.0005961,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RawCostValuesAreValidatedEvenWhenOverridesAreDisabled(float.PositiveInfinity)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.RawCostValuesAreValidatedEvenWhenOverridesAreDisabled(float.PositiveInfinity)",
+          "state": "Passed",
+          "durationSeconds": 0.0001281,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RawCostValuesAreValidatedEvenWhenOverridesAreDisabled(float.NegativeInfinity)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.RawCostValuesAreValidatedEvenWhenOverridesAreDisabled(float.NegativeInfinity)",
+          "state": "Passed",
+          "durationSeconds": 0.0000685,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RawCostValuesAreValidatedEvenWhenOverridesAreDisabled(-1.0f)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.RawCostValuesAreValidatedEvenWhenOverridesAreDisabled(-1.0f)",
+          "state": "Passed",
+          "durationSeconds": 0.0000674,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReplacementCannotInvalidateAnAlreadyAcquiredSupport",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.ReplacementCannotInvalidateAnAlreadyAcquiredSupport",
+          "state": "Passed",
+          "durationSeconds": 0.0005184,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReplacementChangesCapabilitiesAndCentralCostsWithoutMutatingTheBase",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.ReplacementChangesCapabilitiesAndCentralCostsWithoutMutatingTheBase",
+          "state": "Passed",
+          "durationSeconds": 0.000799,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ResonancesRequireTheirIdsAndRemovalCannotInvalidateTheBuild",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.ResonancesRequireTheirIdsAndRemovalCannotInvalidateTheBuild",
+          "state": "Passed",
+          "durationSeconds": 0.000687,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RestoreResolvesProvidersIndependentlyOfRecordOrderAndCannotSelfSatisfy",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.RestoreResolvesProvidersIndependentlyOfRecordOrderAndCannotSelfSatisfy",
+          "state": "Passed",
+          "durationSeconds": 0.0009352,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "TransformativePresentationRequiresTwoDecisionChanges",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests.TransformativePresentationRequiresTwoDecisionChanges",
+          "state": "Passed",
+          "durationSeconds": 0.000183,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ANewAugmentBindsOneLiveSkillAndCannotBorrowOrChangeItsTarget",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.ANewAugmentBindsOneLiveSkillAndCannotBorrowOrChangeItsTarget",
+          "state": "Passed",
+          "durationSeconds": 0.0184826,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "AnUnweightedRealPoolRetainsTheHistoricalCanonicalShuffle",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.AnUnweightedRealPoolRetainsTheHistoricalCanonicalShuffle",
+          "state": "Passed",
+          "durationSeconds": 0.0056115,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CadencedAndAsuraEchoRemainCompatibleWithPerfectRhythm",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.CadencedAndAsuraEchoRemainCompatibleWithPerfectRhythm",
+          "state": "Passed",
+          "durationSeconds": 0.0037415,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EveryExecutableExtensionHasARealTargetAndRejectedAcquisitionIsAtomic(0)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.EveryExecutableExtensionHasARealTargetAndRejectedAcquisitionIsAtomic(0)",
+          "state": "Passed",
+          "durationSeconds": 0.0109529,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EveryExecutableExtensionHasARealTargetAndRejectedAcquisitionIsAtomic(1)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.EveryExecutableExtensionHasARealTargetAndRejectedAcquisitionIsAtomic(1)",
+          "state": "Passed",
+          "durationSeconds": 0.0051228,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EveryExecutableExtensionHasARealTargetAndRejectedAcquisitionIsAtomic(2)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.EveryExecutableExtensionHasARealTargetAndRejectedAcquisitionIsAtomic(2)",
+          "state": "Passed",
+          "durationSeconds": 0.0064666,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ExpansionAcquisitionChangesTheRealRewardInventoryKeyAndKeepsSourceCosts(0)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.ExpansionAcquisitionChangesTheRealRewardInventoryKeyAndKeepsSourceCosts(0)",
+          "state": "Passed",
+          "durationSeconds": 0.0265276,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ExpansionAcquisitionChangesTheRealRewardInventoryKeyAndKeepsSourceCosts(1)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.ExpansionAcquisitionChangesTheRealRewardInventoryKeyAndKeepsSourceCosts(1)",
+          "state": "Passed",
+          "durationSeconds": 0.0177185,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ExpansionAcquisitionChangesTheRealRewardInventoryKeyAndKeepsSourceCosts(2)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.ExpansionAcquisitionChangesTheRealRewardInventoryKeyAndKeepsSourceCosts(2)",
+          "state": "Passed",
+          "durationSeconds": 0.0243212,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "HuntingBondPreservesRicochetAndHorizonPreservesPhantomSpear",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.HuntingBondPreservesRicochetAndHorizonPreservesPhantomSpear",
+          "state": "Passed",
+          "durationSeconds": 0.0058935,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RealDuoRejectsBothMissingPrerequisitesBeforeAppearingWithAnExplicitTarget",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.RealDuoRejectsBothMissingPrerequisitesBeforeAppearingWithAnExplicitTarget",
+          "state": "Passed",
+          "durationSeconds": 0.0125274,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RetainedGlobalTechniquesFollowSurvivingProducersAcrossReplacements",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.RetainedGlobalTechniquesFollowSurvivingProducersAcrossReplacements",
+          "state": "Passed",
+          "durationSeconds": 0.0052422,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ThreeHundredRealCatalogSeedsMeasureAssemblyWithoutPromisingABalanceRate(0)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.ThreeHundredRealCatalogSeedsMeasureAssemblyWithoutPromisingABalanceRate(0)",
+          "state": "Passed",
+          "durationSeconds": 59.2919453,
+          "message": null,
+          "stackTrace": null,
+          "output": "Assembly measurement: weapon=0; seeds=300; schedule=4 Mutation plus 8 Technique; choice=uniform among up to3 drawn cards; weighted eligible=239/300, acquired=175/300; uniform eligible=250/300, acquired=174/300. This measures this opportunity/choice model only; it is not elapsed run time, player preference, or a guaranteed rate.\r\n"
+        },
+        {
+          "name": "ThreeHundredRealCatalogSeedsMeasureAssemblyWithoutPromisingABalanceRate(1)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.ThreeHundredRealCatalogSeedsMeasureAssemblyWithoutPromisingABalanceRate(1)",
+          "state": "Passed",
+          "durationSeconds": 48.3746132,
+          "message": null,
+          "stackTrace": null,
+          "output": "Assembly measurement: weapon=1; seeds=300; schedule=4 Mutation plus 8 Technique; choice=uniform among up to3 drawn cards; weighted eligible=283/300, acquired=283/300; uniform eligible=280/300, acquired=280/300. This measures this opportunity/choice model only; it is not elapsed run time, player preference, or a guaranteed rate.\r\n"
+        },
+        {
+          "name": "ThreeHundredRealCatalogSeedsMeasureAssemblyWithoutPromisingABalanceRate(2)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.ThreeHundredRealCatalogSeedsMeasureAssemblyWithoutPromisingABalanceRate(2)",
+          "state": "Passed",
+          "durationSeconds": 58.6330661,
+          "message": null,
+          "stackTrace": null,
+          "output": "Assembly measurement: weapon=2; seeds=300; schedule=4 Mutation plus 8 Technique; choice=uniform among up to3 drawn cards; weighted eligible=211/300, acquired=196/300; uniform eligible=215/300, acquired=198/300. This measures this opportunity/choice model only; it is not elapsed run time, player preference, or a guaranteed rate.\r\n"
+        },
+        {
+          "name": "TwoRealOrbitAugmentsBindRAndRetainedThrustSupportDoesNotSpendTheirCapacity",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.TwoRealOrbitAugmentsBindRAndRetainedThrustSupportDoesNotSpendTheirCapacity",
+          "state": "Passed",
+          "durationSeconds": 0.015976,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "WeightedRealCardsDrawWithoutDuplicatesAndFreezeTheirSeededSet",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests.WeightedRealCardsDrawWithoutDuplicatesAndFreezeTheirSeededSet",
+          "state": "Passed",
+          "durationSeconds": 0.0134596,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "BowRainIsAZoneAndCannotBorrowRicochetProjectileCapabilities",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.BowRainIsAZoneAndCannotBorrowRicochetProjectileCapabilities",
+          "state": "Passed",
+          "durationSeconds": 0.0070185,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(0,\"mutation_gauntlet_eclipse_uppercut\",\"augment_gauntlet_violent_fall\",\"duo_gauntlet_titan_fall\",Q,True)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(0,\"mutation_gauntlet_eclipse_uppercut\",\"augment_gauntlet_violent_fall\",\"duo_gauntlet_titan_fall\",Q,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0133966,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(1,\"mutation_bow_thorn_forest\",\"augment_bow_inverted_harvest\",\"duo_bow_arrow_graveyard\",E,False)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(1,\"mutation_bow_thorn_forest\",\"augment_bow_inverted_harvest\",\"duo_bow_arrow_graveyard\",E,False)",
+          "state": "Passed",
+          "durationSeconds": 0.002145,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(1,\"mutation_bow_mine_garden\",\"augment_bow_predator_seal\",\"duo_bow_hunting_detonator\",E,True)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(1,\"mutation_bow_mine_garden\",\"augment_bow_predator_seal\",\"duo_bow_hunting_detonator\",E,True)",
+          "state": "Passed",
+          "durationSeconds": 0.0018325,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(0)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(0)",
+          "state": "Passed",
+          "durationSeconds": 0.0150959,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(1)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(1)",
+          "state": "Passed",
+          "durationSeconds": 0.0058562,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(2)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(2)",
+          "state": "Passed",
+          "durationSeconds": 0.0056905,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(0)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(0)",
+          "state": "Passed",
+          "durationSeconds": 0.6647368,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(1)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(1)",
+          "state": "Passed",
+          "durationSeconds": 0.0707309,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(2)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(2)",
+          "state": "Passed",
+          "durationSeconds": 0.0795061,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.NaN)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.NaN)",
+          "state": "Passed",
+          "durationSeconds": 0.0066929,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.PositiveInfinity)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.PositiveInfinity)",
+          "state": "Passed",
+          "durationSeconds": 0.0018337,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.NegativeInfinity)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.NegativeInfinity)",
+          "state": "Passed",
+          "durationSeconds": 0.0013878,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(-1.0f)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(-1.0f)",
+          "state": "Passed",
+          "durationSeconds": 0.0012866,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(0)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(0)",
+          "state": "Passed",
+          "durationSeconds": 0.0209918,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(1)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(1)",
+          "state": "Passed",
+          "durationSeconds": 0.0123972,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(2)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(2)",
+          "state": "Passed",
+          "durationSeconds": 0.0157162,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RapidBurstNeedsItsActualArrowExecutorAfterLegacyQReplacement",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.RapidBurstNeedsItsActualArrowExecutorAfterLegacyQReplacement",
+          "state": "Passed",
+          "durationSeconds": 0.0078729,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RetainedImpactDeclarationsUseTheSharedCeilingAndCadencedRemainsNative",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.RetainedImpactDeclarationsUseTheSharedCeilingAndCadencedRemainsNative",
+          "state": "Passed",
+          "durationSeconds": 0.001484,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SpearEchoPhantomAndChainCoexistAtTheirOriginalRanksOnEveryThrust(False)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.SpearEchoPhantomAndChainCoexistAtTheirOriginalRanksOnEveryThrust(False)",
+          "state": "Passed",
+          "durationSeconds": 0.0137255,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SpearEchoPhantomAndChainCoexistAtTheirOriginalRanksOnEveryThrust(True)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.SpearEchoPhantomAndChainCoexistAtTheirOriginalRanksOnEveryThrust(True)",
+          "state": "Passed",
+          "durationSeconds": 0.0086926,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "TwoAlternativeEMutationsStillCannotShareTheirSlot",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.TwoAlternativeEMutationsStillCannotShareTheirSlot",
+          "state": "Passed",
+          "durationSeconds": 0.0049186,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "AlternativeCardsHaveTheSameCanonicalDrawRegardlessOfCallerOrder",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonRewardSeedTests.AlternativeCardsHaveTheSameCanonicalDrawRegardlessOfCallerOrder",
+          "state": "Passed",
+          "durationSeconds": 0.2298656,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DistinctRunSeedsProduceVarietyWithoutUsingUnityRandom",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonRewardSeedTests.DistinctRunSeedsProduceVarietyWithoutUsingUnityRandom",
+          "state": "Passed",
+          "durationSeconds": 0.0165252,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "InventoryRevisionIsReproducibleAndStaleSelectionIsRejected",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonRewardSeedTests.InventoryRevisionIsReproducibleAndStaleSelectionIsRejected",
+          "state": "Passed",
+          "durationSeconds": 0.0079614,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReopenKeepsCardsAndCatalogEnumerationOrderDoesNotAffectDraw",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonRewardSeedTests.ReopenKeepsCardsAndCatalogEnumerationOrderDoesNotAffectDraw",
+          "state": "Passed",
+          "durationSeconds": 0.0072353,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SameRunSeedReproducesCardsAcrossIndependentSessions(ulong.MinValue)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonRewardSeedTests.SameRunSeedReproducesCardsAcrossIndependentSessions(ulong.MinValue)",
+          "state": "Passed",
+          "durationSeconds": 0.0093738,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SameRunSeedReproducesCardsAcrossIndependentSessions(1701UL)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonRewardSeedTests.SameRunSeedReproducesCardsAcrossIndependentSessions(1701UL)",
+          "state": "Passed",
+          "durationSeconds": 0.0046614,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SameRunSeedReproducesCardsAcrossIndependentSessions(ulong.MaxValue)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonRewardSeedTests.SameRunSeedReproducesCardsAcrossIndependentSessions(ulong.MaxValue)",
+          "state": "Passed",
+          "durationSeconds": 0.0055064,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EveryPublishedWeaponCanResolveEveryRouteWithFrozenCompatibleRewards(0)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.EveryPublishedWeaponCanResolveEveryRouteWithFrozenCompatibleRewards(0)",
+          "state": "Passed",
+          "durationSeconds": 2.5341958,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EveryPublishedWeaponCanResolveEveryRouteWithFrozenCompatibleRewards(1)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.EveryPublishedWeaponCanResolveEveryRouteWithFrozenCompatibleRewards(1)",
+          "state": "Passed",
+          "durationSeconds": 1.54607,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EveryPublishedWeaponCanResolveEveryRouteWithFrozenCompatibleRewards(2)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.EveryPublishedWeaponCanResolveEveryRouteWithFrozenCompatibleRewards(2)",
+          "state": "Passed",
+          "durationSeconds": 2.4752184,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ExhaustedCategoriesUseRetainedProtocolsThenAnExplicitContinueWithoutInventingAnUpgrade",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.ExhaustedCategoriesUseRetainedProtocolsThenAnExplicitContinueWithoutInventingAnUpgrade",
+          "state": "Passed",
+          "durationSeconds": 0.0142338,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PublishedWeaponsKeepAnAttainableMutationAfterTechniquesAreExhausted(0)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.PublishedWeaponsKeepAnAttainableMutationAfterTechniquesAreExhausted(0)",
+          "state": "Passed",
+          "durationSeconds": 0.0198411,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PublishedWeaponsKeepAnAttainableMutationAfterTechniquesAreExhausted(1)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.PublishedWeaponsKeepAnAttainableMutationAfterTechniquesAreExhausted(1)",
+          "state": "Passed",
+          "durationSeconds": 0.0068433,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PublishedWeaponsKeepAnAttainableMutationAfterTechniquesAreExhausted(2)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.PublishedWeaponsKeepAnAttainableMutationAfterTechniquesAreExhausted(2)",
+          "state": "Passed",
+          "durationSeconds": 0.007672,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReservedMutationsChangeTheExistingWeaponExecution(1,RapidBurst)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.ReservedMutationsChangeTheExistingWeaponExecution(1,RapidBurst)",
+          "state": "Passed",
+          "durationSeconds": 0.0029191,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReservedMutationsChangeTheExistingWeaponExecution(2,PhantomSpear)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.ReservedMutationsChangeTheExistingWeaponExecution(2,PhantomSpear)",
+          "state": "Passed",
+          "durationSeconds": 0.0002872,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ReservedMutationsChangeTheExistingWeaponExecution(2,ChainThrust)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.ReservedMutationsChangeTheExistingWeaponExecution(2,ChainThrust)",
+          "state": "Passed",
+          "durationSeconds": 0.0001718,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RetainedCatalogExcludesTheOtherOldBoonsAtEveryProtocolOpportunity",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests.RetainedCatalogExcludesTheOtherOldBoonsAtEveryProtocolOpportunity",
+          "state": "Passed",
+          "durationSeconds": 0.9366332,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        }
+      ]
+    }
+  },
+  "hint": null
+}

@@ -194,7 +194,7 @@ public static class RunLoopValidation
                     }
                     break;
                 case 6:
-                    Require(SceneManager.GetActiveScene().name == "NexusLobby", "Extraction returns to lobby");
+                    Require(SceneManager.GetActiveScene().name == "NexusBlockout", "Extraction returns to lobby");
                     Resolve();
                     Require(!_player.GetComponent<RunBoons>() && _holder.ActiveAbilities[0] is BreakerGauntletAbility, "Run upgrades reset in lobby");
                     SceneManager.LoadScene("FirstSector"); Next(7, 3); break;
@@ -203,7 +203,7 @@ public static class RunLoopValidation
                     Require(_player.GetComponent<RunBoons>().Acquired.Count == 0, "Replay starts clean");
                     _player.TakeDamage(100000); Next(8, 4); break;
                 case 8:
-                    Require(SceneManager.GetActiveScene().name == "NexusLobby", "Death returns to lobby");
+                    Require(SceneManager.GetActiveScene().name == "NexusBlockout", "Death returns to lobby");
                     Require(_errors == 0, "No runtime errors: " + _errors);
                     Debug.Log("RUN_LOOP_VALIDATION_SUCCESS: " + _checks + " checks passed."); Finish(0); break;
                 case 50:

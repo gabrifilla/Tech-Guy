@@ -1,0 +1,33 @@
+{
+  "equal": true,
+  "values": [
+    {
+      "key": "TechGuy.Currency.Coins",
+      "exists": true,
+      "value": 14219
+    },
+    {
+      "key": "TechGuy.Loadout.Weapon",
+      "exists": true,
+      "value": 0
+    },
+    {
+      "key": "TechGuy.Progress.TutorialSeen",
+      "exists": true,
+      "value": 1
+    },
+    {
+      "key": "TechGuy.Loadout.Unlocked.1",
+      "exists": true,
+      "value": 1
+    },
+    {
+      "key": "TechGuy.Loadout.Unlocked.2",
+      "exists": true,
+      "value": 1
+    }
+  ],
+  "dash": 1,
+  "summaryLength": 42924,
+  "summarySha256": "9123FC3338E8BD4C379A5C06B726924EF6FA0ECF407B9F81B94B647D2885FA69"
+}

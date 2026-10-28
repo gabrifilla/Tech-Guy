@@ -1,0 +1,166 @@
+[
+  {
+    "path": "Assets/_Project/Scenes/CombatStudy.unity",
+    "guid": "0476bd2adfdec0e4f86ca246e077b7a9",
+    "missing": 0,
+    "roots": [
+      "Player",
+      "MainCamera(Clone)",
+      "Reference - Maintenance deck",
+      "Normal",
+      "Magic_Haste",
+      "Rare_Frost_Haste_Guard",
+      "Soft key",
+      "PlayerHUD",
+      "Illustrated art direction"
+    ],
+    "routes": []
+  },
+  {
+    "path": "Assets/_Project/Scenes/FirstSector.unity",
+    "guid": "f62bb8b29264e014aa2e95e916388ed9",
+    "missing": 0,
+    "roots": [
+      "Player",
+      "MainCamera(Clone)(Clone)",
+      "First sector procedural flow",
+      "PlayerHUD",
+      "Sector objective",
+      "Cool overhead light",
+      "FirstSectorManualEnvironment"
+    ],
+    "routes": [
+      {
+        "type": "ProgressionDirector",
+        "field": "_returnScene",
+        "destination": "NexusBlockout"
+      }
+    ]
+  },
+  {
+    "path": "Assets/_Project/Scenes/MainMenu.unity",
+    "guid": "f16ee50fc4945e3439698630abb7b413",
+    "missing": 0,
+    "roots": [
+      "Main menu",
+      "Nexus Diorama",
+      "Cool key light",
+      "Magenta rim light",
+      "Menu camera"
+    ],
+    "routes": [
+      {
+        "type": "MainMenuUI",
+        "field": "_lobbyScene",
+        "destination": "NexusBlockout"
+      }
+    ]
+  },
+  {
+    "path": "Assets/_Project/Scenes/NexusBlockout.unity",
+    "guid": "d9c5ad58160cf614e984e1c4f2599d39",
+    "missing": 0,
+    "roots": [
+      "Player - Nexus",
+      "Cool key light",
+      "Magenta rim light",
+      "Nexus atmosphere",
+      "Nexus Camera",
+      "Lobby Guide",
+      "PlayerHUD",
+      "Nexus EventSystem",
+      "Run Results UI",
+      "NEXUS BLOCKOUT - Asymmetric connected volumes"
+    ],
+    "routes": []
+  },
+  {
+    "path": "Assets/_Project/Scenes/NexusLobby.unity",
+    "guid": "6dc47f6cb7b15754c9cc7622d8a39b39",
+    "missing": 0,
+    "roots": [
+      "Player - Nexus",
+      "NEXUS - Modular Environment",
+      "Cool key light",
+      "Magenta rim light",
+      "Nexus atmosphere",
+      "Nexus Camera",
+      "Lobby Guide",
+      "PlayerHUD",
+      "Nexus EventSystem",
+      "Run Results UI"
+    ],
+    "routes": []
+  },
+  {
+    "path": "Assets/_Project/Scenes/Playground.unity",
+    "guid": "e9017d5f96b9f09489b4b37e1d6eb914",
+    "missing": 1,
+    "roots": [
+      "Lighting",
+      "Environment",
+      "MainCamera",
+      "Enemy",
+      "Player",
+      "UI_EventSystem",
+      "WalkEffect",
+      "HitEffect",
+      "Rogue",
+      "OutlineScript",
+      "HUD",
+      "Item pickup",
+      "WeakMobSpawner",
+      "WeakMobSpawnPoint",
+      "PlayerHUD",
+      "Illustrated art direction"
+    ],
+    "routes": []
+  },
+  {
+    "path": "Assets/_Project/Scenes/ProceduralStageAuthoring.unity",
+    "guid": "8b991139675c4024a9878469d4157917",
+    "missing": 0,
+    "roots": [
+      "ProgressionDirector",
+      "RunSeedSource",
+      "Player",
+      "Objective",
+      "DemoLayout"
+    ],
+    "routes": [
+      {
+        "type": "ProgressionDirector",
+        "field": "_returnScene",
+        "destination": "NexusBlockout"
+      }
+    ]
+  },
+  {
+    "path": "Assets/_Project/Scenes/PrologueTutorial.unity",
+    "guid": "b9dbd7d995ad4d840b7dc123c9000987",
+    "missing": 0,
+    "roots": [
+      "Player - Calibration",
+      "MainCamera(Clone)(Clone)",
+      "Prologue - Calibration chamber",
+      "Movement checkpoint",
+      "Nexus destination",
+      "Nexus gate online",
+      "Current tutorial objective",
+      "Calibration target",
+      "Training drone 1",
+      "Training drone 2",
+      "Tutorial key light",
+      "Tutorial flow",
+      "PlayerHUD",
+      "Illustrated art direction"
+    ],
+    "routes": [
+      {
+        "type": "TutorialDirector",
+        "field": "_lobbyScene",
+        "destination": "NexusBlockout"
+      }
+    ]
+  }
+]

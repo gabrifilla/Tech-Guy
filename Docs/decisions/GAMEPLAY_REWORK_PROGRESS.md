@@ -1,8 +1,46 @@
 # Gameplay Rework — progresso mestre
 
-27/10/2026. **GPR-C01.3a concluída tecnicamente, aguardando revisão.** C01.2c aceita no escopo técnico. LMB direcional por clique implementado; hold do básico somente com ChargedShot por decisão explícita; Asura no RMB da Manopla incluída por autorização adicional.102/102 testes normais; aceite físico pendente. C01.3b/GPR-01 não iniciadas. [Relatório C01.3a](GPR-C01.3a_RELATORIO.md).
+## Estado vigente — GPR-01.1,28/10/2026
 
-## GPR-C01.3a — fechamento vigente
+GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
+
+Direção experimental A→A+B→A+B+C aceita, parâmetros1,5×/0,60× provisórios; autorizada **exclusivamente GPR-01.1**. [Relatório da fundação](GPR-01.1_RELATORIO.md) / [fatia e próximo escopo](../gameplay/GPR_01_VERTICAL_SLICE.md). Sem asset/boonTitanic Fists habilitado, onda ou transformação visual de produção. STOP para revisão antes de01.2;01.3–6 também exigem autorização posterior.
+
+Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecânica nova. SwapAvanço→Uppercut adiado por redução aprovada de escopo; aquisição/substituição modular Q/E/R permanece requisito **NÃO IMPLEMENTADO/NÃO VALIDADO**, rastreado em GPR-03.1/RF-TROCA. Gates e decisões históricos abaixo não sobrepõem esta autorização.
+
+## Ledger atual
+
+| Atividade | Estado | Evidência/entrega | Próximo gate |
+|---|---|---|---|
+| GPR-C01.5a | CONCLUÍDA | Revisão dos116 casos finais existentes; nenhum reteste desnecessário | Sem nova regressão bloqueadora demonstrada |
+| GPR-C01.5b / GPR-C01 | CONCLUÍDA / HUMANO ACEITO | Declaração física explícita do desenvolvedor; [relatório5](GPR-C01.5_RELATORIO.md), [resumo](GPR-C01_PHASE_SUMMARY.md) | Polimento diferido não bloqueia |
+| GPR-01.P1 | ACEITA como planejamento | Direção experimental A/B/C e adiamento do swap aceitos pelo desenvolvedor | Somente01.1 autorizada |
+| GPR-01.1 | CONCLUÍDA TECNICAMENTE | Basic/receipt/linhagem opt-in/aquisição;90 EditMode+120 PlayMode selecionados; [relatório](GPR-01.1_RELATORIO.md) | STOP para revisão e aprovação01.2 |
+| GPR-01.2–01.6 | NÃO INICIADAS/NÃO AUTORIZADAS | Sem A/onda/visual/catálogo novo | Cada próxima etapa depende de aprovação posterior |
+
+
+
+## Histórico do fechamento C01.4,28/10/2026
+
+**CONCLUÍDA TECNICAMENTE; aguardando playtest humano.** Três skillsQ/E/R + especialRMB, semX/aliasF11; InteractG e finisherF, pausa remapeável/Escape seguro. DashCursor padrão ou Movimento com fallbackolhar por decisão direta.116 casos distintos aprovados em filtros agregados (115 na rodada completa +9UI posterior com1 novo), zero ignorados; não suíte global. Snapshots automatizados iguais e mudanças posteriores do perfil preservadas. Editor finalNexusLobby limpa/Edit Mode; Tripo3D preexistente pendente. [Consolidado](GPR-C01.4_RELATORIO.md). Não iniciar C01.5/GPR-01 sem autorização.
+
+
+## Histórico C01.4 — layout revisado, execução sequencial
+
+C01.3b aceita tecnicamente pelo desenvolvedor. Decisão mais recente substitui quatro slots Q/E/R/X por **três Q/E/R + especial separado RMB**, preservando índices/assets/executores.4a concluída tecnicamente4/4 focados, relatório individual e captura real; cumulativa pendente.4b concluída:1/1 política/persistência e8/8 dash; Movimento sem input usa facing por decisão direta mais recente.4c concluída2/2: InteractG separado de skills/finisherF; contexto e objetos/remap validados.4d concluída tecnicamente: Q/E/R+especial separado, semX;116 casos distintos finais agregados, capturas1280x720, relatórios4a/b/c/d e consolidado. Preservadas falhas intermediárias; sem suíte global/aceite físico novo. STOP após4,5/GPR-01 exigem aprovação. Sem C01.5/GPR-01.
+
+
+## Histórico C01.3b — fechamento na data,28/10/2026
+
+**CONCLUÍDA TECNICAMENTE:105/105 casos distintos finais, zero ignorados**, via Unity MCP no checkout correto/Editor6000.5.10f1. Aceite humano anterior das últimas correções recebido para WASD, básicos, Q/E/R e Asura/RMB; básicos rápidos ficam como refinamento futuro, sem mudar cadência. [Relatório](GPR-C01.3b_RELATORIO.md).
+
+Corrigidas fixtures que criavam dispositivos virtuais antes da política de foco, e o gate de soltura que descartava o primeiro comando novo no frame seguinte. Dois testes falharam0/2 antes da correção de produção;22 básicos/input+23 movimento+7 contextos+30 combate+8 dash+15 EditMode passaram após as correções. Ajustado teste Cadenciada para agir no frame de recovery observado, mantendo asserções/tempos. Outputs e falhas anteriores preservados em c01-3b/correcao e gate; não suíte global. Runtime publicado com input virtual:3 básicos0/1/2 e1 Asura por RMB,4 PNG; não novo teste físico.
+
+F11 deixou de ativar Asura direta por decisão explícita; binding salva/executor/custos/estágios preservados. Frame de soltura continua bloqueado; held não atravessa UI/foco/pausa. Editor final NexusLobby limpa/Edit Mode; permanece erro de pacote Tripo3D preexistente. Causa física do incidente RMB antigo não confirmada retrospectivamente; aceite humano posterior inclui RMB funcional.
+
+**Gate de C01.4 satisfeito;4a–4d já autorizadas, ainda não implementadas.** Não iniciar C01.5/GPR-01. Interact separado precisa respeitar F/finisher; X pode ficar vazio, nunca duplicar Asura. Autorizações e evidências3a abaixo são históricas onde conflitam com este fechamento.
+
+## Histórico GPR-C01.3a — fechamento na data
 
 | Atividade | Status | Evidência | Próximo gate |
 |---|---|---|---|

@@ -12,7 +12,7 @@ public static class ProjectSceneMenu
     public static void OpenFirstSector() => OpenScene(FirstSectorBuilder.ScenePath);
 
     [MenuItem("Tools/Tech Guy/Scenes/Open Nexus Lobby")]
-    public static void OpenLobby() => OpenScene(LobbySceneBuilder.ScenePath);
+    public static void OpenLobby() => OpenScene(NexusBlockoutBuilder.ScenePath);
 
     [MenuItem("Tools/Tech Guy/Scenes/Open Combat Study")]
     public static void OpenCombat() => OpenScene(CombatStudyBuilder.ScenePath);

@@ -1,5 +1,19 @@
 # Combate — contrato de comportamento
 
+## Estado vigente — GPR-01.1,28/10/2026
+
+GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
+
+Direção experimental A→A+B→A+B+C aceita, parâmetros1,5×/0,60× provisórios; autorizada **exclusivamente GPR-01.1**. [Relatório da fundação](../decisions/GPR-01.1_RELATORIO.md) / [fatia e próximo escopo](../gameplay/GPR_01_VERTICAL_SLICE.md). Sem asset/boonTitanic Fists habilitado, onda ou transformação visual de produção. STOP para revisão antes de01.2;01.3–6 também exigem autorização posterior.
+
+Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecânica nova. SwapAvanço→Uppercut adiado por redução aprovada de escopo; aquisição/substituição modular Q/E/R permanece requisito **NÃO IMPLEMENTADO/NÃO VALIDADO**, rastreado em GPR-03.1/RF-TROCA. Gates e decisões históricos abaixo não sobrepõem esta autorização.
+
+## Input vigente — C01.4,28/10/2026
+
+Decisão mais recente: **três skills Q/E/R + especial permanente RMB**, sem X/quarta modular. Binding é apresentação/entrada, não identidade de execução. No modo direto, índices0/1/2 correspondem às três skills e index3 ao especial; o array autorado de quatro entradas não foi alterado. Identidades legadas Q/W/E/R de boons/analytics permanecem internas. Asura e quarta ação nativa Bow/Spear mantêm os executores existentes, sem redesenho. Settings remapeia ações; InteractG e finisherF são distintos por padrão. DashCursor padrão ou Movimento; neste último, sem vetor, usa o facing atual. As tabelas autoradas/históricas abaixo não sobrepõem esses controles. Ver [consolidado4](../decisions/GPR-C01.4_RELATORIO.md).
+
+
+
 **Direção de input aprovada em26/10, ainda não implementada:** WASD/mira independente; cada cliqueLMB pede um básico; RMB é especial da arma/Asura naManopla; quatro slotsQ/E/R/X. Hold não é padrão final aprovado. A descrição abaixo de cliques/QWER documenta o runtime legado. SomenteC01.1a/b (baseline/design) foram autorizadas; [migração vigente](../gameplay/GPR_CONTROL_MIGRATION.md) / [prontidão](../decisions/GPR-C01.1_BASELINE_E_PRONTIDAO.md). Preservar scheduler/dano/reação/cancel, sem executorAsura duplicado.
 
 **Direção de design vigente:** combate ativo e responsivo com reação contextual de inimigos, inspirado principalmente em Lost Ark, usando leitura e clareza de Diablo. Não assumir valores de frames ou aceitação de gameplay a partir de código.

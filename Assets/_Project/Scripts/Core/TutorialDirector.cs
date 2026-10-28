@@ -34,7 +34,7 @@ public sealed class TutorialDirector : MonoBehaviour
     [SerializeField] private Transform _exit;
     [SerializeField] private GameObject _marker;
     [SerializeField] private GameObject _exitLight;
-    [SerializeField] private string _lobbyScene = "NexusLobby";
+    [SerializeField] private string _lobbyScene = "NexusBlockout";
     [SerializeField] private Beat[] _beats =
     {
         new Beat("Reconecte os movimentos", "BOTÃO DIREITO", "Clique no chão e caminhe até o marcador azul.", "Sistemas em calibração. Siga as luzes para acessar o Nexus."),

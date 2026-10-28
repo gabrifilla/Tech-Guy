@@ -48,7 +48,7 @@ public sealed class RunStatistics : IDisposable
     {
         if (context == null || context.Owner != _player) return _current ?? UnknownSource();
         string mutation = context.Snapshot?.Mutation.HasValue == true
-            ? GauntletContentAuthoring.ForMutation(context.Snapshot.Mutation.Value).Id : "";
+            ? GauntletContentAuthoring.ForMutation(context.Snapshot.Mutation.Value).Id : context.Snapshot?.BasicMutationId ?? "";
         return new RunDamageSource(_data.SessionId, context.Family.ToString(), context.Slot.ToString(),
             "gauntlet:" + context.Epoch + ":" + context.Execution, mutation,
             parents: new[] { "gauntlet:" + context.Epoch + ":" + context.RootExecution });
