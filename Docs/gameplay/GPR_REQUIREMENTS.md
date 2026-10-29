@@ -1,6 +1,45 @@
 # Gameplay Rework — requisitos da migração e da primeira fatia
 
-## Estado vigente — GPR-01.1,28/10/2026
+## Estado vigente — GPR-01.2b, 28/10/2026
+
+O desenvolvedor testou fisicamente a onda instantânea anterior: funcionalidade técnica aceita, resultado de gameplay considerado pouco transformador e rejeitado como design final. A revisão autorizada substitui essa onda por um **tornado de vento móvel**, mantendo o ID da Mutation, aquisição, controles e combate nativo. A evidência de GPR-01.2 abaixo permanece histórica.
+
+Cada terminal realmente executado no contato do scheduler, com A no snapshot aceito, autoriza no máximo um tornado **inclusive em whiff**. Pedido/cancelamento pré-contato e estágios intermediários não emitem. Contrato específico de emissão separado de `ReserveConfirmedBasicChild`, cujo requisito de HP confirmado permanece intacto. Emissão não produz HP/estatística/recurso nem nova raiz; impactos posteriores usam a fila e os receipts existentes, mesma raiz/parent e caps. Política do ramo: `ProtocolBasicEffects.None`.
+
+Definição experimental única: deslocamento de 5,5 m a 3,5 m/s, vida máxima escalada de 2 s, raio 0,65 m, altura 1,8 m e offset inicial 0,75 m. Direção comprometida não acompanha mouse/rotação posterior. Dano = 0,60 × `CaptureAttackDamage` não crítico capturado na aceitação do terminal (dano authored + stats/Momentum elegíveis naquela aceitação); não depende de receipt, não sorteia crítico nem reaplica multiplicadores do atacante. Mitigação/HP seguem o alvo. Uma vítima por handle+generation, mantendo a exclusão das vítimas nativas já confirmadas.
+
+Overlap inicial + capsule sweep por passo; sólidos e LOS bloqueiam. Reservas negadas/saturação encerram com segurança. Pausa/hitstop congelam; troca de arma/contexto, fim da run, disable/morte e cena invalidam/limpam reservas e apresentação. VFX reversível, pool limitado e leases por geração, sem Rigidbody/segundo executor/alteração permanente de prefab.
+
+Implementação e validação desta revisão registradas no [relatório GPR-01.2b](../decisions/GPR-01.2b_RELATORIO.md). **Aceite físico do tornado novo pendente. STOP antes de GPR-01.3**: somente recomendar revisão da composição com Conductor após avaliação do desenvolvedor; nenhum grant novo de Conductor/Detonation, swap modular, tuning nativo ou quarta skill implementado.
+
+### Fechamento técnico da GPR-01.2b
+
+**CONCLUÍDA TECNICAMENTE NO ESCOPO TESTADO; HUMANO PENDENTE.**29/29 focados (28 da Mutation+1 interação),90/90 EditMode e187/187 regressões:305 nomes distintos finais, zero ignorados; não suíte global. Focados joba0ca7eec1c9f48668c0bcf4601e6b9ed; EditMode4b30bf2757f3424eb46e2d268dd40f82; regressão02090688af2f415ea00dbd3b27cb386f. Falhas intermediárias, correções de fixtures e intermitências históricas registradas no relatório, sem relaxar asserts/clocks.
+
+- [x] Separar contato terminal/whiff de receipt positivo sem relaxar reserva confirmada global.
+- [x] Tornado progressivo, direção capturada, pacote não crítico estável, sweep/LOS, caps/dedupe e cleanup.
+- [x] Pool/VFX reversíveis; captura Game View em6 quadros eCSV; aquisição por ticket preservada.
+- [x] Regressões de controles/GI/armas e integridade de assets/evidência histórica no alcance declarado.
+- [ ] Revisão física do tornado pelo desenvolvedor; sensação/arte/balanceamento e carga em swarms pendentes.
+- [ ] Autorizar separadamente GPR-01.3 antes de compor Conductor; nenhuma composição nova habilitada.
+
+## Histórico — estado GPR-01.2 anterior à revisão
+
+### Registro histórico — GPR-01.2, 28/10/2026
+
+GPR-01.1 aceita tecnicamente pelo desenvolvedor; GPR-C01 continua encerrada. Autorizada somente a primeira Mutation jogável **Punhos Titânicos**. Implementados catálogo Basic da Manopla, onda na raiz nativa com HP confirmado e grants `ProtocolBasicEffects.None`, sobrepeça reversível e testes focados. Implementação concluída com ressalva de regressão:18/18 focados e90/90 EditMode;187/187 na última bateria ampliada.295 casos distintos finais, com ocorrências intermitentes anteriores de hitstop/burn registradas e não declaradas corrigidas. Zero ignorados; não confundir automação com aceite humano. [Relatório da atividade](../decisions/GPR-01.2_RELATORIO.md).
+
+Parâmetros experimentais: caixa frontal de 1,5× o alcance/largura efetivos do soco, altura preservada; 0,60× o maior dano pré-mitigação entre receipts nativos positivos do terminal, coeficiente aplicado uma vez. Sem tuning do básico/Asura/QER, nova ação, recurso, postura ou grant Conductor/Detonation. Nova aquisição usa os tickets/catálogos existentes; nenhuma política de recompensa ampliada.
+
+**STOP após GPR-01.2. GPR-01.3 e etapas seguintes não autorizadas.** Revisão humana da mutação e de seu visual permanece pendente; moonwalk/cadência e swap modular continuam diferidos. As seções anteriores preservadas abaixo são históricas onde divergirem deste estado.
+
+
+
+## Critérios da entrega01.2
+
+GPR-R10/12/13: A implementada e validada tecnicamente nas seleções descritas; humano/visual/balanceamento pendentes. GPR-R14: aquisição legal de A por ticket/seed0 em fixture; duas runs físicas e economia completa seguem em01.5. GPR-R11: novos grants B/C não habilitados. RF-TROCA/novo skill permanecem fora do escopo.
+
+## Histórico da entrega GPR-01.1 — superado pelo estado vigente acima
 
 GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
 
@@ -53,11 +92,11 @@ Ampliação autorizada: RMB/canal secundário da Manopla ativa/continua a mesma 
 | GPR-R07 | Settings remapeia movimento/ações no painel existente; teclado/Mouse0–4, conflitos, draft/Apply/Cancel/Defaults e persistência versionada | IMPLEMENTADO; humano aceitou configuração experimentada | C01.4/5 concluídas | V06 contratos/reload; restartStandalone não certificado |
 | GPR-R08 | Pausa/reward/resultados/rebind/foco perdido bloqueiam mundo; soltura evita replay; menu permanece utilizável | RF14; D14 | C01.2–5 | V07 teclas presas/fechamento/click-through |
 | GPR-R09 | Motor/clocks de hitstop/cast/dash/pull/CC preservados; dashCursor ou Movimento; sem vetorMovimento usa facing | IMPLEMENTADO / C01 humano aceito | C01.2/4/5 concluídas | V08 contratos/cancel/dash existentes; sem retuning |
-| GPR-R10 | A transforma apenas terminal LMB com HP confirmado; uma onda frontal em novas vítimas, sem tuning do básico | Proposta v1, parâmetros pendentes | 01.2 | V09 / contratoA da fatia |
+| GPR-R10 | A transforma apenas terminal LMB com HP confirmado; uma onda frontal em novas vítimas, sem tuning do básico | IMPLEMENTADA; parâmetros experimentais, humano pendente | 01.2 | V09 / contratoA da fatia |
 | GPR-R11 | A+B=onda+Conductor; A+B+C=Detonation na morte confirmada. Política limitada à nova linhagem, todas as ordens equivalentes | Pedido atual de três vias; conteúdo proposto | 01.3/4 | V10 / ramificação/caps/ordens |
 | GPR-R12 | Basic é alvo de modificação, não quarta modular; preservar IDs/grafo/limites, aquisição não reseta timers de skills/especial | IMPLEMENTADO na fundação; swap não validado | 01.1 concluída /01.5 futura | V11 / restore antigo-novo, no-reset, rollback |
-| GPR-R13 | Attachment visual da Manopla + onda/assinaturas existentes; base/A/A+B/A+B+C/reset legíveis e reversíveis | Manifestação mínima proposta | 01.2/5 | V12 / câmera real, cleanup e humano do delta |
-| GPR-R14 | Tickets Mutation/Protocol atuais, A conta como Mutation; rota/seed legal, sem drop/ordinal extra; Q nativo integra aproximação | Sem swap obrigatório nesta proposta | 01.5 | V13 / seed, tickets e duas runs |
+| GPR-R13 | Attachment visual da Manopla + onda/assinaturas existentes; base/A/A+B/A+B+C/reset legíveis e reversíveis | A implementada/4 capturas; B/C futuros e humano pendentes | 01.2/5 | V12 / câmera real, cleanup e humano do delta |
+| GPR-R14 | Tickets Mutation/Protocol atuais, A conta como Mutation; rota/seed legal, sem drop/ordinal extra; Q nativo integra aproximação | A: ticket/seed0 em fixture; economia completa futura | 01.2/5 | V13 / seed, tickets e duas runs |
 | GPR-R15 | Total/subcategorias reconciliam HP; bindings não renomeiam IDs históricos; fixtures protegem RunSummary | Preservar owners atuais | C01.4 entregue +01.5 planejada | V14 receipts/causalidade/duas runs |
 | GPR-R16 | Regressões afetadas incluem três armas, recursos/cancel/reação e cleanup; não declarar todo alvo/catálogo certificado | C01 tem filtros entregues; delta01 exige provas próprias | C01.5 concluída +01.1–5 planejadas | V15 seleção por owner/risco e limitações explícitas |
 | GPR-R17 | C01: aceite humano recebido. Nova mutação/sinergia/visual: aceite próprio após implementação autorizada | Separar humano de automação | C01.5 completa / 01.6 futura | V16 / nenhum aceite futuro inferido |

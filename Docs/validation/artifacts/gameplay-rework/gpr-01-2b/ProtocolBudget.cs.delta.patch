@@ -1,0 +1,26 @@
+--- GPR-01.2/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs
++++ GPR-01.2b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs
+@@ -112,6 +112,23 @@
+     }
+     private readonly HashSet<ProtocolTargetHandle> _basicTerminalTargets = new HashSet<ProtocolTargetHandle>();
+     private bool _basicChildReserved;
++    private bool _titanicTerminalCommitted;
++    internal float TitanicTerminalDamage { get; private set; }
++    internal bool RecordTitanicTerminalContact(GauntletImpactContext context, int impactIndex, float damage)
++    {
++        if (!IsValid || _titanicTerminalCommitted || context == null || impactIndex < 0 ||
++            context.Execution != ExecutionId || context.RootExecution != ExecutionId ||
++            context.Slot != GauntletActionSlot.Basic || context.Origin != GauntletImpactOrigin.Direct ||
++            context.Snapshot?.BasicMutationId != TitanicFistsDefinition.Id || !context.Snapshot.BasicFinisher ||
++            !ReactionNumeric.IsFinite(damage) || damage < 0f) return false;
++        _titanicTerminalCommitted = true; TitanicTerminalDamage = damage; return true;
++    }
++    internal ProtocolBasicLineage ReserveTitanicTerminalEmission(long producerId)
++    {
++        if (!_titanicTerminalCommitted || _basicChildReserved || !ReserveChild(producerId)) return null;
++        _basicChildReserved = true;
++        return new ProtocolBasicLineage(ExecutionId, RootId, _basicTerminalTargets, TitanicFistsDefinition.Id, ProtocolBasicEffects.None);
++    }
+     internal float ConfirmedBasicSourceDamage { get; private set; }
+     private string _basicProducerId = "basic-derived";
+     internal void ConfirmBasicTerminal(ConfirmedHpReceipt receipt)

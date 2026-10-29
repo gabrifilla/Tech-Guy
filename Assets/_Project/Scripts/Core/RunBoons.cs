@@ -481,6 +481,8 @@ public sealed partial class RunBoons : MonoBehaviour
     private void CompleteOffer(Offer offer, bool legacy)
     {
         _acquired.Add(offer);
+        if (offer.Id == TitanicFistsDefinition.Id && !_player.TryGetComponent(out TitanicFistsVisual _))
+            _player.gameObject.AddComponent<TitanicFistsVisual>();
         _holder.RefreshAfterBoonAcquisition();
         IsChoosing = false;
         if (legacy && _agent && _agent.enabled && _agent.isOnNavMesh) _agent.isStopped = false;

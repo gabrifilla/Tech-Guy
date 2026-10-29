@@ -1,0 +1,87 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "4efbf72871cf4f7985742c5e34af3303",
+      "status": "failed",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793227868613,
+      "finished_unix_ms": 1793227879551,
+      "last_update_unix_ms": 1793227879551,
+      "progress": {
+        "completed": 3,
+        "total": 3,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoWhiffLaterHitsDistantEnemyOnlyAfterTravel",
+        "last_finished_unix_ms": 1793227879495,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [
+          {
+            "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoRemainsInFlightAfterTerminalInsteadOfInstantOverlap",
+            "message": "  Expected: greater than 0\r\n  But was:  0\r\n"
+          },
+          {
+            "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoTerminalWhiffEmitsExactlyOnceWithoutNativeHp",
+            "message": "  Expected: 1\r\n  But was:  0\r\n"
+          },
+          {
+            "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoWhiffLaterHitsDistantEnemyOnlyAfterTravel",
+            "message": "  Expected: less than 1000.0f\r\n  But was:  1000.0f\r\n"
+          }
+        ],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 3,
+          "passed": 0,
+          "failed": 3,
+          "skipped": 0,
+          "durationSeconds": 4.0300646,
+          "resultState": "Failed(Child)"
+        },
+        "results": [
+          {
+            "name": "TornadoRemainsInFlightAfterTerminalInsteadOfInstantOverlap",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoRemainsInFlightAfterTerminalInsteadOfInstantOverlap",
+            "state": "Failed",
+            "durationSeconds": 1.1368562,
+            "message": "  Expected: greater than 0\r\n  But was:  0\r\n",
+            "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<TornadoRemainsInFlightAfterTerminalInsteadOfInstantOverlap>d__379.MoveNext () [0x000c0] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicTornadoPlayModeTests.cs:31\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoTerminalWhiffEmitsExactlyOnceWithoutNativeHp",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoTerminalWhiffEmitsExactlyOnceWithoutNativeHp",
+            "state": "Failed",
+            "durationSeconds": 0.6498162,
+            "message": "  Expected: 1\r\n  But was:  0\r\n",
+            "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<TornadoTerminalWhiffEmitsExactlyOnceWithoutNativeHp>d__378.MoveNext () [0x000b0] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicTornadoPlayModeTests.cs:24\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoWhiffLaterHitsDistantEnemyOnlyAfterTravel",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoWhiffLaterHitsDistantEnemyOnlyAfterTravel",
+            "state": "Failed",
+            "durationSeconds": 2.1798091,
+            "message": "  Expected: less than 1000.0f\r\n  But was:  1000.0f\r\n",
+            "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<TornadoWhiffLaterHitsDistantEnemyOnlyAfterTravel>d__380.MoveNext () [0x000dc] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicTornadoPlayModeTests.cs:37\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

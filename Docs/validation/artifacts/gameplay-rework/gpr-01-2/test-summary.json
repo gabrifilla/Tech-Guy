@@ -1,0 +1,47 @@
+{
+  "groups": [
+    {
+      "file": "mutation-release-final.json",
+      "job": "8cce2d5baf4a44209f2bde148c7c2576",
+      "summary": {
+        "total": 18,
+        "passed": 18,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 8.453438,
+        "resultState": "Passed"
+      }
+    },
+    {
+      "file": "edit-final.json",
+      "job": "82b5fd3cb02b45668d4d87ef5feaf580",
+      "summary": {
+        "total": 90,
+        "passed": 90,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 137.3132595,
+        "resultState": "Passed"
+      }
+    },
+    {
+      "file": "regression-release-final.json",
+      "job": "d064e012a3ae4fb1830b136d4845da1c",
+      "summary": {
+        "total": 187,
+        "passed": 187,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 93.0416736,
+        "resultState": "Passed"
+      }
+    }
+  ],
+  "distinct": 295,
+  "overlaps": [],
+  "knownIntermittenceNotDeclaredFixed": [
+    "SaturatedBurnTicksRotateWithoutCatchupOrStarvationAndDeathTicksDetonate",
+    "HitStopPreservesRecoveryIntentWithoutUsingItsRealTimeForExpiry"
+  ],
+  "physicalHumanApproval": false
+}

@@ -1,0 +1,13 @@
+{
+  "jsonrpc": "2.0",
+  "id": "c279d07418514b8591f076fef9961467",
+  "result": {
+    "contents": [
+      {
+        "uri": "mcpforunity://editor/state",
+        "mimeType": "text/plain",
+        "text": "{\"success\":true,\"message\":\"Retrieved editor state.\",\"error\":null,\"data\":{\"schema_version\":\"unity-mcp/editor_state@2\",\"observed_at_unix_ms\":1793241309637,\"sequence\":3,\"unity\":{\"instance_id\":\"Tech-Guy@fccafb2b47cd7671\",\"unity_version\":\"6000.5.10f1\",\"project_id\":null,\"platform\":\"WindowsEditor\",\"is_batch_mode\":false},\"editor\":{\"is_focused\":false,\"play_mode\":{\"is_playing\":false,\"is_paused\":false,\"is_changing\":false},\"active_scene\":{\"path\":\"Assets/InitTestScenea7be1b96-2f5e-4b8b-af51-9ceb4f9a7191.unity\",\"guid\":\"7956ad8de97ebe046bf322c8c2a3be5c\",\"name\":\"InitTestScenea7be1b96-2f5e-4b8b-af51-9ceb4f9a7191\"}},\"activity\":{\"phase\":\"idle\",\"since_unix_ms\":1793241307647,\"reasons\":[\"tick\"]},\"compilation\":{\"is_compiling\":false,\"is_domain_reload_pending\":false,\"last_compile_started_unix_ms\":1793241292548,\"last_compile_finished_unix_ms\":1793241294836,\"last_domain_reload_before_unix_ms\":null,\"last_domain_reload_after_unix_ms\":1793241303869},\"assets\":{\"is_updating\":false,\"external_changes_dirty\":false,\"external_changes_last_seen_unix_ms\":1793240945831,\"external_changes_dirty_since_unix_ms\":null,\"external_changes_last_cleared_unix_ms\":1793241291915,\"refresh\":{\"is_refresh_in_progress\":false,\"last_refresh_requested_unix_ms\":null,\"last_refresh_finished_unix_ms\":null}},\"tests\":{\"is_running\":false,\"mode\":null,\"current_job_id\":null,\"started_unix_ms\":null,\"started_by\":\"unknown\",\"last_run\":null},\"transport\":{\"unity_bridge_connected\":null,\"last_message_unix_ms\":null},\"settings\":{\"batch_execute_max_commands\":25},\"advice\":{\"ready_for_tools\":true,\"blocking_reasons\":[],\"recommended_retry_after_ms\":0,\"recommended_next_action\":\"none\"},\"staleness\":{\"age_ms\":1153,\"is_stale\":false}},\"hint\":null}"
+      }
+    ]
+  }
+}

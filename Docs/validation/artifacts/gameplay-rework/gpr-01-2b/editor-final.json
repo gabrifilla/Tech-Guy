@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "scene": "Assets/_Project/Scenes/NexusBlockout.unity",
+      "dirty": false,
+      "playing": false,
+      "compiling": false,
+      "compilationFailed": false,
+      "missingScripts": 0,
+      "testDevices": 0,
+      "tornadoObjects": 0,
+      "console": [
+        {
+          "name": "errorCount",
+          "count": 0
+        },
+        {
+          "name": "warningCount",
+          "count": 526
+        },
+        {
+          "name": "logCount",
+          "count": 429
+        }
+      ]
+    },
+    "compiler": "codedom"
+  }
+}

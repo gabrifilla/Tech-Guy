@@ -107,11 +107,19 @@ namespace TechGuy.Tests
             request=new RunRewardRequest(route.Session.Id,5,0); Assert.IsTrue(run.OfferReward(request));
             Assert.AreEqual(0,route.Session.MutationAcquisitions); run.CloseManualReward();
             Assert.AreEqual(0,route.Session.MutationAcquisitions); Assert.IsTrue(run.OfferReward(request));
-            string id=run.Choices[0].Id; Assert.IsTrue(GauntletContentAuthoring.TryMutation(id,out var mutation));
+            string id=run.Choices[0].Id;
+            bool basicMutation = id == TitanicFistsDefinition.Id;
+            Assert.IsTrue(basicMutation || GauntletContentAuthoring.TryMutation(id,out _), "The selected card must be an executable Mutation.");
             yield return null; // A new selection requires a released input frame after the previous acquisition.
             Assert.IsTrue(run.Choose(0)); Assert.AreEqual(1,route.Session.MutationAcquisitions);
-            Assert.IsTrue(run.WeaponModifiers.GauntletMutations.TryGet(GauntletMutationSelection.SlotOf(mutation),out var selected));
-            Assert.AreEqual(mutation,selected); Assert.AreEqual(RunRewardTicketState.Resolved,run.ManualTicket.State);
+            if (basicMutation) Assert.AreEqual(id, run.WeaponModifiers.Expansion.MutationId(BoonSlot.Basic));
+            else
+            {
+                Assert.IsTrue(GauntletContentAuthoring.TryMutation(id,out var mutation));
+                Assert.IsTrue(run.WeaponModifiers.GauntletMutations.TryGet(GauntletMutationSelection.SlotOf(mutation),out var selected));
+                Assert.AreEqual(mutation,selected);
+            }
+            Assert.AreEqual(RunRewardTicketState.Resolved,run.ManualTicket.State);
         }
 
         [UnityTest] public IEnumerator ManualEliteDeathBetweenOrdinalsCannotAcquireSecondReward()

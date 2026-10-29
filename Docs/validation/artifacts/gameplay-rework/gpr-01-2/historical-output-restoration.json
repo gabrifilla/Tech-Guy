@@ -1,0 +1,17 @@
+[
+  {
+    "historical": "Docs/validation/artifacts/gameplay-rework/c01-2b/integration-movement.json",
+    "newEvidence": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-c01-2b-integration-movement.json",
+    "restoredFromInitialCleanHead": true
+  },
+  {
+    "historical": "Docs/validation/artifacts/gameplay-rework/c01-2c/recovery-normal.csv",
+    "newEvidence": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-c01-2c-recovery-normal.csv",
+    "restoredFromInitialCleanHead": true
+  },
+  {
+    "historical": "Docs/validation/artifacts/gameplay-rework/c01-3a/combo-observation.json",
+    "newEvidence": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-c01-3a-combo-observation.json",
+    "restoredFromInitialCleanHead": true
+  }
+]

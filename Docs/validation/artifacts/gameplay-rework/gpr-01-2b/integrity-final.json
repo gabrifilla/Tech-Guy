@@ -1,0 +1,18 @@
+{
+  "totalInicial": 2459,
+  "iguais": 2451,
+  "fontesIntencionalmenteAlterados": [
+    "Assets/_Project/Scripts/Effects/TitanicFistsVisual.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/TitanicFistsPlayModeTests.cs",
+    "Assets/_Project/Scripts/Core/Run/TitanicFistsDefinition.cs",
+    "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.TitanicFists.cs"
+  ],
+  "ausentes": [],
+  "assetsMetasConfigsOuArtefatosAlterados": [],
+  "historicoGpr012": 89,
+  "metodo": "SHA256 byte a byte, baseline desta atividade"
+}

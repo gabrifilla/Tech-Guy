@@ -1,0 +1,308 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "a0ca7eec1c9f48668c0bcf4601e6b9ed",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793241576118,
+      "finished_unix_ms": 1793241624657,
+      "last_update_unix_ms": 1793241624657,
+      "progress": {
+        "completed": 29,
+        "total": 29,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoWhiffLaterHitsDistantEnemyOnlyAfterTravel",
+        "last_finished_unix_ms": 1793241624594,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 29,
+          "passed": 29,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 41.7569338,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "GPRSafetyContextualRHasOneOwnerAndCannotFallThroughOnClose",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyContextualRHasOneOwnerAndCannotFallThroughOnClose",
+            "state": "Passed",
+            "durationSeconds": 0.3754314,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "TitanicAcquisitionKeepsCooldownsResourcesAndVisualCleansWithRun",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicAcquisitionKeepsCooldownsResourcesAndVisualCleansWithRun",
+            "state": "Passed",
+            "durationSeconds": 0.0993805,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "TitanicCatalogTargetsBasicAndRejectsDuplicateOrOtherWeapons",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicCatalogTargetsBasicAndRejectsDuplicateOrOtherWeapons",
+            "state": "Passed",
+            "durationSeconds": 0.0507257,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "TitanicRealRewardTicketOffersAcquiresOnceAndCountsMutationWithoutGrant",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicRealRewardTicketOffersAcquiresOnceAndCountsMutationWithoutGrant",
+            "state": "Passed",
+            "durationSeconds": 0.3079811,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "TornadoBudgetExhaustionCannotDealDamageOrMintRoots",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoBudgetExhaustionCannotDealDamageOrMintRoots",
+            "state": "Passed",
+            "durationSeconds": 2.1166789,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoCommittedNativeContactSurvivesRecoveryCancelOnce",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoCommittedNativeContactSurvivesRecoveryCancelOnce",
+            "state": "Passed",
+            "durationSeconds": 0.8778143,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoDisableAndRunCleanupReleaseAllVfxAndRoots",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoDisableAndRunCleanupReleaseAllVfxAndRoots",
+            "state": "Passed",
+            "durationSeconds": 0.6523829,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoEachTerminalEmitsOneAndAllRootsEnd",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoEachTerminalEmitsOneAndAllRootsEnd",
+            "state": "Passed",
+            "durationSeconds": 3.0251887,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoEndRunAndNewRunDoNotRetainMutation",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoEndRunAndNewRunDoNotRetainMutation",
+            "state": "Passed",
+            "durationSeconds": 0.6738887,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "TornadoGameViewRecordsTravelAndDelayedImpact",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoGameViewRecordsTravelAndDelayedImpact",
+            "state": "Passed",
+            "durationSeconds": 2.2152995,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoImpactAttributionCountsOnlyEffectiveHpWithOriginalBasicParent",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoImpactAttributionCountsOnlyEffectiveHpWithOriginalBasicParent",
+            "state": "Passed",
+            "durationSeconds": 2.126463,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoKeepsCommittedDirectionAndMovesProgressively",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoKeepsCommittedDirectionAndMovesProgressively",
+            "state": "Passed",
+            "durationSeconds": 0.8504152,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoMultipleTargetsHitOnceAndNativeVictimsStayExcluded",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoMultipleTargetsHitOnceAndNativeVictimsStayExcluded",
+            "state": "Passed",
+            "durationSeconds": 2.5111934,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoNoBoonLeavesBaseUnchanged",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoNoBoonLeavesBaseUnchanged",
+            "state": "Passed",
+            "durationSeconds": 1.2579241,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoNonePolicyCannotCreateConductorDetonationOrResourcesAfterWhiff",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoNonePolicyCannotCreateConductorDetonationOrResourcesAfterWhiff",
+            "state": "Passed",
+            "durationSeconds": 2.0962469,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoPauseAndHitstopFreezeTravelAndResumeSameReservation",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoPauseAndHitstopFreezeTravelAndResumeSameReservation",
+            "state": "Passed",
+            "durationSeconds": 2.4992966,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoPlayerDeathReleasesInFlightWork",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoPlayerDeathReleasesInFlightWork",
+            "state": "Passed",
+            "durationSeconds": 1.0799338,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator does not have an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoPoolingDedupesEachTargetGeneration",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoPoolingDedupesEachTargetGeneration",
+            "state": "Passed",
+            "durationSeconds": 2.103164,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoReentrantWeaponSwapRevokesRemainingQueuedDamage",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoReentrantWeaponSwapRevokesRemainingQueuedDamage",
+            "state": "Passed",
+            "durationSeconds": 1.3032333,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoRemainsInFlightAfterTerminalInsteadOfInstantOverlap",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoRemainsInFlightAfterTerminalInsteadOfInstantOverlap",
+            "state": "Passed",
+            "durationSeconds": 0.7956998,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoSceneTransitionDestroysWorldSpacePool",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoSceneTransitionDestroysWorldSpacePool",
+            "state": "Passed",
+            "durationSeconds": 1.5415001,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+          },
+          {
+            "name": "TornadoSwapAndReturnRestoreOwnedCuffWithoutStaleProjectile",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoSwapAndReturnRestoreOwnedCuffWithoutStaleProjectile",
+            "state": "Passed",
+            "durationSeconds": 0.6887764,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "TornadoSweepsThinTargetsAtFourFpsAndEndsAtAuthoredDistance",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoSweepsThinTargetsAtFourFpsAndEndsAtAuthoredDistance",
+            "state": "Passed",
+            "durationSeconds": 0.6827729,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoTerminalWhiffEmitsExactlyOnceWithoutNativeHp",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoTerminalWhiffEmitsExactlyOnceWithoutNativeHp",
+            "state": "Passed",
+            "durationSeconds": 0.6524169,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoUncommittedRequestAndCanceledTerminalCannotEmit",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoUncommittedRequestAndCanceledTerminalCannotEmit",
+            "state": "Passed",
+            "durationSeconds": 0.8048025,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoVfxPoolReusesOneInactiveInstanceWithoutColliders",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoVfxPoolReusesOneInactiveInstanceWithoutColliders",
+            "state": "Passed",
+            "durationSeconds": 4.4975145,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoWallStopsTravelAndDamageIncludingSpawnOffsetOcclusion",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoWallStopsTravelAndDamageIncludingSpawnOffsetOcclusion",
+            "state": "Passed",
+            "durationSeconds": 1.4921783,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoWhiffDamageUsesAcceptedNoncriticalPacketOnlyOnce",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoWhiffDamageUsesAcceptedNoncriticalPacketOnlyOnce",
+            "state": "Passed",
+            "durationSeconds": 2.1225773,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "TornadoWhiffLaterHitsDistantEnemyOnlyAfterTravel",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoWhiffLaterHitsDistantEnemyOnlyAfterTravel",
+            "state": "Passed",
+            "durationSeconds": 2.1738558,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

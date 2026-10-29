@@ -1,6 +1,41 @@
 # Gameplay Rework — tarefas propostas e gates
 
-## Estado vigente — GPR-01.1,28/10/2026
+## Estado vigente — GPR-01.2b, 28/10/2026
+
+O desenvolvedor testou fisicamente a onda instantânea anterior: funcionalidade técnica aceita, resultado de gameplay considerado pouco transformador e rejeitado como design final. A revisão autorizada substitui essa onda por um **tornado de vento móvel**, mantendo o ID da Mutation, aquisição, controles e combate nativo. A evidência de GPR-01.2 abaixo permanece histórica.
+
+Cada terminal realmente executado no contato do scheduler, com A no snapshot aceito, autoriza no máximo um tornado **inclusive em whiff**. Pedido/cancelamento pré-contato e estágios intermediários não emitem. Contrato específico de emissão separado de `ReserveConfirmedBasicChild`, cujo requisito de HP confirmado permanece intacto. Emissão não produz HP/estatística/recurso nem nova raiz; impactos posteriores usam a fila e os receipts existentes, mesma raiz/parent e caps. Política do ramo: `ProtocolBasicEffects.None`.
+
+Definição experimental única: deslocamento de 5,5 m a 3,5 m/s, vida máxima escalada de 2 s, raio 0,65 m, altura 1,8 m e offset inicial 0,75 m. Direção comprometida não acompanha mouse/rotação posterior. Dano = 0,60 × `CaptureAttackDamage` não crítico capturado na aceitação do terminal (dano authored + stats/Momentum elegíveis naquela aceitação); não depende de receipt, não sorteia crítico nem reaplica multiplicadores do atacante. Mitigação/HP seguem o alvo. Uma vítima por handle+generation, mantendo a exclusão das vítimas nativas já confirmadas.
+
+Overlap inicial + capsule sweep por passo; sólidos e LOS bloqueiam. Reservas negadas/saturação encerram com segurança. Pausa/hitstop congelam; troca de arma/contexto, fim da run, disable/morte e cena invalidam/limpam reservas e apresentação. VFX reversível, pool limitado e leases por geração, sem Rigidbody/segundo executor/alteração permanente de prefab.
+
+Implementação e validação desta revisão registradas no [relatório GPR-01.2b](../decisions/GPR-01.2b_RELATORIO.md). **Aceite físico do tornado novo pendente. STOP antes de GPR-01.3**: somente recomendar revisão da composição com Conductor após avaliação do desenvolvedor; nenhum grant novo de Conductor/Detonation, swap modular, tuning nativo ou quarta skill implementado.
+
+### Fechamento técnico da GPR-01.2b
+
+**CONCLUÍDA TECNICAMENTE NO ESCOPO TESTADO; HUMANO PENDENTE.**29/29 focados (28 da Mutation+1 interação),90/90 EditMode e187/187 regressões:305 nomes distintos finais, zero ignorados; não suíte global. Focados joba0ca7eec1c9f48668c0bcf4601e6b9ed; EditMode4b30bf2757f3424eb46e2d268dd40f82; regressão02090688af2f415ea00dbd3b27cb386f. Falhas intermediárias, correções de fixtures e intermitências históricas registradas no relatório, sem relaxar asserts/clocks.
+
+- [x] Separar contato terminal/whiff de receipt positivo sem relaxar reserva confirmada global.
+- [x] Tornado progressivo, direção capturada, pacote não crítico estável, sweep/LOS, caps/dedupe e cleanup.
+- [x] Pool/VFX reversíveis; captura Game View em6 quadros eCSV; aquisição por ticket preservada.
+- [x] Regressões de controles/GI/armas e integridade de assets/evidência histórica no alcance declarado.
+- [ ] Revisão física do tornado pelo desenvolvedor; sensação/arte/balanceamento e carga em swarms pendentes.
+- [ ] Autorizar separadamente GPR-01.3 antes de compor Conductor; nenhuma composição nova habilitada.
+
+## Histórico — estado GPR-01.2 anterior à revisão
+
+### Registro histórico — GPR-01.2, 28/10/2026
+
+GPR-01.1 aceita tecnicamente pelo desenvolvedor; GPR-C01 continua encerrada. Autorizada somente a primeira Mutation jogável **Punhos Titânicos**. Implementados catálogo Basic da Manopla, onda na raiz nativa com HP confirmado e grants `ProtocolBasicEffects.None`, sobrepeça reversível e testes focados. Implementação concluída com ressalva de regressão:18/18 focados e90/90 EditMode;187/187 na última bateria ampliada.295 casos distintos finais, com ocorrências intermitentes anteriores de hitstop/burn registradas e não declaradas corrigidas. Zero ignorados; não confundir automação com aceite humano. [Relatório da atividade](../decisions/GPR-01.2_RELATORIO.md).
+
+Parâmetros experimentais: caixa frontal de 1,5× o alcance/largura efetivos do soco, altura preservada; 0,60× o maior dano pré-mitigação entre receipts nativos positivos do terminal, coeficiente aplicado uma vez. Sem tuning do básico/Asura/QER, nova ação, recurso, postura ou grant Conductor/Detonation. Nova aquisição usa os tickets/catálogos existentes; nenhuma política de recompensa ampliada.
+
+**STOP após GPR-01.2. GPR-01.3 e etapas seguintes não autorizadas.** Revisão humana da mutação e de seu visual permanece pendente; moonwalk/cadência e swap modular continuam diferidos. As seções anteriores preservadas abaixo são históricas onde divergirem deste estado.
+
+
+
+## Histórico da entrega GPR-01.1 — superado pelo estado vigente acima
 
 GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
 
@@ -44,8 +79,8 @@ F11 deixou de ativar Asura direta por decisão explícita; binding salva/executo
 | C01.5a | Evidência4a–d existente | CONCLUÍDA: revisão dos seis JSON/116 nomes distintos; sem reteste desnecessário | Nenhuma regressão bloqueadora nova demonstrada; relatório5 |
 | C01.5b | Aceite físico explícito recebido | CONCLUÍDA: controle/feel/configuração/interação aprovados; moonwalk/cadência diferidos | GPR-C01 COMPLETA; não repetir aceite global |
 | 01.P1 | Aceite recebido | ACEITA como planejamento; direção experimental aprovada | Não é autorização de conteúdo |
-| 01.1 | Autorização exclusiva recebida | CONCLUÍDA TECNICAMENTE: Basic/receipt/linhagem opt-in/aquisição;210 casos distintos selecionados, relatório técnico | STOP para revisão antes de01.2 |
-| 01.2 | Nova aprovação explícita após revisão01.1 | NÃO INICIADA: A/onda/card/visual mínimo, permissões derivadasNone; nenhum B/C novo | Escopo exato em GPR_01_VERTICAL_SLICE.md |
+| 01.1 | Autorização recebida | CONCLUÍDA E ACEITA tecnicamente pelo desenvolvedor; fundação Basic/receipt/linhagem/aquisição | Gate liberado exclusivamente para01.2 |
+| 01.2 | Autorização explícita recebida após aceite01.1 | IMPLEMENTADA: Punhos Titânicos/onda/card/visual reversível, grantsNone;18 focados+90 EditMode+187 regressões aprovados nas seleções finais; intermitências anteriores registradas | STOP para revisão; ver GPR-01.2_RELATORIO.md |
 | 01.3 | 01.2 | PLANEJADA: Conductor existente compõe com onda; ordem e limites específicos | V10/14; sem energia/mana/raiz nova |
 | 01.4 | 01.3 | PLANEJADA: Detonation existente como terceira camada on-kill | V10/14; morte única/cap/posição nova, sem cascata extra do ramo |
 | 01.5 | 01.4 | PLANEJADA: tickets/seed real, todas ordens, duas runs/reset, timers e8/32/64 alvos se relevante | V11–15; resultados reais e assistência diferenciados |

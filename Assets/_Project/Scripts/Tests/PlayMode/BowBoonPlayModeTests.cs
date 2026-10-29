@@ -16,13 +16,23 @@ namespace TechGuy.Tests
         private ProtocolRuntime _runtime;
         private ArsenalAbility[] _abilities;
         private float _savedScale, _savedCapture;
+        private Camera[] _sceneCameras;
         private NavMeshData _navigation;
         private NavMeshDataInstance _navigationInstance;
         private static void Field(object target, string name, object value)
         { var type = target.GetType(); FieldInfo field = null; while (type != null && field == null) { field = type.GetField(name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic); type = type.BaseType; } Assert.NotNull(field, name); field.SetValue(target, value); }
-        [SetUp] public void SetUp() { _savedScale = Time.timeScale; _savedCapture = Time.captureDeltaTime; Time.timeScale = 1; Time.captureDeltaTime = 1f / 60f; _rig = new ArsenalProjectileTestRig(); }
+        [SetUp] public void SetUp()
+        {
+            _savedScale = Time.timeScale; _savedCapture = Time.captureDeltaTime; Time.timeScale = 1; Time.captureDeltaTime = 1f / 60f;
+            // These fixtures explicitly aim with transform.forward. A camera retained by a
+            // preceding scene would reinterpret the physical cursor during charge/release.
+            _sceneCameras = Camera.allCameras;
+            foreach (var camera in _sceneCameras) if (camera) camera.enabled = false;
+            _rig = new ArsenalProjectileTestRig();
+        }
         [TearDown] public void TearDown()
         {
+            foreach (var camera in _sceneCameras) if (camera) camera.enabled = true;
             Time.timeScale = _savedScale; Time.captureDeltaTime = _savedCapture;
             var ownerField = typeof(ArsenalProjectile).GetField("_owner", BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (var arrow in UnityEngine.Object.FindObjectsByType<ArsenalProjectile>(FindObjectsInactive.Include, FindObjectsSortMode.None))

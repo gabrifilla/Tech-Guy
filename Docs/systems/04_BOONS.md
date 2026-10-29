@@ -1,6 +1,18 @@
 # Boons — poder que modifica gameplay
 
-## Estado vigente — GPR-01.1,28/10/2026
+## Estado vigente — GPR-01.2b, 28/10/2026
+
+A onda instantânea anterior foi aceita tecnicamente pelo desenvolvedor após teste físico, mas rejeitada como gameplay final. Punhos Titânicos agora emite um **tornado móvel de vento** em cada contato terminal executado, inclusive whiff:5,5m/3,5m/s, dano0,60× pacote aceito não crítico, sweep/LOS e mesma raiz/caps. Sem novo grant de Conductor/Detonation (`ProtocolBasicEffects.None`), sem tuning do kit nativo ou mudança de controles. [Relatório da revisão, evidências e limitações](../decisions/GPR-01.2b_RELATORIO.md). **Aceite físico do tornado pendente; STOP antes de GPR-01.3.**
+
+## Histórico da entrega GPR-01.2 anterior à revisão
+
+### Registro histórico — GPR-01.2,28/10/2026
+
+Punhos Titânicos (`mutation_gauntlet_titan_fists`) está registrada como Mutation Gauntlet/Basic no catálogo executável existente: uma onda frontal após HP nativo confirmado do terminal LMB, com reserva única na mesma raiz e `ProtocolBasicEffects.None`. Caixa1,5× e dano0,60× provisórios; sem novo recurso/postura/CC, grant de Protocol, ação ou tuning do básico. Sobrepeça e onda são reversíveis e locais à run. Oferta por ticket/seed foi exercitada sem grant do boon numa rota de fixture; economia de toda run e aceite físico continuam distintos. [Relatório e limitações](../decisions/GPR-01.2_RELATORIO.md). STOP antes de01.3.
+
+
+
+## Histórico da fundação01.1
 
 GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
 
@@ -8,7 +20,7 @@ Direção experimental A→A+B→A+B+C aceita, parâmetros1,5×/0,60× provisór
 
 Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecânica nova. SwapAvanço→Uppercut adiado por redução aprovada de escopo; aquisição/substituição modular Q/E/R permanece requisito **NÃO IMPLEMENTADO/NÃO VALIDADO**, rastreado em GPR-03.1/RF-TROCA. Gates e decisões históricos abaixo não sobrepõem esta autorização.
 
-## Proposta atual de transformação do básico — GPR-01
+## Proposta histórica da fatia — A entregue acima; B/C ainda futuros
 
 [Fatia para revisão](../gameplay/GPR_01_VERTICAL_SLICE.md): A/Punhos Titânicos é conteúdo novo proposto para Basic, B=conductor e C=detonation reutilizam IDs/executores atuais. Sem catálogo habilitado ou asset criado nesta rodada. A hipótese geométrica1,5×/dano0,60× e restrições por linhagem exigem aprovação.
 

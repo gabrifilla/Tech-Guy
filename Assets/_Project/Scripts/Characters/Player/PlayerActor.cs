@@ -395,7 +395,7 @@ public class PlayerActor : Actor, IExternalPullTarget
             dealt = actual;
             transaction?.ConfirmHp(actual);
             if (actual > 0 && transaction != null && protocols)
-                protocols.ConfirmBasicTerminal(new ConfirmedHpReceipt(transaction.Context, actual));
+                protocols.ConfirmBasicTerminal(new ConfirmedHpReceipt(transaction.Context, actual, damage));
             transaction?.HoldProtocolBatch(protocolRoot);
             _feedbackScope.ConfirmDamage(true);
         }, transaction == null ? null : transaction.Notify, damageSource)) enemy.TakeDamage(damage);

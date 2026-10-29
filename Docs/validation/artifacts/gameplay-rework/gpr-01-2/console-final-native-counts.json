@@ -1,0 +1,21 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": [
+      {
+        "name": "errorCount",
+        "count": 0
+      },
+      {
+        "name": "warningCount",
+        "count": 526
+      },
+      {
+        "name": "logCount",
+        "count": 270
+      }
+    ],
+    "compiler": "codedom"
+  }
+}

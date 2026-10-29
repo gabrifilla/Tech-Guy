@@ -1,0 +1,14 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "compiling": false,
+      "errors": false,
+      "crowdMethod": true,
+      "dllTime": "2026-10-28T21:38:25.2953597Z",
+      "sourceTime": "2026-10-28T21:38:21.1389201Z"
+    },
+    "compiler": "codedom"
+  }
+}

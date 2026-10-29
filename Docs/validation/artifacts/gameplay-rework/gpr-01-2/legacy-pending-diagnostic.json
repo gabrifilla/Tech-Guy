@@ -1,0 +1,74 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "88f8633924624e5d81cab3183813ab30",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793225068369,
+      "finished_unix_ms": 1793225081162,
+      "last_update_unix_ms": 1793225081162,
+      "progress": {
+        "completed": 3,
+        "total": 3,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.ProtocolProjectileContextTests.SaturatedBurnTicksRotateWithoutCatchupOrStarvationAndDeathTicksDetonate",
+        "last_finished_unix_ms": 1793225081089,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 4.8608611,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "HitStopPreservesRecoveryIntentWithoutUsingItsRealTimeForExpiry",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.HitStopPreservesRecoveryIntentWithoutUsingItsRealTimeForExpiry",
+            "state": "Passed",
+            "durationSeconds": 1.1696507,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+          },
+          {
+            "name": "MovementDuringRecoveryKeepsTheCast_UsesLatestValidOrderOnce",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.MovementDuringRecoveryKeepsTheCast_UsesLatestValidOrderOnce",
+            "state": "Passed",
+            "durationSeconds": 0.8437722,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+          },
+          {
+            "name": "SaturatedBurnTicksRotateWithoutCatchupOrStarvationAndDeathTicksDetonate",
+            "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.SaturatedBurnTicksRotateWithoutCatchupOrStarvationAndDeathTicksDetonate",
+            "state": "Passed",
+            "durationSeconds": 2.7313053,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "message": "Retrieved 1 log entries.",
+  "data": [
+    {
+      "type": "Exception",
+      "message": "C01 charge context ready=True blocked=False pointer=(574.50, 449.12, 27.18)",
+      "file": "Assets/_Project/Scripts/Tests/PlayMode/DirectBasicInputPlayModeTests.cs",
+      "line": 553,
+      "stackTrace": null
+    }
+  ]
+}

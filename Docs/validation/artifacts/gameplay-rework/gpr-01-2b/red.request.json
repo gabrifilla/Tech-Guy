@@ -1,0 +1,10 @@
+{
+  "mode": "PlayMode",
+  "test_names": [
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoTerminalWhiffEmitsExactlyOnceWithoutNativeHp",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoRemainsInFlightAfterTerminalInsteadOfInstantOverlap",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoWhiffLaterHitsDistantEnemyOnlyAfterTravel"
+  ],
+  "include_details": true,
+  "init_timeout": 120000
+}

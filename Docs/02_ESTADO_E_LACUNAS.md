@@ -1,6 +1,18 @@
 # Estado verificado, conflitos e lacunas
 
-## Estado vigente — GPR-01.1,28/10/2026
+## Estado vigente — GPR-01.2b, 28/10/2026
+
+A onda instantânea anterior foi aceita tecnicamente pelo desenvolvedor após teste físico, mas rejeitada como gameplay final. Punhos Titânicos agora emite um **tornado móvel de vento** em cada contato terminal executado, inclusive whiff:5,5m/3,5m/s, dano0,60× pacote aceito não crítico, sweep/LOS e mesma raiz/caps. Sem novo grant de Conductor/Detonation (`ProtocolBasicEffects.None`), sem tuning do kit nativo ou mudança de controles. [Relatório da revisão, evidências e limitações](decisions/GPR-01.2b_RELATORIO.md). **Aceite físico do tornado pendente; STOP antes de GPR-01.3.**
+
+## Histórico da entrega GPR-01.2 anterior à revisão
+
+### Registro histórico — GPR-01.2 — 28/10/2026
+
+Primeira Mutation da Manopla implementada: Punhos Titânicos, com onda/visual reversíveis, recibo nativo de HP e grantsNone. [Relatório, testes, limitações e próximo gate](decisions/GPR-01.2_RELATORIO.md). Nenhum aceite físico/artístico de A foi recebido. GPR-01.3 permanece não autorizada. O estado01.1 abaixo é histórico.
+
+
+
+## Histórico da fundação01.1
 
 GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
 

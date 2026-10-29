@@ -1,0 +1,26 @@
+--- GPR-01.2/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs
++++ GPR-01.2b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs
+@@ -25,6 +25,23 @@
+     }
+     internal bool CanResolveBasicBranch => IsOpen && _player && _player.isActiveAndEnabled && !_player.IsDead &&
+         !_player.IsCombatHitStopped && UnityEngine.Time.timeScale > 0 && (!_holder || !_holder.IsGamePaused);
++    // Only the authored basic scheduler calls this at actual contact, after its native batch.
++    // This emission seam deliberately does NOT reinterpret ReserveConfirmedBasicChild.
++    internal bool CommitTitanicTerminalContact(GauntletImpactContext parent, int impactIndex, float acceptedDamage)
++    {
++        if (!IsOpen || !_player || !_player.isActiveAndEnabled || _player.IsDead ||
++            _player.IsResolvingGauntletImpact || _player.HasOpenImpactFeedback || parent == null || parent.Owner != _player ||
++            !_player.TryGetComponent(out BreakerGauntletCombat combat) || !combat.EnergyPolicy.IsLive(parent)) return false;
++        return FindRoot(parent)?.RecordTitanicTerminalContact(parent, impactIndex, acceptedDamage) == true;
++    }
++    private ProtocolExecution ReserveTitanicTerminalEmission(GauntletImpactContext parent)
++    {
++        if (!IsOpen || parent == null || parent.Owner != _player || _player.IsResolvingGauntletImpact || _player.HasOpenImpactFeedback ||
++            !_player.TryGetComponent(out BreakerGauntletCombat combat) || !combat.EnergyPolicy.IsLive(parent)) return null;
++        var root = FindRoot(parent); if (root == null) return null;
++        long id = -checked(++_nextReservedProducer); var lineage = root.ReserveTitanicTerminalEmission(id);
++        return lineage == null ? null : new ProtocolExecution(this, root, ProtocolProducer.Technique, id, false, 1, lineage);
++    }
+     internal string ScopedProducerId => ScopedBasicLineage?.ProducerId ?? "";
+     public ProtocolProducer ScopedProducer => _areaScopes > 0 ? _scopeProducer : ProtocolProducer.Direct;
+     public int ScopedDepth => _areaScopes > 0 ? _scopeDepth : 0;

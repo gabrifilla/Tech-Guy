@@ -1,0 +1,1739 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "781af5e7cfe14359aa96049981f5c507",
+      "status": "failed",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793223897491,
+      "finished_unix_ms": 1793224015816,
+      "last_update_unix_ms": 1793224015816,
+      "progress": {
+        "completed": 187,
+        "total": 187,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.RunStatisticsPlayModeTests.ThreeConsecutiveSessionsFinalizeAllOutcomesWithoutMixingListenersOrPersistence",
+        "last_finished_unix_ms": 1793224015616,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [
+          {
+            "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectGauntletAdvanceRetainsExclusiveCastOwnership",
+            "message": "  Expected: less than 0.01d\r\n  But was:  0.326359063f\r\n"
+          },
+          {
+            "full_name": "TechGuy.Tests.BowBoonPlayModeTests.BowBoonReboundRUsesActualHoldAndReleaseWithoutASecondActivation",
+            "message": "  Expected: 970.0d +/- 0.0099999997764825821d\r\n  But was:  1000.0d\r\n"
+          }
+        ],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 187,
+          "passed": 185,
+          "failed": 2,
+          "skipped": 0,
+          "durationSeconds": 106.509178,
+          "resultState": "Failed(Child)"
+        },
+        "results": [
+          {
+            "name": "AcceptedDashClearsRecoveryMovementWithoutAnOldOrderAfterTheDash",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AcceptedDashClearsRecoveryMovementWithoutAnOldOrderAfterTheDash",
+            "state": "Passed",
+            "durationSeconds": 0.8666804,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAnimator does not have an AnimatorController\r\n"
+          },
+          {
+            "name": "AnalyticsCancelBeforeContactDoesNotFabricateDamage",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsCancelBeforeContactDoesNotFabricateDamage",
+            "state": "Passed",
+            "durationSeconds": 0.1517066,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "AnalyticsEclipseKeepsTransformedQIdentity",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsEclipseKeepsTransformedQIdentity",
+            "state": "Passed",
+            "durationSeconds": 0.5997189,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "AnalyticsNativeEMatchesRealHp",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeEMatchesRealHp",
+            "state": "Passed",
+            "durationSeconds": 0.9955358,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "AnalyticsNativeQMatchesRealHp",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeQMatchesRealHp",
+            "state": "Passed",
+            "durationSeconds": 0.7568541,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "AnalyticsNativeRMatchesRealHp",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeRMatchesRealHp",
+            "state": "Passed",
+            "durationSeconds": 2.0305954,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "AnalyticsNativeWMultihitMatchesRealHp",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeWMultihitMatchesRealHp",
+            "state": "Passed",
+            "durationSeconds": 1.5171795,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "AsuraEarlyFinishAfterFirstStrikeUsesOneCostAndThreeQuarterNativePower",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishAfterFirstStrikeUsesOneCostAndThreeQuarterNativePower",
+            "state": "Passed",
+            "durationSeconds": 0.8152598,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "AsuraEarlyFinishAfterSecondStrikePreservesTheFullThreeStrikePower",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishAfterSecondStrikePreservesTheFullThreeStrikePower",
+            "state": "Passed",
+            "durationSeconds": 1.2147084,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "AsuraEarlyFinishInterruptedBeforeContactNeverCreatesFinalizerEchoOrRetainedWork",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishInterruptedBeforeContactNeverCreatesFinalizerEchoOrRetainedWork",
+            "state": "Passed",
+            "durationSeconds": 3.1292095,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\n"
+          },
+          {
+            "name": "AsuraEarlyFinishRealReboundInputWinsOverSimultaneousRAndHoldingDoesNotRepeat",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishRealReboundInputWinsOverSimultaneousRAndHoldingDoesNotRepeat",
+            "state": "Passed",
+            "durationSeconds": 0.5007975,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "AsuraEarlyFinishRejectedDuringCommittedPhasesPreservesTheBufferedNormalContinuation",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishRejectedDuringCommittedPhasesPreservesTheBufferedNormalContinuation",
+            "state": "Passed",
+            "durationSeconds": 0.4778458,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "AsuraEarlyFinishWaitAndContactRespectPauseMenusAndRealHitstop",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishWaitAndContactRespectPauseMenusAndRealHitstop",
+            "state": "Passed",
+            "durationSeconds": 2.1316052,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "CadencedRContinuationDiscardsRecoveryMovementWithoutPublishingAnotherAbilityUse",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CadencedRContinuationDiscardsRecoveryMovementWithoutPublishingAnotherAbilityUse",
+            "state": "Passed",
+            "durationSeconds": 1.2223721,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+          },
+          {
+            "name": "CursorFluidity_PrimaryClickWithoutShiftHitsAtZeroManaWithoutResourceCost",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_PrimaryClickWithoutShiftHitsAtZeroManaWithoutResourceCost",
+            "state": "Passed",
+            "durationSeconds": 0.794503,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "CursorFluidity_ReleaseGateRequiresBothPointerActionsBeforeShiftMoveCanResume",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_ReleaseGateRequiresBothPointerActionsBeforeShiftMoveCanResume",
+            "state": "Passed",
+            "durationSeconds": 0.9466785,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "CursorFluidity_ShiftWithReboundPrimaryRepeatsUntilReleaseWithoutMouseClick",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_ShiftWithReboundPrimaryRepeatsUntilReleaseWithoutMouseClick",
+            "state": "Passed",
+            "durationSeconds": 1.0750597,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "CursorFluidity_SpearBasicKeepsItsAuthoredReachWithGauntletBalanceLoaded",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_SpearBasicKeepsItsAuthoredReachWithGauntletBalanceLoaded",
+            "state": "Passed",
+            "durationSeconds": 0.0481201,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "CursorFluidity_TargetedTapSurvivesAttackCadenceAndExecutesExactlyOnce",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_TargetedTapSurvivesAttackCadenceAndExecutesExactlyOnce",
+            "state": "Passed",
+            "durationSeconds": 0.734477,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "CursorFluidity_TargetedTapSurvivesBusyRecoveryAndExecutesExactlyOnce",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_TargetedTapSurvivesBusyRecoveryAndExecutesExactlyOnce",
+            "state": "Passed",
+            "durationSeconds": 0.7172329,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "CursorFluidity_TargetWithoutAttackIntentDoesNotPursue",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_TargetWithoutAttackIntentDoesNotPursue",
+            "state": "Passed",
+            "durationSeconds": 0.4049856,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+          },
+          {
+            "name": "DisableAndExternalPullDiscardRecoveryMovement",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.DisableAndExternalPullDiscardRecoveryMovement",
+            "state": "Passed",
+            "durationSeconds": 0.6421837,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+          },
+          {
+            "name": "DisablingPauseDuringBuildInspectionRestoresClockAudioAndReleasesItsPage",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.DisablingPauseDuringBuildInspectionRestoresClockAudioAndReleasesItsPage",
+            "state": "Passed",
+            "durationSeconds": 0.0446043,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "EncounterOffenseCleanupAndDeathCannotKeepQueuedMovement",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.EncounterOffenseCleanupAndDeathCannotKeepQueuedMovement",
+            "state": "Passed",
+            "durationSeconds": 1.2442088,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAnimator does not have an AnimatorController\r\n"
+          },
+          {
+            "name": "GI15SkillAcceptedDuringBasicHitstopKeepsOneUseAndResumesItsPresentation",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GI15SkillAcceptedDuringBasicHitstopKeepsOneUseAndResumesItsPresentation",
+            "state": "Passed",
+            "durationSeconds": 0.8215281,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GIBasicAcceptedAttackWaitsForAuthoredContact",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicAcceptedAttackWaitsForAuthoredContact",
+            "state": "Passed",
+            "durationSeconds": 0.5338996,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GIBasicCritProtocolAndEnergyKeepOneCausalRoot",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicCritProtocolAndEnergyKeepOneCausalRoot",
+            "state": "Passed",
+            "durationSeconds": 0.3053052,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GIBasicPreImpactMovementCancelsWithoutGhostHitOrEnergy",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicPreImpactMovementCancelsWithoutGhostHitOrEnergy",
+            "state": "Passed",
+            "durationSeconds": 0.3276849,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GIBasicRapidSequenceKeepsCadenceSingleTransactionsAndRecovery",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicRapidSequenceKeepsCadenceSingleTransactionsAndRecovery",
+            "state": "Passed",
+            "durationSeconds": 1.3295594,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPR01BranchAllowsConductorThenKillDetonationWithoutRecursion",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01BranchAllowsConductorThenKillDetonationWithoutRecursion",
+            "state": "Passed",
+            "durationSeconds": 0.1048711,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPR01BranchBudgetDenialAndRunEndCannotDealGhostDamage",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01BranchBudgetDenialAndRunEndCannotDealGhostDamage",
+            "state": "Passed",
+            "durationSeconds": 0.0866338,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPR01BranchDedupesExcludesNativeVictimAndCannotMintRoot",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01BranchDedupesExcludesNativeVictimAndCannotMintRoot",
+            "state": "Passed",
+            "durationSeconds": 0.0834871,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPR01NewBranchDoesNotInheritProtocolsWithoutExplicitPermission",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01NewBranchDoesNotInheritProtocolsWithoutExplicitPermission",
+            "state": "Passed",
+            "durationSeconds": 0.0856538,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPR01OnlyConfirmedTerminalReservesOneChildOnSameRoot",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01OnlyConfirmedTerminalReservesOneChildOnSameRoot",
+            "state": "Passed",
+            "durationSeconds": 0.0378213,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPR01PauseBlocksReservedChildImmediatelyAndResumeKeepsSameRoot",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01PauseBlocksReservedChildImmediatelyAndResumeKeepsSameRoot",
+            "state": "Passed",
+            "durationSeconds": 0.1633812,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPR01PooledRelayCannotContinueOldBranchIntoNewGeneration",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01PooledRelayCannotContinueOldBranchIntoNewGeneration",
+            "state": "Passed",
+            "durationSeconds": 0.1081663,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPR01ReentrantReservationWaitsForWholeNativeBatchAndDisableCleansBranch",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01ReentrantReservationWaitsForWholeNativeBatchAndDisableCleansBranch",
+            "state": "Passed",
+            "durationSeconds": 0.1060479,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPR01SceneTransitionClosesOutstandingChild",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01SceneTransitionClosesOutstandingChild",
+            "state": "Passed",
+            "durationSeconds": 1.798634,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+          },
+          {
+            "name": "GPR01WhiffImmunityAndNonterminalCannotAuthorizeChild",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01WhiffImmunityAndNonterminalCannotAuthorizeChild",
+            "state": "Passed",
+            "durationSeconds": 0.3256791,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPRAsuraCadencedRmbEdgesContinueSameExecutionAndFinisherWins",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRAsuraCadencedRmbEdgesContinueSameExecutionAndFinisherWins",
+            "state": "Passed",
+            "durationSeconds": 1.0357178,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRAsuraCadencedThreeRmbPressesKeepSingleExecutionAndCost",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRAsuraCadencedThreeRmbPressesKeepSingleExecutionAndCost",
+            "state": "Passed",
+            "durationSeconds": 1.0569763,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRAsuraRmbRejectsWithoutEnergyAndCannotReplayAfterPause",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRAsuraRmbRejectsWithoutEnergyAndCannotReplayAfterPause",
+            "state": "Passed",
+            "durationSeconds": 0.5139279,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRAsuraRmbUsesExistingStateOnceAndNeverBasicEvenWithLegacyKey",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRAsuraRmbUsesExistingStateOnceAndNeverBasicEvenWithLegacyKey",
+            "state": "Passed",
+            "durationSeconds": 0.606317,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRAsuraUiGraphicOwnsRmbWithoutSpendingOrReplay",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRAsuraUiGraphicOwnsRmbWithoutSpendingOrReplay",
+            "state": "Passed",
+            "durationSeconds": 0.4190445,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRCaptureDeviceChangeCancelsWithoutSavingDraft",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRCaptureDeviceChangeCancelsWithoutSavingDraft",
+            "state": "Passed",
+            "durationSeconds": 0.0519409,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRClickAcceptedSkillDiscardsPendingBasic",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickAcceptedSkillDiscardsPendingBasic",
+            "state": "Passed",
+            "durationSeconds": 0.9708053,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickBowChargedShotRetainsApprovedHoldExceptionAndReleaseStopsIt",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickBowChargedShotRetainsApprovedHoldExceptionAndReleaseStopsIt",
+            "state": "Passed",
+            "durationSeconds": 2.0110584,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nC01 charge context ready=True blocked=False pointer=(580.00, 458.30, 27.18)\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickBowTapDoesNotRepeatWithoutChargedShot",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickBowTapDoesNotRepeatWithoutChargedShot",
+            "state": "Passed",
+            "durationSeconds": 1.6959363,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickEmptyCursorUsesAuthoredContactOnceAndKeepsCommittedFacing",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickEmptyCursorUsesAuthoredContactOnceAndKeepsCommittedFacing",
+            "state": "Passed",
+            "durationSeconds": 0.8547381,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickHitstopRetainsOneReleasedTapUntilResume",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickHitstopRetainsOneReleasedTapUntilResume",
+            "state": "Passed",
+            "durationSeconds": 0.8408811,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickPauseFocusAndDisableNeverReplayHeldPrimary",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickPauseFocusAndDisableNeverReplayHeldPrimary",
+            "state": "Passed",
+            "durationSeconds": 2.110806,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickRecoveryStoresOnlyLatestDirectionForOneFollowup",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickRecoveryStoresOnlyLatestDirectionForOneFollowup",
+            "state": "Passed",
+            "durationSeconds": 1.1733405,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickSingleHeldPressWhiffsOnceWithoutTargetOrNavigation",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickSingleHeldPressWhiffsOnceWithoutTargetOrNavigation",
+            "state": "Passed",
+            "durationSeconds": 1.8430808,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickSpearUsesItsExistingReachWithoutTargetOrAutomaticRepeat",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickSpearUsesItsExistingReachWithoutTargetOrAutomaticRepeat",
+            "state": "Passed",
+            "durationSeconds": 1.1301054,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickSuccessivePressesAdvanceAuthoredComboAndKeepCadence",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickSuccessivePressesAdvanceAuthoredComboAndKeepCadence",
+            "state": "Passed",
+            "durationSeconds": 0.9453048,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickTooEarlyPressExpiresInsteadOfPlayingTheWholeCombo",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickTooEarlyPressExpiresInsteadOfPlayingTheWholeCombo",
+            "state": "Passed",
+            "durationSeconds": 1.3447904,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickUiGraphicOwnsPressAndNoLateAttackOccurs",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickUiGraphicOwnsPressAndNoLateAttackOccurs",
+            "state": "Passed",
+            "durationSeconds": 1.0253986,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickWASDAndAimOpposeWithoutClickToMoveOrFacingOverride",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickWASDAndAimOpposeWithoutClickToMoveOrFacingOverride",
+            "state": "Passed",
+            "durationSeconds": 0.4604177,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRClickWeaponSwapInvalidatesPendingBasic",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickWeaponSwapInvalidatesPendingBasic",
+            "state": "Passed",
+            "durationSeconds": 1.1672231,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPRConfigMigrationKeepsPersonalizedSecondaryAndHasThreeSkills",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRConfigMigrationKeepsPersonalizedSecondaryAndHasThreeSkills",
+            "state": "Passed",
+            "durationSeconds": 0.0089005,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "GPRConfigReboundMovementAndMousePrimaryUseExistingOwners",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRConfigReboundMovementAndMousePrimaryUseExistingOwners",
+            "state": "Passed",
+            "durationSeconds": 0.568774,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRConfigRoundTripConflictCaptureAndDefaults",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRConfigRoundTripConflictCaptureAndDefaults",
+            "state": "Passed",
+            "durationSeconds": 0.0928038,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRDashModesUseNormalizedMovementAndFacingFallback",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDashModesUseNormalizedMovementAndFacingFallback",
+            "state": "Passed",
+            "durationSeconds": 0.1190136,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRDirectBindingsMigrateWithoutLosingCustomSpecialOrChangingLegacy",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectBindingsMigrateWithoutLosingCustomSpecialOrChangingLegacy",
+            "state": "Passed",
+            "durationSeconds": 0.0042489,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "GPRDirectBowCastMovesWithItsAuthoredSpeedAndRestoresIt",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectBowCastMovesWithItsAuthoredSpeedAndRestoresIt",
+            "state": "Passed",
+            "durationSeconds": 0.5096638,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRDirectBowKitingStepUsesLastActualLocomotionAtAttackAcceptance",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectBowKitingStepUsesLastActualLocomotionAtAttackAcceptance",
+            "state": "Passed",
+            "durationSeconds": 0.2432491,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRDirectDashHitstopSuspendsDisplacementWithoutMintingExtraDash",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectDashHitstopSuspendsDisplacementWithoutMintingExtraDash",
+            "state": "Passed",
+            "durationSeconds": 0.7633168,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAnimator does not have an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRDirectFocusAndPauseRequireKeyboardRelease",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectFocusAndPauseRequireKeyboardRelease",
+            "state": "Passed",
+            "durationSeconds": 0.6668743,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRDirectGauntletAdvanceRetainsExclusiveCastOwnership",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectGauntletAdvanceRetainsExclusiveCastOwnership",
+            "state": "Failed",
+            "durationSeconds": 0.1098351,
+            "message": "  Expected: less than 0.01d\r\n  But was:  0.326359063f\r\n",
+            "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GPRDirectGauntletAdvanceRetainsExclusiveCastOwnership>d__197.MoveNext () [0x00129] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\DirectMovementIntegrationPlayModeTests.cs:219\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRDirectMotorPullAndDashRespectTheSameUnbakedWall",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectMotorPullAndDashRespectTheSameUnbakedWall",
+            "state": "Passed",
+            "durationSeconds": 1.6906463,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAnimator does not have an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRDirectPullTakesOwnershipFromAnActiveDash",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectPullTakesOwnershipFromAnActiveDash",
+            "state": "Passed",
+            "durationSeconds": 0.391253,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAnimator does not have an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRDirectRootedBasicKeepsPoseContactAndDamage",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectRootedBasicKeepsPoseContactAndDamage",
+            "state": "Passed",
+            "durationSeconds": 0.5412249,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRDirectSettingsRoundTripPreservesLegacyBindings",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectSettingsRoundTripPreservesLegacyBindings",
+            "state": "Passed",
+            "durationSeconds": 0.0638624,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRDirectSpearCastDoesNotAcquireKeyboardOwnership",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectSpearCastDoesNotAcquireKeyboardOwnership",
+            "state": "Passed",
+            "durationSeconds": 0.4107755,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRDirectTraversalContactPoseIsImmediateAndCannotCrossSolid",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectTraversalContactPoseIsImmediateAndCannotCrossSolid",
+            "state": "Passed",
+            "durationSeconds": 0.0646544,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRDirectVirtualMovementNormalizesDiagonalsAndDoesNotCastW",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectVirtualMovementNormalizesDiagonalsAndDoesNotCastW",
+            "state": "Passed",
+            "durationSeconds": 0.7276953,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRInteractionRecreatesLostGuiTextureWithoutChangingContext",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRInteractionRecreatesLostGuiTextureWithoutChangingContext",
+            "state": "Passed",
+            "durationSeconds": 0.0903799,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRInteractRebindCollectsOnlyNearbyItemWithoutBasicOrMovement",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRInteractRebindCollectsOnlyNearbyItemWithoutBasicOrMovement",
+            "state": "Passed",
+            "durationSeconds": 0.1343436,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPRPauseRebindPreservesEscapeSafetyWithoutWorldInput",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRPauseRebindPreservesEscapeSafetyWithoutWorldInput",
+            "state": "Passed",
+            "durationSeconds": 0.1661772,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPRReleasedContextAcceptsFirstFreshClickOnFollowingFrame",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRReleasedContextAcceptsFirstFreshClickOnFollowingFrame",
+            "state": "Passed",
+            "durationSeconds": 0.1751742,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRReleasedContextAcceptsFirstFreshMovementOnFollowingFrame",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRReleasedContextAcceptsFirstFreshMovementOnFollowingFrame",
+            "state": "Passed",
+            "durationSeconds": 0.1325521,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPRSafetyContextualRHasOneOwnerAndCannotFallThroughOnClose",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyContextualRHasOneOwnerAndCannotFallThroughOnClose",
+            "state": "Passed",
+            "durationSeconds": 0.2593122,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRSafetyDiscardingUncommittedBasicInputPreservesCadence",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyDiscardingUncommittedBasicInputPreservesCadence",
+            "state": "Passed",
+            "durationSeconds": 0.0025132,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "GPRSafetyIntegratedMotorFollowsBakedSlopeWithoutLeavingItsSurface",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyIntegratedMotorFollowsBakedSlopeWithoutLeavingItsSurface",
+            "state": "Passed",
+            "durationSeconds": 0.366839,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRSafetyModalSameFrameOpenCloseDropsUncommittedInput",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyModalSameFrameOpenCloseDropsUncommittedInput",
+            "state": "Passed",
+            "durationSeconds": 0.1635186,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRSafetyNavEdgeSlidesButNeverLeavesTheMesh",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyNavEdgeSlidesButNeverLeavesTheMesh",
+            "state": "Passed",
+            "durationSeconds": 0.4023897,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRSafetyPauseFocusDisableRequireAllGameplayKeysReleased",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyPauseFocusDisableRequireAllGameplayKeysReleased",
+            "state": "Passed",
+            "durationSeconds": 0.755612,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRSafetyPausingKeepsAcceptedBasicImpactButDropsFutureInput",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyPausingKeepsAcceptedBasicImpactButDropsFutureInput",
+            "state": "Passed",
+            "durationSeconds": 0.8738945,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "GPRSafetyRecoveryIntentExpiresDuringMeasuredHalfSecondHitch",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyRecoveryIntentExpiresDuringMeasuredHalfSecondHitch",
+            "state": "Passed",
+            "durationSeconds": 0.9681759,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRSafetyRewardCloseRequiresReleaseBeforeMovementOrSkill",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyRewardCloseRequiresReleaseBeforeMovementOrSkill",
+            "state": "Passed",
+            "durationSeconds": 0.2253938,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRSafetySlidingPreservesWallCornerAndDistanceBudget",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetySlidingPreservesWallCornerAndDistanceBudget",
+            "state": "Passed",
+            "durationSeconds": 0.5074821,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRSpecialRemapsExistingThreeKitsWithoutXOrF11Alias",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSpecialRemapsExistingThreeKitsWithoutXOrF11Alias",
+            "state": "Passed",
+            "durationSeconds": 0.8391198,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "GPRThreeSkillsRemapAndHudKeepsSeparateSpecialWithoutX",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRThreeSkillsRemapAndHudKeepsSeparateSpecialWithoutX",
+            "state": "Passed",
+            "durationSeconds": 3.7842308,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "GPRVirtualDeviceDeliverySurvivesPlayerLoop",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRVirtualDeviceDeliverySurvivesPlayerLoop",
+            "state": "Passed",
+            "durationSeconds": 0.1200114,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+          },
+          {
+            "name": "HitStopPreservesRecoveryIntentWithoutUsingItsRealTimeForExpiry",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.HitStopPreservesRecoveryIntentWithoutUsingItsRealTimeForExpiry",
+            "state": "Passed",
+            "durationSeconds": 1.146023,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "InvalidGroundDestinationPreservesTheCurrentValidPath",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.InvalidGroundDestinationPreservesTheCurrentValidPath",
+            "state": "Passed",
+            "durationSeconds": 0.2736369,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "ManualEliteDeathBetweenOrdinalsCannotAcquireSecondReward",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualEliteDeathBetweenOrdinalsCannotAcquireSecondReward",
+            "state": "Passed",
+            "durationSeconds": 0.2374277,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\n"
+          },
+          {
+            "name": "ManualExhaustedTechniqueAppliesRetainedProtocolOnceAndPreservesResourcesAndSourceAssets",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualExhaustedTechniqueAppliesRetainedProtocolOnceAndPreservesResourcesAndSourceAssets",
+            "state": "Passed",
+            "durationSeconds": 0.2142032,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "ManualProtocolTicketsApplyEachRetainedEffectFromActualCompatibleOffers",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualProtocolTicketsApplyEachRetainedEffectFromActualCompatibleOffers",
+            "state": "Passed",
+            "durationSeconds": 0.3013888,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition",
+            "state": "Passed",
+            "durationSeconds": 0.1540909,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "MovementDuringRecoveryKeepsTheCast_UsesLatestValidOrderOnce",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.MovementDuringRecoveryKeepsTheCast_UsesLatestValidOrderOnce",
+            "state": "Passed",
+            "durationSeconds": 0.8910645,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "PauseDiscardsRecoveryMovementAndDoesNotReplayOnResume",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseDiscardsRecoveryMovementAndDoesNotReplayOnResume",
+            "state": "Passed",
+            "durationSeconds": 1.0525752,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "PauseInspectionKeepsRewardPendingAndBlocksAcquisitionUntilTheResumeFrameHasPassed",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseInspectionKeepsRewardPendingAndBlocksAcquisitionUntilTheResumeFrameHasPassed",
+            "state": "Passed",
+            "durationSeconds": 0.0896844,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "PauseInspectionRestoresTheCapturedClockAndAudioRatherThanForcingDefaults",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseInspectionRestoresTheCapturedClockAndAudioRatherThanForcingDefaults",
+            "state": "Passed",
+            "durationSeconds": 0.0512036,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "SpearBoonEarlyReturnLosesSkippedPassagesAndNeverPaysAgain",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonEarlyReturnLosesSkippedPassagesAndNeverPaysAgain",
+            "state": "Passed",
+            "durationSeconds": 1.4788303,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\n"
+          },
+          {
+            "name": "UnreachableNavMeshIslandCannotReplaceTheValidMovementOrder",
+            "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.UnreachableNavMeshIslandCannotReplaceTheValidMovementOrder",
+            "state": "Passed",
+            "durationSeconds": 0.0679004,
+            "message": null,
+            "stackTrace": null,
+            "output": "Efeito de clique n\u00e3o configurado!\r\nDashScript nao configurado!\r\n"
+          },
+          {
+            "name": "BowBoonQAndEReuseConfiguredReducedMovementAndRestoreItOnCancelAndCompletion",
+            "fullName": "TechGuy.Tests.BowBoonPlayModeTests.BowBoonQAndEReuseConfiguredReducedMovementAndRestoreItOnCancelAndCompletion",
+            "state": "Passed",
+            "durationSeconds": 0.1902588,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "BowBoonReboundRUsesActualHoldAndReleaseWithoutASecondActivation",
+            "fullName": "TechGuy.Tests.BowBoonPlayModeTests.BowBoonReboundRUsesActualHoldAndReleaseWithoutASecondActivation",
+            "state": "Failed",
+            "durationSeconds": 0.9560066,
+            "message": "  Expected: 970.0d +/- 0.0099999997764825821d\r\n  But was:  1000.0d\r\n",
+            "stackTrace": "at TechGuy.Tests.BowBoonPlayModeTests+<BowBoonReboundRUsesActualHoldAndReleaseWithoutASecondActivation>d__29.MoveNext () [0x002e2] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BowBoonPlayModeTests.cs:280\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "CastingSemantics_PreservedAcrossDashCancelAttempt",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.CastingSemantics_PreservedAcrossDashCancelAttempt",
+            "state": "Passed",
+            "durationSeconds": 0.0299502,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "DashWindowNeverOpens_BufferDropsSilently_NoOnDashNoReject",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.DashWindowNeverOpens_BufferDropsSilently_NoOnDashNoReject",
+            "state": "Passed",
+            "durationSeconds": 0.3287845,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Iframes_IndependentOfDisplacement_AndNoResidue",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.Iframes_IndependentOfDisplacement_AndNoResidue",
+            "state": "Passed",
+            "durationSeconds": 0.6282497,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "LongIframeWindow_ReleasesImmunityWhenDisplacementEnds_NoResidue",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.LongIframeWindow_ReleasesImmunityWhenDisplacementEnds_NoResidue",
+            "state": "Passed",
+            "durationSeconds": 0.283433,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "OnCooldown_RejectsOnceWithCooldown_UnchangedAndNoOnDash",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.OnCooldown_RejectsOnceWithCooldown_UnchangedAndNoOnDash",
+            "state": "Passed",
+            "durationSeconds": 0.0482903,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "OutsideWindowWhileCasting_BuffersThenFiresWhenRuleOpens",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.OutsideWindowWhileCasting_BuffersThenFiresWhenRuleOpens",
+            "state": "Passed",
+            "durationSeconds": 0.2797768,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "PlayerDestroyedMidDash_LeavesNoResidualDashState",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.PlayerDestroyedMidDash_LeavesNoResidualDashState",
+            "state": "Passed",
+            "durationSeconds": 0.0384207,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "SuccessPath_FiresAbilityUsedThenOnDash_EachOnce",
+            "fullName": "TechGuy.Tests.DashCancelResolverPlayModeTests.SuccessPath_FiresAbilityUsedThenOnDash_EachOnce",
+            "state": "Passed",
+            "durationSeconds": 0.227644,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "BasicAuthoringSurvivesUnityAssetSaveUnloadAndReload",
+            "fullName": "TechGuy.Tests.GPR01FoundationTests.BasicAuthoringSurvivesUnityAssetSaveUnloadAndReload",
+            "state": "Passed",
+            "durationSeconds": 1.9358043,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "BasicMutationAcceptsExplicitTargetWithoutExpandingLegacyAny",
+            "fullName": "TechGuy.Tests.GPR01FoundationTests.BasicMutationAcceptsExplicitTargetWithoutExpandingLegacyAny",
+            "state": "Passed",
+            "durationSeconds": 0.0059164,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "LegacyConfigurationAndBasicAcquisitionRoundTripWithAtomicRejection",
+            "fullName": "TechGuy.Tests.GPR01FoundationTests.LegacyConfigurationAndBasicAcquisitionRoundTripWithAtomicRejection",
+            "state": "Passed",
+            "durationSeconds": 0.0060986,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "LegacyUniversalDoesNotAcquireBasicOrBecomeAnotherCastSlot",
+            "fullName": "TechGuy.Tests.GPR01FoundationTests.LegacyUniversalDoesNotAcquireBasicOrBecomeAnotherCastSlot",
+            "state": "Passed",
+            "durationSeconds": 0.0022011,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ProtocolAcquisitionKeepsAllUnchangedCooldownsIncludingSpecial",
+            "fullName": "TechGuy.Tests.GPR01FoundationTests.ProtocolAcquisitionKeepsAllUnchangedCooldownsIncludingSpecial",
+            "state": "Passed",
+            "durationSeconds": 2.4587528,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 5427967421810715556 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "ConcurrentPlayerDeathHasPriorityOverProtocolClear",
+            "fullName": "TechGuy.Tests.ProtocolEncounterFrontierTests.ConcurrentPlayerDeathHasPriorityOverProtocolClear",
+            "state": "Passed",
+            "durationSeconds": 2.7121776,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 5257932806467917557 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nHitboxDamage: Player hit HazardCaster(Clone) for 10\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+          },
+          {
+            "name": "LastBurnTickDeathOpensRewardWithoutWaitingForStatusLifetime",
+            "fullName": "TechGuy.Tests.ProtocolEncounterFrontierTests.LastBurnTickDeathOpensRewardWithoutWaitingForStatusLifetime",
+            "state": "Passed",
+            "durationSeconds": 1.6390535,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 4852068359932837643 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nHitboxDamage: Player hit Hooker(Clone) for 10\r\n"
+          },
+          {
+            "name": "LastDetonationCascadeCompletesBeforeReward",
+            "fullName": "TechGuy.Tests.ProtocolEncounterFrontierTests.LastDetonationCascadeCompletesBeforeReward",
+            "state": "Passed",
+            "durationSeconds": 1.0976052,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 5679433588959532390 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nHitboxDamage: Player hit Rush(Clone) for 10\r\n"
+          },
+          {
+            "name": "LastOverflowDeathKeepsNativeBasicKillUncreditedAndOpensOneTicket",
+            "fullName": "TechGuy.Tests.ProtocolEncounterFrontierTests.LastOverflowDeathKeepsNativeBasicKillUncreditedAndOpensOneTicket",
+            "state": "Passed",
+            "durationSeconds": 1.0741859,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 5417796715977980685 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nHitboxDamage: Player hit SpreadShooter(Clone) for 10\r\n"
+          },
+          {
+            "name": "BurnRefreshKeepsStrongestReactorDpsAndTickClockAndPauseFreezesTimers",
+            "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.BurnRefreshKeepsStrongestReactorDpsAndTickClockAndPauseFreezesTimers",
+            "state": "Passed",
+            "durationSeconds": 4.9593353,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrostExpiresAndRestoresOwnedSpeed",
+            "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.FrostExpiresAndRestoresOwnedSpeed",
+            "state": "Passed",
+            "durationSeconds": 2.6760391,
+            "message": null,
+            "stackTrace": null,
+            "output": "Failed to create agent because it is not close enough to the NavMesh\r\n"
+          },
+          {
+            "name": "FrostRespectsSmallHeavyEliteLegendaryAndBossProfiles",
+            "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.FrostRespectsSmallHeavyEliteLegendaryAndBossProfiles",
+            "state": "Passed",
+            "durationSeconds": 0.0108064,
+            "message": null,
+            "stackTrace": null,
+            "output": "Failed to create agent because it is not close enough to the NavMesh\r\nFailed to create agent because it is not close enough to the NavMesh\r\nFailed to create agent because it is not close enough to the NavMesh\r\nFailed to create agent because it is not close enough to the NavMesh\r\nFailed to create agent because it is not close enough to the NavMesh\r\n"
+          },
+          {
+            "name": "FullRootDropsOnlyProtocolDamageAndPreservesEveryNativeHpReceipt",
+            "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.FullRootDropsOnlyProtocolDamageAndPreservesEveryNativeHpReceipt",
+            "state": "Passed",
+            "durationSeconds": 0.0084215,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "HeavyChillCleanupDoesNotOverwriteAnotherSpeedOwner",
+            "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.HeavyChillCleanupDoesNotOverwriteAnotherSpeedOwner",
+            "state": "Passed",
+            "durationSeconds": 0.0034221,
+            "message": null,
+            "stackTrace": null,
+            "output": "Failed to create agent because it is not close enough to the NavMesh\r\n"
+          },
+          {
+            "name": "HitstopFreezesBurnChillAndVisualTimersAndClosingInvalidatesReservedProjectile",
+            "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.HitstopFreezesBurnChillAndVisualTimersAndClosingInvalidatesReservedProjectile",
+            "state": "Passed",
+            "durationSeconds": 0.3422605,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "NextSessionInvalidatesOldProjectileAndClearsOwnedApplications",
+            "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.NextSessionInvalidatesOldProjectileAndClearsOwnedApplications",
+            "state": "Passed",
+            "durationSeconds": 0.0380993,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "PiercingProjectileRetainsRootAndRanksAcrossFramesAndReleasesLease",
+            "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.PiercingProjectileRetainsRootAndRanksAcrossFramesAndReleasesLease",
+            "state": "Passed",
+            "durationSeconds": 0.2736955,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SaturatedBurnTicksRotateWithoutCatchupOrStarvationAndDeathTicksDetonate",
+            "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.SaturatedBurnTicksRotateWithoutCatchupOrStarvationAndDeathTicksDetonate",
+            "state": "Passed",
+            "durationSeconds": 3.060551,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SiblingProjectilesAndMultitargetAreaShareOneExecution",
+            "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.SiblingProjectilesAndMultitargetAreaShareOneExecution",
+            "state": "Passed",
+            "durationSeconds": 0.0871286,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "BurnApplicationCapRejectsOverflowAndReleasesCapacityOnDeath",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.BurnApplicationCapRejectsOverflowAndReleasesCapacityOnDeath",
+            "state": "Passed",
+            "durationSeconds": 0.0714984,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "CleanupPreservesLegacyStatusAndRebindInvalidatesExistingRoots",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.CleanupPreservesLegacyStatusAndRebindInvalidatesExistingRoots",
+            "state": "Passed",
+            "durationSeconds": 0.0043743,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(1)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(1)",
+            "state": "Passed",
+            "durationSeconds": 0.0033776,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(2)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(2)",
+            "state": "Passed",
+            "durationSeconds": 0.0022131,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(3)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ConductorRankControlsVictimsPerEmissionWithoutChangingItsDamageFactor(3)",
+            "state": "Passed",
+            "durationSeconds": 0.0017707,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ConductorSkipsAlliesNeutralWallsAndDuplicateCollidersAndStillConductsLethalHit",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ConductorSkipsAlliesNeutralWallsAndDuplicateCollidersAndStillConductsLethalHit",
+            "state": "Passed",
+            "durationSeconds": 0.0029263,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DepthFourDealsItsConfirmedDamageWithoutCreatingElementsOrChildren",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.DepthFourDealsItsConfirmedDamageWithoutCreatingElementsOrChildren",
+            "state": "Passed",
+            "durationSeconds": 0.0014887,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(1,92.5f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(1,92.5f)",
+            "state": "Passed",
+            "durationSeconds": 0.0017116,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(2,90.0f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(2,90.0f)",
+            "state": "Passed",
+            "durationSeconds": 0.0006852,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(3,87.5f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.DetonationDamageScalesFromConfirmedLethalReceiptAtEveryRank(3,87.5f)",
+            "state": "Passed",
+            "durationSeconds": 0.0006319,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DetonationUsesPreDeathStatusAndActualHpInsteadOfOverkill",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.DetonationUsesPreDeathStatusAndActualHpInsteadOfOverkill",
+            "state": "Passed",
+            "durationSeconds": 0.0022861,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ElementCallbackRecyclingTargetCannotApplyFrostToItsNewGeneration",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ElementCallbackRecyclingTargetCannotApplyFrostToItsNewGeneration",
+            "state": "Passed",
+            "durationSeconds": 0.0019892,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FirstThermalBurstDeathCancelsRemainingBurstsAndDetonatesItsOwnDamage",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.FirstThermalBurstDeathCancelsRemainingBurstsAndDetonatesItsOwnDamage",
+            "state": "Passed",
+            "durationSeconds": 0.0021147,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrostChanceScalesPerRankAndRankThreeIncludesRandomUpperEndpoint",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.FrostChanceScalesPerRankAndRankThreeIncludesRandomUpperEndpoint",
+            "state": "Passed",
+            "durationSeconds": 0.0010148,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "IgniteDoesNotTickImmediatelyAndOverflowUsesConfirmedDamageOnce",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.IgniteDoesNotTickImmediatelyAndOverflowUsesConfirmedDamageOnce",
+            "state": "Passed",
+            "durationSeconds": 0.001119,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "LethalReceiptKeepsOriginalPositionWhenDeathCallbackMovesSource",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.LethalReceiptKeepsOriginalPositionWhenDeathCallbackMovesSource",
+            "state": "Passed",
+            "durationSeconds": 0.0017854,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "NonlethalReceiptFromPreviousTargetGenerationCannotApplyElements",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.NonlethalReceiptFromPreviousTargetGenerationCannotApplyElements",
+            "state": "Passed",
+            "durationSeconds": 0.0007016,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "OverflowDeathDetonatesFromItsOwnLethalHpReceipt",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.OverflowDeathDetonatesFromItsOwnLethalHpReceipt",
+            "state": "Passed",
+            "durationSeconds": 0.00151,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ReactorUsesCapturedRanksAndConfirmedDamage(1,7.2f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ReactorUsesCapturedRanksAndConfirmedDamage(1,7.2f)",
+            "state": "Passed",
+            "durationSeconds": 0.0011823,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ReactorUsesCapturedRanksAndConfirmedDamage(2,14.4f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ReactorUsesCapturedRanksAndConfirmedDamage(2,14.4f)",
+            "state": "Passed",
+            "durationSeconds": 0.000589,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ReactorUsesCapturedRanksAndConfirmedDamage(3,21.6f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ReactorUsesCapturedRanksAndConfirmedDamage(3,21.6f)",
+            "state": "Passed",
+            "durationSeconds": 0.0005525,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ReplayedReceiptCannotRefreshElementsOrRepeatOverflow",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ReplayedReceiptCannotRefreshElementsOrRepeatOverflow",
+            "state": "Passed",
+            "durationSeconds": 0.0013302,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ResonanceAmplifiesEachThermalShockExactlyOnce(1,926.0f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesEachThermalShockExactlyOnce(1,926.0f)",
+            "state": "Passed",
+            "durationSeconds": 0.0021947,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ResonanceAmplifiesEachThermalShockExactlyOnce(2,902.0f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesEachThermalShockExactlyOnce(2,902.0f)",
+            "state": "Passed",
+            "durationSeconds": 0.0012783,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ResonanceAmplifiesEachThermalShockExactlyOnce(3,878.0f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesEachThermalShockExactlyOnce(3,878.0f)",
+            "state": "Passed",
+            "durationSeconds": 0.0010294,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(1,981.0f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(1,981.0f)",
+            "state": "Passed",
+            "durationSeconds": 0.0016018,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(2,977.0f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(2,977.0f)",
+            "state": "Passed",
+            "durationSeconds": 0.0008924,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(3,973.0f)",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ResonanceAmplifiesOverflowOnceFromPostDirectElementsWithoutAmplifyingDirect(3,973.0f)",
+            "state": "Passed",
+            "durationSeconds": 0.0009953,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SaturatedExplosionBufferCannotExceedRootDamageBudget",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.SaturatedExplosionBufferCannotExceedRootDamageBudget",
+            "state": "Passed",
+            "durationSeconds": 0.0222459,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SecondaryAbsorbedDamageStillConsumesAttempt",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.SecondaryAbsorbedDamageStillConsumesAttempt",
+            "state": "Passed",
+            "durationSeconds": 0.0018955,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ShatterPrecedesCombustionAndLimitsExplosionToSixDistinctVictims",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ShatterPrecedesCombustionAndLimitsExplosionToSixDistinctVictims",
+            "state": "Passed",
+            "durationSeconds": 0.0061541,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "TechniqueCannotOverflowAndEnvironmentCannotApplyElements",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.TechniqueCannotOverflowAndEnvironmentCannotApplyElements",
+            "state": "Passed",
+            "durationSeconds": 0.0012963,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ThermalShockAndOverflowPreserveExistingTimersAndDoNotPropagateElements",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.ThermalShockAndOverflowPreserveExistingTimersAndDoNotPropagateElements",
+            "state": "Passed",
+            "durationSeconds": 0.0019047,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "TwoOppositeElementApplicationsProduceTwoBurstsWithoutDuplicateDamage",
+            "fullName": "TechGuy.Tests.ProtocolRuntimeDamageTests.TwoOppositeElementApplicationsProduceTwoBurstsWithoutDuplicateDamage",
+            "state": "Passed",
+            "durationSeconds": 0.0023898,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DisableWithDetailRestoresCursorMovementAndCanReopen",
+            "fullName": "TechGuy.Tests.RunResultsPlayModeTests.DisableWithDetailRestoresCursorMovementAndCanReopen",
+            "state": "Passed",
+            "durationSeconds": 0.9325219,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+          },
+          {
+            "name": "EscapeClosesDetailThenPanelAndHeldInputBlocksWorldUntilReleased",
+            "fullName": "TechGuy.Tests.RunResultsPlayModeTests.EscapeClosesDetailThenPanelAndHeldInputBlocksWorldUntilReleased",
+            "state": "Passed",
+            "durationSeconds": 0.952354,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+          },
+          {
+            "name": "GPRResultsReboundSideMouseButtonRequiresRelease",
+            "fullName": "TechGuy.Tests.RunResultsPlayModeTests.GPRResultsReboundSideMouseButtonRequiresRelease",
+            "state": "Passed",
+            "durationSeconds": 1.8969389,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+          },
+          {
+            "name": "GPRSafetyResultsHeldWQCannotReplayAfterClosing",
+            "fullName": "TechGuy.Tests.RunResultsPlayModeTests.GPRSafetyResultsHeldWQCannotReplayAfterClosing",
+            "state": "Passed",
+            "durationSeconds": 1.0925688,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+          },
+          {
+            "name": "GPRSafetySceneReloadRequiresHeldGameplayKeysReleased",
+            "fullName": "TechGuy.Tests.RunResultsPlayModeTests.GPRSafetySceneReloadRequiresHeldGameplayKeysReleased",
+            "state": "Passed",
+            "durationSeconds": 1.9189485,
+            "message": null,
+            "stackTrace": null,
+            "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+          },
+          {
+            "name": "BurnOriginsFromDifferentSessionsCannotCreditTheCurrentRun",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.BurnOriginsFromDifferentSessionsCannotCreditTheCurrentRun",
+            "state": "Passed",
+            "durationSeconds": 0.0047095,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "CorruptAndUnsupportedStoredSummaryAreRejectedWithoutTouchingOtherPreferences",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.CorruptAndUnsupportedStoredSummaryAreRejectedWithoutTouchingOtherPreferences",
+            "state": "Passed",
+            "durationSeconds": 0.0031732,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DamageReceivedUsesHpLossAndSnapshotsCannotMutateCollector",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.DamageReceivedUsesHpLossAndSnapshotsCannotMutateCollector",
+            "state": "Passed",
+            "durationSeconds": 0.0050308,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DelayedArrowRetainsOriginAfterTheAmbientActionChangesAndPause",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.DelayedArrowRetainsOriginAfterTheAmbientActionChangesAndPause",
+            "state": "Passed",
+            "durationSeconds": 0.1877828,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "EffectiveHpAndOverkillPartitionExactlyOnceAcrossTargetsAndChildren",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.EffectiveHpAndOverkillPartitionExactlyOnceAcrossTargetsAndChildren",
+            "state": "Passed",
+            "durationSeconds": 0.0049958,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "MixedBurnOriginsRemainAmbiguousInsteadOfLastWriterAttribution",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.MixedBurnOriginsRemainAmbiguousInsteadOfLastWriterAttribution",
+            "state": "Passed",
+            "durationSeconds": 0.0062413,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "NativePersistentProducerIsNotMisclassifiedAsAProc",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.NativePersistentProducerIsNotMisclassifiedAsAProc",
+            "state": "Passed",
+            "durationSeconds": 0.0064084,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "QueuedReversedAndRepeatedPublicationsRetainTheirOwnHpTransaction",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.QueuedReversedAndRepeatedPublicationsRetainTheirOwnHpTransaction",
+            "state": "Passed",
+            "durationSeconds": 0.0077337,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ReactivatedActorGenerationKeepsBothConfirmedLivesWithoutDuplicateReceipts",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.ReactivatedActorGenerationKeepsBothConfirmedLivesWithoutDuplicateReceipts",
+            "state": "Passed",
+            "durationSeconds": 0.0103804,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "RealProtocolOverflowKeepsOriginAndAddsOnlyConfirmedChildHp",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.RealProtocolOverflowKeepsOriginAndAddsOnlyConfirmedChildHp",
+            "state": "Passed",
+            "durationSeconds": 0.0061308,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ReentrantPublicationRestoresOuterTransactionAndDoesNotLoseEarlierDamage",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.ReentrantPublicationRestoresOuterTransactionAndDoesNotLoseEarlierDamage",
+            "state": "Passed",
+            "durationSeconds": 0.004851,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "RejectedAndUnattributedHpCannotBeCreditedToThePlayer",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.RejectedAndUnattributedHpCannotBeCreditedToThePlayer",
+            "state": "Passed",
+            "durationSeconds": 0.0039008,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ThreeConsecutiveSessionsFinalizeAllOutcomesWithoutMixingListenersOrPersistence",
+            "fullName": "TechGuy.Tests.RunStatisticsPlayModeTests.ThreeConsecutiveSessionsFinalizeAllOutcomesWithoutMixingListenersOrPersistence",
+            "state": "Passed",
+            "durationSeconds": 0.0463661,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

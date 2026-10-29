@@ -1,0 +1,496 @@
+{
+  "files": [
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Characters/Combat/GauntletImpactContext.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Characters/Player/PlayerActor.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Core/RunBoons.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Tests/EditMode/Editor/BoonOfferCompatibilityTests.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Tests/PlayMode/BowBoonPlayModeTests.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Tests/PlayMode/GPR01FoundationTests.cs"
+    },
+    {
+      "status": " M",
+      "path": "Assets/_Project/Scripts/Tests/PlayMode/ManualRunRewardPlayModeTests.cs"
+    },
+    {
+      "status": " M",
+      "path": "Docs/02_ESTADO_E_LACUNAS.md"
+    },
+    {
+      "status": " M",
+      "path": "Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md"
+    },
+    {
+      "status": " M",
+      "path": "Docs/gameplay/GPR_01_VERTICAL_SLICE.md"
+    },
+    {
+      "status": " M",
+      "path": "Docs/gameplay/GPR_REQUIREMENTS.md"
+    },
+    {
+      "status": " M",
+      "path": "Docs/gameplay/GPR_TASKS.md"
+    },
+    {
+      "status": " M",
+      "path": "Docs/gameplay/GPR_TECHNICAL_DESIGN.md"
+    },
+    {
+      "status": " M",
+      "path": "Docs/systems/04_BOONS.md"
+    },
+    {
+      "status": " M",
+      "path": "Docs/validation/01_MATRIZ_DE_VALIDACAO.md"
+    },
+    {
+      "status": " M",
+      "path": "Docs/validation/artifacts/gameplay-rework/c01-2c/recovery-normal.csv"
+    },
+    {
+      "status": " M",
+      "path": "README.md"
+    },
+    {
+      "status": "??",
+      "path": "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.TitanicFists.cs"
+    },
+    {
+      "status": "??",
+      "path": "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.TitanicFists.cs.meta"
+    },
+    {
+      "status": "??",
+      "path": "Assets/_Project/Scripts/Core/Run/TitanicFistsDefinition.cs"
+    },
+    {
+      "status": "??",
+      "path": "Assets/_Project/Scripts/Core/Run/TitanicFistsDefinition.cs.meta"
+    },
+    {
+      "status": "??",
+      "path": "Assets/_Project/Scripts/Effects/TitanicFistsVisual.cs"
+    },
+    {
+      "status": "??",
+      "path": "Assets/_Project/Scripts/Effects/TitanicFistsVisual.cs.meta"
+    },
+    {
+      "status": "??",
+      "path": "Assets/_Project/Scripts/Tests/PlayMode/TitanicFistsPlayModeTests.cs"
+    },
+    {
+      "status": "??",
+      "path": "Assets/_Project/Scripts/Tests/PlayMode/TitanicFistsPlayModeTests.cs.meta"
+    },
+    {
+      "status": "??",
+      "path": "Docs/decisions/AUTORIZACAO_GPR_01_2_20261028.md"
+    },
+    {
+      "status": "??",
+      "path": "Docs/decisions/GPR-01.2_RELATORIO.md"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/assembly-readiness.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/baseline-assembly-readiness.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/baseline-comparison-source.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/baseline-regression.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/baseline-regression.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/cancel-initialization-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/cancel-initialization.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/combo-observation.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-final-error.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-final-native-counts.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-final-warning.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-first-compile.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-initial.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-tests-compile.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/crowd-measurements.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/documentation-links.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-catalog-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-catalog-final.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-final.request.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-final.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-initial.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/editor-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/editor-initial.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/file-manifest.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/final-assembly-readiness.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-1.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-1.request.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-1.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-2.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-2.request.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-2.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-3.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-3.request.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-3.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-final.request.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-final.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/gameview-active.png"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/gameview-base.png"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/gameview-cleanup.png"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/gameview-wave-additional-target.png"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/git-initial.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/guids.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/historical-output-restoration.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/integration-movement.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/integrity-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/integrity-initial.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/legacy-pending-diagnostic.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/legacy-pending-diagnostic.request.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/legacy-pending-diagnostic.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-final.request.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-final.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-release-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-release-final.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-visual-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-visual-final.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-camera-isolation.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-final-guard.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-final-guard.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-final.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-regression.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-regression.request.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-regression.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/production-definition-roundtrip-blocked.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/production-definition-roundtrip.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/recovery-normal.csv"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/reentrant-red.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/reentrant-red.request.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/reentrant-red.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-diagnostic.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-diagnostic.request.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-diagnostic.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-c01-2b-integration-movement.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-c01-2c-recovery-normal.csv"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-c01-3a-combo-observation.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-final.start.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-scene-camera.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/release-assembly-readiness.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/reward-ticket.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/roundtrip-cleanup.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/skill-checker.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/source-hashes-final.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/test-summary.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/visual-measurements.json"
+    },
+    {
+      "status": "??",
+      "path": "Docs/validation/artifacts/gameplay-rework/gpr-01-2/wall-comparison.json"
+    },
+    {
+      "status": "??",
+      "path": "Tools/GameplayObservation/gpr_01_2_mcp.py"
+    }
+  ]
+}

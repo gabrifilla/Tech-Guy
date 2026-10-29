@@ -1,0 +1,25 @@
+{
+  "mode": "PlayMode",
+  "test_names": [
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicCatalogTargetsBasicAndRejectsDuplicateOrOtherWeapons",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicOnlyTerminalConfirmedHpAuthorizesOneWaveAndNoNativeVictimRepeat",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicWhiffImmunityNonterminalAndUnownedCannotAuthorizeWave",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicForwardGeometryRejectsBehindSideBeyondHeightAndWalls",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicSharedBudgetDenialAndCancellationLeaveNoDamageOrWaveVisual",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicPauseDefersSameChildAndDisableDiscardsPendingWork",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicMultipleCollidersAndPooledReuseDoNotDuplicateChild",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicAcquisitionKeepsCooldownsResourcesAndVisualCleansWithRun",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicActualComboTriggersOnlyAuthoredLastStageAndBaseHasNoChild",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicWeaponContextCancelsPendingAndReturnRestoresOnlyOwnedOverlay",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicEffectiveHpAttributionMatchesSingleCoefficientWithoutPostureOrMana",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicRealRewardTicketOffersAcquiresOnceAndCountsMutationWithoutGrant",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicRunRestartAndSceneTransitionRemovePendingState",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicGameViewBaseActiveAdditionalVictimAndCleanupEvidence",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicBoundedCrowdsMeasureCompletionWithoutExceedingRootCaps",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicReentrantRunEndClearsOtherReservedTerminalsAndQueuedVictims",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicReentrantWeaponSwapRevokesAlreadyQueuedChildDamage",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConfirmedTerminalShowsAuthorizedEmptyWaveWithoutSpendingDamageQuota"
+  ],
+  "include_details": true,
+  "init_timeout": 120000
+}

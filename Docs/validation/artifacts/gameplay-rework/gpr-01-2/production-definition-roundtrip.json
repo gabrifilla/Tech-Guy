@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "id": "mutation_gauntlet_titan_fists",
+      "title": "Punhos Tit\u00e2nicos",
+      "slots": "Basic",
+      "serializedSlots": 16,
+      "rank": 1,
+      "rangeMultiplier": 1.5,
+      "damageCoefficient": 0.6,
+      "cleanupPath": "Assets/__GPR012TitanicRoundTrip.asset"
+    },
+    "compiler": "codedom"
+  }
+}

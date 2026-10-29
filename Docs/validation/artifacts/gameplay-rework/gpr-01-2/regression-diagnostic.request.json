@@ -1,0 +1,10 @@
+{
+  "mode": "PlayMode",
+  "test_names": [
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectGauntletAdvanceRetainsExclusiveCastOwnership",
+    "TechGuy.Tests.BowBoonPlayModeTests.BowBoonReboundRUsesActualHoldAndReleaseWithoutASecondActivation",
+    "TechGuy.Tests.ProtocolProjectileContextTests.SaturatedBurnTicksRotateWithoutCatchupOrStarvationAndDeathTicksDetonate"
+  ],
+  "include_details": true,
+  "init_timeout": 120000
+}

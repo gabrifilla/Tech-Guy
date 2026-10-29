@@ -1,0 +1,45 @@
+{
+  "focados": {
+    "job": "a0ca7eec1c9f48668c0bcf4601e6b9ed",
+    "total": 29,
+    "passed": 29,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 41.7569338,
+    "resultState": "Passed"
+  },
+  "regressao": {
+    "job": "02090688af2f415ea00dbd3b27cb386f",
+    "total": 187,
+    "passed": 187,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 90.7447516,
+    "resultState": "Passed"
+  },
+  "editmode": {
+    "job": "4b30bf2757f3424eb46e2d268dd40f82",
+    "total": 90,
+    "passed": 90,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 114.6857402,
+    "resultState": "Passed"
+  },
+  "nomesDistintos": 305,
+  "sobreposicoes": 1,
+  "intermitentesHistoricosObservados": [
+    {
+      "teste": "TechGuy.Tests.BasicAttackR1PlayModeTests.HitStopPreservesRecoveryIntentWithoutUsingItsRealTimeForExpiry",
+      "estado": "Passed"
+    },
+    {
+      "teste": "TechGuy.Tests.BasicAttackR1PlayModeTests.MovementDuringRecoveryKeepsTheCast_UsesLatestValidOrderOnce",
+      "estado": "Passed"
+    },
+    {
+      "teste": "TechGuy.Tests.ProtocolProjectileContextTests.SaturatedBurnTicksRotateWithoutCatchupOrStarvationAndDeathTicksDetonate",
+      "estado": "Passed"
+    }
+  ]
+}

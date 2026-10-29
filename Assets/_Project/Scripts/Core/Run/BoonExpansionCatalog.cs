@@ -9,6 +9,7 @@ public static class BoonExpansionCatalog
     public static IEnumerable<BoonDefinition> Definitions() => Executable;
     private static IEnumerable<BoonDefinition> BuildDefinitions()
     {
+        yield return TitanicFistsDefinition.Create();
         foreach (var definition in GauntletExpansionCatalog.Definitions()) yield return definition;
         foreach (var definition in BowBoonCatalog.Definitions()) yield return definition;
         foreach (var definition in SpearBoonCatalog.Definitions()) yield return definition;

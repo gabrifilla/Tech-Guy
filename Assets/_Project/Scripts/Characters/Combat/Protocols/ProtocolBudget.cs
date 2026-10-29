@@ -60,6 +60,8 @@ public sealed class ProtocolBudget
         { if (DroppedImpacts < int.MaxValue) DroppedImpacts++; return false; }
         FrameImpacts++; return true;
     }
+    internal bool HasImpactCapacity(ProtocolRootContext root)
+        => CanAdvance && _roots.Contains(root) && FrameImpacts < _limits.ImpactsPerFrame;
     public bool ReserveQuery()
     { if (!CanAdvance || FrameQueries >= _limits.QueriesPerFrame) { if (DroppedQueries < int.MaxValue) DroppedQueries++; return false; } FrameQueries++; return true; }
     public bool ReserveTick()
@@ -110,6 +112,24 @@ public sealed class ProtocolRootContext
     }
     private readonly HashSet<ProtocolTargetHandle> _basicTerminalTargets = new HashSet<ProtocolTargetHandle>();
     private bool _basicChildReserved;
+    private bool _titanicTerminalCommitted;
+    internal float TitanicTerminalDamage { get; private set; }
+    internal bool RecordTitanicTerminalContact(GauntletImpactContext context, int impactIndex, float damage)
+    {
+        if (!IsValid || _titanicTerminalCommitted || context == null || impactIndex < 0 ||
+            context.Execution != ExecutionId || context.RootExecution != ExecutionId ||
+            context.Slot != GauntletActionSlot.Basic || context.Origin != GauntletImpactOrigin.Direct ||
+            context.Snapshot?.BasicMutationId != TitanicFistsDefinition.Id || !context.Snapshot.BasicFinisher ||
+            !ReactionNumeric.IsFinite(damage) || damage < 0f) return false;
+        _titanicTerminalCommitted = true; TitanicTerminalDamage = damage; return true;
+    }
+    internal ProtocolBasicLineage ReserveTitanicTerminalEmission(long producerId)
+    {
+        if (!_titanicTerminalCommitted || _basicChildReserved || !ReserveChild(producerId)) return null;
+        _basicChildReserved = true;
+        return new ProtocolBasicLineage(ExecutionId, RootId, _basicTerminalTargets, TitanicFistsDefinition.Id, ProtocolBasicEffects.None);
+    }
+    internal float ConfirmedBasicSourceDamage { get; private set; }
     private string _basicProducerId = "basic-derived";
     internal void ConfirmBasicTerminal(ConfirmedHpReceipt receipt)
     {
@@ -119,6 +139,7 @@ public sealed class ProtocolRootContext
             c.Snapshot != null && c.Snapshot.BasicFinisher && receipt.Damage > 0)
         {
             _basicProducerId = c.Snapshot.BasicMutationId ?? "basic-derived";
+            ConfirmedBasicSourceDamage = UnityEngine.Mathf.Max(ConfirmedBasicSourceDamage, receipt.SourceDamage);
             _basicTerminalTargets.Add(new ProtocolTargetHandle(c.TargetId, c.TargetGeneration));
         }
     }
@@ -135,6 +156,8 @@ public sealed class ProtocolRootContext
         if (!_budget.ReserveImpact(this)) return false;
         ImpactAttempts++; return true;
     }
+    internal bool HasImpactCapacity(int depth)
+        => IsValid && depth >= 1 && depth <= _limits.MaxDepth && ImpactAttempts < _limits.ImpactsPerRoot && _budget.HasImpactCapacity(this);
     public bool ReserveChild(long producerId)
         => IsValid && !_sealed && AddReservation(producerId);
     public bool ReserveDescendant(long parentProducerId, long producerId)

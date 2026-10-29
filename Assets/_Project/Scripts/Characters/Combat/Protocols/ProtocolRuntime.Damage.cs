@@ -24,6 +24,7 @@ public sealed partial class ProtocolRuntime
         public bool DeadSource;
         public float Posture;
         public ProtocolBasicLineage Lineage;
+        public ProtocolExecution RequiredReservation;
     }
     private bool Matches(ProtocolRootContext root) => root != null && root.IsValid &&
         root.SessionId == _inventory.SessionId && root.EncounterId == EncounterId && !_inventory.IsEnded;
@@ -141,12 +142,13 @@ public sealed partial class ProtocolRuntime
             Damage = damage, Producer = producer, Depth = depth, Emission = true,
             Position = position, Radius = radius, Maximum = maximum, Feedback = feedback, DeadSource = deadSource, Lineage = lineage });
     }
-    private void QueueDamage(ProtocolRootContext root, Actor target, float damage, ProtocolProducer producer, int depth, ProtocolBasicLineage lineage = null)
+    private void QueueDamage(ProtocolRootContext root, Actor target, float damage, ProtocolProducer producer, int depth, ProtocolBasicLineage lineage = null,
+        ProtocolExecution requiredReservation = null)
     {
         if (!target || target.IsDead || !ReactionNumeric.IsFinite(damage) || damage <= 0 || !root.ReserveQueueItem()) return;
         _damageQueue.Enqueue(new ProtocolDamageWork { Root = root, Target = target,
             Handle = new ProtocolTargetHandle(EntityId.ToULong(target.GetEntityId()), target.CombatGeneration),
-            Damage = damage, Producer = producer, Depth = depth, Lineage = lineage });
+            Damage = damage, Producer = producer, Depth = depth, Lineage = lineage, RequiredReservation = requiredReservation });
     }
     private void DrainDamage()
     {
@@ -155,6 +157,10 @@ public sealed partial class ProtocolRuntime
             var work = _damageQueue.Dequeue();
             try
             {
+                // Retaining queued items can keep a root alive after CancelFuture revoked its
+                // children. The new wave must still own its reservation at EACH damage commit.
+                if (work.RequiredReservation != null &&
+                    (!work.RequiredReservation.IsValid || !work.RequiredReservation.IsLifecycleCurrent)) continue;
                 if (work.Emission)
                 {
                     if (Matches(work.Root) && (work.DeadSource ||

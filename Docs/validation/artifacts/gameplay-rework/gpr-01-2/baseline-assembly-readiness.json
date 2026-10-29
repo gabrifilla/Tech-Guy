@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "compiling": false,
+      "errors": false,
+      "mutationType": false
+    },
+    "compiler": "codedom"
+  }
+}

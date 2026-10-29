@@ -1,0 +1,90 @@
+{
+  "success": true,
+  "message": "Retrieved 12 log entries.",
+  "data": [
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Core\\ScenePortal.cs(129,25): warning CS0108: 'ScenePortal.DestroyObject(Object)' hides inherited member 'Object.DestroyObject(Object)'. Use the new keyword if hiding was intended.\n",
+      "file": "Assets\\_Project\\Scripts\\Core\\ScenePortal.cs",
+      "line": 129,
+      "stackTrace": null
+    },
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Editor\\NexusBlockoutBuilder.cs(133,21): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+      "file": "Assets\\_Project\\Scripts\\Editor\\NexusBlockoutBuilder.cs",
+      "line": 133,
+      "stackTrace": null
+    },
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Editor\\NexusBlockoutBuilder.cs(134,25): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+      "file": "Assets\\_Project\\Scripts\\Editor\\NexusBlockoutBuilder.cs",
+      "line": 134,
+      "stackTrace": null
+    },
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Editor\\NexusBlockoutBuilder.cs(143,40): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+      "file": "Assets\\_Project\\Scripts\\Editor\\NexusBlockoutBuilder.cs",
+      "line": 143,
+      "stackTrace": null
+    },
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Editor\\NexusBlockoutBuilder.cs(147,22): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+      "file": "Assets\\_Project\\Scripts\\Editor\\NexusBlockoutBuilder.cs",
+      "line": 147,
+      "stackTrace": null
+    },
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Editor\\NexusBlockoutBuilder.cs(149,19): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+      "file": "Assets\\_Project\\Scripts\\Editor\\NexusBlockoutBuilder.cs",
+      "line": 149,
+      "stackTrace": null
+    },
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs(468,24): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+      "file": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs",
+      "line": 468,
+      "stackTrace": null
+    },
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs(469,22): warning CS0618: 'Object.FindFirstObjectByType<T>(FindObjectsInactive)' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+      "file": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs",
+      "line": 469,
+      "stackTrace": null
+    },
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs(512,34): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+      "file": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs",
+      "line": 512,
+      "stackTrace": null
+    },
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs(513,36): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+      "file": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs",
+      "line": 513,
+      "stackTrace": null
+    },
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs(535,22): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+      "file": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs",
+      "line": 535,
+      "stackTrace": null
+    },
+    {
+      "type": "Warning",
+      "message": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs(650,55): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'\n",
+      "file": "Assets\\_Project\\Scripts\\Editor\\CombatPolishPreview.Observation.cs",
+      "line": 650,
+      "stackTrace": null
+    }
+  ]
+}

@@ -55,7 +55,8 @@ namespace TechGuy.Tests
                 Assert.AreEqual(1, graph.Rank(d.Id)); Assert.AreEqual(10, graph.Ability(BoonSlot.R).ManaCost);
                 var bow = new BoonCapabilityGraph(catalog, BoonWeaponMask.Bow, old);
                 Assert.IsFalse(bow.CanAcquire(d.Id, BoonSlot.Basic, out _));
-                Assert.IsFalse(BoonExpansionCatalog.TryDefinition("mutation_gauntlet_titan_fists", out _));
+                Assert.IsTrue(BoonExpansionCatalog.TryDefinition(TitanicFistsDefinition.Id, out var production));
+                Assert.AreEqual(BoonSlotMask.Basic, production.Slots);
             }
             finally { UnityEngine.Object.DestroyImmediate(source); UnityEngine.Object.DestroyImmediate(restored); }
         }

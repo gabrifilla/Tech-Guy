@@ -1,0 +1,20 @@
+{
+  "head": "37fa43fca5b09115c46704ccd6f01ddadb089360",
+  "trackedSourcesFromHead": [
+    "Assets/_Project/Scripts/Characters/Combat/GauntletImpactContext.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.cs",
+    "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs",
+    "Assets/_Project/Scripts/Characters/Player/PlayerActor.cs",
+    "Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs",
+    "Assets/_Project/Scripts/Core/RunBoons.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/GPR01FoundationTests.cs"
+  ],
+  "newSourcesTemporarilyExcluded": [
+    "Assets/_Project/Scripts/Effects/TitanicFistsVisual.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/TitanicFistsPlayModeTests.cs",
+    "Assets/_Project/Scripts/Core/Run/TitanicFistsDefinition.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.TitanicFists.cs"
+  ],
+  "guidsAndAssetsChanged": false
+}

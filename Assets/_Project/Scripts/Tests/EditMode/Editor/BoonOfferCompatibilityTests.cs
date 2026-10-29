@@ -314,7 +314,7 @@ namespace TechGuy.Tests.Fluidity.EditMode
             {
                 case 0: return new[] { WeaponRunModifiers.CatalogId(WeaponBoon.FlurryEcho), WeaponRunModifiers.CatalogId(WeaponBoon.AsuraEcho),
                     GauntletContentAuthoring.ForMutation(GauntletMutation.CadencedAsura).Id, BoonReworkCatalog.UppercutId,
-                    GauntletExpansionCatalog.EchoingFistId, GauntletExpansionCatalog.TemporalEchoId };
+                    GauntletExpansionCatalog.EchoingFistId, GauntletExpansionCatalog.TemporalEchoId, TitanicFistsDefinition.Id };
                 case 1: return new[] { WeaponRunModifiers.CatalogId(WeaponBoon.Ricochet), WeaponRunModifiers.CatalogId(WeaponBoon.RapidBurst),
                     BowBoonCatalog.HuntingBondId, BowBoonCatalog.JudgmentArrowId, BowBoonCatalog.MineGardenId };
                 default: return new[] { WeaponRunModifiers.CatalogId(WeaponBoon.EchoThrust), WeaponRunModifiers.CatalogId(WeaponBoon.PhantomSpear),

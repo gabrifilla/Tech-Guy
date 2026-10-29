@@ -49,12 +49,15 @@ public readonly struct ConfirmedHpReceipt
 {
     public GauntletImpactContext Context { get; }
     public float Damage { get; }
-    public ConfirmedHpReceipt(GauntletImpactContext context, float actualDamage)
+    public float SourceDamage { get; }
+    public ConfirmedHpReceipt(GauntletImpactContext context, float actualDamage, float? sourceDamage = null)
     {
         if (context == null || context.ImpactIndex < 0 || context.TargetId == 0) throw new ArgumentException("An impact context is required.");
         if (float.IsNaN(actualDamage) || float.IsInfinity(actualDamage) || actualDamage <= 0f)
             throw new ArgumentOutOfRangeException(nameof(actualDamage));
-        Context = context; Damage = actualDamage;
+        float source = sourceDamage ?? actualDamage;
+        if (!ReactionNumeric.IsFinite(source) || source <= 0f) throw new ArgumentOutOfRangeException(nameof(sourceDamage));
+        Context = context; Damage = actualDamage; SourceDamage = source;
     }
 }
 

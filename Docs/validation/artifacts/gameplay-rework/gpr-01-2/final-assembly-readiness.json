@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "compiling": false,
+      "errors": false,
+      "mutation": true,
+      "cameraIsolation": true
+    },
+    "compiler": "codedom"
+  }
+}

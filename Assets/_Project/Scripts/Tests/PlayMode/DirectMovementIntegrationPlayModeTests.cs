@@ -17,6 +17,7 @@ namespace TechGuy.Tests
         {
             private readonly Keyboard _oldKeyboard = Keyboard.current;
             private readonly Mouse _oldMouse = Mouse.current;
+            private readonly Camera[] _sceneCameras = Camera.allCameras;
             internal readonly Keyboard Keyboard;
             internal readonly Mouse Mouse;
             private readonly bool _restoreKeyboard, _restoreMouse;
@@ -24,6 +25,9 @@ namespace TechGuy.Tests
             private readonly InputSettings.EditorInputBehaviorInPlayMode _editorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
             internal DirectInputScope()
             {
+                // Real-scene tests can leave a live MainCamera. The fixture's projected pointer
+                // and executor Camera.main must resolve through the SAME test camera.
+                foreach (var camera in _sceneCameras) if (camera) camera.enabled = false;
                 InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
                 InputSystem.settings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
                 _restoreKeyboard = _oldKeyboard != null && _oldKeyboard.enabled;
@@ -37,10 +41,26 @@ namespace TechGuy.Tests
                 Keyboard.MakeCurrent(); Mouse.MakeCurrent();
             }
             internal void Keys(params Key[] keys) => InputSystem.QueueStateEvent(Keyboard, new KeyboardState(keys));
+            internal void ConfiguredControl(GameControl action, bool held, params Key[] keys)
+            {
+                KeyCode code = GamePreferences.Binding(action);
+                ushort buttons = 0;
+                if (held && code >= KeyCode.Mouse0 && code <= KeyCode.Mouse4)
+                    buttons = (ushort)(1 << ((int)code - (int)KeyCode.Mouse0));
+                else if (held)
+                {
+                    object[] args = { code, Key.None };
+                    var conversion = typeof(GamePreferences).GetMethod("TryKeyboardKey", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+                    Assert.IsTrue((bool)conversion.Invoke(null, args), "Configured action must be injectable without rewriting player preferences.");
+                    var expanded = new Key[keys.Length + 1]; Array.Copy(keys, expanded, keys.Length); expanded[keys.Length] = (Key)args[1]; keys = expanded;
+                }
+                InputSystem.QueueStateEvent(Mouse, new MouseState { buttons = buttons }); Keys(keys);
+            }
             internal void Aim(Camera camera, Vector3 point) => InputSystem.QueueStateEvent(Mouse,
                 new MouseState { position = (Vector2)camera.WorldToScreenPoint(point) });
             public void Dispose()
             {
+                foreach (var camera in _sceneCameras) if (camera) camera.enabled = true;
                 InputSystem.RemoveDevice(Keyboard); InputSystem.RemoveDevice(Mouse);
                 if (_restoreKeyboard && _oldKeyboard != null) InputSystem.EnableDevice(_oldKeyboard);
                 if (_restoreMouse && _oldMouse != null) InputSystem.EnableDevice(_oldMouse);
@@ -575,7 +595,7 @@ namespace TechGuy.Tests
         {
             using (var input = new DirectInputScope())
             {
-                BuildDirectRig(); input.Keys(); yield return null; yield return null;
+                BuildDirectRig(); input.ConfiguredControl(GamePreferences.InteractionAction, false); yield return null; yield return null;
                 _controls.SendMessage("OnApplicationFocus", true); yield return null; yield return null;
                 var station = new GameObject("GPR-C01.2c informational station"); _spawned.Add(station);
                 var owner = new GameObject("GPR-C01.2c lobby context"); _spawned.Add(owner); owner.SetActive(false);
@@ -585,13 +605,13 @@ namespace TechGuy.Tests
                 owner.SetActive(true); yield return null;
                 int uses = 0; holder.AbilityUsed += _ => uses++;
                 Assert.That(lobby.BlocksAbilityInput(GamePreferences.Binding(GameControl.Skill3)), Is.False);
-                input.Keys(Key.G); yield return null; yield return null;
+                input.ConfiguredControl(GamePreferences.InteractionAction, true); yield return null; yield return null;
                 Assert.That(lobby.IsPanelOpen, Is.True); Assert.That(uses, Is.EqualTo(0));
-                input.Keys(); yield return null; yield return null;
-                input.Keys(Key.G, Key.W); yield return null; yield return null;
+                input.ConfiguredControl(GamePreferences.InteractionAction, false); yield return null; yield return null;
+                input.ConfiguredControl(GamePreferences.InteractionAction, true, Key.W); yield return null; yield return null;
                 Assert.That(lobby.IsPanelOpen, Is.False); Assert.That(uses, Is.EqualTo(0));
                 Assert.That(_controls.GameplayInputReady, Is.False);
-                input.Keys(); yield return null; yield return null;
+                input.ConfiguredControl(GamePreferences.InteractionAction, false); yield return null; yield return null;
                 Assert.That(_controls.GameplayInputReady, Is.True);
             }
         }

@@ -1,0 +1,33 @@
+{
+  "first": {
+    "scaledTime": "8.50313",
+    "positionZ": "0.76680",
+    "hp": "1000",
+    "pending": "1",
+    "liveRoots": "1"
+  },
+  "preImpact": {
+    "scaledTime": "9.12298",
+    "positionZ": "2.93627",
+    "hp": "1000",
+    "pending": "1",
+    "liveRoots": "1"
+  },
+  "firstImpact": {
+    "scaledTime": "9.25654",
+    "positionZ": "3.40372",
+    "hp": "988",
+    "pending": "1",
+    "liveRoots": "1"
+  },
+  "final": {
+    "scaledTime": "10.07422",
+    "positionZ": "6.25000",
+    "hp": "988",
+    "pending": "0",
+    "liveRoots": "0"
+  },
+  "observedSegmentSpeed": 3.500000000000004,
+  "deltaToFirstHp": 0.7534099999999988,
+  "scenario": "Automação API, rig autorado e aquisição assistida; alvo z4.5; sem playtest físico"
+}

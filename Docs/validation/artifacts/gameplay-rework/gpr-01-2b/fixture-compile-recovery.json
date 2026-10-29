@@ -1,0 +1,11 @@
+{
+  "errors": [
+    "Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicTornadoPlayModeTests.cs(245,83): error CS0619: 'Object.GetInstanceID()' is obsolete: 'Use GetEntityId instead.'",
+    "Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicTornadoPlayModeTests.cs(248,33): error CS0619: 'Object.GetInstanceID()' is obsolete: 'Use GetEntityId instead.'"
+  ],
+  "cause": "GetInstanceID is obsolete as error in Unity6000.5.10f1",
+  "fix": "Use GetEntityId in test-only pool identity assertion",
+  "affectedJob": "cdfd0755f2a64700bdbe1eff93323fea",
+  "executedTests": 0,
+  "subsequentAttempt": "ad99703c63484fa4984b2a8583c3807c rejected entering orphan PlayMode; explicitly exited test PlayMode before restarting"
+}

@@ -10,6 +10,7 @@ public partial class CharControlScript
     private SkillAnimationPlayer _basicAnimation;
     private float _basicStartedAt, _basicDuration, _basicRange, _basicScale, _basicDamage, _basicProgress;
     private Vector3 _basicBox;
+    private float _basicTornadoDamage;
     private int _basicAttackIndex, _basicContactFrame = -1;
     private bool _basicResolving;
 
@@ -34,6 +35,16 @@ public partial class CharControlScript
         combat.Configure(weapon);
         bool finisher = attackAnimations != null && attackAnimations.Length > 0 && attackIndex == attackAnimations.Length - 1;
         _basicContext = combat.BeginBasicExecutionWithFinisher(finisher); _basicEnergy = combat.EnergyPolicy;
+        _basicTornadoDamage = 0f;
+        if (finisher && _basicContext?.Snapshot?.BasicMutationId == TitanicFistsDefinition.Id)
+        {
+            playerActor.TryGetComponent(out MomentumStacks momentum);
+            int rank = _basicContext.Snapshot.Rank(WeaponBoon.MomentumStrike);
+            // Noncritical packet at acceptance. No RNG call and no target-specific modifier/receipt.
+            _basicTornadoDamage = playerActor.Stats.CaptureAttackDamage(_basicDamage, 1f, 0f,
+                momentum ? momentum.Modifier : null,
+                momentum && momentum.isActiveAndEnabled ? momentum.BatchMultiplier(rank) : 1f).Amount;
+        }
         _basicAnimation = GetComponent<SkillAnimationPlayer>() ?? gameObject.AddComponent<SkillAnimationPlayer>();
         _basicScheduler = new ActionImpactScheduler(ExecutionId.Next(), new ExecutionImpactLedger(),
             _basicProfile.BuildTimeline(), _basicProfile.ImpactEvents, EmitGauntletBasicImpact, EmitGauntletBasicImpact);
@@ -67,6 +78,8 @@ public partial class CharControlScript
     {
         if (!BasicOwnerIsLive() || _basicContext == null || !_basicEnergy.IsLive(_basicContext)) return;
         var context = _basicContext; var energy = _basicEnergy;
+        var acceptedWeapon = _basicWeapon; float acceptedTornadoDamage = _basicTornadoDamage;
+        Vector3 contactOrigin = transform.position, contactForward = transform.forward;
         _basicContactFrame = Time.frameCount;
         _basicAnimation.Contact(BasicMotion);
         _basicResolving = true;
@@ -86,6 +99,12 @@ public partial class CharControlScript
                 // Preserve the existing every-third-emission proc, including a committed whiff.
                 _runBasicCount++; TryProcComboNova();
             }
+            // This is after the native HP/notification/feedback batch, never a cosmetic hit hook.
+            if (playerActor && !playerActor.IsDead && playerActor.isActiveAndEnabled && playerActor.CurrentWeapon == acceptedWeapon &&
+                playerActor.TryGetComponent(out ProtocolRuntime protocols) &&
+                protocols.CommitTitanicTerminalContact(context, impact.Index, acceptedTornadoDamage))
+                protocols.QueueTitanicFists(context, contactOrigin, contactForward,
+                    _basicRange * _basicScale, _basicBox * _basicScale, attackLayers, acceptedWeapon);
         }
         finally
         {

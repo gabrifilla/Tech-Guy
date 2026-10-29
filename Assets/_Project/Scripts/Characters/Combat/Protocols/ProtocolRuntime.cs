@@ -107,7 +107,7 @@ public sealed partial class ProtocolRuntime : MonoBehaviour
         }
     }
     public void EndOwnedState()
-    { if (!_ended) LifecycleRevision++; _ended = true; Budget?.CloseAll(); _nativeRoots.Clear(); ClearApplications(); _feedback?.Clear(); }
+    { if (!_ended) LifecycleRevision++; _ended = true; ClearTitanicFists(); Budget?.CloseAll(); _nativeRoots.Clear(); ClearApplications(); _feedback?.Clear(); }
     internal void CancelNativeProducers()
     {
         foreach (var root in _nativeRoots.Values) root.CancelFuture();
@@ -121,6 +121,7 @@ public sealed partial class ProtocolRuntime : MonoBehaviour
         {
         if (!_ended && _inventory != null && _inventory.IsEnded) EndOwnedState();
         TouchFrame(); UpdateApplications();
+        TickTitanicFists();
         if (!_ended) _feedback?.Tick(ScaledDelta);
         }
     }

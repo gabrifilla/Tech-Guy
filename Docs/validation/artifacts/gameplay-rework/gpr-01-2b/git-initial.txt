@@ -1,0 +1,124 @@
+ M Assets/_Project/Scripts/Characters/Combat/GauntletImpactContext.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.cs
+ M Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs
+ M Assets/_Project/Scripts/Characters/Player/PlayerActor.cs
+ M Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs
+ M Assets/_Project/Scripts/Core/RunBoons.cs
+ M Assets/_Project/Scripts/Tests/EditMode/Editor/BoonOfferCompatibilityTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/BowBoonPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/GPR01FoundationTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/ManualRunRewardPlayModeTests.cs
+ M Docs/02_ESTADO_E_LACUNAS.md
+ M Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md
+ M Docs/gameplay/GPR_01_VERTICAL_SLICE.md
+ M Docs/gameplay/GPR_REQUIREMENTS.md
+ M Docs/gameplay/GPR_TASKS.md
+ M Docs/gameplay/GPR_TECHNICAL_DESIGN.md
+ M Docs/systems/04_BOONS.md
+ M Docs/validation/01_MATRIZ_DE_VALIDACAO.md
+ M Docs/validation/artifacts/gameplay-rework/c01-2c/recovery-normal.csv
+ M README.md
+?? Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.TitanicFists.cs
+?? Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.TitanicFists.cs.meta
+?? Assets/_Project/Scripts/Core/Run/TitanicFistsDefinition.cs
+?? Assets/_Project/Scripts/Core/Run/TitanicFistsDefinition.cs.meta
+?? Assets/_Project/Scripts/Effects/TitanicFistsVisual.cs
+?? Assets/_Project/Scripts/Effects/TitanicFistsVisual.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicFistsPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicFistsPlayModeTests.cs.meta
+?? Docs/decisions/AUTORIZACAO_GPR_01_2_20261028.md
+?? Docs/decisions/GPR-01.2_RELATORIO.md
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/assembly-readiness.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/baseline-assembly-readiness.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/baseline-comparison-source.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/baseline-regression.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/baseline-regression.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/cancel-initialization-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/cancel-initialization.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/combo-observation.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-final-error.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-final-native-counts.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-final-warning.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-first-compile.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-initial.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/console-tests-compile.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/crowd-measurements.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/documentation-links.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-catalog-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-catalog-final.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-final.request.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-final.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/edit-initial.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/editor-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/editor-initial.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/file-manifest.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/final-assembly-readiness.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-1.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-1.request.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-1.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-2.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-2.request.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-2.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-3.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-3.request.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-3.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-final.request.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/focused-final.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/gameview-active.png
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/gameview-base.png
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/gameview-cleanup.png
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/gameview-wave-additional-target.png
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/git-initial.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/guids.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/historical-output-restoration.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/integration-movement.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/integrity-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/integrity-initial.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/legacy-pending-diagnostic.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/legacy-pending-diagnostic.request.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/legacy-pending-diagnostic.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-final.request.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-final.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-release-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-release-final.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-visual-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/mutation-visual-final.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-camera-isolation.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-final-guard.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-final-guard.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-final.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-regression.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-regression.request.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/play-regression.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/production-definition-roundtrip-blocked.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/production-definition-roundtrip.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/recovery-normal.csv
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/reentrant-red.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/reentrant-red.request.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/reentrant-red.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-diagnostic.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-diagnostic.request.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-diagnostic.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-c01-2b-integration-movement.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-c01-2c-recovery-normal.csv
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-c01-3a-combo-observation.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-release-final.start.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/regression-scene-camera.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/release-assembly-readiness.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/reward-ticket.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/roundtrip-cleanup.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/skill-checker.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/source-hashes-final.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/test-summary.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/visual-measurements.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2/wall-comparison.json
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2b/baseline-hashes.json
+?? Tools/GameplayObservation/gpr_01_2_mcp.py

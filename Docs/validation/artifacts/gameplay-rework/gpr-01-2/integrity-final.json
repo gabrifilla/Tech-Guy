@@ -1,0 +1,21 @@
+{
+  "initial": 1794,
+  "unchanged": 1781,
+  "changed": [
+    "Assets/_Project/Scripts/Core/RunBoons.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/BowBoonPlayModeTests.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/DirectMovementIntegrationPlayModeTests.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/GPR01FoundationTests.cs",
+    "Assets/_Project/Scripts/Tests/PlayMode/ManualRunRewardPlayModeTests.cs",
+    "Assets/_Project/Scripts/Tests/EditMode/Editor/BoonOfferCompatibilityTests.cs",
+    "Assets/_Project/Scripts/Core/Run/BoonExpansionCatalog.cs",
+    "Assets/_Project/Scripts/Characters/Combat/GauntletImpactContext.cs",
+    "Assets/_Project/Scripts/Characters/Player/PlayerActor.cs",
+    "Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.cs",
+    "Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs"
+  ],
+  "missing": [],
+  "serializedOrConfigurationChanges": []
+}
