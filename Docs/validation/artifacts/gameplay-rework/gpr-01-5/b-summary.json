@@ -1,0 +1,150 @@
+{
+  "B-first": {
+    "runs": 256,
+    "counts": {
+      "A": 256,
+      "B": 256,
+      "C": 253,
+      "AB": 256,
+      "AC": 253,
+      "ABC": 253
+    },
+    "protocol_minmax": [
+      2,
+      7
+    ],
+    "technique_minmax": [
+      1,
+      7
+    ],
+    "orders": {
+      "BAC": 59,
+      "BCA": 130,
+      "CBA": 56,
+      "BA": 3,
+      "CAB": 8
+    },
+    "example_ABC": {
+      "seed": "0",
+      "path": "0",
+      "strategy": "B-first",
+      "nodes": "0/1/2/3/5/6/9/10",
+      "mutation_opportunities": "1",
+      "protocol_opportunities": "4",
+      "technique_opportunities": "4",
+      "A": "True",
+      "B": "True",
+      "C": "True",
+      "AB": "True",
+      "AC": "True",
+      "ABC": "True",
+      "first_A_node": "5",
+      "first_B_node": "1",
+      "first_C_node": "9",
+      "first_ABC_node": "9",
+      "acquisition_order": "BAC"
+    }
+  },
+  "C-first": {
+    "runs": 256,
+    "counts": {
+      "A": 256,
+      "B": 252,
+      "C": 256,
+      "AB": 252,
+      "AC": 256,
+      "ABC": 252
+    },
+    "protocol_minmax": [
+      2,
+      7
+    ],
+    "technique_minmax": [
+      1,
+      7
+    ],
+    "orders": {
+      "CBA": 154,
+      "CAB": 38,
+      "BCA": 44,
+      "BAC": 16,
+      "CA": 4
+    },
+    "example_ABC": {
+      "seed": "0",
+      "path": "0",
+      "strategy": "C-first",
+      "nodes": "0/1/2/3/5/6/9/10",
+      "mutation_opportunities": "1",
+      "protocol_opportunities": "4",
+      "technique_opportunities": "4",
+      "A": "True",
+      "B": "True",
+      "C": "True",
+      "AB": "True",
+      "AC": "True",
+      "ABC": "True",
+      "first_A_node": "5",
+      "first_B_node": "2",
+      "first_C_node": "1",
+      "first_ABC_node": "5",
+      "acquisition_order": "CBA"
+    }
+  },
+  "uniform-choice": {
+    "runs": 256,
+    "counts": {
+      "A": 91,
+      "B": 179,
+      "C": 178,
+      "AB": 67,
+      "AC": 62,
+      "ABC": 42
+    },
+    "protocol_minmax": [
+      2,
+      7
+    ],
+    "technique_minmax": [
+      1,
+      7
+    ],
+    "orders": {
+      "": 11,
+      "CA": 13,
+      "B": 38,
+      "CBA": 9,
+      "C": 42,
+      "BA": 15,
+      "A": 4,
+      "BC": 36,
+      "AC": 7,
+      "CAB": 10,
+      "CB": 38,
+      "BCA": 8,
+      "BAC": 14,
+      "AB": 10,
+      "ACB": 1
+    },
+    "example_ABC": {
+      "seed": "0",
+      "path": "3",
+      "strategy": "uniform-choice",
+      "nodes": "0/1/2/4/5/7/8/9/10",
+      "mutation_opportunities": "1",
+      "protocol_opportunities": "5",
+      "technique_opportunities": "7",
+      "A": "True",
+      "B": "True",
+      "C": "True",
+      "AB": "True",
+      "AC": "True",
+      "ABC": "True",
+      "first_A_node": "5",
+      "first_B_node": "2",
+      "first_C_node": "1",
+      "first_ABC_node": "5",
+      "acquisition_order": "CBA"
+    }
+  }
+}

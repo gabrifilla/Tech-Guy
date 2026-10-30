@@ -1,0 +1,24 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Code executed successfully.\",\"data\":{\"result\":{\"playtestRewardsEnabled\":true,\"scene\":\"Assets/_Project/Scenes/NexusBlockout.unity\",\"dirty\":false,\"playing\":false,\"menu\":\"Tools/Tech Guy/Testar Tornado + Conductor\",\"appliesTo\":\"Novas incursões da Manopla nesta sessão do Editor\"},\"compiler\":\"codedom\"}}"
+    }
+  ],
+  "structuredContent": {
+    "success": true,
+    "message": "Code executed successfully.",
+    "data": {
+      "result": {
+        "playtestRewardsEnabled": true,
+        "scene": "Assets/_Project/Scenes/NexusBlockout.unity",
+        "dirty": false,
+        "playing": false,
+        "menu": "Tools/Tech Guy/Testar Tornado + Conductor",
+        "appliesTo": "Novas incursões da Manopla nesta sessão do Editor"
+      },
+      "compiler": "codedom"
+    }
+  },
+  "isError": false
+}

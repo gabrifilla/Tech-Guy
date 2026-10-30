@@ -1,0 +1,177 @@
+{
+    "SchemaVersion": 1,
+    "SessionId": "c1131506-edb5-454f-bd97-28ba0b0be895",
+    "Seed": "1",
+    "InitialWeapon": "Gauntlet",
+    "StartedUtc": "2026-10-29T23:53:43.9137130Z",
+    "Outcome": "InProgress",
+    "Finalized": false,
+    "WallSeconds": 2.4250130000000356,
+    "ScaledSeconds": 2.2750826388888898,
+    "EffectiveDamage": 20.75,
+    "ObservedEnemyHpLoss": 20.75,
+    "UnattributedEnemyHpLoss": 0.0,
+    "DamageReceived": 0.0,
+    "Overkill": 0.39999961853027346,
+    "LargestImpact": 12.0,
+    "OverkillComplete": true,
+    "EnemiesDefeated": 1,
+    "PlayerCreditedKills": 1,
+    "ConfirmedHpTransactions": 3,
+    "DuplicateReceiptsIgnored": 0,
+    "ObserverErrors": 0,
+    "Diagnostic": "",
+    "HighestDamageAbility": "Gauntlet:Basic",
+    "HighestDamageSource": "Gauntlet:Basic:Technique",
+    "DurationPolicy": "Start of manual session to claimed outcome; wall includes pause; scaled follows Time.timeAsDouble. No DPS.",
+    "Damage": [
+        {
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "MutationId": "mutation_gauntlet_titan_fists",
+            "Producer": "Technique",
+            "ProducerId": "mutation_gauntlet_titan_fists",
+            "Attribution": "confirmed",
+            "ModifierTags": "",
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "Effective": 12.0,
+            "Overkill": 0.0,
+            "HpTransactions": 1
+        },
+        {
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "MutationId": "mutation_gauntlet_titan_fists",
+            "Producer": "Conductor",
+            "ProducerId": "mutation_gauntlet_titan_fists",
+            "Attribution": "confirmed",
+            "ModifierTags": "",
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "Effective": 5.0,
+            "Overkill": 0.39999961853027346,
+            "HpTransactions": 1
+        },
+        {
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "MutationId": "mutation_gauntlet_titan_fists",
+            "Producer": "Detonation",
+            "ProducerId": "mutation_gauntlet_titan_fists",
+            "Attribution": "confirmed",
+            "ModifierTags": "",
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "Effective": 3.75,
+            "Overkill": 0.0,
+            "HpTransactions": 1
+        }
+    ],
+    "Abilities": [
+        {
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "Uses": 3,
+            "NativeHpTransactions": 0,
+            "SecondaryHpTransactions": 3,
+            "EffectiveIncludingChildren": 20.75
+        }
+    ],
+    "Rewards": [],
+    "Build": [
+        {
+            "Id": "conductor",
+            "Family": "Protocol",
+            "Acquisitions": 1
+        },
+        {
+            "Id": "detonation",
+            "Family": "Protocol",
+            "Acquisitions": 1
+        },
+        {
+            "Id": "mutation_gauntlet_titan_fists",
+            "Family": "Mutation",
+            "Acquisitions": 1
+        }
+    ],
+    "Progress": [],
+    "RecentDamage": [
+        {
+            "TargetId": "568105589212853656",
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "Execution": "gauntlet:3:3",
+            "MutationId": "mutation_gauntlet_titan_fists",
+            "Producer": "Technique",
+            "ProducerId": "mutation_gauntlet_titan_fists",
+            "Attribution": "confirmed",
+            "Parents": [
+                "gauntlet:3:3"
+            ],
+            "Generation": 1,
+            "Transaction": 1,
+            "Frame": 5989,
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "ParentsTruncated": false,
+            "OverkillKnown": true,
+            "Before": 1000.0,
+            "After": 988.0,
+            "Effective": 12.0,
+            "HpAttempt": 12.0,
+            "Overkill": 0.0
+        },
+        {
+            "TargetId": "568105589212853642",
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "Execution": "gauntlet:3:3",
+            "MutationId": "mutation_gauntlet_titan_fists",
+            "Producer": "Conductor",
+            "ProducerId": "mutation_gauntlet_titan_fists",
+            "Attribution": "confirmed",
+            "Parents": [
+                "gauntlet:3:3"
+            ],
+            "Generation": 1,
+            "Transaction": 1,
+            "Frame": 5989,
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "ParentsTruncated": false,
+            "OverkillKnown": true,
+            "Before": 5.0,
+            "After": 0.0,
+            "Effective": 5.0,
+            "HpAttempt": 5.399999618530273,
+            "Overkill": 0.39999961853027346
+        },
+        {
+            "TargetId": "568105589212853628",
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "Execution": "gauntlet:3:3",
+            "MutationId": "mutation_gauntlet_titan_fists",
+            "Producer": "Detonation",
+            "ProducerId": "mutation_gauntlet_titan_fists",
+            "Attribution": "confirmed",
+            "Parents": [
+                "gauntlet:3:3"
+            ],
+            "Generation": 1,
+            "Transaction": 1,
+            "Frame": 5989,
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "ParentsTruncated": false,
+            "OverkillKnown": true,
+            "Before": 1000.0,
+            "After": 996.25,
+            "Effective": 3.75,
+            "HpAttempt": 3.75,
+            "Overkill": 0.0
+        }
+    ]
+}

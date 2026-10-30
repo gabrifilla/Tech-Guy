@@ -1,0 +1,119 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Test job status retrieved.\",\"error\":null,\"data\":{\"job_id\":\"266ffdae522c4ec08129075f01e33776\",\"status\":\"succeeded\",\"mode\":\"PlayMode\",\"started_unix_ms\":1793316826120,\"finished_unix_ms\":1793316835591,\"last_update_unix_ms\":1793316835591,\"progress\":{\"completed\":7,\"total\":7,\"current_test_full_name\":null,\"current_test_started_unix_ms\":null,\"last_finished_test_full_name\":\"TechGuy.Tests.TitanicPlaytestProductionRewardsTests.FirstSectorFirstClearOffersBothWithAssistanceEnabled\",\"last_finished_unix_ms\":1793316835550,\"stuck_suspected\":false,\"editor_is_focused\":false,\"run_in_background\":true,\"focus_nudge_attempts\":null,\"focus_nudge_limit\":null,\"focus_nudge_status\":null,\"blocked_reason\":null,\"failures_so_far\":[],\"failures_capped\":false},\"error\":null,\"result\":{\"mode\":\"PlayMode\",\"summary\":{\"total\":7,\"passed\":7,\"failed\":0,\"skipped\":0,\"durationSeconds\":4.297276,\"resultState\":\"Passed\"},\"results\":[{\"name\":\"ManualEliteDeathBetweenOrdinalsCannotAcquireSecondReward\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.ManualEliteDeathBetweenOrdinalsCannotAcquireSecondReward\",\"state\":\"Passed\",\"durationSeconds\":0.334591,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator does not have an AnimatorController\\r\\n\"},{\"name\":\"ManualProtocolTicketsApplyEachRetainedEffectFromActualCompatibleOffers\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.ManualProtocolTicketsApplyEachRetainedEffectFromActualCompatibleOffers\",\"state\":\"Passed\",\"durationSeconds\":0.1551524,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\n\"},{\"name\":\"ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition\",\"state\":\"Passed\",\"durationSeconds\":0.1593654,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\n\"},{\"name\":\"TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim\",\"state\":\"Passed\",\"durationSeconds\":2.1341645,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\n\"},{\"name\":\"TitanicPlaytestDisabledOrOtherWeaponKeepsNormalRewards\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicPlaytestDisabledOrOtherWeaponKeepsNormalRewards\",\"state\":\"Passed\",\"durationSeconds\":0.0262591,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\n\"},{\"name\":\"TitanicPlaytestFirstRoomGuaranteesBothThroughRealTicketsAndEveryRoomHasMutation\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicPlaytestFirstRoomGuaranteesBothThroughRealTicketsAndEveryRoomHasMutation\",\"state\":\"Passed\",\"durationSeconds\":0.1286507,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\n\"},{\"name\":\"FirstSectorFirstClearOffersBothWithAssistanceEnabled\",\"fullName\":\"TechGuy.Tests.TitanicPlaytestProductionRewardsTests.FirstSectorFirstClearOffersBothWithAssistanceEnabled\",\"state\":\"Passed\",\"durationSeconds\":1.2880047,\"message\":null,\"stackTrace\":null,\"output\":\"ProgressionDirector Run_Seed = 5435073370382611572 (reuse this value in RunSeedSource to reproduce this Run).\\r\\nCharControlScript active on Player\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\n\"}]}},\"hint\":null}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "success": true,
+      "message": "Test job status retrieved.",
+      "error": null,
+      "data": {
+        "job_id": "266ffdae522c4ec08129075f01e33776",
+        "status": "succeeded",
+        "mode": "PlayMode",
+        "started_unix_ms": 1793316826120,
+        "finished_unix_ms": 1793316835591,
+        "last_update_unix_ms": 1793316835591,
+        "progress": {
+          "completed": 7,
+          "total": 7,
+          "current_test_full_name": null,
+          "current_test_started_unix_ms": null,
+          "last_finished_test_full_name": "TechGuy.Tests.TitanicPlaytestProductionRewardsTests.FirstSectorFirstClearOffersBothWithAssistanceEnabled",
+          "last_finished_unix_ms": 1793316835550,
+          "stuck_suspected": false,
+          "editor_is_focused": false,
+          "run_in_background": true,
+          "focus_nudge_attempts": null,
+          "focus_nudge_limit": null,
+          "focus_nudge_status": null,
+          "blocked_reason": null,
+          "failures_so_far": [],
+          "failures_capped": false
+        },
+        "error": null,
+        "result": {
+          "mode": "PlayMode",
+          "summary": {
+            "total": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0,
+            "durationSeconds": 4.297276,
+            "resultState": "Passed"
+          },
+          "results": [
+            {
+              "name": "ManualEliteDeathBetweenOrdinalsCannotAcquireSecondReward",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualEliteDeathBetweenOrdinalsCannotAcquireSecondReward",
+              "state": "Passed",
+              "durationSeconds": 0.334591,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\n"
+            },
+            {
+              "name": "ManualProtocolTicketsApplyEachRetainedEffectFromActualCompatibleOffers",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualProtocolTicketsApplyEachRetainedEffectFromActualCompatibleOffers",
+              "state": "Passed",
+              "durationSeconds": 0.1551524,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+            },
+            {
+              "name": "ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition",
+              "state": "Passed",
+              "durationSeconds": 0.1593654,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+            },
+            {
+              "name": "TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim",
+              "state": "Passed",
+              "durationSeconds": 2.1341645,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+            },
+            {
+              "name": "TitanicPlaytestDisabledOrOtherWeaponKeepsNormalRewards",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicPlaytestDisabledOrOtherWeaponKeepsNormalRewards",
+              "state": "Passed",
+              "durationSeconds": 0.0262591,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+            },
+            {
+              "name": "TitanicPlaytestFirstRoomGuaranteesBothThroughRealTicketsAndEveryRoomHasMutation",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicPlaytestFirstRoomGuaranteesBothThroughRealTicketsAndEveryRoomHasMutation",
+              "state": "Passed",
+              "durationSeconds": 0.1286507,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+            },
+            {
+              "name": "FirstSectorFirstClearOffersBothWithAssistanceEnabled",
+              "fullName": "TechGuy.Tests.TitanicPlaytestProductionRewardsTests.FirstSectorFirstClearOffersBothWithAssistanceEnabled",
+              "state": "Passed",
+              "durationSeconds": 1.2880047,
+              "message": null,
+              "stackTrace": null,
+              "output": "ProgressionDirector Run_Seed = 5435073370382611572 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+            }
+          ]
+        }
+      },
+      "hint": null
+    }
+  },
+  "isError": false
+}

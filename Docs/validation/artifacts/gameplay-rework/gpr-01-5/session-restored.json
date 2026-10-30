@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "assistance": true,
+      "phase": "gpr-01-4/regression-final",
+      "conductorEvidence": "gpr-01-4/focused/conductor"
+    },
+    "compiler": "codedom"
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "executions": [
+    {
+      "artifact": "a-final.json",
+      "job_id": "52409195165a4379ad5bce80fd673203",
+      "total": 98,
+      "passed": 98,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 167.0076961,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "b-sample-final.json",
+      "job_id": "4d0a0e488c724ca9a466e12a0485de32",
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 36.8923592,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "d-asura-boundary.json",
+      "job_id": "e39daaeb0dc64dda992af435a8762e0b",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 1.6788837,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "d-fixture-correction.json",
+      "job_id": "06fe1522a3f5409c98c1ab09b8c75586",
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 4.7162157,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "production-first.json",
+      "job_id": "0bb3da4bc2504e4c8d7a5ba93e3436bb",
+      "total": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 17.8809324,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "d-regression-final.json",
+      "job_id": "56c2a29c44d5439886a104eb349abb06",
+      "total": 204,
+      "passed": 203,
+      "failed": 1,
+      "skipped": 0,
+      "durationSeconds": 131.8532721,
+      "resultState": "Failed(Child)"
+    },
+    {
+      "artifact": "final-checks.json",
+      "job_id": "40bd953aa78d4a91a955d62b76c0ca40",
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 22.25779,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "edit-final.json",
+      "job_id": "8c62271c2a964aa596f571b2a7da472e",
+      "total": 90,
+      "passed": 90,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 88.1930016,
+      "resultState": "Passed"
+    }
+  ],
+  "distinct_tests": 380,
+  "latest_observed_passed": 380,
+  "latest_observed_failed": [],
+  "caveat": "Expanded regression remains 203/204, not 204/204; isolated passing pause diagnosis does not establish a temporal fix."
+}

@@ -68,6 +68,15 @@ namespace TechGuy.Tests
         {
             yield return PrepareTitanic(); var native = BasicVictim(Vector3.forward * 1.2f); yield return null;
             yield return TornadoCombo(2); native.DamageReceived += (_, __) => _controls.CancelCombo();
+            // Busy/recovery can end while the preceding native hitstop/cadence gate is
+            // still active. This test concerns cancellation AFTER committed contact,
+            // so prepare a legitimately admissible terminal before asserting its result.
+            float readyDeadline = Time.realtimeSinceStartup + 3;
+            while (!_controls.CanStartDirectionalBasic)
+            {
+                Assert.Less(Time.realtimeSinceStartup, readyDeadline, "Native readiness gate must eventually reopen.");
+                yield return null;
+            }
             Assert.IsTrue(_controls.TryDirectionalBasicAttack(Vector3.forward)); yield return new WaitForSeconds(.25f);
             Assert.AreEqual(1, _player.GetComponent<ProtocolRuntime>().TitanicWavesResolved); Assert.AreEqual(3, _attackCount);
         }
@@ -189,16 +198,16 @@ namespace TechGuy.Tests
             Assert.AreEqual(0, UnityEngine.Object.FindObjectsByType<LineRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None).Count(x => x.name == "Swirling wind"));
         }
 
-        [UnityTest] public IEnumerator TornadoNonePolicyCannotCreateConductorDetonationOrResourcesAfterWhiff()
+        [UnityTest] public IEnumerator TornadoDetonationOwnershipAuthorizesConfirmedKillWithoutResourcesAfterWhiff()
         {
             yield return PrepareTitanic(); var inventory = _titanRun.Protocols;
-            foreach (var kind in new[] { ProtocolKind.Conductor, ProtocolKind.Detonation }) Assert.IsTrue(inventory.TryAcquire(inventory.SessionId, kind, inventory.Revision, _ => true));
+            Assert.IsTrue(inventory.TryAcquire(inventory.SessionId, ProtocolKind.Detonation, inventory.Revision, _ => true));
             var victim = BasicVictim(Vector3.forward * 4.5f); victim.SetMaxHealth(1);
             var neighbor = BasicVictim(Vector3.forward * 4.5f + Vector3.right * 2);
             SetPrivate(_player, "_manaRegenerationPercentPerSecond", 0f); _player.mana = 50;
             yield return null; var runtime = _player.GetComponent<ProtocolRuntime>();
             yield return TornadoCombo(); yield return TornadoEnd(runtime);
-            Assert.IsTrue(victim.IsDead); Assert.AreEqual(1000, neighbor.health); Assert.AreEqual(50, _player.mana); Assert.AreEqual(0, _player.GetComponent<BreakerGauntletCombat>().Energy);
+            Assert.IsTrue(victim.IsDead); Assert.That(neighbor.health, Is.EqualTo(999.25f).Within(.001)); Assert.AreEqual(50, _player.mana); Assert.AreEqual(0, _player.GetComponent<BreakerGauntletCombat>().Energy);
         }
 
         [UnityTest] public IEnumerator TornadoImpactAttributionCountsOnlyEffectiveHpWithOriginalBasicParent()
@@ -244,7 +253,7 @@ namespace TechGuy.Tests
                 while (victim.health == 1000 && runtime.PendingTitanicWaves > 0) { record(); yield return null; }
                 record(); Assert.That(victim.health, Is.EqualTo(988).Within(.001)); yield return TitanicCapture("tornado-impact");
                 yield return TornadoEnd(runtime); record(); yield return TitanicCapture("tornado-cleanup");
-                System.IO.File.WriteAllLines(System.IO.Path.Combine(Application.dataPath, "../Docs/validation/artifacts/gameplay-rework/gpr-01-2b/travel.csv"), rows);
+                System.IO.File.WriteAllLines(System.IO.Path.Combine(TitanicLegacyEvidenceDirectory, "travel.csv"), rows);
                 Assert.AreEqual(0, runtime.Budget.LiveRoots);
             }
         }

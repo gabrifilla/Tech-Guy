@@ -1,0 +1,74 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Test job status retrieved.\",\"error\":null,\"data\":{\"job_id\":\"32c72d306f3e43e79b491f9140eedf5c\",\"status\":\"succeeded\",\"mode\":\"PlayMode\",\"started_unix_ms\":1793315283896,\"finished_unix_ms\":1793315297637,\"last_update_unix_ms\":1793315297637,\"progress\":{\"completed\":2,\"total\":2,\"current_test_full_name\":null,\"current_test_started_unix_ms\":null,\"last_finished_test_full_name\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim\",\"last_finished_unix_ms\":1793315297584,\"stuck_suspected\":false,\"editor_is_focused\":false,\"run_in_background\":true,\"focus_nudge_attempts\":null,\"focus_nudge_limit\":null,\"focus_nudge_status\":null,\"blocked_reason\":null,\"failures_so_far\":[],\"failures_capped\":false},\"error\":null,\"result\":{\"mode\":\"PlayMode\",\"summary\":{\"total\":2,\"passed\":2,\"failed\":0,\"skipped\":0,\"durationSeconds\":7.1629572,\"resultState\":\"Passed\"},\"results\":[{\"name\":\"TitanicConductorBaseAOnlyAndBOnlyDoNotCreateCombinedBranch\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorBaseAOnlyAndBOnlyDoNotCreateCombinedBranch\",\"state\":\"Passed\",\"durationSeconds\":4.9125248,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\n\"},{\"name\":\"TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim\",\"state\":\"Passed\",\"durationSeconds\":2.1694126,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\n\"}]}},\"hint\":null}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "success": true,
+      "message": "Test job status retrieved.",
+      "error": null,
+      "data": {
+        "job_id": "32c72d306f3e43e79b491f9140eedf5c",
+        "status": "succeeded",
+        "mode": "PlayMode",
+        "started_unix_ms": 1793315283896,
+        "finished_unix_ms": 1793315297637,
+        "last_update_unix_ms": 1793315297637,
+        "progress": {
+          "completed": 2,
+          "total": 2,
+          "current_test_full_name": null,
+          "current_test_started_unix_ms": null,
+          "last_finished_test_full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim",
+          "last_finished_unix_ms": 1793315297584,
+          "stuck_suspected": false,
+          "editor_is_focused": false,
+          "run_in_background": true,
+          "focus_nudge_attempts": null,
+          "focus_nudge_limit": null,
+          "focus_nudge_status": null,
+          "blocked_reason": null,
+          "failures_so_far": [],
+          "failures_capped": false
+        },
+        "error": null,
+        "result": {
+          "mode": "PlayMode",
+          "summary": {
+            "total": 2,
+            "passed": 2,
+            "failed": 0,
+            "skipped": 0,
+            "durationSeconds": 7.1629572,
+            "resultState": "Passed"
+          },
+          "results": [
+            {
+              "name": "TitanicConductorBaseAOnlyAndBOnlyDoNotCreateCombinedBranch",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorBaseAOnlyAndBOnlyDoNotCreateCombinedBranch",
+              "state": "Passed",
+              "durationSeconds": 4.9125248,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+            },
+            {
+              "name": "TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim",
+              "state": "Passed",
+              "durationSeconds": 2.1694126,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+            }
+          ]
+        }
+      },
+      "hint": null
+    }
+  },
+  "isError": false
+}

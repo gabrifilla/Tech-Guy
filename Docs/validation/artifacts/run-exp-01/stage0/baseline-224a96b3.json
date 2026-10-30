@@ -1,0 +1,419 @@
+{
+  "job_id": "224a96b3d7c44fdba42321f1a0f035c7",
+  "status": "failed",
+  "mode": "PlayMode",
+  "started_unix_ms": 1793335757251,
+  "finished_unix_ms": 1793335783706,
+  "last_update_unix_ms": 1793335783706,
+  "progress": {
+    "completed": 31,
+    "total": 31,
+    "current_test_full_name": null,
+    "current_test_started_unix_ms": null,
+    "last_finished_test_full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+    "last_finished_unix_ms": 1793335783653,
+    "stuck_suspected": false,
+    "editor_is_focused": true,
+    "run_in_background": true,
+    "focus_nudge_attempts": null,
+    "focus_nudge_limit": null,
+    "focus_nudge_status": null,
+    "blocked_reason": null,
+    "failures_so_far": [
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsBasicUsesAndHitsComeFromProductionCallbacks",
+        "message": "  Expected: 2\r\n  But was:  1\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNaturalTicketsAcquireAAndCWithoutFixtureGrants",
+        "message": "  Use a fresh evidence directory for each run.\r\n  Expected: False\r\n  But was:  True\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.FourPathsAcquireMutationAtC4AndExecuteItsRealShapeInNextCombat",
+        "message": "  Expected: equivalent to < \"gauntlet_mutation_CadencedAsura\", \"mutation_gauntlet_eclipse_uppercut\" >\r\n  But was:  < \"gauntlet_mutation_CadencedAsura\", \"mutation_gauntlet_eclipse_uppercut\", \"mutation_gauntlet_titan_fists\" >\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3AuthoredZeroChildDelaysKeepProducerFirst",
+        "message": "  Expected: 2\r\n  But was:  0\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3BasicWithoutRunPaysOnceForMultipleAndLethalTargets",
+        "message": "  Expected: 3\r\n  But was:  0\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CadencedWaitRejectsUnavailableSkillsAndAcceptsQWEOrBasic",
+        "message": "  accepted basic earns energy after ending R\r\n  Expected: 3\r\n  But was:  0\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3DemolishingAdvanceTraversesBodiesAndLaunchesOnlyOnBreak",
+        "message": "  no trajectory damage; body position (0.00, 0.05, 8.80), player (0.00, 0.05, 8.00)\r\n  Expected: 1000.0f\r\n  But was:  964.0f\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3LegacyShockwaveKeepsItsEffectEventsAndDistinctProducer",
+        "message": "  Expected: 4\r\n  But was:  0\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3PublicEventOrderSeesCompleteGainAndNoDuplicateFist",
+        "message": "  Expected is <System.String[7]>, actual is <System.Collections.Generic.List`1[System.String]> with 0 elements\r\n  Values differ at index [0]\r\n  Missing:  < \"hp\", \"health\", \"hit\"... >"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RConsumesOnceReservesRanksAndPublishesAtomicResources",
+        "message": "  new basic can generate after R ends\r\n  Expected: 3\r\n  But was:  0\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3ReentrantRequestWaitsUntilImpactAndRevalidatesMana",
+        "message": "  Expected: 3\r\n  But was:  0\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3SharedHudGroupsEffectiveGainsShowsMutationsAndUnbinds",
+        "message": "  Expected: True\r\n  But was:  False\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualBossBatchDeathWinsAndNeverCreatesPortal",
+        "message": "  Expected: True\r\n  But was:  False\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualDeathBeforePortalRejectsResidualContactAndOldSessionRequests",
+        "message": "  Expected: True\r\n  But was:  False\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualExtractionClaimsOnceAndRetryPreservesResultAndTeardown",
+        "message": "  Expected: True\r\n  But was:  False\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualImpossibleFirstMutationKeepsBossBlockedAndAllowsAbortWithoutVictory",
+        "message": "  Expected: True\r\n  But was:  False\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastBasicBatchWaitsForFeedbackCloseAndPreservesLethalEnergyHitStopAndEpoch",
+        "message": "  Expected: 2\r\n  But was:  0\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastEchoClosesItsOwnBatchAndNeverPaysNativeEnergyAgain",
+        "message": "  Expected: True\r\n  But was:  False\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualPlayerDeathInLastLethalBatchWinsWithoutRewardPublication",
+        "message": "  Expected: 3\r\n  But was:  0\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRepairUsesRealHealthEventAndHudWithoutChangingManaAsuraOrCooldowns",
+        "message": "  Expected: True\r\n  But was:  False\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.MigratedGauntletBasicInputsUseWeaponReactionWithoutLeakingToBow",
+        "message": "  Expected: 1\r\n  But was:  0\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseConfirmedAbortWaitsForResumeFrameAndReturnsFromUnavailableMutationWithoutVictory",
+        "message": "  Expected: True\r\n  But was:  False\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RunFocusDiscountsEffectiveQCostOnceForEachWeaponFamily",
+        "message": "  Expected: greater than or equal to 0\r\n  But was:  -1\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+        "message": "  Evidence names must be fresh; never overwrite a previous capture.\r\n  Expected: False\r\n  But was:  True\r\n"
+      },
+      {
+        "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+        "message": "  Use a fresh evidence directory for each run.\r\n  Expected: False\r\n  But was:  True\r\n"
+      }
+    ],
+    "failures_capped": true
+  },
+  "error": null,
+  "result": {
+    "mode": "PlayMode",
+    "summary": {
+      "total": 31,
+      "passed": 6,
+      "failed": 25,
+      "skipped": 0,
+      "durationSeconds": 19.7682944,
+      "resultState": "Failed(Child)"
+    },
+    "results": [
+      {
+        "name": "AnalyticsBasicUsesAndHitsComeFromProductionCallbacks",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsBasicUsesAndHitsComeFromProductionCallbacks",
+        "state": "Failed",
+        "durationSeconds": 0.5228306,
+        "message": "  Expected: 2\r\n  But was:  1\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<AnalyticsBasicUsesAndHitsComeFromProductionCallbacks>d__138.MoveNext () [0x001a1] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1RunStatisticsTests.cs:67\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Animator is not playing an AnimatorController\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "CompositionNaturalTicketsAcquireAAndCWithoutFixtureGrants",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNaturalTicketsAcquireAAndCWithoutFixtureGrants",
+        "state": "Failed",
+        "durationSeconds": 0.2827114,
+        "message": "  Use a fresh evidence directory for each run.\r\n  Expected: False\r\n  But was:  True\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<TitanicNaturalTickets>d__406.MoveNext () [0x0053b] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicConductorPlayModeTests.cs:189\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "FourPathsAcquireMutationAtC4AndExecuteItsRealShapeInNextCombat",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.FourPathsAcquireMutationAtC4AndExecuteItsRealShapeInNextCombat",
+        "state": "Failed",
+        "durationSeconds": 0.0312328,
+        "message": "  Expected: equivalent to < \"gauntlet_mutation_CadencedAsura\", \"mutation_gauntlet_eclipse_uppercut\" >\r\n  But was:  < \"gauntlet_mutation_CadencedAsura\", \"mutation_gauntlet_eclipse_uppercut\", \"mutation_gauntlet_titan_fists\" >\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<FourPathsAcquireMutationAtC4AndExecuteItsRealShapeInNextCombat>d__299.MoveNext () [0x00291] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunMutationPlayModeTests.cs:112\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "GauntletPhase3AuthoredZeroChildDelaysKeepProducerFirst",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3AuthoredZeroChildDelaysKeepProducerFirst",
+        "state": "Failed",
+        "durationSeconds": 1.5145321,
+        "message": "  Expected: 2\r\n  But was:  0\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3AuthoredZeroChildDelaysKeepProducerFirst>d__41.MoveNext () [0x0029b] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:120\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "GauntletPhase3BasicWithoutRunPaysOnceForMultipleAndLethalTargets",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3BasicWithoutRunPaysOnceForMultipleAndLethalTargets",
+        "state": "Failed",
+        "durationSeconds": 0.0102333,
+        "message": "  Expected: 3\r\n  But was:  0\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3BasicWithoutRunPaysOnceForMultipleAndLethalTargets>d__82.MoveNext () [0x000f0] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:1663\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Animator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "GauntletPhase3CadencedWaitRejectsUnavailableSkillsAndAcceptsQWEOrBasic",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CadencedWaitRejectsUnavailableSkillsAndAcceptsQWEOrBasic",
+        "state": "Failed",
+        "durationSeconds": 0.4076554,
+        "message": "  accepted basic earns energy after ending R\r\n  Expected: 3\r\n  But was:  0\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3CadencedWaitRejectsUnavailableSkillsAndAcceptsQWEOrBasic>d__54.MoveNext () [0x002f0] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:647\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "GauntletPhase3DemolishingAdvanceTraversesBodiesAndLaunchesOnlyOnBreak",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3DemolishingAdvanceTraversesBodiesAndLaunchesOnlyOnBreak",
+        "state": "Failed",
+        "durationSeconds": 0.7159983,
+        "message": "  no trajectory damage; body position (0.00, 0.05, 8.80), player (0.00, 0.05, 8.00)\r\n  Expected: 1000.0f\r\n  But was:  964.0f\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3DemolishingAdvanceTraversesBodiesAndLaunchesOnlyOnBreak>d__56.MoveNext () [0x00724] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:753\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\n"
+      },
+      {
+        "name": "GauntletPhase3LegacyShockwaveKeepsItsEffectEventsAndDistinctProducer",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3LegacyShockwaveKeepsItsEffectEventsAndDistinctProducer",
+        "state": "Failed",
+        "durationSeconds": 2.7839608,
+        "message": "  Expected: 4\r\n  But was:  0\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3LegacyShockwaveKeepsItsEffectEventsAndDistinctProducer>d__61.MoveNext () [0x00268] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:944\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "GauntletPhase3PublicEventOrderSeesCompleteGainAndNoDuplicateFist",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3PublicEventOrderSeesCompleteGainAndNoDuplicateFist",
+        "state": "Failed",
+        "durationSeconds": 0.0149939,
+        "message": "  Expected is <System.String[7]>, actual is <System.Collections.Generic.List`1[System.String]> with 0 elements\r\n  Values differ at index [0]\r\n  Missing:  < \"hp\", \"health\", \"hit\"... >",
+        "stackTrace": "at NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual, System.String message, System.Object[] args) [0x00008] in <8b63e8ac0a4746599ed207982825ae6c>:0\r\nat NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual) [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0\r\nat TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3PublicEventOrderSeesCompleteGainAndNoDuplicateFist>d__78.MoveNext () [0x0026a] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:1570\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "GauntletPhase3RConsumesOnceReservesRanksAndPublishesAtomicResources",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RConsumesOnceReservesRanksAndPublishesAtomicResources",
+        "state": "Failed",
+        "durationSeconds": 2.0071943,
+        "message": "  new basic can generate after R ends\r\n  Expected: 3\r\n  But was:  0\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3RConsumesOnceReservesRanksAndPublishesAtomicResources>d__75.MoveNext () [0x00471] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:1476\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "GauntletPhase3ReentrantRequestWaitsUntilImpactAndRevalidatesMana",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3ReentrantRequestWaitsUntilImpactAndRevalidatesMana",
+        "state": "Failed",
+        "durationSeconds": 0.0123244,
+        "message": "  Expected: 3\r\n  But was:  0\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3ReentrantRequestWaitsUntilImpactAndRevalidatesMana>d__81.MoveNext () [0x00181] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:1647\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "GauntletPhase3RewardsOfferExecutableMutationsAndPreserveLegacyQ",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RewardsOfferExecutableMutationsAndPreserveLegacyQ",
+        "state": "Passed",
+        "durationSeconds": 0.0463751,
+        "message": null,
+        "stackTrace": null,
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "GauntletPhase3SharedHudGroupsEffectiveGainsShowsMutationsAndUnbinds",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3SharedHudGroupsEffectiveGainsShowsMutationsAndUnbinds",
+        "state": "Failed",
+        "durationSeconds": 0.4474042,
+        "message": "  Expected: True\r\n  But was:  False\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3SharedHudGroupsEffectiveGainsShowsMutationsAndUnbinds>d__43.MoveNext () [0x0041c] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:198\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\n"
+      },
+      {
+        "name": "ManualBossBatchDeathWinsAndNeverCreatesPortal",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualBossBatchDeathWinsAndNeverCreatesPortal",
+        "state": "Failed",
+        "durationSeconds": 0.0438339,
+        "message": "  Expected: True\r\n  But was:  False\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests.ReachLifecycleBoss (ManualRoutePolicy route) [0x00021] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:30\r\nat TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualBossBatchDeathWinsAndNeverCreatesPortal>d__295.MoveNext () [0x00164] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:79\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "ManualDeathBeforePortalRejectsResidualContactAndOldSessionRequests",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualDeathBeforePortalRejectsResidualContactAndOldSessionRequests",
+        "state": "Failed",
+        "durationSeconds": 0.030729,
+        "message": "  Expected: True\r\n  But was:  False\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests.ReachLifecycleBoss (ManualRoutePolicy route) [0x00021] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:30\r\nat TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualDeathBeforePortalRejectsResidualContactAndOldSessionRequests>d__296.MoveNext () [0x0016c] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:100\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "ManualExtractionClaimsOnceAndRetryPreservesResultAndTeardown",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualExtractionClaimsOnceAndRetryPreservesResultAndTeardown",
+        "state": "Failed",
+        "durationSeconds": 0.0295624,
+        "message": "  Expected: True\r\n  But was:  False\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests.ReachLifecycleBoss (ManualRoutePolicy route) [0x00021] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:30\r\nat TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualExtractionClaimsOnceAndRetryPreservesResultAndTeardown>d__294.MoveNext () [0x00165] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:45\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "ManualImpossibleFirstMutationKeepsBossBlockedAndAllowsAbortWithoutVictory",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualImpossibleFirstMutationKeepsBossBlockedAndAllowsAbortWithoutVictory",
+        "state": "Failed",
+        "durationSeconds": 0.0258135,
+        "message": "  Expected: True\r\n  But was:  False\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualImpossibleFirstMutationKeepsBossBlockedAndAllowsAbortWithoutVictory>d__298.MoveNext () [0x00164] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunMutationPlayModeTests.cs:72\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "ManualLastBasicBatchWaitsForFeedbackCloseAndPreservesLethalEnergyHitStopAndEpoch",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastBasicBatchWaitsForFeedbackCloseAndPreservesLethalEnergyHitStopAndEpoch",
+        "state": "Failed",
+        "durationSeconds": 0.0370128,
+        "message": "  Expected: 2\r\n  But was:  0\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualLastBasicBatchWaitsForFeedbackCloseAndPreservesLethalEnergyHitStopAndEpoch>d__287.MoveNext () [0x0030a] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunEncounterPlayModeTests.cs:43\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "ManualLastEchoClosesItsOwnBatchAndNeverPaysNativeEnergyAgain",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastEchoClosesItsOwnBatchAndNeverPaysNativeEnergyAgain",
+        "state": "Failed",
+        "durationSeconds": 5.0314485,
+        "message": "  Expected: True\r\n  But was:  False\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualLastEchoClosesItsOwnBatchAndNeverPaysNativeEnergyAgain>d__289.MoveNext () [0x003fc] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunEncounterPlayModeTests.cs:137\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "ManualLastSkillCancelsFutureChildrenAfterConfirmedProducerWithoutResettingCategory",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastSkillCancelsFutureChildrenAfterConfirmedProducerWithoutResettingCategory",
+        "state": "Passed",
+        "durationSeconds": 2.0167191,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "ManualPlayerDeathInLastLethalBatchWinsWithoutRewardPublication",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualPlayerDeathInLastLethalBatchWinsWithoutRewardPublication",
+        "state": "Failed",
+        "durationSeconds": 0.0271128,
+        "message": "  Expected: 3\r\n  But was:  0\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualPlayerDeathInLastLethalBatchWinsWithoutRewardPublication>d__290.MoveNext () [0x00259] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunEncounterPlayModeTests.cs:166\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "ManualRepairUsesRealHealthEventAndHudWithoutChangingManaAsuraOrCooldowns",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRepairUsesRealHealthEventAndHudWithoutChangingManaAsuraOrCooldowns",
+        "state": "Failed",
+        "durationSeconds": 0.0271199,
+        "message": "  Expected: True\r\n  But was:  False\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualRepairUsesRealHealthEventAndHudWithoutChangingManaAsuraOrCooldowns>d__300.MoveNext () [0x00197] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunResourcesPlayModeTests.cs:27\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "MigratedGauntletBasicInputsUseWeaponReactionWithoutLeakingToBow",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.MigratedGauntletBasicInputsUseWeaponReactionWithoutLeakingToBow",
+        "state": "Failed",
+        "durationSeconds": 0.0126734,
+        "message": "  Expected: 1\r\n  But was:  0\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<MigratedGauntletBasicInputsUseWeaponReactionWithoutLeakingToBow>d__86.MoveNext () [0x0012b] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:1758\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Animator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "PauseConfirmedAbortWaitsForResumeFrameAndReturnsFromUnavailableMutationWithoutVictory",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseConfirmedAbortWaitsForResumeFrameAndReturnsFromUnavailableMutationWithoutVictory",
+        "state": "Failed",
+        "durationSeconds": 0.0288578,
+        "message": "  Expected: True\r\n  But was:  False\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<PauseConfirmedAbortWaitsForResumeFrameAndReturnsFromUnavailableMutationWithoutVictory>d__323.MoveNext () [0x00197] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\PauseInspectionPlayModeTests.cs:173\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "RunFocusDiscountsEffectiveQCostOnceForEachWeaponFamily",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RunFocusDiscountsEffectiveQCostOnceForEachWeaponFamily",
+        "state": "Failed",
+        "durationSeconds": 0.0198514,
+        "message": "  Expected: greater than or equal to 0\r\n  But was:  -1\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<RunFocusDiscountsEffectiveQCostOnceForEachWeaponFamily>d__46.MoveNext () [0x001e7] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:281\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "SpearBoonContactStakeDamageCanEndEncounterInsideItsCallback",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonContactStakeDamageCanEndEncounterInsideItsCallback",
+        "state": "Passed",
+        "durationSeconds": 0.5274093,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+      },
+      {
+        "name": "SpearBoonHorizonUsesOneCostAndCrossingConsumesItsOriginalRootOnce",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonHorizonUsesOneCostAndCrossingConsumesItsOriginalRootOnce",
+        "state": "Passed",
+        "durationSeconds": 0.3704755,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+      },
+      {
+        "name": "SpearBoonPathStakeDamageCanDisableTheExecutorInsideItsCallback",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonPathStakeDamageCanDisableTheExecutorInsideItsCallback",
+        "state": "Passed",
+        "durationSeconds": 0.5185739,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+      },
+      {
+        "name": "TargetClickDuringHitStopKeepsOneAttackAfterRelease",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TargetClickDuringHitStopKeepsOneAttackAfterRelease",
+        "state": "Passed",
+        "durationSeconds": 1.4808183,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAnimator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+        "state": "Failed",
+        "durationSeconds": 0.536471,
+        "message": "  Evidence names must be fresh; never overwrite a previous capture.\r\n  Expected: False\r\n  But was:  True\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ComposedCapture>d__409.MoveNext () [0x0004a] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicConductorPlayModeTests.cs:217\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+        "state": "Failed",
+        "durationSeconds": 0.1430806,
+        "message": "  Use a fresh evidence directory for each run.\r\n  Expected: False\r\n  But was:  True\r\n",
+        "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<TitanicNaturalTickets>d__406.MoveNext () [0x0053b] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicConductorPlayModeTests.cs:189\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      }
+    ]
+  }
+}

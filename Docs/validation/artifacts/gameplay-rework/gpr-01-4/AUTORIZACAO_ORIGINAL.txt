@@ -1,0 +1,525 @@
+# TECH GUY — GPR-01.4 COMPLETE IMPLEMENTATION AUTHORIZATION
+## Titanic Fists + Conductor + Detonation — Mechanical and Visual Composition
+
+### 1. Developer approval and current state
+
+The developer physically tested GPR-01.2c and GPR-01.3.
+
+Both activities are accepted within their delivered scope.
+
+Confirmed behavior:
+
+- Titanic Fists launches a traveling wind tornado.
+- The room-clear lifecycle issue has been addressed.
+- The tornado damages valid enemies.
+- A tornado impact can trigger Conductor and chain electricity to another enemy.
+- The developer approves the current gameplay direction.
+
+The developer has additionally requested that the appearance of the tornado evolve according to the acquired boon combination.
+
+**Visual transformation is a mandatory deliverable of GPR-01.4, not an optional polish task.**
+
+The developer also expects that the original Gauntlet punch and the traveling tornado may each generate their own legitimate Conductor chains when their individual impact conditions are satisfied.
+
+This exact dual-chain scenario has not yet been physically verified and must be tested.
+
+### 2. Authorization
+
+Execute GPR-01.4 sequentially:
+
+- GPR-01.4a — Independent Conductor producer verification.
+- GPR-01.4b — Titanic Fists + Detonation integration.
+- GPR-01.4c — A+B+C triple mechanical composition.
+- GPR-01.4d — Modular visual transformation and composition.
+- GPR-01.4e — Integrated validation and consolidated report.
+
+These are authorized as parts of GPR-01.4 only.
+
+Complete each subactivity's technical gate before proceeding.
+
+If a blocking regression or significant unapproved architectural decision appears, STOP and report it instead of expanding scope.
+
+Do not begin GPR-01.5, Singularity, skill replacement, enemy redesign, room redesign or weapon-special redesign.
+
+### 3. Mandatory preparation
+
+Before implementation:
+
+1. Read AGENTS.md and all applicable repository instructions.
+2. Read GPR-01.1, 01.2, 01.2b, 01.2c and 01.3 reports.
+3. Read the canonical gameplay vision, GPR requirements, technical design, tasks, validation plan, progress ledger and vertical-slice specification.
+4. Inspect the actual ProtocolRuntime, ProtocolBudget, damage queue, impact receipts, target identity, reservations and effect lineage implementations.
+5. Discover and apply the existing Tech Guy game-vision, combat, boon-design and Unity-acceptance skills.
+6. Apply relevant installed third-party game-development skills only when available.
+7. Verify the correct Unity project, Editor instance and PlayMode/EditMode state through Unity MCP.
+8. Record branch, HEAD, initial worktree, protected assets, scene status and Console.
+9. Preserve existing user settings, saves, progression, worktree modifications and historical test artifacts.
+
+Do not assume paths or settings from previous development environments are still valid.
+
+### 4. Final approved combination matrix
+
+Use the existing boon definitions.
+
+A = Titanic Fists / Punhos Titânicos.
+B = Conductor.
+C = Detonation.
+
+Required configurations:
+
+**Base Gauntlet**
+- Existing basic attacks.
+- No tornado or new derived effects.
+
+**A only**
+- Existing traveling wind tornado.
+- No new electric or explosive grants.
+- Visually: pure wind vortex.
+
+**B only**
+- Existing native Conductor mechanics.
+- No tornado.
+- No changes to native Conductor behavior.
+
+**C only**
+- Existing native Detonation mechanics.
+- No tornado.
+- No changes to native Detonation behavior.
+
+**A+B**
+- Tornado impacts may trigger the explicitly permitted Conductor effect.
+- Visually: wind tornado with persistent electrical/storm identity.
+- Actual electrical damage and discharge arcs still require eligible confirmed impacts.
+
+**A+C**
+- Eligible confirmed deaths caused by the tornado may trigger Detonation.
+- Visually: wind tornado with visible flames and fiery energy.
+- Do not introduce burning damage, damage-over-time or automatic explosions merely because the tornado appears fiery.
+
+**B+C**
+- Preserve existing native Conductor/Detonation behavior.
+- Do not silently modify or globally restrict their existing composition.
+
+**A+B+C**
+- Tornado damage, eligible Conductor chaining and eligible Detonation effects can compose causally.
+- Visually: wind + fire + electricity, all simultaneously represented in the tornado.
+- A confirmed kill by an eligible tornado-derived Conductor child may authorize Detonation under the approved lineage and quota restrictions.
+
+The triple combination must exhibit demonstrable new causal behavior beyond independent A+B, A+C or native B+C effects.
+
+### 5. GPR-01.4a — Native punch and tornado Conductor coexistence
+
+Before implementing Detonation, determine whether the current implementation supports two independently eligible Conductor producers:
+
+1. Native Gauntlet punch.
+2. Titanic Fists traveling tornado.
+
+A terminal punch may hit enemy A and trigger the native Conductor behavior.
+
+The tornado from that same terminal may subsequently hit another eligible enemy B and trigger its own derived Conductor event.
+
+The desired outcome is **two legitimate Conductor chains when both producers are eligible, suitable secondary targets exist, and shared budgets permit them**.
+
+This is not a guarantee of two chains regardless of gameplay conditions.
+
+Required tests:
+
+- Native Conductor from a direct punch.
+- Tornado-derived Conductor after a native whiff.
+- Both producers triggering separate valid chains.
+- No second chain when budget is exhausted.
+- No second chain when no eligible nearby target exists.
+- Proper deduplication across colliders, pooled generations and shared lineage.
+- No accidental suppression of native Conductor by the tornado's one-emission limit.
+- No duplicate damage attribution or resources.
+
+Preserve the existing maximum of one derived Conductor emission per tornado.
+
+Do not increase global Protocol budgets.
+
+If a legitimate second chain is blocked by a confirmed implementation defect, correct it narrowly within the existing Protocol owners.
+
+If this requires changing core balance or fundamental Protocol semantics, stop for approval.
+
+Generate `GPR-01.4a_RELATORIO.md`.
+
+### 6. GPR-01.4b — Titanic Fists + Detonation
+
+Authorize Detonation only on the specific Titanic Fists-derived lineage when both relevant boons are legitimately owned.
+
+An eligible confirmed enemy death caused by the tornado's direct damage can permit the existing Detonation effect.
+
+Requirements:
+
+- Use the existing Detonation executor, damage queue and budget.
+- Require a confirmed eligible kill.
+- Preserve existing Detonation radius, damage and ranks.
+- Do not explode merely on tornado creation, visual overlap, whiff, immunity or nonlethal contact.
+- Do not explode on completed-room cosmetic tornados.
+- Do not grant additional mana, Asura energy or rewards.
+- Do not create a new independent Protocol root.
+- Do not generate Detonation-to-Detonation recursion in the new derived branch.
+- Preserve existing native Detonation behavior elsewhere.
+
+Capture exact damage and kill attribution.
+
+The initial derived-branch limit is at most one Detonation emission per tornado, subject to the existing root budget and eligibility.
+
+Generate `GPR-01.4b_RELATORIO.md`.
+
+### 7. GPR-01.4c — Triple composition and causal lineage
+
+Implement A+B+C using explicit ownership and permissions.
+
+Desired sequence:
+
+1. The committed Gauntlet terminal launches Titanic Fists.
+2. The traveling tornado encounters and damages a valid enemy.
+3. An eligible tornado impact may activate Conductor.
+4. Conductor may damage a nearby valid enemy.
+5. An eligible confirmed death caused by the wind producer or authorized Conductor descendant may activate Detonation.
+6. Detonation damages valid nearby enemies through its existing owner.
+
+Preserve the source/parent/root lineage throughout.
+
+Required safeguards:
+
+- One shared root budget.
+- No new root for each enemy or derived effect.
+- Maximum one derived Conductor emission per tornado.
+- Maximum one derived Detonation emission per tornado.
+- No Conductor-to-Conductor recursion.
+- No Detonation-to-Detonation recursion.
+- No Detonation-to-Conductor recursion.
+- No tornado spawning another tornado.
+- No double-counting damage, kills, resources or analytics.
+- No stale damage after cancellation or encounter completion.
+- Correct identity and generation tracking for pooled targets.
+- Correct behavior under reentrant callbacks.
+- Existing line-of-sight, encounter membership, query and impact caps.
+
+The native Conductor/Detonation behavior outside the new branch must remain unchanged.
+
+The exact combination must be exercised with effective HP receipts, including a confirmed kill caused specifically by tornado-derived Conductor.
+
+Generate `GPR-01.4c_RELATORIO.md`.
+
+### 8. GPR-01.4d — Mandatory visual evolution
+
+This is a core gameplay-design requirement.
+
+The tornado must visibly reflect the boon combination used by the current committed attack.
+
+#### Visual state A — Pure Wind
+
+- Preserve the current traveling tornado identity.
+- Use the established wind vortex as the base visual.
+- Do not add elemental layers.
+
+#### Visual state A+B — Electrical Storm
+
+- Add visible electricity integrated into the tornado.
+- Lightning may circulate through or around the moving wind vortex.
+- The tornado should resemble a small moving thunderstorm.
+- Electrical highlights should remain noticeable during travel, even between valid hit events.
+- Actual outward chain-lightning damage arcs must appear only when the underlying Conductor event is legitimately authorized and produces its valid gameplay feedback.
+
+#### Visual state A+C — Flaming Tornado
+
+- Add a visibly fiery layer to the moving tornado.
+- Use flame-like ribbons, sparks or controlled heat coloration within the vortex.
+- Keep the wind silhouette recognizable.
+- Fire is an identity layer reflecting Detonation ownership.
+- Fire visuals alone must not apply burning, periodic damage, extra collisions or explosions.
+- Actual Detonation explosion feedback must correspond to a confirmed valid gameplay event.
+
+#### Visual state A+B+C — Elemental Storm
+
+- Compose all three layers:
+  - Wind as the structural base.
+  - Fire as one elemental overlay.
+  - Lightning as another elemental overlay.
+- The combined tornado must visibly contain both fire and electricity while moving.
+- Both layers must be individually recognizable.
+- Avoid replacing the three-layer identity with a single generic glow or color.
+- Avoid visual overload and excessive brightness.
+- Preserve enemy telegraph visibility.
+
+**The player should be able to recognize the build composition by looking at the tornado, without checking the inventory or reading damage numbers.**
+
+#### Architecture requirements
+
+Prefer modular visual composition using the existing TitanicFistsVisual instance and pooling/lifecycle contracts.
+
+Do not create four duplicate combat executors or separate full tornado gameplay pipelines.
+
+Layer ownership should be determined from a coherent combat snapshot:
+
+- The projectile must reflect the boons and ranks legitimately available for that committed terminal.
+- Picking up Conductor or Detonation after launching a tornado must not retroactively change its effect permissions or appearance.
+- A later tornado may use the newly acquired visual state.
+- Removing a boon through an authorized state transition should affect subsequent projectiles according to the existing snapshot rules.
+- A visual layer must never imply a gameplay effect that the projectile is not permitted to produce.
+
+Separate:
+
+1. Persistent elemental identity while the tornado travels.
+2. Actual hit-reactive electrical discharge feedback.
+3. Actual confirmed-kill Detonation feedback.
+
+#### Visual implementation constraints
+
+- Reuse existing shaders, materials, particles, LineRenderers and pooling where practical.
+- Use the current prototype art direction; do not redesign the character or entire VFX pipeline.
+- Preserve tornado speed, radius, distance, lifetime and native damage.
+- Avoid allocations or Instantiate/Destroy in repeated hot-path updates where practical.
+- Prevent stale visual layers when a pooled tornado is reused.
+- Clear all layers after weapon swap, run end, scene change, room clear, disable or context invalidation.
+- Completed-room cosmetic tornado behavior must remain safe and must not produce fake damage feedback.
+
+For completed-room cosmetic tornadoes, define and document whether the retained elemental appearance reflects the accepted attack snapshot. Cosmetic fire/electric layers may represent build identity, but damaging chain arcs and explosion feedback must never appear without authorized combat events.
+
+Generate `GPR-01.4d_RELATORIO.md`.
+
+### 9. Reward acquisition and snapshot behavior
+
+Reuse the existing:
+
+- Titanic Fists Mutation.
+- Conductor Protocol.
+- Detonation Protocol.
+- Reward catalog and legal ticket flow.
+- Rank, inventory and compatibility rules.
+
+Do not create duplicate boon definitions.
+
+Validate acquisition in different supported orders, including:
+
+- A → B → C.
+- A → C → B.
+- B → A → C.
+- C → A → B.
+
+Where natural reward acquisition is constrained by the current route, explain which cases use legitimate ticket draws and which use assisted test acquisition.
+
+Do not grant free rewards to make gameplay tests pass.
+
+Already accepted attacks and active tornados must not gain newly acquired effects retroactively.
+
+Verify both mechanical permission snapshots and matching visual snapshots.
+
+Preserve deterministic reward semantics, rank caps, costs, cooldowns and existing user progression.
+
+### 10. Preserve approved gameplay
+
+Do not change:
+
+- WASD direct movement.
+- Mouse aiming.
+- LMB basic combo order, cadence or animation.
+- Q/E/R skills.
+- RMB Asura.
+- Existing Bow/Spear execution.
+- Dash behavior.
+- Tornado travel speed, size, range, lifetime or base damage.
+- Native Conductor/Detonation authored balance.
+- Enemy AI, spawn rates, room layout, bosses or models.
+- UI input priority or control remapping.
+- Reward frequency, weights or room economy.
+
+The following are deferred:
+
+- Tornado feels too fast/small and difficult to aim.
+- Basic attacks may feel slightly too fast.
+- Directional locomotion can look like moonwalking.
+- Room rewards and reward pacing.
+- Room/stage design and encounter pacing.
+- Enemy mesh variety and identity.
+- Elite/boss design.
+- Singularity, gravitational attraction, final collapse and aerial launches.
+
+Do not implement those deferred systems in GPR-01.4.
+
+### 11. Required gameplay and mechanical test matrix
+
+Create focused automated verification for:
+
+- Base Gauntlet.
+- A only.
+- B only.
+- C only.
+- A+B.
+- A+C.
+- B+C.
+- A+B+C.
+- Two independent legitimate Conductor producers.
+- Native punch miss followed by tornado hit.
+- Tornado missing every enemy.
+- Zero effective HP damage.
+- Immune or invalid targets.
+- Wind-caused confirmed death and Detonation.
+- Conductor-caused confirmed death and Detonation.
+- Detonation nonrecursion.
+- Budget exhaustion and last available slot.
+- Correct one-Conductor and one-Detonation opportunities.
+- Different acquisition orders.
+- Snapshot correctness after acquiring a boon mid-projectile.
+- Damage/kill/statistics attribution.
+- Target identity, pooled generations and duplicate colliders.
+- Pause and hitstop.
+- Cancellation and reentrancy.
+- Weapon swap and owner disable.
+- Player death and run end.
+- Encounter completion and room transitions.
+- Completed-room cosmetic tornado.
+- Next-room combat reactivation.
+- Legacy Protocol compatibility.
+- Existing GI combat and enemy reactions.
+- Bow, Spear, Q/E/R and RMB Asura regression.
+- Input and navigation contracts.
+
+Preserve previous results and create new evidence without overwriting historical artifacts.
+
+### 12. Required visual test matrix
+
+Produce real Unity Game View captures comparing:
+
+1. A — wind only.
+2. A+B — wind and electricity.
+3. A+C — wind and fire.
+4. A+B+C — wind, electricity and fire.
+5. A+B with an actual confirmed electric discharge.
+6. A+C with an actual confirmed Detonation.
+7. A+B+C with an eligible Conductor-caused death followed by Detonation.
+8. Tornado cleanup and reuse with no inherited stale layers.
+
+Prefer multiple time-separated frames for moving effects.
+
+Check visual readability at gameplay camera scale, not only in close-up fixture views.
+
+Where possible, inspect these combinations with multiple enemies and preexisting telegraphs/VFX.
+
+Do not treat beautiful screenshots as proof of actual damage.
+
+Provide separate mechanical receipts/HP/lineage evidence.
+
+Do not claim physical human approval based on virtual-input fixtures.
+
+### 13. Performance and robustness
+
+Where practical, profile controlled scenarios with 8, 32 and 64 enemies and multiple active tornados.
+
+Observe:
+
+- CPU cost of physics sweeps and line-of-sight checks.
+- Existing RaycastAll allocations.
+- Visual ribbon/particle update cost.
+- Active projectile and pool counts.
+- Damage queue occupancy.
+- Shared 32-impact budget saturation.
+- Frame time and GC allocation.
+- Cleanup and reuse behavior.
+
+Avoid silently increasing global budgets or weakening enemy counts.
+
+If benchmarks cannot be completed, record the exact limitation rather than inventing measurements.
+
+Do not perform a broad performance rewrite without authorization.
+
+### 14. Unity validation
+
+Use the actual Unity Editor, Unity Test Framework and Unity MCP.
+
+Execute:
+
+- Focused new tests.
+- Relevant EditMode compatibility tests.
+- Protocol and damage regression tests.
+- Existing GPR-01.2b/01.2c/01.3 regressions.
+- Gameplay Intelligence combat regressions.
+- Relevant movement/input/Asura/Bow/Spear tests.
+
+Preserve failing intermediate attempts and the actual corrective actions.
+
+Do not weaken assertions, add arbitrary delays or repeat tests merely to hide failures.
+
+Clearly distinguish:
+
+- Tests run in Unity.
+- Virtual input and fixture environments.
+- Production-scene execution.
+- Physical human playtest.
+
+Do not call selected passing filters a global-suite approval.
+
+### 15. Mandatory documentation and reporting
+
+Create separate Markdown reports:
+
+- `GPR-01.4a_RELATORIO.md`
+- `GPR-01.4b_RELATORIO.md`
+- `GPR-01.4c_RELATORIO.md`
+- `GPR-01.4d_RELATORIO.md`
+- `GPR-01.4e_RELATORIO.md`
+
+Create the consolidated report:
+
+- `GPR-01.4_RELATORIO.md`
+
+Each activity report must include:
+
+1. Activity ID and status.
+2. Approved scope and actual deliverables.
+3. Modified/created files.
+4. Skills actually applied.
+5. Technical and architectural decisions.
+6. Exact test commands, counts, failures and job identifiers.
+7. Unity MCP evidence.
+8. Damage/lineage and visual evidence where relevant.
+9. Intermediate regressions and diagnosis.
+10. Integrity, saves, preferences and scene preservation.
+11. Known limitations.
+12. Next activity and required approval.
+
+The consolidated report must include:
+
+- The final mechanical combination matrix.
+- The final visual combination matrix.
+- Native versus derived Conductor behavior.
+- Detonation eligibility and recursion controls.
+- Snapshot ownership and visual-state rules.
+- Reward/acquisition evidence.
+- Overall validation results.
+- Performance observations.
+- Developer physical playtest checklist.
+- Readiness recommendation for GPR-01.5.
+
+Update the canonical:
+
+- GPR requirements.
+- Technical design.
+- Task plan.
+- Validation plan and matrix.
+- Vertical-slice specification.
+- Progress ledger.
+- Applicable ADR and boon-design documentation.
+
+Preserve historical reports, intermediate failures and previous evidence.
+
+All developer-facing reports must be written in Brazilian Portuguese.
+
+### 16. Completion and STOP condition
+
+Complete all approved GPR-01.4 subactivities, subject to their technical gates.
+
+At the end:
+
+- Explain what works mechanically.
+- Demonstrate how the visual appearance changes with each boon combination.
+- Report any remaining regressions or limitations.
+- Provide a short physical playtest checklist.
+- Propose GPR-01.5 without executing it.
+
+**STOP after GPR-01.4.**
+
+Do not begin GPR-01.5, Singularity, gravitational pull, airborne combos, new weapon specials, modular skill replacement, room redesign or enemy redesign without my explicit approval.

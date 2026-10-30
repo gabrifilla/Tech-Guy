@@ -1,0 +1,74 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "4d0a0e488c724ca9a466e12a0485de32",
+      "status": "succeeded",
+      "mode": "EditMode",
+      "started_unix_ms": 1793320334127,
+      "finished_unix_ms": 1793320372253,
+      "last_update_unix_ms": 1793320372253,
+      "progress": {
+        "completed": 3,
+        "total": 3,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.Fluidity.EditMode.Gpr015RewardAccessibilityTests.ProductionRewardsUniformChoiceUsesUnchangedOfferWeights",
+        "last_finished_unix_ms": 1793320372217,
+        "stuck_suspected": false,
+        "editor_is_focused": true,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "EditMode",
+        "summary": {
+          "total": 3,
+          "passed": 3,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 36.8923592,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "ProductionRewardsTargetConductorThenDetonation",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.Gpr015RewardAccessibilityTests.ProductionRewardsTargetConductorThenDetonation",
+            "state": "Passed",
+            "durationSeconds": 12.4974284,
+            "message": null,
+            "stackTrace": null,
+            "output": "Reward audit: D:\\Dev\\Personal\\My_games\\Tech-Guy\\Docs\\validation\\artifacts\\gameplay-rework\\gpr-01-5\\b\\20261030-003227-8428998; 64 seeds x 4 paths; encounter victories assumed, no grant outside tickets; no physical playtest.\r\n"
+          },
+          {
+            "name": "ProductionRewardsTargetDetonationThenConductor",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.Gpr015RewardAccessibilityTests.ProductionRewardsTargetDetonationThenConductor",
+            "state": "Passed",
+            "durationSeconds": 12.279919,
+            "message": null,
+            "stackTrace": null,
+            "output": "Reward audit: D:\\Dev\\Personal\\My_games\\Tech-Guy\\Docs\\validation\\artifacts\\gameplay-rework\\gpr-01-5\\b\\20261030-003240-1340160; 64 seeds x 4 paths; encounter victories assumed, no grant outside tickets; no physical playtest.\r\n"
+          },
+          {
+            "name": "ProductionRewardsUniformChoiceUsesUnchangedOfferWeights",
+            "fullName": "TechGuy.Tests.Fluidity.EditMode.Gpr015RewardAccessibilityTests.ProductionRewardsUniformChoiceUsesUnchangedOfferWeights",
+            "state": "Passed",
+            "durationSeconds": 12.0780896,
+            "message": null,
+            "stackTrace": null,
+            "output": "Reward audit: D:\\Dev\\Personal\\My_games\\Tech-Guy\\Docs\\validation\\artifacts\\gameplay-rework\\gpr-01-5\\b\\20261030-003252-2117125; 64 seeds x 4 paths; encounter victories assumed, no grant outside tickets; no physical playtest.\r\n"
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

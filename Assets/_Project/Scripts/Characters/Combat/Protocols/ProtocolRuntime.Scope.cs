@@ -39,7 +39,18 @@ public sealed partial class ProtocolRuntime
         if (!IsOpen || parent == null || parent.Owner != _player || _player.IsResolvingGauntletImpact || _player.HasOpenImpactFeedback ||
             !_player.TryGetComponent(out BreakerGauntletCombat combat) || !combat.EnergyPolicy.IsLive(parent)) return null;
         var root = FindRoot(parent); if (root == null) return null;
-        long id = -checked(++_nextReservedProducer); var lineage = root.ReserveTitanicTerminalEmission(id);
+        var effects = ProtocolBasicEffects.None;
+        if (parent.Snapshot?.BasicMutationId == TitanicFistsDefinition.Id &&
+            _player.RunModifiers?.Expansion.MutationId(BoonSlot.Basic) == TitanicFistsDefinition.Id)
+        {
+            if ((parent.Snapshot.TitanicEffects & ProtocolBasicEffects.Conductor) != 0 &&
+                _inventory.Rank(ProtocolKind.Conductor) > 0 && root.Rank(ProtocolKind.Conductor) > 0)
+                effects |= ProtocolBasicEffects.Conductor;
+            if ((parent.Snapshot.TitanicEffects & ProtocolBasicEffects.Detonation) != 0 &&
+                _inventory.Rank(ProtocolKind.Detonation) > 0 && root.Rank(ProtocolKind.Detonation) > 0)
+                effects |= ProtocolBasicEffects.Detonation;
+        }
+        long id = -checked(++_nextReservedProducer); var lineage = root.ReserveTitanicTerminalEmission(id, effects);
         return lineage == null ? null : new ProtocolExecution(this, root, ProtocolProducer.Technique, id, false, 1, lineage);
     }
     internal string ScopedProducerId => ScopedBasicLineage?.ProducerId ?? "";
@@ -147,6 +158,7 @@ public sealed class ProtocolExecution : IDisposable
     public bool IsValid => !_closed && Root != null && Root.IsValid && (_ownsRoot || Root.HasChild(_id));
     internal ProtocolExecution(ProtocolRuntime owner, ProtocolRootContext root, ProtocolProducer producer, long id, bool ownsRoot, int depth, ProtocolBasicLineage lineage = null)
     { BasicLineage = lineage; Owner = owner; Root = root; Producer = producer; _id = id; _ownsRoot = ownsRoot;
+        if (lineage != null) lineage.Reservation = this;
         _sessionId = owner.Inventory.SessionId; _encounterId = owner.EncounterId; _lifecycleRevision = owner.LifecycleRevision; Depth = depth; }
     public void Dispose()
     {

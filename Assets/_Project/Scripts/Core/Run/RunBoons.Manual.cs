@@ -78,8 +78,9 @@ public sealed partial class RunBoons
         var node=_manualRoute.Session.Route.Node(request.NodeId); if(node==null) return null;
         var ticket = _manualRewards.Open(request, new RunActionContext(true),
             ManualInventoryKey(),
-            ManualRewardCatalog.Eligible(node.RewardAt(request.Ordinal), WeaponModifiers, _weapon, Protocols,
-                _manualRoute.Session.ProtocolAcquisitions + 1),
+            TitanicConductorPlaytestRewards.Prioritize(_manualRoute.Session.Route, node.RewardAt(request.Ordinal),
+                ManualRewardCatalog.Eligible(node.RewardAt(request.Ordinal), WeaponModifiers, _weapon, Protocols,
+                    _manualRoute.Session.ProtocolAcquisitions + 1), Protocols),
             ManualRewardCatalog.Alternatives(node.RewardAt(request.Ordinal), WeaponModifiers, _weapon, Protocols));
         if (ticket == null) return null;
         _manualTicket = ticket;

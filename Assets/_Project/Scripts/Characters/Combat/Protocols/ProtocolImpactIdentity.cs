@@ -34,9 +34,11 @@ internal sealed class ProtocolBasicLineage
     private readonly System.Collections.Generic.HashSet<ProtocolTargetHandle> _targets;
     private bool _conductor, _detonation;
     private readonly ProtocolBasicEffects _effects;
+    internal ProtocolBasicEffects Effects => _effects;
     internal long ParentExecutionId { get; }
     internal long RootId { get; }
     internal string ProducerId { get; }
+    internal ProtocolExecution Reservation { get; set; }
     internal ProtocolBasicLineage(long parent, long root, System.Collections.Generic.IEnumerable<ProtocolTargetHandle> excluded, string producerId, ProtocolBasicEffects effects)
     { _effects = effects; ProducerId = producerId; ParentExecutionId = parent; RootId = root; _targets = new System.Collections.Generic.HashSet<ProtocolTargetHandle>(excluded); }
     internal bool ClaimTarget(ProtocolTargetHandle target) => _targets.Add(target);

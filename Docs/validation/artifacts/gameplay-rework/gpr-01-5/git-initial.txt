@@ -1,0 +1,53 @@
+ M Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs
+ M Assets/_Project/Scripts/Abilities/Weapon/GauntletExecutionSnapshot.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolImpactIdentity.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Status.cs
+ M Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.TitanicFists.cs
+ M Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs
+ M Assets/_Project/Scripts/Core/Run/ManualRouteSnapshot.cs
+ M Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs
+ M Assets/_Project/Scripts/Core/Run/RunBoons.Manual.cs
+ M Assets/_Project/Scripts/Effects/TitanicFistsVisual.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/TitanicFistsPlayModeTests.cs
+ M Assets/_Project/Scripts/Tests/PlayMode/TitanicTornadoPlayModeTests.cs
+ M Docs/02_ESTADO_E_LACUNAS.md
+ M Docs/decisions/ADR-0006-GPR-DIRECAO-E-GATES.md
+ M Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md
+ M Docs/gameplay/GPR_01_VERTICAL_SLICE.md
+ M Docs/gameplay/GPR_REQUIREMENTS.md
+ M Docs/gameplay/GPR_TASKS.md
+ M Docs/gameplay/GPR_TECHNICAL_DESIGN.md
+ M Docs/gameplay/GPR_VALIDATION_PLAN.md
+ M Docs/systems/04_BOONS.md
+ M Docs/validation/01_MATRIZ_DE_VALIDACAO.md
+?? Assets/_Project/Scripts/Core/Run/TitanicConductorPlaytestRewards.cs
+?? Assets/_Project/Scripts/Core/Run/TitanicConductorPlaytestRewards.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicCompositionIntegrationTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicCompositionIntegrationTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicCompositionPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicCompositionPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicConductorPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicConductorPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicElementalVisualPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicElementalVisualPlayModeTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicPlaytestRewardsTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicPlaytestRewardsTests.cs.meta
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicRoomClearPlayModeTests.cs
+?? Assets/_Project/Scripts/Tests/PlayMode/TitanicRoomClearPlayModeTests.cs.meta
+?? Docs/decisions/AUTORIZACAO_GPR_01_2C_01_3_20261029.md
+?? Docs/decisions/GPR-01.2c_RELATORIO.md
+?? Docs/decisions/GPR-01.3_RELATORIO.md
+?? Docs/decisions/GPR-01.4_RELATORIO.md
+?? Docs/decisions/GPR-01.4a_RELATORIO.md
+?? Docs/decisions/GPR-01.4b_RELATORIO.md
+?? Docs/decisions/GPR-01.4c_RELATORIO.md
+?? Docs/decisions/GPR-01.4d_RELATORIO.md
+?? Docs/decisions/GPR-01.4e_RELATORIO.md
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-2c/
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-3/
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-4/
+?? Docs/validation/artifacts/gameplay-rework/gpr-01-5/
+653db8ba0874f53141c70e88227af76ba0dd07ae

@@ -56,6 +56,7 @@ public sealed partial class ProgressionDirector
             catch (Exception exception)
             { Debug.LogError("New room generation refused: " + exception.Message, this); enabled = false; return true; }
         }
+        route = TitanicConductorPlaytestRewards.Apply(route, selected);
         _manualPolicy = new ManualRoutePolicy(route);
         MarkStatisticsStart();
         ManualProjection = ManualRoomProjection.Create(route, _manualEnvironment);

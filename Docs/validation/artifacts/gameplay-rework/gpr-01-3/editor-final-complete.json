@@ -1,0 +1,26 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Code executed successfully.\",\"data\":{\"result\":{\"scene\":\"Assets/_Project/Scenes/NexusBlockout.unity\",\"dirty\":false,\"playing\":false,\"missingScripts\":0,\"tornadoObjects\":0,\"consoleErrors\":0,\"consoleWarnings\":1,\"consoleLogs\":0},\"compiler\":\"codedom\"}}"
+    }
+  ],
+  "structuredContent": {
+    "success": true,
+    "message": "Code executed successfully.",
+    "data": {
+      "result": {
+        "scene": "Assets/_Project/Scenes/NexusBlockout.unity",
+        "dirty": false,
+        "playing": false,
+        "missingScripts": 0,
+        "tornadoObjects": 0,
+        "consoleErrors": 0,
+        "consoleWarnings": 1,
+        "consoleLogs": 0
+      },
+      "compiler": "codedom"
+    }
+  },
+  "isError": false
+}

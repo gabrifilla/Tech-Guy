@@ -1,0 +1,80 @@
+{
+  "job_id": "9056c0249a0d4d45b3f10b4566cbc2ac",
+  "status": "failed",
+  "mode": "PlayMode",
+  "started_unix_ms": 1793335950293,
+  "finished_unix_ms": 1793335961636,
+  "last_update_unix_ms": 1793335961636,
+  "progress": {
+    "completed": 4,
+    "total": 4,
+    "current_test_full_name": null,
+    "current_test_started_unix_ms": null,
+    "last_finished_test_full_name": "TechGuy.Tests.Gpr015ProductionAuditTests.RUN00PublishedHookerReleasesControlAndSourceBreakCancelsPull",
+    "last_finished_unix_ms": 1793335961598,
+    "stuck_suspected": false,
+    "editor_is_focused": true,
+    "run_in_background": true,
+    "focus_nudge_attempts": null,
+    "focus_nudge_limit": null,
+    "focus_nudge_status": null,
+    "blocked_reason": null,
+    "failures_so_far": [
+      {
+        "full_name": "TechGuy.Tests.Gpr015ProductionAuditTests.RUN00PublishedHookerReleasesControlAndSourceBreakCancelsPull",
+        "message": "  Production Hooker owns its reaction controller on the model child.\r\n  Expected: not null\r\n  But was:  null\r\n"
+      }
+    ],
+    "failures_capped": false
+  },
+  "error": null,
+  "result": {
+    "mode": "PlayMode",
+    "summary": {
+      "total": 4,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "durationSeconds": 9.5418776,
+      "resultState": "Failed(Child)"
+    },
+    "results": [
+      {
+        "name": "CompositionNaturalTicketsAcquireAAndCWithoutFixtureGrants",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNaturalTicketsAcquireAAndCWithoutFixtureGrants",
+        "state": "Passed",
+        "durationSeconds": 0.362289,
+        "message": null,
+        "stackTrace": null,
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+        "state": "Passed",
+        "durationSeconds": 2.1231522,
+        "message": null,
+        "stackTrace": null,
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+      },
+      {
+        "name": "TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+        "state": "Passed",
+        "durationSeconds": 0.1481376,
+        "message": null,
+        "stackTrace": null,
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "RUN00PublishedHookerReleasesControlAndSourceBreakCancelsPull",
+        "fullName": "TechGuy.Tests.Gpr015ProductionAuditTests.RUN00PublishedHookerReleasesControlAndSourceBreakCancelsPull",
+        "state": "Failed",
+        "durationSeconds": 6.8474786,
+        "message": "  Production Hooker owns its reaction controller on the model child.\r\n  Expected: not null\r\n  But was:  null\r\n",
+        "stackTrace": "at TechGuy.Tests.Gpr015ProductionAuditTests+<RUN00PublishedHookerReleasesControlAndSourceBreakCancelsPull>d__22.MoveNext () [0x004eb] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunFrontPublishedHookTests.cs:61\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+        "output": "ProgressionDirector Run_Seed = 4772404245243886187 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      }
+    ]
+  }
+}

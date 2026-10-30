@@ -134,6 +134,7 @@ public sealed partial class ProtocolRuntime
     public void CloseEncounter()
     {
         LifecycleRevision++;
+        ClearTitanicFists();
         Budget?.CloseAll(); _nativeRoots.Clear(); ClearApplications(); _feedback?.Clear();
     }
 }

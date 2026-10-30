@@ -1,0 +1,49 @@
+{
+  "a": {
+    "mode": "PlayMode",
+    "test_names": [
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNativePunchAndWindEachConductOnSameTerminal",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionWindWithoutSecondaryTargetCannotInventChain",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorBaseAOnlyAndBOnlyDoNotCreateCombinedBranch",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorFullRootCannotDamageOrShowArcs",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorLastImpactSlotPaysWindButSkipsElectricity",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorOneEmissionAcrossMultipleVictimsFramesAndColliders",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoPoolingDedupesEachTargetGeneration"
+    ],
+    "include_details": true,
+    "init_timeout": 120000
+  },
+  "b": {
+    "mode": "PlayMode",
+    "category_names": [
+      "GPR014b"
+    ],
+    "include_details": true,
+    "init_timeout": 120000
+  },
+  "c": {
+    "mode": "PlayMode",
+    "category_names": [
+      "GPR014c"
+    ],
+    "include_details": true,
+    "init_timeout": 120000
+  },
+  "d": {
+    "mode": "PlayMode",
+    "category_names": [
+      "GPR014d"
+    ],
+    "include_details": true,
+    "init_timeout": 120000
+  },
+  "e": {
+    "mode": "PlayMode",
+    "category_names": [
+      "GPR014e"
+    ],
+    "include_details": true,
+    "init_timeout": 120000
+  }
+}

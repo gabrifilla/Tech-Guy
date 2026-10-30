@@ -385,7 +385,7 @@ namespace TechGuy.Tests
                 yield return ReadyNextBasic(); yield return new WaitForSeconds(.15f);
                 CollectionAssert.AreEqual(new[] { 0, 1, 2 }, stages);
                 for (int i = 1; i < times.Count; i++) Assert.That(times[i] - times[i - 1], Is.GreaterThanOrEqualTo(interval - .001f));
-                System.IO.File.WriteAllText(System.IO.Path.Combine(Application.dataPath, "../Docs/validation/artifacts/gameplay-rework/" + UnityEditor.SessionState.GetString("TechGuy.Tests.GprPhase", "c01-3a") + "/combo-observation.json"),
+                System.IO.File.WriteAllText(System.IO.Path.Combine(GameplayTestEvidence.Directory("c01-3a"), "combo-observation.json"),
                     JsonUtility.ToJson(new DirectComboObservation { physical = false, interval = interval, times = times.ToArray(), stages = stages.ToArray() }));
             }
         }

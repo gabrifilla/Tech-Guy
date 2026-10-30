@@ -25,6 +25,7 @@ public sealed partial class ProtocolRuntime
         public float Posture;
         public ProtocolBasicLineage Lineage;
         public ProtocolExecution RequiredReservation;
+        public Vector3? ArcOrigin;
     }
     private bool Matches(ProtocolRootContext root) => root != null && root.IsValid &&
         root.SessionId == _inventory.SessionId && root.EncounterId == EncounterId && !_inventory.IsEnded;
@@ -99,7 +100,8 @@ public sealed partial class ProtocolRuntime
     private void ProcessBasicBranch(ProtocolRootContext root, Actor target, ProtocolHitSnapshot before,
         float damage, ProtocolProducer producer, int depth, ProtocolBasicLineage lineage)
     {
-        if (lineage.RootId != root.RootId || depth >= _inventory.Catalog.Limits.MaxDepth) return;
+        if (!Matches(root) || lineage.RootId != root.RootId || depth >= _inventory.Catalog.Limits.MaxDepth ||
+            lineage.Reservation != null && (!lineage.Reservation.IsValid || !lineage.Reservation.IsLifecycleCurrent)) return;
         bool lethal = before.IsLethal(damage);
         int conductor = root.Rank(ProtocolKind.Conductor);
         if (conductor > 0 && lineage.ClaimEmission(producer, ProtocolProducer.Conductor))
@@ -140,15 +142,17 @@ public sealed partial class ProtocolRuntime
         _damageQueue.Enqueue(new ProtocolDamageWork { Root = root, Target = source,
             Handle = sourceHandle ?? new ProtocolTargetHandle(EntityId.ToULong(source.GetEntityId()), source.CombatGeneration),
             Damage = damage, Producer = producer, Depth = depth, Emission = true,
-            Position = position, Radius = radius, Maximum = maximum, Feedback = feedback, DeadSource = deadSource, Lineage = lineage });
+            Position = position, Radius = radius, Maximum = maximum, Feedback = feedback, DeadSource = deadSource, Lineage = lineage,
+            RequiredReservation = lineage?.Reservation });
     }
     private void QueueDamage(ProtocolRootContext root, Actor target, float damage, ProtocolProducer producer, int depth, ProtocolBasicLineage lineage = null,
-        ProtocolExecution requiredReservation = null)
+        ProtocolExecution requiredReservation = null, Vector3? arcOrigin = null)
     {
         if (!target || target.IsDead || !ReactionNumeric.IsFinite(damage) || damage <= 0 || !root.ReserveQueueItem()) return;
         _damageQueue.Enqueue(new ProtocolDamageWork { Root = root, Target = target,
             Handle = new ProtocolTargetHandle(EntityId.ToULong(target.GetEntityId()), target.CombatGeneration),
-            Damage = damage, Producer = producer, Depth = depth, Lineage = lineage, RequiredReservation = requiredReservation });
+            Damage = damage, Producer = producer, Depth = depth, Lineage = lineage,
+            RequiredReservation = requiredReservation ?? lineage?.Reservation, ArcOrigin = arcOrigin });
     }
     private void DrainDamage()
     {
@@ -188,6 +192,11 @@ public sealed partial class ProtocolRuntime
                     analyticsSource = analyticsSource?.WithModifier("resonance");
                 using (work.Lineage != null ? OpenCallbackScope(work.Root, work.Depth, work.Lineage) : null)
                 using (work.Target.CaptureNextDamage(value => actual = value, source: analyticsSource)) work.Target.TakeDamage(amount);
+                // New Titanic arcs are shown only for confirmed HP, after reservation/cap gates.
+                // Native Protocol presentation remains on its existing path.
+                if (actual > 0 && work.ArcOrigin.HasValue && Matches(work.Root) &&
+                    (work.RequiredReservation == null || work.RequiredReservation.IsValid && work.RequiredReservation.IsLifecycleCurrent))
+                    _feedback?.Emit(ProtocolFeedbackKind.Conductor, work.ArcOrigin.Value, before.Position, 1f);
                 if (work.Posture > 0 && Matches(work.Root) && work.Target && !work.Target.IsDead && work.Target.isActiveAndEnabled &&
                     work.Target.CombatGeneration == before.Handle.Generation && _player)
                     _player.ApplyHitReactionTo(work.Target, new HitReactionRequest(_player, work.Target.transform.position,
@@ -203,6 +212,7 @@ public sealed partial class ProtocolRuntime
     private void Emit(ProtocolRootContext root, Actor source, ProtocolTargetHandle sourceHandle, Vector3 position, float radius,
         float damage, ProtocolProducer producer, int depth, int maximum, ProtocolFeedbackKind feedback, ProtocolBasicLineage lineage = null)
     {
+        if (lineage != null && !root.HasImpactCapacity(depth)) return;
         if (!Budget.ReserveQuery()) return;
         if (producer == ProtocolProducer.Detonation)
             _feedback?.Emit(feedback, position, position, radius, _inventory.Catalog.Limits.ShatterMinTrails + root.Rank(ProtocolKind.Detonation) - 1);
@@ -237,8 +247,9 @@ public sealed partial class ProtocolRuntime
                 obstruction.collider.GetComponentInParent<Actor>() != candidate &&
                 obstruction.collider.GetComponentInParent<Actor>() != source) continue;
             if (!root.ClaimPropagation(EntityId.ToULong(candidate.GetEntityId()), candidate.CombatGeneration)) continue;
-            if (producer == ProtocolProducer.Conductor) _feedback?.Emit(ProtocolFeedbackKind.Conductor, position, candidate.transform.position, radius);
-            QueueDamage(root, candidate, damage, producer, depth, lineage); admitted++;
+            if (producer == ProtocolProducer.Conductor && lineage == null) _feedback?.Emit(ProtocolFeedbackKind.Conductor, position, candidate.transform.position, radius);
+            QueueDamage(root, candidate, damage, producer, depth, lineage,
+                arcOrigin: producer == ProtocolProducer.Conductor && lineage != null ? position : (Vector3?)null); admitted++;
         }
     }
     partial void ResolveBurnTick(ProtocolElementApplication value)

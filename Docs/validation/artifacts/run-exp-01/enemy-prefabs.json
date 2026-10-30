@@ -1,0 +1,258 @@
+[
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Bomber.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Charger.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Fragile.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Grunt.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/HazardCaster.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Healer.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Heavy.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Hooker.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Mirror.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Rush.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/ShieldSupport.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Shooter.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Sniper.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Spawner.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/SpreadShooter.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  },
+  {
+    "path": "Assets/_Project/Prefabs/EnemyArchetypes/Swarm.prefab",
+    "meshes": [
+      "MESH_FACEHAIR_03:462",
+      "MESH_GLASSES:912",
+      "MESH_HANDS:2580",
+      "MESH_HAT_02:938",
+      "MESH_HEAD_02:5166",
+      "MESH_PANTS_02:3124",
+      "MESH_TORSO_01:3054"
+    ],
+    "controllers": [
+      "Assets/_Project/Art/Character/Animator Controller Character.controller"
+    ],
+    "reaction": 0
+  }
+]

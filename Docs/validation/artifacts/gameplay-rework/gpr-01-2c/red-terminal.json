@@ -1,0 +1,70 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Test job status retrieved.\",\"error\":null,\"data\":{\"job_id\":\"61d5594468b447afa0698d0b9b747865\",\"status\":\"failed\",\"mode\":\"PlayMode\",\"started_unix_ms\":1793314923186,\"finished_unix_ms\":1793314931405,\"last_update_unix_ms\":1793314931405,\"progress\":{\"completed\":1,\"total\":1,\"current_test_full_name\":null,\"current_test_started_unix_ms\":null,\"last_finished_test_full_name\":\"TechGuy.Tests.TitanicRoomClearPlayModeTests.RoomClearTerminalKeepsPresentationWithoutReopeningCombat\",\"last_finished_unix_ms\":1793314931365,\"stuck_suspected\":false,\"editor_is_focused\":false,\"run_in_background\":true,\"focus_nudge_attempts\":null,\"focus_nudge_limit\":null,\"focus_nudge_status\":null,\"blocked_reason\":null,\"failures_so_far\":[{\"full_name\":\"TechGuy.Tests.TitanicRoomClearPlayModeTests.RoomClearTerminalKeepsPresentationWithoutReopeningCombat\",\"message\":\"  A legitimate post-clear terminal must retain wind feedback without a Protocol root.\\r\\n  Expected: True\\r\\n  But was:  False\\r\\n\"}],\"failures_capped\":false},\"error\":null,\"result\":{\"mode\":\"PlayMode\",\"summary\":{\"total\":1,\"passed\":0,\"failed\":1,\"skipped\":0,\"durationSeconds\":2.4539221,\"resultState\":\"Failed(Child)\"},\"results\":[{\"name\":\"RoomClearTerminalKeepsPresentationWithoutReopeningCombat\",\"fullName\":\"TechGuy.Tests.TitanicRoomClearPlayModeTests.RoomClearTerminalKeepsPresentationWithoutReopeningCombat\",\"state\":\"Failed\",\"durationSeconds\":2.413249,\"message\":\"  A legitimate post-clear terminal must retain wind feedback without a Protocol root.\\r\\n  Expected: True\\r\\n  But was:  False\\r\\n\",\"stackTrace\":\"at TechGuy.Tests.TitanicRoomClearPlayModeTests+<RoomClearTerminalKeepsPresentationWithoutReopeningCombat>d__0.MoveNext () [0x0056c] in D:\\\\Dev\\\\Personal\\\\My_games\\\\Tech-Guy\\\\Assets\\\\_Project\\\\Scripts\\\\Tests\\\\PlayMode\\\\TitanicRoomClearPlayModeTests.cs:59\\r\\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\\\Library\\\\PackageCache\\\\com.unity.test-framework@1405238725ab\\\\UnityEngine.TestRunner\\\\NUnitExtensions\\\\Attributes\\\\TestEnumerator.cs:44\\r\\n\",\"output\":\"ProgressionDirector Run_Seed = 5337454389313165108 (reuse this value in RunSeedSource to reproduce this Run).\\r\\nCharControlScript active on Player\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\n\"}]}},\"hint\":null}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "success": true,
+      "message": "Test job status retrieved.",
+      "error": null,
+      "data": {
+        "job_id": "61d5594468b447afa0698d0b9b747865",
+        "status": "failed",
+        "mode": "PlayMode",
+        "started_unix_ms": 1793314923186,
+        "finished_unix_ms": 1793314931405,
+        "last_update_unix_ms": 1793314931405,
+        "progress": {
+          "completed": 1,
+          "total": 1,
+          "current_test_full_name": null,
+          "current_test_started_unix_ms": null,
+          "last_finished_test_full_name": "TechGuy.Tests.TitanicRoomClearPlayModeTests.RoomClearTerminalKeepsPresentationWithoutReopeningCombat",
+          "last_finished_unix_ms": 1793314931365,
+          "stuck_suspected": false,
+          "editor_is_focused": false,
+          "run_in_background": true,
+          "focus_nudge_attempts": null,
+          "focus_nudge_limit": null,
+          "focus_nudge_status": null,
+          "blocked_reason": null,
+          "failures_so_far": [
+            {
+              "full_name": "TechGuy.Tests.TitanicRoomClearPlayModeTests.RoomClearTerminalKeepsPresentationWithoutReopeningCombat",
+              "message": "  A legitimate post-clear terminal must retain wind feedback without a Protocol root.\r\n  Expected: True\r\n  But was:  False\r\n"
+            }
+          ],
+          "failures_capped": false
+        },
+        "error": null,
+        "result": {
+          "mode": "PlayMode",
+          "summary": {
+            "total": 1,
+            "passed": 0,
+            "failed": 1,
+            "skipped": 0,
+            "durationSeconds": 2.4539221,
+            "resultState": "Failed(Child)"
+          },
+          "results": [
+            {
+              "name": "RoomClearTerminalKeepsPresentationWithoutReopeningCombat",
+              "fullName": "TechGuy.Tests.TitanicRoomClearPlayModeTests.RoomClearTerminalKeepsPresentationWithoutReopeningCombat",
+              "state": "Failed",
+              "durationSeconds": 2.413249,
+              "message": "  A legitimate post-clear terminal must retain wind feedback without a Protocol root.\r\n  Expected: True\r\n  But was:  False\r\n",
+              "stackTrace": "at TechGuy.Tests.TitanicRoomClearPlayModeTests+<RoomClearTerminalKeepsPresentationWithoutReopeningCombat>d__0.MoveNext () [0x0056c] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicRoomClearPlayModeTests.cs:59\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+              "output": "ProgressionDirector Run_Seed = 5337454389313165108 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+            }
+          ]
+        }
+      },
+      "hint": null
+    }
+  },
+  "isError": false
+}

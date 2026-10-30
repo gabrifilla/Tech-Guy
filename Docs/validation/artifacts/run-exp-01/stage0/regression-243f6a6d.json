@@ -1,0 +1,1906 @@
+{
+  "job_id": "243f6a6df28144cb8f581b52514616fc",
+  "status": "failed",
+  "mode": "PlayMode",
+  "started_unix_ms": 1793327018330,
+  "finished_unix_ms": 1793327428225,
+  "summary": {
+    "total": 353,
+    "passed": 322,
+    "failed": 31,
+    "skipped": 0,
+    "durationSeconds": 403.2064161,
+    "resultState": "Failed(Child)"
+  },
+  "results": [
+    {
+      "name": "TechGuy.Tests.ArchetypeIntegrationTests.ConfiguredAttackTelegraphsThenAppliesExactlyOneBeat",
+      "state": "Passed",
+      "durationSeconds": 1.0219072
+    },
+    {
+      "name": "TechGuy.Tests.ArchetypeIntegrationTests.HookerPullMovesPlayerAgentTowardSourceThenRestoresControl",
+      "state": "Passed",
+      "durationSeconds": 1.5154313
+    },
+    {
+      "name": "TechGuy.Tests.ArchetypeIntegrationTests.PriorityMarkerAppearsWhileAliveAndIsRemovedOnDeath",
+      "state": "Passed",
+      "durationSeconds": 0.0294744
+    },
+    {
+      "name": "TechGuy.Tests.ArchetypeIntegrationTests.SpawnerInstantiatesOnNavMeshAndNeverExceedsCap",
+      "state": "Passed",
+      "durationSeconds": 1.3391775
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AcceptedDashClearsRecoveryMovementWithoutAnOldOrderAfterTheDash",
+      "state": "Passed",
+      "durationSeconds": 0.7180707
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AcceptedNewSkillClearsRecoveryMovementInsteadOfReplayingItAfterward",
+      "state": "Passed",
+      "durationSeconds": 1.3110804
+    },
+    {
+      "name": "AnalyticsBasicUsesAndHitsComeFromProductionCallbacks",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsBasicUsesAndHitsComeFromProductionCallbacks",
+      "state": "Failed",
+      "durationSeconds": 0.5301791,
+      "message": "  Expected: 2\r\n  But was:  1\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<AnalyticsBasicUsesAndHitsComeFromProductionCallbacks>d__138.MoveNext () [0x001a1] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1RunStatisticsTests.cs:67\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Animator is not playing an AnimatorController\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsCancelBeforeContactDoesNotFabricateDamage",
+      "state": "Passed",
+      "durationSeconds": 0.0625974
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsEclipseKeepsTransformedQIdentity",
+      "state": "Passed",
+      "durationSeconds": 0.5659308
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeEMatchesRealHp",
+      "state": "Passed",
+      "durationSeconds": 0.9817112
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeQMatchesRealHp",
+      "state": "Passed",
+      "durationSeconds": 0.8690351
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeRMatchesRealHp",
+      "state": "Passed",
+      "durationSeconds": 2.0151592
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeWMultihitMatchesRealHp",
+      "state": "Passed",
+      "durationSeconds": 1.5126426
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishAfterFirstStrikeUsesOneCostAndThreeQuarterNativePower",
+      "state": "Passed",
+      "durationSeconds": 0.8083577
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishAfterSecondStrikePreservesTheFullThreeStrikePower",
+      "state": "Passed",
+      "durationSeconds": 1.2141655
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishInterruptedBeforeContactNeverCreatesFinalizerEchoOrRetainedWork",
+      "state": "Passed",
+      "durationSeconds": 3.0241883
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishNativeFinalizerConsumesOneEclipseMarkAndProducesOneEchoOnTheSameRoot",
+      "state": "Passed",
+      "durationSeconds": 0.4897656
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishRealReboundInputWinsOverSimultaneousRAndHoldingDoesNotRepeat",
+      "state": "Passed",
+      "durationSeconds": 0.2560336
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishRejectedDuringCommittedPhasesPreservesTheBufferedNormalContinuation",
+      "state": "Passed",
+      "durationSeconds": 0.2538686
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishRejectsAReentrantImpactCallbackWithoutConsumingTheLiveWait",
+      "state": "Passed",
+      "durationSeconds": 0.8624997
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishUsesTheInclusiveWaitDeadlineAndRejectsStaleExecutions",
+      "state": "Passed",
+      "durationSeconds": 2.009414
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AsuraEarlyFinishWaitAndContactRespectPauseMenusAndRealHitstop",
+      "state": "Passed",
+      "durationSeconds": 2.1185013
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AuthoredEliteSpawnsExistingRankAndTwoActualDefenseAcquisitionsRequireInputRelease",
+      "state": "Passed",
+      "durationSeconds": 0.3363957
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AuthoredGauntletEThroughAbilityInputLaunchesCommonAndPreservesBossImmunity",
+      "state": "Passed",
+      "durationSeconds": 0.2999031
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CadencedRContinuationDiscardsRecoveryMovementWithoutPublishingAnotherAbilityUse",
+      "state": "Passed",
+      "durationSeconds": 1.2286231
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionAcceptanceSnapshotKeepsMechanicsAndIdentityBeforeAndAfterAcquisition",
+      "state": "Passed",
+      "durationSeconds": 4.6967956
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionAcquireABC",
+      "state": "Passed",
+      "durationSeconds": 2.0945313
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionAcquireACB",
+      "state": "Passed",
+      "durationSeconds": 2.097008
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionAcquireBAC",
+      "state": "Passed",
+      "durationSeconds": 2.099003
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionAcquireCAB",
+      "state": "Passed",
+      "durationSeconds": 2.6283743
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionBoonAcquiredDuringFlightAffectsOnlyNextTornado",
+      "state": "Passed",
+      "durationSeconds": 4.1746278
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionDetonationOneOpportunityAcrossTwoWindDeaths",
+      "state": "Passed",
+      "durationSeconds": 2.2547788
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionGameViewA",
+      "state": "Passed",
+      "durationSeconds": 2.1274296
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionGameViewAB",
+      "state": "Passed",
+      "durationSeconds": 2.1274109
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionGameViewABC",
+      "state": "Passed",
+      "durationSeconds": 2.1574471
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionGameViewAC",
+      "state": "Passed",
+      "durationSeconds": 2.5040292
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionImmuneWindNeverDetonates",
+      "state": "Passed",
+      "durationSeconds": 2.0922041
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNativeBCWithoutA",
+      "state": "Passed",
+      "durationSeconds": 0.0280668
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNativeCWithoutA",
+      "state": "Passed",
+      "durationSeconds": 0.0230562
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNativePunchAndWindEachConductOnSameTerminal",
+      "state": "Passed",
+      "durationSeconds": 2.1647569
+    },
+    {
+      "name": "CompositionNaturalTicketsAcquireAAndCWithoutFixtureGrants",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNaturalTicketsAcquireAAndCWithoutFixtureGrants",
+      "state": "Failed",
+      "durationSeconds": 0.243181,
+      "message": "  Use a fresh evidence directory for each run.\r\n  Expected: False\r\n  But was:  True\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<TitanicNaturalTickets>d__406.MoveNext () [0x0053b] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicConductorPlayModeTests.cs:189\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNonlethalWindNeverDetonates",
+      "state": "Passed",
+      "durationSeconds": 2.4277268
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionPoolReusesWithoutStaleFireElectricityOrOldLeaseCleanup",
+      "state": "Passed",
+      "durationSeconds": 0.083821
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionProfileCrowd32",
+      "state": "Passed",
+      "durationSeconds": 2.7136664
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionProfileCrowd64",
+      "state": "Passed",
+      "durationSeconds": 3.0114772
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionProfileCrowd8",
+      "state": "Passed",
+      "durationSeconds": 2.7395752
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionTripleConductorKillDetonatesWithoutRecursion",
+      "state": "Passed",
+      "durationSeconds": 2.0995697
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionTripleLastThreeSlotsPermitExactExplosion",
+      "state": "Passed",
+      "durationSeconds": 2.2738638
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionTripleLastTwoSlotsStopAfterConductorKill",
+      "state": "Passed",
+      "durationSeconds": 2.1006939
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionWindKillAuthorizesDetonation",
+      "state": "Passed",
+      "durationSeconds": 2.1003722
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionWindKillCancellationRevokesDetonation",
+      "state": "Passed",
+      "durationSeconds": 1.2825083
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionWindKillLastSlotCannotShowOrDamageExplosion",
+      "state": "Passed",
+      "durationSeconds": 2.2879092
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionWindWithoutSecondaryTargetCannotInventChain",
+      "state": "Passed",
+      "durationSeconds": 2.0990315
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_CompletedTapDoesNotChaseTargetThatMovesAway",
+      "state": "Passed",
+      "durationSeconds": 0.9151766
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_PrimaryClickWithoutShiftHitsAtZeroManaWithoutResourceCost",
+      "state": "Passed",
+      "durationSeconds": 0.7683946
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_ReleaseGateRequiresBothPointerActionsBeforeShiftMoveCanResume",
+      "state": "Passed",
+      "durationSeconds": 0.923787
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_ShiftWithReboundPrimaryRepeatsUntilReleaseWithoutMouseClick",
+      "state": "Passed",
+      "durationSeconds": 1.260157
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_SpearBasicKeepsItsAuthoredReachWithGauntletBalanceLoaded",
+      "state": "Passed",
+      "durationSeconds": 0.029799
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_TargetedTapSurvivesAttackCadenceAndExecutesExactlyOnce",
+      "state": "Passed",
+      "durationSeconds": 0.6917453
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_TargetedTapSurvivesBusyRecoveryAndExecutesExactlyOnce",
+      "state": "Passed",
+      "durationSeconds": 0.6823444
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CursorFluidity_TargetWithoutAttackIntentDoesNotPursue",
+      "state": "Passed",
+      "durationSeconds": 0.375731
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.DashTapDuringHitStopReachesItsExistingGateExactlyOnce",
+      "state": "Passed",
+      "durationSeconds": 0.720798
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.DirectionalAttack_StrikesWithoutApproachingOrSelecting",
+      "state": "Passed",
+      "durationSeconds": 0.0805085
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.DisableAndExternalPullDiscardRecoveryMovement",
+      "state": "Passed",
+      "durationSeconds": 0.6105526
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.DisablingPauseDuringBuildInspectionRestoresClockAudioAndReleasesItsPage",
+      "state": "Passed",
+      "durationSeconds": 0.0250125
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseCadencedThirdStrikeConsumesMarkAndEchoCannotRearmIt",
+      "state": "Passed",
+      "durationSeconds": 0.620772
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseCanceledUppercutBeforeImpactCannotMarkOrDealDamage",
+      "state": "Passed",
+      "durationSeconds": 0.8227462
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseDerivedWavesRespectTheSharedRootAtEightThirtyTwoAndSixtyFourEnemies",
+      "state": "Passed",
+      "durationSeconds": 4.7537789
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseEndEncounterAndWeaponSwapReleaseEveryArmedReservation",
+      "state": "Passed",
+      "durationSeconds": 2.5087957
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseFallCannotDamageAcrossWallsOrHitAllies",
+      "state": "Passed",
+      "durationSeconds": 0.6155557
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseFallComposesWithFrostConductorAndDetonationOnTheFinisherRoot",
+      "state": "Passed",
+      "durationSeconds": 0.6349252
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseHeavyEliteAndBossUseMarksAndPostureWithoutVirtualLaunch",
+      "state": "Passed",
+      "durationSeconds": 0.6157805
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseHpImmunityStillAllowsConfirmedPostureBreakMarkAndNativeEnergy",
+      "state": "Passed",
+      "durationSeconds": 2.2838337
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseMarksAndArmedLandingsPauseWithGameplayAndPlayerHitstop",
+      "state": "Passed",
+      "durationSeconds": 2.4938777
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseNativeQIsStationaryAndEmptyCastDoesNotGenerateEnergy",
+      "state": "Passed",
+      "durationSeconds": 0.5673445
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseNativeWAndEFinalizersConsumeMarks",
+      "state": "Passed",
+      "durationSeconds": 3.8963009
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipsePostureOnlyContactsCanMarkAndFinishWithoutGeneratingEnergy",
+      "state": "Passed",
+      "durationSeconds": 0.5651085
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseTargetDeathAndCanceledLaunchReleaseArmedWaves",
+      "state": "Passed",
+      "durationSeconds": 5.2035325
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseTwoCommonsLaunchOnlyOnBreakAndProduceOneWavePerMarkedTarget",
+      "state": "Passed",
+      "durationSeconds": 1.9414765
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseUnconfirmedLandingAndTargetRecycleCannotProduceDamage",
+      "state": "Passed",
+      "durationSeconds": 4.5291184
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseUppercutAndFallAreAcquiredThroughRealManualTickets",
+      "state": "Passed",
+      "durationSeconds": 0.8134552
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseUppercutCannotSkipContactAcrossACoarseSimulationStep",
+      "state": "Passed",
+      "durationSeconds": 0.5571332
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EclipseWeaponSwapAndDisableIndependentlyDiscardArmedWaves",
+      "state": "Passed",
+      "durationSeconds": 5.0246273
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.EncounterOffenseCleanupAndDeathCannotKeepQueuedMovement",
+      "state": "Passed",
+      "durationSeconds": 0.9400393
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ExpansionEarlyFinishDoesNotManufacturePerfectRhythm",
+      "state": "Passed",
+      "durationSeconds": 0.1637141
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ExpansionEchoingFistConfirmsOneFinalHitWithoutASecondCostOrRoot",
+      "state": "Passed",
+      "durationSeconds": 1.583451
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ExpansionLateRhythmKeepsTheNormalGeometry",
+      "state": "Passed",
+      "durationSeconds": 0.2810056
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ExpansionMissAndEncounterTeardownNeverProduceTemporalEcho",
+      "state": "Passed",
+      "durationSeconds": 1.3294593
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ExpansionPerfectRhythmChangesFinalizerGeometry",
+      "state": "Passed",
+      "durationSeconds": 0.235895
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ExpansionTemporalEchoBoundsHpAndPostureTogetherAtEightThirtyTwoAndSixtyFourTargets",
+      "state": "Passed",
+      "durationSeconds": 1.9218711
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ExpansionTitanFallSplitsOneReservedFallAndFreezesBothStagesOnPause",
+      "state": "Passed",
+      "durationSeconds": 1.0889088
+    },
+    {
+      "name": "FourPathsAcquireMutationAtC4AndExecuteItsRealShapeInNextCombat",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.FourPathsAcquireMutationAtC4AndExecuteItsRealShapeInNextCombat",
+      "state": "Failed",
+      "durationSeconds": 0.0478749,
+      "message": "  Expected: equivalent to < \"gauntlet_mutation_CadencedAsura\", \"mutation_gauntlet_eclipse_uppercut\" >\r\n  But was:  < \"mutation_gauntlet_titan_fists\", \"mutation_gauntlet_eclipse_uppercut\", \"gauntlet_mutation_CadencedAsura\" >\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<FourPathsAcquireMutationAtC4AndExecuteItsRealShapeInNextCombat>d__299.MoveNext () [0x00291] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunMutationPlayModeTests.cs:112\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GamepadBackReturnsFromPauseInspectionAndStartResumesWithoutReplayingHeldWorldInput",
+      "state": "Passed",
+      "durationSeconds": 0.1141288
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3AuthoredCadenceUsesCapturedProfileAndDuration",
+      "state": "Passed",
+      "durationSeconds": 1.580502
+    },
+    {
+      "name": "GauntletPhase3AuthoredZeroChildDelaysKeepProducerFirst",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3AuthoredZeroChildDelaysKeepProducerFirst",
+      "state": "Failed",
+      "durationSeconds": 1.4977138,
+      "message": "  Expected: 2\r\n  But was:  0\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3AuthoredZeroChildDelaysKeepProducerFirst>d__41.MoveNext () [0x0029b] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:120\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "GauntletPhase3BasicWithoutRunPaysOnceForMultipleAndLethalTargets",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3BasicWithoutRunPaysOnceForMultipleAndLethalTargets",
+      "state": "Failed",
+      "durationSeconds": 0.0172034,
+      "message": "  Expected: 3\r\n  But was:  0\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3BasicWithoutRunPaysOnceForMultipleAndLethalTargets>d__82.MoveNext () [0x000f0] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:1663\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Animator is not playing an AnimatorController\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3BreaksWithoutHpPayOnlyTwoAndKeepAllEvents",
+      "state": "Passed",
+      "durationSeconds": 0.2935943
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CadencedAsuraUsesThreePressesAndOneCost",
+      "state": "Passed",
+      "durationSeconds": 2.0810657
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CadencedBoundaryTimeoutAndRecoveryBuffer",
+      "state": "Passed",
+      "durationSeconds": 2.8921351
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CadencedDashWindowAndWaitCleanup",
+      "state": "Passed",
+      "durationSeconds": 0.6257766
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CadencedTeardownDiscardsActiveAndWaitingContinuations",
+      "state": "Passed",
+      "durationSeconds": 1.248986
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CadencedWaitPreflightsLegacyQBeforeCanceling",
+      "state": "Passed",
+      "durationSeconds": 0.4119477
+    },
+    {
+      "name": "GauntletPhase3CadencedWaitRejectsUnavailableSkillsAndAcceptsQWEOrBasic",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CadencedWaitRejectsUnavailableSkillsAndAcceptsQWEOrBasic",
+      "state": "Failed",
+      "durationSeconds": 0.4069722,
+      "message": "  accepted basic earns energy after ending R\r\n  Expected: 3\r\n  But was:  0\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3CadencedWaitRejectsUnavailableSkillsAndAcceptsQWEOrBasic>d__54.MoveNext () [0x002f0] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:647\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CancelBeforeProducerDoesNotFabricateFinisherOrEcho",
+      "state": "Passed",
+      "durationSeconds": 1.9233075
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3DemolishingAdvanceStopsAtSolidAndRestoresOnCancel",
+      "state": "Passed",
+      "durationSeconds": 0.6140236
+    },
+    {
+      "name": "GauntletPhase3DemolishingAdvanceTraversesBodiesAndLaunchesOnlyOnBreak",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3DemolishingAdvanceTraversesBodiesAndLaunchesOnlyOnBreak",
+      "state": "Failed",
+      "durationSeconds": 0.7043348,
+      "message": "  no trajectory damage; body position (0.00, 0.05, 8.79), player (0.00, 0.05, 7.99)\r\n  Expected: 1000.0f\r\n  But was:  964.0f\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3DemolishingAdvanceTraversesBodiesAndLaunchesOnlyOnBreak>d__56.MoveNext () [0x00724] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:753\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator does not have an AnimatorController\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3DemolishingTraversalRestoresOnSwapDisableAndDeath",
+      "state": "Passed",
+      "durationSeconds": 0.0200997
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3EchoClockPausesAndTeardownDropsRemainingChildren",
+      "state": "Passed",
+      "durationSeconds": 4.9757138
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3EchoesRequireExecutedProducerAndSurviveOrdinaryCancel",
+      "state": "Passed",
+      "durationSeconds": 16.5159771
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3EmptySkillAndPreImpactCancellationDoNotPay",
+      "state": "Passed",
+      "durationSeconds": 0.609599
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3EpicenterIsCenteredRadialWithThreeBreakEventsButTwoRewards",
+      "state": "Passed",
+      "durationSeconds": 1.0238927
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3GuardCountsExecutionsAndCommitsBreakBeforePublicHp",
+      "state": "Passed",
+      "durationSeconds": 0.02321
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3GuardPreservesBossImmunityAndLethalFirstConfirmation",
+      "state": "Passed",
+      "durationSeconds": 0.0301898
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3HungryAndFistPayOncePerBasicIncludingLethalAndReconfigure",
+      "state": "Passed",
+      "durationSeconds": 0.0411097
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3HungryLeavesExecutingRCooldownAndDisabledConsumersInactive",
+      "state": "Passed",
+      "durationSeconds": 0.0148418
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3LegacyImportRejectsMidCastSelectionAndReusesRunTrackers",
+      "state": "Passed",
+      "durationSeconds": 0.0486216
+    },
+    {
+      "name": "GauntletPhase3LegacyShockwaveKeepsItsEffectEventsAndDistinctProducer",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3LegacyShockwaveKeepsItsEffectEventsAndDistinctProducer",
+      "state": "Failed",
+      "durationSeconds": 2.3641444,
+      "message": "  Expected: 4\r\n  But was:  0\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3LegacyShockwaveKeepsItsEffectEventsAndDistinctProducer>d__61.MoveNext () [0x00268] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:944\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3MomentumBatchIsUniformAndDescendantsNeverStack",
+      "state": "Passed",
+      "durationSeconds": 0.0193348
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3MomentumResetIgnoresImmunityAbsorptionAndDoesNotRestorePreDamageHits",
+      "state": "Passed",
+      "durationSeconds": 0.0185716
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3MomentumTechniquePaysConfirmedSkillOnceAtEveryRank",
+      "state": "Passed",
+      "durationSeconds": 3.2872284
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3PressureFieldHasFourDistinctPulsesWithoutEchoReproduction",
+      "state": "Passed",
+      "durationSeconds": 3.7087959
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3PreviousConfirmationDuringRDoesNotReplayAfterR",
+      "state": "Passed",
+      "durationSeconds": 0.0170713
+    },
+    {
+      "name": "GauntletPhase3PublicEventOrderSeesCompleteGainAndNoDuplicateFist",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3PublicEventOrderSeesCompleteGainAndNoDuplicateFist",
+      "state": "Failed",
+      "durationSeconds": 0.0204781,
+      "message": "  Expected is <System.String[7]>, actual is <System.Collections.Generic.List`1[System.String]> with 0 elements\r\n  Values differ at index [0]\r\n  Missing:  < \"hp\", \"health\", \"hit\"... >",
+      "stackTrace": "at NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual, System.String message, System.Object[] args) [0x00008] in <8b63e8ac0a4746599ed207982825ae6c>:0\r\nat NUnit.Framework.CollectionAssert.AreEqual (System.Collections.IEnumerable expected, System.Collections.IEnumerable actual) [0x00001] in <8b63e8ac0a4746599ed207982825ae6c>:0\r\nat TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3PublicEventOrderSeesCompleteGainAndNoDuplicateFist>d__78.MoveNext () [0x0026a] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:1570\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RCancelSwapDisableAndDeathCleanOnlyOwnedState",
+      "state": "Passed",
+      "durationSeconds": 0.0274275
+    },
+    {
+      "name": "GauntletPhase3RConsumesOnceReservesRanksAndPublishesAtomicResources",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RConsumesOnceReservesRanksAndPublishesAtomicResources",
+      "state": "Failed",
+      "durationSeconds": 2.3578824,
+      "message": "  new basic can generate after R ends\r\n  Expected: 3\r\n  But was:  0\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3RConsumesOnceReservesRanksAndPublishesAtomicResources>d__75.MoveNext () [0x00471] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:1476\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+    },
+    {
+      "name": "GauntletPhase3ReentrantRequestWaitsUntilImpactAndRevalidatesMana",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3ReentrantRequestWaitsUntilImpactAndRevalidatesMana",
+      "state": "Failed",
+      "durationSeconds": 0.0229668,
+      "message": "  Expected: 3\r\n  But was:  0\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3ReentrantRequestWaitsUntilImpactAndRevalidatesMana>d__81.MoveNext () [0x00181] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:1647\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+    },
+    {
+      "name": "GauntletPhase3RewardsOfferExecutableMutationsAndPreserveLegacyQ",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RewardsOfferExecutableMutationsAndPreserveLegacyQ",
+      "state": "Failed",
+      "durationSeconds": 0.0418864,
+      "message": "  Expected: greater than or equal to 0\r\n  But was:  -1\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3RewardsOfferExecutableMutationsAndPreserveLegacyQ>d__48.MoveNext () [0x00287] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:370\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RoomRewardPreservesConfirmedEnergyAndCategoryAcrossReequip",
+      "state": "Passed",
+      "durationSeconds": 1.5159598
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RRejectionPreservesEnergyManaAndCurrentAction",
+      "state": "Passed",
+      "durationSeconds": 0.0186182
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3SharedAreaKeepsBowAndSpearDamageAndEventCounts",
+      "state": "Passed",
+      "durationSeconds": 0.0221271
+    },
+    {
+      "name": "GauntletPhase3SharedHudGroupsEffectiveGainsShowsMutationsAndUnbinds",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3SharedHudGroupsEffectiveGainsShowsMutationsAndUnbinds",
+      "state": "Failed",
+      "durationSeconds": 0.4325388,
+      "message": "  Expected: True\r\n  But was:  False\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<GauntletPhase3SharedHudGroupsEffectiveGainsShowsMutationsAndUnbinds>d__43.MoveNext () [0x0041c] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:198\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\nThere are no audio listeners in the scene. Please ensure there is always one audio listener in the scene\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3SharedHudUsesFullRAvailabilityWithoutMechanicalSideEffects",
+      "state": "Passed",
+      "durationSeconds": 2.567894
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3SkillsPayOnConfirmationAndCancellationKeepsCommittedGain",
+      "state": "Passed",
+      "durationSeconds": 0.725442
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3StartedRUsesExistingDashBufferWithoutRefundOrDoubleCost",
+      "state": "Passed",
+      "durationSeconds": 0.109085
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GI15InputObservationRespectsRebindingAndDoesNotConsumeOrReplayInput",
+      "state": "Passed",
+      "durationSeconds": 0.066531
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GI15LateRecoverySkillAcceptsOnceAndStartsItsPresentation",
+      "state": "Passed",
+      "durationSeconds": 1.2931185
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GI15RecoveryRejectsEarlySkillOnceWithoutReplayingItLater",
+      "state": "Passed",
+      "durationSeconds": 1.9663544
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GI15SkillAcceptedDuringBasicHitstopKeepsOneUseAndResumesItsPresentation",
+      "state": "Passed",
+      "durationSeconds": 0.7611146
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicAcceptedAttackWaitsForAuthoredContact",
+      "state": "Passed",
+      "durationSeconds": 0.5204448
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicBowStillLaunchesImmediatelyAndHitsAfterTravel",
+      "state": "Passed",
+      "durationSeconds": 0.3514607
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicCoarseAdvanceAndAnimationSignalCannotDoubleEmit",
+      "state": "Passed",
+      "durationSeconds": 0.2750416
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicCommittedAreaSurvivesReentrantCancelExactlyOnce",
+      "state": "Passed",
+      "durationSeconds": 0.421809
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicCritProtocolAndEnergyKeepOneCausalRoot",
+      "state": "Passed",
+      "durationSeconds": 0.273163
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicDestroyedOrDisabledVictimIsSafeAtContact",
+      "state": "Passed",
+      "durationSeconds": 0.4279825
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicMovingTargetWhiffsWithoutHomingOrResources",
+      "state": "Passed",
+      "durationSeconds": 0.2265872
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicOwnerDeathCancelsBeforeContact",
+      "state": "Passed",
+      "durationSeconds": 0.3188441
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicPausePreservesPendingContactAndPose",
+      "state": "Passed",
+      "durationSeconds": 0.3995225
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicPreImpactMovementCancelsWithoutGhostHitOrEnergy",
+      "state": "Passed",
+      "durationSeconds": 0.3239502
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicRapidSequenceKeepsCadenceSingleTransactionsAndRecovery",
+      "state": "Passed",
+      "durationSeconds": 1.7294372
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicSkillBeforeContactCancelsOnlyPendingBasic",
+      "state": "Passed",
+      "durationSeconds": 0.5220012
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicSpearKeepsImmediateLegacyEmission",
+      "state": "Passed",
+      "durationSeconds": 0.0255639
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicTargetChangeDoesNotRedirectAcceptedSwing",
+      "state": "Passed",
+      "durationSeconds": 0.2755932
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicVictimDeathBeforeContactCannotReceiveAnotherTransaction",
+      "state": "Passed",
+      "durationSeconds": 0.2209135
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GIBasicWeaponSwitchAndDisableCancelPendingContact",
+      "state": "Passed",
+      "durationSeconds": 0.6183172
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR015AsuraMovableWaitMatchesHistoricalRecoveryFailureCondition",
+      "state": "Passed",
+      "durationSeconds": 1.6126174
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01BranchAllowsConductorThenKillDetonationWithoutRecursion",
+      "state": "Passed",
+      "durationSeconds": 0.0776346
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01BranchBudgetDenialAndRunEndCannotDealGhostDamage",
+      "state": "Passed",
+      "durationSeconds": 0.0841088
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01BranchDedupesExcludesNativeVictimAndCannotMintRoot",
+      "state": "Passed",
+      "durationSeconds": 0.0738024
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01NewBranchDoesNotInheritProtocolsWithoutExplicitPermission",
+      "state": "Passed",
+      "durationSeconds": 0.0770494
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01OnlyConfirmedTerminalReservesOneChildOnSameRoot",
+      "state": "Passed",
+      "durationSeconds": 0.023902
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01PauseBlocksReservedChildImmediatelyAndResumeKeepsSameRoot",
+      "state": "Passed",
+      "durationSeconds": 0.1093727
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01PooledRelayCannotContinueOldBranchIntoNewGeneration",
+      "state": "Passed",
+      "durationSeconds": 0.0779194
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01ReentrantReservationWaitsForWholeNativeBatchAndDisableCleansBranch",
+      "state": "Passed",
+      "durationSeconds": 0.0742634
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01SceneTransitionClosesOutstandingChild",
+      "state": "Passed",
+      "durationSeconds": 0.862359
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPR01WhiffImmunityAndNonterminalCannotAuthorizeChild",
+      "state": "Passed",
+      "durationSeconds": 0.0324208
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRAsuraCadencedRmbEdgesContinueSameExecutionAndFinisherWins",
+      "state": "Passed",
+      "durationSeconds": 0.9883954
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRAsuraCadencedThreeRmbPressesKeepSingleExecutionAndCost",
+      "state": "Passed",
+      "durationSeconds": 0.9822404
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRAsuraRmbRejectsWithoutEnergyAndCannotReplayAfterPause",
+      "state": "Passed",
+      "durationSeconds": 0.4537899
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRAsuraRmbUsesExistingStateOnceAndNeverBasicEvenWithLegacyKey",
+      "state": "Passed",
+      "durationSeconds": 0.5808299
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRAsuraUiGraphicOwnsRmbWithoutSpendingOrReplay",
+      "state": "Passed",
+      "durationSeconds": 0.3672108
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRCaptureDeviceChangeCancelsWithoutSavingDraft",
+      "state": "Passed",
+      "durationSeconds": 0.0349934
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickAcceptedSkillDiscardsPendingBasic",
+      "state": "Passed",
+      "durationSeconds": 0.9115772
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickBowChargedShotRetainsApprovedHoldExceptionAndReleaseStopsIt",
+      "state": "Passed",
+      "durationSeconds": 1.9244308
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickBowTapDoesNotRepeatWithoutChargedShot",
+      "state": "Passed",
+      "durationSeconds": 1.7454704
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickEmptyCursorUsesAuthoredContactOnceAndKeepsCommittedFacing",
+      "state": "Passed",
+      "durationSeconds": 0.7963448
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickHitstopRetainsOneReleasedTapUntilResume",
+      "state": "Passed",
+      "durationSeconds": 0.7612202
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickPauseFocusAndDisableNeverReplayHeldPrimary",
+      "state": "Passed",
+      "durationSeconds": 1.3644387
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickRecoveryStoresOnlyLatestDirectionForOneFollowup",
+      "state": "Passed",
+      "durationSeconds": 1.117584
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickSingleHeldPressWhiffsOnceWithoutTargetOrNavigation",
+      "state": "Passed",
+      "durationSeconds": 1.7680655
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickSpearUsesItsExistingReachWithoutTargetOrAutomaticRepeat",
+      "state": "Passed",
+      "durationSeconds": 1.0684687
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickSuccessivePressesAdvanceAuthoredComboAndKeepCadence",
+      "state": "Passed",
+      "durationSeconds": 1.3191333
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickTooEarlyPressExpiresInsteadOfPlayingTheWholeCombo",
+      "state": "Passed",
+      "durationSeconds": 1.2637529
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickUiGraphicOwnsPressAndNoLateAttackOccurs",
+      "state": "Passed",
+      "durationSeconds": 0.939178
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickWASDAndAimOpposeWithoutClickToMoveOrFacingOverride",
+      "state": "Passed",
+      "durationSeconds": 0.3650919
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickWeaponSwapInvalidatesPendingBasic",
+      "state": "Passed",
+      "durationSeconds": 1.1263299
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRConfigMigrationKeepsPersonalizedSecondaryAndHasThreeSkills",
+      "state": "Passed",
+      "durationSeconds": 0.0044909
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRConfigReboundMovementAndMousePrimaryUseExistingOwners",
+      "state": "Passed",
+      "durationSeconds": 0.4730128
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRConfigRoundTripConflictCaptureAndDefaults",
+      "state": "Passed",
+      "durationSeconds": 0.045315
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDashModesUseNormalizedMovementAndFacingFallback",
+      "state": "Passed",
+      "durationSeconds": 0.0698026
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectBindingsMigrateWithoutLosingCustomSpecialOrChangingLegacy",
+      "state": "Passed",
+      "durationSeconds": 0.0020913
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectBowCastMovesWithItsAuthoredSpeedAndRestoresIt",
+      "state": "Passed",
+      "durationSeconds": 0.4703397
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectBowKitingStepUsesLastActualLocomotionAtAttackAcceptance",
+      "state": "Passed",
+      "durationSeconds": 0.1729744
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectDashHitstopSuspendsDisplacementWithoutMintingExtraDash",
+      "state": "Passed",
+      "durationSeconds": 0.7198661
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectFocusAndPauseRequireKeyboardRelease",
+      "state": "Passed",
+      "durationSeconds": 0.5364044
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectGauntletAdvanceRetainsExclusiveCastOwnership",
+      "state": "Passed",
+      "durationSeconds": 1.0987019
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectMotorPullAndDashRespectTheSameUnbakedWall",
+      "state": "Passed",
+      "durationSeconds": 0.8702607
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectPullTakesOwnershipFromAnActiveDash",
+      "state": "Passed",
+      "durationSeconds": 0.3543539
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectRootedBasicKeepsPoseContactAndDamage",
+      "state": "Passed",
+      "durationSeconds": 0.4985855
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectSettingsRoundTripPreservesLegacyBindings",
+      "state": "Passed",
+      "durationSeconds": 0.0354319
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectSpearCastDoesNotAcquireKeyboardOwnership",
+      "state": "Passed",
+      "durationSeconds": 0.3837018
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectTraversalContactPoseIsImmediateAndCannotCrossSolid",
+      "state": "Passed",
+      "durationSeconds": 0.040354
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectVirtualMovementNormalizesDiagonalsAndDoesNotCastW",
+      "state": "Passed",
+      "durationSeconds": 0.6675464
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRInteractionRecreatesLostGuiTextureWithoutChangingContext",
+      "state": "Passed",
+      "durationSeconds": 0.0695733
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRInteractRebindCollectsOnlyNearbyItemWithoutBasicOrMovement",
+      "state": "Passed",
+      "durationSeconds": 0.096241
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRPauseRebindPreservesEscapeSafetyWithoutWorldInput",
+      "state": "Passed",
+      "durationSeconds": 0.0963016
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRReleasedContextAcceptsFirstFreshClickOnFollowingFrame",
+      "state": "Passed",
+      "durationSeconds": 0.0631066
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRReleasedContextAcceptsFirstFreshMovementOnFollowingFrame",
+      "state": "Passed",
+      "durationSeconds": 0.0540011
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyContextualRHasOneOwnerAndCannotFallThroughOnClose",
+      "state": "Passed",
+      "durationSeconds": 0.0826184
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyDiscardingUncommittedBasicInputPreservesCadence",
+      "state": "Passed",
+      "durationSeconds": 0.0007579
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyIntegratedMotorFollowsBakedSlopeWithoutLeavingItsSurface",
+      "state": "Passed",
+      "durationSeconds": 0.1395287
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyModalSameFrameOpenCloseDropsUncommittedInput",
+      "state": "Passed",
+      "durationSeconds": 0.0780175
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyNavEdgeSlidesButNeverLeavesTheMesh",
+      "state": "Passed",
+      "durationSeconds": 0.2178759
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyPauseFocusDisableRequireAllGameplayKeysReleased",
+      "state": "Passed",
+      "durationSeconds": 0.551231
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyPausingKeepsAcceptedBasicImpactButDropsFutureInput",
+      "state": "Passed",
+      "durationSeconds": 0.810188
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyRecoveryIntentExpiresDuringMeasuredHalfSecondHitch",
+      "state": "Passed",
+      "durationSeconds": 0.939348
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyRewardCloseRequiresReleaseBeforeMovementOrSkill",
+      "state": "Passed",
+      "durationSeconds": 0.1033136
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetySlidingPreservesWallCornerAndDistanceBudget",
+      "state": "Passed",
+      "durationSeconds": 0.3515571
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSpecialRemapsExistingThreeKitsWithoutXOrF11Alias",
+      "state": "Passed",
+      "durationSeconds": 0.7434696
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRThreeSkillsRemapAndHudKeepsSeparateSpecialWithoutX",
+      "state": "Passed",
+      "durationSeconds": 3.4758172
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRVirtualDeviceDeliverySurvivesPlayerLoop",
+      "state": "Passed",
+      "durationSeconds": 0.061745
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.HitStopPreservesRecoveryIntentWithoutUsingItsRealTimeForExpiry",
+      "state": "Passed",
+      "durationSeconds": 1.1296168
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.Hold_RepeatsAtAttackInterval",
+      "state": "Passed",
+      "durationSeconds": 0.426755
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.InvalidGroundDestinationPreservesTheCurrentValidPath",
+      "state": "Passed",
+      "durationSeconds": 0.237091
+    },
+    {
+      "name": "ManualBossBatchDeathWinsAndNeverCreatesPortal",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualBossBatchDeathWinsAndNeverCreatesPortal",
+      "state": "Failed",
+      "durationSeconds": 0.0504799,
+      "message": "  Expected: True\r\n  But was:  False\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests.ReachLifecycleBoss (ManualRoutePolicy route) [0x00021] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:30\r\nat TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualBossBatchDeathWinsAndNeverCreatesPortal>d__295.MoveNext () [0x00164] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:79\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "ManualDeathBeforePortalRejectsResidualContactAndOldSessionRequests",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualDeathBeforePortalRejectsResidualContactAndOldSessionRequests",
+      "state": "Failed",
+      "durationSeconds": 0.0521143,
+      "message": "  Expected: True\r\n  But was:  False\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests.ReachLifecycleBoss (ManualRoutePolicy route) [0x00021] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:30\r\nat TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualDeathBeforePortalRejectsResidualContactAndOldSessionRequests>d__296.MoveNext () [0x0016c] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:100\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualEliteDeathBetweenOrdinalsCannotAcquireSecondReward",
+      "state": "Passed",
+      "durationSeconds": 0.0980813
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualExhaustedTechniqueAppliesRetainedProtocolOnceAndPreservesResourcesAndSourceAssets",
+      "state": "Passed",
+      "durationSeconds": 0.1079013
+    },
+    {
+      "name": "ManualExtractionClaimsOnceAndRetryPreservesResultAndTeardown",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualExtractionClaimsOnceAndRetryPreservesResultAndTeardown",
+      "state": "Failed",
+      "durationSeconds": 0.047808,
+      "message": "  Expected: True\r\n  But was:  False\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests.ReachLifecycleBoss (ManualRoutePolicy route) [0x00021] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:30\r\nat TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualExtractionClaimsOnceAndRetryPreservesResultAndTeardown>d__294.MoveNext () [0x00165] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunLifecyclePlayModeTests.cs:45\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "ManualImpossibleFirstMutationKeepsBossBlockedAndAllowsAbortWithoutVictory",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualImpossibleFirstMutationKeepsBossBlockedAndAllowsAbortWithoutVictory",
+      "state": "Failed",
+      "durationSeconds": 0.050088,
+      "message": "  Expected: True\r\n  But was:  False\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualImpossibleFirstMutationKeepsBossBlockedAndAllowsAbortWithoutVictory>d__298.MoveNext () [0x00164] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunMutationPlayModeTests.cs:72\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "ManualLastBasicBatchWaitsForFeedbackCloseAndPreservesLethalEnergyHitStopAndEpoch",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastBasicBatchWaitsForFeedbackCloseAndPreservesLethalEnergyHitStopAndEpoch",
+      "state": "Failed",
+      "durationSeconds": 0.049412,
+      "message": "  Expected: 2\r\n  But was:  0\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualLastBasicBatchWaitsForFeedbackCloseAndPreservesLethalEnergyHitStopAndEpoch>d__287.MoveNext () [0x0030a] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunEncounterPlayModeTests.cs:43\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+    },
+    {
+      "name": "ManualLastEchoClosesItsOwnBatchAndNeverPaysNativeEnergyAgain",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastEchoClosesItsOwnBatchAndNeverPaysNativeEnergyAgain",
+      "state": "Failed",
+      "durationSeconds": 5.0632331,
+      "message": "  Expected: True\r\n  But was:  False\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualLastEchoClosesItsOwnBatchAndNeverPaysNativeEnergyAgain>d__289.MoveNext () [0x003fc] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunEncounterPlayModeTests.cs:137\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "ManualLastSkillCancelsFutureChildrenAfterConfirmedProducerWithoutResettingCategory",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastSkillCancelsFutureChildrenAfterConfirmedProducerWithoutResettingCategory",
+      "state": "Failed",
+      "durationSeconds": 1.1908217,
+      "message": "Unhandled log message: '[Exception] AssertionException:   Expected: True\r\n  But was:  False\r\n'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "stackTrace": "NUnit.Framework.Assert.That[TActual] (TActual actual, NUnit.Framework.Constraints.IResolveConstraint expression, System.String message, System.Object[] args) (at <8b63e8ac0a4746599ed207982825ae6c>:0)\r\nNUnit.Framework.Assert.IsTrue (System.Boolean condition) (at <8b63e8ac0a4746599ed207982825ae6c>:0)\r\nTechGuy.Tests.BasicAttackR1PlayModeTests+<>c__DisplayClass288_0.<ManualLastSkillCancelsFutureChildrenAfterConfirmedProducerWithoutResettingCategory>b__1 (Actor actor, System.Single damage) (at Assets/_Project/Scripts/Tests/PlayMode/ManualRunEncounterPlayModeTests.cs:87)\r\nActor+<>c__DisplayClass52_0.<TakeDamage>b__0 () (at Assets/_Project/Scripts/Characters/Actor.cs:183)\r\nGauntletImpactTransaction.Dispose () (at Assets/_Project/Scripts/Characters/Combat/GauntletImpactTransaction.cs:47)\r\nPlayerActor.ResolveAreaDamage (UnityEngine.Vector3 origin, UnityEngine.Vector3 forward, System.Single range, UnityEngine.Vector3 boxSize, AreaHitShape hitShape, System.Single sphereRadius, UnityEngine.LayerMask targetLayers, System.Single weaponDamage, System.Single skillMultiplier, System.Single addedDamage, System.Nullable`1[T] reactionRequest, System.Boolean showEffect, System.Nullable`1[T] effectColor, GauntletImpactContext context, GauntletEnergyPolicy policy, System.Int32 impactIndex) (at Assets/_Project/Scripts/Characters/Player/PlayerActor.cs:622)\r\nPlayerActor.TryApplyGauntletAreaDamage (UnityEngine.Vector3 origin, UnityEngine.Vector3 forward, System.Single range, UnityEngine.Vector3 boxSize, AreaHitShape hitShape, System.Single sphereRadius, UnityEngine.LayerMask targetLayers, System.Single weaponDamage, System.Single skillMultiplier, System.Single addedDamage, System.Nullable`1[T] reactionRequest, System.Boolean showEffect, System.Nullable`1[T] effectColor, GauntletImpactContext context, GauntletEnergyPolicy policy, System.Int32 impactIndex) (at Assets/_Project/Scripts/Characters/Player/PlayerActor.cs:505)\r\nSequencedAreaAttackAbility.ApplyHitStep (UnityEngine.Matrix4x4 ownerMatrix, UnityEngine.Quaternion ownerRotation, PlayerActor playerActor, WeaponScript weapon, AreaHitStep hitStep, System.Boolean showEffect, System.Nullable`1[T] effectColor, GauntletImpactContext context, GauntletEnergyPolicy policy, System.Int32 impactIndex) (at Assets/_Project/Scripts/Abilities/Weapon/SequencedAreaAttackAbility.cs:134)\r\nSequencedAreaAttackAbility.ApplyHitStep (UnityEngine.Transform ownerTransform, PlayerActor playerActor, WeaponScript weapon, AreaHitStep hitStep, System.Boolean showEffect, System.Nullable`1[T] effectColor, GauntletImpactContext context, GauntletEnergyPolicy policy, System.Int32 impactIndex) (at Assets/_Project/Scripts/Abilities/Weapon/SequencedAreaAttackAbility.cs:98)\r\nBreakerGauntletCombat.Impact (BreakerGauntletAbility ability, AreaHitStep step, System.Int32 index) (at Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs:775)\r\nBreakerGauntletCombat.EmitAuthoredImpact (BreakerGauntletAbility ability, System.Collections.Generic.IReadOnlyList`1[T] steps, ImpactEvent impact) (at Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs:684)\r\nBreakerGauntletCombat+<>c__DisplayClass121_0.<BuildImpactScheduler>b__0 (ImpactEvent impact) (at Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs:661)\r\nActionImpactScheduler.Advance (System.Single progress) (at Assets/_Project/Scripts/Characters/Combat/Core/ActionImpactScheduler.cs:151)\r\nBreakerGauntletCombat.FixedUpdate () (at Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs:634)\r\n\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAssertionException:   Expected: True\r\n  But was:  False\r\n\r\nNUnit.Framework.Assert.That[TActual] (TActual actual, NUnit.Framework.Constraints.IResolveConstraint expression, System.String message, System.Object[] args) (at <8b63e8ac0a4746599ed207982825ae6c>:0)\nNUnit.Framework.Assert.IsTrue (System.Boolean condition) (at <8b63e8ac0a4746599ed207982825ae6c>:0)\nTechGuy.Tests.BasicAttackR1PlayModeTests+<>c__DisplayClass288_0.<ManualLastSkillCancelsFutureChildrenAfterConfirmedProducerWithoutResettingCategory>b__1 (Actor actor, System.Single damage) (at Assets/_Project/Scripts/Tests/PlayMode/ManualRunEncounterPlayModeTests.cs:87)\nActor+<>c__DisplayClass52_0.<TakeDamage>b__0 () (at Assets/_Project/Scripts/Characters/Actor.cs:183)\nGauntletImpactTransaction.Dispose () (at Assets/_Project/Scripts/Characters/Combat/GauntletImpactTransaction.cs:47)\nPlayerActor.ResolveAreaDamage (UnityEngine.Vector3 origin, UnityEngine.Vector3 forward, System.Single range, UnityEngine.Vector3 boxSize, AreaHitShape hitShape, System.Single sphereRadius, UnityEngine.LayerMask targetLayers, System.Single weaponDamage, System.Single skillMultiplier, System.Single addedDamage, System.Nullable`1[T] reactionRequest, System.Boolean showEffect, System.Nullable`1[T] effectColor, GauntletImpactContext context, GauntletEnergyPolicy policy, System.Int32 impactIndex) (at Assets/_Project/Scripts/Characters/Player/PlayerActor.cs:622)\nPlayerActor.TryApplyGauntletAreaDamage (UnityEngine.Vector3 origin, UnityEngine.Vector3 forward, System.Single range, UnityEngine.Vector3 boxSize, AreaHitShape hitShape, System.Single sphereRadius, UnityEngine.LayerMask targetLayers, System.Single weaponDamage, System.Single skillMultiplier, System.Single addedDamage, System.Nullable`1[T] reactionRequest, System.Boolean showEffect, System.Nullable`1[T] effectColor, GauntletImpactContext context, GauntletEnergyPolicy policy, System.Int32 impactIndex) (at Assets/_Project/Scripts/Characters/Player/PlayerActor.cs:505)\nSequencedAreaAttackAbility.ApplyHitStep (UnityEngine.Matrix4x4 ownerMatrix, UnityEngine.Quaternion ownerRotation, PlayerActor playerActor, WeaponScript weapon, AreaHitStep hitStep, System.Boolean showEffect, System.Nullable`1[T] effectColor, GauntletImpactContext context, GauntletEnergyPolicy policy, System.Int32 impactIndex) (at Assets/_Project/Scripts/Abilities/Weapon/SequencedAreaAttackAbility.cs:134)\nSequencedAreaAttackAbility.ApplyHitStep (UnityEngine.Transform ownerTransform, PlayerActor playerActor, WeaponScript weapon, AreaHitStep hitStep, System.Boolean showEffect, System.Nullable`1[T] effectColor, GauntletImpactContext context, GauntletEnergyPolicy policy, System.Int32 impactIndex) (at Assets/_Project/Scripts/Abilities/Weapon/SequencedAreaAttackAbility.cs:98)\nBreakerGauntletCombat.Impact (BreakerGauntletAbility ability, AreaHitStep step, System.Int32 index) (at Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs:775)\nBreakerGauntletCombat.EmitAuthoredImpact (BreakerGauntletAbility ability, System.Collections.Generic.IReadOnlyList`1[T] steps, ImpactEvent impact) (at Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs:684)\nBreakerGauntletCombat+<>c__DisplayClass121_0.<BuildImpactScheduler>b__0 (ImpactEvent impact) (at Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs:661)\nActionImpactScheduler.Advance (System.Single progress) (at Assets/_Project/Scripts/Characters/Combat/Core/ActionImpactScheduler.cs:151)\nBreakerGauntletCombat.FixedUpdate () (at Assets/_Project/Scripts/Abilities/Weapon/BreakerGauntletCombat.cs:634)\n\r\n"
+    },
+    {
+      "name": "ManualPlayerDeathInLastLethalBatchWinsWithoutRewardPublication",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualPlayerDeathInLastLethalBatchWinsWithoutRewardPublication",
+      "state": "Failed",
+      "durationSeconds": 0.057405,
+      "message": "  Expected: 3\r\n  But was:  0\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualPlayerDeathInLastLethalBatchWinsWithoutRewardPublication>d__290.MoveNext () [0x00259] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunEncounterPlayModeTests.cs:166\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualProducedSwarmKeepsEncounterOpenAndIsRemovedOnCompletion",
+      "state": "Passed",
+      "durationSeconds": 0.1096555
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualProtocolTicketsApplyEachRetainedEffectFromActualCompatibleOffers",
+      "state": "Passed",
+      "durationSeconds": 0.229982
+    },
+    {
+      "name": "ManualRepairUsesRealHealthEventAndHudWithoutChangingManaAsuraOrCooldowns",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRepairUsesRealHealthEventAndHudWithoutChangingManaAsuraOrCooldowns",
+      "state": "Failed",
+      "durationSeconds": 0.0628678,
+      "message": "  Expected: True\r\n  But was:  False\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ManualRepairUsesRealHealthEventAndHudWithoutChangingManaAsuraOrCooldowns>d__300.MoveNext () [0x00197] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\ManualRunResourcesPlayModeTests.cs:27\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualResourceRebuildKeepsAbsoluteHpAfterMaximumChangeAndDoesNotReplayIronHeart",
+      "state": "Passed",
+      "durationSeconds": 0.049816
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition",
+      "state": "Passed",
+      "durationSeconds": 0.1368472
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRunRejectsInvalidLoadoutBeforeCancelAndSupportsAllFamiliesWithOwnedCopies",
+      "state": "Passed",
+      "durationSeconds": 0.0613693
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualSliceBowSelectionRetainsWeaponAndBindsCompatibleInventoryBeforeLegacyDependencyChecks",
+      "state": "Passed",
+      "durationSeconds": 0.073144
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualSliceInitializesOneOwnerAndDefersLastDeathWithoutProceduralGeneration",
+      "state": "Passed",
+      "durationSeconds": 0.0961384
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualSliceInvalidEnvironmentRefusesBeforeAnyWorldMaterialization",
+      "state": "Passed",
+      "durationSeconds": 0.0374394
+    },
+    {
+      "name": "MigratedGauntletBasicInputsUseWeaponReactionWithoutLeakingToBow",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.MigratedGauntletBasicInputsUseWeaponReactionWithoutLeakingToBow",
+      "state": "Failed",
+      "durationSeconds": 0.0230394,
+      "message": "  Expected: 1\r\n  But was:  0\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<MigratedGauntletBasicInputsUseWeaponReactionWithoutLeakingToBow>d__86.MoveNext () [0x0012b] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:1758\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Animator is not playing an AnimatorController\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.MovementDuringRecoveryKeepsTheCast_UsesLatestValidOrderOnce",
+      "state": "Passed",
+      "durationSeconds": 0.8640584
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.MoveOrder_OutsideDeadzoneClears_InsideDeadzonePreserves",
+      "state": "Passed",
+      "durationSeconds": 0.2021052
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.NoEligibleTarget_TargetedAttackIsNoOp",
+      "state": "Passed",
+      "durationSeconds": 0.3986808
+    },
+    {
+      "name": "PauseConfirmedAbortWaitsForResumeFrameAndReturnsFromUnavailableMutationWithoutVictory",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseConfirmedAbortWaitsForResumeFrameAndReturnsFromUnavailableMutationWithoutVictory",
+      "state": "Failed",
+      "durationSeconds": 0.0548234,
+      "message": "  Expected: True\r\n  But was:  False\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<PauseConfirmedAbortWaitsForResumeFrameAndReturnsFromUnavailableMutationWithoutVictory>d__323.MoveNext () [0x00197] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\PauseInspectionPlayModeTests.cs:173\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseDiscardsRecoveryMovementAndDoesNotReplayOnResume",
+      "state": "Passed",
+      "durationSeconds": 1.4545397
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseInspectionKeepsRewardPendingAndBlocksAcquisitionUntilTheResumeFrameHasPassed",
+      "state": "Passed",
+      "durationSeconds": 0.0344058
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseInspectionRestoresTheCapturedClockAndAudioRatherThanForcingDefaults",
+      "state": "Passed",
+      "durationSeconds": 0.023276
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseUpgradesRemainHiddenDuringPlayAndAppearOnlyOnTheInspectionPage",
+      "state": "Passed",
+      "durationSeconds": 0.0333471
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.Release_StopsHoldRepeats_PreservesTapExecution",
+      "state": "Passed",
+      "durationSeconds": 0.8455401
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00FlameGeometryAnimatesAndPoolReuseCannotLeakIt",
+      "state": "Passed",
+      "durationSeconds": 0.0386303
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00OverlappingHooksCannotRestartTheControlClock",
+      "state": "Passed",
+      "durationSeconds": 1.6831098
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00PauseAndHitstopPreservePullAndRecoveryClocks",
+      "state": "Passed",
+      "durationSeconds": 2.171091
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00PlayerDeathCannotLeavePullOrRestoreDeadInput",
+      "state": "Passed",
+      "durationSeconds": 0.0358385
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00ProductionHooksAllowMovementAndDashBetweenConnections",
+      "state": "Passed",
+      "durationSeconds": 2.3949615
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00SingleAttackerRepeatsWithARealControlWindow",
+      "state": "Passed",
+      "durationSeconds": 7.1617833
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00SourceDeathAndSceneUnloadCannotRetainPullOwnership",
+      "state": "Passed",
+      "durationSeconds": 0.9231648
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00SourceDisableAndPlayerDisableReleaseOnlyOwnedMovement",
+      "state": "Passed",
+      "durationSeconds": 0.8130221
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00ZeroDurationPullCannotLeaveAStaleCoroutineLock",
+      "state": "Passed",
+      "durationSeconds": 0.0305814
+    },
+    {
+      "name": "RunFocusDiscountsEffectiveQCostOnceForEachWeaponFamily",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RunFocusDiscountsEffectiveQCostOnceForEachWeaponFamily",
+      "state": "Failed",
+      "durationSeconds": 0.0318804,
+      "message": "  Expected: greater than or equal to 0\r\n  But was:  -1\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<RunFocusDiscountsEffectiveQCostOnceForEachWeaponFamily>d__46.MoveNext () [0x001e7] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1PlayModeTests.cs:281\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonChainCannotSearchPastTheSharedFrameQueryBudget",
+      "state": "Passed",
+      "durationSeconds": 0.379158
+    },
+    {
+      "name": "SpearBoonContactStakeDamageCanEndEncounterInsideItsCallback",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonContactStakeDamageCanEndEncounterInsideItsCallback",
+      "state": "Failed",
+      "durationSeconds": 0.5418169,
+      "message": "Unhandled log message: '[Log] There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "stackTrace": "\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonDerivedHorizonDropsWhenTheFrameQueryBudgetIsExhausted",
+      "state": "Passed",
+      "durationSeconds": 0.3812993
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonDerivedHorizonHonorsTheConfiguredSightTestLimit",
+      "state": "Passed",
+      "durationSeconds": 0.3851457
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonDerivedStakePulsesRespectThirtyTwoAcrossDenseTargets",
+      "state": "Passed",
+      "durationSeconds": 1.591145
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonEarlyReturnLosesSkippedPassagesAndNeverPaysAgain",
+      "state": "Passed",
+      "durationSeconds": 1.4371943
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonGameplayClocksAndExtraInputFreezeDuringPauseMenuAndHitstop",
+      "state": "Passed",
+      "durationSeconds": 0.9943472
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonHorizonRejectsParallelEAndExpiresWithoutAutoDetonation",
+      "state": "Passed",
+      "durationSeconds": 5.4149503
+    },
+    {
+      "name": "SpearBoonHorizonUsesOneCostAndCrossingConsumesItsOriginalRootOnce",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonHorizonUsesOneCostAndCrossingConsumesItsOriginalRootOnce",
+      "state": "Failed",
+      "durationSeconds": 0.3832515,
+      "message": "  Expected: 9985.5999994277954d +/- 0.10000000149011612d\r\n  But was:  10000.0d\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<SpearBoonHorizonUsesOneCostAndCrossingConsumesItsOriginalRootOnce>d__343.MoveNext () [0x00167] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\SpearBoonPlayModeTests.cs:82\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonOrbitHitsOncePerTurnAndReturnWhileReleasingPlayerActions",
+      "state": "Passed",
+      "durationSeconds": 4.5469518
+    },
+    {
+      "name": "SpearBoonPathStakeDamageCanDisableTheExecutorInsideItsCallback",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonPathStakeDamageCanDisableTheExecutorInsideItsCallback",
+      "state": "Failed",
+      "durationSeconds": 0.5418066,
+      "message": "Unhandled log message: '[Log] There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.'. Use UnityEngine.TestTools.LogAssert.Expect",
+      "stackTrace": "\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\nThere are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonReturnMarkDuoAndMoonEchoStayOnOneRootWithoutNewOrbit",
+      "state": "Passed",
+      "durationSeconds": 4.4229952
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonReusesAPreauthoredExecutorWhenTheRunBindsItsFirstMutation",
+      "state": "Passed",
+      "durationSeconds": 0.627832
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonSiegeHasNoCollidersAndEachStakePulsesAtMostOnce",
+      "state": "Passed",
+      "durationSeconds": 0.530442
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonStakeProximityDefersUntilTheSharedFrameQueryBudgetRecovers",
+      "state": "Passed",
+      "durationSeconds": 0.5355922
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonStopEncounterAndWeaponSwapReleaseEveryReservation",
+      "state": "Passed",
+      "durationSeconds": 1.2907748
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonWallsBlockHorizonAndOrbitWithoutTeleportingThePlayer",
+      "state": "Passed",
+      "durationSeconds": 1.0056003
+    },
+    {
+      "name": "TargetClickDuringHitStopKeepsOneAttackAfterRelease",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TargetClickDuringHitStopKeepsOneAttackAfterRelease",
+      "state": "Failed",
+      "durationSeconds": 0.0279257,
+      "message": "  The fixture pointer must hit the intended enemy before input is sent.\r\n  Expected: <TestEnemy (Interactable)>\r\n  But was:  null\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<TargetClickDuringHitStopKeepsOneAttackAfterRelease>d__33.MoveNext () [0x00151] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\BasicAttackR1MovementFluidityTests.cs:350\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TargetedTap_FiresExactlyOneAttack",
+      "state": "Passed",
+      "durationSeconds": 0.6230214
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TargetInRange_NoInput_FiresNoAttacks",
+      "state": "Passed",
+      "durationSeconds": 0.3057287
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicAcquisitionKeepsCooldownsResourcesAndVisualCleansWithRun",
+      "state": "Passed",
+      "durationSeconds": 0.0475448
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicCatalogTargetsBasicAndRejectsDuplicateOrOtherWeapons",
+      "state": "Passed",
+      "durationSeconds": 0.0354114
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorAcquiredAfterTerminalAcceptanceCannotRetroactivelyGrantBranch",
+      "state": "Passed",
+      "durationSeconds": 2.1277127
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorAcquisitionInReverseOrderPreservesInteraction",
+      "state": "Passed",
+      "durationSeconds": 2.2528366
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorBaseAOnlyAndBOnlyDoNotCreateCombinedBranch",
+      "state": "Passed",
+      "durationSeconds": 4.7149888
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorCancellationInsideWindReceiptRevokesArc",
+      "state": "Passed",
+      "durationSeconds": 1.5535149
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorFullRootCannotDamageOrShowArcs",
+      "state": "Passed",
+      "durationSeconds": 2.1394712
+    },
+    {
+      "name": "TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+      "state": "Failed",
+      "durationSeconds": 0.6081712,
+      "message": "  Evidence names must be fresh; never overwrite a previous capture.\r\n  Expected: False\r\n  But was:  True\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<ComposedCapture>d__409.MoveNext () [0x0004a] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicConductorPlayModeTests.cs:217\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorImmuneArcTargetHasNoFalseElectricVfx",
+      "state": "Passed",
+      "durationSeconds": 2.1275672
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorImmuneWindTargetNeverEmitsElectricity",
+      "state": "Passed",
+      "durationSeconds": 2.1203798
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorLastImpactSlotPaysWindButSkipsElectricity",
+      "state": "Passed",
+      "durationSeconds": 2.2850082
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorLethalWindSharesDetonationTargetDedupeWithoutResources",
+      "state": "Passed",
+      "durationSeconds": 2.1148962
+    },
+    {
+      "name": "TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+      "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+      "state": "Failed",
+      "durationSeconds": 0.2127972,
+      "message": "  Use a fresh evidence directory for each run.\r\n  Expected: False\r\n  But was:  True\r\n",
+      "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<TitanicNaturalTickets>d__406.MoveNext () [0x0053b] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicConductorPlayModeTests.cs:189\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+      "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorNoImpactNeverEmitsElectricity",
+      "state": "Passed",
+      "durationSeconds": 2.1093103
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorOneEmissionAcrossMultipleVictimsFramesAndColliders",
+      "state": "Passed",
+      "durationSeconds": 2.3004983
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorRankThreeHasOneBoundedFanOutWithoutRecursion",
+      "state": "Passed",
+      "durationSeconds": 2.1155993
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorWallBlocksArcFromActualImpact",
+      "state": "Passed",
+      "durationSeconds": 2.1186001
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim",
+      "state": "Passed",
+      "durationSeconds": 2.12123
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicPlaytestDisabledOrOtherWeaponKeepsNormalRewards",
+      "state": "Passed",
+      "durationSeconds": 0.039883
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicPlaytestFirstRoomGuaranteesBothThroughRealTicketsAndEveryRoomHasMutation",
+      "state": "Passed",
+      "durationSeconds": 0.1605771
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicRealRewardTicketOffersAcquiresOnceAndCountsMutationWithoutGrant",
+      "state": "Passed",
+      "durationSeconds": 0.226224
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoBudgetExhaustionCannotDealDamageOrMintRoots",
+      "state": "Passed",
+      "durationSeconds": 2.6211584
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoCommittedNativeContactSurvivesRecoveryCancelOnce",
+      "state": "Passed",
+      "durationSeconds": 0.8724075
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoDetonationOwnershipAuthorizesConfirmedKillWithoutResourcesAfterWhiff",
+      "state": "Passed",
+      "durationSeconds": 2.1034343
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoDisableAndRunCleanupReleaseAllVfxAndRoots",
+      "state": "Passed",
+      "durationSeconds": 0.6596498
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoEachTerminalEmitsOneAndAllRootsEnd",
+      "state": "Passed",
+      "durationSeconds": 2.9582349
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoEndRunAndNewRunDoNotRetainMutation",
+      "state": "Passed",
+      "durationSeconds": 0.6968814
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoGameViewRecordsTravelAndDelayedImpact",
+      "state": "Passed",
+      "durationSeconds": 2.209933
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoImpactAttributionCountsOnlyEffectiveHpWithOriginalBasicParent",
+      "state": "Passed",
+      "durationSeconds": 2.1321861
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoKeepsCommittedDirectionAndMovesProgressively",
+      "state": "Passed",
+      "durationSeconds": 0.8615582
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoMultipleTargetsHitOnceAndNativeVictimsStayExcluded",
+      "state": "Passed",
+      "durationSeconds": 2.4992944
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoNoBoonLeavesBaseUnchanged",
+      "state": "Passed",
+      "durationSeconds": 1.2767977
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoPauseAndHitstopFreezeTravelAndResumeSameReservation",
+      "state": "Passed",
+      "durationSeconds": 2.5226283
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoPlayerDeathReleasesInFlightWork",
+      "state": "Passed",
+      "durationSeconds": 0.6734884
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoPoolingDedupesEachTargetGeneration",
+      "state": "Passed",
+      "durationSeconds": 2.6748256
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoReentrantWeaponSwapRevokesRemainingQueuedDamage",
+      "state": "Passed",
+      "durationSeconds": 1.2955043
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoRemainsInFlightAfterTerminalInsteadOfInstantOverlap",
+      "state": "Passed",
+      "durationSeconds": 0.8052166
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoSceneTransitionDestroysWorldSpacePool",
+      "state": "Passed",
+      "durationSeconds": 1.3265295
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoSwapAndReturnRestoreOwnedCuffWithoutStaleProjectile",
+      "state": "Passed",
+      "durationSeconds": 0.7781912
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoSweepsThinTargetsAtFourFpsAndEndsAtAuthoredDistance",
+      "state": "Passed",
+      "durationSeconds": 0.7055275
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoTerminalWhiffEmitsExactlyOnceWithoutNativeHp",
+      "state": "Passed",
+      "durationSeconds": 0.6688715
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoUncommittedRequestAndCanceledTerminalCannotEmit",
+      "state": "Passed",
+      "durationSeconds": 0.8126214
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoVfxPoolReusesOneInactiveInstanceWithoutColliders",
+      "state": "Passed",
+      "durationSeconds": 4.2018891
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoWallStopsTravelAndDamageIncludingSpawnOffsetOcclusion",
+      "state": "Passed",
+      "durationSeconds": 2.1344136
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoWhiffDamageUsesAcceptedNoncriticalPacketOnlyOnce",
+      "state": "Passed",
+      "durationSeconds": 2.1232456
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TornadoWhiffLaterHitsDistantEnemyOnlyAfterTravel",
+      "state": "Passed",
+      "durationSeconds": 2.190676
+    },
+    {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.UnreachableNavMeshIslandCannotReplaceTheValidMovementOrder",
+      "state": "Passed",
+      "durationSeconds": 0.0312248
+    },
+    {
+      "name": "TechGuy.Tests.EnemyPhysicalAttackTests.ChargeActuallyMovesAndHitsOnlyOnce",
+      "state": "Passed",
+      "durationSeconds": 2.173046
+    },
+    {
+      "name": "TechGuy.Tests.EnemyPhysicalAttackTests.DisablingAttackerCancelsWindup",
+      "state": "Passed",
+      "durationSeconds": 1.6361912
+    },
+    {
+      "name": "TechGuy.Tests.EnemyPhysicalAttackTests.FrostProjectileCannotHitThroughWall",
+      "state": "Passed",
+      "durationSeconds": 1.5372098
+    },
+    {
+      "name": "TechGuy.Tests.EnemyPhysicalAttackTests.FrostProjectileTravelsToTargetAndHitsOnce",
+      "state": "Passed",
+      "durationSeconds": 1.8998451
+    },
+    {
+      "name": "TechGuy.Tests.EnemyPhysicalAttackTests.PunchHasNoDamageBeforeContactAndCannotHitBehind",
+      "state": "Passed",
+      "durationSeconds": 1.0226515
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.ActiveWindupKeepsPriorityWhenTheHitCannotInterruptIt",
+      "state": "Passed",
+      "durationSeconds": 0.1104936
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.AnotherImpactRestartsFlinchAndDefersItsVisualRecovery",
+      "state": "Passed",
+      "durationSeconds": 0.0161838
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.ControlAndRankFallbacksKeepPriorityOverFlinchRecovery",
+      "state": "Passed",
+      "durationSeconds": 13.8502401
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.DeathDuringFlinchCannotRestoreLocomotion",
+      "state": "Passed",
+      "durationSeconds": 0.0175257
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.FinishedFlinchReturnsToLocomotionWithoutChangingMechanics",
+      "state": "Passed",
+      "durationSeconds": 0.0197593
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.FlinchRecoveryDoesNotOverwriteExternalAttackOrSurviveDisable",
+      "state": "Passed",
+      "durationSeconds": 0.0186062
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.ImmuneBossOpeningLocksWithoutPhysicalStunAndProtectsOneAction",
+      "state": "Passed",
+      "durationSeconds": 0.3353145
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.KnockdownStaysGroundedAndDisableRestoresOnlyOwnedPose",
+      "state": "Passed",
+      "durationSeconds": 0.5764299
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.MissingProfileWarnsOnceAtConfigurationAndNotOnHits",
+      "state": "Passed",
+      "durationSeconds": 0.014461
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.NoneBreakIsSameStepAndReentrantSafe",
+      "state": "Passed",
+      "durationSeconds": 0.4275108
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.ObstructedLaunchRechecksStunImmunityWithoutCreatingLock",
+      "state": "Passed",
+      "durationSeconds": 0.0236488
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.PauseAndHitstopDoNotReleaseACompletedFlinchEarly",
+      "state": "Passed",
+      "durationSeconds": 0.2700716
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.PauseAndInjectedHitStopFreezeLocalGameplayClock",
+      "state": "Passed",
+      "durationSeconds": 0.368026
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.PresentationUsesRealTimeAndRestoresScaleWhilePaused",
+      "state": "Passed",
+      "durationSeconds": 1.1778246
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.ProtectedEliteLegendaryAndBossCompleteAnActualAttackUnderPressure",
+      "state": "Passed",
+      "durationSeconds": 5.6822049
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.PushAndBelowThresholdPreserveWindupButEligibleStaggerCancelsPendingBeat",
+      "state": "Passed",
+      "durationSeconds": 0.9312952
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.PushIsBoundedAndNoneZeroDoesNotMove",
+      "state": "Passed",
+      "durationSeconds": 0.2759304
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.RepeatedFlinchRestartsAtEachContactWithoutAddingControlOrDisplacement",
+      "state": "Passed",
+      "durationSeconds": 0.0175217
+    },
+    {
+      "name": "TechGuy.Tests.PostureReactionPlayModeTests.SpawnProfileIsAppliedBeforeFirstHitAndStartDoesNotResetIt",
+      "state": "Passed",
+      "durationSeconds": 0.0184292
+    }
+  ]
+}

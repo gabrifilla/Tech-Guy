@@ -1,0 +1,7 @@
+{
+  "command": "python C:/Users/gabri/.codex/skills/unity-csharp-scripting/scripts/check_unity_project.py D:/Dev/Personal/My_games/Tech-Guy --json",
+  "exit_code": 1,
+  "observed_error": "ValueError: path is on mount 'C:', start on mount 'D:'",
+  "external_package": "C:/Users/gabri/Downloads/Tripo3d_Unity_Bridge-latest/Tripo3d_Unity_Bridge/Editor.meta",
+  "interpretacao": "Falha interna do checker ao resolver pacote externo entre volumes; não é certificação de GUIDs nem razão para editar terceiros."
+}

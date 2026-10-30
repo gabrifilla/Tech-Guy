@@ -1,0 +1,14 @@
+{
+  "mode": "PlayMode",
+  "test_names": [
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicPlaytestFirstRoomGuaranteesBothThroughRealTicketsAndEveryRoomHasMutation",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicPlaytestDisabledOrOtherWeaponKeepsNormalRewards",
+    "TechGuy.Tests.TitanicPlaytestProductionRewardsTests",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRewardStaleInventoryClickRebuildsThenRealMutationIsRecordedOnlyOnAcquisition",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualEliteDeathBetweenOrdinalsCannotAcquireSecondReward",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualProtocolTicketsApplyEachRetainedEffectFromActualCompatibleOffers",
+    "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorWhiffLaterImpactCreatesNewElectricDamageFromVictim"
+  ],
+  "include_details": true,
+  "init_timeout": 120000
+}

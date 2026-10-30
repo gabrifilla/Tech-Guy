@@ -1,0 +1,372 @@
+{
+  "job_id": "07f6c50e43d8432c8009e25f4d44a4a6",
+  "status": "succeeded",
+  "mode": "EditMode",
+  "started_unix_ms": 1793336736007,
+  "finished_unix_ms": 1793336771592,
+  "last_update_unix_ms": 1793336771592,
+  "progress": {
+    "completed": 37,
+    "total": 37,
+    "current_test_full_name": null,
+    "current_test_started_unix_ms": null,
+    "last_finished_test_full_name": "TechGuy.Tests.Fluidity.EditMode.ProceduralRunGeometryPlanTests.EveryArenaOpeningIsUniqueAndItsGateSpansTheOnlyConnectingFloor",
+    "last_finished_unix_ms": 1793336771569,
+    "stuck_suspected": false,
+    "editor_is_focused": true,
+    "run_in_background": true,
+    "focus_nudge_attempts": null,
+    "focus_nudge_limit": null,
+    "focus_nudge_status": null,
+    "blocked_reason": null,
+    "failures_so_far": [],
+    "failures_capped": false
+  },
+  "error": null,
+  "result": {
+    "mode": "EditMode",
+    "summary": {
+      "total": 37,
+      "passed": 37,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 35.4271288,
+      "resultState": "Passed"
+    },
+    "results": [
+      {
+        "name": "BowRainIsAZoneAndCannotBorrowRicochetProjectileCapabilities",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.BowRainIsAZoneAndCannotBorrowRicochetProjectileCapabilities",
+        "state": "Passed",
+        "durationSeconds": 0.0457437,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(0,\"mutation_gauntlet_eclipse_uppercut\",\"augment_gauntlet_violent_fall\",\"duo_gauntlet_titan_fall\",Q,True)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(0,\"mutation_gauntlet_eclipse_uppercut\",\"augment_gauntlet_violent_fall\",\"duo_gauntlet_titan_fall\",Q,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0076452,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(1,\"mutation_bow_thorn_forest\",\"augment_bow_inverted_harvest\",\"duo_bow_arrow_graveyard\",E,False)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(1,\"mutation_bow_thorn_forest\",\"augment_bow_inverted_harvest\",\"duo_bow_arrow_graveyard\",E,False)",
+        "state": "Passed",
+        "durationSeconds": 0.0009451,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(1,\"mutation_bow_mine_garden\",\"augment_bow_predator_seal\",\"duo_bow_hunting_detonator\",E,True)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.CorrectedRecipesKeepPrerequisitesAndEnableOnlyImplementedExecutors(1,\"mutation_bow_mine_garden\",\"augment_bow_predator_seal\",\"duo_bow_hunting_detonator\",E,True)",
+        "state": "Passed",
+        "durationSeconds": 0.0009561,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(0)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(0)",
+        "state": "Passed",
+        "durationSeconds": 0.0091206,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(1)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(1)",
+        "state": "Passed",
+        "durationSeconds": 0.0028019,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(2)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.DraftManifestValidatesAlongsideRetainedDataAndCannotEnterLiveOffers(2)",
+        "state": "Passed",
+        "durationSeconds": 0.0040107,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(0)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(0)",
+        "state": "Passed",
+        "durationSeconds": 0.0637163,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(1)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(1)",
+        "state": "Passed",
+        "durationSeconds": 0.0342156,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(2)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.ExhaustionRestoresRetainedRanksWithoutConsumingOtherRewardOpportunities(2)",
+        "state": "Passed",
+        "durationSeconds": 0.044648,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.NaN)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.NaN)",
+        "state": "Passed",
+        "durationSeconds": 0.0040026,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.PositiveInfinity)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.PositiveInfinity)",
+        "state": "Passed",
+        "durationSeconds": 0.0007969,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.NegativeInfinity)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(float.NegativeInfinity)",
+        "state": "Passed",
+        "durationSeconds": 0.0006947,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(-1.0f)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.InvalidRawCooldownIsRejectedWithoutNormalizingOrMutatingSource(-1.0f)",
+        "state": "Passed",
+        "durationSeconds": 0.0006317,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(0)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(0)",
+        "state": "Passed",
+        "durationSeconds": 0.0099102,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(1)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(1)",
+        "state": "Passed",
+        "durationSeconds": 0.0059602,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(2)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.PublishedLoadoutOffersOnlyItsImplementedCompatibleBoons(2)",
+        "state": "Passed",
+        "durationSeconds": 0.0062995,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RapidBurstNeedsItsActualArrowExecutorAfterLegacyQReplacement",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.RapidBurstNeedsItsActualArrowExecutorAfterLegacyQReplacement",
+        "state": "Passed",
+        "durationSeconds": 0.0023964,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "RetainedImpactDeclarationsUseTheSharedCeilingAndCadencedRemainsNative",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.RetainedImpactDeclarationsUseTheSharedCeilingAndCadencedRemainsNative",
+        "state": "Passed",
+        "durationSeconds": 0.0005475,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SpearEchoPhantomAndChainCoexistAtTheirOriginalRanksOnEveryThrust(False)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.SpearEchoPhantomAndChainCoexistAtTheirOriginalRanksOnEveryThrust(False)",
+        "state": "Passed",
+        "durationSeconds": 0.0067849,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SpearEchoPhantomAndChainCoexistAtTheirOriginalRanksOnEveryThrust(True)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.SpearEchoPhantomAndChainCoexistAtTheirOriginalRanksOnEveryThrust(True)",
+        "state": "Passed",
+        "durationSeconds": 0.002139,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "TwoAlternativeEMutationsStillCannotShareTheirSlot",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests.TwoAlternativeEMutationsStillCannotShareTheirSlot",
+        "state": "Passed",
+        "durationSeconds": 0.0011434,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "ProductionRewardsTargetConductorThenDetonation",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.Gpr015RewardAccessibilityTests.ProductionRewardsTargetConductorThenDetonation",
+        "state": "Passed",
+        "durationSeconds": 11.7476959,
+        "message": null,
+        "stackTrace": null,
+        "output": "Reward audit: D:\\Dev\\Personal\\My_games\\Tech-Guy\\Docs\\validation\\artifacts\\gameplay-rework\\gpr-01-5\\b\\20261030-050548-1776525; 64 seeds x 4 paths; encounter victories assumed, no grant outside tickets; no physical playtest.\r\n"
+      },
+      {
+        "name": "ProductionRewardsTargetDetonationThenConductor",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.Gpr015RewardAccessibilityTests.ProductionRewardsTargetDetonationThenConductor",
+        "state": "Passed",
+        "durationSeconds": 11.606174,
+        "message": null,
+        "stackTrace": null,
+        "output": "Reward audit: D:\\Dev\\Personal\\My_games\\Tech-Guy\\Docs\\validation\\artifacts\\gameplay-rework\\gpr-01-5\\b\\20261030-050559-7846700; 64 seeds x 4 paths; encounter victories assumed, no grant outside tickets; no physical playtest.\r\n"
+      },
+      {
+        "name": "ProductionRewardsUniformChoiceUsesUnchangedOfferWeights",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.Gpr015RewardAccessibilityTests.ProductionRewardsUniformChoiceUsesUnchangedOfferWeights",
+        "state": "Passed",
+        "durationSeconds": 11.6172475,
+        "message": null,
+        "stackTrace": null,
+        "output": "Reward audit: D:\\Dev\\Personal\\My_games\\Tech-Guy\\Docs\\validation\\artifacts\\gameplay-rework\\gpr-01-5\\b\\20261030-050611-4033207; 64 seeds x 4 paths; encounter victories assumed, no grant outside tickets; no physical playtest.\r\n"
+      },
+      {
+        "name": "DifferentSeedsVaryLayoutEncounterAndCompletionRewards",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.DifferentSeedsVaryLayoutEncounterAndCompletionRewards",
+        "state": "Passed",
+        "durationSeconds": 0.0185762,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "EncountersKeepRealBossAndEliteAndCapSupportsWithActiveAttackers",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.EncountersKeepRealBossAndEliteAndCapSupportsWithActiveAttackers",
+        "state": "Passed",
+        "durationSeconds": 0.0108483,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "GenerationDoesNotAlterAuthoringSnapshotOrGlobalRandom",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.GenerationDoesNotAlterAuthoringSnapshotOrGlobalRandom",
+        "state": "Passed",
+        "durationSeconds": 0.0039362,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "ManySeedsKeepRoomsSeparatedAndSpawnPointsInsideTheirArena",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.ManySeedsKeepRoomsSeparatedAndSpawnPointsInsideTheirArena",
+        "state": "Passed",
+        "durationSeconds": 0.0294385,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "MissingOrInvalidCatalogUsesExplicitAuthoredOrdinaryEnemies",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.MissingOrInvalidCatalogUsesExplicitAuthoredOrdinaryEnemies",
+        "state": "Passed",
+        "durationSeconds": 0.0039788,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "PathsBranchExclusionsAndMutationBeforeBossSurviveGeneration",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.PathsBranchExclusionsAndMutationBeforeBossSurviveGeneration",
+        "state": "Passed",
+        "durationSeconds": 0.0139345,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SameSeedReproducesLayoutEnemiesAndRewardSequence(ulong.MinValue)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.SameSeedReproducesLayoutEnemiesAndRewardSequence(ulong.MinValue)",
+        "state": "Passed",
+        "durationSeconds": 0.0026678,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SameSeedReproducesLayoutEnemiesAndRewardSequence(1701UL)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.SameSeedReproducesLayoutEnemiesAndRewardSequence(1701UL)",
+        "state": "Passed",
+        "durationSeconds": 0.0023455,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "SameSeedReproducesLayoutEnemiesAndRewardSequence(ulong.MaxValue)",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.SameSeedReproducesLayoutEnemiesAndRewardSequence(ulong.MaxValue)",
+        "state": "Passed",
+        "durationSeconds": 0.0023143,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "CorridorsRemainOrthogonalAndNeverPassThroughAnUnrelatedArena",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ProceduralRunGeometryPlanTests.CorridorsRemainOrthogonalAndNeverPassThroughAnUnrelatedArena",
+        "state": "Passed",
+        "durationSeconds": 0.0229389,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "DistinctConnectionsNeverShareWalkableFloorOutsideTheirArenas",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ProceduralRunGeometryPlanTests.DistinctConnectionsNeverShareWalkableFloorOutsideTheirArenas",
+        "state": "Passed",
+        "durationSeconds": 0.018516,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      },
+      {
+        "name": "EveryArenaOpeningIsUniqueAndItsGateSpansTheOnlyConnectingFloor",
+        "fullName": "TechGuy.Tests.Fluidity.EditMode.ProceduralRunGeometryPlanTests.EveryArenaOpeningIsUniqueAndItsGateSpansTheOnlyConnectingFloor",
+        "state": "Passed",
+        "durationSeconds": 0.0195491,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,568 @@
+diff --git a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs
+index 80af809..2335a07 100644
+--- a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs
++++ b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolBudget.cs
+@@ -123,11 +123,14 @@ public sealed class ProtocolRootContext
+             !ReactionNumeric.IsFinite(damage) || damage < 0f) return false;
+         _titanicTerminalCommitted = true; TitanicTerminalDamage = damage; return true;
+     }
+-    internal ProtocolBasicLineage ReserveTitanicTerminalEmission(long producerId)
++    internal ProtocolBasicLineage ReserveTitanicTerminalEmission(long producerId, ProtocolBasicEffects effects = ProtocolBasicEffects.None)
+     {
+-        if (!_titanicTerminalCommitted || _basicChildReserved || !ReserveChild(producerId)) return null;
++        // Only Conductor is authorized for the published Titanic branch. Default stays None.
++        if ((effects & ~ProtocolBasicEffects.Conductor) != 0 ||
++            (effects & ProtocolBasicEffects.Conductor) != 0 && Rank(ProtocolKind.Conductor) <= 0 ||
++            !_titanicTerminalCommitted || _basicChildReserved || !ReserveChild(producerId)) return null;
+         _basicChildReserved = true;
+-        return new ProtocolBasicLineage(ExecutionId, RootId, _basicTerminalTargets, TitanicFistsDefinition.Id, ProtocolBasicEffects.None);
++        return new ProtocolBasicLineage(ExecutionId, RootId, _basicTerminalTargets, TitanicFistsDefinition.Id, effects);
+     }
+     internal float ConfirmedBasicSourceDamage { get; private set; }
+     private string _basicProducerId = "basic-derived";
+diff --git a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolImpactIdentity.cs b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolImpactIdentity.cs
+index 285b2c0..57b741a 100644
+--- a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolImpactIdentity.cs
++++ b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolImpactIdentity.cs
+@@ -37,6 +37,7 @@ internal sealed class ProtocolBasicLineage
+     internal long ParentExecutionId { get; }
+     internal long RootId { get; }
+     internal string ProducerId { get; }
++    internal ProtocolExecution Reservation { get; set; }
+     internal ProtocolBasicLineage(long parent, long root, System.Collections.Generic.IEnumerable<ProtocolTargetHandle> excluded, string producerId, ProtocolBasicEffects effects)
+     { _effects = effects; ProducerId = producerId; ParentExecutionId = parent; RootId = root; _targets = new System.Collections.Generic.HashSet<ProtocolTargetHandle>(excluded); }
+     internal bool ClaimTarget(ProtocolTargetHandle target) => _targets.Add(target);
+diff --git a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs
+index 1736838..e520f5a 100644
+--- a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs
++++ b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Damage.cs
+@@ -25,6 +25,7 @@ public sealed partial class ProtocolRuntime
+         public float Posture;
+         public ProtocolBasicLineage Lineage;
+         public ProtocolExecution RequiredReservation;
++        public Vector3? ArcOrigin;
+     }
+     private bool Matches(ProtocolRootContext root) => root != null && root.IsValid &&
+         root.SessionId == _inventory.SessionId && root.EncounterId == EncounterId && !_inventory.IsEnded;
+@@ -99,7 +100,8 @@ public sealed partial class ProtocolRuntime
+     private void ProcessBasicBranch(ProtocolRootContext root, Actor target, ProtocolHitSnapshot before,
+         float damage, ProtocolProducer producer, int depth, ProtocolBasicLineage lineage)
+     {
+-        if (lineage.RootId != root.RootId || depth >= _inventory.Catalog.Limits.MaxDepth) return;
++        if (!Matches(root) || lineage.RootId != root.RootId || depth >= _inventory.Catalog.Limits.MaxDepth ||
++            lineage.Reservation != null && (!lineage.Reservation.IsValid || !lineage.Reservation.IsLifecycleCurrent)) return;
+         bool lethal = before.IsLethal(damage);
+         int conductor = root.Rank(ProtocolKind.Conductor);
+         if (conductor > 0 && lineage.ClaimEmission(producer, ProtocolProducer.Conductor))
+@@ -140,15 +142,17 @@ public sealed partial class ProtocolRuntime
+         _damageQueue.Enqueue(new ProtocolDamageWork { Root = root, Target = source,
+             Handle = sourceHandle ?? new ProtocolTargetHandle(EntityId.ToULong(source.GetEntityId()), source.CombatGeneration),
+             Damage = damage, Producer = producer, Depth = depth, Emission = true,
+-            Position = position, Radius = radius, Maximum = maximum, Feedback = feedback, DeadSource = deadSource, Lineage = lineage });
++            Position = position, Radius = radius, Maximum = maximum, Feedback = feedback, DeadSource = deadSource, Lineage = lineage,
++            RequiredReservation = lineage?.Reservation });
+     }
+     private void QueueDamage(ProtocolRootContext root, Actor target, float damage, ProtocolProducer producer, int depth, ProtocolBasicLineage lineage = null,
+-        ProtocolExecution requiredReservation = null)
++        ProtocolExecution requiredReservation = null, Vector3? arcOrigin = null)
+     {
+         if (!target || target.IsDead || !ReactionNumeric.IsFinite(damage) || damage <= 0 || !root.ReserveQueueItem()) return;
+         _damageQueue.Enqueue(new ProtocolDamageWork { Root = root, Target = target,
+             Handle = new ProtocolTargetHandle(EntityId.ToULong(target.GetEntityId()), target.CombatGeneration),
+-            Damage = damage, Producer = producer, Depth = depth, Lineage = lineage, RequiredReservation = requiredReservation });
++            Damage = damage, Producer = producer, Depth = depth, Lineage = lineage,
++            RequiredReservation = requiredReservation ?? lineage?.Reservation, ArcOrigin = arcOrigin });
+     }
+     private void DrainDamage()
+     {
+@@ -188,6 +192,11 @@ public sealed partial class ProtocolRuntime
+                     analyticsSource = analyticsSource?.WithModifier("resonance");
+                 using (work.Lineage != null ? OpenCallbackScope(work.Root, work.Depth, work.Lineage) : null)
+                 using (work.Target.CaptureNextDamage(value => actual = value, source: analyticsSource)) work.Target.TakeDamage(amount);
++                // New Titanic arcs are shown only for confirmed HP, after reservation/cap gates.
++                // Native Protocol presentation remains on its existing path.
++                if (actual > 0 && work.ArcOrigin.HasValue && Matches(work.Root) &&
++                    (work.RequiredReservation == null || work.RequiredReservation.IsValid && work.RequiredReservation.IsLifecycleCurrent))
++                    _feedback?.Emit(ProtocolFeedbackKind.Conductor, work.ArcOrigin.Value, before.Position, 1f);
+                 if (work.Posture > 0 && Matches(work.Root) && work.Target && !work.Target.IsDead && work.Target.isActiveAndEnabled &&
+                     work.Target.CombatGeneration == before.Handle.Generation && _player)
+                     _player.ApplyHitReactionTo(work.Target, new HitReactionRequest(_player, work.Target.transform.position,
+@@ -237,8 +246,9 @@ public sealed partial class ProtocolRuntime
+                 obstruction.collider.GetComponentInParent<Actor>() != candidate &&
+                 obstruction.collider.GetComponentInParent<Actor>() != source) continue;
+             if (!root.ClaimPropagation(EntityId.ToULong(candidate.GetEntityId()), candidate.CombatGeneration)) continue;
+-            if (producer == ProtocolProducer.Conductor) _feedback?.Emit(ProtocolFeedbackKind.Conductor, position, candidate.transform.position, radius);
+-            QueueDamage(root, candidate, damage, producer, depth, lineage); admitted++;
++            if (producer == ProtocolProducer.Conductor && lineage == null) _feedback?.Emit(ProtocolFeedbackKind.Conductor, position, candidate.transform.position, radius);
++            QueueDamage(root, candidate, damage, producer, depth, lineage,
++                arcOrigin: producer == ProtocolProducer.Conductor && lineage != null ? position : (Vector3?)null); admitted++;
+         }
+     }
+     partial void ResolveBurnTick(ProtocolElementApplication value)
+diff --git a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs
+index ac35612..6f0615a 100644
+--- a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs
++++ b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Scope.cs
+@@ -39,7 +39,11 @@ public sealed partial class ProtocolRuntime
+         if (!IsOpen || parent == null || parent.Owner != _player || _player.IsResolvingGauntletImpact || _player.HasOpenImpactFeedback ||
+             !_player.TryGetComponent(out BreakerGauntletCombat combat) || !combat.EnergyPolicy.IsLive(parent)) return null;
+         var root = FindRoot(parent); if (root == null) return null;
+-        long id = -checked(++_nextReservedProducer); var lineage = root.ReserveTitanicTerminalEmission(id);
++        var effects = parent.Snapshot?.BasicMutationId == TitanicFistsDefinition.Id &&
++            _player.RunModifiers?.Expansion.MutationId(BoonSlot.Basic) == TitanicFistsDefinition.Id &&
++            _inventory.Rank(ProtocolKind.Conductor) > 0 && root.Rank(ProtocolKind.Conductor) > 0
++            ? ProtocolBasicEffects.Conductor : ProtocolBasicEffects.None;
++        long id = -checked(++_nextReservedProducer); var lineage = root.ReserveTitanicTerminalEmission(id, effects);
+         return lineage == null ? null : new ProtocolExecution(this, root, ProtocolProducer.Technique, id, false, 1, lineage);
+     }
+     internal string ScopedProducerId => ScopedBasicLineage?.ProducerId ?? "";
+@@ -147,6 +151,7 @@ public sealed class ProtocolExecution : IDisposable
+     public bool IsValid => !_closed && Root != null && Root.IsValid && (_ownsRoot || Root.HasChild(_id));
+     internal ProtocolExecution(ProtocolRuntime owner, ProtocolRootContext root, ProtocolProducer producer, long id, bool ownsRoot, int depth, ProtocolBasicLineage lineage = null)
+     { BasicLineage = lineage; Owner = owner; Root = root; Producer = producer; _id = id; _ownsRoot = ownsRoot;
++        if (lineage != null) lineage.Reservation = this;
+         _sessionId = owner.Inventory.SessionId; _encounterId = owner.EncounterId; _lifecycleRevision = owner.LifecycleRevision; Depth = depth; }
+     public void Dispose()
+     {
+diff --git a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Status.cs b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Status.cs
+index ef3fc52..969337f 100644
+--- a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Status.cs
++++ b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.Status.cs
+@@ -134,6 +134,7 @@ public sealed partial class ProtocolRuntime
+     public void CloseEncounter()
+     {
+         LifecycleRevision++;
++        ClearTitanicFists();
+         Budget?.CloseAll(); _nativeRoots.Clear(); ClearApplications(); _feedback?.Clear();
+     }
+ }
+diff --git a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.TitanicFists.cs b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.TitanicFists.cs
+index 4678ad4..6f627b8 100644
+--- a/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.TitanicFists.cs
++++ b/Assets/_Project/Scripts/Characters/Combat/Protocols/ProtocolRuntime.TitanicFists.cs
+@@ -16,6 +16,9 @@ public sealed partial class ProtocolRuntime
+         public TitanicFistsVisual Visual;
+         public TitanicFistsVisual.TornadoView View;
+         public long ViewGeneration;
++        public long Lifecycle;
++        public Guid Session;
++        public int Node, Destination;
+     }
+     private struct TitanicCandidate
+     { public Actor Actor; public float Distance; }
+@@ -27,6 +30,37 @@ public sealed partial class ProtocolRuntime
+     internal Vector3? FirstTitanicPosition => _titanicWork.Count > 0 ? _titanicWork[0].Position : (Vector3?)null;
+     internal Vector3 LastTitanicEndPosition { get; private set; }
+     internal float LastTitanicTravelled { get; private set; }
++    private long _lastCosmeticTerminal, _lastCosmeticEpoch;
++    internal int CosmeticTitanicEmissions { get; private set; }
++
++    private bool NoncombatTitanicAllowed => !_ended && _inventory != null && !_inventory.IsEnded && !_inventory.IsFaulted &&
++        _boons && _boons.ProtocolSession != null && !_boons.ProtocolSession.IsEncounterClosing &&
++        _boons.ProtocolSession.Phase == RunPhase.Traversal &&
++        _boons.ProtocolSession.NodeState(EncounterId) == RunNodeState.Completed;
++
++    // Called only by the authored scheduler after its real contact batch. No root, query
++    // budget, damage queue or combat callback is created for this presentation lease.
++    internal bool QueueNoncombatTitanicContact(GauntletImpactContext parent, int impactIndex,
++        Vector3 origin, Vector3 forward, WeaponScript weapon)
++    {
++        if (!NoncombatTitanicAllowed || !_player || !_player.isActiveAndEnabled || _player.IsDead ||
++            _player.IsResolvingGauntletImpact || _player.HasOpenImpactFeedback || !weapon || _player.CurrentWeapon != weapon ||
++            parent == null || parent.Owner != _player || parent.Execution == _lastCosmeticTerminal && parent.Epoch == _lastCosmeticEpoch || impactIndex < 0 ||
++            parent.Origin != GauntletImpactOrigin.Direct || parent.Slot != GauntletActionSlot.Basic ||
++            parent.Snapshot?.BasicMutationId != TitanicFistsDefinition.Id || !parent.Snapshot.BasicFinisher ||
++            !_player.TryGetComponent(out BreakerGauntletCombat combat) || !combat.EnergyPolicy.IsLive(parent) ||
++            !ReactionNumeric.IsFinite(origin) || !ReactionNumeric.IsFinite(forward) ||
++            !_player.TryGetComponent(out TitanicFistsVisual visual)) return false;
++        forward.y = 0; forward.Normalize(); if (forward.sqrMagnitude < .99f) return false;
++        var view = visual.AcquireTornado(_inventory.Catalog.Limits.LiveRoots); if (view == null) return false;
++        var work = new TitanicWork { Weapon = weapon, Position = origin + forward * TitanicFistsDefinition.SpawnOffset,
++            SpawnOrigin = origin, Forward = forward, Visual = visual, View = view, ViewGeneration = view.Generation,
++            Lifecycle = LifecycleRevision, Session = _inventory.SessionId, Node = EncounterId,
++            Destination = _boons.ProtocolSession.PendingDestination };
++        _lastCosmeticTerminal = parent.Execution; _lastCosmeticEpoch = parent.Epoch;
++        visual.UpdateTornado(view, work.ViewGeneration, work.Position, forward, 0);
++        _titanicWork.Add(work); CosmeticTitanicEmissions++; return true;
++    }
+ 
+     internal bool QueueTitanicFists(GauntletImpactContext parent, Vector3 origin, Vector3 forward,
+         float range, Vector3 box, LayerMask layers, WeaponScript weapon)
+@@ -55,7 +89,7 @@ public sealed partial class ProtocolRuntime
+     private void ReleaseTitanic(TitanicWork work)
+     {
+         LastTitanicEndPosition = work.Position; LastTitanicTravelled = work.Travelled;
+-        work.Child.Dispose();
++        work.Child?.Dispose();
+         if (work.Visual) work.Visual.ReleaseTornado(work.View, work.ViewGeneration);
+     }
+     private void ClearTitanicFists()
+@@ -64,7 +98,9 @@ public sealed partial class ProtocolRuntime
+         _titanicWork.Clear();
+         if (_player && _player.TryGetComponent(out TitanicFistsVisual visual)) visual.Clear();
+     }
+-    private bool TitanicLive(TitanicWork work) => work.Child.IsValid && work.Child.IsLifecycleCurrent && _player &&
++    private bool TitanicLive(TitanicWork work) => (work.Child != null ? work.Child.IsValid && work.Child.IsLifecycleCurrent :
++        NoncombatTitanicAllowed && work.Lifecycle == LifecycleRevision && work.Session == _inventory.SessionId &&
++        work.Node == EncounterId && work.Destination == _boons.ProtocolSession.PendingDestination) && _player &&
+         !_player.IsDead && _player.isActiveAndEnabled && _player.CurrentWeapon == work.Weapon &&
+         _player.RunModifiers?.Expansion.MutationId(BoonSlot.Basic) == TitanicFistsDefinition.Id;
+     private void TickTitanicFists()
+@@ -74,7 +110,9 @@ public sealed partial class ProtocolRuntime
+             if (i >= _titanicWork.Count) continue;
+             var work = _titanicWork[i];
+             bool ended = !TitanicLive(work);
+-            if (!ended && CanResolveBasicBranch && ScaledDelta > 0 && !_draining)
++            bool canAdvance = work.Child != null ? CanResolveBasicBranch : NoncombatTitanicAllowed &&
++                !_player.IsCombatHitStopped && Time.timeScale > 0 && (!_holder || !_holder.IsGamePaused);
++            if (!ended && canAdvance && ScaledDelta > 0 && !_draining)
+             {
+                 float delta = Mathf.Min(ScaledDelta, TitanicFistsDefinition.Lifetime - work.Age);
+                 work.Age += delta;
+@@ -101,6 +139,14 @@ public sealed partial class ProtocolRuntime
+     private bool AdvanceTitanic(TitanicWork work, float distance)
+     {
+         if (!TitanicLive(work) || !ReactionNumeric.IsFinite(distance) || distance <= 0) return false;
++        if (work.Child == null)
++        {
++            // Reuse the wind view and travel constants, but never enter the combat sweep.
++            Vector3 next = work.Position + work.Forward * distance;
++            if (!TitanicSight((work.SpawnValidated ? work.Position : work.SpawnOrigin) + Vector3.up * .8f,
++                next + Vector3.up * .8f)) return false;
++            work.SpawnValidated = true; work.Position = next; work.Travelled += distance; return true;
++        }
+         if (!Budget.ReserveQuery() || !Budget.ReserveQuery()) return false; // overlap start + continuous sweep
+         bool spawnCheck = !work.SpawnValidated;
+         if (spawnCheck && !TitanicSight(work.SpawnOrigin + Vector3.up * .8f, work.Position + Vector3.up * .8f)) return false;
+diff --git a/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs b/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs
+index 69ecf84..a3c9027 100644
+--- a/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs
++++ b/Assets/_Project/Scripts/Characters/Player/Actions/CharControlScript.BasicImpact.cs
+@@ -101,10 +101,13 @@ public partial class CharControlScript
+             }
+             // This is after the native HP/notification/feedback batch, never a cosmetic hit hook.
+             if (playerActor && !playerActor.IsDead && playerActor.isActiveAndEnabled && playerActor.CurrentWeapon == acceptedWeapon &&
+-                playerActor.TryGetComponent(out ProtocolRuntime protocols) &&
+-                protocols.CommitTitanicTerminalContact(context, impact.Index, acceptedTornadoDamage))
+-                protocols.QueueTitanicFists(context, contactOrigin, contactForward,
+-                    _basicRange * _basicScale, _basicBox * _basicScale, attackLayers, acceptedWeapon);
++                playerActor.TryGetComponent(out ProtocolRuntime protocols))
++            {
++                if (protocols.CommitTitanicTerminalContact(context, impact.Index, acceptedTornadoDamage))
++                    protocols.QueueTitanicFists(context, contactOrigin, contactForward,
++                        _basicRange * _basicScale, _basicBox * _basicScale, attackLayers, acceptedWeapon);
++                else protocols.QueueNoncombatTitanicContact(context, impact.Index, contactOrigin, contactForward, acceptedWeapon);
++            }
+         }
+         finally
+         {
+diff --git a/Assets/_Project/Scripts/Core/Run/ManualRouteSnapshot.cs b/Assets/_Project/Scripts/Core/Run/ManualRouteSnapshot.cs
+index b729c55..458274a 100644
+--- a/Assets/_Project/Scripts/Core/Run/ManualRouteSnapshot.cs
++++ b/Assets/_Project/Scripts/Core/Run/ManualRouteSnapshot.cs
+@@ -12,6 +12,7 @@ public sealed class ManualRouteSnapshot
+     public int BossNode { get; }
+     // Seed for reward draws is independent of session identity and world/decorative RNG.
+     public ulong? RewardSeed { get; }
++    internal bool TitanicConductorPlaytest { get; }
+     public IReadOnlyCollection<ManualNodeDefinition> Nodes => _nodes.Values;
+     public IReadOnlyList<ManualConnectionDefinition> Connections => _connections.AsReadOnly();
+     public IReadOnlyList<ManualExclusiveGroup> Groups => _groups.AsReadOnly();
+@@ -29,8 +30,10 @@ public sealed class ManualRouteSnapshot
+         foreach (var path in paths) _paths.Add((int[])path.Clone());
+     }
+ 
+-    internal ManualRouteSnapshot(ManualRouteSnapshot source, IEnumerable<ManualNodeDefinition> nodes, ulong? rewardSeed = null)
++    internal ManualRouteSnapshot(ManualRouteSnapshot source, IEnumerable<ManualNodeDefinition> nodes, ulong? rewardSeed = null,
++        bool titanicConductorPlaytest = false)
+     {
++        TitanicConductorPlaytest = source.TitanicConductorPlaytest || titanicConductorPlaytest;
+         DefinitionId = source.DefinitionId; StartNode = source.StartNode; BossNode = source.BossNode;
+         RewardSeed = rewardSeed ?? source.RewardSeed;
+         foreach (var node in nodes) _nodes.Add(node.Id, node.Copy());
+diff --git a/Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs b/Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs
+index 008c463..2b01afc 100644
+--- a/Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs
++++ b/Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs
+@@ -56,6 +56,7 @@ public sealed partial class ProgressionDirector
+             catch (Exception exception)
+             { Debug.LogError("New room generation refused: " + exception.Message, this); enabled = false; return true; }
+         }
++        route = TitanicConductorPlaytestRewards.Apply(route, selected);
+         _manualPolicy = new ManualRoutePolicy(route);
+         MarkStatisticsStart();
+         ManualProjection = ManualRoomProjection.Create(route, _manualEnvironment);
+diff --git a/Assets/_Project/Scripts/Core/Run/RunBoons.Manual.cs b/Assets/_Project/Scripts/Core/Run/RunBoons.Manual.cs
+index 19cb570..56a50f8 100644
+--- a/Assets/_Project/Scripts/Core/Run/RunBoons.Manual.cs
++++ b/Assets/_Project/Scripts/Core/Run/RunBoons.Manual.cs
+@@ -78,8 +78,9 @@ public sealed partial class RunBoons
+         var node=_manualRoute.Session.Route.Node(request.NodeId); if(node==null) return null;
+         var ticket = _manualRewards.Open(request, new RunActionContext(true),
+             ManualInventoryKey(),
+-            ManualRewardCatalog.Eligible(node.RewardAt(request.Ordinal), WeaponModifiers, _weapon, Protocols,
+-                _manualRoute.Session.ProtocolAcquisitions + 1),
++            TitanicConductorPlaytestRewards.Prioritize(_manualRoute.Session.Route, node.RewardAt(request.Ordinal),
++                ManualRewardCatalog.Eligible(node.RewardAt(request.Ordinal), WeaponModifiers, _weapon, Protocols,
++                    _manualRoute.Session.ProtocolAcquisitions + 1), Protocols),
+             ManualRewardCatalog.Alternatives(node.RewardAt(request.Ordinal), WeaponModifiers, _weapon, Protocols));
+         if (ticket == null) return null;
+         _manualTicket = ticket;
+diff --git a/Assets/_Project/Scripts/Tests/PlayMode/TitanicTornadoPlayModeTests.cs b/Assets/_Project/Scripts/Tests/PlayMode/TitanicTornadoPlayModeTests.cs
+index 0ec8430..1288806 100644
+--- a/Assets/_Project/Scripts/Tests/PlayMode/TitanicTornadoPlayModeTests.cs
++++ b/Assets/_Project/Scripts/Tests/PlayMode/TitanicTornadoPlayModeTests.cs
+@@ -68,6 +68,15 @@ namespace TechGuy.Tests
+         {
+             yield return PrepareTitanic(); var native = BasicVictim(Vector3.forward * 1.2f); yield return null;
+             yield return TornadoCombo(2); native.DamageReceived += (_, __) => _controls.CancelCombo();
++            // Busy/recovery can end while the preceding native hitstop/cadence gate is
++            // still active. This test concerns cancellation AFTER committed contact,
++            // so prepare a legitimately admissible terminal before asserting its result.
++            float readyDeadline = Time.realtimeSinceStartup + 3;
++            while (!_controls.CanStartDirectionalBasic)
++            {
++                Assert.Less(Time.realtimeSinceStartup, readyDeadline, "Native readiness gate must eventually reopen.");
++                yield return null;
++            }
+             Assert.IsTrue(_controls.TryDirectionalBasicAttack(Vector3.forward)); yield return new WaitForSeconds(.25f);
+             Assert.AreEqual(1, _player.GetComponent<ProtocolRuntime>().TitanicWavesResolved); Assert.AreEqual(3, _attackCount);
+         }
+@@ -189,10 +198,10 @@ namespace TechGuy.Tests
+             Assert.AreEqual(0, UnityEngine.Object.FindObjectsByType<LineRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None).Count(x => x.name == "Swirling wind"));
+         }
+ 
+-        [UnityTest] public IEnumerator TornadoNonePolicyCannotCreateConductorDetonationOrResourcesAfterWhiff()
++        [UnityTest] public IEnumerator TornadoDetonationOwnershipCannotAuthorizeBranchOrResourcesAfterWhiff()
+         {
+             yield return PrepareTitanic(); var inventory = _titanRun.Protocols;
+-            foreach (var kind in new[] { ProtocolKind.Conductor, ProtocolKind.Detonation }) Assert.IsTrue(inventory.TryAcquire(inventory.SessionId, kind, inventory.Revision, _ => true));
++            Assert.IsTrue(inventory.TryAcquire(inventory.SessionId, ProtocolKind.Detonation, inventory.Revision, _ => true));
+             var victim = BasicVictim(Vector3.forward * 4.5f); victim.SetMaxHealth(1);
+             var neighbor = BasicVictim(Vector3.forward * 4.5f + Vector3.right * 2);
+             SetPrivate(_player, "_manaRegenerationPercentPerSecond", 0f); _player.mana = 50;
+diff --git a/Docs/02_ESTADO_E_LACUNAS.md b/Docs/02_ESTADO_E_LACUNAS.md
+index 2b1a1d3..be52520 100644
+--- a/Docs/02_ESTADO_E_LACUNAS.md
++++ b/Docs/02_ESTADO_E_LACUNAS.md
+@@ -1,6 +1,10 @@
+ # Estado verificado, conflitos e lacunas
+ 
+-## Estado vigente — GPR-01.2b, 28/10/2026
++## Atualização — 29/10/2026, GPR-01.2c /01.3
++
++Tornado01.2b aceito fisicamente como funcional/divertido. Lifecycle após clear corrigido com vento cosmético fora de Encounter; composiçãoA+B implementada sob grantConductor específico, sem Detonation ou tuning. [Relatório01.2c](decisions/GPR-01.2c_RELATORIO.md) / [relatório01.3](decisions/GPR-01.3_RELATORIO.md) delimitam testes e evidências atuais; composição aguarda revisão humana. Basic cadence, moonwalk, tornado speed/width/aim, reward economy, stages/pacing, enemy mesh variety, elites/bosses e Singularity permanecem tarefas futuras sem autorização de implementação. STOP após01.3.
++
++## Histórico — GPR-01.2b, 28/10/2026
+ 
+ A onda instantânea anterior foi aceita tecnicamente pelo desenvolvedor após teste físico, mas rejeitada como gameplay final. Punhos Titânicos agora emite um **tornado móvel de vento** em cada contato terminal executado, inclusive whiff:5,5m/3,5m/s, dano0,60× pacote aceito não crítico, sweep/LOS e mesma raiz/caps. Sem novo grant de Conductor/Detonation (`ProtocolBasicEffects.None`), sem tuning do kit nativo ou mudança de controles. [Relatório da revisão, evidências e limitações](decisions/GPR-01.2b_RELATORIO.md). **Aceite físico do tornado pendente; STOP antes de GPR-01.3.**
+ 
+diff --git a/Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md b/Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md
+index b81ad71..d85fc32 100644
+--- a/Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md
++++ b/Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md
+@@ -1,6 +1,18 @@
+ # Gameplay Rework — progresso mestre
+ 
+-## Estado vigente — GPR-01.2b, 28/10/2026
++Apoio ao playtest29/10/2026: modo temporário autorizado pelo desenvolvedor oferece Mutação + Protocolo por sala Combat/Elite da Manopla, garantindo A+B na primeira sala. Menu Tools > Tech Guy > Testar Tornado + Conductor; ligado nesta sessão do Editor para novas incursões. 7/7 testes focados aprovados, job266ffdae522c4ec08129075f01e33776. Sem tuning ou avanço a01.4. Detalhes no canônico de boons; não é alteração permanente da economia.
++
++Fechamento técnico29/10/2026: **329 casos distintos aprovados nas seleções (239 PlayMode +90 EditMode)**; zero ignorados, sem certificação da suíte global. Inclui196/196 regressões e correção de preparação do caso de cancelamento, com falhas intermediárias preservadas. Evidência e limites no relatórioGPR-01.3. Revisão física da composição pendente; STOP após01.3.
++
++## Estado vigente — GPR-01.2c /01.3, 29/10/2026
++
++GPR-01.2b aceita fisicamente pelo desenvolvedor: tornado funcional e divertido; velocidade/tamanho/mira e conteúdo futuro diferidos.01.2c executada primeiro e validada32/32 antes de iniciar01.3. Diagnóstico confirmado: scheduler aceita terminais em Traversal após clear, mas ProtocolRuntime não autoriza raiz fora de Encounter; agora há vento cosmético sem combate.
++
++01.3 implementa somente a composição Titanic Fists + Conductor. Um evento elétrico por tornado/raiz a partir do primeiro dano efetivo, com orçamento32, linha de visão, membership, dedupe/geração e cancelamento existentes. None default, sem Detonation ou recursos extras. Aquisição por tickets reais na rota de fixture seed0/nós5–6; reverse order mecânica assistida, distinguida de recompensa natural.
++
++Resultados finais e ressalvas são os dos [relatórios01.2c](GPR-01.2c_RELATORIO.md) e [01.3](GPR-01.3_RELATORIO.md). Automação/Game View não representam novo playtest físico. Backlog de design em [tasks](../gameplay/GPR_TASKS.md). **STOP após01.3**; revisão do desenvolvedor antes da próxima etapa. Histórico abaixo não representa autorização atual.
++
++## Histórico — GPR-01.2b, 28/10/2026
+ 
+ O desenvolvedor testou fisicamente a onda instantânea anterior: funcionalidade técnica aceita, resultado de gameplay considerado pouco transformador e rejeitado como design final. A revisão autorizada substitui essa onda por um **tornado de vento móvel**, mantendo o ID da Mutation, aquisição, controles e combate nativo. A evidência de GPR-01.2 abaixo permanece histórica.
+ 
+diff --git a/Docs/gameplay/GPR_01_VERTICAL_SLICE.md b/Docs/gameplay/GPR_01_VERTICAL_SLICE.md
+index ba05410..ea7c70d 100644
+--- a/Docs/gameplay/GPR_01_VERTICAL_SLICE.md
++++ b/Docs/gameplay/GPR_01_VERTICAL_SLICE.md
+@@ -1,6 +1,23 @@
+ # GPR-01 — primeira fatia da Manopla para revisão
+ 
+-## Estado vigente — GPR-01.2b, 28/10/2026
++## Estado vigente — A aceita; primeira composição A+B, 29/10/2026
++
++O desenvolvedor aceitou fisicamente GPR-01.2b como funcional e divertida. A correção01.2c do feedback após concluir sala foi autorizada antes de01.3 e passou32/32 antes da composição. [Relatório01.2c](../decisions/GPR-01.2c_RELATORIO.md) / [relatório01.3](../decisions/GPR-01.3_RELATORIO.md).
++
++| Build | Comportamento vigente |
++|---|---|
++| Base | Básico nativo, sem tornado novo. |
++| A / Punhos Titânicos | Tornado móvel aceito, inclusive terminal em whiff; em Traversal após clear, somente vento cosmético. |
++| B / Conductor | Protocol nativo preservado; não cria tornado. |
++| A+B | Primeiro impacto efetivo de vento pode conduzir do inimigo atingido para até rankB vizinhos válidos. Uma emissão por tornado/raiz, quota32 existente, sem recursos ou recursão. |
++
++A+B introduz interação verificável mesmo quando o soco terminal erra: o impacto tardio do vento produz condução onde B isolado não teria evento nativo. Whiff total, dano zero, imunidade, budget negado e vento cosmético não produzem arcos. Arcos exibidos correspondem a HP elétrico confirmado, com root/parent existentes. Nenhuma Detonation autorizada; grantsNone continuam default.
++
++Velocidade/tamanho/mira e demais números de01.2b congelados nesta atividade. Backlog de cadência, animação direcional, rewards, fases/ritmo, meshes, elites/bosses e Singularity em [GPR_TASKS](GPR_TASKS.md), sem implementação autorizada.
++
++**STOP após01.3 para revisão do desenvolvedor.** As seções antigas a seguir são registro histórico, inclusive gates anteriores e hipóteses da onda instantânea.
++
++## Histórico — GPR-01.2b, 28/10/2026
+ 
+ O desenvolvedor testou fisicamente a onda instantânea anterior: funcionalidade técnica aceita, resultado de gameplay considerado pouco transformador e rejeitado como design final. A revisão autorizada substitui essa onda por um **tornado de vento móvel**, mantendo o ID da Mutation, aquisição, controles e combate nativo. A evidência de GPR-01.2 abaixo permanece histórica.
+ 
+diff --git a/Docs/gameplay/GPR_REQUIREMENTS.md b/Docs/gameplay/GPR_REQUIREMENTS.md
+index a3d9aba..dac4ef7 100644
+--- a/Docs/gameplay/GPR_REQUIREMENTS.md
++++ b/Docs/gameplay/GPR_REQUIREMENTS.md
+@@ -1,6 +1,20 @@
+ # Gameplay Rework — requisitos da migração e da primeira fatia
+ 
+-## Estado vigente — GPR-01.2b, 28/10/2026
++## Estado vigente — GPR-01.2c / GPR-01.3, 29/10/2026
++
++Aceite físico explícito de GPR-01.2b recebido: funcional e divertido. Autorizadas sequencialmente01.2c e01.3; o resultado técnico32/32 de01.2c precedeu a implementação da composição. Resultados e limites finais nos [relatórios01.2c](../decisions/GPR-01.2c_RELATORIO.md) e [01.3](../decisions/GPR-01.3_RELATORIO.md). Seções anteriores abaixo são históricas onde divergirem.
++
++| Requisito vigente | Contrato |
++|---|---|
++| R-TIT-COSMETIC | Terminal legítimo em Traversal, ainda na sala Completed, conserva vento cosmético; nenhuma raiz, dano, recurso ou progresso. UI aberta continua bloqueando ataque. |
++| R-TIT-CONDUCTOR | A+B autoriza uma emissão elétrica no primeiro impacto de HP efetivo do tornado; origem no alvo atingido, máximo de vítimas = rankConductor capturado, orçamento32 compartilhado, sem reemissão ou Detonation. |
++| R-TIT-ISOLADOS | Base, A isolada e B isolado mantêm seus contratos. None permanece default. Aquisição após aceitação não altera raiz capturada. |
++| R-TIT-LIFETIME | Dedupe por identidade/geração e reserva revalidada em cada descendente; pausa/hitstop suspendem; encontro, cena, arma, owner e sessão invalidam. |
++| R-TIT-PRESERVAR | Sem tuning do tornado/básico/Protocols, controles, QER/RMB, Bow/Spear, rewards, IA, cenas ou progressão persistente. |
++
++**STOP após01.3.** Revisão do desenvolvedor necessária antes de qualquer próxima implementação; Detonation01.4 e Singularity continuam sem autorização.
++
++## Histórico — GPR-01.2b, 28/10/2026
+ 
+ O desenvolvedor testou fisicamente a onda instantânea anterior: funcionalidade técnica aceita, resultado de gameplay considerado pouco transformador e rejeitado como design final. A revisão autorizada substitui essa onda por um **tornado de vento móvel**, mantendo o ID da Mutation, aquisição, controles e combate nativo. A evidência de GPR-01.2 abaixo permanece histórica.
+ 
+diff --git a/Docs/gameplay/GPR_TASKS.md b/Docs/gameplay/GPR_TASKS.md
+index 33d49dd..d75822e 100644
+--- a/Docs/gameplay/GPR_TASKS.md
++++ b/Docs/gameplay/GPR_TASKS.md
+@@ -1,6 +1,26 @@
+ # Gameplay Rework — tarefas propostas e gates
+ 
+-## Estado vigente — GPR-01.2b, 28/10/2026
++## Execução vigente — 29/10/2026
++
++- [x] Registrar aceite humano de01.2b e feedback futuro, sem tuning.
++- [x]01.2c: reproduzir FirstSector, distinguir bloqueio de UI de terminal aceito sem raiz; corrigir apresentação não combatente e validar32/32 antes de01.3.
++- [x]01.3: compor Titanic Fists + Conductor com grant específico, mesma raiz/budget, receipt efetivo, sem Detonation.
++- [x] Comparar base/A/B/A+B, whiff/impacto tardio, imunidade, ausência de impacto, cap32, LOS, colliders, cancelamento, aquisição e transição; detalhes nos [relatórios](../decisions/GPR-01.3_RELATORIO.md).
++- [ ] Revisão física do desenvolvedor da composição01.3. Aprovação técnica é restrita aos testes/evidências registrados.
++
++### Backlog de design — sem autorização de implementação
++
++- Tornado: velocidade, largura, alcance, leitura e precisão de mira; sensação atual rápida/pequena, semelhante a projétil, registrada sem mudar números.
++- Cadência do básico e animações direcionais/moonwalk.
++- Frequência/qualidade de recompensas, economia de aquisição e coerência de builds.
++- Layouts de salas/fases, ritmo de exploração e encontros.
++- Modelos/meshes e diversidade visual de inimigos; semelhança atual é preocupação conhecida.
++- Identidade, mecânicas e apresentação de elites e bosses.
++- Singularity futura: tornado móvel + atração gravitacional + dano limitado + colapso/launch final; consultar imunidade aCC, stagger e ownership de deslocamento.
++
++**STOP após01.3.** Não iniciar01.4/Detonation, Singularity, novo especial, troca modular, redesign de inimigos ou implementação de level design. [01.2c](../decisions/GPR-01.2c_RELATORIO.md) / [01.3](../decisions/GPR-01.3_RELATORIO.md).
++
++## Histórico — GPR-01.2b, 28/10/2026
+ 
+ O desenvolvedor testou fisicamente a onda instantânea anterior: funcionalidade técnica aceita, resultado de gameplay considerado pouco transformador e rejeitado como design final. A revisão autorizada substitui essa onda por um **tornado de vento móvel**, mantendo o ID da Mutation, aquisição, controles e combate nativo. A evidência de GPR-01.2 abaixo permanece histórica.
+ 
+diff --git a/Docs/gameplay/GPR_TECHNICAL_DESIGN.md b/Docs/gameplay/GPR_TECHNICAL_DESIGN.md
+index 3825af2..88e4fc6 100644
+--- a/Docs/gameplay/GPR_TECHNICAL_DESIGN.md
++++ b/Docs/gameplay/GPR_TECHNICAL_DESIGN.md
+@@ -1,6 +1,20 @@
+ # Gameplay Rework — desenho técnico mínimo
+ 
+-## Estado vigente — GPR-01.2b, 28/10/2026
++## Estado vigente — implementação01.2c /01.3, 29/10/2026
++
++[Diagnóstico01.2c](../decisions/GPR-01.2c_RELATORIO.md) / [evidências01.3](../decisions/GPR-01.3_RELATORIO.md). Histórico abaixo não sobrepõe estes contratos.
++
++O contato real do scheduler após o batch nativo mantém o caminho combatente existente. Em Traversal de nó Completed, pode criar TitanicWork sem Child, limitado ao pool existente, com sessão/nó/destino/revisão e dedupe por epoch+execution. Esse trabalho reutiliza travel/view e nunca acessa o sweep/fila de dano. CloseEncounter libera trabalho e leases imediatamente. Sem nova raiz fora de Encounter ou alteração de persistência.
++
++Na reserva combatente, A no snapshot e inventário atual + Conductor no inventário e rank capturado autorizam exclusivamente ProtocolBasicEffects.Conductor. ReserveTitanicTerminalEmission conserva None como argumento default e rejeita Detonation/Both; ReserveConfirmedBasicChild conserva seu contrato independente. A raiz e quota de filho continuam as mesmas.
++
++ProcessBasicBranch consome uma única ClaimEmission(Technique,Conductor) no primeiro receipt positivo elegível do tornado. Mesmo sem vizinho ou com budget negado, essa oportunidade não renova. Uma emissão por projétil/terminal/raiz; até rankConductor vítimas válidas, sem Conductor→Conductor ou tornado→tornado. Dedupe compartilhado de alvos/gerações exclui vítimas nativas e vítimas já atingidas na linhagem. Nenhum aumento dos32 impactos, profundidade, queries, LOS ou caps de VFX.
++
++A linhagem carrega a reserva do produtor até QueueEmission/Emit/QueueDamage. Cada descendente verifica reserva e lifecycle antes do commit. Arcos novos são apresentados pelo ProtocolFeedbackPool somente depois de HP elétrico positivo e autorização ainda válida; ponto inicial = posição capturada do impacto no inimigo. HP/estatísticas usam receipt efetivo e atribuição Basic/Titanic/parent existentes, sem recurso/hook nativo extra. Apresentação e elegibilidade nativas de B permanecem em seu caminho atual.
++
++Parâmetros de A preservados:3,5m/s,5,5m,2s,raio0,65m,altura1,8m,offset0,75m e0,60× pacote aceito não crítico. Coeficientes/ranks de Conductor nativos preservados. Saturação pode omitir arcos: reportar, jamais renovar budget.
++
++## Histórico — GPR-01.2b, 28/10/2026
+ 
+ O desenvolvedor testou fisicamente a onda instantânea anterior: funcionalidade técnica aceita, resultado de gameplay considerado pouco transformador e rejeitado como design final. A revisão autorizada substitui essa onda por um **tornado de vento móvel**, mantendo o ID da Mutation, aquisição, controles e combate nativo. A evidência de GPR-01.2 abaixo permanece histórica.
+ 
+diff --git a/Docs/gameplay/GPR_VALIDATION_PLAN.md b/Docs/gameplay/GPR_VALIDATION_PLAN.md
+index 45b78a7..c34bd79 100644
+--- a/Docs/gameplay/GPR_VALIDATION_PLAN.md
++++ b/Docs/gameplay/GPR_VALIDATION_PLAN.md
+@@ -1,5 +1,15 @@
+ # Gameplay Rework — plano de validação
+ 
++Fechamento técnico29/10/2026: **329 casos distintos aprovados nas seleções (239 PlayMode +90 EditMode)**; zero ignorados, sem certificação da suíte global. Inclui196/196 regressões e correção de preparação do caso de cancelamento, com falhas intermediárias preservadas. Evidência e limites no relatórioGPR-01.3. Revisão física da composição pendente; STOP após01.3.
++
++## Execução01.2c /01.3 — 29/10/2026
++
++As verificações atuais estão nos [relatórios01.2c](../decisions/GPR-01.2c_RELATORIO.md) e [01.3](../decisions/GPR-01.3_RELATORIO.md), com seletores, jobs, falhas intermediárias e contagens. Separar aceite físico de01.2b, correção técnica de lifecycle e composição ainda pendente de revisão humana. Não repetir writers antigos sobre evidências históricas: saídas de regressão desta atividade usam SessionState `TechGuy.Tests.GprPhase` em pasta própria.
++
++Comparar base/A/B/A+B; soco em whiff com vento válido/vento sem impacto; imunidade do vento e do arco; quota inteira/último slot; LOS, dedupe/geração, cancelamento no receipt, ranks e aquisição tardia; morte final/clear/Traversal e próxima sala. Imagens não substituem asserts de HP, root/parent, estatísticas e recursos. Regredir controles, habilidades, três armas, Protocols, rewards e encontros. Manter limitação explícita para carga8/32/64, save/resume e standalone.
++
++**STOP após01.3**, sem teste/implementação de Detonation composta ou Singularity.
++
+ ## Estado vigente — GPR-01.1,28/10/2026
+ 
+ GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
+diff --git a/Docs/systems/04_BOONS.md b/Docs/systems/04_BOONS.md
+index 96f67b5..f8f749e 100644
+--- a/Docs/systems/04_BOONS.md
++++ b/Docs/systems/04_BOONS.md
+@@ -1,6 +1,18 @@
+ # Boons — poder que modifica gameplay
+ 
+-## Estado vigente — GPR-01.2b, 28/10/2026
++## Apoio temporário ao playtest — 29/10/2026
++
++A pedido do desenvolvedor, existe um modo de teste no Editor: **Tools > Tech Guy > Testar Tornado + Conductor**. Quando ligado antes de iniciar uma incursão da Manopla, cada sala Combat/Elite recebe uma Mutação + um Protocolo. A primeira recompensa garante Punhos Titânicos enquanto não adquirida; o primeiro Protocolo garante Conductor enquanto ausente. Depois, ofertas compatíveis normais; conteúdo esgotado usa o fallback existente, sem duplicar Mutation. Boss/Repair/Start e Bow/Spear preservados.
++
++Modo capturado no snapshot da run; toggle vale para novas incursões. SessionState, sem gravar PlayerPrefs, saves ou assets; desliga ao fechar o Editor e não é ativável em build. Economia normal fora desse modo permanece vigente. Assistência de teste não demonstra oferta natural/balanceamento. 7/7 PlayMode via MCP, job266ffdae522c4ec08129075f01e33776, incluindo FirstSector e tickets reais; zero ignorados, não suíte global. Evidência em validation/artifacts/gameplay-rework/gpr-01-3/reward-playtest-20261029.
++
++## Estado vigente — Titanic Fists + Conductor, 29/10/2026
++
++A/tornado01.2b aceita fisicamente.01.2c corrige somente a apresentação de terminais legítimos em Traversal de sala concluída, sem raiz/dano/recurso.01.3 permite uma emissão Conductor a partir do primeiro impacto efetivo do tornado, com ownershipA+B, ranks capturados, mesma raiz/parent e quota32. None permanece default; sem Detonation, recursão ou budget novo. Efeitos nativos deB e identidade/catálogo/IDs/recompensas preservados.
++
++[Relatório01.2c](../decisions/GPR-01.2c_RELATORIO.md) / [relatório01.3](../decisions/GPR-01.3_RELATORIO.md). Composição exige revisão humana. Tuning/variedade visual, economia e Singularity estão somente no backlog de design. **STOP após01.3**. Seções anteriores abaixo são históricas onde divergirem.
++
++## Histórico — GPR-01.2b, 28/10/2026
+ 
+ A onda instantânea anterior foi aceita tecnicamente pelo desenvolvedor após teste físico, mas rejeitada como gameplay final. Punhos Titânicos agora emite um **tornado móvel de vento** em cada contato terminal executado, inclusive whiff:5,5m/3,5m/s, dano0,60× pacote aceito não crítico, sweep/LOS e mesma raiz/caps. Sem novo grant de Conductor/Detonation (`ProtocolBasicEffects.None`), sem tuning do kit nativo ou mudança de controles. [Relatório da revisão, evidências e limitações](../decisions/GPR-01.2b_RELATORIO.md). **Aceite físico do tornado pendente; STOP antes de GPR-01.3.**
+ 
+diff --git a/Docs/validation/01_MATRIZ_DE_VALIDACAO.md b/Docs/validation/01_MATRIZ_DE_VALIDACAO.md
+index 6f1849b..862644f 100644
+--- a/Docs/validation/01_MATRIZ_DE_VALIDACAO.md
++++ b/Docs/validation/01_MATRIZ_DE_VALIDACAO.md
+@@ -1,6 +1,22 @@
+ # Matriz de validação: prova antes de declarar pronto
+ 
+-## Estado vigente — GPR-01.2b, 28/10/2026
++Fechamento técnico29/10/2026: **329 casos distintos aprovados nas seleções (239 PlayMode +90 EditMode)**; zero ignorados, sem certificação da suíte global. Inclui196/196 regressões e correção de preparação do caso de cancelamento, com falhas intermediárias preservadas. Evidência e limites no relatórioGPR-01.3. Revisão física da composição pendente; STOP após01.3.
++
++## Evidência vigente — GPR-01.2c /01.3, 29/10/2026
++
++[Relatório01.2c](../decisions/GPR-01.2c_RELATORIO.md) / [relatório01.3](../decisions/GPR-01.3_RELATORIO.md). Aprovação física recebida somente para01.2b; composição nova aguarda revisão do desenvolvedor. Números históricos abaixo não são novas execuções.
++
++| Critério | Prova atual / limite |
++|---|---|
++| Clear e terminal legítimo | FirstSector/ProgressionDirector/UI/tickets reais:32/32 da correção antes de compor; UI aberta bloqueia, Traversal permite ataque com vento cosmético. |
++| Base/A/B/A+B | HP e estatísticas comparados; terminal em whiff + vento distante autoriza arco novo apenas emA+B. |
++| Permissão/caps | None default, snapshot de ranks, grantA+B,32 impactos compartilhados, quota única sem recursão; zeroHP/cap/LOS/cancel negativos. |
++| Lifetime | Último inimigo morto pelo vento, clear, alvo com membership antigo, próxima sala, run/disable/arma/cena e pausa/hitstop. |
++| Oferta | seed0, rota fixture1→2→4→5→6, tickets/draw/Choose reais sem grantA/B; não prova economia/run física. |
++| Visual | Quatro PNG Game View eCSV próprios de01.3, arco no ponto de impacto, vento em posições diferentes; fixture assistida. |
++| Integridade e regressão | Seleções/contagens/jobs e hashes finais no relatório01.3; não suíte global, benchmark ou save/resume integral. |
++
++## Histórico — GPR-01.2b, 28/10/2026
+ 
+ O desenvolvedor testou fisicamente a onda instantânea anterior: funcionalidade técnica aceita, resultado de gameplay considerado pouco transformador e rejeitado como design final. A revisão autorizada substitui essa onda por um **tornado de vento móvel**, mantendo o ID da Mutation, aquisição, controles e combate nativo. A evidência de GPR-01.2 abaixo permanece histórica.
+ 

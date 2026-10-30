@@ -1,0 +1,48 @@
+{
+  "job_id": "e191ce3934834e69ba91e45d49a13dbc",
+  "status": "succeeded",
+  "mode": "PlayMode",
+  "started_unix_ms": 1793336398632,
+  "finished_unix_ms": 1793336401120,
+  "last_update_unix_ms": 1793336401120,
+  "progress": {
+    "completed": 1,
+    "total": 1,
+    "current_test_full_name": null,
+    "current_test_started_unix_ms": null,
+    "last_finished_test_full_name": "TechGuy.Tests.RunFrontPrototypeReviewTests.RUN02IsolatedStudyHasFiveMovingFormsAndTwoLayouts",
+    "last_finished_unix_ms": 1793336401083,
+    "stuck_suspected": false,
+    "editor_is_focused": true,
+    "run_in_background": true,
+    "focus_nudge_attempts": null,
+    "focus_nudge_limit": null,
+    "focus_nudge_status": null,
+    "blocked_reason": null,
+    "failures_so_far": [],
+    "failures_capped": false
+  },
+  "error": null,
+  "result": {
+    "mode": "PlayMode",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 0.7497995,
+      "resultState": "Passed"
+    },
+    "results": [
+      {
+        "name": "RUN02IsolatedStudyHasFiveMovingFormsAndTwoLayouts",
+        "fullName": "TechGuy.Tests.RunFrontPrototypeReviewTests.RUN02IsolatedStudyHasFiveMovingFormsAndTwoLayouts",
+        "state": "Passed",
+        "durationSeconds": 0.70348,
+        "message": null,
+        "stackTrace": null,
+        "output": ""
+      }
+    ]
+  }
+}

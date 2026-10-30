@@ -23,6 +23,7 @@ public sealed class GauntletExecutionSnapshot
     public bool ViolentFall { get; }
     public bool BasicFinisher { get; }
     public string BasicMutationId { get; }
+    internal ProtocolBasicEffects TitanicEffects { get; }
     public bool EchoingFist { get; }
     public bool TemporalEcho { get; }
     public bool PerfectRhythm { get; }
@@ -35,10 +36,12 @@ public sealed class GauntletExecutionSnapshot
     public float CadencedRecoveryStart { get; } = .22f;
 
     private GauntletExecutionSnapshot(WeaponRunModifiers modifiers, GauntletActionSlot slot,
-        BreakerGauntletAbility ability, GauntletMutationSelection selections = null, GauntletAuthoring authoring = null, bool basicFinisher = false)
+        BreakerGauntletAbility ability, GauntletMutationSelection selections = null, GauntletAuthoring authoring = null, bool basicFinisher = false,
+        ProtocolBasicEffects titanicEffects = ProtocolBasicEffects.None)
     {
         Slot = slot;
         BasicMutationId = slot == GauntletActionSlot.Basic ? modifiers?.Expansion.MutationId(BoonSlot.Basic) : null;
+        TitanicEffects = BasicMutationId == TitanicFistsDefinition.Id ? titanicEffects : ProtocolBasicEffects.None;
         BasicFinisher = basicFinisher; ViolentFall = modifiers?.HasViolentFall == true;
         EchoingFist = modifiers?.Expansion.Has(GauntletExpansionCatalog.EchoingFistId, slot) == true;
         TemporalEcho = modifiers?.Expansion.Has(GauntletExpansionCatalog.TemporalEchoId, slot) == true;
@@ -143,8 +146,9 @@ public sealed class GauntletExecutionSnapshot
 
     public static GauntletExecutionSnapshot CaptureBasic(WeaponRunModifiers modifiers, GauntletAuthoring authoring = null)
         => CaptureBasic(modifiers, authoring, false);
-    internal static GauntletExecutionSnapshot CaptureBasic(WeaponRunModifiers modifiers, GauntletAuthoring authoring, bool finisher)
-        => new GauntletExecutionSnapshot(modifiers, GauntletActionSlot.Basic, null, authoring: authoring, basicFinisher: finisher);
+    internal static GauntletExecutionSnapshot CaptureBasic(WeaponRunModifiers modifiers, GauntletAuthoring authoring, bool finisher,
+        ProtocolBasicEffects titanicEffects = ProtocolBasicEffects.None)
+        => new GauntletExecutionSnapshot(modifiers, GauntletActionSlot.Basic, null, authoring: authoring, basicFinisher: finisher, titanicEffects: titanicEffects);
 
     public static bool TryBuild(BreakerGauntletAbility ability, GauntletActionSlot slot,
         WeaponRunModifiers modifiers, out GauntletExecutionSnapshot snapshot, GauntletMutationSelection selections = null, GauntletAuthoring authoring = null)

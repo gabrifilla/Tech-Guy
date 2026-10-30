@@ -1,0 +1,32 @@
+{
+  "initial_files": 2675,
+  "unchanged": 2653,
+  "changed": [
+    "Assets\\_Project\\Scripts\\Effects\\TitanicFistsVisual.cs",
+    "Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicConductorPlayModeTests.cs",
+    "Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicFistsPlayModeTests.cs",
+    "Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicRoomClearPlayModeTests.cs",
+    "Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicTornadoPlayModeTests.cs",
+    "Assets\\_Project\\Scripts\\Characters\\Combat\\Protocols\\ProtocolBudget.cs",
+    "Assets\\_Project\\Scripts\\Characters\\Combat\\Protocols\\ProtocolImpactIdentity.cs",
+    "Assets\\_Project\\Scripts\\Characters\\Combat\\Protocols\\ProtocolRuntime.Damage.cs",
+    "Assets\\_Project\\Scripts\\Characters\\Combat\\Protocols\\ProtocolRuntime.Scope.cs",
+    "Assets\\_Project\\Scripts\\Characters\\Combat\\Protocols\\ProtocolRuntime.TitanicFists.cs",
+    "Assets\\_Project\\Scripts\\Abilities\\Weapon\\BreakerGauntletCombat.cs",
+    "Assets\\_Project\\Scripts\\Abilities\\Weapon\\GauntletExecutionSnapshot.cs",
+    "Docs\\02_ESTADO_E_LACUNAS.md",
+    "Docs\\decisions\\ADR-0006-GPR-DIRECAO-E-GATES.md",
+    "Docs\\decisions\\GAMEPLAY_REWORK_PROGRESS.md",
+    "Docs\\gameplay\\GPR_01_VERTICAL_SLICE.md",
+    "Docs\\gameplay\\GPR_REQUIREMENTS.md",
+    "Docs\\gameplay\\GPR_TASKS.md",
+    "Docs\\gameplay\\GPR_TECHNICAL_DESIGN.md",
+    "Docs\\gameplay\\GPR_VALIDATION_PLAN.md",
+    "Docs\\systems\\04_BOONS.md",
+    "Docs\\validation\\01_MATRIZ_DE_VALIDACAO.md"
+  ],
+  "missing": [],
+  "protected_asset_changes": [],
+  "duplicate_guids": [],
+  "invalid_guid_metadata": []
+}

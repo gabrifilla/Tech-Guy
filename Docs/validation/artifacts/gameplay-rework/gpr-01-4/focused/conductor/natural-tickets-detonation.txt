@@ -1,0 +1,6 @@
+Fixture route; real tickets/draw/Choose; no A/B grants. Seed=1
+1: augment_gauntlet_echoing_fist,augment_gauntlet_temporal_echo,weapon_AsuraEcho => augment_gauntlet_echoing_fist
+2: weapon_AsuraEcho,augment_gauntlet_temporal_echo,weapon_FlurryEcho => weapon_AsuraEcho
+4: weapon_FlurryEcho,weapon_AsuraEcho,augment_gauntlet_temporal_echo => weapon_FlurryEcho
+5: gauntlet_mutation_CadencedAsura,mutation_gauntlet_eclipse_uppercut,mutation_gauntlet_titan_fists => mutation_gauntlet_titan_fists
+6: detonation,ignite,conductor => detonation

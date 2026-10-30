@@ -11,6 +11,15 @@ namespace TechGuy.Tests
     public sealed partial class BasicAttackR1PlayModeTests
     {
 private RunBoons _titanRun;
+private static string TitanicLegacyEvidenceDirectory
+        {
+            get
+            {
+                string path = System.IO.Path.Combine(Application.dataPath, "../Docs/validation/artifacts/gameplay-rework/" +
+                    UnityEditor.SessionState.GetString("TechGuy.Tests.GprPhase", "gpr-01-2b"));
+                System.IO.Directory.CreateDirectory(path); return path;
+            }
+        }
 
 private IEnumerator PrepareTitanic(bool acquire = true)
         {
@@ -80,8 +89,7 @@ private IEnumerator PrepareTitanic(bool acquire = true)
             Assert.AreEqual(RunRewardTicketState.Resolved, _titanRun.ManualTicket.State);
             Assert.AreEqual(TitanicFistsDefinition.Id, _titanRun.WeaponModifiers.Expansion.MutationId(BoonSlot.Basic));
             yield return null; Assert.IsTrue(_player.GetComponent<TitanicFistsVisual>().OverlayActive);
-            System.IO.File.WriteAllText(System.IO.Path.Combine(Application.dataPath,
-                "../Docs/validation/artifacts/gameplay-rework/gpr-01-2b/reward-ticket.json"),
+            System.IO.File.WriteAllText(System.IO.Path.Combine(TitanicLegacyEvidenceDirectory, "reward-ticket.json"),
                 JsonUtility.ToJson(new TitanicRewardEvidence { seed = foundSeed.ToString(), node = 5, mutationAcquisitions = route.Session.MutationAcquisitions,
                     id = _titanRun.ManualTicket.ResultId, cards = _titanRun.ManualTicket.Choices.Select(x => x.Id).ToArray(),
                     status = _titanRun.ManualTicket.State.ToString(), fixtureRoute = true, debugGrant = false }));
@@ -92,7 +100,7 @@ private IEnumerator PrepareTitanic(bool acquire = true)
 
 private IEnumerator TitanicCapture(string name)
         {
-            string path = System.IO.Path.Combine(Application.dataPath, "../Docs/validation/artifacts/gameplay-rework/gpr-01-2b/" + name + ".png");
+            string path = System.IO.Path.Combine(TitanicLegacyEvidenceDirectory, name + ".png");
             var previousWrite = System.IO.File.Exists(path) ? System.IO.File.GetLastWriteTimeUtc(path) : DateTime.MinValue;
             ScreenCapture.CaptureScreenshot(path);
             float deadline = Time.realtimeSinceStartup + 3;

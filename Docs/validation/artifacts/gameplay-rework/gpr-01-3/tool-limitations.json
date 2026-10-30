@@ -1,0 +1,16 @@
+{
+  "genericUnityChecker": {
+    "command": "python C:/Users/gabri/.codex/skills/unity-csharp-scripting/scripts/check_unity_project.py D:/Dev/Personal/My_games/Tech-Guy --json",
+    "exitCode": 1,
+    "error": "ValueError: path is on mount 'C:', start on mount 'D:'",
+    "context": "Checker resolves the external Tripo3D package on C: relative to project on D:. No third-party package or checker was modified. Focused GUID/import/Unity checks have separate scope."
+  },
+  "intermediateCompilation": {
+    "source": "TitanicConductorPlayModeTests.cs",
+    "error": "CS1503: cannot convert string[] to string",
+    "correction": "Parents is an array; assertion now verifies Parents.Length > 0.",
+    "attemptedJob": "5d289efd169e4037b0bc736791af1d71",
+    "outcome": "Runner did not initialize during compile error; stuck job cleared and corrected fixture imported through Unity MCP. Not counted as behavioral red."
+  },
+  "mcpEditMode": "Transient plugin disconnections during the long 90-case EditMode selection. Final 90/90 summary was observed from the completed real job. Details were not persisted by the plugin across the subsequent domain reload."
+}

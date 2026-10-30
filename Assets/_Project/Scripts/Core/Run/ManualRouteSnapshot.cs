@@ -12,6 +12,7 @@ public sealed class ManualRouteSnapshot
     public int BossNode { get; }
     // Seed for reward draws is independent of session identity and world/decorative RNG.
     public ulong? RewardSeed { get; }
+    internal bool TitanicConductorPlaytest { get; }
     public IReadOnlyCollection<ManualNodeDefinition> Nodes => _nodes.Values;
     public IReadOnlyList<ManualConnectionDefinition> Connections => _connections.AsReadOnly();
     public IReadOnlyList<ManualExclusiveGroup> Groups => _groups.AsReadOnly();
@@ -29,8 +30,10 @@ public sealed class ManualRouteSnapshot
         foreach (var path in paths) _paths.Add((int[])path.Clone());
     }
 
-    internal ManualRouteSnapshot(ManualRouteSnapshot source, IEnumerable<ManualNodeDefinition> nodes, ulong? rewardSeed = null)
+    internal ManualRouteSnapshot(ManualRouteSnapshot source, IEnumerable<ManualNodeDefinition> nodes, ulong? rewardSeed = null,
+        bool titanicConductorPlaytest = false)
     {
+        TitanicConductorPlaytest = source.TitanicConductorPlaytest || titanicConductorPlaytest;
         DefinitionId = source.DefinitionId; StartNode = source.StartNode; BossNode = source.BossNode;
         RewardSeed = rewardSeed ?? source.RewardSeed;
         foreach (var node in nodes) _nodes.Add(node.Id, node.Copy());

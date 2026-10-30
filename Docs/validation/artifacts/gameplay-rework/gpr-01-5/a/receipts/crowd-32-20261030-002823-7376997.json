@@ -1,0 +1,18 @@
+{
+    "enemies": 32,
+    "emitted": 2,
+    "maxActiveTornadoes": 2,
+    "maxFrameImpacts": 9,
+    "maxQueue": 32,
+    "impactedTargets": 32,
+    "droppedImpacts": 0,
+    "poolSize": 2,
+    "cpuRecorderValid": true,
+    "gcRecorderValid": true,
+    "cpuMedianMs": 0.0615,
+    "cpuP95Ms": 0.5331,
+    "frameMedianMs": 2.7989016380161049,
+    "frameP95Ms": 4.242198076099157,
+    "gcMaxBytes": 551558,
+    "limitation": "Editor PlayMode fixture; aggregate Protocol marker and whole-frame GC include Editor/test overhead, not a standalone CPU/GPU benchmark."
+}

@@ -1,0 +1,88 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"success\":true,\"message\":\"Test job status retrieved.\",\"error\":null,\"data\":{\"job_id\":\"8d88da2dacec414694f08e6983903c3d\",\"status\":\"failed\",\"mode\":\"PlayMode\",\"started_unix_ms\":1793315502336,\"finished_unix_ms\":1793315515542,\"last_update_unix_ms\":1793315515542,\"progress\":{\"completed\":3,\"total\":3,\"current_test_full_name\":null,\"current_test_started_unix_ms\":null,\"last_finished_test_full_name\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorRankThreeHasOneBoundedFanOutWithoutRecursion\",\"last_finished_unix_ms\":1793315515488,\"stuck_suspected\":false,\"editor_is_focused\":true,\"run_in_background\":true,\"focus_nudge_attempts\":null,\"focus_nudge_limit\":null,\"focus_nudge_status\":null,\"blocked_reason\":null,\"failures_so_far\":[{\"full_name\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorRankThreeHasOneBoundedFanOutWithoutRecursion\",\"message\":\"  Expected: 3\\r\\n  But was:  2\\r\\n\"}],\"failures_capped\":false},\"error\":null,\"result\":{\"mode\":\"PlayMode\",\"summary\":{\"total\":3,\"passed\":2,\"failed\":1,\"skipped\":0,\"durationSeconds\":6.6203646,\"resultState\":\"Failed(Child)\"},\"results\":[{\"name\":\"TitanicConductorAcquiredAfterTerminalAcceptanceCannotRetroactivelyGrantBranch\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorAcquiredAfterTerminalAcceptanceCannotRetroactivelyGrantBranch\",\"state\":\"Passed\",\"durationSeconds\":2.3064653,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\n\"},{\"name\":\"TitanicConductorGameViewShowsMovingWindAndImpactBoundArc\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorGameViewShowsMovingWindAndImpactBoundArc\",\"state\":\"Passed\",\"durationSeconds\":2.1441366,\"message\":null,\"stackTrace\":null,\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\n\"},{\"name\":\"TitanicConductorRankThreeHasOneBoundedFanOutWithoutRecursion\",\"fullName\":\"TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorRankThreeHasOneBoundedFanOutWithoutRecursion\",\"state\":\"Failed\",\"durationSeconds\":2.1074084,\"message\":\"  Expected: 3\\r\\n  But was:  2\\r\\n\",\"stackTrace\":\"at TechGuy.Tests.BasicAttackR1PlayModeTests+<TitanicConductorRankThreeHasOneBoundedFanOutWithoutRecursion>d__364.MoveNext () [0x001c2] in D:\\\\Dev\\\\Personal\\\\My_games\\\\Tech-Guy\\\\Assets\\\\_Project\\\\Scripts\\\\Tests\\\\PlayMode\\\\TitanicConductorPlayModeTests.cs:191\\r\\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\\\Library\\\\PackageCache\\\\com.unity.test-framework@1405238725ab\\\\UnityEngine.TestRunner\\\\NUnitExtensions\\\\Attributes\\\\TestEnumerator.cs:44\\r\\n\",\"output\":\"AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nEfeito de clique não configurado!\\r\\nDashScript nao configurado!\\r\\nMain camera nao configurada!\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\nAnimator is not playing an AnimatorController\\r\\n\"}]}},\"hint\":null}"
+    }
+  ],
+  "structuredContent": {
+    "result": {
+      "success": true,
+      "message": "Test job status retrieved.",
+      "error": null,
+      "data": {
+        "job_id": "8d88da2dacec414694f08e6983903c3d",
+        "status": "failed",
+        "mode": "PlayMode",
+        "started_unix_ms": 1793315502336,
+        "finished_unix_ms": 1793315515542,
+        "last_update_unix_ms": 1793315515542,
+        "progress": {
+          "completed": 3,
+          "total": 3,
+          "current_test_full_name": null,
+          "current_test_started_unix_ms": null,
+          "last_finished_test_full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorRankThreeHasOneBoundedFanOutWithoutRecursion",
+          "last_finished_unix_ms": 1793315515488,
+          "stuck_suspected": false,
+          "editor_is_focused": true,
+          "run_in_background": true,
+          "focus_nudge_attempts": null,
+          "focus_nudge_limit": null,
+          "focus_nudge_status": null,
+          "blocked_reason": null,
+          "failures_so_far": [
+            {
+              "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorRankThreeHasOneBoundedFanOutWithoutRecursion",
+              "message": "  Expected: 3\r\n  But was:  2\r\n"
+            }
+          ],
+          "failures_capped": false
+        },
+        "error": null,
+        "result": {
+          "mode": "PlayMode",
+          "summary": {
+            "total": 3,
+            "passed": 2,
+            "failed": 1,
+            "skipped": 0,
+            "durationSeconds": 6.6203646,
+            "resultState": "Failed(Child)"
+          },
+          "results": [
+            {
+              "name": "TitanicConductorAcquiredAfterTerminalAcceptanceCannotRetroactivelyGrantBranch",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorAcquiredAfterTerminalAcceptanceCannotRetroactivelyGrantBranch",
+              "state": "Passed",
+              "durationSeconds": 2.3064653,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+            },
+            {
+              "name": "TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+              "state": "Passed",
+              "durationSeconds": 2.1441366,
+              "message": null,
+              "stackTrace": null,
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+            },
+            {
+              "name": "TitanicConductorRankThreeHasOneBoundedFanOutWithoutRecursion",
+              "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorRankThreeHasOneBoundedFanOutWithoutRecursion",
+              "state": "Failed",
+              "durationSeconds": 2.1074084,
+              "message": "  Expected: 3\r\n  But was:  2\r\n",
+              "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<TitanicConductorRankThreeHasOneBoundedFanOutWithoutRecursion>d__364.MoveNext () [0x001c2] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\TitanicConductorPlayModeTests.cs:191\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+              "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+            }
+          ]
+        }
+      },
+      "hint": null
+    }
+  },
+  "isError": false
+}

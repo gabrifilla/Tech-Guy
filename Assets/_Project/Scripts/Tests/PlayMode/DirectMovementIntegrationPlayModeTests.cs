@@ -132,7 +132,7 @@ namespace TechGuy.Tests
                 start = _player.transform.position; yield return new WaitForSeconds(.08f);
                 Assert.That(Vector3.Distance(start, _player.transform.position), Is.LessThan(.01));
                 Assert.That(_agent.hasPath, Is.False);
-                string path = Path.Combine(Application.dataPath, "../Docs/validation/artifacts/gameplay-rework/" + SessionState.GetString("TechGuy.Tests.GprPhase", "c01-2b") + "/integration-movement.json");
+                string path = Path.Combine(GameplayTestEvidence.Directory("c01-2b"), "integration-movement.json");
                 File.WriteAllText(path, JsonUtility.ToJson(new DirectMeasurement { cardinal = cardinal, diagonal = diagonal, fixtureSpeed = _agent.speed, casts = casts }));
             }
         }
@@ -449,7 +449,7 @@ namespace TechGuy.Tests
                 Vector3 stopped = _player.transform.position;
                 for (int i = 0; i < 10; i++) { motor.Move(new Vector3(.1f, 0, .1f), false, true, true); yield return null; }
                 Assert.That(Vector3.Distance(stopped, _player.transform.position), Is.LessThan(.01f));
-                System.IO.File.WriteAllText(System.IO.Path.Combine(Application.dataPath, "../Docs/validation/artifacts/gameplay-rework/" + SessionState.GetString("TechGuy.Tests.GprPhase", "c01-2c") + "/wall-comparison.json"),
+                System.IO.File.WriteAllText(System.IO.Path.Combine(GameplayTestEvidence.Directory("c01-2c"), "wall-comparison.json"),
                     JsonUtility.ToJson(new SafetyMeasurement { blocked = blocked, sliding = sliding, corner = stopped, speed = _agent.speed }));
             }
         }

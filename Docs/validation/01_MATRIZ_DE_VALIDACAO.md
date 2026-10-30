@@ -1,6 +1,90 @@
 # Matriz de validação: prova antes de declarar pronto
 
-## Estado vigente — GPR-01.2b, 28/10/2026
+## RUN-EXP-01 — fechamento do recorte,30/10/2026
+
+Etapas0–2 entregues no escopo técnico/documental; implementação de design futuro e aceite humano **não concluídos**. [Plano e gates](../gameplay/TECH_GUY_RUN_REWARDS_ROOMS_ENEMIES_MASTERPLAN.md).
+
+| Execução | Resultado / evidência |
+|---|---|
+| Críticos finais58493f83f2144543bdc90e15ebb9a22a |10/10,0 ignorados,21,959s; [JSON](artifacts/run-exp-01/critical-final-58493f83.json). Inclui Hooker/câmera publicada, recuperação e fonte quebrada; fixture assistida explicitada. |
+| EditMode07f6c50e43d8432c8009e25f4d44a4a6 |37/37,0 ignorados,35,427s; [JSON](artifacts/run-exp-01/editmode-final-07f6c50e.json). Rewards/compatibilidade/randomizador/geometry plan. Duas tentativas anteriores com namespace errado descobriram0 casos (6fef61e0551c4629bba5d352c2dc0235 e83b7a70675e24e1a825c5fb593711689), não contadas como validação. |
+| Protótipo final e191ce3934834e69ba91e45d49a13dbc |1/1,0 ignorados; [JSON](artifacts/run-exp-01/prototype-final-e191ce39.json);5 formas,2 layouts, amostras Game View1160×599, sem Actor/produção. |
+| Regressão/baseline |322/353 preservado. Baseline224a96b3 sem fix:6/31; com fix69058685:6/31.24 falham nos dois estados,5 passam nos dois,2 variam. Detalhes/causas/ressalvas no [relatório0](../decisions/RUN_STAGE_0_CRITICAL_FIXES.md); não declarar suite toda verde. |
+| Carga/snapshot/pool69058685 |5/5 adicionais aprovados, inclusive8/32/64;2 tornados/pool2;64 alvos saturam caps, não benchmark64 agentes/GPU/player. |
+| Integridade |Scanner2.551 arquivos,1 erro legado Playground (GUID já no HEAD) e1 warning sampler de teste; nenhum erro dos assets novos. [Saída](artifacts/run-exp-01/integrity-final.json). Nenhuma cena produtiva modificada; estudo fora do build. |
+
+Assistência A+B do Editor encontrada true e restaurada pelos testes; economia natural exige condição explicitamente desligada. Blender MCP desconectado; não houve autoria DCC de arte final. O registro de pausa abaixo é histórico; não mantém etapas1/2 como não iniciadas.
+
+## RUN-EXP-01 / Etapa0 — checkpoint de 29/10/2026
+
+Projeto real D:/Dev/Personal/My_games/Tech-Guy, gameplayOverhaul/653db8b com mudanças locais preservadas, Unity6000.5.10f1, instânciaTech-Guy@fccafb2b47cd7671. **Etapa em execução, pausada para cota por pedido do usuário; não aprovada em gameplay.**
+
+| Critério | Evidência e limite |
+|---|---|
+| Pull encadeado | Job536c164f61e447158a42b8ad989a8f34:2 falhas/3 antes;780a64160c4740a483feec5eaa6f945f:3/3 depois. Inclui dois executores HookLine reais, jogador/NavMesh de fixture, nova pressão de movimento/dash. Não é sessão humana ou captura do prefab na progressão. |
+| Lifecycle/pausa/pool | Jobb8b7eb0b00204e90a3c2e0d77a6e9897:6/6; job243f6a6df28144cb8f581b52514616fc inclui9/9 RUN00 aprovados, com repetição de um executor, morte/disable/scene unload e ownership. |
+| A/AB/AC/ABC na câmera publicada | Quatro casos GPR015GameView*InPublishedCombat, jobs a090032f409243eb8077ca3737c8d5e1 (antes),9281e581a4964a84838fe038541264e6 (primeira rodada),83b0e92087454cbab4ae0cefd9955271 (segunda):4/4 em cada. Cenário visual assistido com boons/posicionamento/HP/IA controlados, câmera normal e HeavySlam real. PNGs inspecionados; reconhecimento humano não estabelecido. |
+| Regressão ampliada | 243f6a6df28144cb8f581b52514616fc:322/353,31 falhas,0 ignorados,403,206s. [Nomes/estados e falhas](artifacts/run-exp-01/stage0/regression-243f6a6d.json). Falhas fora do filtro novo ainda exigem diagnóstico causal; não atribuir todas ao legado. |
+| Integridade/Editor | Importou novos scripts/metas, compilação normal e testes executados. Checker externo falhou em relpath entre drivesC:/D: do pacoteTripo; não é verde. FastScriptReload registrou falha de partial temporária/main thread; não foi alterado ou silenciado. Editor voltou ao NexusBlockout/EditMode e configurações temporárias do runner não deixaram diff. |
+| Gates ainda abertos | Captura/timeline Hooker real na câmera publicada, reação/interrupção da fonte, custo visual8/32/64, diagnóstico das31 falhas, auditoria/planos e protótipos isolados. GPR01 mantém ressalvas/aceite visual humano pendente. |
+
+[Relatório da atividade](../decisions/RUN_STAGE_0_CRITICAL_FIXES.md) e [retomada](../decisions/RUN_RESUME_CHECKPOINT.md). Não transformar esta linha de progresso em encerramento das etapas0/1/2.
+
+## Estado vigente — auditoria GPR-01.5, 29/10/2026
+
+**GPR-01.5 concluída como auditoria, com ressalva de estabilidade e aceite físico pendente. STOP após01.5.** O desenvolvedor aceita01.4 como implementada/demonstrada no foco documentado; não aceitou fisicamente as novas camadas fogo/eletricidade ou a tripla. Gameplay01.3 já foi aceito. O histórico199/203 +4/4 isolados de01.4 não foi reclassificado como203/203.
+
+A+B+C foi obtida por tickets reais, sem grants de boons, nos quatro percursos publicados deFirstSector, com assistênciaA+B desligada/restaurada no scope dos testes. Combate/conclusão dos encontros foram automatizados, não humanos. A rota atual usa geração e tem umaMutation e2–7 oportunidadesProtocol na amostra; a antiga conclusão de uma única oportunidade limitava-se à fixture. Nenhum peso/frequência/gate/sala/economia foi alterado.
+
+Modelo determinístico64 seeds×4 caminhos×3 políticas, sorteio/commit de produção:ABC253/256 priorizandoB,252/256 priorizandoC,42/256 escolhendo uniformemente entre cards sorteados. Não são probabilidades universais nem garantia de sobrevivência/diversão. Quatro comparadores reais na câmera normal, com vários inimigos/telegraphs, mostram vento/fogo/eletricidade e feedback causal separado; leitura física continua pendente.
+
+Validação desta atividade:98/98 focados;3/3 EditMode de amostra;8/8 produção (4rotas+4visuais);5/5 correções de ambiente/probe;10/10 checks finais;90/90 EditMode final. Regressão ampliada **203/204**: caso de pausa/recovery falhou emIsCasting após0,4s reais de pausa, passando inalterado no diagnóstico posterior. Causa ainda não confirmada, risco temporal aberto. Não declarar a bateria totalmente verde ouGPR-01 encerrada.
+
+Somente testes/documentação mudaram: diretórios de evidência criados pelos writers; helperAsura exige recovery ainda estacionária, porque a espera móvel também reportaRecovery/progress1 e era admitida antes. Probe reproduziu a premissa incorreta; não prova retrospectivamente toda falha histórica. Nenhum timer/TTL/buffer/cadência/animação ou owner de produção alterado. Medições8/32/64 mantêm dois tornados/pool2 e cap32, com limites de Editor/GC agregado.
+
+Antes de encerrarGPR-01 ou autorizar01.6: diagnosticar pausa/recovery e obter revisão física das camadas/tripla/telegraphs. Auditoria futura dedicada de recompensas/ritmo, layouts, identidade visual de inimigos e bosses é apenas proposta. Singularity, tuning, economia nova, novasMutations/especiais/skills e redesign não foram executados.
+
+[Relatório consolidado e evidências](../decisions/GPR-01.5_RELATORIO.md). Relatórios01.5a/b/c/d preservam comandos, jobs, falhas e limites.
+
+## Histórico anterior — não sobrepõe GPR-01.5
+
+
+## Estado vigente — GPR-01.4, 29/10/2026
+
+O pedido direto aceita fisicamente01.2c/01.3 e autoriza sequencialmente01.4a–e, incluindo transformação visual obrigatória. **GPR-01.4 implementada, com validação integrada e ressalva legada; STOP após01.4.** GPR-01.5, Singularity, novos especiais, troca modular, tuning, inimigos e salas não foram executados. Todo estado anterior abaixo é histórico onde divergir deste registro.
+
+A=mutation_gauntlet_titan_fists; B=conductor; C=detonation, mesmos IDs/catálogos/tickets. Base/B/C/B+C mantêm execução nativa e não criam tornado. A viaja como vento; A+B acrescenta identidade elétrica e uma oportunidade Conductor; A+C acrescenta fogo e uma oportunidade Detonation em morte confirmada; A+B+C compõe vento, eletricidade e fogo, permitindo morte pelo Conductor derivado autorizar Detonation. Fogo visual não aplica burn/DoT.
+
+Raiz e budget32 compartilhados; uma emissão Conductor e uma Detonation por tornado. Sem Conductor→Conductor, Detonation→Detonation/Conductor ou tornado→tornado no ramo novo. Native B+C preservado, inclusive suas cascatas e dedupe: não aplicar a whitelist nova globalmente. Soco e vento podem conduzir separadamente quando existem alvos elegíveis e capacidade.
+
+Ownership visual no GauntletExecutionSnapshot aceito; ranks mecânicos na raiz aceita. A reserva intersecta ownership/snapshot e inventário, e o visual recebe essa mesma política. Aquisição durante antecipação/voo não altera projétil anterior. Cosmetic Completed conserva identidade aceita, sem root, HP, arco externo ou explosão. Pool/leases limpam fogo e eletricidade em release/clear/swap/disable/run/cena/contexto. Geometria, velocidade3,5m/s, alcance5,5m, TTL2s, raio0,65m e dano0,60× preservados.
+
+Validação real Unity6000.5.10f1/MCP no checkoutD:/Dev/Personal/My_games/Tech-Guy:98/98 focados,12/12 visual/lifecycle,7/7 integração e90/90 EditMode. Regressão ampliada199/203; três falhas de diretório corrigidas na preparação e4/4 no diagnóstico isolado. Uma ocorrência de Asura cadenciada permanece sem causa confirmada; diagnóstico verde não é correção ou bateria ampliada inteiramente verde.368 nomes distintos com resultado aprovado observado (278 PlayMode+90 EditMode), sem ignorados nas seleções finais; não suíte global nem novo aceite humano.
+
+Tickets reais A+B seed0 e A+C seed1; quatro ordens triplas assistidas explicitamente. Rota normal exercitada oferece somente uma oportunidade Protocol: não foi ampliada para fabricar aquisição tripla natural. Capturas Game View, receipts separados, desempenho controlado8/32/64 e todas as tentativas no consolidado e artefatosGPR-01.4. Playtest físico de leitura/feel desta revisão continua pendente.
+
+[Consolidado](../decisions/GPR-01.4_RELATORIO.md) · relatórios separados01.4a/b/c/d/e e evidências novas vinculadas nele.
+
+## Histórico anterior — não sobrepõe o estado GPR-01.4
+
+
+Fechamento técnico29/10/2026: **329 casos distintos aprovados nas seleções (239 PlayMode +90 EditMode)**; zero ignorados, sem certificação da suíte global. Inclui196/196 regressões e correção de preparação do caso de cancelamento, com falhas intermediárias preservadas. Evidência e limites no relatórioGPR-01.3. Revisão física da composição pendente; STOP após01.3.
+
+## Evidência vigente — GPR-01.2c /01.3, 29/10/2026
+
+[Relatório01.2c](../decisions/GPR-01.2c_RELATORIO.md) / [relatório01.3](../decisions/GPR-01.3_RELATORIO.md). Aprovação física recebida somente para01.2b; composição nova aguarda revisão do desenvolvedor. Números históricos abaixo não são novas execuções.
+
+| Critério | Prova atual / limite |
+|---|---|
+| Clear e terminal legítimo | FirstSector/ProgressionDirector/UI/tickets reais:32/32 da correção antes de compor; UI aberta bloqueia, Traversal permite ataque com vento cosmético. |
+| Base/A/B/A+B | HP e estatísticas comparados; terminal em whiff + vento distante autoriza arco novo apenas emA+B. |
+| Permissão/caps | None default, snapshot de ranks, grantA+B,32 impactos compartilhados, quota única sem recursão; zeroHP/cap/LOS/cancel negativos. |
+| Lifetime | Último inimigo morto pelo vento, clear, alvo com membership antigo, próxima sala, run/disable/arma/cena e pausa/hitstop. |
+| Oferta | seed0, rota fixture1→2→4→5→6, tickets/draw/Choose reais sem grantA/B; não prova economia/run física. |
+| Visual | Quatro PNG Game View eCSV próprios de01.3, arco no ponto de impacto, vento em posições diferentes; fixture assistida. |
+| Integridade e regressão | Seleções/contagens/jobs e hashes finais no relatório01.3; não suíte global, benchmark ou save/resume integral. |
+
+## Histórico — GPR-01.2b, 28/10/2026
 
 O desenvolvedor testou fisicamente a onda instantânea anterior: funcionalidade técnica aceita, resultado de gameplay considerado pouco transformador e rejeitado como design final. A revisão autorizada substitui essa onda por um **tornado de vento móvel**, mantendo o ID da Mutation, aquisição, controles e combate nativo. A evidência de GPR-01.2 abaixo permanece histórica.
 

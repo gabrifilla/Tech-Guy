@@ -232,6 +232,8 @@ public class PlayerActor : Actor, IExternalPullTarget
 
     private void Update()
     {
+        if (!IsCombatHitStopped && Time.timeScale > 0f)
+            _externalPullRecovery = Mathf.Max(0f, _externalPullRecovery - Time.deltaTime);
         if (!IsDead && Time.time >= _manaRegenerationAt && mana < maxMana)
             RestoreMana(maxMana * _manaRegenerationPercentPerSecond * 0.01f * Time.deltaTime);
         UpdateManaBar();
@@ -768,13 +770,17 @@ public class PlayerActor : Actor, IExternalPullTarget
     private NavMeshAgent _agent;
     private CharControlScript _movementControl;
     private Coroutine _externalPullCoroutine;
+    private bool _externalPullActive, _restoreMovementAfterPull;
+    private float _externalPullRecovery;
+    // A narrow HookLine-only escape window; does not grant damage or general CC immunity.
+    private const float ExternalPullRecovery = .6f;
 
     private NavMeshAgent Agent => _agent ? _agent : (_agent = GetComponent<NavMeshAgent>());
     private CharControlScript MovementControl =>
         _movementControl ? _movementControl : (_movementControl = GetComponent<CharControlScript>());
 
     /// <summary>True while an external pull (a Hooker hook) is displacing this player.</summary>
-    public bool IsBeingPulled => _externalPullCoroutine != null;
+    public bool IsBeingPulled => _externalPullActive;
 
     /// <summary>
     /// Begins a bounded pull of the player toward <paramref name="source"/> (the Hooker), suspending
@@ -782,25 +788,20 @@ public class PlayerActor : Actor, IExternalPullTarget
     /// toward the source over <c>min(maxDuration, 1.5s)</c> using <c>agent.Warp</c> (never a raw
     /// transform write, R20.1), then restoring control. Control is always restored via cleanup even if
     /// the source dies mid-pull (R12.6), and the pull ends early if the source becomes control-locked
-    /// (R12.7). A pull already in progress is replaced so a fresh hook connect never stacks pulls.
+    /// (R12.7). Further hooks cannot restart an active pull or consume its escape window.
     /// </summary>
     /// <param name="source">The Hooker the player is pulled toward.</param>
     /// <param name="maxDuration">Upper bound on the pull duration in seconds (≤ 1.5s per R12.3/R12.6).</param>
-    internal bool HasExternalPull => _externalPullCoroutine != null;
+    internal bool HasExternalPull => _externalPullActive;
 
     public void BeginExternalPull(Transform source, float maxDuration)
     {
-        if (IsDead || source == null || !isActiveAndEnabled) return;
-
-        // Replace any running pull so a second connect restarts cleanly (restores control first).
-        if (_externalPullCoroutine != null)
-        {
-            StopCoroutine(_externalPullCoroutine);
-            _externalPullCoroutine = null;
-            RestoreMovementControl();
-        }
-
-        _externalPullCoroutine = StartCoroutine(ExternalPullRoutine(source, maxDuration));
+        if (IsDead || source == null || !source.gameObject.activeInHierarchy || !isActiveAndEnabled ||
+            _externalPullActive || _externalPullRecovery > 0f || !ReactionNumeric.IsFinite(maxDuration) || maxDuration <= 0f) return;
+        _externalPullActive = true;
+        Coroutine routine = StartCoroutine(ExternalPullRoutine(source, maxDuration));
+        // A dead/controlled source can terminate synchronously before StartCoroutine returns.
+        _externalPullCoroutine = _externalPullActive ? routine : null;
     }
 
     private IEnumerator ExternalPullRoutine(Transform source, float maxDuration)
@@ -808,6 +809,7 @@ public class PlayerActor : Actor, IExternalPullTarget
         var model = new HookPullModel(maxDuration);
         // Resolve the source's control-lock state once; a Hooker owns a CombatReactionController.
         CombatReactionController sourceReaction = source ? source.GetComponentInParent<CombatReactionController>() : null;
+        Actor sourceActor = source ? source.GetComponentInParent<Actor>() : null;
 
         NavMeshAgent agent = Agent;
         Vector3 start = agent && agent.enabled && agent.isOnNavMesh ? agent.nextPosition : transform.position;
@@ -818,10 +820,11 @@ public class PlayerActor : Actor, IExternalPullTarget
             float elapsed = 0f;
             while (true)
             {
-                bool sourceAlive = source != null;
+                bool sourceAlive = source && source.gameObject.activeInHierarchy &&
+                    (!sourceActor || sourceActor.isActiveAndEnabled && !sourceActor.IsDead);
                 bool sourceLocked = sourceAlive && sourceReaction && sourceReaction.IsControlLocked;
                 PullStep step = model.Evaluate(elapsed, sourceAlive, sourceLocked);
-                if (step.Ended) break;
+                if (step.Ended || IsDead || !isActiveAndEnabled) break;
                 if (MovementControl && MovementControl.DirectMovementEnabled && IsCombatHitStopped)
                 { yield return null; continue; }
 
@@ -831,7 +834,7 @@ public class PlayerActor : Actor, IExternalPullTarget
                 MoveAgentTo(target);
 
                 yield return null;
-                elapsed += Time.deltaTime;
+                if (!IsCombatHitStopped) elapsed += Time.deltaTime;
             }
         }
         finally
@@ -839,6 +842,8 @@ public class PlayerActor : Actor, IExternalPullTarget
             // ALWAYS restore control, even if the source died mid-pull or the coroutine was stopped
             // (R12.6/R12.7). Reached on normal completion, early interrupt, and StopCoroutine.
             _externalPullCoroutine = null;
+            _externalPullActive = false;
+            _externalPullRecovery = ExternalPullRecovery;
             RestoreMovementControl();
         }
     }
@@ -872,7 +877,8 @@ public class PlayerActor : Actor, IExternalPullTarget
     private void SuspendMovementControl()
     {
         CharControlScript control = MovementControl;
-        if (control) control.enabled = false;
+        _restoreMovementAfterPull = control && control.enabled;
+        if (_restoreMovementAfterPull) control.enabled = false;
 
         NavMeshAgent agent = Agent;
         if (agent && agent.enabled && agent.isOnNavMesh)
@@ -890,6 +896,7 @@ public class PlayerActor : Actor, IExternalPullTarget
     /// </summary>
     private void RestoreMovementControl()
     {
+        if (!_restoreMovementAfterPull) return;
         NavMeshAgent agent = Agent;
         if (agent && agent.enabled && agent.isOnNavMesh)
         {
@@ -898,7 +905,23 @@ public class PlayerActor : Actor, IExternalPullTarget
         }
 
         CharControlScript control = MovementControl;
-        if (control && !control.enabled && isActiveAndEnabled && !IsDead) control.enabled = true;
+        if (_restoreMovementAfterPull && control && isActiveAndEnabled && !IsDead)
+        { _restoreMovementAfterPull = false; control.enabled = true; }
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        RestoreMovementControl();
+    }
+
+    private void OnDisable()
+    {
+        if (_externalPullCoroutine != null) StopCoroutine(_externalPullCoroutine);
+        _externalPullCoroutine = null;
+        _externalPullActive = false;
+        _externalPullRecovery = 0f;
+        RestoreMovementControl();
     }
 
     /// <summary>

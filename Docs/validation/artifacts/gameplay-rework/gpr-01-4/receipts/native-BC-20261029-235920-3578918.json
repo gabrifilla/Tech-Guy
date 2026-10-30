@@ -1,0 +1,133 @@
+{
+    "SchemaVersion": 1,
+    "SessionId": "5c6b18f9-5655-4b04-bae5-a363d5456742",
+    "Seed": "1",
+    "InitialWeapon": "Gauntlet",
+    "StartedUtc": "2026-10-29T23:59:20.3299885Z",
+    "Outcome": "InProgress",
+    "Finalized": false,
+    "WallSeconds": 0.029065900000205148,
+    "ScaledSeconds": 0.0,
+    "EffectiveDamage": 7.25,
+    "ObservedEnemyHpLoss": 7.25,
+    "UnattributedEnemyHpLoss": 0.0,
+    "DamageReceived": 0.0,
+    "Overkill": 5.0,
+    "LargestImpact": 5.0,
+    "OverkillComplete": true,
+    "EnemiesDefeated": 1,
+    "PlayerCreditedKills": 1,
+    "ConfirmedHpTransactions": 2,
+    "DuplicateReceiptsIgnored": 0,
+    "ObserverErrors": 0,
+    "Diagnostic": "",
+    "HighestDamageAbility": "",
+    "HighestDamageSource": "Unknown:Unattributed:Direct",
+    "DurationPolicy": "Start of manual session to claimed outcome; wall includes pause; scaled follows Time.timeAsDouble. No DPS.",
+    "Damage": [
+        {
+            "Weapon": "Unknown",
+            "Ability": "Unattributed",
+            "MutationId": "",
+            "Producer": "Direct",
+            "ProducerId": "",
+            "Attribution": "known_player_unknown_ability",
+            "ModifierTags": "",
+            "PlayerAttributed": true,
+            "Secondary": false,
+            "Effective": 5.0,
+            "Overkill": 5.0,
+            "HpTransactions": 1
+        },
+        {
+            "Weapon": "Unknown",
+            "Ability": "Unattributed",
+            "MutationId": "",
+            "Producer": "Conductor",
+            "ProducerId": "protocol:Conductor",
+            "Attribution": "known_player_unknown_ability",
+            "ModifierTags": "",
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "Effective": 2.25,
+            "Overkill": 0.0,
+            "HpTransactions": 1
+        }
+    ],
+    "Abilities": [
+        {
+            "Weapon": "Unknown",
+            "Ability": "Unattributed",
+            "Uses": 0,
+            "NativeHpTransactions": 1,
+            "SecondaryHpTransactions": 1,
+            "EffectiveIncludingChildren": 7.25
+        }
+    ],
+    "Rewards": [],
+    "Build": [
+        {
+            "Id": "conductor",
+            "Family": "Protocol",
+            "Acquisitions": 1
+        },
+        {
+            "Id": "detonation",
+            "Family": "Protocol",
+            "Acquisitions": 1
+        }
+    ],
+    "Progress": [],
+    "RecentDamage": [
+        {
+            "TargetId": "568105589212721958",
+            "Weapon": "Unknown",
+            "Ability": "Unattributed",
+            "Execution": "unavailable",
+            "MutationId": "",
+            "Producer": "Direct",
+            "ProducerId": "",
+            "Attribution": "known_player_unknown_ability",
+            "Parents": [
+                "unavailable"
+            ],
+            "Generation": 1,
+            "Transaction": 1,
+            "Frame": 1359,
+            "PlayerAttributed": true,
+            "Secondary": false,
+            "ParentsTruncated": false,
+            "OverkillKnown": true,
+            "Before": 5.0,
+            "After": 0.0,
+            "Effective": 5.0,
+            "HpAttempt": 10.0,
+            "Overkill": 5.0
+        },
+        {
+            "TargetId": "568105589212721944",
+            "Weapon": "Unknown",
+            "Ability": "Unattributed",
+            "Execution": "unavailable",
+            "MutationId": "",
+            "Producer": "Conductor",
+            "ProducerId": "protocol:Conductor",
+            "Attribution": "known_player_unknown_ability",
+            "Parents": [
+                "unavailable"
+            ],
+            "Generation": 1,
+            "Transaction": 1,
+            "Frame": 1359,
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "ParentsTruncated": false,
+            "OverkillKnown": true,
+            "Before": 1000.0,
+            "After": 997.75,
+            "Effective": 2.25,
+            "HpAttempt": 2.25,
+            "Overkill": 0.0
+        }
+    ]
+}

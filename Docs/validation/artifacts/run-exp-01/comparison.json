@@ -1,0 +1,157 @@
+[
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsBasicUsesAndHitsComeFromProductionCallbacks",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNaturalTicketsAcquireAAndCWithoutFixtureGrants",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.FourPathsAcquireMutationAtC4AndExecuteItsRealShapeInNextCombat",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3AuthoredZeroChildDelaysKeepProducerFirst",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3BasicWithoutRunPaysOnceForMultipleAndLethalTargets",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CadencedWaitRejectsUnavailableSkillsAndAcceptsQWEOrBasic",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3DemolishingAdvanceTraversesBodiesAndLaunchesOnlyOnBreak",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3LegacyShockwaveKeepsItsEffectEventsAndDistinctProducer",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3PublicEventOrderSeesCompleteGainAndNoDuplicateFist",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RConsumesOnceReservesRanksAndPublishesAtomicResources",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3ReentrantRequestWaitsUntilImpactAndRevalidatesMana",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RewardsOfferExecutableMutationsAndPreserveLegacyQ",
+    "baseline": "Passed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3SharedHudGroupsEffectiveGainsShowsMutationsAndUnbinds",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualBossBatchDeathWinsAndNeverCreatesPortal",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualDeathBeforePortalRejectsResidualContactAndOldSessionRequests",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualExtractionClaimsOnceAndRetryPreservesResultAndTeardown",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualImpossibleFirstMutationKeepsBossBlockedAndAllowsAbortWithoutVictory",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastBasicBatchWaitsForFeedbackCloseAndPreservesLethalEnergyHitStopAndEpoch",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastEchoClosesItsOwnBatchAndNeverPaysNativeEnergyAgain",
+    "baseline": "Failed",
+    "fixed": "Passed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastSkillCancelsFutureChildrenAfterConfirmedProducerWithoutResettingCategory",
+    "baseline": "Passed",
+    "fixed": "Passed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualPlayerDeathInLastLethalBatchWinsWithoutRewardPublication",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRepairUsesRealHealthEventAndHudWithoutChangingManaAsuraOrCooldowns",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.MigratedGauntletBasicInputsUseWeaponReactionWithoutLeakingToBow",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseConfirmedAbortWaitsForResumeFrameAndReturnsFromUnavailableMutationWithoutVictory",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RunFocusDiscountsEffectiveQCostOnceForEachWeaponFamily",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonContactStakeDamageCanEndEncounterInsideItsCallback",
+    "baseline": "Passed",
+    "fixed": "Passed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonHorizonUsesOneCostAndCrossingConsumesItsOriginalRootOnce",
+    "baseline": "Passed",
+    "fixed": "Passed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonPathStakeDamageCanDisableTheExecutorInsideItsCallback",
+    "baseline": "Passed",
+    "fixed": "Passed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TargetClickDuringHitStopKeepsOneAttackAfterRelease",
+    "baseline": "Passed",
+    "fixed": "Passed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  },
+  {
+    "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+    "baseline": "Failed",
+    "fixed": "Failed"
+  }
+]

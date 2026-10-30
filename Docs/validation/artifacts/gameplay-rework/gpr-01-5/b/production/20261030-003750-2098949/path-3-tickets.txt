@@ -1,0 +1,15 @@
+Automated room completion, published FirstSector, assistance OFF, real tickets and Choose; no boon grants. Seed=5058090748040771259; path=3
+1:0 Technique [weapon_FlurryEcho,weapon_AsuraEcho,augment_gauntlet_echoing_fist] => weapon_FlurryEcho
+1:1 Protocol [ignite,frost,conductor] => conductor
+2:0 Technique [weapon_FlurryEcho,weapon_AsuraEcho,augment_gauntlet_temporal_echo] => weapon_FlurryEcho
+4:0 Technique [weapon_FlurryEcho,augment_gauntlet_temporal_echo,augment_gauntlet_echoing_fist] => weapon_FlurryEcho
+4:1 Protocol [detonation,ignite,conductor] => detonation
+5:0 Mutation [mutation_gauntlet_titan_fists,gauntlet_mutation_CadencedAsura,mutation_gauntlet_eclipse_uppercut] => mutation_gauntlet_titan_fists
+7:0 Technique [augment_gauntlet_echoing_fist,augment_gauntlet_temporal_echo,weapon_AsuraEcho] => augment_gauntlet_echoing_fist
+7:1 Protocol [conductor,detonation,frost] => conductor
+8:0 Protocol [detonation,ignite,conductor] => detonation
+8:1 Technique [augment_gauntlet_temporal_echo,weapon_AsuraEcho] => augment_gauntlet_temporal_echo
+9:0 Technique [weapon_AsuraEcho] => weapon_AsuraEcho
+9:1 Protocol [conductor,frost,ignite] => conductor
+Mutation opportunities=1; Protocol opportunities=5; firstABC=5
+A=True; B=3; C=2

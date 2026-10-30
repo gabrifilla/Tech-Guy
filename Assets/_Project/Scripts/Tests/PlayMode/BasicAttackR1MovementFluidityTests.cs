@@ -262,7 +262,7 @@ namespace TechGuy.Tests
                 Assert.IsFalse(_controls.TryRequestGroundMovement(Vector3.left * 9f), "Pending offensive input owns the next opportunity before ground movement.");
                 Assert.AreEqual(1, uses, "A continuation must not publish a second AbilityUsed for the same R execution.");
                 Assert.AreEqual(manaAfterStart, _player.mana);
-            });
+            }, requireStationary: true);
 
             // Observe the real runner advancing its pulse index. No cast state/timing is assigned by this test.
             var strike = typeof(BreakerGauntletCombat).GetField("_cadencedStrike",
@@ -432,14 +432,17 @@ namespace TechGuy.Tests
             return holder;
         }
 
-        private IEnumerator WaitForMovementRecovery(AbilityHolder holder, float minimumGlobalProgress = 0f, System.Action onRecovery = null)
+        private IEnumerator WaitForMovementRecovery(AbilityHolder holder, float minimumGlobalProgress = 0f, System.Action onRecovery = null, bool requireStationary = false)
         {
             var combat = _player.GetComponent<BreakerGauntletCombat>();
             Assert.IsTrue(combat);
             float deadline = Time.realtimeSinceStartup + 3f;
             while (holder.IsCasting && Time.realtimeSinceStartup < deadline)
             {
-                if (holder.CanQueueRecoveryMovement && combat.TryGetCancelContext(out _, out float progress)
+                // Cadenced wait still reports the final Recovery phase, but legitimately
+                // permits immediate movement. The buffer scenario must precede that state.
+                if ((!requireStationary || !holder.MovementAllowedWhileCasting) &&
+                    holder.CanQueueRecoveryMovement && combat.TryGetCancelContext(out _, out float progress)
                     && progress >= minimumGlobalProgress) { onRecovery?.Invoke(); yield break; }
                 yield return null;
             }

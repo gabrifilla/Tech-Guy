@@ -1,0 +1,129 @@
+{
+  "job_id": "58493f83f2144543bdc90e15ebb9a22a",
+  "status": "succeeded",
+  "mode": "PlayMode",
+  "started_unix_ms": 1793336452607,
+  "finished_unix_ms": 1793336476405,
+  "last_update_unix_ms": 1793336476405,
+  "progress": {
+    "completed": 10,
+    "total": 10,
+    "current_test_full_name": null,
+    "current_test_started_unix_ms": null,
+    "last_finished_test_full_name": "TechGuy.Tests.Gpr015ProductionAuditTests.RUN00PublishedHookerReleasesControlAndSourceBreakCancelsPull",
+    "last_finished_unix_ms": 1793336476394,
+    "stuck_suspected": false,
+    "editor_is_focused": true,
+    "run_in_background": true,
+    "focus_nudge_attempts": null,
+    "focus_nudge_limit": null,
+    "focus_nudge_status": null,
+    "blocked_reason": null,
+    "failures_so_far": [],
+    "failures_capped": false
+  },
+  "error": null,
+  "result": {
+    "mode": "PlayMode",
+    "summary": {
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 21.959222,
+      "resultState": "Passed"
+    },
+    "results": [
+      {
+        "name": "RUN00FlameGeometryAnimatesAndPoolReuseCannotLeakIt",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00FlameGeometryAnimatesAndPoolReuseCannotLeakIt",
+        "state": "Passed",
+        "durationSeconds": 0.2624764,
+        "message": null,
+        "stackTrace": null,
+        "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      },
+      {
+        "name": "RUN00OverlappingHooksCannotRestartTheControlClock",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00OverlappingHooksCannotRestartTheControlClock",
+        "state": "Passed",
+        "durationSeconds": 1.6833458,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+      },
+      {
+        "name": "RUN00PauseAndHitstopPreservePullAndRecoveryClocks",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00PauseAndHitstopPreservePullAndRecoveryClocks",
+        "state": "Passed",
+        "durationSeconds": 2.1578063,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+      },
+      {
+        "name": "RUN00PlayerDeathCannotLeavePullOrRestoreDeadInput",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00PlayerDeathCannotLeavePullOrRestoreDeadInput",
+        "state": "Passed",
+        "durationSeconds": 0.0247295,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAnimator does not have an AnimatorController\r\n"
+      },
+      {
+        "name": "RUN00ProductionHooksAllowMovementAndDashBetweenConnections",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00ProductionHooksAllowMovementAndDashBetweenConnections",
+        "state": "Passed",
+        "durationSeconds": 2.469788,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAnimator does not have an AnimatorController\r\n"
+      },
+      {
+        "name": "RUN00SingleAttackerRepeatsWithARealControlWindow",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00SingleAttackerRepeatsWithARealControlWindow",
+        "state": "Passed",
+        "durationSeconds": 7.1170539,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+      },
+      {
+        "name": "RUN00SourceDeathAndSceneUnloadCannotRetainPullOwnership",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00SourceDeathAndSceneUnloadCannotRetainPullOwnership",
+        "state": "Passed",
+        "durationSeconds": 0.6804097,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+      },
+      {
+        "name": "RUN00SourceDisableAndPlayerDisableReleaseOnlyOwnedMovement",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00SourceDisableAndPlayerDisableReleaseOnlyOwnedMovement",
+        "state": "Passed",
+        "durationSeconds": 0.7712158,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+      },
+      {
+        "name": "RUN00ZeroDurationPullCannotLeaveAStaleCoroutineLock",
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00ZeroDurationPullCannotLeaveAStaleCoroutineLock",
+        "state": "Passed",
+        "durationSeconds": 0.0165707,
+        "message": null,
+        "stackTrace": null,
+        "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+      },
+      {
+        "name": "RUN00PublishedHookerReleasesControlAndSourceBreakCancelsPull",
+        "fullName": "TechGuy.Tests.Gpr015ProductionAuditTests.RUN00PublishedHookerReleasesControlAndSourceBreakCancelsPull",
+        "state": "Passed",
+        "durationSeconds": 6.6946427,
+        "message": null,
+        "stackTrace": null,
+        "output": "ProgressionDirector Run_Seed = 5591599572203025968 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+      }
+    ]
+  }
+}

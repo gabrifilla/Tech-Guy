@@ -1,0 +1,27 @@
+{
+  "tool": "check_unity_project",
+  "schema": 1,
+  "root": "D:/Dev/Personal/My_games/Tech-Guy",
+  "files_checked": 2551,
+  "error_count": 1,
+  "warning_count": 1,
+  "errors": [
+    {
+      "code": "missing-script",
+      "file": "Assets/_Project/Scenes/Playground.unity",
+      "line": 8932,
+      "message": "script reference points to GUID 9d54880da6396da4c8cb3d4f4d1289a3, which no .meta in the project has",
+      "fix": "if the .cs file was moved or renamed, put its original .meta (guid: 9d54880da6396da4c8cb3d4f4d1289a3) back next to it; otherwise restore the script, or remove the missing component in the Unity Editor"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "class-name-mismatch",
+      "file": "Assets/_Project/Scripts/Tests/PlayMode/TitanicCompositionIntegrationTests.cs",
+      "line": 95,
+      "message": "class 'TitanicCompositionFrameSampler' derives from MonoBehaviour but the file is 'TitanicCompositionIntegrationTests.cs'; Unity only links the script to a class with the same name as the file",
+      "fix": "rename the file to 'TitanicCompositionFrameSampler.cs' (and its .meta to 'TitanicCompositionFrameSampler.cs.meta'), or rename the class to 'TitanicCompositionIntegrationTests'"
+    }
+  ],
+  "truncated": false
+}

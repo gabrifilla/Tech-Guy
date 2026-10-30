@@ -1,0 +1,97 @@
+{
+  "attempts": [
+    {
+      "artifact": "a-final.json",
+      "job": "ba2d750155224a15b80853fe2ecb7e5c",
+      "total": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 20.1140824,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "b-first.json",
+      "job": "32667d6225c84d2fbf7aa2d6dc4bc07d",
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 12.2018539,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "c-first.json",
+      "job": "ec5acae1ed1a41388a4413d7c979aa80",
+      "total": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 15.3720882,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "d-tint-and-lifecycle.json",
+      "job": "b6bc6de15b4a4b1baef7f2660adffe3e",
+      "total": 12,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 34.5934424,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "e-integration-first.json",
+      "job": "34bca951bf75400c89724e735f9ce9bd",
+      "total": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 13.4459895,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "focused-final.json",
+      "job": "26a2fbc8b2bb4677abcd61001804423c",
+      "total": 98,
+      "passed": 98,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 171.0936248,
+      "resultState": "Passed"
+    },
+    {
+      "artifact": "regression-first.json",
+      "job": "db79017cf3414c77b42ffc894bdefe5c",
+      "total": 203,
+      "passed": 199,
+      "failed": 4,
+      "skipped": 0,
+      "durationSeconds": 132.9846686,
+      "resultState": "Failed(Child)"
+    },
+    {
+      "artifact": "regression-diagnostic.json",
+      "job": "68f8ccd73d6d4b45ab60b60dda14e515",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 3.0922674,
+      "resultState": "Passed"
+    }
+  ],
+  "distinct_observed_tests": 278,
+  "latest_observed_passed": 278,
+  "latest_observed_failed": [],
+  "warning": "Uma ocorr\u00eancia intermitente de Asura permanece sem causa confirmada apesar do diagn\u00f3stico isolado aprovado; isto n\u00e3o \u00e9 uma bateria ampliada inteiramente verde.",
+  "editmode": {
+    "total": 90,
+    "passed": 90,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 118.1830698,
+    "resultState": "Passed"
+  },
+  "distinct_total_observed_approved": 368
+}

@@ -300,7 +300,13 @@ public sealed partial class BreakerGauntletCombat : MonoBehaviour
     {
         if (!IsEquipped || _energyPolicy == null || (_phase3Authoring && !_phase3Authoring.Validate(out _))) return null;
         var mods = _player.RunModifiers;
-        var snapshot = GauntletExecutionSnapshot.CaptureBasic(mods, _phase3Authoring, finisher);
+        var effects = ProtocolBasicEffects.None;
+        if (_player.TryGetComponent<RunBoons>(out var run) && run.Protocols != null)
+        {
+            if (run.Protocols.Rank(ProtocolKind.Conductor) > 0) effects |= ProtocolBasicEffects.Conductor;
+            if (run.Protocols.Rank(ProtocolKind.Detonation) > 0) effects |= ProtocolBasicEffects.Detonation;
+        }
+        var snapshot = GauntletExecutionSnapshot.CaptureBasic(mods, _phase3Authoring, finisher, effects);
         return _contexts.Begin(GauntletActionSlot.Basic, asuraFistRank: snapshot.Rank(WeaponBoon.AsuraFist), snapshot: snapshot);
     }
 

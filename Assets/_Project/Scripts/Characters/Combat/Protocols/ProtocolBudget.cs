@@ -123,11 +123,15 @@ public sealed class ProtocolRootContext
             !ReactionNumeric.IsFinite(damage) || damage < 0f) return false;
         _titanicTerminalCommitted = true; TitanicTerminalDamage = damage; return true;
     }
-    internal ProtocolBasicLineage ReserveTitanicTerminalEmission(long producerId)
+    internal ProtocolBasicLineage ReserveTitanicTerminalEmission(long producerId, ProtocolBasicEffects effects = ProtocolBasicEffects.None)
     {
-        if (!_titanicTerminalCommitted || _basicChildReserved || !ReserveChild(producerId)) return null;
+        // Only explicitly owned, acceptance-snapshotted effects enter the Titanic branch.
+        if ((effects & ~ProtocolBasicEffects.Both) != 0 ||
+            (effects & ProtocolBasicEffects.Conductor) != 0 && Rank(ProtocolKind.Conductor) <= 0 ||
+            (effects & ProtocolBasicEffects.Detonation) != 0 && Rank(ProtocolKind.Detonation) <= 0 ||
+            !_titanicTerminalCommitted || _basicChildReserved || !ReserveChild(producerId)) return null;
         _basicChildReserved = true;
-        return new ProtocolBasicLineage(ExecutionId, RootId, _basicTerminalTargets, TitanicFistsDefinition.Id, ProtocolBasicEffects.None);
+        return new ProtocolBasicLineage(ExecutionId, RootId, _basicTerminalTargets, TitanicFistsDefinition.Id, effects);
     }
     internal float ConfirmedBasicSourceDamage { get; private set; }
     private string _basicProducerId = "basic-derived";

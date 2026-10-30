@@ -1,0 +1,13 @@
+{
+  "mode": "EditMode",
+  "test_names": [
+    "TechGuy.Tests.Fluidity.EditMode.BoonCapabilityGraphTests",
+    "TechGuy.Tests.Fluidity.EditMode.BoonOfferCompatibilityTests",
+    "TechGuy.Tests.Fluidity.EditMode.BoonExpansionOfferTests",
+    "TechGuy.Tests.Fluidity.EditMode.BoonRewardSeedTests",
+    "TechGuy.Tests.Fluidity.EditMode.RetainedRunRewardTests",
+    "TechGuy.Tests.Fluidity.EditMode.AsuraFinishControlTests"
+  ],
+  "include_details": true,
+  "init_timeout": 120000
+}

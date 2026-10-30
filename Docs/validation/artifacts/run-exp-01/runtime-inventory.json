@@ -1,0 +1,252 @@
+{
+  "assistance": true,
+  "nodes": [
+    {
+      "id": 0,
+      "kind": "Start",
+      "size": "(24.00, 20.00)",
+      "rewards": [],
+      "spawns": []
+    },
+    {
+      "id": 1,
+      "kind": "Combat",
+      "size": "(24.00, 20.00)",
+      "rewards": [
+        "Technique",
+        "Protocol"
+      ],
+      "spawns": [
+        "Grunt:Normal",
+        "Grunt:Normal",
+        "Grunt:Normal",
+        "Grunt:Normal"
+      ]
+    },
+    {
+      "id": 2,
+      "kind": "Combat",
+      "size": "(24.00, 20.00)",
+      "rewards": [
+        "Technique",
+        "Protocol"
+      ],
+      "spawns": [
+        "Grunt:Normal",
+        "Grunt:Normal",
+        "Grunt:Normal",
+        "Shooter:Normal"
+      ]
+    },
+    {
+      "id": 3,
+      "kind": "Repair",
+      "size": "(24.00, 20.00)",
+      "rewards": [],
+      "spawns": []
+    },
+    {
+      "id": 4,
+      "kind": "Combat",
+      "size": "(24.00, 20.00)",
+      "rewards": [
+        "Technique"
+      ],
+      "spawns": [
+        "Grunt:Normal",
+        "Grunt:Normal",
+        "Rush:Normal",
+        "Shooter:Normal"
+      ]
+    },
+    {
+      "id": 5,
+      "kind": "Combat",
+      "size": "(32.00, 20.00)",
+      "rewards": [
+        "Mutation"
+      ],
+      "spawns": [
+        "Grunt:Normal",
+        "Grunt:Normal",
+        "Heavy:Normal",
+        "Shooter:Normal"
+      ]
+    },
+    {
+      "id": 6,
+      "kind": "Combat",
+      "size": "(24.00, 20.00)",
+      "rewards": [
+        "Protocol"
+      ],
+      "spawns": [
+        "Grunt:Normal",
+        "Grunt:Normal",
+        "Grunt:Normal",
+        "Healer:Normal"
+      ]
+    },
+    {
+      "id": 7,
+      "kind": "Elite",
+      "size": "(24.00, 20.00)",
+      "rewards": [
+        "Technique",
+        "Technique"
+      ],
+      "spawns": [
+        "Magic_Haste:Elite",
+        "Grunt:Normal",
+        "Grunt:Normal",
+        "Rush:Normal",
+        "Shooter:Normal"
+      ]
+    },
+    {
+      "id": 8,
+      "kind": "Combat",
+      "size": "(24.00, 20.00)",
+      "rewards": [
+        "Protocol",
+        "Protocol"
+      ],
+      "spawns": [
+        "Grunt:Normal",
+        "Grunt:Normal",
+        "Rush:Normal",
+        "Shooter:Normal"
+      ]
+    },
+    {
+      "id": 9,
+      "kind": "Combat",
+      "size": "(24.00, 20.00)",
+      "rewards": [
+        "Technique",
+        "Protocol"
+      ],
+      "spawns": [
+        "Heavy:Normal",
+        "Heavy:Normal",
+        "Rush:Normal",
+        "Grunt:Normal"
+      ]
+    },
+    {
+      "id": 10,
+      "kind": "Boss",
+      "size": "(24.00, 20.00)",
+      "rewards": [],
+      "spawns": [
+        "Heavy:Boss"
+      ]
+    }
+  ],
+  "edges": [
+    "0>1",
+    "1>2",
+    "2>3",
+    "2>4",
+    "3>5",
+    "4>5",
+    "5>6",
+    "5>7",
+    "6>9",
+    "7>8",
+    "8>9",
+    "9>10"
+  ],
+  "weapons": [
+    {
+      "weapon": "Weapons/Melee/Gauntlet/Gauntlet",
+      "pools": [
+        {
+          "kind": "Technique",
+          "ids": [
+            "augment_gauntlet_echoing_fist",
+            "augment_gauntlet_temporal_echo",
+            "weapon_AsuraEcho",
+            "weapon_FlurryEcho"
+          ]
+        },
+        {
+          "kind": "Mutation",
+          "ids": [
+            "gauntlet_mutation_CadencedAsura",
+            "mutation_gauntlet_eclipse_uppercut",
+            "mutation_gauntlet_titan_fists"
+          ]
+        },
+        {
+          "kind": "Protocol",
+          "ids": [
+            "conductor",
+            "detonation",
+            "frost",
+            "ignite"
+          ]
+        }
+      ]
+    },
+    {
+      "weapon": "Weapons/Ranged/Bow_arrow/Bow",
+      "pools": [
+        {
+          "kind": "Technique",
+          "ids": [
+            "weapon_Ricochet"
+          ]
+        },
+        {
+          "kind": "Mutation",
+          "ids": [
+            "mutation_bow_hunting_bond",
+            "mutation_bow_judgment_arrow",
+            "mutation_bow_mine_garden",
+            "weapon_RapidBurst"
+          ]
+        },
+        {
+          "kind": "Protocol",
+          "ids": [
+            "conductor",
+            "detonation",
+            "frost",
+            "ignite"
+          ]
+        }
+      ]
+    },
+    {
+      "weapon": "Weapons/Melee/Spear/Spear",
+      "pools": [
+        {
+          "kind": "Technique",
+          "ids": [
+            "weapon_EchoThrust"
+          ]
+        },
+        {
+          "kind": "Mutation",
+          "ids": [
+            "mutation_spear_dragon_orbit",
+            "mutation_spear_horizon_cut",
+            "mutation_spear_stake_siege",
+            "weapon_ChainThrust",
+            "weapon_PhantomSpear"
+          ]
+        },
+        {
+          "kind": "Protocol",
+          "ids": [
+            "conductor",
+            "detonation",
+            "frost",
+            "ignite"
+          ]
+        }
+      ]
+    }
+  ]
+}

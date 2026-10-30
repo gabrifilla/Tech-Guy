@@ -1,0 +1,8 @@
+{
+  "provenance": "Summary observed directly in Unity MCP get_test_job response before the next script compilation/domain reload. MCP retained status/progress but lost the full result after reload; edit-final.json records that limitation rather than inventing detailed cases.",
+  "job_id": "897e9ac58560410e90e59da4841d2379",
+  "mode": "EditMode",
+  "summary": { "total": 90, "passed": 90, "failed": 0, "skipped": 0, "durationSeconds": 128.2507738, "resultState": "Passed" },
+  "started_unix_ms": 1793315883519,
+  "finished_unix_ms": 1793316013148
+}

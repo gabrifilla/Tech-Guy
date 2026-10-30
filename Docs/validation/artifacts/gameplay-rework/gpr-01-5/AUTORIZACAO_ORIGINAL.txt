@@ -1,0 +1,290 @@
+# TECH GUY — GPR-01.4 Technical Review and GPR-01.5 Authorization
+
+## 1. Review and current status
+
+I reviewed the consolidated `GPR-01.4_RELATORIO.md`.
+
+GPR-01.4 is accepted as implemented and technically demonstrated within its documented focused scope, with outstanding regression and integrated-acceptance limitations.
+
+The delivered mechanic and visual matrix is:
+
+- A — Titanic Fists: traveling wind tornado.
+- A+B — Titanic Fists + Conductor: tornado with visible electrical identity and valid impact-triggered conduction.
+- A+C — Titanic Fists + Detonation: tornado with visible flame identity and valid confirmed-kill explosions.
+- A+B+C — combined wind, lightning and fire identity, with causal wind -> Conductor -> eligible death -> Detonation.
+
+Native punch and tornado can independently activate Conductor under valid target eligibility and shared budget rules.
+
+The developer previously accepted GPR-01.3 gameplay. However, the developer has NOT yet physically accepted the new GPR-01.4 fire/electricity visual layers or triple composition.
+
+Record that distinction explicitly.
+
+## 2. Important technical reservations
+
+The GPR-01.4 report documented:
+
+- 98/98 focused tests passing.
+- 90/90 EditMode tests passing.
+- An expanded regression execution of 199/203.
+- Four previously failing cases passing individually in a subsequent 4/4 diagnostic execution.
+- 368 distinct test cases with observed passing results across the documented selections.
+
+Do not present the expanded regression as 203/203.
+
+Three failures were attributed to evidence-directory fixture preparation. One Asura recovery/movement failure remains intermittently unexplained.
+
+A later isolated PASS does not conclusively resolve a temporal regression.
+
+The report also demonstrated legitimate reward acquisition for A+B and A+C, but the full A+B+C build was tested through explicitly assisted acquisition. The exercised route did not demonstrate natural access to all three effects.
+
+These are required GPR-01.5 audit items.
+
+## 3. Authorization — GPR-01.5 ONLY
+
+Execute GPR-01.5 — Integrated Build, Reward Accessibility, Visual Readability and Stability Validation.
+
+This is primarily an audit and validation activity.
+
+Do not begin GPR-01.6 or the next gameplay expansion.
+
+Do not automatically change reward weights, reward frequency, room layout, encounters, balance, animation or special mechanics.
+
+Do not implement Singularity, additional boons, gravitational attraction, aerial launch, modular skill replacement or enemy redesign.
+
+## 4. Mandatory preparation
+
+Before any implementation or test:
+
+1. Read AGENTS.md and applicable project instructions.
+2. Read all GPR-01.4 individual and consolidated reports.
+3. Review current canonical gameplay vision, requirements, design, tasks, validation matrix, progress ledger and vertical-slice specification.
+4. Read applicable local Tech Guy skills and installed gamedev skills.
+5. Verify the actual Unity project and Editor through MCP.
+6. Inspect Git status, branch, HEAD and pre-existing changes.
+7. Preserve NexusBlockout, FirstSector, scenes, prefabs, assets, GUIDs, user saves, preferences and progression.
+8. Preserve previous reports and test evidence.
+
+Do not perform broad architecture changes during this validation phase.
+
+## 5. GPR-01.5a — Integrated build behavior
+
+Verify the actual interactions for:
+
+- Base Gauntlet.
+- A only.
+- B only.
+- C only.
+- A+B.
+- A+C.
+- B+C.
+- A+B+C.
+
+For each relevant build, verify:
+
+- Expected mechanical effects.
+- Expected visual identity.
+- Damage and effective-HP attribution.
+- Resource usage and ownership.
+- Correct inherited root and parent lineage.
+- No duplicate or recursive Protocol loops.
+- Correct impact-budget behavior.
+- Correct cancellation and cleanup.
+- Existing native Conductor and Detonation behavior outside the Titanic branch.
+
+Pay special attention to the previously confirmed ability for native punch and traveling tornado to generate independent eligible Conductor chains.
+
+The combined tornado must remain visually and mechanically distinguishable from the separate effects.
+
+Create `GPR-01.5a_RELATORIO.md`.
+
+## 6. GPR-01.5b — Reward accessibility and build feasibility
+
+Audit the existing production run structure and reward economy without changing them.
+
+Determine:
+
+- How many legitimate Mutation opportunities exist during representative runs.
+- How many Protocol opportunities exist.
+- Whether A+B and A+C are realistically obtainable.
+- Whether A+B+C is obtainable without assisted grants in existing production routes.
+- How acquisition ordering and available reward pools affect build composition.
+- Whether reward tickets, RNG seed, rarity, eligibility or encounter gates prevent intended combinations.
+- Whether players can reasonably experience the defining interaction within the present run length.
+
+Where feasible, use deterministic automated runs or controlled seed samples through the production reward and progression authorities.
+
+Distinguish clearly between:
+
+1. Legitimate in-game acquisition.
+2. Automation that completes rooms while using real reward tickets.
+3. Assisted grant-based combat fixtures.
+
+Do not claim natural build availability based solely on assisted grants.
+
+Do not alter reward weights, tickets, room counts, boss gates or progression rules.
+
+If the full A+B+C combination is unreachable or unreasonably rare in the current gameplay loop, produce a design recommendation and options for a future authorized reward-economy rework.
+
+Provide an auditable table of reward opportunities, constraints and representative build outcomes.
+
+Create `GPR-01.5b_RELATORIO.md`.
+
+## 7. GPR-01.5c — Visual readability and presentation
+
+Use actual Unity Game View captures at the normal gameplay camera scale.
+
+Compare:
+
+- A: pure wind tornado.
+- A+B: persistent electrical storm.
+- A+C: flaming tornado.
+- A+B+C: combined wind, fire and lightning.
+
+Observe in representative combat scenes with:
+
+- Multiple enemies.
+- Other basic-attack VFX.
+- Actual Conductor chain feedback.
+- Actual Detonation feedback.
+- Relevant enemy attack telegraphs.
+
+Verify that:
+
+- Fire and lightning are independently recognizable.
+- Wind remains the base tornado silhouette.
+- Elemental layers do not produce unauthorized damage.
+- Electric discharge feedback only accompanies legitimate electric effects.
+- Explosions only accompany valid confirmed deaths.
+- Visual effects do not make enemy threats unreadable.
+- Active tornado state is captured when the attack commits.
+- Acquiring another boon during travel does not retroactively change the tornado.
+- Pooled tornado visuals do not inherit outdated layers.
+- After room clear, cosmetic tornadoes do not produce damage or Protocol events.
+
+Report visual limitations separately from technical failures.
+
+Do not automatically perform a major VFX redesign.
+
+Create `GPR-01.5c_RELATORIO.md`.
+
+## 8. GPR-01.5d — Regression stability and performance
+
+Investigate the unresolved GPR-01.4 expanded regression results.
+
+Separate the three evidence-directory fixture problems from the intermittent Asura recovery/movement result.
+
+For the three fixture failures:
+
+- Verify that the fixture initialization is stable.
+- Preserve assertions and test intent.
+- Correct only clearly demonstrated test-environment issues if still present.
+
+For the Asura failure:
+
+- Review the exact failing method, assertion, trace, movement/recovery context and historical GPR evidence.
+- Determine whether the failure predates this activity.
+- Determine whether it is environment-dependent, a fixture timing issue, or a real production defect.
+- Do not change gameplay TTL, recovery timing, animation speed, buffers or assertions merely to make the test pass.
+- Do not claim the root cause is fixed without reproducible evidence.
+
+After any confirmed correction, rerun the relevant filters on the final code state.
+
+If the expanded regression remains intermittent, report its precise status and risk instead of declaring a full green result.
+
+Characterize performance using existing 8/32/64 enemy fixtures where feasible.
+
+Observe multiple active tornados, shared budget saturation, CPU and GC behavior, physics/LOS work, VFX pooling and cleanup.
+
+Do not raise the 32-impact budget or change encounter density without approval.
+
+Create `GPR-01.5d_RELATORIO.md`.
+
+## 9. Developer feedback and deferred tuning
+
+The developer has already approved the previous control and basic-combat foundation.
+
+Existing deferred items remain:
+
+- Tornado seems too small and too fast.
+- Tornado is difficult to aim accurately.
+- Basic attacks may feel too fast.
+- Directional locomotion animation can resemble moonwalking.
+- Room reward frequency and choice quality need review.
+- Room/stage layouts and encounter pacing need review.
+- Enemy mesh diversity and distinct archetype identity need improvement.
+- Elite/boss design needs future review.
+- Singularity is a desired future mutation: traveling tornado with a gravitational core, controlled attraction, bounded damage, final collapse/launch and opportunities for follow-up movement/combos.
+
+Record these as future design work; do not silently implement them.
+
+Any new gameplay tuning, reward-economy change, enemy redesign or additional boon requires a separate authorization.
+
+## 10. Regression and evidence
+
+Use the Unity Test Framework through real Unity MCP.
+
+Validate relevant:
+
+- GPR-01.1 to GPR-01.4 mutation and Protocol contracts.
+- Existing GI combat and damage attribution.
+- WASD movement and dash.
+- LMB combos.
+- RMB Asura.
+- Q/E/R skills.
+- Bow and Spear.
+- Reward ownership and deterministic tickets.
+- Scene transitions, room completion and next encounter.
+- Pause, hitstop, focus loss, disable, player death and run end.
+- VFX state pooling and cleanup.
+
+Capture Game View evidence and actual runtime measurements.
+
+Keep failed attempts and their explanations.
+
+Do not represent virtual test input as a physical developer playtest.
+
+Do not describe selected passing filters as a fully approved project-wide test suite.
+
+## 11. Mandatory reporting
+
+Create:
+
+- `GPR-01.5a_RELATORIO.md`
+- `GPR-01.5b_RELATORIO.md`
+- `GPR-01.5c_RELATORIO.md`
+- `GPR-01.5d_RELATORIO.md`
+- `GPR-01.5_RELATORIO.md`
+
+Each subactivity must record:
+
+1. Objective and actual status.
+2. Actual work performed.
+3. Files modified or created.
+4. Skills applied.
+5. Exact Unity tests, counts, results and job identifiers.
+6. Real Game View and MCP evidence.
+7. Encounter, reward, damage and visual findings where relevant.
+8. Intermediate failures and causal diagnosis.
+9. Performance and persistence limitations.
+10. Unresolved questions and required approval.
+
+Update the canonical progress ledger, validation matrix, requirements, technical design and task plan where appropriate.
+
+The consolidated report must:
+
+- Evaluate readiness to close GPR-01.
+- Summarize whether the full three-boon build is naturally accessible.
+- Distinguish visual acceptance, mechanical validation and human gameplay acceptance.
+- Recommend any narrowly necessary changes before GPR-01.6.
+- Provide a short developer playtest checklist.
+- Propose a later dedicated audit of room rewards, level design, enemy visual identity and bosses.
+
+All developer-facing documentation must be written in Brazilian Portuguese.
+
+## 12. STOP condition
+
+**STOP after GPR-01.5.**
+
+Do not start GPR-01.6, Singularity, additional mutations, new specials, reward economy changes, room redesign, boss redesign or enemy mesh changes without my explicit approval.
+
+Present the consolidated report and any blockers for developer review.

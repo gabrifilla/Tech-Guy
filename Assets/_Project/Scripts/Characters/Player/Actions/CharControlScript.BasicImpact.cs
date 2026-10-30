@@ -101,10 +101,13 @@ public partial class CharControlScript
             }
             // This is after the native HP/notification/feedback batch, never a cosmetic hit hook.
             if (playerActor && !playerActor.IsDead && playerActor.isActiveAndEnabled && playerActor.CurrentWeapon == acceptedWeapon &&
-                playerActor.TryGetComponent(out ProtocolRuntime protocols) &&
-                protocols.CommitTitanicTerminalContact(context, impact.Index, acceptedTornadoDamage))
-                protocols.QueueTitanicFists(context, contactOrigin, contactForward,
-                    _basicRange * _basicScale, _basicBox * _basicScale, attackLayers, acceptedWeapon);
+                playerActor.TryGetComponent(out ProtocolRuntime protocols))
+            {
+                if (protocols.CommitTitanicTerminalContact(context, impact.Index, acceptedTornadoDamage))
+                    protocols.QueueTitanicFists(context, contactOrigin, contactForward,
+                        _basicRange * _basicScale, _basicBox * _basicScale, attackLayers, acceptedWeapon);
+                else protocols.QueueNoncombatTitanicContact(context, impact.Index, contactOrigin, contactForward, acceptedWeapon);
+            }
         }
         finally
         {

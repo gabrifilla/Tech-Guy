@@ -1,0 +1,133 @@
+{
+    "SchemaVersion": 1,
+    "SessionId": "cf6a8cbc-289b-4786-b2d3-a88de3158140",
+    "Seed": "1",
+    "InitialWeapon": "Gauntlet",
+    "StartedUtc": "2026-10-29T23:56:26.4836842Z",
+    "Outcome": "InProgress",
+    "Finalized": false,
+    "WallSeconds": 2.10987170000044,
+    "ScaledSeconds": 2.109277303004536,
+    "EffectiveDamage": 1.75,
+    "ObservedEnemyHpLoss": 1.75,
+    "UnattributedEnemyHpLoss": 0.0,
+    "DamageReceived": 0.0,
+    "Overkill": 11.0,
+    "LargestImpact": 1.0,
+    "OverkillComplete": true,
+    "EnemiesDefeated": 1,
+    "PlayerCreditedKills": 1,
+    "ConfirmedHpTransactions": 2,
+    "DuplicateReceiptsIgnored": 0,
+    "ObserverErrors": 0,
+    "Diagnostic": "",
+    "HighestDamageAbility": "Gauntlet:Basic",
+    "HighestDamageSource": "Gauntlet:Basic:Technique",
+    "DurationPolicy": "Start of manual session to claimed outcome; wall includes pause; scaled follows Time.timeAsDouble. No DPS.",
+    "Damage": [
+        {
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "MutationId": "mutation_gauntlet_titan_fists",
+            "Producer": "Technique",
+            "ProducerId": "mutation_gauntlet_titan_fists",
+            "Attribution": "confirmed",
+            "ModifierTags": "",
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "Effective": 1.0,
+            "Overkill": 11.0,
+            "HpTransactions": 1
+        },
+        {
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "MutationId": "mutation_gauntlet_titan_fists",
+            "Producer": "Detonation",
+            "ProducerId": "mutation_gauntlet_titan_fists",
+            "Attribution": "confirmed",
+            "ModifierTags": "",
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "Effective": 0.75,
+            "Overkill": 0.0,
+            "HpTransactions": 1
+        }
+    ],
+    "Abilities": [
+        {
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "Uses": 3,
+            "NativeHpTransactions": 0,
+            "SecondaryHpTransactions": 2,
+            "EffectiveIncludingChildren": 1.75
+        }
+    ],
+    "Rewards": [],
+    "Build": [
+        {
+            "Id": "detonation",
+            "Family": "Protocol",
+            "Acquisitions": 1
+        },
+        {
+            "Id": "mutation_gauntlet_titan_fists",
+            "Family": "Mutation",
+            "Acquisitions": 1
+        }
+    ],
+    "Progress": [],
+    "RecentDamage": [
+        {
+            "TargetId": "568105589212781086",
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "Execution": "gauntlet:3:3",
+            "MutationId": "mutation_gauntlet_titan_fists",
+            "Producer": "Technique",
+            "ProducerId": "mutation_gauntlet_titan_fists",
+            "Attribution": "confirmed",
+            "Parents": [
+                "gauntlet:3:3"
+            ],
+            "Generation": 1,
+            "Transaction": 1,
+            "Frame": 2405,
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "ParentsTruncated": false,
+            "OverkillKnown": true,
+            "Before": 1.0,
+            "After": 0.0,
+            "Effective": 1.0,
+            "HpAttempt": 12.0,
+            "Overkill": 11.0
+        },
+        {
+            "TargetId": "568105589212781072",
+            "Weapon": "Gauntlet",
+            "Ability": "Basic",
+            "Execution": "gauntlet:3:3",
+            "MutationId": "mutation_gauntlet_titan_fists",
+            "Producer": "Detonation",
+            "ProducerId": "mutation_gauntlet_titan_fists",
+            "Attribution": "confirmed",
+            "Parents": [
+                "gauntlet:3:3"
+            ],
+            "Generation": 1,
+            "Transaction": 1,
+            "Frame": 2405,
+            "PlayerAttributed": true,
+            "Secondary": true,
+            "ParentsTruncated": false,
+            "OverkillKnown": true,
+            "Before": 1000.0,
+            "After": 999.25,
+            "Effective": 0.75,
+            "HpAttempt": 0.75,
+            "Overkill": 0.0
+        }
+    ]
+}

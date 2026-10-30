@@ -16,6 +16,9 @@ public sealed partial class ProtocolRuntime
         public TitanicFistsVisual Visual;
         public TitanicFistsVisual.TornadoView View;
         public long ViewGeneration;
+        public long Lifecycle;
+        public Guid Session;
+        public int Node, Destination;
     }
     private struct TitanicCandidate
     { public Actor Actor; public float Distance; }
@@ -27,6 +30,37 @@ public sealed partial class ProtocolRuntime
     internal Vector3? FirstTitanicPosition => _titanicWork.Count > 0 ? _titanicWork[0].Position : (Vector3?)null;
     internal Vector3 LastTitanicEndPosition { get; private set; }
     internal float LastTitanicTravelled { get; private set; }
+    private long _lastCosmeticTerminal, _lastCosmeticEpoch;
+    internal int CosmeticTitanicEmissions { get; private set; }
+
+    private bool NoncombatTitanicAllowed => !_ended && _inventory != null && !_inventory.IsEnded && !_inventory.IsFaulted &&
+        _boons && _boons.ProtocolSession != null && !_boons.ProtocolSession.IsEncounterClosing &&
+        _boons.ProtocolSession.Phase == RunPhase.Traversal &&
+        _boons.ProtocolSession.NodeState(EncounterId) == RunNodeState.Completed;
+
+    // Called only by the authored scheduler after its real contact batch. No root, query
+    // budget, damage queue or combat callback is created for this presentation lease.
+    internal bool QueueNoncombatTitanicContact(GauntletImpactContext parent, int impactIndex,
+        Vector3 origin, Vector3 forward, WeaponScript weapon)
+    {
+        if (!NoncombatTitanicAllowed || !_player || !_player.isActiveAndEnabled || _player.IsDead ||
+            _player.IsResolvingGauntletImpact || _player.HasOpenImpactFeedback || !weapon || _player.CurrentWeapon != weapon ||
+            parent == null || parent.Owner != _player || parent.Execution == _lastCosmeticTerminal && parent.Epoch == _lastCosmeticEpoch || impactIndex < 0 ||
+            parent.Origin != GauntletImpactOrigin.Direct || parent.Slot != GauntletActionSlot.Basic ||
+            parent.Snapshot?.BasicMutationId != TitanicFistsDefinition.Id || !parent.Snapshot.BasicFinisher ||
+            !_player.TryGetComponent(out BreakerGauntletCombat combat) || !combat.EnergyPolicy.IsLive(parent) ||
+            !ReactionNumeric.IsFinite(origin) || !ReactionNumeric.IsFinite(forward) ||
+            !_player.TryGetComponent(out TitanicFistsVisual visual)) return false;
+        forward.y = 0; forward.Normalize(); if (forward.sqrMagnitude < .99f) return false;
+        var view = visual.AcquireTornado(_inventory.Catalog.Limits.LiveRoots, parent.Snapshot.TitanicEffects); if (view == null) return false;
+        var work = new TitanicWork { Weapon = weapon, Position = origin + forward * TitanicFistsDefinition.SpawnOffset,
+            SpawnOrigin = origin, Forward = forward, Visual = visual, View = view, ViewGeneration = view.Generation,
+            Lifecycle = LifecycleRevision, Session = _inventory.SessionId, Node = EncounterId,
+            Destination = _boons.ProtocolSession.PendingDestination };
+        _lastCosmeticTerminal = parent.Execution; _lastCosmeticEpoch = parent.Epoch;
+        visual.UpdateTornado(view, work.ViewGeneration, work.Position, forward, 0);
+        _titanicWork.Add(work); CosmeticTitanicEmissions++; return true;
+    }
 
     internal bool QueueTitanicFists(GauntletImpactContext parent, Vector3 origin, Vector3 forward,
         float range, Vector3 box, LayerMask layers, WeaponScript weapon)
@@ -44,7 +78,7 @@ public sealed partial class ProtocolRuntime
             Mask = layers.value != 0 ? layers.value : Physics.DefaultRaycastLayers };
         if (_player.TryGetComponent(out TitanicFistsVisual visual))
         {
-            work.Visual = visual; work.View = visual.AcquireTornado(_inventory.Catalog.Limits.LiveRoots);
+            work.Visual = visual; work.View = visual.AcquireTornado(_inventory.Catalog.Limits.LiveRoots, child.BasicLineage.Effects);
             if (work.View == null) { child.Dispose(); return false; }
             work.ViewGeneration = work.View.Generation;
             visual.UpdateTornado(work.View, work.ViewGeneration, work.Position, work.Forward, 0);
@@ -55,7 +89,7 @@ public sealed partial class ProtocolRuntime
     private void ReleaseTitanic(TitanicWork work)
     {
         LastTitanicEndPosition = work.Position; LastTitanicTravelled = work.Travelled;
-        work.Child.Dispose();
+        work.Child?.Dispose();
         if (work.Visual) work.Visual.ReleaseTornado(work.View, work.ViewGeneration);
     }
     private void ClearTitanicFists()
@@ -64,7 +98,9 @@ public sealed partial class ProtocolRuntime
         _titanicWork.Clear();
         if (_player && _player.TryGetComponent(out TitanicFistsVisual visual)) visual.Clear();
     }
-    private bool TitanicLive(TitanicWork work) => work.Child.IsValid && work.Child.IsLifecycleCurrent && _player &&
+    private bool TitanicLive(TitanicWork work) => (work.Child != null ? work.Child.IsValid && work.Child.IsLifecycleCurrent :
+        NoncombatTitanicAllowed && work.Lifecycle == LifecycleRevision && work.Session == _inventory.SessionId &&
+        work.Node == EncounterId && work.Destination == _boons.ProtocolSession.PendingDestination) && _player &&
         !_player.IsDead && _player.isActiveAndEnabled && _player.CurrentWeapon == work.Weapon &&
         _player.RunModifiers?.Expansion.MutationId(BoonSlot.Basic) == TitanicFistsDefinition.Id;
     private void TickTitanicFists()
@@ -74,7 +110,9 @@ public sealed partial class ProtocolRuntime
             if (i >= _titanicWork.Count) continue;
             var work = _titanicWork[i];
             bool ended = !TitanicLive(work);
-            if (!ended && CanResolveBasicBranch && ScaledDelta > 0 && !_draining)
+            bool canAdvance = work.Child != null ? CanResolveBasicBranch : NoncombatTitanicAllowed &&
+                !_player.IsCombatHitStopped && Time.timeScale > 0 && (!_holder || !_holder.IsGamePaused);
+            if (!ended && canAdvance && ScaledDelta > 0 && !_draining)
             {
                 float delta = Mathf.Min(ScaledDelta, TitanicFistsDefinition.Lifetime - work.Age);
                 work.Age += delta;
@@ -101,6 +139,14 @@ public sealed partial class ProtocolRuntime
     private bool AdvanceTitanic(TitanicWork work, float distance)
     {
         if (!TitanicLive(work) || !ReactionNumeric.IsFinite(distance) || distance <= 0) return false;
+        if (work.Child == null)
+        {
+            // Reuse the wind view and travel constants, but never enter the combat sweep.
+            Vector3 next = work.Position + work.Forward * distance;
+            if (!TitanicSight((work.SpawnValidated ? work.Position : work.SpawnOrigin) + Vector3.up * .8f,
+                next + Vector3.up * .8f)) return false;
+            work.SpawnValidated = true; work.Position = next; work.Travelled += distance; return true;
+        }
         if (!Budget.ReserveQuery() || !Budget.ReserveQuery()) return false; // overlap start + continuous sweep
         bool spawnCheck = !work.SpawnValidated;
         if (spawnCheck && !TitanicSight(work.SpawnOrigin + Vector3.up * .8f, work.Position + Vector3.up * .8f)) return false;
