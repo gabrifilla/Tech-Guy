@@ -11,7 +11,7 @@ public sealed partial class ManualStageEnvironment
     public bool HasGeneratedLayout => _generatedNavigation;
 
     /// <summary>Build a session-only deck using the materials of the new authored rooms.</summary>
-    public bool BuildGenerated(ManualRouteSnapshot route, out string error)
+    public bool BuildGenerated(ManualRouteSnapshot route, out string error, FirstSectorContentDefinition content = null)
     {
         error = null;
         if (!Application.isPlaying || route == null || !_geometryRoot)
@@ -49,6 +49,16 @@ public sealed partial class ManualStageEnvironment
                     if (edge.To == node.Id) ports.Add(corridors[edge.Id][corridors[edge.Id].Length - 1]);
                 }
                 GeneratedArenaWalls(arena, node, ports, wall);
+                if(content && content.HasCover(route.RewardSeed ?? 0,node))
+                    for(int i=0;i<2;i++)
+                    {
+                        var cover=GeneratedBox(arena,"Cobertura deslocada "+i,node.Center+FirstSectorContentDefinition.CoverCenter(i),FirstSectorContentDefinition.CoverSize,wall);
+                        var modifier=cover.AddComponent<NavMeshModifier>();modifier.overrideArea=true;modifier.area=1;
+                    }
+                if(content && node.Kind==ManualNodeKind.Combat && content.OpenFloor && content.CoveredFloor && content.RoomTrim)
+                    FirstSectorRoomPresentation.Create(arena,node,content.HasCover(route.RewardSeed??0,node),content);
+                if(content && node.Kind==ManualNodeKind.Combat)
+                    FirstSectorEnvironmentArt.Create(arena,content);
                 var entry = new GameObject("Entry volume").AddComponent<BoxCollider>();
                 entry.transform.SetParent(arena, false); entry.isTrigger = true;
                 entry.center = Vector3.up * 1.5f;

@@ -1,0 +1,146 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "c30238930ab448e981e07ce564f4cff4",
+    "status": "failed",
+    "mode": "PlayMode",
+    "started_unix_ms": 1793396777091,
+    "finished_unix_ms": 1793396789493,
+    "last_update_unix_ms": 1793396789493,
+    "progress": {
+      "completed": 8,
+      "total": 8,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.RunExp02IntegrationTests.GameViewPoseSequenceAndRewardsAreReadOnly",
+      "last_finished_unix_ms": 1793396789452,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [
+        {
+          "full_name": "TechGuy.Tests.RunExp02IntegrationTests.ActiveCost32",
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n"
+        },
+        {
+          "full_name": "TechGuy.Tests.RunExp02IntegrationTests.ActiveCost64",
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n"
+        },
+        {
+          "full_name": "TechGuy.Tests.RunExp02IntegrationTests.ActiveCost8",
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n"
+        },
+        {
+          "full_name": "TechGuy.Tests.RunExp02IntegrationTests.BasicContactReactsAndCoverStopsNativeProjectile",
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n"
+        },
+        {
+          "full_name": "TechGuy.Tests.RunExp02IntegrationTests.BothArenasRoutesCoverDashAndWeapons",
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n"
+        },
+        {
+          "full_name": "TechGuy.Tests.RunExp02IntegrationTests.BothNativeExecutorsNavigateDamagePauseAndComplete",
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n"
+        },
+        {
+          "full_name": "TechGuy.Tests.RunExp02IntegrationTests.GameViewPoseSequenceAndRewardsAreReadOnly",
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n"
+        }
+      ],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "PlayMode",
+      "summary": {
+        "total": 8,
+        "passed": 1,
+        "failed": 7,
+        "skipped": 0,
+        "durationSeconds": 5.8794738,
+        "resultState": "Failed(Child)"
+      },
+      "results": [
+        {
+          "name": "RUNEXP02RepeatedEvidenceRootNeverReusesCaptureDestination",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUNEXP02RepeatedEvidenceRootNeverReusesCaptureDestination",
+          "state": "Passed",
+          "durationSeconds": 0.0447433,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ActiveCost32",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.ActiveCost32",
+          "state": "Failed",
+          "durationSeconds": 1.4716618,
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n",
+          "stackTrace": "at TechGuy.Tests.RunExp02IntegrationTests+<Load>d__7.MoveNext () [0x00129] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp02IntegrationTests.cs:37\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "ActiveCost64",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.ActiveCost64",
+          "state": "Failed",
+          "durationSeconds": 0.7155321,
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n",
+          "stackTrace": "at TechGuy.Tests.RunExp02IntegrationTests+<Load>d__7.MoveNext () [0x00129] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp02IntegrationTests.cs:37\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "ActiveCost8",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.ActiveCost8",
+          "state": "Failed",
+          "durationSeconds": 0.7488031,
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n",
+          "stackTrace": "at TechGuy.Tests.RunExp02IntegrationTests+<Load>d__7.MoveNext () [0x00129] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp02IntegrationTests.cs:37\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "BasicContactReactsAndCoverStopsNativeProjectile",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.BasicContactReactsAndCoverStopsNativeProjectile",
+          "state": "Failed",
+          "durationSeconds": 0.7293734,
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n",
+          "stackTrace": "at TechGuy.Tests.RunExp02IntegrationTests+<Load>d__7.MoveNext () [0x00129] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp02IntegrationTests.cs:37\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "BothArenasRoutesCoverDashAndWeapons",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.BothArenasRoutesCoverDashAndWeapons",
+          "state": "Failed",
+          "durationSeconds": 0.7992328,
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n",
+          "stackTrace": "at TechGuy.Tests.RunExp02IntegrationTests+<Load>d__7.MoveNext () [0x00129] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp02IntegrationTests.cs:37\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "BothNativeExecutorsNavigateDamagePauseAndComplete",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.BothNativeExecutorsNavigateDamagePauseAndComplete",
+          "state": "Failed",
+          "durationSeconds": 0.6026801,
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n",
+          "stackTrace": "at TechGuy.Tests.RunExp02IntegrationTests+<Load>d__7.MoveNext () [0x00129] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp02IntegrationTests.cs:37\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "GameViewPoseSequenceAndRewardsAreReadOnly",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.GameViewPoseSequenceAndRewardsAreReadOnly",
+          "state": "Failed",
+          "durationSeconds": 0.6434896,
+          "message": "  Expected: null\r\n  But was:  <Emissor(Clone) (CoinDrop)>\r\n",
+          "stackTrace": "at TechGuy.Tests.RunExp02IntegrationTests+<Load>d__7.MoveNext () [0x00129] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp02IntegrationTests.cs:37\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        }
+      ]
+    }
+  },
+  "hint": null
+}

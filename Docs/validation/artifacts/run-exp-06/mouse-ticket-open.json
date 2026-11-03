@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "phase": "RewardPending",
+      "pending": "Pending",
+      "ids": [
+        "augment_gauntlet_temporal_echo",
+        "augment_gauntlet_echoing_fist",
+        "weapon_FlurryEcho"
+      ],
+      "owned": 0
+    },
+    "compiler": "codedom"
+  }
+}

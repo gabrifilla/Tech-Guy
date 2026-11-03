@@ -1,0 +1,122 @@
+[
+  {
+    "file": "art-edit.json",
+    "job": "b7c1fd8f2fbf408f8898489fb5c7b1f8",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 1.220663,
+    "resultState": "Passed"
+  },
+  {
+    "file": "baseline-tests.json",
+    "job": "173d618819be47b3901d72f65c4ac2d4",
+    "total": 5,
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 13.3787265,
+    "resultState": "Passed"
+  },
+  {
+    "file": "content-edit.json",
+    "job": "7e0a8c2973e44491a9bbf583fb3a5eb6",
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 0.9495525,
+    "resultState": "Passed"
+  },
+  {
+    "file": "content-play-first.json",
+    "job": "02d5b164cdf242e4999df014a6bb0d8a",
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 27.0062016,
+    "resultState": "Passed"
+  },
+  {
+    "file": "edit-final.json",
+    "job": "4366e480686840c7a4d9f16a77955d22",
+    "total": 26,
+    "passed": 26,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 1.6086462,
+    "resultState": "Passed"
+  },
+  {
+    "file": "integrated-play-final.json",
+    "job": "37282363f9d443efa8ff6dc5c4c7d6a4",
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 117.2464743,
+    "resultState": "Passed"
+  },
+  {
+    "file": "integrated-play-first.json",
+    "job": "70751110b2fb4982976caf3d6e0a4b15",
+    "total": 12,
+    "passed": 11,
+    "failed": 1,
+    "skipped": 0,
+    "durationSeconds": 113.837242,
+    "resultState": "Failed(Child)"
+  },
+  {
+    "file": "lifecycle-pause-fixed.json",
+    "job": "d663395b664a4850b645e6b1fffd2c91",
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 11.921953,
+    "resultState": "Passed"
+  },
+  {
+    "file": "regression-first.json",
+    "job": "e59091e659fb4cd1bb1a03cd6b676a9f",
+    "total": 24,
+    "passed": 24,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 36.486171,
+    "resultState": "Passed"
+  },
+  {
+    "file": "rewards-tests-first.json",
+    "job": "29f96ccb128f442a9dfd95aa5e6627bc",
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 3.3955732,
+    "resultState": "Passed"
+  },
+  {
+    "file": "routes-refined-first.json",
+    "job": "267fbd214fcb4651ac279dd80b116b6b",
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 64.6648507,
+    "resultState": "Passed"
+  },
+  {
+    "file": "weapons-first.json",
+    "job": "3086d727e4e1457c889e69e87179b59b",
+    "total": 1,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "durationSeconds": 16.2835987,
+    "resultState": "Passed"
+  }
+]

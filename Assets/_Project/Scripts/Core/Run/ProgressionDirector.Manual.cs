@@ -8,6 +8,7 @@ public sealed partial class ProgressionDirector
 {
     [Header("New room route")]
     [SerializeField] private bool _randomizeRooms;
+    [SerializeField] private FirstSectorContentDefinition _firstSectorContent;
     [SerializeField] private RunProgressionMode _progressionMode;
     [SerializeField] private ManualRunDefinition _manualDefinition;
     [SerializeField] private ManualStageEnvironment _manualEnvironment;
@@ -48,9 +49,9 @@ public sealed partial class ProgressionDirector
             {
                 var prefabs = new List<GameObject>();
                 if (_archetypePrefabs != null) foreach (var variant in _archetypePrefabs) if (variant) prefabs.Add(variant.gameObject);
-                route = ManualRunRandomizer.Generate(route, AcquireRunSeed(), prefabs);
+                route = ManualRunRandomizer.Generate(route, AcquireRunSeed(), prefabs, _firstSectorContent);
                 if (_environment) _environment.SetGeometryActive(false);
-                if (!_manualEnvironment.BuildGenerated(route, out error))
+                if (!_manualEnvironment.BuildGenerated(route, out error, _firstSectorContent))
                 { Debug.LogError(error, this); enabled = false; return true; }
             }
             catch (Exception exception)

@@ -1,0 +1,98 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "3f72768d285f40c1819bb94a8f40746b",
+    "status": "failed",
+    "mode": "PlayMode",
+    "started_unix_ms": 1793676367674,
+    "finished_unix_ms": 1793676377759,
+    "last_update_unix_ms": 1793676377759,
+    "progress": {
+      "completed": 4,
+      "total": 4,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Published06SpearNexusPortalRealRewardsBossAndReturn",
+      "last_finished_unix_ms": 1793676377719,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [
+        {
+          "full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Published06BowNexusPortalRealRewardsBossAndReturn",
+          "message": "System.InvalidOperationException : Sequence contains no matching element"
+        },
+        {
+          "full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Published06GauntletNexusPortalRealRewardsBossAndReturn",
+          "message": "System.InvalidOperationException : Sequence contains no matching element"
+        },
+        {
+          "full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Published06RandomUnassistedRouteUsesNormalPresentation",
+          "message": "System.InvalidOperationException : Sequence contains no matching element"
+        },
+        {
+          "full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Published06SpearNexusPortalRealRewardsBossAndReturn",
+          "message": "System.InvalidOperationException : Sequence contains no matching element"
+        }
+      ],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "PlayMode",
+      "summary": {
+        "total": 4,
+        "passed": 0,
+        "failed": 4,
+        "skipped": 0,
+        "durationSeconds": 3.3832067,
+        "resultState": "Failed(Child)"
+      },
+      "results": [
+        {
+          "name": "Published06BowNexusPortalRealRewardsBossAndReturn",
+          "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Published06BowNexusPortalRealRewardsBossAndReturn",
+          "state": "Failed:Error",
+          "durationSeconds": 1.2851989,
+          "message": "System.InvalidOperationException : Sequence contains no matching element",
+          "stackTrace": "  at System.Linq.Enumerable.Single[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Func`2[T,TResult] predicate) [0x00070] in <d272082c47ef4e428bd2b5b770241b5a>:0 \r\n  at TechGuy.Tests.RunExp03FirstSectorTests+<PublishedRoute06>d__23.MoveNext () [0x001ad] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp03FirstSectorTests.Production06.cs:33 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44 ",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+        },
+        {
+          "name": "Published06GauntletNexusPortalRealRewardsBossAndReturn",
+          "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Published06GauntletNexusPortalRealRewardsBossAndReturn",
+          "state": "Failed:Error",
+          "durationSeconds": 0.7841933,
+          "message": "System.InvalidOperationException : Sequence contains no matching element",
+          "stackTrace": "  at System.Linq.Enumerable.Single[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Func`2[T,TResult] predicate) [0x00070] in <d272082c47ef4e428bd2b5b770241b5a>:0 \r\n  at TechGuy.Tests.RunExp03FirstSectorTests+<PublishedRoute06>d__23.MoveNext () [0x001ad] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp03FirstSectorTests.Production06.cs:33 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44 ",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+        },
+        {
+          "name": "Published06RandomUnassistedRouteUsesNormalPresentation",
+          "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Published06RandomUnassistedRouteUsesNormalPresentation",
+          "state": "Failed:Error",
+          "durationSeconds": 0.6168606,
+          "message": "System.InvalidOperationException : Sequence contains no matching element",
+          "stackTrace": "  at System.Linq.Enumerable.Single[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Func`2[T,TResult] predicate) [0x00070] in <d272082c47ef4e428bd2b5b770241b5a>:0 \r\n  at TechGuy.Tests.RunExp03FirstSectorTests+<PublishedRoute06>d__23.MoveNext () [0x001ad] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp03FirstSectorTests.Production06.cs:33 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44 ",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+        },
+        {
+          "name": "Published06SpearNexusPortalRealRewardsBossAndReturn",
+          "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Published06SpearNexusPortalRealRewardsBossAndReturn",
+          "state": "Failed:Error",
+          "durationSeconds": 0.6310509,
+          "message": "System.InvalidOperationException : Sequence contains no matching element",
+          "stackTrace": "  at System.Linq.Enumerable.Single[TSource] (System.Collections.Generic.IEnumerable`1[T] source, System.Func`2[T,TResult] predicate) [0x00070] in <d272082c47ef4e428bd2b5b770241b5a>:0 \r\n  at TechGuy.Tests.RunExp03FirstSectorTests+<PublishedRoute06>d__23.MoveNext () [0x001ad] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp03FirstSectorTests.Production06.cs:33 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44 ",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+        }
+      ]
+    }
+  },
+  "hint": null
+}

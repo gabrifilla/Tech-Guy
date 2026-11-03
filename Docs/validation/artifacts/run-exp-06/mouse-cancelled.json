@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "selected": 0,
+      "details": false,
+      "visible": false,
+      "reviewControls": false,
+      "layout": "Synthesis05",
+      "owner": true,
+      "lab": false,
+      "owned": [
+        "augment_gauntlet_echoing_fist"
+      ],
+      "choices": [],
+      "ticket": "Pending",
+      "focus": true
+    },
+    "compiler": "codedom"
+  }
+}

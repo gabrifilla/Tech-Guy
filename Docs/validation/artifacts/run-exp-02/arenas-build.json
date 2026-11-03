@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "a": true,
+      "b": true,
+      "scene": "Assets/_Project/Scenes/NexusBlockout.unity"
+    },
+    "compiler": "codedom"
+  }
+}

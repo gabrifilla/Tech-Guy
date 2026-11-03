@@ -1,0 +1,135 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "3862bb8a2c134ad59fab6fe78808319f",
+    "status": "succeeded",
+    "mode": "PlayMode",
+    "started_unix_ms": 1793397940090,
+    "finished_unix_ms": 1793398001762,
+    "last_update_unix_ms": 1793398001762,
+    "progress": {
+      "completed": 10,
+      "total": 10,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.RunExp02IntegrationTests.ReviewCoverKeepsGauntletAndSpearBasicsOutsideReachAcrossSolid",
+      "last_finished_unix_ms": 1793398001722,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "PlayMode",
+      "summary": {
+        "total": 10,
+        "passed": 10,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 56.6213153,
+        "resultState": "Passed"
+      },
+      "results": [
+        {
+          "name": "RUNEXP02RepeatedEvidenceRootNeverReusesCaptureDestination",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUNEXP02RepeatedEvidenceRootNeverReusesCaptureDestination",
+          "state": "Passed",
+          "durationSeconds": 0.023136,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ActiveCost32",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.ActiveCost32",
+          "state": "Passed",
+          "durationSeconds": 6.9452234,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "ActiveCost64",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.ActiveCost64",
+          "state": "Passed",
+          "durationSeconds": 6.6618264,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "ActiveCost8",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.ActiveCost8",
+          "state": "Passed",
+          "durationSeconds": 6.6801514,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "BasicContactReactsAndCoverStopsNativeProjectile",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.BasicContactReactsAndCoverStopsNativeProjectile",
+          "state": "Passed",
+          "durationSeconds": 2.5368725,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "BothArenasRoutesCoverDashAndWeapons",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.BothArenasRoutesCoverDashAndWeapons",
+          "state": "Passed",
+          "durationSeconds": 11.6609245,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "BothNativeExecutorsNavigateDamagePauseAndComplete",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.BothNativeExecutorsNavigateDamagePauseAndComplete",
+          "state": "Passed",
+          "durationSeconds": 4.5181584,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "CandidateControlLockIsBoundedAndReenableStartsNewGeneration",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.CandidateControlLockIsBoundedAndReenableStartsNewGeneration",
+          "state": "Passed",
+          "durationSeconds": 4.0291175,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\n"
+        },
+        {
+          "name": "GameViewPoseSequenceAndRewardsAreReadOnly",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.GameViewPoseSequenceAndRewardsAreReadOnly",
+          "state": "Passed",
+          "durationSeconds": 11.2522196,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "ReviewCoverKeepsGauntletAndSpearBasicsOutsideReachAcrossSolid",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.ReviewCoverKeepsGauntletAndSpearBasicsOutsideReachAcrossSolid",
+          "state": "Passed",
+          "durationSeconds": 2.2492399,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        }
+      ]
+    }
+  },
+  "hint": null
+}

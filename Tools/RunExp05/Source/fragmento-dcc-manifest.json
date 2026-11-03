@@ -1,0 +1,65 @@
+{
+  "blender": "5.2.2 LTS",
+  "kind": "Fragmento",
+  "axis": "Unity(x,y,z)->Blender(-x,-z,y), verified calibration",
+  "atlas": "1024 basecolor and metallic/smoothness trim atlas; smart UVs reused deliberately, one material slot per mesh",
+  "rig": "Native Unity rigid joint IK; assembled Blender rest guide, no humanoid retargeting or authored hit events",
+  "meshes": [
+    {
+      "sourceKey": "F_Carapaca",
+      "triangles": 276,
+      "nonmanifoldEdges": 0,
+      "volume": 0.2434668484419632,
+      "vertices": 140
+    },
+    {
+      "sourceKey": "F_Cabeca",
+      "triangles": 300,
+      "nonmanifoldEdges": 0,
+      "volume": 0.04532243934198992,
+      "vertices": 152
+    },
+    {
+      "sourceKey": "F_Testa",
+      "triangles": 284,
+      "nonmanifoldEdges": 0,
+      "volume": 0.006431839195385818,
+      "vertices": 144
+    },
+    {
+      "sourceKey": "F_Coxa_com_encaixe",
+      "triangles": 332,
+      "nonmanifoldEdges": 0,
+      "volume": 0.034240292722303146,
+      "vertices": 168
+    },
+    {
+      "sourceKey": "F_Canela_com_joelho",
+      "triangles": 212,
+      "nonmanifoldEdges": 0,
+      "volume": 0.010225505054397104,
+      "vertices": 108
+    },
+    {
+      "sourceKey": "F_Apoio_bipartido",
+      "triangles": 296,
+      "nonmanifoldEdges": 0,
+      "volume": 0.002974487815446138,
+      "vertices": 150
+    },
+    {
+      "sourceKey": "F_Mandibula_laminada",
+      "triangles": 320,
+      "nonmanifoldEdges": 0,
+      "volume": 0.0060838351007678785,
+      "vertices": 162
+    },
+    {
+      "sourceKey": "F_Dorso_segmentado",
+      "triangles": 912,
+      "nonmanifoldEdges": 0,
+      "volume": 0.05149934810567897,
+      "vertices": 462
+    }
+  ]
+}

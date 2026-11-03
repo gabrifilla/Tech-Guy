@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TechGuy::ProgressionDirector
   _randomizeRooms: 1
+  _firstSectorContent: {fileID: 11400000, guid: 25d2c5770d69f034092d3478280990f8,
+    type: 2}
   _progressionMode: 1
   _manualDefinition: {fileID: 11400000, guid: 4d17687f81ce0dc42b2035a3dec505e3, type: 2}
   _manualEnvironment: {fileID: 1868160058}
@@ -567,6 +569,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fe7a78383bdd348a207d3482580988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _directInteractionRange: 3.5
   _directKeyboardMovement: 1
   clickEffect: {fileID: 2629482439324332389, guid: d73518ac39297e64995acb17999b6908,
     type: 3}
@@ -579,6 +582,7 @@ MonoBehaviour:
   clickEffectPoolRoot: {fileID: 0}
   debugClickLog: 1
   _movementClickDeadZone: 0.55
+  _enemyPointerRadiusPixels: 18
   _recoveryMoveBufferDuration: 0.35
   _locomotionBlendDuration: 0.08
   attackAnimations:

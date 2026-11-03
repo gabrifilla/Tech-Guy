@@ -1,5 +1,41 @@
 # Gameplay Rework — plano de validação
 
+<!-- RUNEXP06 CURRENT -->
+## RUN-EXP-06 — evidências atuais e limites
+
+03/11/2026. Rotas comNexusInteraction real e C05auto, três armas e seed aleatória; manipulações de fixture declaradas. MouseWindows real mais teclado/gamepad/foco/remapeamento automatizados, rank/contexto/fallback32IDs. Editor8/32/64 e standalone atualcomAI ativa; marcadores ausentes não são zero. Baseline06/47prefs, não snapshots antigos.
+
+Estado06 prevalece sobre gates pendentes/restrições de fases anteriores abaixo, preservados como histórico. [Evidência e limites](../decisions/RUN_EXP_06_4_VALIDATION.md).
+<!-- /RUNEXP06 CURRENT -->
+
+<!-- RUNEXP05 CURRENT -->
+## RUN-EXP-05 — separar execução, medição e aceite
+
+02/11/2026. Usar mesmosoffers/poses/câmera/luz nos comparadores; fonteDCC e importUnity reais; verificarcolliders/nav/LOS e três armas nas novas salas. Populações8/32/64 comAI/combat ativos, baseline atual e standalone limitado isolado; marcadores indisponíveis não são zero. Seleções/jobs/falhas e32prefs contra entrada05 no relatório. Revisão física continua separada de UTF.
+
+[Entrega e limites](../decisions/RUN_EXP_05_4_VALIDATION.md).
+<!-- /RUNEXP05 CURRENT -->
+
+## RUN-EXP-04 — Matriz técnica e limites
+
+02/11/2026. Validação atual: rotas naturais0/1/2 e seed63 de cobertura, três armas/básicos, poses/LOS/cleanup, UI nas três armas e dois aspectos, input/mouse/modal/rank/contexto; matriz controlada de12 encontros em aberto/cobertura, com1/2 Hookers e movimento/dash após soltura. Regressões de skills/especiais/protocols, pausa/hitstop/ownership e limites32; custo Editor com8/32/64 AI/nav/dano/poses ativos. Fixtures controladas, imunidade de comparação/custo e conclusões automatizadas são explicitadas. Sem aprovação standalone ou suite global.
+
+15/15 PlayMode integrados; matriz ampliada1/1 com12 cenários;33/33 regressões selecionadas;10/10 efeitos de habilidades;28/28 EditMode. Seleções não equivalem à suite global.1562/1574 hashes idênticos,12 alterações previstas,0 removidos no escopo;32 preferências TechGuy atuais iguais. Console final0 erros; checker mantém um erro e um aviso históricos fora do escopo. Editor NexusBlockout limpo/Edit, assistência desligada e sem overrides. [Entrega e revisão visual](../decisions/RUN_EXP_04_RELATORIO.md) · [Jobs, performance e limites](../decisions/RUN_EXP_04_5_VALIDATION.md).
+
+
+## RUN-EXP-03 — resultados selecionados e limites
+
+Unity30/10/2026:12/12 integração PlayMode (`37282363f9d443efa8ff6dc5c4c7d6a4`),24/24 regressões (`e59091e659fb4cd1bb1a03cd6b676a9f`),26/26 EditMode (`4366e480686840c7a4d9f16a77955d22`). Rotas normais com travessia/abates assistidos, seed63 posicional para LOS/lifecycle, colisão de básicos com AI congelada explicitamente, benchmark8/32/64 com AI/dano/animações ativos. UI usa mesmos offers, três armas/dois aspectos, inventário real/assistência declarada, teclado/gamepad e mouse nativo. [Métodos, intermediários e dados](../decisions/RUN_EXP_03_4_INTEGRATION.md).
+
+Não confundir62 casos finais selecionados com suíte global ou aprovação humana. GateC UI e D arte pendentes; performance Editor não aprova standalone.32 chaves TechGuy iguais no checkpoint finalUnity; leitura posterior encontrou quatro diferenças e as preservou. Nova conexão MCP foi recusada com Editor fechado, sem reexecução posterior alegada. Próximo playtest humano deve usar estado atual e decidir direção antes de publicar. Atualização02/11/2026.
+
+## RUN-EXP-02 — 30/10/2026, entrega isolada para revisão
+
+Fragmento/Emissor autorados e jogáveis, arenas aberta/cobertura com NavMesh próprio e inspeção de recompensas reais sem aquisição. **STOP após02.4; gameplay/visual/arte aguardam revisão física, sem rollout.** Relatório: [RUN_EXP_02_RELATORIO](../decisions/RUN_EXP_02_RELATORIO.md). Estabilidade13/13, fatia10/10, geometria1/1 e contratos11/11 em jobs separados; não somar seleções sobrepostas. Dívida histórica31 classificada, sem verde global353.306 hashes protegidos idênticos e três chaves PlayerPrefs iguais; limitação do inventário integral de preferências registrada.8/32/64 agentes reais medidos no Editor, sem aprovação de orçamento.
+
+Requisitos deste recorte: candidatos usam Actor/EnemyVariant/AI/CombatActions/reactions/receipts; produção preservada; cena de revisão sem ProgressionDirector/save/coins; estatísticas locais descartadas; UI consulta ofertas, não chama Choose. Cobertura separa volumes dos básicos e bloqueia projéteis, sem alterar oclusão global de áreas. Arte procedural/intermediária não equivale a arte final. Entrada: Tools/Tech Guy/RUN-EXP-02, em Edit Mode.
+
+
 ## Estado vigente — auditoria GPR-01.5, 29/10/2026
 
 **GPR-01.5 concluída como auditoria, com ressalva de estabilidade e aceite físico pendente. STOP após01.5.** O desenvolvedor aceita01.4 como implementada/demonstrada no foco documentado; não aceitou fisicamente as novas camadas fogo/eletricidade ou a tripla. Gameplay01.3 já foi aceito. O histórico199/203 +4/4 isolados de01.4 não foi reclassificado como203/203.
@@ -75,8 +111,6 @@ A decisão direta mais recente **substitui todo modelo de quatro slots modulares
 WASD e demais ações configuráveis no Settings; InteractG dedicado e finisherF distintos por padrão, sem sobrescrever personalizações. Dash padrãoCursor; opçãoMovimento usa vetor configurado/câmera normalizado e **facing atual quando não há direção pressionada**, conforme esclarecimento posterior do desenvolvedor. A sugestão histórica de fallbackcursor no modoMovimento está superada. Escape reservado à pausa/cancel seguro. Migração só lê/repara em memória, Apply explícito grava nomes de ações; sem reset de progresso.
 
 Registro histórico de C01.4: implementação e116 casos cumulativos concluídos antes do aceite físico. A pendência humana foi encerrada por C01.5; o estado vigente e o novo STOP de GPR-01 estão no início deste documento.
-
-
 
 ## Histórico C01.3b — fechamento na data,28/10/2026
 

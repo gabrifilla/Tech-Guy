@@ -1,0 +1,33 @@
+﻿id,nome,familia,armas,arte,ilustracao_dedicada,pre_requisitos
+augment_bow_cutting_return,Retorno Cortante,APRIMORAMENTO,Arco,family-mark,False,mutation_bow_judgment_arrow
+augment_bow_predator_seal,Selo do Predador,APRIMORAMENTO,Arco,family-mark,False,mutation_bow_mine_garden
+augment_gauntlet_echoing_fist,Punho Ecoante,APRIMORAMENTO,Manopla,TemporalEcho,True,
+augment_gauntlet_perfect_rhythm,Ritmo Perfeito,APRIMORAMENTO,Manopla,family-mark,False,gauntlet_mutation_CadencedAsura
+augment_gauntlet_temporal_echo,Eco Temporal,APRIMORAMENTO,Manopla,TemporalEcho,True,
+augment_gauntlet_violent_fall,Queda Violenta,APRIMORAMENTO,Manopla,family-mark,False,mutation_gauntlet_eclipse_uppercut
+augment_spear_moon_echo,Eco da Lua,APRIMORAMENTO,Lança,family-mark,False,mutation_spear_dragon_orbit
+augment_spear_return_mark,Marca de Retorno,APRIMORAMENTO,Lança,family-mark,False,mutation_spear_dragon_orbit
+conductor,Condutor,PROTOCOLO,"Manopla,Arco,Lança",Conductor,True,
+detonation,Detonação,PROTOCOLO,"Manopla,Arco,Lança",family-mark,False,
+duo_bow_eclipse_archer,Arqueiro do Eclipse,RESSONÂNCIA / DUO,Arco,family-mark,False,"mutation_bow_hunting_bond,mutation_bow_judgment_arrow"
+duo_bow_hunting_detonator,Detonador da Caça,RESSONÂNCIA / DUO,Arco,family-mark,False,"mutation_bow_mine_garden,augment_bow_predator_seal"
+duo_gauntlet_titan_fall,Queda dos Titãs,RESSONÂNCIA / DUO,Manopla,family-mark,False,"mutation_gauntlet_eclipse_uppercut,augment_gauntlet_violent_fall"
+duo_spear_return_line,Linha de Retorno,RESSONÂNCIA / DUO,Lança,family-mark,False,"mutation_spear_dragon_orbit,augment_spear_return_mark"
+frost,Geada,PROTOCOLO,"Manopla,Arco,Lança",Frost,True,
+gauntlet_mutation_CadencedAsura,Asura Cadenciada,MUTAÇÃO,Manopla,family-mark,False,
+ignite,Ignição,PROTOCOLO,"Manopla,Arco,Lança",Ignite,True,
+mutation_bow_hunting_bond,Vínculo da Caça,MUTAÇÃO,Arco,family-mark,False,
+mutation_bow_judgment_arrow,Flecha do Juízo,MUTAÇÃO,Arco,Judgment,True,
+mutation_bow_mine_garden,Jardim de Minas,MUTAÇÃO,Arco,family-mark,False,
+mutation_gauntlet_eclipse_uppercut,Uppercut do Eclipse,MUTAÇÃO,Manopla,family-mark,False,
+mutation_gauntlet_titan_fists,Punhos Titânicos,MUTAÇÃO,Manopla,Titanic,True,
+mutation_spear_dragon_orbit,Órbita do Dragão,MUTAÇÃO,Lança,SpearOrbit,True,
+mutation_spear_horizon_cut,Corte do Horizonte,MUTAÇÃO,Lança,family-mark,False,
+mutation_spear_stake_siege,Cerco de Hastes,MUTAÇÃO,Lança,family-mark,False,
+weapon_AsuraEcho,Asura reverberante,TÉCNICA,Manopla,family-mark,False,
+weapon_ChainThrust,Encadeamento,MUTAÇÃO,Lança,family-mark,False,
+weapon_EchoThrust,Estocada ecoante,TÉCNICA,Lança,family-mark,False,
+weapon_FlurryEcho,Mil punhos,TÉCNICA,Manopla,family-mark,False,
+weapon_PhantomSpear,Lança fantasma,MUTAÇÃO,Lança,family-mark,False,
+weapon_RapidBurst,Tambor de disparos,MUTAÇÃO,Arco,family-mark,False,
+weapon_Ricochet,Flecha saltadora,TÉCNICA,Arco,family-mark,False,

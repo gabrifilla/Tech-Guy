@@ -1,0 +1,81 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "12565ffe79f4445fba2977cfa5bf63df",
+    "status": "succeeded",
+    "mode": "PlayMode",
+    "started_unix_ms": 1793647997427,
+    "finished_unix_ms": 1793648035851,
+    "last_update_unix_ms": 1793648035851,
+    "progress": {
+      "completed": 4,
+      "total": 4,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.RunExp03RewardTests.BothConceptsCompareRealOffersAcrossThreeWeaponsAndTwoAspectsWithoutGranting",
+      "last_finished_unix_ms": 1793648035804,
+      "stuck_suspected": false,
+      "editor_is_focused": true,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "PlayMode",
+      "summary": {
+        "total": 4,
+        "passed": 4,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 35.951645,
+        "resultState": "Passed"
+      },
+      "results": [
+        {
+          "name": "RUN00ProductionHooksAllowMovementAndDashBetweenConnections",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00ProductionHooksAllowMovementAndDashBetweenConnections",
+          "state": "Passed",
+          "durationSeconds": 2.5651451,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAnimator does not have an AnimatorController\r\n"
+        },
+        {
+          "name": "GauntletNaturalSeed0ReachesBossTicketsAndNexus",
+          "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.GauntletNaturalSeed0ReachesBossTicketsAndNexus",
+          "state": "Passed",
+          "durationSeconds": 18.8429918,
+          "message": null,
+          "stackTrace": null,
+          "output": "ProgressionDirector Run_Seed = 0 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\n"
+        },
+        {
+          "name": "RefinedNativeDamagePauseControlReuseAndDespawnRemainEncounterOwned",
+          "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.RefinedNativeDamagePauseControlReuseAndDespawnRemainEncounterOwned",
+          "state": "Passed",
+          "durationSeconds": 11.6368619,
+          "message": null,
+          "stackTrace": null,
+          "output": "ProgressionDirector Run_Seed = 63 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "BothConceptsCompareRealOffersAcrossThreeWeaponsAndTwoAspectsWithoutGranting",
+          "fullName": "TechGuy.Tests.RunExp03RewardTests.BothConceptsCompareRealOffersAcrossThreeWeaponsAndTwoAspectsWithoutGranting",
+          "state": "Passed",
+          "durationSeconds": 2.8304062,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        }
+      ]
+    }
+  },
+  "hint": null
+}

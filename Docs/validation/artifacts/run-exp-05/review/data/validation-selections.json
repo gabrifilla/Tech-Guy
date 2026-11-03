@@ -1,0 +1,83 @@
+{
+  "final-play": {
+    "mode": "PlayMode",
+    "test_names": [
+      "TechGuy.Tests.RunExp03FirstSectorTests",
+      "TechGuy.Tests.RunExp03RewardTests"
+    ],
+    "include_details": true,
+    "include_failed_tests": true
+  },
+  "regression": {
+    "mode": "PlayMode",
+    "test_names": [
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.RUNEXP02RepeatedEvidenceRootNeverReusesCaptureDestination",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00OverlappingHooksCannotRestartTheControlClock",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00SingleAttackerRepeatsWithARealControlWindow",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00ProductionHooksAllowMovementAndDashBetweenConnections",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00PauseAndHitstopPreservePullAndRecoveryClocks",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00SourceDeathAndSceneUnloadCannotRetainPullOwnership",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.RUN00PlayerDeathCannotLeavePullOrRestoreDeadInput",
+      "TechGuy.Tests.Gpr015ProductionAuditTests.GPR015GameViewWindInPublishedCombat",
+      "TechGuy.Tests.Gpr015ProductionAuditTests.GPR015GameViewElectricWindInPublishedCombat",
+      "TechGuy.Tests.Gpr015ProductionAuditTests.GPR015GameViewFireWindInPublishedCombat",
+      "TechGuy.Tests.Gpr015ProductionAuditTests.GPR015GameViewTripleInPublishedCombat",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNaturalTicketsAcquireAAndCWithoutFixtureGrants",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectVirtualMovementNormalizesDiagonalsAndDoesNotCastW",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectMotorPullAndDashRespectTheSameUnbakedWall",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectFocusAndPauseRequireKeyboardRelease",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectDashHitstopSuspendsDisplacementWithoutMintingExtraDash",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetySlidingPreservesWallCornerAndDistanceBudget",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyRewardCloseRequiresReleaseBeforeMovementOrSkill",
+      "TechGuy.Tests.ProtocolProjectileContextTests.PiercingProjectileRetainsRootAndRanksAcrossFramesAndReleasesLease",
+      "TechGuy.Tests.ProtocolProjectileContextTests.NextSessionInvalidatesOldProjectileAndClearsOwnedApplications",
+      "TechGuy.Tests.ProtocolProjectileContextTests.FrostExpiresAndRestoresOwnedSpeed",
+      "TechGuy.Tests.EnemyInteractionPresentationTests.RealGruntInterruptReleasesAttackPoseAndAllowsANewAttack",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSpecialRemapsExistingThreeKitsWithoutXOrF11Alias",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRThreeSkillsRemapAndHudKeepsSeparateSpecialWithoutX",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDashModesUseNormalizedMovementAndFacingFallback",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonWallsBlockHorizonAndOrbitWithoutTeleportingThePlayer",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonGameplayClocksAndExtraInputFreezeDuringPauseMenuAndHitstop",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonDerivedStakePulsesRespectThirtyTwoAcrossDenseTargets",
+      "TechGuy.Tests.BowBoonPlayModeTests.BowBoonDamageInterruptsChargeAndWallsBlockBothJudgmentVariants",
+      "TechGuy.Tests.BowBoonPlayModeTests.BowBoonNativeQMarksOnceAndPriorityRequiresLosConeRangeAndGeneration",
+      "TechGuy.Tests.BowBoonPlayModeTests.BowBoonReboundRUsesActualHoldAndReleaseWithoutASecondActivation"
+    ],
+    "include_details": true,
+    "include_failed_tests": true
+  },
+  "skill-effects": {
+    "mode": "PlayMode",
+    "test_names": [
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeQMatchesRealHp",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeWMultihitMatchesRealHp",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeEMatchesRealHp",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeRMatchesRealHp",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonHorizonUsesOneCostAndCrossingConsumesItsOriginalRootOnce",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonSiegeHasNoCollidersAndEachStakePulsesAtMostOnce",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonOrbitHitsOncePerTurnAndReturnWhileReleasingPlayerActions",
+      "TechGuy.Tests.BowBoonPlayModeTests.BowBoonJudgmentShortAndFullUseDifferentCorridorsAndOneManaDebit",
+      "TechGuy.Tests.BowBoonPlayModeTests.BowBoonMineGardenArmsOnceAndEncounterCleanupDropsAllReservations",
+      "TechGuy.Tests.BowBoonPlayModeTests.BowBoonChargedShotConsumesBondOnlyAfterConfirmedNativeHp"
+    ],
+    "include_details": true,
+    "include_failed_tests": true
+  },
+  "final-edit": {
+    "mode": "EditMode",
+    "test_names": [
+      "TechGuy.Tests.RunExp03ContentTests",
+      "TechGuy.Tests.RunExp03ArtTests",
+      "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests",
+      "TechGuy.Tests.Fluidity.EditMode.ProceduralRunGeometryPlanTests",
+      "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests",
+      "TechGuy.Tests.RunExp04EncounterTests",
+      "TechGuy.Tests.RunExp04ArtTests",
+      "TechGuy.Tests.RunExp05ArtTests"
+    ],
+    "include_details": true,
+    "include_failed_tests": true
+  }
+}

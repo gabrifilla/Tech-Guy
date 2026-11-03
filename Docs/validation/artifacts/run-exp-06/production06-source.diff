@@ -1,0 +1,653 @@
+--- Assets/_Project/Scripts/Editor/RunExp03RewardsAuthoring.cs
++++ Assets/_Project/Scripts/Editor/RunExp03RewardsAuthoring.cs
+@@ -16,17 +16,17 @@
+     public static void Open()
+     {if(!EditorApplication.isPlaying&&EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo())EditorSceneManager.OpenScene(ScenePath);}
+     [MenuItem("Tools/Tech Guy/RUN-EXP-03/Recompensas/Conceito A na run atual")]
+-    public static void PreviewA()=>Attach(RunExp03RewardView.Layout.Artifacts);
++    public static void PreviewA()=>Attach(RewardSelectionView.Layout.Artifacts);
+     [MenuItem("Tools/Tech Guy/RUN-EXP-03/Recompensas/Conceito B na run atual")]
+-    public static void PreviewB()=>Attach(RunExp03RewardView.Layout.Reconfiguration);
++    public static void PreviewB()=>Attach(RewardSelectionView.Layout.Reconfiguration);
+     [MenuItem("Tools/Tech Guy/RUN-EXP-03/Recompensas/Restaurar interface atual")]
+     public static void Restore()
+-    {foreach(var view in Object.FindObjectsByType<RunExp03RewardView>(FindObjectsSortMode.None))Object.Destroy(view);}
+-    private static void Attach(RunExp03RewardView.Layout layout)
++    {foreach(var view in Object.FindObjectsByType<RewardSelectionView>(FindObjectsSortMode.None))Object.Destroy(view);}
++    private static void Attach(RewardSelectionView.Layout layout)
+     {
+         if(!EditorApplication.isPlaying){Debug.LogWarning("Entre em Play numa incursão para usar a prévia temporária.");return;}
+         var run=Object.FindFirstObjectByType<RunBoons>();if(!run){Debug.LogWarning("Nenhuma run ativa.");return;}
+-        var view=run.GetComponent<RunExp03RewardView>();if(!view){view=run.gameObject.AddComponent<RunExp03RewardView>();view.Bind(run,layout,true);}else view.Concept=layout;
++        var view=run.GetComponent<RewardSelectionView>();if(!view){view=run.gameObject.AddComponent<RewardSelectionView>();view.Bind(run,layout,true);}else view.Concept=layout;
+     }
+     public static void Build()
+     {
+--- Assets/_Project/Scripts/Editor/RunExp04ReviewMenus.cs
++++ Assets/_Project/Scripts/Editor/RunExp04ReviewMenus.cs
+@@ -12,8 +12,8 @@
+     public static void PreviewC()
+     {
+         if(!EditorApplication.isPlaying){Debug.LogWarning("Use Play para a prévia temporária.");return;}
+-        var run=Object.FindFirstObjectByType<RunBoons>();if(!run)return;var view=run.GetComponent<RunExp03RewardView>();
+-        if(!view){view=run.gameObject.AddComponent<RunExp03RewardView>();view.Bind(run,RunExp03RewardView.Layout.Synthesis,true);}else view.Concept=RunExp03RewardView.Layout.Synthesis;
++        var run=Object.FindFirstObjectByType<RunBoons>();if(!run)return;var view=run.GetComponent<RewardSelectionView>();
++        if(!view){view=run.gameObject.AddComponent<RewardSelectionView>();view.Bind(run,RewardSelectionView.Layout.Synthesis,true);}else view.Concept=RewardSelectionView.Layout.Synthesis;
+     }
+     [MenuItem("Tools/Tech Guy/RUN-EXP-04/Revisão/Restaurar recompensa publicada")]
+     public static void RestoreRewards()=>RunExp03RewardsAuthoring.Restore();
+--- Assets/_Project/Scripts/Editor/RunExp05RewardAuthoring.cs
++++ Assets/_Project/Scripts/Editor/RunExp05RewardAuthoring.cs
+@@ -12,12 +12,12 @@
+     public static void Preview()
+     {
+         if(!EditorApplication.isPlaying)return;var run=Object.FindFirstObjectByType<RunBoons>();if(!run)return;
+-        var view=run.GetComponent<RunExp03RewardView>();if(!view){view=run.gameObject.AddComponent<RunExp03RewardView>();view.Bind(run,RunExp03RewardView.Layout.Synthesis05,true);}else view.Concept=RunExp03RewardView.Layout.Synthesis05;
++        var view=run.GetComponent<RewardSelectionView>();if(!view){view=run.gameObject.AddComponent<RewardSelectionView>();view.Bind(run,RewardSelectionView.Layout.Synthesis05,true);}else view.Concept=RewardSelectionView.Layout.Synthesis05;
+     }
+     [MenuItem("Tools/Tech Guy/RUN-EXP-05/Revisão/Restaurar recompensa publicada")]
+     public static void Restore()=>RunExp03RewardsAuthoring.Restore();
+     [MenuItem("Tools/Tech Guy/RUN-EXP-05/Revisão/Alternar movimento reduzido da prévia")]
+-    public static void ReduceMotion(){foreach(var view in Object.FindObjectsByType<RunExp03RewardView>(FindObjectsSortMode.None))view.ReduceMotion=!view.ReduceMotion;}
++    public static void ReduceMotion(){foreach(var view in Object.FindObjectsByType<RewardSelectionView>(FindObjectsSortMode.None))view.ReduceMotion=!view.ReduceMotion;}
+     [MenuItem("Tools/Tech Guy/RUN-EXP-05/Revisão/Mostruário assistido de arte da arma atual (Play)")]
+     public static void Showcase()
+     {
+@@ -34,11 +34,11 @@
+         var choices=(List<RunBoons.Offer>)typeof(RunBoons).GetField("_choices",flags).GetValue(run);
+         choices.Clear();choices.Add(new RunBoons.Offer(definition.Id,definition.Title,definition.Description));
+         choices.Add(ProtocolOfferPresentation.Create(run.Protocols,ProtocolKind.Conductor));choices.Add(ProtocolOfferPresentation.Create(run.Protocols,ProtocolKind.Frost));
+-        lab.View.Bind(run,RunExp03RewardView.Layout.Synthesis05,false);lab.AssistedShowcase=true;lab.ShowControls=true;
++        lab.View.Bind(run,RewardSelectionView.Layout.Synthesis05,false);lab.AssistedShowcase=true;lab.ShowControls=true;
+     }
+     public static void ImportArt()
+     {
+-        foreach(string key in RunExp05RewardArt.Keys)
++        foreach(string key in RewardIllustrationCatalog.Keys)
+         {
+             string path="Assets/_Project/Resources/UI/RunExp05/"+key+".png";AssetDatabase.ImportAsset(path);
+             var importer=(TextureImporter)AssetImporter.GetAtPath(path);importer.textureType=TextureImporterType.Default;
+--- Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1RunStatisticsTests.cs
++++ Assets/_Project/Scripts/Tests/PlayMode/BasicAttackR1RunStatisticsTests.cs
+@@ -62,6 +62,8 @@
+                 Assert.IsTrue(_controls.TryDirectionalBasicAttack(enemy.transform.position));
+                 yield return new WaitForSeconds(.4f);
+                 Assert.IsTrue(_controls.TryBasicAttack(enemy.transform.position));
++                // Accepted basics schedule contact; statistics must observe the resolved native hit.
++                yield return WaitForBasicEnd();
+                 var s = stats.Snapshot(); Assert.That(s.EffectiveDamage, Is.EqualTo(1000-enemy.health).Within(.001));
+                 var basic = s.Abilities.Single(x => x.Ability == "Basic");
+                 Assert.That(basic.Uses, Is.EqualTo(2)); Assert.That(basic.NativeHpTransactions, Is.EqualTo(2));
+--- Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Lifecycle.cs
++++ Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Lifecycle.cs
+@@ -40,8 +40,11 @@
+             {
+                 var actor=pose.GetComponent<Actor>();var reaction=pose.GetComponent<CombatReactionController>();
+                 reaction.ApplyReaction(new HitReactionRequest(player,pose.transform.position,Vector3.forward,HitReactionType.Stagger,HitStrength.Heavy,10000,StanceBreakEffect.Stun,0,.25f));
+-                actor.TakeDamage(.1f);yield return null;Assert.IsTrue(reaction.IsControlLocked);yield return Capture((pose.Ranged?"emissor":"fragmento")+"-native-hit-control");
+-                Time.timeScale=0;yield return new WaitForSecondsRealtime(.15f);Assert.IsTrue(reaction.IsControlLocked);Time.timeScale=1;
++                actor.TakeDamage(.1f);Assert.IsTrue(reaction.IsControlLocked);
++                // A screenshot can take longer than the authored .25s control window on a busy Editor.
++                // Freeze the gameplay clock before capture, then verify pause preserves the real lock.
++                Time.timeScale=0;yield return Capture((pose.Ranged?"emissor":"fragmento")+"-native-hit-control");
++                yield return new WaitForSecondsRealtime(.15f);Assert.IsTrue(reaction.IsControlLocked);Time.timeScale=1;
+                 yield return new WaitForSeconds(1);Assert.IsFalse(reaction.IsControlLocked);
+                 long generation=actor.CombatGeneration;actor.gameObject.SetActive(false);yield return null;actor.gameObject.SetActive(true);yield return null;Assert.Greater(actor.CombatGeneration,generation);Assert.IsFalse(actor.IsDead);Assert.IsFalse(reaction.IsControlLocked);
+             }
+--- Assets/_Project/Scripts/Tests/PlayMode/RunExp03RewardTests.cs
++++ Assets/_Project/Scripts/Tests/PlayMode/RunExp03RewardTests.cs
+@@ -59,7 +59,7 @@
+                     yield return lab.Prepare(weapon);var run=lab.Run;var view=lab.View;var original=run.GetComponent<RunRewardUI>();var ids=run.Choices.Select(o=>o.Id).ToArray();
+                     Assert.Greater(ids.Length,0);Assert.AreEqual(0,run.Acquired.Count);string prefix=resolution[0]+"x"+resolution[1]+"-"+run.WeaponModifiers.Family;
+                     view.enabled=false;original.enabled=true;yield return Capture(prefix+"-original");original.enabled=false;view.enabled=true;
+-                    foreach(RunExp03RewardView.Layout concept in Enum.GetValues(typeof(RunExp03RewardView.Layout)))
++                    foreach(RewardSelectionView.Layout concept in Enum.GetValues(typeof(RewardSelectionView.Layout)))
+                     {
+                         view.Concept=concept;view.Select(0);yield return Capture(prefix+"-"+concept+"-selected-0");
+                         view.Select(1);yield return Capture(prefix+"-"+concept+"-selected-1");
+@@ -73,16 +73,16 @@
+         {
+             yield return Load();var lab=Object.FindFirstObjectByType<RunExp03RewardLab>();lab.ShowControls=false;yield return Size(1160,600);
+             var run=lab.Run;var conductor=ProtocolOfferPresentation.Create(run.Protocols,ProtocolKind.Conductor);
+-            var before=RunExp03RewardModel.For(run,conductor);Assert.IsEmpty(before.Context);
++            var before=RewardChoicePresentation.For(run,conductor);Assert.IsEmpty(before.Context);
+             // Explicit isolated visual fixture: apply a real existing mutation, not a natural acquisition claim.
+             Assert.IsTrue((bool)typeof(RunBoons).GetMethod("ApplyOffer",Flags).Invoke(run,new object[]{new RunBoons.Offer(TitanicFistsDefinition.Id,"Punhos Titânicos","Contexto visual assistido"),false}));
+-            var active=RunExp03RewardModel.For(run,conductor);Assert.IsTrue(active.Context.Contains("tornados"));
++            var active=RewardChoicePresentation.For(run,conductor);Assert.IsTrue(active.Context.Contains("tornados"));
+             run.OfferReward(2);Assert.IsTrue(run.IsChoosing);
+             var choices=(List<RunBoons.Offer>)typeof(RunBoons).GetField("_choices",Flags).GetValue(run);choices.Clear();choices.Add(conductor);
+             choices.Add(ProtocolOfferPresentation.Create(run.Protocols,ProtocolKind.Frost));choices.Add(ProtocolOfferPresentation.Create(run.Protocols,ProtocolKind.Detonation));
+             // Card list is an explicit visual fixture, not evidence of RNG/ticket offers; no choice here.
+             lab.View.Refresh();lab.View.Select(0);
+-            foreach(RunExp03RewardView.Layout concept in Enum.GetValues(typeof(RunExp03RewardView.Layout)))
++            foreach(RewardSelectionView.Layout concept in Enum.GetValues(typeof(RewardSelectionView.Layout)))
+             {lab.View.Concept=concept;yield return Capture("assisted-owned-titan-"+concept);}
+             yield return lab.Prepare(1);run=lab.Run;var view=lab.View;Assert.AreEqual(0,run.Acquired.Count);
+             var ids=run.Choices.Select(o=>o.Id).ToArray();Assert.IsTrue(view.Visible);view.Select(1);
+--- Assets/_Project/Scripts/Tests/PlayMode/RunExp03RewardTests.Input.cs
++++ Assets/_Project/Scripts/Tests/PlayMode/RunExp03RewardTests.Input.cs
+@@ -17,20 +17,20 @@
+             yield return Load();var lab=Object.FindFirstObjectByType<RunExp03RewardLab>();var run=lab.Run;
+             var offer=ProtocolOfferPresentation.Create(run.Protocols,ProtocolKind.Conductor);
+             Assert.IsTrue((bool)typeof(RunBoons).GetMethod("ApplyOffer",Flags).Invoke(run,new object[]{offer,false}));
+-            var upgrade=RunExp03RewardModel.For(run,ProtocolOfferPresentation.Create(run.Protocols,ProtocolKind.Conductor));
++            var upgrade=RewardChoicePresentation.For(run,ProtocolOfferPresentation.Create(run.Protocols,ProtocolKind.Conductor));
+             Assert.AreEqual("NÍVEL 1 → 2",upgrade.Level);Assert.IsTrue(upgrade.Effect.Contains("mais alvos"));
+-            var special=RunExp03RewardModel.For(run,new RunBoons.Offer("weapon_AsuraReserve","Reserva Asura","R: contexto do especial"));Assert.AreEqual("ESPECIAL · "+GamePreferences.BindingLabel(GameControl.Move),special.Scope);
++            var special=RewardChoicePresentation.For(run,new RunBoons.Offer("weapon_AsuraReserve","Reserva Asura","R: contexto do especial"));Assert.AreEqual("ESPECIAL · "+GamePreferences.BindingLabel(GameControl.Move),special.Scope);
+             run.OfferReward(2);var visualChoices=(List<RunBoons.Offer>)typeof(RunBoons).GetField("_choices",Flags).GetValue(run);visualChoices.Clear();visualChoices.Add(ProtocolOfferPresentation.Create(run.Protocols,ProtocolKind.Conductor));visualChoices.Add(ProtocolOfferPresentation.Create(run.Protocols,ProtocolKind.Ignite));visualChoices.Add(ProtocolOfferPresentation.Create(run.Protocols,ProtocolKind.Detonation));
+-            lab.View.Concept=RunExp03RewardView.Layout.Synthesis;lab.View.Refresh();lab.View.Select(0);yield return Capture("04-assisted-rank-upgrade-Synthesis");
++            lab.View.Concept=RewardSelectionView.Layout.Synthesis;lab.View.Refresh();lab.View.Select(0);yield return Capture("04-assisted-rank-upgrade-Synthesis");
+             const string key="TechGuy.Settings.DirectBinding.v2.Skill1";bool existed=PlayerPrefs.HasKey(key);int old=PlayerPrefs.GetInt(key);
+             try
+             {
+                 var mutation=new RunBoons.Offer(BoonReworkCatalog.ViolentFallId,"Queda Violenta","Detalhes originais");
+                 // Explicit readonly presentation fixture, not a claim of legal Q-augment eligibility.
+-                lab.View.Bind(run,RunExp03RewardView.Layout.Synthesis,false);visualChoices[2]=mutation;lab.View.Refresh();lab.View.Select(2);
++                lab.View.Bind(run,RewardSelectionView.Layout.Synthesis,false);visualChoices[2]=mutation;lab.View.Refresh();lab.View.Select(2);
+                 var pause=run.GetComponent<PauseMenuUI>();pause.Pause();yield return null;PlayerPrefs.SetInt(key,(int)KeyCode.F9);yield return null;pause.Resume();yield return null;yield return null;
+                 Assert.IsTrue(lab.View.SelectedScope.Contains("F9"),lab.View.SelectedScope);
+-                var model=RunExp03RewardModel.For(run,mutation);Assert.IsTrue(model.Scope.Contains("F9"),model.Scope);
++                var model=RewardChoicePresentation.For(run,mutation);Assert.IsTrue(model.Scope.Contains("F9"),model.Scope);
+             }
+             finally{if(existed)PlayerPrefs.SetInt(key,old);else PlayerPrefs.DeleteKey(key);PlayerPrefs.Save();}
+         }
+@@ -45,7 +45,7 @@
+                 InputSystem.settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;InputSystem.settings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+                 if(keyboardEnabled)InputSystem.DisableDevice(oldKeyboard);if(padEnabled)InputSystem.DisableDevice(oldPad);
+                 keyboard=InputSystem.AddDevice<Keyboard>("RUNEXP03 UI fixture");pad=InputSystem.AddDevice<Gamepad>("RUNEXP03 UI fixture");keyboard.MakeCurrent();pad.MakeCurrent();
+-                var run=lab.Run;var view=lab.View;view.Concept=RunExp03RewardView.Layout.Synthesis;view.Select(0);
++                var run=lab.Run;var view=lab.View;view.Concept=RewardSelectionView.Layout.Synthesis;view.Select(0);
+                 InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.RightArrow));yield return null;yield return null;Assert.AreEqual(1,view.Selected);
+                 InputSystem.QueueStateEvent(keyboard,new KeyboardState());yield return null;
+                 InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.Tab));yield return null;yield return null;Assert.IsTrue(view.DetailsVisible);yield return Capture("keyboard-details");
+--- Assets/_Project/Scripts/Tests/PlayMode/RunExp03RewardTests.Visual05.cs
++++ Assets/_Project/Scripts/Tests/PlayMode/RunExp03RewardTests.Visual05.cs
+@@ -21,7 +21,7 @@
+                 yield return lab.Prepare(weapon);Assert.IsTrue(UnityEditor.EditorApplication.ExecuteMenuItem("Tools/Tech Guy/RUN-EXP-05/Revisão/Mostruário assistido de arte da arma atual (Play)"));
+                 float end=Time.realtimeSinceStartup+5;
+                 while(!lab.AssistedShowcase){Assert.Less(Time.realtimeSinceStartup,end);yield return null;}
+-                Assert.AreEqual(3,lab.Run.Choices.Count);Assert.AreEqual(0,lab.Run.Acquired.Count);Assert.AreEqual(RunExp03RewardView.Layout.Synthesis05,lab.View.Concept);
++                Assert.AreEqual(3,lab.Run.Choices.Count);Assert.AreEqual(0,lab.Run.Acquired.Count);Assert.AreEqual(RewardSelectionView.Layout.Synthesis05,lab.View.Concept);
+                 Assert.IsFalse(lab.View.Confirm());yield return Capture("05-assisted-menu-weapon-"+weapon);
+                 yield return lab.Prepare(weapon);Assert.IsFalse(lab.AssistedShowcase);
+             }
+@@ -37,7 +37,7 @@
+                     yield return lab.Prepare(weapon);var run=lab.Run;var view=lab.View;var native=run.GetComponent<RunRewardUI>();
+                     string prefix="05-"+resolution[0]+"x"+resolution[1]+"-"+run.WeaponModifiers.Family;var ids=run.Choices.Select(o=>o.Id).ToArray();
+                     view.enabled=false;native.enabled=true;yield return Capture(prefix+"-published");native.enabled=false;view.enabled=true;
+-                    foreach(var concept in new[]{RunExp03RewardView.Layout.Synthesis,RunExp03RewardView.Layout.Synthesis05})
++                    foreach(var concept in new[]{RewardSelectionView.Layout.Synthesis,RewardSelectionView.Layout.Synthesis05})
+                     {
+                         view.Concept=concept;view.Select(0);yield return new WaitForSecondsRealtime(.15f);yield return Capture(prefix+"-"+concept+"-selected-0");
+                         view.Select(1);yield return new WaitForSecondsRealtime(.15f);yield return Capture(prefix+"-"+concept+"-selected-1");
+@@ -46,22 +46,22 @@
+                     }
+                 }
+             }
+-            foreach(string key in RunExp05RewardArt.Keys){var texture=Resources.Load<Texture2D>("UI/RunExp05/"+key);Assert.IsNotNull(texture,key);Assert.AreEqual(512,texture.width);Assert.IsFalse(texture.isReadable);}
++            foreach(string key in RewardIllustrationCatalog.Keys){var texture=Resources.Load<Texture2D>("UI/RunExp05/"+key);Assert.IsNotNull(texture,key);Assert.AreEqual(512,texture.width);Assert.IsFalse(texture.isReadable);}
+             yield return Size(1280,800);yield return lab.Prepare(0);
+             var owner=lab.Run;var choices=(List<RunBoons.Offer>)typeof(RunBoons).GetField("_choices",Flags).GetValue(owner);choices.Clear();
+             Assert.IsTrue(BoonExpansionCatalog.TryDefinition(TitanicFistsDefinition.Id,out var titan));
+             choices.Add(new RunBoons.Offer(titan.Id,titan.Title,titan.Description));choices.Add(ProtocolOfferPresentation.Create(owner.Protocols,ProtocolKind.Conductor));choices.Add(ProtocolOfferPresentation.Create(owner.Protocols,ProtocolKind.Frost));
+-            lab.View.Concept=RunExp03RewardView.Layout.Synthesis05;lab.View.Refresh();lab.View.Select(0);yield return Capture("05-assisted-titanic-illustration");
+-            lab.View.Select(1);Assert.IsEmpty(RunExp03RewardModel.For(owner,choices[1]).Context);yield return Capture("05-assisted-cooffer-is-not-owned");
++            lab.View.Concept=RewardSelectionView.Layout.Synthesis05;lab.View.Refresh();lab.View.Select(0);yield return Capture("05-assisted-titanic-illustration");
++            lab.View.Select(1);Assert.IsEmpty(RewardChoicePresentation.For(owner,choices[1]).Context);yield return Capture("05-assisted-cooffer-is-not-owned");
+             var titanOffer=choices[0];var conductorOffer=choices[1];
+             Assert.IsTrue((bool)typeof(RunBoons).GetMethod("ApplyOffer",Flags).Invoke(owner,new object[]{titanOffer,false}));
+             // ApplyOffer legitimately closes/clears the current offer. Reopen a real isolated request
+             // before constructing the next explicitly assisted comparison list.
+             owner.OfferReward(2);choices.Clear();choices.Add(conductorOffer);choices.Add(ProtocolOfferPresentation.Create(owner.Protocols,ProtocolKind.Frost));choices.Add(ProtocolOfferPresentation.Create(owner.Protocols,ProtocolKind.Ignite));
+-            lab.View.Refresh();lab.View.Select(0);Assert.IsTrue(RunExp03RewardModel.For(owner,choices[0]).Context.Contains("tornados"));yield return Capture("05-assisted-active-titan-conductor");
++            lab.View.Refresh();lab.View.Select(0);Assert.IsTrue(RewardChoicePresentation.For(owner,choices[0]).Context.Contains("tornados"));yield return Capture("05-assisted-active-titan-conductor");
+             Assert.IsTrue((bool)typeof(RunBoons).GetMethod("ApplyOffer",Flags).Invoke(owner,new object[]{conductorOffer,false}));
+             owner.OfferReward(3);choices.Clear();choices.Add(ProtocolOfferPresentation.Create(owner.Protocols,ProtocolKind.Conductor));choices.Add(ProtocolOfferPresentation.Create(owner.Protocols,ProtocolKind.Frost));choices.Add(ProtocolOfferPresentation.Create(owner.Protocols,ProtocolKind.Ignite));lab.View.Refresh();lab.View.Select(0);
+-            Assert.AreEqual("NÍVEL 1 → 2",RunExp03RewardModel.For(owner,choices[0]).Level);yield return Capture("05-assisted-conductor-rank-upgrade");
++            Assert.AreEqual("NÍVEL 1 → 2",RewardChoicePresentation.For(owner,choices[0]).Level);yield return Capture("05-assisted-conductor-rank-upgrade");
+             lab.View.ReduceMotion=true;yield return Capture("05-reduced-motion");
+             foreach(int weapon in new[]{1,2})
+             {
+@@ -70,7 +70,7 @@
+                 Assert.IsTrue(BoonExpansionCatalog.TryDefinition(id,out var definition));
+                 choices=(List<RunBoons.Offer>)typeof(RunBoons).GetField("_choices",Flags).GetValue(owner);choices.Clear();
+                 choices.Add(new RunBoons.Offer(definition.Id,definition.Title,definition.Description));choices.Add(ProtocolOfferPresentation.Create(owner.Protocols,ProtocolKind.Frost));choices.Add(ProtocolOfferPresentation.Create(owner.Protocols,ProtocolKind.Ignite));
+-                lab.View.Bind(owner,RunExp03RewardView.Layout.Synthesis05,false);lab.View.Select(0);
++                lab.View.Bind(owner,RewardSelectionView.Layout.Synthesis05,false);lab.View.Select(0);
+                 yield return Capture("05-assisted-"+owner.WeaponModifiers.Family+"-mutation-illustration");
+                 Assert.IsFalse(lab.View.Confirm(),"Assisted art list is explicitly read-only, not a legal ticket claim.");
+             }
+@@ -86,7 +86,7 @@
+             {
+                 InputSystem.settings.backgroundBehavior=InputSettings.BackgroundBehavior.IgnoreFocus;InputSystem.settings.editorInputBehaviorInPlayMode=InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+                 if(keyboardEnabled)InputSystem.DisableDevice(oldKeyboard);if(padEnabled)InputSystem.DisableDevice(oldPad);keyboard=InputSystem.AddDevice<Keyboard>();pad=InputSystem.AddDevice<Gamepad>();keyboard.MakeCurrent();pad.MakeCurrent();
+-                var run=lab.Run;var view=lab.View;view.Concept=RunExp03RewardView.Layout.Synthesis05;view.Select(0);
++                var run=lab.Run;var view=lab.View;view.Concept=RewardSelectionView.Layout.Synthesis05;view.Select(0);
+                 InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.RightArrow));yield return null;yield return null;Assert.AreEqual(1,view.Selected);
+                 InputSystem.QueueStateEvent(keyboard,new KeyboardState());yield return null;InputSystem.QueueStateEvent(keyboard,new KeyboardState(Key.Tab));yield return null;yield return null;
+                 Assert.IsTrue(view.DetailsVisible);Assert.IsFalse(view.Confirm());Assert.AreEqual(0,run.Acquired.Count);yield return Capture("05-modal-does-not-commit");
+--- Assets/_Project/Scripts/UI/PauseMenuUI.cs
++++ Assets/_Project/Scripts/UI/PauseMenuUI.cs
+@@ -79,6 +79,7 @@
+         }
+         if (_page == PausePage.Controls && _remapping.Update(_bindings)) return;
+         if (!(Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) && !GamePreferences.WasPressed(GameControl.Pause)) return;
++        if(!IsPaused&&_rewards&&_rewards.TryDismissRewardDetails())return;
+         if (IsPaused) NavigateBack();
+         else Pause();
+     }
+--- Assets/_Project/Scripts/UI/Review/RunExp03RewardLab.cs
++++ Assets/_Project/Scripts/UI/Review/RunExp03RewardLab.cs
+@@ -5,9 +5,9 @@
+ public sealed class RunExp03RewardLab : MonoBehaviour
+ {
+     [SerializeField] private PlayerActor _player;
+-    private RunBoons _run;private RunExp03RewardView _view;private bool _loading;private int _room=1;
++    private RunBoons _run;private RewardSelectionView _view;private bool _loading;private int _room=1;
+     public RunBoons Run=>_run;
+-    public RunExp03RewardView View=>_view;
++    public RewardSelectionView View=>_view;
+     public bool ShowControls {get;set;}=true;
+     public bool AssistedShowcase {get;set;}
+     private IEnumerator Start(){yield return Prepare(0);}
+@@ -17,16 +17,18 @@
+         if(_view)Destroy(_view);if(_run)Destroy(_run);yield return null;
+         _player.EquipWeapon(Resources.Load<WeaponScript>(WeaponLoadout.ResourcePaths[weapon]));
+         _run=_player.gameObject.AddComponent<RunBoons>();yield return null;yield return null;
+-        _room=1;_run.OfferReward(_room);_view=_player.gameObject.AddComponent<RunExp03RewardView>();_view.Bind(_run,RunExp03RewardView.Layout.Artifacts,true);_loading=false;
++        _room=1;_run.OfferReward(_room);_view=_player.GetComponent<RewardSelectionView>();if(!_view)_view=_player.gameObject.AddComponent<RewardSelectionView>();_view.ShowReviewControls=true;_view.Bind(_run,RewardSelectionView.Layout.Artifacts,true);_loading=false;
+     }
+     private void OnGUI()
+     {
+-        if(_loading||!_run||!ShowControls)return;var old=GUI.matrix;int depth=GUI.depth;GUI.depth=-110;
++        if(_loading||!_run||!ShowControls)return;var old=GUI.matrix;GUI.depth=-110;
+         float scale=Mathf.Min(Screen.width/1280f,Screen.height/720f);GUI.matrix=Matrix4x4.Scale(Vector3.one*scale);
+         GUILayout.BeginArea(new Rect(360,10,420,35));GUILayout.BeginHorizontal();
+         if(GUILayout.Button("Manopla"))StartCoroutine(Prepare(0));if(GUILayout.Button("Lança"))StartCoroutine(Prepare(2));if(GUILayout.Button("Arco"))StartCoroutine(Prepare(1));
++        bool previousEnabled=GUI.enabled;GUI.enabled=previousEnabled&&!AssistedShowcase;
+         if(GUILayout.Button(_view&&_view.enabled?"Original":"Conceitos"))
+         {if(_view){_view.enabled=!_view.enabled;_player.GetComponent<RunRewardUI>().enabled=!_view.enabled;}}
++        GUI.enabled=previousEnabled;
+         GUILayout.EndHorizontal();GUILayout.EndArea();
+         if(AssistedShowcase)GUI.Label(new Rect(40,36,1120,24),"MOSTRUÁRIO ASSISTIDO · ofertas de arte para comparação, sem aquisição; não representa sorteio de run.");
+         if(!_run.IsChoosing)
+@@ -36,6 +38,6 @@
+             if(GUILayout.Button("Consultar outra recompensa de teste")){_run.OfferReward(++_room);_view.Refresh();}
+             GUILayout.EndArea();
+         }
+-        GUI.matrix=old;GUI.depth=depth;
++        GUI.matrix=old;
+     }
+ }
+--- Assets/_Project/Scripts/UI/Review/RunExp03RewardModel.cs
++++ Assets/_Project/Scripts/UI/Rewards/RewardChoicePresentation.cs
+@@ -3,7 +3,7 @@
+ using System.Text.RegularExpressions;
+ 
+ /// <summary>Read-only editorial layer. Ownership comes only from the acquired runtime inventory.</summary>
+-public sealed class RunExp03RewardModel
++public sealed class RewardChoicePresentation
+ {
+     public string Id,Name,Family,Scope,Effect,Context,Restriction,Details,Level;
+     public int Glyph;
+@@ -12,14 +12,17 @@
+         if(slot=="R"&&GamePreferences.UsesDirectControls)return GamePreferences.BindingLabel(GameControl.Move);
+         return GamePreferences.BindingLabel((GameControl)((int)GameControl.Skill1+"QWER".IndexOf(slot,StringComparison.Ordinal)));
+     }
+-    public static RunExp03RewardModel For(RunBoons run,RunBoons.Offer offer)
++    public static RewardChoicePresentation For(RunBoons run,RunBoons.Offer offer)
+     {
+         var view=RunModifierPresentation.For(offer);int rank=RunModifierPresentation.Count(run,offer.Id);
+-        var model=new RunExp03RewardModel{Id=offer.Id,Name=offer.Title,Scope=view.Scope,Details=view.Description,Context="",Restriction="",Level=rank>0?"NÍVEL "+rank+" → "+(rank+1):"NOVA REESCRITA"};
++        var model=new RewardChoicePresentation{Id=offer.Id,Name=offer.Title,Scope=view.Scope,Details=view.Description,Context="",Restriction="",Level=rank>0?"NÍVEL "+rank+" → "+(rank+1):"NOVA REESCRITA"};
+         if(model.Scope=="Basic")model.Scope="ATAQUE BÁSICO";
+         string category=view.Category;
+         model.Family=category=="MUTATION"?"MUTAÇÃO":category=="AUGMENT"?"APRIMORAMENTO":category=="PROTOCOL"?"PROTOCOLO":category=="TECHNIQUE"?"TÉCNICA":category=="RESONANCE / DUO"?"RESSONÂNCIA / DUO":category;
+         model.Glyph=category=="MUTATION"?0:category=="PROTOCOL"?1:2;
++        if(category=="AUGMENT")model.Glyph=3;
++        if(category=="RESONANCE / DUO")model.Glyph=4;
++        if(offer.Id==RunBoonOfferCatalog.ExhaustedId){model.Glyph=5;model.Family="CONTINUAR";model.Level="SEM AQUISIÇÃO";}
+         string text=Regex.Replace(view.Description??"","<[^>]*>","");
+         text=Regex.Replace(text,@"^(?:[QWER]: |TRANSFORMA Q: )","");
+         int end=text.IndexOf(". ",StringComparison.Ordinal);if(end>=0)text=text.Substring(0,end+1);
+--- Assets/_Project/Scripts/UI/Review/RunExp03RewardView.cs
++++ Assets/_Project/Scripts/UI/Rewards/RewardSelectionView.cs
+@@ -3,15 +3,18 @@
+ using UnityEngine;
+ using UnityEngine.InputSystem;
+ 
+-/// <summary>Opt-in review view, never installed by a published scene or RunRewardUI.</summary>
+-public sealed partial class RunExp03RewardView : MonoBehaviour
++/// <summary>Shared reward presentation, installed by the native RunRewardUI owner. No lab dependency.</summary>
++public sealed partial class RewardSelectionView : MonoBehaviour
+ {
+     public enum Layout { Artifacts, Reconfiguration, Synthesis, Synthesis05 }
+-    private RunBoons _run;private RunRewardUI _native;private bool _nativeEnabled,_allowCommit;
+-    private RunExp03RewardModel[] _models=Array.Empty<RunExp03RewardModel>();
++    private RunBoons _run;private RunRewardUI _native;private bool _allowCommit;
++    private RunRewardTicket _ticket;private int _rewardRoom=-1;
++    private RewardChoicePresentation[] _models=Array.Empty<RewardChoicePresentation>();
+     private string[] _ids=Array.Empty<string>();private int _revision=-1,_owned=-1,_lastConfirmFrame=-1;
+     private int _selected;private bool _details;private Vector2 _scroll;
+     private bool _wasVisible;
++    private bool _hasFocus=true,_waitForUiRelease;
++    private int _uiReleaseFrame=-1;
+     private Texture2D[] _glyphs;
+     private Texture2D _frame;
+     private GUIStyle _title,_body,_small,_large,_center,_centerSmall;
+@@ -20,40 +23,53 @@
+     public int Selected => _selected;
+     public bool DetailsVisible => _details;
+     public string SelectedScope => _selected>=0&&_selected<_models.Length?_models[_selected].Scope:"";
+-    public bool ShowReviewControls {get;set;}=true;
++    public bool ShowReviewControls {get;set;}
+     public bool Visible => _run && _native && _native.IsRewardSelectionVisible;
+     public void Bind(RunBoons run,Layout layout,bool allowCommit)
+     {
+         _run=run;Concept=layout;_allowCommit=allowCommit;var native=run.GetComponent<RunRewardUI>();
+-        if(_native!=native){if(_native)_native.enabled=_nativeEnabled;_native=native;_nativeEnabled=_native.enabled;}
+-        _native.enabled=false;
++        if(_native!=native){if(_native)_native.ReleaseSelectionView(this);_native=native;}
++        _native.RegisterSelectionView(this);
+         _glyphs=new[]{"Mutation","Protocol","Technique"}.Select(n=>Resources.Load<Texture2D>("UI/RunExp03/Glyph"+n)).ToArray();
+         _frame=Resources.Load<Texture2D>("UI/RunExp03/GlyphFrame");
+         LoadArt05();
+         Refresh();
+     }
+-    private void OnDestroy(){if(_native)_native.enabled=_nativeEnabled;}
++    private void OnDestroy(){if(_native)_native.ReleaseSelectionView(this);}
+     public void Select(int index){if(index>=0&&index<_models.Length){if(_selected!=index)_selectedAt05=Time.unscaledTime;_selected=index;_scroll=Vector2.zero;}}
+-    public void ToggleDetails(){_details=!_details;_scroll=Vector2.zero;_detailsAt05=Time.unscaledTime;}
++    public void ToggleDetails(){_details=!_details;_scroll=Vector2.zero;_detailsAt05=Time.unscaledTime;_rejectedUntil05=-100;}
+     public bool Confirm()
+     {
+-        if(!Visible||!_allowCommit||_lastConfirmFrame==Time.frameCount||_selected<0||_selected>=_ids.Length||(Concept==Layout.Synthesis05&&_details))return Reject05();
+-        if((_run.ManualTicket?.Revision??0)!=_revision||_run.Choices.Count!=_ids.Length||_run.Choices[_selected].Id!=_ids[_selected])return Reject05();
++        // Modal/duplicate/read-only input is ignored; it does not make a legal offer unavailable.
++        if(!Visible||!_allowCommit||_lastConfirmFrame==Time.frameCount||(Concept==Layout.Synthesis05&&_details))return false;
++        if(_selected<0||_selected>=_ids.Length)return Reject05();
++        if(_ticket!=_run.ManualTicket||_rewardRoom!=_run.RewardRoom||(_run.ManualTicket?.Revision??0)!=_revision||_run.Choices.Count!=_ids.Length||_run.Choices[_selected].Id!=_ids[_selected])return Reject05();
+         _lastConfirmFrame=Time.frameCount;string chosen=_models[_selected].Name;bool committed=_run.Choose(_selected);
+         if(committed){_confirmedAt05=Time.unscaledTime;_confirmedName05=chosen;}else Reject05();return committed;
+     }
+     public void Refresh()
+     {
+         if(!_run)return;
+-        _ids=_run.Choices.Select(o=>o.Id).ToArray();_models=_run.Choices.Select(o=>RunExp03RewardModel.For(_run,o)).ToArray();
++        if(_ticket!=_run.ManualTicket||_rewardRoom!=_run.RewardRoom){_details=false;_scroll=Vector2.zero;_selected=0;_selectedAt05=Time.unscaledTime;_rejectedUntil05=-100;}
++        _ticket=_run.ManualTicket;_rewardRoom=_run.RewardRoom;
++        _ids=_run.Choices.Select(o=>o.Id).ToArray();_models=_run.Choices.Select(o=>RewardChoicePresentation.For(_run,o)).ToArray();
+         _revision=_run.ManualTicket?.Revision??0;_owned=_run.Acquired.Count;_selected=Mathf.Clamp(_selected,0,Mathf.Max(0,_models.Length-1));
++        RefreshStatus05();
+     }
+     private void Update()
+     {
+         if(!Visible){_wasVisible=false;return;}
++        if(!_hasFocus)return;
++        if(_waitForUiRelease)
++        {
++            var keyboard=Keyboard.current;var mouse=Mouse.current;var gamepad=Gamepad.current;
++            bool held=keyboard!=null&&(keyboard.enterKey.isPressed||keyboard.tabKey.isPressed||keyboard.backspaceKey.isPressed||keyboard.digit1Key.isPressed||keyboard.digit2Key.isPressed||keyboard.digit3Key.isPressed||keyboard.leftArrowKey.isPressed||keyboard.rightArrowKey.isPressed||keyboard.upArrowKey.isPressed||keyboard.downArrowKey.isPressed)||mouse!=null&&mouse.leftButton.isPressed||gamepad!=null&&(gamepad.buttonSouth.isPressed||gamepad.buttonWest.isPressed||gamepad.buttonEast.isPressed||gamepad.dpad.ReadValue().sqrMagnitude>.1f);
++            if(held)return;_waitForUiRelease=false;_uiReleaseFrame=Time.frameCount;return;
++        }
++        if(_uiReleaseFrame==Time.frameCount)return;
+         // Settings lives under pause; rebuild labels once on return so rebound controls are current.
+         if(!_wasVisible){Refresh();_wasVisible=true;}
+-        if(_owned!=_run.Acquired.Count||_revision!=(_run.ManualTicket?.Revision??0)||_ids.Length!=_run.Choices.Count||!_ids.SequenceEqual(_run.Choices.Select(o=>o.Id)))Refresh();
++        if(_ticket!=_run.ManualTicket||_rewardRoom!=_run.RewardRoom||_owned!=_run.Acquired.Count||_revision!=(_run.ManualTicket?.Revision??0)||_ids.Length!=_run.Choices.Count||!_ids.SequenceEqual(_run.Choices.Select(o=>o.Id)))Refresh();
+         var k=Keyboard.current;var pad=Gamepad.current;
+         if(k!=null)
+         {
+@@ -61,9 +77,18 @@
+             if(k.rightArrowKey.wasPressedThisFrame||k.downArrowKey.wasPressedThisFrame)Select((_selected+1)%Mathf.Max(1,_models.Length));
+             if(k.digit1Key.wasPressedThisFrame)Select(0);if(k.digit2Key.wasPressedThisFrame)Select(1);if(k.digit3Key.wasPressedThisFrame)Select(2);
+             if(k.tabKey.wasPressedThisFrame)ToggleDetails();if(k.enterKey.wasPressedThisFrame)Confirm();
++            if(k.backspaceKey.wasPressedThisFrame)Cancel();
+         }
+         if(pad!=null)
+-        {if(pad.dpad.left.wasPressedThisFrame)Select((_selected+_models.Length-1)%Mathf.Max(1,_models.Length));if(pad.dpad.right.wasPressedThisFrame)Select((_selected+1)%Mathf.Max(1,_models.Length));if(pad.buttonSouth.wasPressedThisFrame)Confirm();if(pad.buttonWest.wasPressedThisFrame)ToggleDetails();}
++        {if(pad.dpad.left.wasPressedThisFrame)Select((_selected+_models.Length-1)%Mathf.Max(1,_models.Length));if(pad.dpad.right.wasPressedThisFrame)Select((_selected+1)%Mathf.Max(1,_models.Length));if(pad.buttonSouth.wasPressedThisFrame)Confirm();if(pad.buttonWest.wasPressedThisFrame)ToggleDetails();if(pad.buttonEast.wasPressedThisFrame)Cancel();}
++    }
++    private void OnApplicationFocus(bool focused){_hasFocus=focused;_waitForUiRelease=true;}
++    public bool Cancel()
++    {
++        if(!Visible)return false;
++        if(_details){ToggleDetails();return true;}
++        if(_run.ManualTicket==null)return false;
++        _run.CloseManualReward();return true;
+     }
+     private static readonly Color Ink=new Color(.025f,.044f,.065f),Paper=new Color(.94f,.9f,.8f),Muted=new Color(.55f,.66f,.69f);
+     private static Color Accent(int glyph)=>glyph==0?new Color(1,.7f,.35f):glyph==1?new Color(.32f,.85f,.85f):new Color(.68f,.71f,1);
+@@ -78,7 +103,14 @@
+         var matrix=GUI.matrix;var delta=b-a;GUIUtility.RotateAroundPivot(Mathf.Atan2(delta.y,delta.x)*Mathf.Rad2Deg,a);Fill(new Rect(a.x,a.y,delta.magnitude,width),color);GUI.matrix=matrix;
+     }
+     private void Glyph(Rect r,int index,Color color)
+-    {if(_glyphs!=null&&_glyphs[index]){var old=GUI.color;GUI.color=color;GUI.DrawTexture(r,_glyphs[index],ScaleMode.ScaleToFit,true);GUI.color=old;}}
++    {
++        if(index<3&&_glyphs!=null&&_glyphs[index]){var old=GUI.color;GUI.color=color;GUI.DrawTexture(r,_glyphs[index],ScaleMode.ScaleToFit,true);GUI.color=old;return;}
++        // Family marks intentionally describe a category, never an unowned mechanic.
++        float s=Mathf.Min(r.width,r.height)*.46f,x=r.center.x-s*.5f,y=r.center.y-s*.5f,t=Mathf.Max(2,s*.07f);
++        if(index==3){Fill(new Rect(x,y,s,t),color);Fill(new Rect(x,y+s-t,s,t),color);Fill(new Rect(x,y,t,s),color);Fill(new Rect(x+s-t,y,t,s),color);Fill(new Rect(x+s*.23f,y+s*.46f,s*.54f,t),color);Fill(new Rect(x+s*.46f,y+s*.23f,t,s*.54f),color);}
++        else if(index==4){foreach(float p in new[]{0f,.52f}){Fill(new Rect(x+s*p,y+s*p,s*.48f,t),color);Fill(new Rect(x+s*p,y+s*p,t,s*.48f),color);Fill(new Rect(x+s*p,y+s*(p+.48f)-t,s*.48f,t),color);Fill(new Rect(x+s*(p+.48f)-t,y+s*p,t,s*.48f),color);}}
++        else{Fill(new Rect(x,y+s*.48f,s,t),color);Fill(new Rect(x+s-t,y+s*.2f,t,s*.6f),color);}
++    }
+     private bool Button(Rect r,string text,Color color)
+     {
+         bool hover=r.Contains(Event.current.mousePosition);Fill(r,hover?color:color*.7f);Label(r,text,_centerSmall,Ink);
+@@ -87,7 +119,9 @@
+     private void OnGUI()
+     {
+         if(!Visible){DrawCommitted05();return;}Styles();
+-        var oldMatrix=GUI.matrix;int oldDepth=GUI.depth;GUI.depth=-100;
++        // GUI.depth sorts this entire MonoBehaviour, not a scoped group of drawing commands.
++        // Keep its assigned depth so detached damage popups cannot cover the reward modal.
++        var oldMatrix=GUI.matrix;bool oldEnabled=GUI.enabled;GUI.depth=-100;GUI.enabled=oldEnabled&&_hasFocus&&!_waitForUiRelease;
+         float scale=Mathf.Max(.1f,Mathf.Min(Screen.width/1280f,Screen.height/720f));
+         GUI.matrix=Matrix4x4.Scale(Vector3.one*scale);float width=Screen.width/scale;
+         Fill(new Rect(0,0,width,Screen.height/scale),new Color(.018f,.032f,.052f,Concept==Layout.Synthesis||Concept==Layout.Synthesis05?1:.985f));
+@@ -109,7 +143,7 @@
+             if(Concept==Layout.Artifacts)DrawArtifacts();else if(Concept==Layout.Synthesis)DrawSynthesis();else DrawReconfiguration();
+             DrawFooter();
+         }
+-        finally{GUI.EndGroup();GUI.matrix=oldMatrix;GUI.depth=oldDepth;}
++        finally{GUI.EndGroup();GUI.matrix=oldMatrix;GUI.enabled=oldEnabled;}
+     }
+     private void DrawArtifacts()
+     {
+@@ -157,7 +191,7 @@
+         if(model.Restriction.Length>0)context=(context.Length>0?context+"  ·  ":"")+model.Restriction;
+         Label(new Rect(44,588,790,46),context,_small,color);
+         Label(new Rect(44,643,710,24),model.Level+"  ·  "+model.Scope,_small,Muted);
+-        bool oldEnabled=GUI.enabled;GUI.enabled=_allowCommit;
++        bool oldEnabled=GUI.enabled;GUI.enabled=oldEnabled&&_allowCommit;
+         if(Button(new Rect(944,625,292,48),"Reescrever · confirmar",color))Confirm();GUI.enabled=oldEnabled;
+         if(GUI.Button(new Rect(756,635,165,30),_details?"Fechar detalhes":"Detalhes · Tab"))ToggleDetails();
+         Label(new Rect(44,680,1150,25),"← → / direcional: selecionar     ·     Enter / botão sul: confirmar     ·     Tab / botão oeste: detalhes",_small,Muted);
+--- Assets/_Project/Scripts/UI/Review/RunExp03RewardView.Synthesis.cs
++++ Assets/_Project/Scripts/UI/Rewards/RewardSelectionView.Synthesis.cs
+@@ -1,6 +1,6 @@
+ using UnityEngine;
+ 
+-public sealed partial class RunExp03RewardView
++public sealed partial class RewardSelectionView
+ {
+     private void DrawSynthesis()
+     {
+--- Assets/_Project/Scripts/UI/Review/RunExp03RewardView.Synthesis05.cs
++++ Assets/_Project/Scripts/UI/Rewards/RewardSelectionView.Synthesis05.cs
+@@ -1,20 +1,31 @@
+ using System.Collections.Generic;
+ using UnityEngine;
+ 
+-public sealed partial class RunExp03RewardView
++public sealed partial class RewardSelectionView
+ {
+     private readonly Dictionary<string,Texture2D> _art05=new Dictionary<string,Texture2D>();
+     private float _selectedAt05=-100,_detailsAt05=-100,_rejectedUntil05=-100,_confirmedAt05=-100;
+     private string _confirmedName05;
+     private PauseMenuUI _pause05;
++    private string _status05="";
++    private void RefreshStatus05()
++    {
++        var ticket=_run.ManualTicket;
++        string options=_models.Length+(_models.Length==1?" opção":" opções");
++        _status05=options+" · "+_run.Acquired.Count+" aquisições nesta incursão";
++        if(ticket==null||_run.ProtocolSession==null)return;
++        var node=_run.ProtocolSession.Route.Node(ticket.Request.NodeId);
++        string kind=ticket.AnnouncedKind==RunRewardKind.Mutation?"MUTAÇÃO":ticket.AnnouncedKind==RunRewardKind.Protocol?"PROTOCOLO":"TÉCNICA";
++        _status05=kind+" · escolha "+(ticket.Request.Ordinal+1)+"/"+node.TotalAcquisitions+" · "+options+(ticket.IsAlternative?" · categoria esgotada: alternativa":"");
++    }
+     public bool ReduceMotion {get;set;}
+     private static readonly Color Copper05=new Color(.72f,.46f,.27f),Panel05=new Color(.063f,.089f,.104f),Teal05=new Color(.40f,.83f,.80f);
+     private void LoadArt05()
+-    {if(_art05.Count==0)foreach(string key in RunExp05RewardArt.Keys)_art05.Add(key,Resources.Load<Texture2D>("UI/RunExp05/"+key));_pause05=_run.GetComponent<PauseMenuUI>();}
++    {if(_art05.Count==0)foreach(string key in RewardIllustrationCatalog.Keys)_art05.Add(key,Resources.Load<Texture2D>("UI/RunExp05/"+key));_pause05=_run.GetComponent<PauseMenuUI>();}
+     private bool Reject05(){if(Visible&&Concept==Layout.Synthesis05)_rejectedUntil05=Time.unscaledTime+.45f;return false;}
+-    private void Art05(Rect rect,RunExp03RewardModel model,float alpha=1)
++    private void Art05(Rect rect,RewardChoicePresentation model,float alpha=1)
+     {
+-        string key=RunExp05RewardArt.KeyFor(model.Id);
++        string key=RewardIllustrationCatalog.KeyFor(model.Id);
+         if(key!=null&&_art05.TryGetValue(key,out var texture)&&texture)
+         {var old=GUI.color;GUI.color=new Color(1,1,1,alpha);GUI.DrawTexture(rect,texture,ScaleMode.ScaleToFit,true);GUI.color=old;}
+         else Glyph(rect,model.Glyph,Paper);
+@@ -30,6 +41,11 @@
+     }
+     private void DrawSynthesis05()
+     {
++        if(!ShowReviewControls)
++        {
++            Label(new Rect(44,18,920,28),_status05,_small,Muted);
++            if(_run.ManualTicket!=null&&Button(new Rect(1000,10,234,30),_details?"Voltar à escolha":"Fechar · manter pendente",Teal05))Cancel();
++        }
+         // A fitted reference canvas keeps the same safe margins at all supported aspects.
+         Label(new Rect(46,58,1000,24),"S Í N T E S E     /     MEMÓRIA "+_run.RewardRoom.ToString("00"),_small,Copper05);
+         Label(new Rect(44,92,1160,60),"Dê outra forma ao seu poder.",_large);
+@@ -39,12 +55,12 @@
+         for(int i=0;i<_models.Length;i++)
+         {
+             var m=_models[i];bool selected=i==_selected;float x=44+i*397;var row=new Rect(x,185,381,119);
+-            bool hover=!_details&&row.Contains(Event.current.mousePosition);
++            bool hover=GUI.enabled&&!_details&&row.Contains(Event.current.mousePosition);
+             Frame05(row,selected?Copper05:hover?Teal05:new Color(.19f,.26f,.27f));
+             if(selected){Fill(new Rect(x+1,186,379,117),new Color(.15f,.19f,.20f));Fill(new Rect(x+1,186,4,117),Paper);}
+             Art05(new Rect(x+8,193,102,102),m,selected?1:.72f);
+             Label(new Rect(x+119,200,248,23),m.Family,_small,selected?Teal05:Muted);
+-            Label(new Rect(x+119,230,245,69),m.Name,_center,Paper);
++            Title05(new Rect(x+119,230,245,69),m.Name,_center);
+             if(hover&&Event.current.mousePosition!=_lastPointer)Select(i);
+             if(!_details&&GUI.Button(row,GUIContent.none,GUIStyle.none))Select(i);
+         }
+@@ -55,18 +71,23 @@
+         Line(new Vector2(65,585),new Vector2(180,585),2,Copper05);
+         Line(new Vector2(310,343),new Vector2(406,343),2,Copper05);
+         Art05(new Rect(52+4*(1-settle),309,366,294),model,.85f+.15f*settle);
+-        Label(new Rect(468,329,750,55),model.Name,_title,Paper);
++        Title05(new Rect(468,329,750,55),model.Name,_title);
+         Label(new Rect(468,399,746,89),model.Effect,_title,Paper);
+         if(model.Context.Length>0)
+         {Fill(new Rect(468,507,3,52),Teal05);Label(new Rect(485,510,720,49),model.Context,_body,Teal05);}
+         Label(new Rect(468,573,740,48),model.Restriction,_small,Paper);
+         Label(new Rect(44,633,690,27),model.Level+"   /   "+model.Scope,_small,Muted);
+-        bool enabled=GUI.enabled;GUI.enabled=_allowCommit&&!_details;
+-        if(Action05(new Rect(944,626,292,47),"Incorporar"))Confirm();
++        bool enabled=GUI.enabled;GUI.enabled=enabled&&_allowCommit&&!_details;
++        if(Action05(new Rect(944,626,292,47),model.Id==RunBoonOfferCatalog.ExhaustedId?"Continuar": "Incorporar"))Confirm();
+         GUI.enabled=enabled;
+         if(Button(new Rect(756,636,165,30),_details?"Fechar detalhes":"Detalhes",new Color(.55f,.67f,.68f)))ToggleDetails();
+-        Label(new Rect(44,684,1170,25),Time.unscaledTime<_rejectedUntil05?"Escolha indisponível. Feche os detalhes e confira a oferta atual.":"← → / direcional: escolher     ·     Enter / botão sul: incorporar     ·     Tab / botão oeste: detalhes",_small,Muted);
++        Label(new Rect(44,684,1170,25),Time.unscaledTime<_rejectedUntil05?"Escolha indisponível. Feche os detalhes e confira a oferta atual.":"← → / direcional: escolher · Enter / sul: incorporar · Tab / oeste: detalhes · Backspace / leste: voltar · Esc: pausa",_small,Muted);
+         if(_details)DrawDetails05(model);
++    }
++    private static void Title05(Rect rect,string text,GUIStyle style)
++    {
++        int size=style.fontSize;while(style.fontSize>17&&style.CalcHeight(new GUIContent(text),rect.width)>rect.height)style.fontSize--;
++        Label(rect,text,style,Paper);style.fontSize=size;
+     }
+     private bool Action05(Rect rect,string text)
+     {
+@@ -76,7 +97,7 @@
+         Label(new Rect(rect.x+18,rect.y+13,rect.width-36,27),text,_centerSmall,GUI.enabled?Ink:Muted);
+         return GUI.Button(rect,GUIContent.none,GUIStyle.none);
+     }
+-    private void DrawDetails05(RunExp03RewardModel model)
++    private void DrawDetails05(RewardChoicePresentation model)
+     {
+         // Modal intercepts the surface; keyboard focus still selects alternatives intentionally.
+         Fill(new Rect(37,314,1205,310),new Color(.018f,.032f,.045f,.99f));
+@@ -84,17 +105,18 @@
+         var panel=new Rect(430,317+enter,804,301);Frame05(panel,Copper05);
+         Art05(new Rect(93,324,270,270),model);
+         Label(new Rect(454,335+enter,750,39),model.Name+" · detalhes",_title);
+-        float height=Mathf.Max(182,_body.CalcHeight(new GUIContent(model.Details),710)+18);
++        string details=model.Name+"\n\n"+model.Details;
++        float height=Mathf.Max(182,_body.CalcHeight(new GUIContent(details),710)+18);
+         _scroll=GUI.BeginScrollView(new Rect(454,390+enter,750,187),_scroll,new Rect(0,0,716,height));
+-        Label(new Rect(0,0,710,height),model.Details,_body);GUI.EndScrollView();
++        Label(new Rect(0,0,710,height),details,_body);GUI.EndScrollView();
+         Label(new Rect(454,587+enter,734,23),"Tab / botão oeste: voltar à escolha",_small,Muted);
+     }
+     private void DrawCommitted05()
+     {
+         if(Concept!=Layout.Synthesis05||string.IsNullOrEmpty(_confirmedName05)||Time.unscaledTime-_confirmedAt05>.8f||!_run||_run.IsChoosing||Time.timeScale<=0||(_pause05&&_pause05.BlocksInput))return;
+-        Styles();var matrix=GUI.matrix;int depth=GUI.depth;GUI.depth=-100;
++        Styles();var matrix=GUI.matrix;GUI.depth=-100;
+         float scale=Mathf.Min(Screen.width/1280f,Screen.height/720f);float width=Screen.width/scale;GUI.matrix=Matrix4x4.Scale(Vector3.one*scale);
+         Frame05(new Rect((width-600)/2,63,600,53),Copper05);Label(new Rect((width-562)/2,77,562,29),"Incorporado · "+_confirmedName05,_body,Paper);
+-        GUI.matrix=matrix;GUI.depth=depth;
++        GUI.matrix=matrix;
+     }
+ }
+--- Assets/_Project/Scripts/UI/Review/RunExp05RewardArt.cs
++++ Assets/_Project/Scripts/UI/Rewards/RewardIllustrationCatalog.cs
+@@ -1,5 +1,5 @@
+ /// <summary>Presentation-only art mapping. Missing illustrations retain the existing family glyph.</summary>
+-public static class RunExp05RewardArt
++public static class RewardIllustrationCatalog
+ {
+     public static readonly string[] Keys={"Titanic","TemporalEcho","Conductor","Frost","Ignite","SpearOrbit","Judgment","Piercing"};
+     public static string KeyFor(string id)
+--- Assets/_Project/Scripts/UI/RunRewardUI.cs
++++ Assets/_Project/Scripts/UI/RunRewardUI.cs
+@@ -19,6 +19,15 @@
+     private readonly List<RunBoons.Offer> _owned = new List<RunBoons.Offer>();
+     private readonly Dictionary<string, RunModifierPresentation> _presentation = new Dictionary<string, RunModifierPresentation>();
+     private Vector2 _lastPointer;
++    private RewardSelectionView _selectionView;
++    public RewardSelectionView SelectionView => _selectionView;
++    internal void RegisterSelectionView(RewardSelectionView view) => _selectionView=view;
++    internal void ReleaseSelectionView(RewardSelectionView view){if(_selectionView==view)_selectionView=null;}
++    public bool TryDismissRewardDetails()
++    {
++        if(!_selectionView||!_selectionView.enabled||!_selectionView.Visible||!_selectionView.DetailsVisible)return false;
++        _selectionView.ToggleDetails();return true;
++    }
+ 
+     // Dirty-tracking (R2.3/R2.6): IMGUI rebuilds the same reward strings every frame. Reuse the shared
+     // pure dirty-tracker (UiValueCache, task 7.1) to rebuild them only when the underlying reward data
+@@ -65,6 +74,15 @@
+     private void Update()
+     {
+         if (!IsRewardSelectionVisible) return;
++        if(!_selectionView)
++        {
++            var view=GetComponent<RewardSelectionView>();
++            if(!view)view=gameObject.AddComponent<RewardSelectionView>();
++            view.ShowReviewControls=false;view.Bind(_run,RewardSelectionView.Layout.Synthesis05,true);
++        }
++        // A disabled shared view is an explicit legacy comparison in development tools.
++        // The normal path always owns one active C05 view; the pause/build owner stays enabled.
++        if(_selectionView&&_selectionView.enabled)return;
+         if (_knownRoom != _run.RewardRoom) { _knownRoom = _run.RewardRoom; _selected = 0; }
+         var keyboard = Keyboard.current;
+         if (keyboard == null) return;
+@@ -109,6 +127,7 @@
+     private void OnGUI()
+     {
+         if (!IsRewardSelectionVisible) return;
++        if(!_selectionView||_selectionView.enabled)return;
+         Styles();
+         Matrix4x4 previous = GUI.matrix;
+         Color oldColor = GUI.color;

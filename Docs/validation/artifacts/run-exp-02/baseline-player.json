@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "prefsSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "prefCount": 0,
+      "playerComponents": [
+        "Transform",
+        "Animator"
+      ],
+      "control": "",
+      "camera": [
+        {
+          "name": "CinemachineVirtualCamera",
+          "json": "{\"MonoBehaviour\":{\"m_Enabled\":true,\"m_EditorHideFlags\":0,\"m_Name\":\"\",\"m_EditorClassIdentifier\":\"\",\"Priority\":{\"Enabled\":false,\"m_Value\":0},\"OutputChannel\":1,\"StandbyUpdate\":2,\"m_StreamingVersion\":20170927,\"m_LegacyPriority\":10,\"m_LookAt\":{\"instanceID\":0},\"m_Follow\":{\"instanceID\":0},\"m_Lens\":{\"FieldOfView\":40.0,\"OrthographicSize\":10.0,\"NearClipPlane\":0.20000000298023225,\"FarClipPlane\":500.0,\"Dutch\":0.0,\"ModeOverride\":0,\"GateFit\":2,\"m_SensorSize\":{\"x\":21.945999145507814,\"y\":16.00200080871582},\"LensShift\":{\"x\":0.0,\"y\":0.0},\"FocusDistance\":10.0,\"Iso\":200,\"ShutterSpeed\":0.004999999888241291,\"Aperture\":16.0,\"BladeCount\":5,\"Curvature\":{\"x\":2.0,\"y\":11.0},\"BarrelClipping\":0.25,\"Anamorphism\":0.0},\"BlendHint\":0,\"m_OnCameraLiveEvent\":{\"m_PersistentCalls\":{\"m_Calls\":[]}},\"m_ExcludedPropertiesInInspector\":[\"m_Script\"],\"m_LockStageInInspector\":[],\"m_LegacyTransitions\":{\"m_BlendHint\":0,\"m_InheritPosition\":false,\"m_OnCameraLive\":{\"m_PersistentCalls\":{\"m_Calls\":[]}}},\"m_ComponentOwner\":{\"fileID\":2070925442191277756,\"guid\":\"a1a802ecaf6775746bb2a929fb554ad8\",\"type\":3}}}"
+        }
+      ]
+    },
+    "compiler": "codedom"
+  }
+}

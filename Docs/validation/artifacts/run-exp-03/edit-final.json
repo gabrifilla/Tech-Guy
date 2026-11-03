@@ -1,0 +1,279 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "4366e480686840c7a4d9f16a77955d22",
+    "status": "succeeded",
+    "mode": "EditMode",
+    "started_unix_ms": 1793402433352,
+    "finished_unix_ms": 1793402440515,
+    "last_update_unix_ms": 1793402440515,
+    "progress": {
+      "completed": 26,
+      "total": 26,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.RunExp03ContentTests.ContentUsesIndependentRoomStreamAndKeepsGraphRewardsCountsAndOldFamilies",
+      "last_finished_unix_ms": 1793402440366,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "EditMode",
+      "summary": {
+        "total": 26,
+        "passed": 26,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 1.6086462,
+        "resultState": "Passed"
+      },
+      "results": [
+        {
+          "name": "BossBecomesSelectableOnlyThroughResolvedRouteAndMutationAcquisition",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.BossBecomesSelectableOnlyThroughResolvedRouteAndMutationAcquisition",
+          "state": "Passed",
+          "durationSeconds": 0.2207754,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ClosedRunNeverOffersConfirmationEvenWhenANodeWasAvailable",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.ClosedRunNeverOffersConfirmationEvenWhenANodeWasAvailable",
+          "state": "Passed",
+          "durationSeconds": 0.0043404,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CompleteGraphIsVisibleAndAllConnectionsAdvanceTowardBoss",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.CompleteGraphIsVisibleAndAllConnectionsAdvanceTowardBoss",
+          "state": "Passed",
+          "durationSeconds": 0.0159597,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ConfirmedChoiceMarksItsDestinationAndPermanentlyDiscardsAlternativeAtReconnect",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.ConfirmedChoiceMarksItsDestinationAndPermanentlyDiscardsAlternativeAtReconnect",
+          "state": "Passed",
+          "durationSeconds": 0.0023148,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CostAnnouncesWholeExcludedBranchIncludingItsExtraEncounter",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.CostAnnouncesWholeExcludedBranchIncludingItsExtraEncounter",
+          "state": "Passed",
+          "durationSeconds": 0.0045819,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "MovingAuthoredWorldCentersCannotCollapseTheDecisionMap",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.MovingAuthoredWorldCentersCannotCollapseTheDecisionMap",
+          "state": "Passed",
+          "durationSeconds": 0.0068853,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "NodesAndTheirLabelsDoNotOverlapAtSupportedResolutions(1280,720)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.NodesAndTheirLabelsDoNotOverlapAtSupportedResolutions(1280,720)",
+          "state": "Passed",
+          "durationSeconds": 0.0046387,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "NodesAndTheirLabelsDoNotOverlapAtSupportedResolutions(1920,1080)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.NodesAndTheirLabelsDoNotOverlapAtSupportedResolutions(1920,1080)",
+          "state": "Passed",
+          "durationSeconds": 0.0022999,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PendingRewardAndCombatCannotEnableConfirmation",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.PendingRewardAndCombatCannotEnableConfirmation",
+          "state": "Passed",
+          "durationSeconds": 0.0023396,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RewardSummaryUsesExactAuthoredSequenceRatherThanLegacySingleReward",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.RewardSummaryUsesExactAuthoredSequenceRatherThanLegacySingleReward",
+          "state": "Passed",
+          "durationSeconds": 0.0071552,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SeeingFutureDestinationsDoesNotMakeThemSelectableOrChangeTheSession",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.SeeingFutureDestinationsDoesNotMakeThemSelectableOrChangeTheSession",
+          "state": "Passed",
+          "durationSeconds": 0.0043771,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "UnequalBranchLengthsKeepEliteFollowupOnItsLaneAndReconnectAfterBothBranches",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests.UnequalBranchLengthsKeepEliteFollowupOnItsLaneAndReconnectAfterBothBranches",
+          "state": "Passed",
+          "durationSeconds": 0.0048763,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DifferentSeedsVaryLayoutEncounterAndCompletionRewards",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.DifferentSeedsVaryLayoutEncounterAndCompletionRewards",
+          "state": "Passed",
+          "durationSeconds": 0.0275551,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EncountersKeepRealBossAndEliteAndCapSupportsWithActiveAttackers",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.EncountersKeepRealBossAndEliteAndCapSupportsWithActiveAttackers",
+          "state": "Passed",
+          "durationSeconds": 0.0106154,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "GenerationDoesNotAlterAuthoringSnapshotOrGlobalRandom",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.GenerationDoesNotAlterAuthoringSnapshotOrGlobalRandom",
+          "state": "Passed",
+          "durationSeconds": 0.0042431,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ManySeedsKeepRoomsSeparatedAndSpawnPointsInsideTheirArena",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.ManySeedsKeepRoomsSeparatedAndSpawnPointsInsideTheirArena",
+          "state": "Passed",
+          "durationSeconds": 0.0356803,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "MissingOrInvalidCatalogUsesExplicitAuthoredOrdinaryEnemies",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.MissingOrInvalidCatalogUsesExplicitAuthoredOrdinaryEnemies",
+          "state": "Passed",
+          "durationSeconds": 0.0044383,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PathsBranchExclusionsAndMutationBeforeBossSurviveGeneration",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.PathsBranchExclusionsAndMutationBeforeBossSurviveGeneration",
+          "state": "Passed",
+          "durationSeconds": 0.0170986,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SameSeedReproducesLayoutEnemiesAndRewardSequence(ulong.MinValue)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.SameSeedReproducesLayoutEnemiesAndRewardSequence(ulong.MinValue)",
+          "state": "Passed",
+          "durationSeconds": 0.0029901,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SameSeedReproducesLayoutEnemiesAndRewardSequence(1701UL)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.SameSeedReproducesLayoutEnemiesAndRewardSequence(1701UL)",
+          "state": "Passed",
+          "durationSeconds": 0.0026828,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "SameSeedReproducesLayoutEnemiesAndRewardSequence(ulong.MaxValue)",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests.SameSeedReproducesLayoutEnemiesAndRewardSequence(ulong.MaxValue)",
+          "state": "Passed",
+          "durationSeconds": 0.0024709,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "CorridorsRemainOrthogonalAndNeverPassThroughAnUnrelatedArena",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ProceduralRunGeometryPlanTests.CorridorsRemainOrthogonalAndNeverPassThroughAnUnrelatedArena",
+          "state": "Passed",
+          "durationSeconds": 0.034959,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "DistinctConnectionsNeverShareWalkableFloorOutsideTheirArenas",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ProceduralRunGeometryPlanTests.DistinctConnectionsNeverShareWalkableFloorOutsideTheirArenas",
+          "state": "Passed",
+          "durationSeconds": 0.026348,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "EveryArenaOpeningIsUniqueAndItsGateSpansTheOnlyConnectingFloor",
+          "fullName": "TechGuy.Tests.Fluidity.EditMode.ProceduralRunGeometryPlanTests.EveryArenaOpeningIsUniqueAndItsGateSpansTheOnlyConnectingFloor",
+          "state": "Passed",
+          "durationSeconds": 0.0256586,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "RefinedGeometryIsFiniteOutwardAndCandidatesKeepTheirNativeContracts",
+          "fullName": "TechGuy.Tests.RunExp03ArtTests.RefinedGeometryIsFiniteOutwardAndCandidatesKeepTheirNativeContracts",
+          "state": "Passed",
+          "durationSeconds": 0.0542054,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "ContentUsesIndependentRoomStreamAndKeepsGraphRewardsCountsAndOldFamilies",
+          "fullName": "TechGuy.Tests.RunExp03ContentTests.ContentUsesIndependentRoomStreamAndKeepsGraphRewardsCountsAndOldFamilies",
+          "state": "Passed",
+          "durationSeconds": 0.1508038,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        }
+      ]
+    }
+  },
+  "hint": null
+}

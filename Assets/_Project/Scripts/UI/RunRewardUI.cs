@@ -19,6 +19,15 @@ public sealed class RunRewardUI : MonoBehaviour
     private readonly List<RunBoons.Offer> _owned = new List<RunBoons.Offer>();
     private readonly Dictionary<string, RunModifierPresentation> _presentation = new Dictionary<string, RunModifierPresentation>();
     private Vector2 _lastPointer;
+    private RewardSelectionView _selectionView;
+    public RewardSelectionView SelectionView => _selectionView;
+    internal void RegisterSelectionView(RewardSelectionView view) => _selectionView=view;
+    internal void ReleaseSelectionView(RewardSelectionView view){if(_selectionView==view)_selectionView=null;}
+    public bool TryDismissRewardDetails()
+    {
+        if(!_selectionView||!_selectionView.enabled||!_selectionView.Visible||!_selectionView.DetailsVisible)return false;
+        _selectionView.ToggleDetails();return true;
+    }
 
     // Dirty-tracking (R2.3/R2.6): IMGUI rebuilds the same reward strings every frame. Reuse the shared
     // pure dirty-tracker (UiValueCache, task 7.1) to rebuild them only when the underlying reward data
@@ -65,6 +74,15 @@ public sealed class RunRewardUI : MonoBehaviour
     private void Update()
     {
         if (!IsRewardSelectionVisible) return;
+        if(!_selectionView)
+        {
+            var view=GetComponent<RewardSelectionView>();
+            if(!view)view=gameObject.AddComponent<RewardSelectionView>();
+            view.ShowReviewControls=false;view.Bind(_run,RewardSelectionView.Layout.Synthesis05,true);
+        }
+        // A disabled shared view is an explicit legacy comparison in development tools.
+        // The normal path always owns one active C05 view; the pause/build owner stays enabled.
+        if(_selectionView&&_selectionView.enabled)return;
         if (_knownRoom != _run.RewardRoom) { _knownRoom = _run.RewardRoom; _selected = 0; }
         var keyboard = Keyboard.current;
         if (keyboard == null) return;
@@ -109,6 +127,7 @@ public sealed class RunRewardUI : MonoBehaviour
     private void OnGUI()
     {
         if (!IsRewardSelectionVisible) return;
+        if(!_selectionView||_selectionView.enabled)return;
         Styles();
         Matrix4x4 previous = GUI.matrix;
         Color oldColor = GUI.color;

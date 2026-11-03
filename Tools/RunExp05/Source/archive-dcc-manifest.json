@@ -1,0 +1,23 @@
+{
+  "blender": "5.2.2 LTS",
+  "kind": "Archive",
+  "axis": "Unity(x,y,z)->Blender(-x,-z,y), verified calibration",
+  "atlas": "1024 basecolor and metallic/smoothness trim atlas; smart UVs reused deliberately, one material slot per mesh",
+  "rig": "Native Unity rigid joint IK; assembled Blender rest guide, no humanoid retargeting or authored hit events",
+  "meshes": [
+    {
+      "sourceKey": "ArchiveCover",
+      "triangles": 3780,
+      "nonmanifoldEdges": 0,
+      "volume": 1.409482223860785,
+      "vertices": 1936
+    },
+    {
+      "sourceKey": "ArchiveServiceRack",
+      "triangles": 2292,
+      "nonmanifoldEdges": 0,
+      "volume": 1.255343935067743,
+      "vertices": 1168
+    }
+  ]
+}

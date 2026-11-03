@@ -1,0 +1,37 @@
+{
+  "final-play": {
+    "mode": "PlayMode",
+    "test_names": [
+      "TechGuy.Tests.RunExp03FirstSectorTests",
+      "TechGuy.Tests.RunExp03RewardTests"
+    ],
+    "include_details": true,
+    "include_failed_tests": true
+  },
+  "extra-combo-camera-final": {
+    "mode": "PlayMode",
+    "test_names": [
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickSuccessivePressesAdvanceAuthoredComboAndKeepCadence",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRClickTooEarlyPressExpiresInsteadOfPlayingTheWholeCombo",
+      "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsBasicUsesAndHitsComeFromProductionCallbacks",
+      "TechGuy.Tests.CameraOcclusionFadeTests"
+    ],
+    "include_details": true,
+    "include_failed_tests": true
+  },
+  "final-edit": {
+    "mode": "EditMode",
+    "test_names": [
+      "TechGuy.Tests.RunExp03ContentTests",
+      "TechGuy.Tests.RunExp03ArtTests",
+      "TechGuy.Tests.Fluidity.EditMode.ManualRunRandomizerTests",
+      "TechGuy.Tests.Fluidity.EditMode.ProceduralRunGeometryPlanTests",
+      "TechGuy.Tests.Fluidity.EditMode.ManualRouteMapPresentationTests",
+      "TechGuy.Tests.RunExp04EncounterTests",
+      "TechGuy.Tests.RunExp04ArtTests",
+      "TechGuy.Tests.RunExp05ArtTests"
+    ],
+    "include_details": true,
+    "include_failed_tests": true
+  }
+}

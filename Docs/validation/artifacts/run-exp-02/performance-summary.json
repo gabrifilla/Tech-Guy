@@ -1,0 +1,95 @@
+[
+  {
+    "count": 8,
+    "path": "Docs/validation/artifacts/run-exp-02/integration/20261030-220600-2879275-bc7439a8e2534967ab297f10a2feded8/active-8.json",
+    "samples": 1397,
+    "minimum_active": 8,
+    "renderers": 62,
+    "triangles": 2400,
+    "skinned": 0,
+    "windups_max": 5,
+    "projectiles_max": 2,
+    "cpu_ms": {
+      "median": 3.0936,
+      "p95": 4.6133
+    },
+    "behaviour_ms": {
+      "median": 0.4919,
+      "p95": 0.8024
+    },
+    "nav_ms": {
+      "median": 0.0574,
+      "p95": 0.0959
+    },
+    "pose_ms": {
+      "median": 0.0127,
+      "p95": 0.0209
+    },
+    "gc_bytes": {
+      "median": 297648.0,
+      "p95": 399708.0
+    }
+  },
+  {
+    "count": 32,
+    "path": "Docs/validation/artifacts/run-exp-02/integration/20261030-220546-9826336-a4a41bb270d24e0d9fe63088ed44aaaa/active-32.json",
+    "samples": 881,
+    "minimum_active": 32,
+    "renderers": 246,
+    "triangles": 9568,
+    "skinned": 0,
+    "windups_max": 10,
+    "projectiles_max": 7,
+    "cpu_ms": {
+      "median": 4.9943,
+      "p95": 6.9984
+    },
+    "behaviour_ms": {
+      "median": 0.6684,
+      "p95": 1.1147
+    },
+    "nav_ms": {
+      "median": 0.1798,
+      "p95": 0.2556
+    },
+    "pose_ms": {
+      "median": 0.049,
+      "p95": 0.0755
+    },
+    "gc_bytes": {
+      "median": 501608.0,
+      "p95": 668880.0
+    }
+  },
+  {
+    "count": 64,
+    "path": "Docs/validation/artifacts/run-exp-02/integration/20261030-220553-6375899-db2c082ef50b4e18b994d995b4cfdcca/active-64.json",
+    "samples": 633,
+    "minimum_active": 64,
+    "renderers": 491,
+    "triangles": 19120,
+    "skinned": 0,
+    "windups_max": 22,
+    "projectiles_max": 20,
+    "cpu_ms": {
+      "median": 6.9859,
+      "p95": 10.2451
+    },
+    "behaviour_ms": {
+      "median": 0.9222,
+      "p95": 1.5989
+    },
+    "nav_ms": {
+      "median": 0.2769,
+      "p95": 0.4013
+    },
+    "pose_ms": {
+      "median": 0.0991,
+      "p95": 0.1499
+    },
+    "gc_bytes": {
+      "median": 741704.0,
+      "p95": 896186.0
+    }
+  }
+]

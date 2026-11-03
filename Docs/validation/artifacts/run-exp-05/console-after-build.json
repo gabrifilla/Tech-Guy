@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "message": "Retrieved 9 log entries.",
+  "data": [
+    "Assets\\_Project\\Scripts\\Core\\ScenePortal.cs(129,25): warning CS0108: 'ScenePortal.DestroyObject(Object)' hides inherited member 'Object.DestroyObject(Object)'. Use the new keyword if hiding was intended.\n",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(33,26): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(33,89): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'\n",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(42,75): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'\n",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(42,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'\n",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(63,492): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'\n",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(63,450): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'\n",
+    "<b><color=#cc7a00>MCP-FOR-UNITY</color></b>: [WebSocket] Receive loop error: The remote party closed the WebSocket connection without completing the close handshake.",
+    "<b><color=#cc7a00>MCP-FOR-UNITY</color></b>: [WebSocket] Connection closed: The remote party closed the WebSocket connection without completing the close handshake."
+  ]
+}

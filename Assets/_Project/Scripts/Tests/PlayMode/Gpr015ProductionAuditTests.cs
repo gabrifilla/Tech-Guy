@@ -24,7 +24,7 @@ namespace TechGuy.Tests
         {
             if (_directory == null)
             {
-                _directory = Path.GetFullPath(Path.Combine(Application.dataPath, "../Docs/validation/artifacts/gameplay-rework/gpr-01-5/" + phase + "/" + DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")));
+                _directory = Path.Combine(GameplayTestEvidence.Directory("gpr-01-5"), phase, DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff"));
                 System.IO.Directory.CreateDirectory(_directory);
             }
             return _directory;

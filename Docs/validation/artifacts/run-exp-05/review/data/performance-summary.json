@@ -1,0 +1,739 @@
+{
+  "editor": [
+    {
+      "count": 8,
+      "renderers": 75,
+      "triangles": 4704,
+      "materials": 3,
+      "skinned": 14,
+      "skinnedTriangles": 54944,
+      "impacts": 10,
+      "droppedQueue": 0,
+      "spawnMs": 5.6083,
+      "cleanupMs": 882.6258,
+      "fixture": "Editor; roster controlado 1:1:1 Fragmento/Emissor/Grunt no snapshot; spawn pelo diretor nativo. AI/nav/dano/animações ativos. Jogador imune, moedas removidas apenas na fixture. Amostrador LINQ/UTF acrescenta CPU e GC. BehaviourUpdate é agregado, não CPU isolada da AI. Sem aprovação de orçamento standalone.",
+      "markerNames": [
+        "BehaviourUpdate",
+        "MeshSkinning.Update",
+        "MeshSkinning.Skin",
+        "Main Thread",
+        "Components.NavMeshAgent.State",
+        "NavMeshManager",
+        "GC Allocated In Frame",
+        "RUNEXP03.EnemyPose"
+      ],
+      "version": "baseline04",
+      "source": "Docs/validation/artifacts/run-exp-05/baseline/firstsector/20261102-215158-2568736/integrated-active-8.json",
+      "frames": 948,
+      "frameMs": {
+        "p50": 5.1103034019470215,
+        "p95": 7.365100383758545
+      },
+      "activeMin": 8,
+      "movingMax": 6,
+      "projectilesMax": 3,
+      "windupsMax": 4,
+      "drawCallsEditor": {
+        "p50": 473,
+        "p95": 500
+      },
+      "markers": {
+        "BehaviourUpdate": {
+          "p50": 732700,
+          "p95": 1275700,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Update": {
+          "p50": 63400,
+          "p95": 99700,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Skin": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "Main Thread": {
+          "p50": 5091600,
+          "p95": 7395500,
+          "unit": "nanoseconds"
+        },
+        "Components.NavMeshAgent.State": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "NavMeshManager": {
+          "p50": 95400,
+          "p95": 156200,
+          "unit": "nanoseconds"
+        },
+        "GC Allocated In Frame": {
+          "p50": 353608,
+          "p95": 463674,
+          "unit": "bytes"
+        },
+        "RUNEXP03.EnemyPose": {
+          "p50": 54700,
+          "p95": 86600,
+          "unit": "nanoseconds"
+        }
+      }
+    },
+    {
+      "count": 32,
+      "renderers": 275,
+      "triangles": 17248,
+      "materials": 3,
+      "skinned": 70,
+      "skinnedTriangles": 274720,
+      "impacts": 29,
+      "droppedQueue": 0,
+      "spawnMs": 19.8721,
+      "cleanupMs": 858.9861000000001,
+      "fixture": "Editor; roster controlado 1:1:1 Fragmento/Emissor/Grunt no snapshot; spawn pelo diretor nativo. AI/nav/dano/animações ativos. Jogador imune, moedas removidas apenas na fixture. Amostrador LINQ/UTF acrescenta CPU e GC. BehaviourUpdate é agregado, não CPU isolada da AI. Sem aprovação de orçamento standalone.",
+      "markerNames": [
+        "BehaviourUpdate",
+        "MeshSkinning.Update",
+        "MeshSkinning.Skin",
+        "Main Thread",
+        "Components.NavMeshAgent.State",
+        "NavMeshManager",
+        "GC Allocated In Frame",
+        "RUNEXP03.EnemyPose"
+      ],
+      "version": "baseline04",
+      "source": "Docs/validation/artifacts/run-exp-05/baseline/firstsector/20261102-215143-3172754/integrated-active-32.json",
+      "frames": 610,
+      "frameMs": {
+        "p50": 7.919295787811279,
+        "p95": 10.994904518127441
+      },
+      "activeMin": 32,
+      "movingMax": 22,
+      "projectilesMax": 11,
+      "windupsMax": 12,
+      "drawCallsEditor": {
+        "p50": 1518,
+        "p95": 1563
+      },
+      "markers": {
+        "BehaviourUpdate": {
+          "p50": 1049100,
+          "p95": 1697200,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Update": {
+          "p50": 124700,
+          "p95": 203900,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Skin": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "Main Thread": {
+          "p50": 7899500,
+          "p95": 10912700,
+          "unit": "nanoseconds"
+        },
+        "Components.NavMeshAgent.State": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "NavMeshManager": {
+          "p50": 206800,
+          "p95": 305000,
+          "unit": "nanoseconds"
+        },
+        "GC Allocated In Frame": {
+          "p50": 552844,
+          "p95": 674478,
+          "unit": "bytes"
+        },
+        "RUNEXP03.EnemyPose": {
+          "p50": 193300,
+          "p95": 283900,
+          "unit": "nanoseconds"
+        }
+      }
+    },
+    {
+      "count": 64,
+      "renderers": 543,
+      "triangles": 34052,
+      "materials": 3,
+      "skinned": 147,
+      "skinnedTriangles": 576912,
+      "impacts": 52,
+      "droppedQueue": 0,
+      "spawnMs": 60.9071,
+      "cleanupMs": 461.4531,
+      "fixture": "Editor; roster controlado 1:1:1 Fragmento/Emissor/Grunt no snapshot; spawn pelo diretor nativo. AI/nav/dano/animações ativos. Jogador imune, moedas removidas apenas na fixture. Amostrador LINQ/UTF acrescenta CPU e GC. BehaviourUpdate é agregado, não CPU isolada da AI. Sem aprovação de orçamento standalone.",
+      "markerNames": [
+        "BehaviourUpdate",
+        "MeshSkinning.Update",
+        "MeshSkinning.Skin",
+        "Main Thread",
+        "Components.NavMeshAgent.State",
+        "NavMeshManager",
+        "GC Allocated In Frame",
+        "RUNEXP03.EnemyPose"
+      ],
+      "version": "baseline04",
+      "source": "Docs/validation/artifacts/run-exp-05/baseline/firstsector/20261102-215150-9338798/integrated-active-64.json",
+      "frames": 336,
+      "frameMs": {
+        "p50": 14.980003356933594,
+        "p95": 18.682802200317383
+      },
+      "activeMin": 64,
+      "movingMax": 49,
+      "projectilesMax": 16,
+      "windupsMax": 22,
+      "drawCallsEditor": {
+        "p50": 3103,
+        "p95": 3167
+      },
+      "markers": {
+        "BehaviourUpdate": {
+          "p50": 1822700,
+          "p95": 2916600,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Update": {
+          "p50": 227000,
+          "p95": 339300,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Skin": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "Main Thread": {
+          "p50": 14937600,
+          "p95": 18630600,
+          "unit": "nanoseconds"
+        },
+        "Components.NavMeshAgent.State": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "NavMeshManager": {
+          "p50": 346200,
+          "p95": 506800,
+          "unit": "nanoseconds"
+        },
+        "GC Allocated In Frame": {
+          "p50": 898406,
+          "p95": 1100672,
+          "unit": "bytes"
+        },
+        "RUNEXP03.EnemyPose": {
+          "p50": 409100,
+          "p95": 622000,
+          "unit": "nanoseconds"
+        }
+      }
+    },
+    {
+      "count": 8,
+      "renderers": 75,
+      "triangles": 23832,
+      "materials": 2,
+      "skinned": 14,
+      "skinnedTriangles": 54944,
+      "impacts": 10,
+      "droppedQueue": 0,
+      "spawnMs": 4.5906,
+      "cleanupMs": 894.118,
+      "fixture": "Editor; roster controlado 1:1:1 Fragmento/Emissor/Grunt no snapshot; spawn pelo diretor nativo. AI/nav/dano/animações ativos. Jogador imune, moedas removidas apenas na fixture. Amostrador LINQ/UTF acrescenta CPU e GC. BehaviourUpdate é agregado, não CPU isolada da AI. Sem aprovação de orçamento standalone.",
+      "markerNames": [
+        "BehaviourUpdate",
+        "MeshSkinning.Update",
+        "MeshSkinning.Skin",
+        "Main Thread",
+        "Components.NavMeshAgent.State",
+        "NavMeshManager",
+        "GC Allocated In Frame",
+        "RUNEXP03.EnemyPose"
+      ],
+      "version": "current05",
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-015734-3044788/integrated-active-8.json",
+      "frames": 1153,
+      "frameMs": {
+        "p50": 4.137500286102295,
+        "p95": 5.713803768157959
+      },
+      "activeMin": 8,
+      "movingMax": 6,
+      "projectilesMax": 3,
+      "windupsMax": 4,
+      "drawCallsEditor": {
+        "p50": 448,
+        "p95": 484
+      },
+      "markers": {
+        "BehaviourUpdate": {
+          "p50": 645100,
+          "p95": 1041000,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Update": {
+          "p50": 53500,
+          "p95": 76800,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Skin": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "Main Thread": {
+          "p50": 4126600,
+          "p95": 5719000,
+          "unit": "nanoseconds"
+        },
+        "Components.NavMeshAgent.State": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "NavMeshManager": {
+          "p50": 78900,
+          "p95": 120200,
+          "unit": "nanoseconds"
+        },
+        "GC Allocated In Frame": {
+          "p50": 353506,
+          "p95": 462518,
+          "unit": "bytes"
+        },
+        "RUNEXP03.EnemyPose": {
+          "p50": 50200,
+          "p95": 79400,
+          "unit": "nanoseconds"
+        }
+      }
+    },
+    {
+      "count": 32,
+      "renderers": 275,
+      "triangles": 87384,
+      "materials": 2,
+      "skinned": 70,
+      "skinnedTriangles": 274720,
+      "impacts": 30,
+      "droppedQueue": 0,
+      "spawnMs": 18.852800000000002,
+      "cleanupMs": 442.8537,
+      "fixture": "Editor; roster controlado 1:1:1 Fragmento/Emissor/Grunt no snapshot; spawn pelo diretor nativo. AI/nav/dano/animações ativos. Jogador imune, moedas removidas apenas na fixture. Amostrador LINQ/UTF acrescenta CPU e GC. BehaviourUpdate é agregado, não CPU isolada da AI. Sem aprovação de orçamento standalone.",
+      "markerNames": [
+        "BehaviourUpdate",
+        "MeshSkinning.Update",
+        "MeshSkinning.Skin",
+        "Main Thread",
+        "Components.NavMeshAgent.State",
+        "NavMeshManager",
+        "GC Allocated In Frame",
+        "RUNEXP03.EnemyPose"
+      ],
+      "version": "current05",
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-015719-7277958/integrated-active-32.json",
+      "frames": 610,
+      "frameMs": {
+        "p50": 7.674298286437988,
+        "p95": 11.61300277709961
+      },
+      "activeMin": 32,
+      "movingMax": 22,
+      "projectilesMax": 11,
+      "windupsMax": 13,
+      "drawCallsEditor": {
+        "p50": 1485,
+        "p95": 1534
+      },
+      "markers": {
+        "BehaviourUpdate": {
+          "p50": 996900,
+          "p95": 1732200,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Update": {
+          "p50": 114400,
+          "p95": 179300,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Skin": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "Main Thread": {
+          "p50": 7715200,
+          "p95": 11797200,
+          "unit": "nanoseconds"
+        },
+        "Components.NavMeshAgent.State": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "NavMeshManager": {
+          "p50": 206100,
+          "p95": 322200,
+          "unit": "nanoseconds"
+        },
+        "GC Allocated In Frame": {
+          "p50": 574936,
+          "p95": 740648,
+          "unit": "bytes"
+        },
+        "RUNEXP03.EnemyPose": {
+          "p50": 192000,
+          "p95": 308800,
+          "unit": "nanoseconds"
+        }
+      }
+    },
+    {
+      "count": 64,
+      "renderers": 543,
+      "triangles": 172596,
+      "materials": 2,
+      "skinned": 147,
+      "skinnedTriangles": 576912,
+      "impacts": 55,
+      "droppedQueue": 0,
+      "spawnMs": 34.5656,
+      "cleanupMs": 661.3165,
+      "fixture": "Editor; roster controlado 1:1:1 Fragmento/Emissor/Grunt no snapshot; spawn pelo diretor nativo. AI/nav/dano/animações ativos. Jogador imune, moedas removidas apenas na fixture. Amostrador LINQ/UTF acrescenta CPU e GC. BehaviourUpdate é agregado, não CPU isolada da AI. Sem aprovação de orçamento standalone.",
+      "markerNames": [
+        "BehaviourUpdate",
+        "MeshSkinning.Update",
+        "MeshSkinning.Skin",
+        "Main Thread",
+        "Components.NavMeshAgent.State",
+        "NavMeshManager",
+        "GC Allocated In Frame",
+        "RUNEXP03.EnemyPose"
+      ],
+      "version": "current05",
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-015726-8887076/integrated-active-64.json",
+      "frames": 424,
+      "frameMs": {
+        "p50": 11.475197792053223,
+        "p95": 14.89000129699707
+      },
+      "activeMin": 64,
+      "movingMax": 48,
+      "projectilesMax": 14,
+      "windupsMax": 22,
+      "drawCallsEditor": {
+        "p50": 3061,
+        "p95": 3136
+      },
+      "markers": {
+        "BehaviourUpdate": {
+          "p50": 1497800,
+          "p95": 2405700,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Update": {
+          "p50": 170500,
+          "p95": 301600,
+          "unit": "nanoseconds"
+        },
+        "MeshSkinning.Skin": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "Main Thread": {
+          "p50": 11476800,
+          "p95": 14924800,
+          "unit": "nanoseconds"
+        },
+        "Components.NavMeshAgent.State": {
+          "p50": 0,
+          "p95": 0,
+          "unit": "nanoseconds"
+        },
+        "NavMeshManager": {
+          "p50": 321600,
+          "p95": 586300,
+          "unit": "nanoseconds"
+        },
+        "GC Allocated In Frame": {
+          "p50": 969800,
+          "p95": 1269250,
+          "unit": "bytes"
+        },
+        "RUNEXP03.EnemyPose": {
+          "p50": 363400,
+          "p95": 538100,
+          "unit": "nanoseconds"
+        }
+      }
+    }
+  ],
+  "standalone": [
+    {
+      "version": "04",
+      "unity": "6000.5.10f1",
+      "gpu": "NVIDIA GeForce RTX 3060 Ti",
+      "cpu": "AMD Ryzen 5 5600X 6-Core Processor ",
+      "fixture": "Standalone release; same native controlled 1:1:1 cohort per04/05 pair, AI/nav/damage/poses active, player immune and idle. All combat-room environment layers toggled for each version. Sequential pairs (32 reverses order), ongoing AI positions differ; sampler adds LINQ/GC. FirstSector scene copy with only seed0 pinned for diagnostic build; production scene unchanged. Not hardware budget, complete combat benchmark or isolated GPU cost. -1 GPU means unavailable. Skinned Grunt triangles excluded from rigid triangle count.",
+      "population": 32,
+      "renderers": 275,
+      "triangles": 17248,
+      "materials": 3,
+      "width": 1920,
+      "height": 1080,
+      "impacts": 57,
+      "markerNames": [
+        "Main Thread"
+      ],
+      "frames": 1718,
+      "frameMs": {
+        "p50": 2.242701292037964,
+        "p95": 3.0425028800964355
+      },
+      "gpuMs": {
+        "p50": 0.610304,
+        "p95": 0.88576
+      },
+      "gpuValidFrames": 1410,
+      "allocatedMemoryBytes": {
+        "p50": 284364909,
+        "p95": 284519037
+      },
+      "activeMin": 32,
+      "movingMax": 6,
+      "windupsMax": 13,
+      "projectilesMax": 8,
+      "markers": {
+        "Main Thread": {
+          "p50": 2242700,
+          "p95": 3030400,
+          "unit": "nanoseconds"
+        }
+      }
+    },
+    {
+      "version": "05",
+      "unity": "6000.5.10f1",
+      "gpu": "NVIDIA GeForce RTX 3060 Ti",
+      "cpu": "AMD Ryzen 5 5600X 6-Core Processor ",
+      "fixture": "Standalone release; same native controlled 1:1:1 cohort per04/05 pair, AI/nav/damage/poses active, player immune and idle. All combat-room environment layers toggled for each version. Sequential pairs (32 reverses order), ongoing AI positions differ; sampler adds LINQ/GC. FirstSector scene copy with only seed0 pinned for diagnostic build; production scene unchanged. Not hardware budget, complete combat benchmark or isolated GPU cost. -1 GPU means unavailable. Skinned Grunt triangles excluded from rigid triangle count.",
+      "population": 32,
+      "renderers": 275,
+      "triangles": 87384,
+      "materials": 2,
+      "width": 1920,
+      "height": 1080,
+      "impacts": 21,
+      "markerNames": [
+        "Main Thread"
+      ],
+      "frames": 1698,
+      "frameMs": {
+        "p50": 2.2825963497161865,
+        "p95": 2.995804786682129
+      },
+      "gpuMs": {
+        "p50": 0.683008,
+        "p95": 0.91648
+      },
+      "gpuValidFrames": 1381,
+      "allocatedMemoryBytes": {
+        "p50": 284209133,
+        "p95": 284511045
+      },
+      "activeMin": 32,
+      "movingMax": 22,
+      "windupsMax": 13,
+      "projectilesMax": 9,
+      "markers": {
+        "Main Thread": {
+          "p50": 2280800,
+          "p95": 3000100,
+          "unit": "nanoseconds"
+        }
+      }
+    },
+    {
+      "version": "04",
+      "unity": "6000.5.10f1",
+      "gpu": "NVIDIA GeForce RTX 3060 Ti",
+      "cpu": "AMD Ryzen 5 5600X 6-Core Processor ",
+      "fixture": "Standalone release; same native controlled 1:1:1 cohort per04/05 pair, AI/nav/damage/poses active, player immune and idle. All combat-room environment layers toggled for each version. Sequential pairs (32 reverses order), ongoing AI positions differ; sampler adds LINQ/GC. FirstSector scene copy with only seed0 pinned for diagnostic build; production scene unchanged. Not hardware budget, complete combat benchmark or isolated GPU cost. -1 GPU means unavailable. Skinned Grunt triangles excluded from rigid triangle count.",
+      "population": 64,
+      "renderers": 543,
+      "triangles": 34052,
+      "materials": 3,
+      "width": 1920,
+      "height": 1080,
+      "impacts": 31,
+      "markerNames": [
+        "Main Thread"
+      ],
+      "frames": 837,
+      "frameMs": {
+        "p50": 4.613598346710205,
+        "p95": 6.49479866027832
+      },
+      "gpuMs": {
+        "p50": 1.659904,
+        "p95": 2.444288
+      },
+      "gpuValidFrames": 742,
+      "allocatedMemoryBytes": {
+        "p50": 288289861,
+        "p95": 288882933
+      },
+      "activeMin": 64,
+      "movingMax": 48,
+      "windupsMax": 22,
+      "projectilesMax": 14,
+      "markers": {
+        "Main Thread": {
+          "p50": 4601400,
+          "p95": 6503100,
+          "unit": "nanoseconds"
+        }
+      }
+    },
+    {
+      "version": "05",
+      "unity": "6000.5.10f1",
+      "gpu": "NVIDIA GeForce RTX 3060 Ti",
+      "cpu": "AMD Ryzen 5 5600X 6-Core Processor ",
+      "fixture": "Standalone release; same native controlled 1:1:1 cohort per04/05 pair, AI/nav/damage/poses active, player immune and idle. All combat-room environment layers toggled for each version. Sequential pairs (32 reverses order), ongoing AI positions differ; sampler adds LINQ/GC. FirstSector scene copy with only seed0 pinned for diagnostic build; production scene unchanged. Not hardware budget, complete combat benchmark or isolated GPU cost. -1 GPU means unavailable. Skinned Grunt triangles excluded from rigid triangle count.",
+      "population": 64,
+      "renderers": 543,
+      "triangles": 172596,
+      "materials": 2,
+      "width": 1920,
+      "height": 1080,
+      "impacts": 74,
+      "markerNames": [
+        "Main Thread"
+      ],
+      "frames": 963,
+      "frameMs": {
+        "p50": 4.046697616577148,
+        "p95": 5.352005481719971
+      },
+      "gpuMs": {
+        "p50": 1.451008,
+        "p95": 2.122752
+      },
+      "gpuValidFrames": 894,
+      "allocatedMemoryBytes": {
+        "p50": 289325382,
+        "p95": 289643413
+      },
+      "activeMin": 64,
+      "movingMax": 33,
+      "windupsMax": 21,
+      "projectilesMax": 13,
+      "markers": {
+        "Main Thread": {
+          "p50": 4040000,
+          "p95": 5348700,
+          "unit": "nanoseconds"
+        }
+      }
+    },
+    {
+      "version": "04",
+      "unity": "6000.5.10f1",
+      "gpu": "NVIDIA GeForce RTX 3060 Ti",
+      "cpu": "AMD Ryzen 5 5600X 6-Core Processor ",
+      "fixture": "Standalone release; same native controlled 1:1:1 cohort per04/05 pair, AI/nav/damage/poses active, player immune and idle. All combat-room environment layers toggled for each version. Sequential pairs (32 reverses order), ongoing AI positions differ; sampler adds LINQ/GC. FirstSector scene copy with only seed0 pinned for diagnostic build; production scene unchanged. Not hardware budget, complete combat benchmark or isolated GPU cost. -1 GPU means unavailable. Skinned Grunt triangles excluded from rigid triangle count.",
+      "population": 8,
+      "renderers": 75,
+      "triangles": 4704,
+      "materials": 3,
+      "width": 1920,
+      "height": 1080,
+      "impacts": 7,
+      "markerNames": [
+        "Main Thread"
+      ],
+      "frames": 2844,
+      "frameMs": {
+        "p50": 1.3145976066589355,
+        "p95": 2.0718963146209717
+      },
+      "gpuMs": {
+        "p50": 0.55808,
+        "p95": 0.807936
+      },
+      "gpuValidFrames": 2456,
+      "allocatedMemoryBytes": {
+        "p50": 277786910,
+        "p95": 278484957
+      },
+      "activeMin": 8,
+      "movingMax": 6,
+      "windupsMax": 4,
+      "projectilesMax": 3,
+      "markers": {
+        "Main Thread": {
+          "p50": 1313100,
+          "p95": 2055900,
+          "unit": "nanoseconds"
+        }
+      }
+    },
+    {
+      "version": "05",
+      "unity": "6000.5.10f1",
+      "gpu": "NVIDIA GeForce RTX 3060 Ti",
+      "cpu": "AMD Ryzen 5 5600X 6-Core Processor ",
+      "fixture": "Standalone release; same native controlled 1:1:1 cohort per04/05 pair, AI/nav/damage/poses active, player immune and idle. All combat-room environment layers toggled for each version. Sequential pairs (32 reverses order), ongoing AI positions differ; sampler adds LINQ/GC. FirstSector scene copy with only seed0 pinned for diagnostic build; production scene unchanged. Not hardware budget, complete combat benchmark or isolated GPU cost. -1 GPU means unavailable. Skinned Grunt triangles excluded from rigid triangle count.",
+      "population": 8,
+      "renderers": 75,
+      "triangles": 23832,
+      "materials": 2,
+      "width": 1920,
+      "height": 1080,
+      "impacts": 21,
+      "markerNames": [
+        "Main Thread"
+      ],
+      "frames": 2876,
+      "frameMs": {
+        "p50": 1.327196717262268,
+        "p95": 1.8470946550369263
+      },
+      "gpuMs": {
+        "p50": 0.693248,
+        "p95": 0.91136
+      },
+      "gpuValidFrames": 2394,
+      "allocatedMemoryBytes": {
+        "p50": 278740021,
+        "p95": 278801133
+      },
+      "activeMin": 8,
+      "movingMax": 1,
+      "windupsMax": 5,
+      "projectilesMax": 3,
+      "markers": {
+        "Main Thread": {
+          "p50": 1327600,
+          "p95": 1840600,
+          "unit": "nanoseconds"
+        }
+      }
+    }
+  ],
+  "limits": "EditorUTF/LINQ/IMGUI overhead; baseline before Blender connection and later editor load differs. Prefer paired standalone for limited comparison; sequential pairs do not freeze AI positions. Not hardware target or global performance budget."
+}

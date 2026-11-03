@@ -81,3 +81,6 @@ crashlytics-build.properties
 
 # Accidental literal Windows cache path; not project content
 /%SystemDrive%/
+
+# Transient Python utility bytecode
+**/__pycache__/

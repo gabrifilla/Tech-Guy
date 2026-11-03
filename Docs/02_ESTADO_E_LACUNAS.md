@@ -1,5 +1,43 @@
 # Estado verificado, conflitos e lacunas
 
+<!-- RUNEXP06 CURRENT -->
+## RUN-EXP-06 — estado produtivo atual
+
+03/11/2026. C05 é padrão, não prévia pendente. Arte05 já presente foi mantida/validada. Faltam24 ilustrações dedicadas, rig/clipsDCC/LOD finais e validação de outras máquinas; fallback cobre o catálogo atual.2.5D está previsto e especificado, ainda não implementado. O gate humano05 foi cumprido pelo pedido06, não inferido dos testes.
+
+Estado06 prevalece sobre gates pendentes/restrições de fases anteriores abaixo, preservados como histórico. [Evidência e limites](decisions/RUN_EXP_06_RELATORIO.md).
+<!-- /RUNEXP06 CURRENT -->
+
+<!-- RUNEXP05 CURRENT -->
+## RUN-EXP-05 — recorte visual disponível para revisão
+
+02/11/2026. C05 opcional com ilustrações próprias, Fragmento remodeladoDCC/Emissor secundário e câmara de arquivo sobre as mesmas coberturas estão disponíveis. A aprovação02 do papel/cover não aprova a arte05. Atribuição de testes/performance/integridade é limitada aos escopos documentados no05.4; dívida histórica permanece. NOT DONE: rig/clipsDCC finais, catálogo integral ilustrado e redesenho global. PENDING DEVELOPER APPROVAL: arte/UI/leitura sob pressão.
+
+05.4 **DONE no escopo técnico**:21/21 Play integrados,33/33 regressões selecionadas,10/10 verificações de habilidades e29/29 Edit.32 preferências existentes iguais;15 adições noPlayer original preservadas sem origem atribuída. EditorNexusBlockout limpa, fora dePlay. Aprovação visual humana pendente; sem declaração global de suíte verde.
+
+[Entrega e limites](decisions/RUN_EXP_05_RELATORIO.md).
+<!-- /RUNEXP05 CURRENT -->
+
+## RUN-EXP-04 — Consolidação disponível para revisão
+
+02/11/2026. Encontros redistribuem os mesmos slots por papel; cópias04 de Fragmento/Emissor e polimento visual das salas estão integrados. UI C existe somente em laboratório/prévia. Arte intermediária, avaliação física e direção de UI continuam pendentes. Dívida histórica de regressão permanece aberta.
+
+15/15 PlayMode integrados; matriz ampliada1/1 com12 cenários;33/33 regressões selecionadas;10/10 efeitos de habilidades;28/28 EditMode. Seleções não equivalem à suite global.1562/1574 hashes idênticos,12 alterações previstas,0 removidos no escopo;32 preferências TechGuy atuais iguais. Console final0 erros; checker mantém um erro e um aviso históricos fora do escopo. Editor NexusBlockout limpo/Edit, assistência desligada e sem overrides. [Entrega e revisão visual](decisions/RUN_EXP_04_RELATORIO.md) · [Jobs, performance e limites](decisions/RUN_EXP_04_5_VALIDATION.md).
+
+
+## RUN-EXP-03 — integração entregue; revisão visual pendente
+
+Atualização documental02/11/2026; execução Unity30/10/2026. Fragmento/Emissor e salas abertas/cobertas integrados à FirstSector antes do boss, com famílias antigas e autoridade de progressão preservadas. Modelos novos são refino intermediário. UIA/B somente em laboratório ou preview temporário; presenter publicado intacto. **STOP após03.4; gatesC/D exigem revisão humana.** [Entrega e instruções](decisions/RUN_EXP_03_RELATORIO.md) · [comparação real](validation/artifacts/run-exp-03/REVIEW.html).
+
+Finais12/12 PlayMode integrados,24/24 regressões e26/26 EditMode selecionados; sem declaração global353. Rotas0/1/2 chegam ao Nexus; seed63 mostra cobertura+dupla na primeira sala normal. Benchmark Editor8/32/64, sem orçamento standalone.1495/1500 hashes do baseline inalterados; cinco alterações produtivas previstas.32 prefs TechGuy iguais na última inspeçãoUnity. Conferência posterior com Editor fechado detectou quatro diferenças de gameplay: valores atuais preservados, origem não atribuída. [Limites e evidências](decisions/RUN_EXP_03_4_INTEGRATION.md). Permanecem arte final, escolha UI, avaliação física e dívida histórica.
+
+## RUN-EXP-02 — 30/10/2026, entrega isolada para revisão
+
+Fragmento/Emissor autorados e jogáveis, arenas aberta/cobertura com NavMesh próprio e inspeção de recompensas reais sem aquisição. **STOP após02.4; gameplay/visual/arte aguardam revisão física, sem rollout.** Relatório: [RUN_EXP_02_RELATORIO](decisions/RUN_EXP_02_RELATORIO.md). Estabilidade13/13, fatia10/10, geometria1/1 e contratos11/11 em jobs separados; não somar seleções sobrepostas. Dívida histórica31 classificada, sem verde global353.306 hashes protegidos idênticos e três chaves PlayerPrefs iguais; limitação do inventário integral de preferências registrada.8/32/64 agentes reais medidos no Editor, sem aprovação de orçamento.
+
+Requisitos deste recorte: candidatos usam Actor/EnemyVariant/AI/CombatActions/reactions/receipts; produção preservada; cena de revisão sem ProgressionDirector/save/coins; estatísticas locais descartadas; UI consulta ofertas, não chama Choose. Cobertura separa volumes dos básicos e bloqueia projéteis, sem alterar oclusão global de áreas. Arte procedural/intermediária não equivale a arte final. Entrada: Tools/Tech Guy/RUN-EXP-02, em Edit Mode.
+
+
 ## RUN-EXP-01 —30/10/2026
 
 Correções localizadas de pull encadeado e silhueta de fogo implementadas; auditoria de recompensas/salas/inimigos e protótipos isolados entregues. [Plano integrado e revisão](gameplay/TECH_GUY_RUN_REWARDS_ROOMS_ENEMIES_MASTERPLAN.md).10/10 focados finais,37/37 EditMode e1/1 estudo;322/353 ampliado mantém31 falhas e investigação documentada, sem encerramento fictício deGPR01. Reconhecimento humano do fogo/tripla e da direção geométrica continua pendente.
@@ -57,8 +95,6 @@ A onda instantânea anterior foi aceita tecnicamente pelo desenvolvedor após te
 ### Registro histórico — GPR-01.2 — 28/10/2026
 
 Primeira Mutation da Manopla implementada: Punhos Titânicos, com onda/visual reversíveis, recibo nativo de HP e grantsNone. [Relatório, testes, limitações e próximo gate](decisions/GPR-01.2_RELATORIO.md). Nenhum aceite físico/artístico de A foi recebido. GPR-01.3 permanece não autorizada. O estado01.1 abaixo é histórico.
-
-
 
 ## Histórico da fundação01.1
 

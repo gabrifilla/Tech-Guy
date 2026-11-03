@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": "{\"playing\":true,\"player\":\"Player RUN-EXP-02\",\"hp\":100.0,\"position\":[0.0,-6.0],\"remaining\":3,\"enemies\":[{\"name\":\"Fragmento(Clone)\",\"hp\":36.0,\"archetype\":\"Rush\",\"nav\":true,\"speed\":0.0,\"phase\":\"idle\",\"impact\":0,\"pos\":[0.264226079,0.08333337,-6.621763]},{\"name\":\"Fragmento(Clone)\",\"hp\":36.0,\"archetype\":\"Rush\",\"nav\":true,\"speed\":0.0,\"phase\":\"idle\",\"impact\":0,\"pos\":[-0.0799413249,0.08333337,-5.97074747]},{\"name\":\"Emissor(Clone)\",\"hp\":54.0,\"archetype\":\"Sniper\",\"nav\":true,\"speed\":0.0,\"phase\":\"idle\",\"impact\":0,\"pos\":[0.0,0.08333337,8.01926]}]}",
+    "compiler": "codedom"
+  }
+}

@@ -79,6 +79,7 @@ public sealed class PauseMenuUI : MonoBehaviour
         }
         if (_page == PausePage.Controls && _remapping.Update(_bindings)) return;
         if (!(Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame) && !GamePreferences.WasPressed(GameControl.Pause)) return;
+        if(!IsPaused&&_rewards&&_rewards.TryDismissRewardDetails())return;
         if (IsPaused) NavigateBack();
         else Pause();
     }

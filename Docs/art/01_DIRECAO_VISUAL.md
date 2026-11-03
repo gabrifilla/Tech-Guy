@@ -1,8 +1,26 @@
 # Direção visual — regras sem presumir paleta aprovada
 
+<!-- RUNEXP06 CURRENT -->
+## RUN-EXP-06 — direção05 aceita; universos futuros exploratórios
+
+03/11/2026. Fragmento quadrúpede, Emissor de conchas e arquivoFirstSector05 foram aceitos para produção; acabamento final continua limitado. Arquivo Estratificado, Metrópole de Letreiros Recortados e Palimpsesto Corrompido são hipóteses originais de linguagem/layout, sem IDs/lore/ordem de campanha aprovados. Física/leitura/telegraphs comuns.
+
+Estado06 prevalece sobre gates pendentes/restrições de fases anteriores abaixo, preservados como histórico. [Evidência e limites](../decisions/RUN_EXP_06_5_MULTIVERSE_2_5D_DIRECTION.md).
+<!-- /RUNEXP06 CURRENT -->
+
+<!-- RUNEXP05 CURRENT -->
+## RUN-EXP-05 — estudo Arquivo estratificado
+
+02/11/2026. Escolha de trabalho para esta fatia: cerâmica marfim, estrutura grafite, cobre nas junções, turquesa pontual. Planos largos/encaixes e piso quieto conectamUI, inimigos e coberturas/racks. Vermelho de ameaça mantém prioridade. ImagensGameView eguia portátil permitem comparar; conceitoimage_gen não é prova do modelo. PENDING DEVELOPER APPROVAL; não vira paleta/shader global aprovado.
+
+[Entrega e limites](../decisions/RUN_EXP_05_0_ART_DIRECTION.md).
+<!-- /RUNEXP05 CURRENT -->
+
 **Status:** diretriz macro de arte estabelecida; paleta exata, mundo e shader final ainda exigem decisão baseada em estudos no jogo real.
 
 ## Direção
+
+Na próxima revisão dos mapas, avaliar cenários híbridos2.5D: imagens aprovadas pelo desenvolvedor aplicadas em planos ou volumes simples alinhados à câmera. Preservar identidade por mundo, silhuetas e legibilidade. Ver [plano e fluxo de aprovação](../decisions/MAP_ART_2_5D_FUTURE_PLAN.md). Nenhum mapa foi convertido por esta decisão.
 
 Arte estilizada com cor, contraste, silhuetas e composição tomando Hades como uma **referência visual**, com densidade espacial que também pode beber de Lost Ark. HUD e leitura de combate usam Diablo como referência funcional. O jogo deve manter identidade própria, com tema digital/tecnológico alinhado à sinopse, **sem definir** automaticamente laboratório, ruína ou instalação industrial como estética final.
 

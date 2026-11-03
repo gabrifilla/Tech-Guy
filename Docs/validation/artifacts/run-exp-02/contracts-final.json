@@ -1,0 +1,144 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "7eb548c0fd354f1da745694aa4ade0b2",
+    "status": "succeeded",
+    "mode": "PlayMode",
+    "started_unix_ms": 1793397455799,
+    "finished_unix_ms": 1793397471561,
+    "last_update_unix_ms": 1793397471561,
+    "progress": {
+      "completed": 11,
+      "total": 11,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.ProtocolProjectileContextTests.PiercingProjectileRetainsRootAndRanksAcrossFramesAndReleasesLease",
+      "last_finished_unix_ms": 1793397471544,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "PlayMode",
+      "summary": {
+        "total": 11,
+        "passed": 11,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 9.6495198,
+        "resultState": "Passed"
+      },
+      "results": [
+        {
+          "name": "GPRDirectDashHitstopSuspendsDisplacementWithoutMintingExtraDash",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectDashHitstopSuspendsDisplacementWithoutMintingExtraDash",
+          "state": "Passed",
+          "durationSeconds": 0.7198002,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAnimator does not have an AnimatorController\r\n"
+        },
+        {
+          "name": "GPRDirectFocusAndPauseRequireKeyboardRelease",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectFocusAndPauseRequireKeyboardRelease",
+          "state": "Passed",
+          "durationSeconds": 0.50559,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+        },
+        {
+          "name": "GPRDirectMotorPullAndDashRespectTheSameUnbakedWall",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectMotorPullAndDashRespectTheSameUnbakedWall",
+          "state": "Passed",
+          "durationSeconds": 0.8490528,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nAnimator does not have an AnimatorController\r\n"
+        },
+        {
+          "name": "GPRDirectVirtualMovementNormalizesDiagonalsAndDoesNotCastW",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRDirectVirtualMovementNormalizesDiagonalsAndDoesNotCastW",
+          "state": "Passed",
+          "durationSeconds": 0.644156,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+        },
+        {
+          "name": "GPRSafetyRewardCloseRequiresReleaseBeforeMovementOrSkill",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetyRewardCloseRequiresReleaseBeforeMovementOrSkill",
+          "state": "Passed",
+          "durationSeconds": 0.0671789,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+        },
+        {
+          "name": "GPRSafetySlidingPreservesWallCornerAndDistanceBudget",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.GPRSafetySlidingPreservesWallCornerAndDistanceBudget",
+          "state": "Passed",
+          "durationSeconds": 0.1663756,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\n"
+        },
+        {
+          "name": "TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+          "state": "Passed",
+          "durationSeconds": 2.1531685,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\nAnimator is not playing an AnimatorController\r\n"
+        },
+        {
+          "name": "RealGruntInterruptReleasesAttackPoseAndAllowsANewAttack",
+          "fullName": "TechGuy.Tests.EnemyInteractionPresentationTests.RealGruntInterruptReleasesAttackPoseAndAllowsANewAttack",
+          "state": "Passed",
+          "durationSeconds": 1.5717357,
+          "message": null,
+          "stackTrace": null,
+          "output": "EnemyAI on 'Grunt(Clone)': no player reference resolved; chase/attack will not run until a Player is present.\r\n"
+        },
+        {
+          "name": "FrostExpiresAndRestoresOwnedSpeed",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.FrostExpiresAndRestoresOwnedSpeed",
+          "state": "Passed",
+          "durationSeconds": 2.664667,
+          "message": null,
+          "stackTrace": null,
+          "output": "Failed to create agent because there is no valid NavMesh\r\n"
+        },
+        {
+          "name": "NextSessionInvalidatesOldProjectileAndClearsOwnedApplications",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.NextSessionInvalidatesOldProjectileAndClearsOwnedApplications",
+          "state": "Passed",
+          "durationSeconds": 0.0116092,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        },
+        {
+          "name": "PiercingProjectileRetainsRootAndRanksAcrossFramesAndReleasesLease",
+          "fullName": "TechGuy.Tests.ProtocolProjectileContextTests.PiercingProjectileRetainsRootAndRanksAcrossFramesAndReleasesLease",
+          "state": "Passed",
+          "durationSeconds": 0.2579279,
+          "message": null,
+          "stackTrace": null,
+          "output": ""
+        }
+      ]
+    }
+  },
+  "hint": null
+}

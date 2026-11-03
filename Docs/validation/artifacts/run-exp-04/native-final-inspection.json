@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": "{\"project\":\"D:/Dev/Personal/My_games/Tech-Guy/Assets\",\"unity\":\"6000.5.10f1\",\"content\":\"Assets/_Project/ScriptableObjects/Run/FirstSectorContent.asset\",\"pool\":[\"Rush\",\"Grunt\",\"Heavy\",\"Charger\",\"Shooter\",\"SpreadShooter\",\"Sniper\",\"Bomber\",\"HazardCaster\",\"Hooker\",\"Healer\",\"ShieldSupport\",\"Swarm\",\"Spawner\",\"Fragile\",\"Mirror\"],\"covered\":357,\"open\":539,\"fragmentSpawns\":373,\"emitterSpawns\":389,\"prefabs\":[{\"path\":\"Assets/_Project/Prefabs/FirstSector/RunExp04/Fragmento.prefab\",\"guid\":\"5e96e4399f50d0c42a042dee033e8a6a\",\"missingScripts\":0,\"pose\":true,\"rank\":\"Rush\",\"capsuleRadius\":0.85,\"meshRenderers\":18,\"skinned\":0},{\"path\":\"Assets/_Project/Prefabs/FirstSector/RunExp04/Emissor.prefab\",\"guid\":\"576d705b1e1556447b7af975252f403c\",\"missingScripts\":0,\"pose\":true,\"rank\":\"Sniper\",\"capsuleRadius\":0.8,\"meshRenderers\":7,\"skinned\":0}],\"sceneDirty\":false,\"sceneMissingScripts\":0,\"roomMaterials\":[{\"path\":\"Assets/_Project/Art/RunExp04/Rooms/Piso de memória aberta.mat\",\"guid\":\"115006ddd2d5c70428b1a7001bfe7bfd\"},{\"path\":\"Assets/_Project/Art/RunExp04/Rooms/Piso de canalização.mat\",\"guid\":\"5f53f7e7b0b4bd841a001ce506d83fcf\"},{\"path\":\"Assets/_Project/Art/RunExp04/Rooms/Trilhas cerâmicas.mat\",\"guid\":\"db722079b1e50db4f88c7ade39631652\"}]}",
+    "compiler": "codedom"
+  }
+}

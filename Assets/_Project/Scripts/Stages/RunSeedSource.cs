@@ -22,6 +22,9 @@ using UnityEngine;
 /// </remarks>
 public sealed class RunSeedSource : MonoBehaviour
 {
+#if UNITY_EDITOR
+    public const string NextEditorSeedKey="TechGuy.Review.NextRunSeed";
+#endif
     [SerializeField] private bool _randomizeEachRun;
     [SerializeField, Tooltip("Optional fixed Run_Seed as an unsigned 64-bit integer. Leave blank for a random seed.")]
     private string _seed = string.Empty;
@@ -36,6 +39,12 @@ public sealed class RunSeedSource : MonoBehaviour
     /// <returns><c>true</c> when a valid seed was provided; otherwise <c>false</c>.</returns>
     public bool TryGetSeed(out ulong seed)
     {
+#if UNITY_EDITOR
+        // Explicit one-shot review command; never a PlayerPrefs or published-scene change.
+        string requested=UnityEditor.SessionState.GetString(NextEditorSeedKey,"");
+        if(ulong.TryParse(requested,out seed))
+        {UnityEditor.SessionState.EraseString(NextEditorSeedKey);return true;}
+#endif
         if (_randomizeEachRun)
         {
             seed = System.BitConverter.ToUInt64(System.Guid.NewGuid().ToByteArray(), 0);

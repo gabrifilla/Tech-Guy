@@ -1,0 +1,51 @@
+{
+  "stagedPaths": 6147,
+  "stagedBlobBytes": 1023818574,
+  "blobsAbove50MiB": [],
+  "privateOrGeneratedPaths": [],
+  "gitDiffCachedCheckExit": 2,
+  "whitespaceDiagnostics": 1403,
+  "whitespaceByExtension": {
+    ".meta": 453,
+    ".mat": 28,
+    ".asset": 720,
+    ".prefab": 100,
+    ".unity": 96,
+    ".diff": 5,
+    ".py": 1
+  },
+  "nonUnityWhitespace": [
+    {
+      "path": "Docs/validation/artifacts/run-exp-06/production06-source.diff",
+      "line": 288,
+      "kind": "trailing whitespace."
+    },
+    {
+      "path": "Docs/validation/artifacts/run-exp-06/production06-source.diff",
+      "line": 320,
+      "kind": "trailing whitespace."
+    },
+    {
+      "path": "Docs/validation/artifacts/run-exp-06/production06-source.diff",
+      "line": 472,
+      "kind": "trailing whitespace."
+    },
+    {
+      "path": "Docs/validation/artifacts/run-exp-06/production06-source.diff",
+      "line": 483,
+      "kind": "trailing whitespace."
+    },
+    {
+      "path": "Docs/validation/artifacts/run-exp-06/production06-source.diff",
+      "line": 627,
+      "kind": "trailing whitespace."
+    },
+    {
+      "path": "Tools/RunExp05/author_environment.py",
+      "line": 57,
+      "kind": "new blank line at EOF."
+    }
+  ],
+  "note": "Pre-commit index review. Unity-authored serialized empty values/meta formatting, patch context lines and one historical Tools05 blankEOF preserved. Transient Python bytecode excluded. CSV line endings normalized only for newly authored06 catalogue. Not compilation/test failures.",
+  "secretLikeFiles": []
+}

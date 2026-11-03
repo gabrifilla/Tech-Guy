@@ -1,0 +1,59 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "b63a27422a2348d7a346c187302e2550",
+    "status": "failed",
+    "mode": "PlayMode",
+    "started_unix_ms": 1793395783635,
+    "finished_unix_ms": 1793395791574,
+    "last_update_unix_ms": 1793395791574,
+    "progress": {
+      "completed": 1,
+      "total": 1,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUNEXP02RepeatedEvidenceRootNeverReusesCaptureDestination",
+      "last_finished_unix_ms": 1793395791520,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [
+        {
+          "full_name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUNEXP02RepeatedEvidenceRootNeverReusesCaptureDestination",
+          "message": "  Repeated runs must keep the caller's evidence root without overwriting an earlier capture.\r\n  Expected: not equal to \"D:/Dev/Personal/My_games/Tech-Guy/Assets\\../Docs/validation/artifacts/gameplay-rework/run-exp-02/stability/repeated-root-d213e02aeb18402b8df6f451a75db087\"\r\n  But was:  \"D:/Dev/Personal/My_games/Tech-Guy/Assets\\../Docs/validation/artifacts/gameplay-rework/run-exp-02/stability/repeated-root-d213e02aeb18402b8df6f451a75db087\"\r\n"
+        }
+      ],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "PlayMode",
+      "summary": {
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "durationSeconds": 0.1350175,
+        "resultState": "Failed(Child)"
+      },
+      "results": [
+        {
+          "name": "RUNEXP02RepeatedEvidenceRootNeverReusesCaptureDestination",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.RUNEXP02RepeatedEvidenceRootNeverReusesCaptureDestination",
+          "state": "Failed",
+          "durationSeconds": 0.0450754,
+          "message": "  Repeated runs must keep the caller's evidence root without overwriting an earlier capture.\r\n  Expected: not equal to \"D:/Dev/Personal/My_games/Tech-Guy/Assets\\../Docs/validation/artifacts/gameplay-rework/run-exp-02/stability/repeated-root-d213e02aeb18402b8df6f451a75db087\"\r\n  But was:  \"D:/Dev/Personal/My_games/Tech-Guy/Assets\\../Docs/validation/artifacts/gameplay-rework/run-exp-02/stability/repeated-root-d213e02aeb18402b8df6f451a75db087\"\r\n",
+          "stackTrace": "at TechGuy.Tests.BasicAttackR1PlayModeTests+<RUNEXP02RepeatedEvidenceRootNeverReusesCaptureDestination>d__325.MoveNext () [0x00087] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp02StabilityTests.cs:23\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": ""
+        }
+      ]
+    }
+  },
+  "hint": null
+}

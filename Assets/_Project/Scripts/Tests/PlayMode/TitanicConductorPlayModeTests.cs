@@ -11,6 +11,7 @@ namespace TechGuy.Tests
     public sealed partial class BasicAttackR1PlayModeTests
     {
         private string _compositionEvidenceDirectory;
+        [SetUp] public void ResetCompositionEvidenceForIndependentTest() => _compositionEvidenceDirectory = null;
         private string CompositionEvidenceDirectory
         {
             get
@@ -20,7 +21,8 @@ namespace TechGuy.Tests
                     string run = UnityEditor.SessionState.GetString("TechGuy.Tests.TitanicCompositionEvidence",
                         "gpr-01-3/replays/" + DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff"));
                     _compositionEvidenceDirectory = System.IO.Path.Combine(Application.dataPath,
-                        "../Docs/validation/artifacts/gameplay-rework/" + run);
+                        "../Docs/validation/artifacts/gameplay-rework/" + run,
+                        DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff") + "-" + Guid.NewGuid().ToString("N"));
                     System.IO.Directory.CreateDirectory(_compositionEvidenceDirectory);
                 }
                 return _compositionEvidenceDirectory;

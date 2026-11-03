@@ -1,0 +1,20 @@
+{
+  "result": "Succeeded",
+  "errors": 0,
+  "warnings": 9,
+  "seconds": 34.8896517,
+  "bytes": 202093971,
+  "backend": "Mono2x",
+  "fixture": "Reuse existing05 review harness unchanged against current06 runtime; no Lab publication, no scene or source duplication. Command-line --runexp05-profile is required. 04/05 labels mean art variants, not historical executable versions.",
+  "messages": [
+    "Assets\\_Project\\Scripts\\Core\\ScenePortal.cs(129,25): warning CS0108: 'ScenePortal.DestroyObject(Object)' hides inherited member 'Object.DestroyObject(Object)'. Use the new keyword if hiding was intended.",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(33,26): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(33,89): warning CS0618: 'Object.FindFirstObjectByType<T>()' is obsolete: 'FindFirstObjectByType has been deprecated because it relies on instance ID ordering. Use FindAnyObjectByType instead, which does not depend on ordering.'",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(42,75): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(42,23): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(63,492): warning CS0618: 'FindObjectsSortMode' is obsolete: 'FindObjectsSortMode has been deprecated. Use the FindObjectsByType overloads that do not take a FindObjectsSortMode parameter.'",
+    "Assets\\_Project\\Scripts\\Prototypes\\RunExp05StandaloneProfile.cs(63,450): warning CS0618: 'Object.FindObjectsByType<T>(FindObjectsSortMode)' is obsolete: 'FindObjectsByType with FindObjectsSortMode parameter has been deprecated. Use FindObjectsByType<T>() or FindObjectsByType<T>(FindObjectsInactive) instead. InstanceID will be replaced in the future with EntityId and previous sort order cannot be maintained.'",
+    "<b><color=#cc7a00>MCP-FOR-UNITY</color></b>: [WebSocket] Keep-alive failed: The remote party closed the WebSocket connection without completing the close handshake.",
+    "<b><color=#cc7a00>MCP-FOR-UNITY</color></b>: [WebSocket] Connection closed: The remote party closed the WebSocket connection without completing the close handshake."
+  ]
+}

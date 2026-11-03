@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": "{\"project\":\"D:/Dev/Personal/My_games/Tech-Guy/Assets\",\"unity\":\"6000.5.10f1\",\"content\":\"Assets/_Project/ScriptableObjects/Run/FirstSectorContent.asset\",\"pool\":[\"Rush\",\"Grunt\",\"Heavy\",\"Charger\",\"Shooter\",\"SpreadShooter\",\"Sniper\",\"Bomber\",\"HazardCaster\",\"Hooker\",\"Healer\",\"ShieldSupport\",\"Swarm\",\"Spawner\",\"Fragile\",\"Mirror\"],\"covered\":357,\"open\":539,\"fragmentSpawns\":373,\"emitterSpawns\":389,\"prefabs\":[{\"path\":\"Assets/_Project/Prefabs/FirstSector/RunExp03/Fragmento.prefab\",\"guid\":\"b19d3c943ad9aa046b9fe059df4c32cc\",\"missingScripts\":0,\"pose\":true,\"rank\":\"Rush\",\"capsuleRadius\":0.85,\"meshRenderers\":18,\"skinned\":0},{\"path\":\"Assets/_Project/Prefabs/FirstSector/RunExp03/Emissor.prefab\",\"guid\":\"511473bcdf0c48445857effb7f972b24\",\"missingScripts\":0,\"pose\":true,\"rank\":\"Sniper\",\"capsuleRadius\":0.8,\"meshRenderers\":7,\"skinned\":0}],\"sceneDirty\":false}",
+    "compiler": "codedom"
+  }
+}

@@ -62,6 +62,8 @@ namespace TechGuy.Tests
                 Assert.IsTrue(_controls.TryDirectionalBasicAttack(enemy.transform.position));
                 yield return new WaitForSeconds(.4f);
                 Assert.IsTrue(_controls.TryBasicAttack(enemy.transform.position));
+                // Accepted basics schedule contact; statistics must observe the resolved native hit.
+                yield return WaitForBasicEnd();
                 var s = stats.Snapshot(); Assert.That(s.EffectiveDamage, Is.EqualTo(1000-enemy.health).Within(.001));
                 var basic = s.Abilities.Single(x => x.Ability == "Basic");
                 Assert.That(basic.Uses, Is.EqualTo(2)); Assert.That(basic.NativeHpTransactions, Is.EqualTo(2));

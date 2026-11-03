@@ -1,0 +1,24 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "selected": 1,
+      "details": true,
+      "visible": true,
+      "reviewControls": false,
+      "layout": "Synthesis05",
+      "owner": true,
+      "lab": false,
+      "owned": [],
+      "choices": [
+        "augment_gauntlet_temporal_echo",
+        "augment_gauntlet_echoing_fist",
+        "weapon_FlurryEcho"
+      ],
+      "ticket": "Pending",
+      "focus": true
+    },
+    "compiler": "codedom"
+  }
+}

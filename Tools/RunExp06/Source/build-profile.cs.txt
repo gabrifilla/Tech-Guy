@@ -1,0 +1,14 @@
+if(UnityEditor.EditorApplication.isPlaying)throw new Exception("Edit Mode required");
+for(int i=0;i<UnityEngine.SceneManagement.SceneManager.sceneCount;i++)if(UnityEngine.SceneManagement.SceneManager.GetSceneAt(i).isDirty)throw new Exception("Unsaved scene; preserve it before building");
+string[] scenes={"Assets/_Project/Scenes/Review/RunExp05Profile.unity","Assets/_Project/Scenes/Review/RunExp05ProfileFirstSector.unity","Assets/_Project/Scenes/FirstSector.unity","Assets/_Project/Scenes/NexusBlockout.unity"};
+foreach(string path in scenes)if(!UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEditor.SceneAsset>(path))throw new Exception("Existing diagnostic scene missing: "+path);
+string company=UnityEditor.PlayerSettings.companyName,product=UnityEditor.PlayerSettings.productName;bool timing=UnityEditor.PlayerSettings.enableFrameTimingStats;
+System.IO.Directory.CreateDirectory("Builds/RunExp06Profile");
+try{
+UnityEditor.PlayerSettings.companyName="TechGuyReviewLocal";UnityEditor.PlayerSettings.productName="RUNEXP06Profile";UnityEditor.PlayerSettings.enableFrameTimingStats=true;
+var report=UnityEditor.BuildPipeline.BuildPlayer(new UnityEditor.BuildPlayerOptions{scenes=scenes,locationPathName="Builds/RunExp06Profile/TechGuyProfile.exe",target=UnityEditor.BuildTarget.StandaloneWindows64,options=UnityEditor.BuildOptions.None});
+var result=new{result=report.summary.result.ToString(),errors=report.summary.totalErrors,warnings=report.summary.totalWarnings,seconds=report.summary.totalTime.TotalSeconds,bytes=report.summary.totalSize,backend=UnityEditor.PlayerSettings.GetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Standalone).ToString(),fixture="Reuse existing05 review harness unchanged against current06 runtime; no Lab publication, no scene or source duplication. Command-line --runexp05-profile is required. 04/05 labels mean art variants, not historical executable versions.",messages=report.steps.SelectMany(s=>s.messages).Where(m=>m.type==LogType.Warning||m.type==LogType.Error).Select(m=>m.content).ToArray()};
+System.IO.File.WriteAllText("Docs/validation/artifacts/run-exp-06/standalone-build.json",Newtonsoft.Json.JsonConvert.SerializeObject(result,Newtonsoft.Json.Formatting.Indented));
+if(report.summary.result!=UnityEditor.Build.Reporting.BuildResult.Succeeded)throw new Exception("Build failed; inspect saved report");
+return "Current06 standalone profiling build succeeded";
+}finally{UnityEditor.PlayerSettings.companyName=company;UnityEditor.PlayerSettings.productName=product;UnityEditor.PlayerSettings.enableFrameTimingStats=timing;UnityEditor.AssetDatabase.SaveAssets();}

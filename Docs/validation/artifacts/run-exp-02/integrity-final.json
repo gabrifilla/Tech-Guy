@@ -1,0 +1,11 @@
+{
+  "protected_count": 306,
+  "mismatches": [],
+  "preferences_match": true,
+  "checked_preferences": [
+    "TechGuy.Loadout.Weapon",
+    "TechGuy.RunSummary.v1",
+    "TechGuy.Progress.TutorialSeen"
+  ],
+  "baseline_registry_limitation": "O inventário inicial do registro usou separador incorreto e retornou vazio. Não comprova a totalidade das preferências. Comparação válida: três chaves lidas pelo PlayerPrefs, além de hashes dos arquivos disponíveis."
+}

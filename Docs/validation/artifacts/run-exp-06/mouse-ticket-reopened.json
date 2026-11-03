@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "phase": "RewardPending",
+      "pending": "Pending",
+      "ids": [
+        "conductor",
+        "detonation",
+        "ignite"
+      ],
+      "owned": 1
+    },
+    "compiler": "codedom"
+  }
+}

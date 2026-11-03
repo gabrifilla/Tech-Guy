@@ -1,0 +1,1827 @@
+{
+  "jobId": "d775c4fd01864708999ab03077facbb4",
+  "startedUnixMs": 1793679391491,
+  "finishedUnixMs": 1793679684614,
+  "files": [
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/05-room-contract-0.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/05-room-contract-0.txt",
+      "sha256": "2bed2c4d0d3a0847d202411f5ab296f576f102e1ab675dc58e3689b19988b1a6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/05-room-contract-63.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/05-room-contract-63.txt",
+      "sha256": "2bed2c4d0d3a0847d202411f5ab296f576f102e1ab675dc58e3689b19988b1a6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/05-room-cover-after-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/05-room-cover-after-normal-camera.png",
+      "sha256": "ca1d411638a638409c68f7382b733f83e9a5bb700790d1cd6975c3fa707afcf9"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/05-room-cover-before-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/05-room-cover-before-normal-camera.png",
+      "sha256": "b231463315dd44ae4dc7d11dffa14385b373b86af989f1be19a4bad065ca19ae"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/05-room-open-after-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/05-room-open-after-normal-camera.png",
+      "sha256": "401f9cbd0e53d4511427c9a30611cf62b8340cd3d5e133c9eae5b1956127ea6a"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/05-room-open-before-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/05-room-open-before-normal-camera.png",
+      "sha256": "670658c56630bb658d384e20ef499471c70dd08eb09b0ffefef20467f89872e0"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/05-room-player-circulating.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/05-room-player-circulating.png",
+      "sha256": "47dc0fe99d0014f368759469447f93922e98de4791b1128d4c0bb238f7dc247e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/emissor-blocked-by-cover-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/emissor-blocked-by-cover-node-1.png",
+      "sha256": "d047e8a9134e7aaa81a2e7f6cb3f4f82ab9ff5afd5f7652536e47cb28bf9c266"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/emissor-reacquired-los-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/emissor-reacquired-los-node-1.png",
+      "sha256": "7cb200e3bd9f89f4583913c7bdafc2ec4c2a225b1f9cf9ed10c9cc0e55d2a1c8"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/los-node-1.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/los-node-1.txt",
+      "sha256": "e12ee0583cf767a74f92005c6709067156a410dcb52f6b9689e50a9cf7ac58a6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/natural-Emissor-idle-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/natural-Emissor-idle-node-1.png",
+      "sha256": "ca1d411638a638409c68f7382b733f83e9a5bb700790d1cd6975c3fa707afcf9"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/natural-Fragmento-attack-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/natural-Fragmento-attack-node-1.png",
+      "sha256": "b2ef71e5b6ad637f7bad4461486090408681e0de055293c76b6937faac9ad262"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/natural-Fragmento-idle-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/natural-Fragmento-idle-node-1.png",
+      "sha256": "974f96baafe7ac2bf3a3b0c154863ec93d3ec0535d7d3dcd925cf916bd0db19f"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/natural-Fragmento-move-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/natural-Fragmento-move-node-1.png",
+      "sha256": "457023f1fa22c89b24e12f22f5ba335b87c1c9663f62ad5cf7a1fc3cc326fc44"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/natural-Fragmento-recovery-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/natural-Fragmento-recovery-node-1.png",
+      "sha256": "a656838b0f66f9d0108e3d05a715ea04a09cdd27fbbcc54a5ee481b9c510d199"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/natural-Fragmento-windup-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/natural-Fragmento-windup-node-1.png",
+      "sha256": "1eee5a52476b6dcbc1a26485d25676dcaf1796f3dcafe3b17434f3715f796a4a"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041637-9106736/poses-node-1.csv",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041637-9106736/poses-node-1.csv",
+      "sha256": "f21e0e890f7f4ea6a132663cea29b9bc5badab688dadbd49fb43f0d60b316d64"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-0-dash-recovered.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-0-dash-recovered.png",
+      "sha256": "d769b834983598f2ea9d26d360c840b0bab262f010e2faa382ad580af959f65e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-0-native-slot-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-0-native-slot-0.png",
+      "sha256": "e84af22283d6a0fd5b34c564af9498b60edf14d50eb9dedbcefab4bf5d468a8c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-0-native-slot-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-0-native-slot-1.png",
+      "sha256": "8f5f724f1639bdb038d0cc3b48299f669684b0b0b456a054d613b0b260066c5e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-0-native-slot-2.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-0-native-slot-2.png",
+      "sha256": "897692bfb73ac83801b5aa40d6c045c4bbaa220b4de1c6f47dc5b0c782366c25"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-0-native-slot-3.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-0-native-slot-3.png",
+      "sha256": "687a4425db0d9601503ca3a573ce030a5d6226313b715e96d00e450e6a1cee08"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-0.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-0.txt",
+      "sha256": "b192b1811e6b1299217c4c5093327ee0ed6603bee977eb8c80255e2e2b154ed3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-1-dash-recovered.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-1-dash-recovered.png",
+      "sha256": "47d698f4e16da852614c47a02b0ee725d3f6d753ccc1572a65d2ff46c3fb9508"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-1-native-slot-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-1-native-slot-0.png",
+      "sha256": "6472789f733f09b0eb94677bd81ce98bf5070e3e79e5ad4b784b306ee446102c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-1-native-slot-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-1-native-slot-1.png",
+      "sha256": "b76befa50be58fa3aeea88d19aaf30ffe2d395eba98676f3e74e745f7d2dd680"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-1-native-slot-2.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-1-native-slot-2.png",
+      "sha256": "8699d4410af4acf05aa79238216b0a60d11732ba4602535dd4b491f912a90958"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-1-native-slot-3.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-1-native-slot-3.png",
+      "sha256": "afec176955126e2f05b54df8b4a326f9bee85baa121596d2b4cf025c5c19eb6d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-1.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-1.txt",
+      "sha256": "b192b1811e6b1299217c4c5093327ee0ed6603bee977eb8c80255e2e2b154ed3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-2-dash-recovered.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-2-dash-recovered.png",
+      "sha256": "9113c724624e99025ea45a360d10e625e7b724c39d2f86a28c5a71a05c8103e6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-2-native-slot-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-2-native-slot-0.png",
+      "sha256": "902756d8ce2b9487ffc4d15f0db557ff9bc1ec4486e8ed882f5ff8de2697fe7a"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-2-native-slot-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-2-native-slot-1.png",
+      "sha256": "908ea2ce46a3ca80d1304d38413eef33da736c8b12e67b69f9e325ff58b05cd6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-2-native-slot-2.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-2-native-slot-2.png",
+      "sha256": "f4e38fa8ebcfc2ec3d66524aebae76c956d9e25d01fd55422ef57ce1f626ad39"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-2-native-slot-3.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-2-native-slot-3.png",
+      "sha256": "02d0ce16129290cac33b6e8b2f16e8e1d14de8711c43779e8a9e30d8c7d29ec6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041653-3459322/05-room-weapon-2.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041653-3459322/05-room-weapon-2.txt",
+      "sha256": "b192b1811e6b1299217c4c5093327ee0ed6603bee977eb8c80255e2e2b154ed3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-comparison-03-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-comparison-03-normal-camera.png",
+      "sha256": "7206d207e4a7dd25b8f143a537c6ff1b36b3b0879776cef7997c8922fd388269"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-comparison-04-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-comparison-04-normal-camera.png",
+      "sha256": "a56e652d71d877f862be955e0569a4661354cad637012d5c2dbc8ebb18680f19"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-disassembly.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-disassembly.png",
+      "sha256": "9d19e0acddf119d6b8a2a308462ba8b998d82c1eaf382cb769d7bda61fb73dca"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-Emissor-03-identical-closeup.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-Emissor-03-identical-closeup.png",
+      "sha256": "f975b1154cba0fc9ffb8bf44e1bc22877f4330deedfed1d1c48461899684bd6a"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-Emissor-04-identical-closeup.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-Emissor-04-identical-closeup.png",
+      "sha256": "6ddf824fc008a5138f5d6aa90cfb1dbe74c42d2acbe776cbacb418f054277671"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-Fragmento-03-identical-closeup.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-Fragmento-03-identical-closeup.png",
+      "sha256": "800f52836aeecc460ebea269c6573e69f20d9aa326ceb30e20d733f864ba370b"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-Fragmento-04-identical-closeup.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-Fragmento-04-identical-closeup.png",
+      "sha256": "d2c5bc318eb4c75bddec3463c305e70d59f9be22db0457cec2b8080bb550d8e8"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-phase-Emissor-attack-03-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-phase-Emissor-attack-03-normal-camera.png",
+      "sha256": "cc62f3328b5943b89ac18eeca655046c2d402ef5e62a58cb6b146190353b602f"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-phase-Emissor-attack-04-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-phase-Emissor-attack-04-normal-camera.png",
+      "sha256": "861e8d084cee374ce82edc3e552303d09c02d1d905ba4c2b7cd82705a1a19792"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-phase-Emissor-windup-03-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-phase-Emissor-windup-03-normal-camera.png",
+      "sha256": "ab4e607918e4a6312803d86e27dbbb04555f85e383460e56353d1535df58025e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-phase-Emissor-windup-04-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-phase-Emissor-windup-04-normal-camera.png",
+      "sha256": "0c31e24b40a6835694e186ec748f277c75793a895a10cf34a2ed48b658ad95f1"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-phase-Fragmento-attack-03-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-phase-Fragmento-attack-03-normal-camera.png",
+      "sha256": "9458a1276aaa3305083bd260222d7f2501f2e10af8cb9841316f92a9449f8601"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-phase-Fragmento-attack-04-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-phase-Fragmento-attack-04-normal-camera.png",
+      "sha256": "444d8c2ec219ccb43a85dc68fb785daa6b405926284bbe86484a7893a806d424"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-phase-Fragmento-windup-03-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-phase-Fragmento-windup-03-normal-camera.png",
+      "sha256": "8bea775a99976914ab9fcbdeccb9b2412941e541276dc82bbd0d32569a384bbe"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/04-art-phase-Fragmento-windup-04-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/04-art-phase-Fragmento-windup-04-normal-camera.png",
+      "sha256": "21db13d1da1682580f02dc36be6dc610090ac57dc401715c9131fec0634dd52e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/natural-Emissor-attack-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/natural-Emissor-attack-node-1.png",
+      "sha256": "7f66b8f670935e2dd5e8e60278356ac67ba727be0133edfaac6e3c08ac734cf4"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/natural-Emissor-idle-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/natural-Emissor-idle-node-1.png",
+      "sha256": "d2df126a4da28e501a2ef19f14493ff49f8dad3399b51f54062d0c87a6fbe95d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/natural-Emissor-recovery-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/natural-Emissor-recovery-node-1.png",
+      "sha256": "8d3cf0a972a65355da583775de80cb661d071a86b4a5749800df89ffb0ce07a6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/natural-Emissor-windup-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/natural-Emissor-windup-node-1.png",
+      "sha256": "7f621fdc14b3b9dd9e7d87e0db948f4e9163c94b263634e3d3782932f3170e86"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/natural-Fragmento-attack-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/natural-Fragmento-attack-node-1.png",
+      "sha256": "eac3b32802451a9a78c82a295ca7cb011e6182bc09facae5f7b2e0efd26e4f82"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/natural-Fragmento-idle-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/natural-Fragmento-idle-node-1.png",
+      "sha256": "649ba223b7dcf9cd18305d93c18b3e899540345379c4793c01adb16d0e59d7e1"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/natural-Fragmento-move-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/natural-Fragmento-move-node-1.png",
+      "sha256": "a56e652d71d877f862be955e0569a4661354cad637012d5c2dbc8ebb18680f19"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/natural-Fragmento-recovery-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/natural-Fragmento-recovery-node-1.png",
+      "sha256": "6fa982fe705fe6ba77af1d44f13589a4b585ffda781af6b43cbac28cf9d050c7"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/natural-Fragmento-windup-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/natural-Fragmento-windup-node-1.png",
+      "sha256": "fb0ec2926c6a25945ef80b94d67edccf5fd5ef67b4956248c29b819bb23721ef"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041709-1380185/poses-node-1.csv",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041709-1380185/poses-node-1.csv",
+      "sha256": "14f55adb8dc5ebc08bc71e6d4ffa3c7bab55ad4f12d08aee7bba40d91cffc4f8"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/natural-Emissor-attack-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/natural-Emissor-attack-node-4.png",
+      "sha256": "aadbbb3561ea08312be892d995786cd01e6fd26769b2c6af1c6b107efaf92772"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/natural-Emissor-idle-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/natural-Emissor-idle-node-4.png",
+      "sha256": "e0e74f43e338d5b71eda7ea83da212dfd482c3771457d78c685e5e96c29c0eb3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/natural-Emissor-move-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/natural-Emissor-move-node-4.png",
+      "sha256": "76b247f0b636e01248691b105be9358085744a0e267688dc6cbf2864197dc320"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/natural-Emissor-recovery-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/natural-Emissor-recovery-node-4.png",
+      "sha256": "e08a106fa6108235d3e1eb9c1e305de2dee36d2a1198f3126a83482ea44f1a4c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/natural-Emissor-windup-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/natural-Emissor-windup-node-4.png",
+      "sha256": "0ded326b6d9a3e350f89f05c8c2bc3bd3ee030d23955495e2960423b28ca02c6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/natural-Fragmento-attack-node-2.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/natural-Fragmento-attack-node-2.png",
+      "sha256": "1985f37dacc2db2743da3abfa2ea2e753d78d90036e9a6339498579474bd420f"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/natural-Fragmento-idle-node-2.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/natural-Fragmento-idle-node-2.png",
+      "sha256": "f925be9d5cfadb0dbd05d232ba4807e5470379dcdd69dc9c9b067680a2772d8b"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/natural-Fragmento-move-node-2.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/natural-Fragmento-move-node-2.png",
+      "sha256": "1378a595452b536a1da6c74734fb0d6ca3643b5979c23f696c42fc28bc562a3b"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/natural-Fragmento-recovery-node-2.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/natural-Fragmento-recovery-node-2.png",
+      "sha256": "58a11a54803ca2d88e3f8f8b1d6e5e820bd719daa808bd18a00670f7bb4cc097"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/natural-Fragmento-windup-node-2.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/natural-Fragmento-windup-node-2.png",
+      "sha256": "681920d1685dc50cec6f9fce39d6182cd02c2073c3edacfe433b80d6e220f919"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/node-1-cover-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/node-1-cover-combat.png",
+      "sha256": "51cc914faad4288f80d354cec2e76ce17c7abcce1752ed2499978f2fd6e89d48"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/node-2-open-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/node-2-open-combat.png",
+      "sha256": "f2b3778e44c59ef225808067d141b4ff825829827f658ae569557161980066e1"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/node-4-open-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/node-4-open-combat.png",
+      "sha256": "e179549f5cf2b2e1be6184ad41b210be0a95fad5d359cea89548a50297b3eaac"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/node-5-cover-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/node-5-cover-combat.png",
+      "sha256": "f43f1613f143077a1a1c4916f60b55a51ecef94dd057f988767279b425ea0101"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/node-6-cover-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/node-6-cover-combat.png",
+      "sha256": "e1ff28b714d124c82df25adce12cc32f98274b9976293ffff1b69dc99cfc27af"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/node-9-open-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/node-9-open-combat.png",
+      "sha256": "f4d8d2279b9565ad28662f4a3a86bdf8b497b27d2825a3fa4963dccbdb6d5618"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/poses-node-2.csv",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/poses-node-2.csv",
+      "sha256": "f8e5fd8a17323dc967725d53bc3039faa6e1f8c5cbd936ebf0c48e7963c8c8e8"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/poses-node-4.csv",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/poses-node-4.csv",
+      "sha256": "03c0e26d308af168ccb5dee641f3122c3ff8a584b40599c38a5bf2c551c41808"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/poses-node-6.csv",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/poses-node-6.csv",
+      "sha256": "7bbe7adf8abe1be81a9cffb966e166a240e6443558e031f96610507c163897e0"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041717-5580883/route.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041717-5580883/route.txt",
+      "sha256": "85e59e554585ec6de5b8f8b96cedf0ee80f2fc959158fcda26223695f3d10a1e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-controlled-encounters.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-controlled-encounters.txt",
+      "sha256": "b769c8cb6c620f6dd40a4e6f3775561d8122e849fd54f75ccf822e57d6e23d3b"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-hook-recovery-0-1.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-hook-recovery-0-1.txt",
+      "sha256": "dab46a79d002e1820b262d7e1a766b46518d013c02bcc95c75f98491497f4c00"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-hook-recovery-0-2.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-hook-recovery-0-2.txt",
+      "sha256": "c588921c3112e8bc4c9a07532da0ca2fed27a96cf3d70b6cf59c8b57df395232"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-hook-recovery-63-1.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-hook-recovery-63-1.txt",
+      "sha256": "5267a09fa2d0ab66698f0cac0d2a75284a8450a12b2a0702f11ab87bfd9287e7"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-hook-recovery-63-2.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-hook-recovery-63-2.txt",
+      "sha256": "d52305d1a1b505467e7aed8fe9e6fe225d384d3dd8f012c104d00ea049c18255"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-mixed-hooks-1-seed-0-action-window.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-mixed-hooks-1-seed-0-action-window.png",
+      "sha256": "2a5de7a0f4428ab63524f55a728d45f187f1918f93f6c9a8073c3db516639c8c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-mixed-hooks-1-seed-63-action-window.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-mixed-hooks-1-seed-63-action-window.png",
+      "sha256": "c3c15ea75a05518662dc0635bb664ebfdbd620b1fdfeac56f70f8f5d284a4c1f"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-mixed-hooks-2-seed-0-action-window.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-mixed-hooks-2-seed-0-action-window.png",
+      "sha256": "2a6737253d36774048fc94a00a4ef231010a4589b6f74fce0f54d4c2572ea402"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-mixed-hooks-2-seed-63-action-window.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-mixed-hooks-2-seed-63-action-window.png",
+      "sha256": "a9e6d37b4e74413722f932374c69e0640055de380aed1e6d46ebeb75d1a00024"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-0-Emissor.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-0-Emissor.png",
+      "sha256": "67377f11682dbd7195f27806c948e7caa26cfe459906daf628f814e5b7ebd3d3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-0-Fragmento-Emissor-Grunt-Healer.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-0-Fragmento-Emissor-Grunt-Healer.png",
+      "sha256": "68d6a0a03da8f4e96d0550e0fac28aa973b7215152576d5921ff81b8c6d5492d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-0-Fragmento-Emissor-Hooker-Hooker.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-0-Fragmento-Emissor-Hooker-Hooker.png",
+      "sha256": "5315c67943e42e786df90a2a0e7d5632da4624d93a8265d6d0ba7114db71d0d3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-0-Fragmento-Emissor-Hooker.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-0-Fragmento-Emissor-Hooker.png",
+      "sha256": "d5bf1f2c13a2b8b02a56111f33fb74b5bc77fe8bb33e353f5b1acc19e99017c7"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-0-Fragmento-Emissor.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-0-Fragmento-Emissor.png",
+      "sha256": "62790096b4cb119ae369a20dcdf3d9c9aec9f86c31d9714346ab17625061a4e3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-0-Fragmento.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-0-Fragmento.png",
+      "sha256": "79a3ed751c8e40b1e9017c462201076d95959aa995e5519d849fe16a8870f936"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-63-Emissor.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-63-Emissor.png",
+      "sha256": "ca8eb4a875a096067d1b850e89150a3bb839478e44f483c34508b2831178076c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-63-Fragmento-Emissor-Grunt-Healer.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-63-Fragmento-Emissor-Grunt-Healer.png",
+      "sha256": "b9e37126fc151479678aaf3ce29804a05292d9aace32e17ab138c72ff9e2804c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-63-Fragmento-Emissor-Hooker-Hooker.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-63-Fragmento-Emissor-Hooker-Hooker.png",
+      "sha256": "933292ccd1213e19fc80e8ed2f41012a6e22bdf94ea8f699d6cf793f86b86779"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-63-Fragmento-Emissor-Hooker.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-63-Fragmento-Emissor-Hooker.png",
+      "sha256": "1abb73a060aa157a457c1cc7979a517cacfbc38523a0f4599aeab3ae7cefa932"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-63-Fragmento-Emissor.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-63-Fragmento-Emissor.png",
+      "sha256": "b6ef293186ad64d9ed1df750b153a92c4e4b7a7d3aaad6ddd1a561cb52705a56"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/04-roles-63-Fragmento.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/04-roles-63-Fragmento.png",
+      "sha256": "bb78c228866857271e31b07550eb12c3ec613d4572391b0b78d445f792fe4747"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/emissor-blocked-by-cover-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/emissor-blocked-by-cover-node-1.png",
+      "sha256": "0b52597be94b1d95db0d18b7a02979c4e6a76a81c1370d81e7a8130f83e322f3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/emissor-reacquired-los-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/emissor-reacquired-los-node-1.png",
+      "sha256": "6a0791cb2b721123d324a74c75f19d92b0a3a2701787609aeb04343c52af0226"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041739-6486802/los-node-1.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041739-6486802/los-node-1.txt",
+      "sha256": "84b28926894b98123130ea64db737a14ec78af211ff3d2597adf3dc697852661"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-04-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-04-normal-camera.png",
+      "sha256": "a88af94bd5679c50fab23ef9e431dc8401b23c65df16531a0b0c80a74e7641e5"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-05-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-05-normal-camera.png",
+      "sha256": "015f95fe60c6bca4e7aa7406f81ecac32b0c2cd6d5debaeced02c530e79e5c02"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-disassembly.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-disassembly.png",
+      "sha256": "9d19e0acddf119d6b8a2a308462ba8b998d82c1eaf382cb769d7bda61fb73dca"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-Emissor-04-neutral-closeup.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-Emissor-04-neutral-closeup.png",
+      "sha256": "cd72d201e30175c0285a07a668541c6ee30ddd18272bc938281d615375810243"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-Emissor-05-neutral-closeup.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-Emissor-05-neutral-closeup.png",
+      "sha256": "70d42dc0d253cdd3bb1e43d302241873ff57c2ce6aa1025ab671fb72b27e97e6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-fixture.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-fixture.txt",
+      "sha256": "7b164f4278219a00bec182e6d6c74498b0700b6e174384d090d3df85686006c1"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-Fragmento-04-neutral-closeup.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-Fragmento-04-neutral-closeup.png",
+      "sha256": "7006b7a8161ee39f2359fb2c118f6572ce70f27f73d88336f39c6a200be0cb06"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-Fragmento-05-neutral-closeup.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-Fragmento-05-neutral-closeup.png",
+      "sha256": "c3cbe3de0e9fd5bc719190868016f51aa434b33be17b28acb1079265048e7412"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-hit-Emissor.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-hit-Emissor.png",
+      "sha256": "a63827ba87a66fa8a7600bb1f0a64cf2897a28359e3df71c1dee6596f8600c19"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-hit-Fragmento.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-hit-Fragmento.png",
+      "sha256": "f26ac9a18004ec839c95ede3a4a17825c6b2b85868ee08576230ac7bf2130e50"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-phase-Emissor-attack-04.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-phase-Emissor-attack-04.png",
+      "sha256": "50f841059f0004b28b9b4fae464e6f12bb978d4f6fbd62661e28b5292020618f"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-phase-Emissor-attack-05.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-phase-Emissor-attack-05.png",
+      "sha256": "854f229061881ed5264603c9f047b0fd4efc41c6f458493f3fecbcc8282821a2"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-phase-Emissor-windup-04.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-phase-Emissor-windup-04.png",
+      "sha256": "be72aa6c34b4484ed154721746d6d0acbf24d40cdccbe65823ec5b669c519d3c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-phase-Emissor-windup-05.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-phase-Emissor-windup-05.png",
+      "sha256": "95205d8e6e46a5448772f08e9c617720cd32ee5eca08bfc6a489abb0f2c51fc9"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-phase-Fragmento-attack-04.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-phase-Fragmento-attack-04.png",
+      "sha256": "9ad5dabab336793f1f9324ff47089d7c66ef9f24c72515896464a4992c1af67a"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-phase-Fragmento-attack-05.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-phase-Fragmento-attack-05.png",
+      "sha256": "b59ee1e6da94b9ca39015df1b8a0e14881406354646e1acb32c6da2d5285bb14"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-phase-Fragmento-windup-04.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-phase-Fragmento-windup-04.png",
+      "sha256": "d489d47e5466fe21462c4676c81f7971e05c6034aac72b219bed3028ffb7839b"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/05-art-phase-Fragmento-windup-05.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/05-art-phase-Fragmento-windup-05.png",
+      "sha256": "c4ee88a12e2c3a52d96cdccabdca806bc1beff864a855a7f867710eee0773995"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/natural-Emissor-attack-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/natural-Emissor-attack-node-1.png",
+      "sha256": "01840b27ba1cbcf0520b4ef7859a0f213c87b512eb7e6663eabd043afccdbe35"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/natural-Emissor-idle-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/natural-Emissor-idle-node-1.png",
+      "sha256": "f642970aba107da837d48a94c9b772a705ec137deb3f903170ef284dbbd9212b"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/natural-Emissor-move-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/natural-Emissor-move-node-1.png",
+      "sha256": "16eef11128107be2dc6b7f8c8183e13fbe1a4e5b19923979cf7e4ec1684f254e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/natural-Emissor-recovery-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/natural-Emissor-recovery-node-1.png",
+      "sha256": "d0fae54b62a73f83103742d3fa5d2255462c11ec0e352f308e5b04ec93995b86"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/natural-Emissor-windup-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/natural-Emissor-windup-node-1.png",
+      "sha256": "78edde58238f5e47ff6c42cd6eff8593250b85fd01ddf22e8cc90100f99d1269"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/natural-Fragmento-attack-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/natural-Fragmento-attack-node-1.png",
+      "sha256": "2da239b8f82705b82e44a26f08de260ad50d74ccfc9cec0b1430e3c0372c8201"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/natural-Fragmento-idle-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/natural-Fragmento-idle-node-1.png",
+      "sha256": "015f95fe60c6bca4e7aa7406f81ecac32b0c2cd6d5debaeced02c530e79e5c02"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/natural-Fragmento-move-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/natural-Fragmento-move-node-1.png",
+      "sha256": "120425f66f9048cbc167eedfb46e7f8777e3fc54cb2f2183e1b10937616acf10"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/natural-Fragmento-recovery-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/natural-Fragmento-recovery-node-1.png",
+      "sha256": "a4a8cbf4dcdb2f93a29573be4da9e223a764a02f828f745f63dfaed019308f3d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/natural-Fragmento-windup-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/natural-Fragmento-windup-node-1.png",
+      "sha256": "b4293d7f96fb86640fe0065ce2ae06e819f5bac39c3553d6aeacd69037113dee"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041856-0408453/poses-node-1.csv",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041856-0408453/poses-node-1.csv",
+      "sha256": "577911e49ff54cf4eb915c8fc14dfc2dece8b2cc4a13bdebd3bb0aaf3d915a5c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/natural-Emissor-attack-node-5.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/natural-Emissor-attack-node-5.png",
+      "sha256": "1ec56c52df989e68a4cdd22aad27a06c601661c53f8d708c8ce7decbe24e3245"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/natural-Emissor-idle-node-5.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/natural-Emissor-idle-node-5.png",
+      "sha256": "f6d2eef928afd720b4d25b863c66dd3a623538c2dec36c3a1343205a2286061d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/natural-Emissor-move-node-5.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/natural-Emissor-move-node-5.png",
+      "sha256": "e9c55065ba2d0bdb7bd57310d078186dbea4ce2cb9db5703554a3157bc64cb7a"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/natural-Emissor-recovery-node-5.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/natural-Emissor-recovery-node-5.png",
+      "sha256": "ef77966ad6ee15c02b73671b57e3b2d71bce150828de9dfda4756429c1d8d2aa"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/natural-Emissor-windup-node-5.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/natural-Emissor-windup-node-5.png",
+      "sha256": "fb2c3c52d4d8d3684214a2774854a5796dafb4ebbb654a67a3556129d6ebe145"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/natural-Fragmento-attack-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/natural-Fragmento-attack-node-4.png",
+      "sha256": "7243bd9d567df71f51379e695bcb1970d67c09ae36ab8886befd16992afe8e74"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/natural-Fragmento-idle-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/natural-Fragmento-idle-node-4.png",
+      "sha256": "8b692264cedbbb32517690d2c73ba7770be2adf03339ef2347dfdbb9885010a2"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/natural-Fragmento-move-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/natural-Fragmento-move-node-4.png",
+      "sha256": "e49d36581c9c4c08593e99482486588221e3e69542aa35e5e0e638189cd9e210"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/natural-Fragmento-recovery-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/natural-Fragmento-recovery-node-4.png",
+      "sha256": "b2f291a581f68a5a9796f1e64542c5796ddc1ccb2c325801bfc045b3e3aa64f6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/natural-Fragmento-windup-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/natural-Fragmento-windup-node-4.png",
+      "sha256": "d02d242ad0f37769bbe1c7e944022f9dd383c79fca2d664b7a27a5e65480106f"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/node-1-open-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/node-1-open-combat.png",
+      "sha256": "7c8fdb48c02c82d4095a7192eab85946865fc9ab4643fea02a5b81593f4c43a0"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/node-2-open-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/node-2-open-combat.png",
+      "sha256": "a3e7ae02023bb6d4057abc29290edb61376e4daba6f7276fec638f6a90c32381"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/node-4-cover-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/node-4-cover-combat.png",
+      "sha256": "c5b28a92246ab44036f26586a35a6af9c79b49a07b8fc7978369a0aee9337923"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/node-5-open-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/node-5-open-combat.png",
+      "sha256": "a99cc270ecebd064c0669ca4bded56f79894e6817ba6153b36957dfbe2c1634a"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/node-8-cover-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/node-8-cover-combat.png",
+      "sha256": "dec43103ff5ee8cad2ef57f98b78b62dcd1a8fb42e1f3a2380e0ff8222e91cd8"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/node-9-cover-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/node-9-cover-combat.png",
+      "sha256": "30281e5080396fc6ff5e8d60cab9bd9e8d63e9c860a4b386529235cda0ca50cf"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/poses-node-4.csv",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/poses-node-4.csv",
+      "sha256": "0b0113468c8a6c02d2c2c51b4c3a61ed29fb2fd0417591b3a3ee1f730540627c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/poses-node-5.csv",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/poses-node-5.csv",
+      "sha256": "d9372ae4b77be15c9ded69e431700eb682af872af8726c7873a552d25ddfed54"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041904-6891561/route.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041904-6891561/route.txt",
+      "sha256": "65162d727a23cd9fff156094bf1329c871341d4cbe288e272f6802ce2a0d3264"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041921-7820168/integrated-active-32.json",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041921-7820168/integrated-active-32.json",
+      "sha256": "ee4246f8daaf2a3c175b9f1d35f217afef045f9d92d5600b40486671852e41b7"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041921-7820168/integrated-active-32.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041921-7820168/integrated-active-32.png",
+      "sha256": "4598de90e412bf9a7432bef31efcc67164d958c419ca0439fa655ba500ec0fd5"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041929-2181789/integrated-active-64.json",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041929-2181789/integrated-active-64.json",
+      "sha256": "6b3bd6ab11ed80361f7e468470a2bb735d0e77d9c76c3ffbfe39fef224e7b9be"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041929-2181789/integrated-active-64.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041929-2181789/integrated-active-64.png",
+      "sha256": "6b28e3830b70986a090331787f598a02912b6aa37c072365ec02532e86db9a77"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041936-6901107/integrated-active-8.json",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041936-6901107/integrated-active-8.json",
+      "sha256": "079af1f51759ddc8cd915b68594292a65c8927d48bc41e1dd02d9f3671c55b9e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041936-6901107/integrated-active-8.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041936-6901107/integrated-active-8.png",
+      "sha256": "c29d0ba5a35d908791eae9ced79e7b385562364f390b1225e13e0a8d0ec0796f"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041944-2240238/05-native-basic-weapon-0-Emissor(Clone).png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041944-2240238/05-native-basic-weapon-0-Emissor(Clone).png",
+      "sha256": "c67041c71c367bdb5aa18a3d7b7d6d386772c06d77a829e1cac35f915464bed3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041944-2240238/05-native-basic-weapon-0-Fragmento(Clone).png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041944-2240238/05-native-basic-weapon-0-Fragmento(Clone).png",
+      "sha256": "828a55bde08aff0dc823df42948e55ebcf655ffa96e4f149aed1e74b71903d55"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041944-2240238/05-native-basic-weapon-1-Emissor(Clone).png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041944-2240238/05-native-basic-weapon-1-Emissor(Clone).png",
+      "sha256": "df66be626ade01b7bbcc514faef2ce34d0b665d970551c18bd635f4d1039a8d4"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041944-2240238/05-native-basic-weapon-1-Fragmento(Clone).png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041944-2240238/05-native-basic-weapon-1-Fragmento(Clone).png",
+      "sha256": "28a69691442ab935a465a2a9003b0d3c53030680760534f27bccf2b144755836"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041944-2240238/05-native-basic-weapon-2-Emissor(Clone).png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041944-2240238/05-native-basic-weapon-2-Emissor(Clone).png",
+      "sha256": "ec9404076cb4b617cc919a9d02dc59a142418faa82cd3cb5eac2229ce61e03ae"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-041944-2240238/05-native-basic-weapon-2-Fragmento(Clone).png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-041944-2240238/05-native-basic-weapon-2-Fragmento(Clone).png",
+      "sha256": "d9b09baebad4f598d92e1248ae6081b10d9765a682777dab4e7d58d6ec806009"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042022-0815941/emissor-blocked-by-cover-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042022-0815941/emissor-blocked-by-cover-node-1.png",
+      "sha256": "61b8a56f9747473fa661a3ff71500caa1bdf1d054e5543f3e502937047545fdc"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042022-0815941/emissor-native-hit-control.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042022-0815941/emissor-native-hit-control.png",
+      "sha256": "1a9e1be5e0c12d079dea1919b63efb0156390b4c89c3d2debe104131403eac79"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042022-0815941/emissor-reacquired-los-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042022-0815941/emissor-reacquired-los-node-1.png",
+      "sha256": "a09f170ebf49142beeeb94226c38c60e91a67ea0635949123f3980256b4911ef"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042022-0815941/emissor-refined-closeup-real-runtime.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042022-0815941/emissor-refined-closeup-real-runtime.png",
+      "sha256": "77897e2a3c18ddde2c4c239935e15c8b4f80aa61cac44a81945572dd0652ca03"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042022-0815941/fragmento-native-hit-control.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042022-0815941/fragmento-native-hit-control.png",
+      "sha256": "c08e190d1f5820f32dfa48d8bb9904180ef820fe4a910d15ea7a28afe9c6ac1e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042022-0815941/fragmento-refined-closeup-real-runtime.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042022-0815941/fragmento-refined-closeup-real-runtime.png",
+      "sha256": "b1e7a3a214c018a1e3c08053ff547b5158d38723c953dff631d0b6477777c173"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042022-0815941/los-node-1.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042022-0815941/los-node-1.txt",
+      "sha256": "e12ee0583cf767a74f92005c6709067156a410dcb52f6b9689e50a9cf7ac58a6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042022-0815941/refined-lifecycle.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042022-0815941/refined-lifecycle.txt",
+      "sha256": "26af9086b631470b85dce71e3f04b9fa43bb1cce0ba595bd5fa49dd1b068693e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042022-0815941/refined-native-damage-mixed-roster.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042022-0815941/refined-native-damage-mixed-roster.png",
+      "sha256": "9901a044fb2e57c2f5e719aac4b6c67862fb940d7a32f4e9778c2e7ebd0f8d93"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042022-0815941/refined-native-despawn.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042022-0815941/refined-native-despawn.png",
+      "sha256": "4f548b6ba3725f1d30c686fba925e9275fe2b45ff88c04ce8ab2ec32c4419098"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042031-5081755/04-room-cover-after-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042031-5081755/04-room-cover-after-normal-camera.png",
+      "sha256": "a5abc1422381687a5f739a04324ac7cc2b543c95634a72fa42afcccabfd08129"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042031-5081755/04-room-cover-before-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042031-5081755/04-room-cover-before-normal-camera.png",
+      "sha256": "c7567eea34d685f83cde11055c4f4b97002f7bf0b373a3a254ece90f7649a9a0"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042031-5081755/04-room-open-after-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042031-5081755/04-room-open-after-normal-camera.png",
+      "sha256": "5a0e7ce746380aa41e78bdbf4ddd86d2dc2dcf3a061426e5d6d0938c811161cd"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042031-5081755/04-room-open-before-normal-camera.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042031-5081755/04-room-open-before-normal-camera.png",
+      "sha256": "d64c49569bf1cd0ce7cf325eb3a1c4451ad61cb109e7c685c0f270b804868ada"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042031-5081755/emissor-blocked-by-cover-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042031-5081755/emissor-blocked-by-cover-node-1.png",
+      "sha256": "a8dbc797df0c533ae0cd73a4b3eee9e10a8a30c4b0a64c54aa8540d53ed311b6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042031-5081755/emissor-reacquired-los-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042031-5081755/emissor-reacquired-los-node-1.png",
+      "sha256": "1a1f8642dac6eaabee65a27c4e3f5589f467b0a0769441749e5dfef3fc98a2a1"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042031-5081755/los-node-1.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042031-5081755/los-node-1.txt",
+      "sha256": "e12ee0583cf767a74f92005c6709067156a410dcb52f6b9689e50a9cf7ac58a6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/natural-Emissor-attack-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/natural-Emissor-attack-node-4.png",
+      "sha256": "d81911b56f3921721ec863446ad0aa4f6414108e00b9e86ceb1d470a24d07022"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/natural-Emissor-idle-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/natural-Emissor-idle-node-4.png",
+      "sha256": "2d80b3faadcfb17641bed53bd5b2b750b2238f17b20cbe2c6822a982a45072a2"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/natural-Emissor-move-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/natural-Emissor-move-node-4.png",
+      "sha256": "54e5e6e671cb69699eb47eb136a998ef240a0ca349cf966e684041f5765a6437"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/natural-Emissor-recovery-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/natural-Emissor-recovery-node-4.png",
+      "sha256": "fc5451cae760904ab3d8c56e7cecd2aab09ca8d6d68b0fdaed89d8aecd183dce"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/natural-Emissor-windup-node-4.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/natural-Emissor-windup-node-4.png",
+      "sha256": "8631131fd2a18de46f33e2fb626ba117bb40f5ab3fabacaa04e88845d9bfd016"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/natural-Fragmento-attack-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/natural-Fragmento-attack-node-1.png",
+      "sha256": "f4ead9412fa8679ab17776ccbe583f1a615d920d30ab863e8b44764c3cca10d3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/natural-Fragmento-idle-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/natural-Fragmento-idle-node-1.png",
+      "sha256": "f426e7fc216d8cacf874203145a47f44e7e7cf22d42b2cd54a9dd2487551f156"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/natural-Fragmento-move-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/natural-Fragmento-move-node-1.png",
+      "sha256": "9c5b1fef074571bd7c56384e814613556dcc3ebd76c6d75aa3c32562fb6976b8"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/natural-Fragmento-recovery-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/natural-Fragmento-recovery-node-1.png",
+      "sha256": "3ab896d035120b0c228adebffd42537fef3941dfa1384e3312fe5c967d68997a"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/natural-Fragmento-windup-node-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/natural-Fragmento-windup-node-1.png",
+      "sha256": "82595c55162c8f55edef285740773e74c8a6a93bcbb3f7996b4aa7185df8737e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/node-1-open-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/node-1-open-combat.png",
+      "sha256": "d878d09b41c7cdbb55104be7aca6196191e67a146dd1822a42c212d363265942"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/node-2-cover-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/node-2-cover-combat.png",
+      "sha256": "c3a3d818d623f0b42882652dd36fdfece01ffcdea289fc7fd6a4b62a2cb0a248"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/node-4-open-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/node-4-open-combat.png",
+      "sha256": "9dd00dc1d5afd97122916d63a50f7ab909552570895192757d5adb7c4fa76e0e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/node-5-cover-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/node-5-cover-combat.png",
+      "sha256": "6112a35c0c8ca0a60ab210fa49ccfe5d0f9606bd4bf39bb652e355fbf30fe9fa"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/node-8-cover-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/node-8-cover-combat.png",
+      "sha256": "e366c426b6d72e1ed8ea4d75237eb8c076061aa16dab98de0bdc94b91821331d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/node-9-cover-combat.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/node-9-cover-combat.png",
+      "sha256": "a17a78489d13125da44c210a8e9c12e7395d95e617b943eb949cd78f98f6c257"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/poses-node-1.csv",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/poses-node-1.csv",
+      "sha256": "ee4af7da28c2c55e57b977651d575a5380f447ac91b5a8529895864f549cef17"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/poses-node-4.csv",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/poses-node-4.csv",
+      "sha256": "c0b27f5252e33938f709e1e31e0fc22a27a9d833dd4c8db6defdfa18648a1f2e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/poses-node-5.csv",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/poses-node-5.csv",
+      "sha256": "384c6d1be17ec7f8abf73dda74eb0713ca3c24a3b7b32617ca1c71af66e1e06f"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/firstsector/20261103-042042-2952021/route.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/firstsector/20261103-042042-2952021/route.txt",
+      "sha256": "8d5318d363b325dbf7e05f9f13e99a1e9db75b798522b2ece42fda43ff1235de"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-1517626/assisted-owned-titan-Artifacts.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-1517626/assisted-owned-titan-Artifacts.png",
+      "sha256": "60e1c0704d4c5bc9dda6199eacd30e80ecc03985c7e201fab32ba3711f182bfb"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-1517626/assisted-owned-titan-Reconfiguration.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-1517626/assisted-owned-titan-Reconfiguration.png",
+      "sha256": "95b6231bd15a4863cffdce489b03376446804fb27530217c5e9e02204b00b926"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-1517626/assisted-owned-titan-Synthesis.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-1517626/assisted-owned-titan-Synthesis.png",
+      "sha256": "7d8876ae79a885e40fd8936a6059f688e90084b115b07fb7696d3f11f7aafa71"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-1517626/assisted-owned-titan-Synthesis05.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-1517626/assisted-owned-titan-Synthesis05.png",
+      "sha256": "e436c9465a5064c6358adecac383aafadcdc2ce6277f64aa4e65805ed5b04563"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Artifacts-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Artifacts-details.png",
+      "sha256": "d0a516d117ec4c3513114264c394685a401285b9551723078d4e300c35533316"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Artifacts-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Artifacts-selected-0.png",
+      "sha256": "d6799609ac65ea65be9d5556233a2ef736fffc1ae1bc08ac3e35d89b31672be6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Artifacts-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Artifacts-selected-1.png",
+      "sha256": "01fb7192a83bf8c13cd6ed546224a687bf7b21156b837c25d759166a442be881"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-original.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-original.png",
+      "sha256": "c8ffcbf1242b9574c110e19010a4ba2dbe1a5fc7c20cd632e969ba05b0ce9b5c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Reconfiguration-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Reconfiguration-details.png",
+      "sha256": "07ee246cebb4eddd450fe15fb1664969b1e051157b7b7b3243729395410956da"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Reconfiguration-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Reconfiguration-selected-0.png",
+      "sha256": "7c0c37b32f80b827afeebb115a39baf95ab0b0823e3d07d75c2fa65b7d850e8b"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Reconfiguration-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Reconfiguration-selected-1.png",
+      "sha256": "b885068ad733d546d75993e9fd7b5ae4ab4f4daac9169b3d5141e190ddb87f7c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis-details.png",
+      "sha256": "4030eeb6349926c3db18a2cb37f161a27923976044bcff95e5f2cfd056566af5"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis-selected-0.png",
+      "sha256": "e8a6404d595cdfb23f2715a39deb6ffceb72021c66970854df30103435ed1d6b"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis-selected-1.png",
+      "sha256": "d313f92199cece58d5665aea1d1c2a6272f432c13dbe32383f619093f2084c1e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis05-details.png",
+      "sha256": "a6367ea05bda56e4a9f6252dfe93afff54ad3148107f6632b590ff34cd78758e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis05-selected-0.png",
+      "sha256": "d8e6d358e80ae569d821879c1cee18eea448b5884a43290458112377fa70ffa3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Bow-Synthesis05-selected-1.png",
+      "sha256": "ed97d35ed9c16d885832606b3138a79f13ce7e292aa89a232c8f54642fae75eb"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Artifacts-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Artifacts-details.png",
+      "sha256": "f75be8fe45fa3126728cfd0dd1baab76a57a86bc5f2eb6cb4acf6c4c82483b02"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Artifacts-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Artifacts-selected-0.png",
+      "sha256": "2cebb485ea3947055857e66852c3805bcfb39c1a42d892a4f11dd3f63ce45cfc"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Artifacts-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Artifacts-selected-1.png",
+      "sha256": "58476f06eaefaf08900b433b512ca2dbc5b2dfcec0283d8352ac273ac409cf54"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-original.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-original.png",
+      "sha256": "a12cd7682f6d7aad9485287a2628af5d08a61801b0709574d34393ae9df70328"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Reconfiguration-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Reconfiguration-details.png",
+      "sha256": "04d7886e62a7b0020bd751b736be588253c7314306ec1c5ed02c3d2d817e47fc"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Reconfiguration-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Reconfiguration-selected-0.png",
+      "sha256": "fbe86e6c364239845893f68b8f8913fc2cc42f833acc2a8d39068ec1faaba2f5"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Reconfiguration-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Reconfiguration-selected-1.png",
+      "sha256": "e1a5b845d4226533d69ade06f1e5c2ac63e5adfef5fb0da43ca2fdd53d916d86"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis-details.png",
+      "sha256": "43c6f828d6bfcdc3a8a5bac8428a25f9a6c68146f43bb1c464f62c00d8a4bfb1"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis-selected-0.png",
+      "sha256": "0c6b22a0174641c3d3fcc798feeebc277abb2e09c3f1e9c6e383e5d3b62a839d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis-selected-1.png",
+      "sha256": "3fbb78a77ef7a5dd68716a99a46194ec0fee768a426bfb8708f0fb5b722b92c0"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis05-details.png",
+      "sha256": "3551d76b807f002e8de1e6f54a6b9fe870f551734bc44ca0ab1ed57b15d788ff"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis05-selected-0.png",
+      "sha256": "80d736906944dc313d88d19f79ac56cd154be15c601682af382845f45cab4510"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Gauntlet-Synthesis05-selected-1.png",
+      "sha256": "b0d91aa7ab5933b31e1a09467fd4f47124b88d05e7585420dc7ad216af6bb6a9"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Artifacts-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Artifacts-details.png",
+      "sha256": "d9f296398b70fd53018a12fb664d6e880cd16f7e1fe5e6a5a738a624c06acac6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Artifacts-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Artifacts-selected-0.png",
+      "sha256": "8fcbb03f39a906f12784c1afe65cc7852de07cf497d01cdb2e7e4881db918115"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Artifacts-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Artifacts-selected-1.png",
+      "sha256": "4df3ed9afc3ed1ba88932c163ad410e1048b0d2026ac618927e9d47c3eff6440"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-original.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-original.png",
+      "sha256": "ab0b3d4bcf2ea4c02a316a6d01b566748781642f3c727f030dc8127b03a019d5"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Reconfiguration-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Reconfiguration-details.png",
+      "sha256": "47ab16341e1054265811de4ca1b6f6021fd23f95d0429ab54cdf3e52177b966c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Reconfiguration-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Reconfiguration-selected-0.png",
+      "sha256": "26bb0bfe6263e8d87ae5bb20953ad7fd2e00b6c9d23d0c8d12cf45754d992e80"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Reconfiguration-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Reconfiguration-selected-1.png",
+      "sha256": "71c8816df1bccd3093f6fa471b12f99dc7880baa5deb6fb5be472001745c2325"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis-details.png",
+      "sha256": "34d8a2876d5656cced222f7d5fc8ca2fe91a0b2d3ebde616d01b3ee26aa63507"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis-selected-0.png",
+      "sha256": "dcb213c8cdc2c933dfaa5727354529b8dc9a5a7c7dcfa44286768d6261f678c2"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis-selected-1.png",
+      "sha256": "bc71a1d43afded8109b29ec76263c7f15e3c5fb2652ca79c70057c45a6421e75"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis05-details.png",
+      "sha256": "6a6d114122a671a62b8f6b67d7fb39b72a7047ae7b30fa00746dc61232960b56"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis05-selected-0.png",
+      "sha256": "dc39d4d4f2e5d82bd415837ffb14c6af3205ab7d754a9fee1c276bf013581e92"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1160x600-Spear-Synthesis05-selected-1.png",
+      "sha256": "02e8751a8f464a29718e260b3264d8554202ba9080aea4bd04addb2e936001b1"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Artifacts-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Artifacts-details.png",
+      "sha256": "066d70b16188f18a4a2934fcbcf85b5e3e5157034319ef19210bbcb9d0cb73c3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Artifacts-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Artifacts-selected-0.png",
+      "sha256": "ba2c51941609a6f1212007fff5367a74a899fd9b7bbe65977b316b748bc239b0"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Artifacts-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Artifacts-selected-1.png",
+      "sha256": "7506501bb608e0ab7fd1d0f5c601c1a9ba3f8d8e38436b556e89da0c15daa8cc"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-original.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-original.png",
+      "sha256": "609d6427f9fcf9a303302d4b9a5bf4aa59e187193634809fcce041c17898bd93"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Reconfiguration-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Reconfiguration-details.png",
+      "sha256": "1e19b812d76490bb9a3ef9afea8600152f36d9fa593f0184a69df27bea856c16"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Reconfiguration-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Reconfiguration-selected-0.png",
+      "sha256": "03df5d538d9a0933a33d9b9b60d064bc1cba46a6fb79470a5da4687a02a0cdfe"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Reconfiguration-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Reconfiguration-selected-1.png",
+      "sha256": "7eb0fd532e05303ed6c4689f76388e9cbe580e82ea728f52a2ed2fc3bae8a905"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis-details.png",
+      "sha256": "1f4c83d6c839ed7e4f78881d2f80f43852c01a81d94829e9f626af099a1d09f3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis-selected-0.png",
+      "sha256": "03183fdd8b226feeac28af091a87855bdfecf8604f5d1a91d742638602f76067"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis-selected-1.png",
+      "sha256": "51f1eafa8a521efcb8732dd925444c4fb968e712daa738a5c180ad9f681abe85"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis05-details.png",
+      "sha256": "1218bc7f30ad329e4c6df3739854bf903b2793199209eb12b133cd341a1d3e34"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis05-selected-0.png",
+      "sha256": "97c177ffda67c38ecb44df0f6e01206e31d519864ce13315fd13224a0bb62670"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Bow-Synthesis05-selected-1.png",
+      "sha256": "df5c0466867e70a10e01d355b7731667de97e0d8c6f2ac7ea8a568127f50d923"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Artifacts-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Artifacts-details.png",
+      "sha256": "f652b5d455184b011dd48a55e75953dd2f5a574e8700b3e412a67d2ba261eec2"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Artifacts-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Artifacts-selected-0.png",
+      "sha256": "c4e63f392f1732d80478341ee3fb71d48234b8dd0111ded974859801246ba919"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Artifacts-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Artifacts-selected-1.png",
+      "sha256": "c6433da4c127d17d5e631e563fdcb1bb1f329becbc7e884e0ce290c4c14b992f"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-original.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-original.png",
+      "sha256": "1a74009aab03454d3d16597321a3cad6b9c7bf2ef259ef950a1a271ec7820658"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Reconfiguration-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Reconfiguration-details.png",
+      "sha256": "5d6743a1fdf10c355848be04bb5b9777d95b366ca5327634e4cdab069f749110"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Reconfiguration-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Reconfiguration-selected-0.png",
+      "sha256": "164d896a624eb41f424ad58ca747011ad30c65e50c0be7eaba291010d5b41221"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Reconfiguration-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Reconfiguration-selected-1.png",
+      "sha256": "aec03f442bddbf4b598a0b28fb4ef0596425bdf5e3b7c0801cbdb3754d3457b2"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis-details.png",
+      "sha256": "0c589d28fc81e76b5f2fb7f4321d3d54bf645929abe599634670a72f2f3d6608"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis-selected-0.png",
+      "sha256": "fb3e60e48d5fcf584193f5e0b28b276ae110a569c8418f5e6ef70ea3c94058a9"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis-selected-1.png",
+      "sha256": "1c25a26438080728edae66c4592e0f77237209692817d8ed65cb9dd642c00167"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis05-details.png",
+      "sha256": "9e66d1223eee29226488cf25e7ebc8486825138259cda55e4c68c5df71512d5c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis05-selected-0.png",
+      "sha256": "c94213046f42d48d0fcc47cb74f881199b45f5b54135cf8b8ca294f201efbde3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Gauntlet-Synthesis05-selected-1.png",
+      "sha256": "2ca463ab4097485b44fa669468e4f680399b1815b0af67c7a5db99d90b79f68e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Artifacts-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Artifacts-details.png",
+      "sha256": "588a30390d1d2cbefc50d11d6154b553655dd5d94f6c374ee97810e4452427b4"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Artifacts-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Artifacts-selected-0.png",
+      "sha256": "b1dcae6833f8da0f27dc01b654382393a362a182dcb87a26a496adc4638fe0c4"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Artifacts-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Artifacts-selected-1.png",
+      "sha256": "721163e9d65fa6e01706f12d1c5f5c6f47f1535b52144a831eca861082259044"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-original.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-original.png",
+      "sha256": "7cec607961340575c9e64bd8dfe55de31558b7273900dd1f75adfe6b67f84dfa"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Reconfiguration-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Reconfiguration-details.png",
+      "sha256": "5b9dea3f5140ce26339b7769c85fe9ec1aca222a265f738f82397147ac135c2e"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Reconfiguration-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Reconfiguration-selected-0.png",
+      "sha256": "0a071babfec6b3d70d8a5e2f9eac23fc75e32491c840e067969c4742de400c03"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Reconfiguration-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Reconfiguration-selected-1.png",
+      "sha256": "5aea171c403a1d434c75ee9babad25e5478a5fa27b824a9c5e60de9624c789bf"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis-details.png",
+      "sha256": "824a34c56f08456a8071f5642191061746a6089645606bef0c74bae48c5b1dc5"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis-selected-0.png",
+      "sha256": "3765c0f44a2db3710f29e103dd227c5159d1235cbe0c917f209bd12598dd3a04"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis-selected-1.png",
+      "sha256": "febeb0081015fb327b4175e506d954cafbf5509e9acae67c9ae5ad118c84f221"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis05-details.png",
+      "sha256": "339f157bda8c04435c704901d81ede846e98af93e9ad28ea851eb6e29f45f8ac"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis05-selected-0.png",
+      "sha256": "ad60af08c7aad017ce01e60bba148ca5fff52b0ccdada50b00d8817a78d6e350"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042104-8407914/1280x800-Spear-Synthesis05-selected-1.png",
+      "sha256": "aa39a02e15eb16974e20c8004c9056e5f0aa06d78b63f3424ff5a7851ee23628"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042107-8802658/keyboard-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042107-8802658/keyboard-details.png",
+      "sha256": "7581f5c063c017b9e54a5fe7dfad5b86d73b842e816aa4df098baf465e2f894d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042107-8802658/no-eligible-disabled.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042107-8802658/no-eligible-disabled.png",
+      "sha256": "5a35e6e8ddab073a27bb2e790cfbdb36d5d2b2a9d23b6ad0d2575440edb18790"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042107-8802658/pause-priority.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042107-8802658/pause-priority.png",
+      "sha256": "2083a756c8bdba3cf7090086c66b664e275889f0b45191f6ba2ba6217342bd72"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042111-1929941/04-assisted-rank-upgrade-Synthesis.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042111-1929941/04-assisted-rank-upgrade-Synthesis.png",
+      "sha256": "e616659e5a6a7b033c9e511fc7fac3eead1877dc1826e314a1c79b4b3da22688"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042111-7756131/05-assisted-menu-weapon-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042111-7756131/05-assisted-menu-weapon-0.png",
+      "sha256": "ccb788c2f4c44cf24e38ac8b98e13e60708e5dc54f9119ad7846ef90c72d22cb"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042111-7756131/05-assisted-menu-weapon-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042111-7756131/05-assisted-menu-weapon-1.png",
+      "sha256": "fff03eba32c0d92d621ddc772f0350d96d4e588571e391eba930bee5dd668229"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042111-7756131/05-assisted-menu-weapon-2.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042111-7756131/05-assisted-menu-weapon-2.png",
+      "sha256": "387853f39e80adfa3b583a9c7a6da0b07caabe5974fc3f382306670010b15402"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042112-5539275/05-confirmed-exactly-once.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042112-5539275/05-confirmed-exactly-once.png",
+      "sha256": "f01c3c8f58120dc43822f70ca66da7a23a5adf65f22505f2be781244b99fc7a2"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042112-5539275/05-empty-offers.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042112-5539275/05-empty-offers.png",
+      "sha256": "b875b5f59a09db3ee89553ec954479f3ba63ce37ed178274c9aad3901f3bfaf5"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042112-5539275/05-modal-does-not-commit.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042112-5539275/05-modal-does-not-commit.png",
+      "sha256": "7a74968047d4b27873db95f28fb881f74ba110892d3fdbdac08b2dce390a7d7f"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Bow-published.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Bow-published.png",
+      "sha256": "96201a77a0f34f62a7b617f23ccc09760297e5a7b9109dd918270f6b1d1e5e79"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis-details.png",
+      "sha256": "bebc70bbfcc7a53189d219827ebe757a7b5c7c2fdfa7456b997da74ee03acc79"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis-selected-0.png",
+      "sha256": "063cf61f8145309e88886f92f63a90c96a92281a01afece9275b6ec8cab7cab6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis-selected-1.png",
+      "sha256": "c962a7abe33555f4ebc34e980621272d8a041ed1babd5c005666de4045a7a51d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis05-details.png",
+      "sha256": "0cfa7b13d848c6f67ed69d34cd0837a2f0a8cbe6976f57e914fdd22c9d0e51a9"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis05-selected-0.png",
+      "sha256": "44c1a19261484e969a16c5e946ca78ce1be53b58abd421beac53f6a3ed8ab537"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Bow-Synthesis05-selected-1.png",
+      "sha256": "4b4cbc95f47c0c6cb7b40e4569504a946d3bdbec5f1368a5d4139cfdf983d5e7"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-published.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-published.png",
+      "sha256": "b982658f9e864ff4303ee21bcbd15baf0b397df8890ae800b1c574bd8e8d9ab1"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis-details.png",
+      "sha256": "83550359015a175c14ae08f095eb5e1606b7717b3d273d4e2ef027d99c813c08"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis-selected-0.png",
+      "sha256": "559371277a4b239a3edaf2157b83e2bf8aab3e784e8a9436f886576eec3b42ed"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis-selected-1.png",
+      "sha256": "1f1a52ce0a3b019d80d96000866bf1e8a24459d3d7f6f9b5e43a411822a5f00b"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis05-details.png",
+      "sha256": "f1c3301b0760d60b97cf4657f63134aa98ff86ddc1ec69cb97f870d533ed749f"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis05-selected-0.png",
+      "sha256": "7a66673f813cc17ee48020e5bf6aea7273d760a418d1e8a315eb3f7d4d91b8a8"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Gauntlet-Synthesis05-selected-1.png",
+      "sha256": "721d26a6610cc9764c20842c1d7fbac9c03f947a24b274cb0414db5336c57e8d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Spear-published.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Spear-published.png",
+      "sha256": "2e2201d3464f20a128f9bc8c64dd2bac2c26f5cb2889187650b8849fb6a79817"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis-details.png",
+      "sha256": "a4a08c1155a8e618bfd12d7d6c06287e072aa84d8c6f7354292fcb1d89ef8ec4"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis-selected-0.png",
+      "sha256": "7bde3f8ab720f8fae69f00788993f9c80450401c3fe91c6b5b2afe548c619f28"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis-selected-1.png",
+      "sha256": "8e81164ae02c3e3b5f0cd92b0a1048dc343af9c9cde99a8023433a3caaae0af6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis05-details.png",
+      "sha256": "77f883fa6329b8c48a60e7f066363752597a1e2ce4470307a94f7492c1cb3be6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis05-selected-0.png",
+      "sha256": "17e7616fea4921886523b7908c29c197cc615cd149f3b0f7d9f8e09768c536ef"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1160x600-Spear-Synthesis05-selected-1.png",
+      "sha256": "6d7e61a759f68703bdee742ab5b9f5583133b72390ec121641a4b72c4098cc23"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Bow-published.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Bow-published.png",
+      "sha256": "609d6427f9fcf9a303302d4b9a5bf4aa59e187193634809fcce041c17898bd93"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis-details.png",
+      "sha256": "1f4c83d6c839ed7e4f78881d2f80f43852c01a81d94829e9f626af099a1d09f3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis-selected-0.png",
+      "sha256": "03183fdd8b226feeac28af091a87855bdfecf8604f5d1a91d742638602f76067"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis-selected-1.png",
+      "sha256": "51f1eafa8a521efcb8732dd925444c4fb968e712daa738a5c180ad9f681abe85"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis05-details.png",
+      "sha256": "b5a0bdf99094e0b9cfa2df6b9f8c94f8d252d5084bcb34d1f500e9193becacf8"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis05-selected-0.png",
+      "sha256": "3cb845990832634af89dcd704dc871f665623aec000698c03e571dea9d3e46d9"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Bow-Synthesis05-selected-1.png",
+      "sha256": "1562b417d780c624a25d2a31152b185b66c726652e8a707015d18e8ec7b4c12d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-published.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-published.png",
+      "sha256": "209c53c12dc44e969939594188ded03e7cdd8eca79dd4f228248b9d5e5069a57"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis-details.png",
+      "sha256": "f56c17a60ce9f626ac448cd197905a057a655b32445332f7aa79e1f47eadfb31"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis-selected-0.png",
+      "sha256": "673d309830a3fdc2f91cdd6b6ca2107846c4208bac34eaefca365799a0b69e69"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis-selected-1.png",
+      "sha256": "9a3a6b8f4e139ca6d813ed3ae6889f18b679c3be9a36f26e0a93f695b64114df"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis05-details.png",
+      "sha256": "f1349404b2124d527ccb271fc5189cbe5e56cdd395523900937e6c3ac3da5eb8"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis05-selected-0.png",
+      "sha256": "f3da756483fd291c63c59366624051a8d9a117d508c1246a787e7086b5258e80"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Gauntlet-Synthesis05-selected-1.png",
+      "sha256": "c5f4a540034049c1218c526784f15eb2790c3d84cefd4948d685fc95fd6845a0"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Spear-published.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Spear-published.png",
+      "sha256": "db3db13d6e4921b1b1611f4ffb361f389746be3833ee6c806a9ae36733a307e2"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis-details.png",
+      "sha256": "12c6c8b5c0e8c0e8c4a832819b6be004acbad3160892fac6b913f5be0c8a4fba"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis-selected-0.png",
+      "sha256": "fe23be21f3bfd60ff40be7a7b430aab5015338f8a1ecbf54059d9f4ad8649e44"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis-selected-1.png",
+      "sha256": "a6a5c8e51480869568718393a45a5f543f57f23f5847950ad15cd53759146874"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis05-details.png",
+      "sha256": "da152c63d14931b5a383ebfe2e26c98f8056a585da81be6c2055f278b5eed8cf"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis05-selected-0.png",
+      "sha256": "526ba979b1a43051973d835fb83c5b5321f54285f746b8bf271d85fa890ee04a"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1280x800-Spear-Synthesis05-selected-1.png",
+      "sha256": "e1fb336b10923d8d096342278445f402940cb93a05af9e82293e9bf3f6302eb4"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Bow-published.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Bow-published.png",
+      "sha256": "86f71ed959d07cd7b063b4ec2cc72bf844e8fa1251c5cde5eea5ec069aef5cf4"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis-details.png",
+      "sha256": "d1c7dffc5b246269bf6c7875f70c5aea240691d199a83829840dc3b309af8923"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis-selected-0.png",
+      "sha256": "bcc7a3c78120a4d3e1f039e7c17a7be66d36edf23101f1b790c44f499727af03"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis-selected-1.png",
+      "sha256": "a0a0ea4ce6b84be37ca220195448486f28e67344d9e6a0c7b6aa0d90a4c7a84a"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis05-details.png",
+      "sha256": "5b17703ec19adbdcf45f42fd9cf5958e6cc7ef8f1a4363de2f069e42f2ee7ecb"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis05-selected-0.png",
+      "sha256": "e5c427ac12d7a585b34e38fd9418229762fcd0ad7e4c3dbcc2423bad5bc4740b"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Bow-Synthesis05-selected-1.png",
+      "sha256": "95e0f9565d1a263876b8f55876f5b7c1e67d538d38a5659d184ea7230d4a8e17"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-published.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-published.png",
+      "sha256": "e420da9144b4873dd4e3f8ca265893b1e9b84d758cfd2e5374f850a7ae36e823"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis-details.png",
+      "sha256": "017a066993f19d65a88b8051caa063ceff7306abdc4a4120eedea1db33e095ef"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis-selected-0.png",
+      "sha256": "9622d4509f136deeb113ad4eb48ebc823dcea4d16dfcd3114bf9ce77fae87819"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis-selected-1.png",
+      "sha256": "90a3142f23e01234177dd15f07255428f2984debe13a52230bd49e076fa43879"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis05-details.png",
+      "sha256": "ea33975e21a71cebe3c45decd8b75ebb7dcf88cba6ca9b0b1c704eeffcc6a1f1"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis05-selected-0.png",
+      "sha256": "32e06234809ad3a09fb5209d496efcca4bccce5174fc5a59e0c017fe6d2767fc"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Gauntlet-Synthesis05-selected-1.png",
+      "sha256": "74a2d7cbe5820dbc4c3f829e4fcf0b791700a2fe13794ec3e95777578f9ca9fa"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Spear-published.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Spear-published.png",
+      "sha256": "625b51bc56411ef41eebd434a0d4533bfd3d014639bebcc939ed168fd0b3f2c4"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis-details.png",
+      "sha256": "ec9c0259c7daae6aa4c78a8831e6b38899ceab661bdaffaef86cdcbf02b72f7c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis-selected-0.png",
+      "sha256": "367b216f4398d7b4aacaa17991571e91ff331343767e4121818ef662b35f064d"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis-selected-1.png",
+      "sha256": "433f7dd4fd53e93b229d39d908be8e9d21c6990616ee1914714bf99e32c1304a"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis05-details.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis05-details.png",
+      "sha256": "85e3fd1bb1503cac3fcfb7c49e6ffe0b3acf4bffe98c63d535f18835c188128c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis05-selected-0.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis05-selected-0.png",
+      "sha256": "2fe39508c96cd98f4fad286a41d7c30a8ce71d688c9da1cb8db188708a1bdf81"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis05-selected-1.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-1920x1080-Spear-Synthesis05-selected-1.png",
+      "sha256": "2184813b5348afe561c02784273800ae1116bd9c2735c24c556d8cbb9a88484c"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-assisted-active-titan-conductor.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-assisted-active-titan-conductor.png",
+      "sha256": "f534512b0b361afd18413eee6c645f08439abd556fd31bdf2fc2bc24ace2c7e4"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-assisted-Bow-mutation-illustration.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-assisted-Bow-mutation-illustration.png",
+      "sha256": "458320d41fa090548f73d5b9e64df1dbb088745f281d3f925d9aa767d36be6a1"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-assisted-conductor-rank-upgrade.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-assisted-conductor-rank-upgrade.png",
+      "sha256": "99321812f52a66258c5ad9028556eae6863cea5fab06f0c07b1afd83979c43a3"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-assisted-cooffer-is-not-owned.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-assisted-cooffer-is-not-owned.png",
+      "sha256": "abbbac584129b9f85883d3cb75701439152060d008abe1de049ef7d7ea6f8f5b"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-assisted-Spear-mutation-illustration.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-assisted-Spear-mutation-illustration.png",
+      "sha256": "37606a97860dfe641d424672bbb88037e8475914b0f92a3ca259ef7cb28872c6"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-assisted-titanic-illustration.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-assisted-titanic-illustration.png",
+      "sha256": "5a90fa179a7f16ccb646a142b530920898f42b72b3f572511b6871a6e700d216"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-capture-contract.txt",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-capture-contract.txt",
+      "sha256": "b7280d11e53a06dcd40f94da52b0d754c940d70902dcbf310c8d7a71d5759e33"
+    },
+    {
+      "source": "Docs/validation/artifacts/run-exp-03/rewards/20261103-042113-2375597/05-reduced-motion.png",
+      "copy": "Docs/validation/artifacts/run-exp-06/final/rewards/20261103-042113-2375597/05-reduced-motion.png",
+      "sha256": "f1a0267d583d85a8f520e3d306b577ef77adb0bed15a2713af0ae6c9ffe02756"
+    }
+  ]
+}

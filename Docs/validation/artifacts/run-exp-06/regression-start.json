@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "message": "Test job started.",
+  "error": null,
+  "data": {
+    "job_id": "ae7e05f0965342e4b9cb3eb2a4dc703a",
+    "status": "running",
+    "mode": "PlayMode",
+    "include_details": true,
+    "include_failed_tests": true
+  },
+  "hint": null
+}

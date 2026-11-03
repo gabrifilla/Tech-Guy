@@ -1,0 +1,475 @@
+{
+  "provenance": "Original Blender5.2.2LTS MCP geometry/UV atlas/normal plus original image_gen reward illustrations and clearly labeled concept. No sourced franchise/game assets. Runtime IK/rigid posing retained, not final DCC rigging. Prompt log reward-art-prompt.txt retains original atlas instruction; exact correction/concept prompts not retained in repo, descriptions in reports are not verbatim recovery. No claim of pixel matching concept.",
+  "files": [
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/AxisCalibration.fbx",
+      "bytes": 11164,
+      "sha256": "5997c508071719b942a52a64ca0f925d26cbb327d1fcdad179ecfe9838d2fdd9"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/AxisCalibration.fbx.meta",
+      "bytes": 2993,
+      "sha256": "8f42ea040fb2a70662a95e4bf062bbfb0941cac4b2cda052c1b21aff6ac0d874"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Ceramica grafite cobre.mat",
+      "bytes": 4074,
+      "sha256": "2d8d2313fa8dd877b52e5b8d8c873ca0edf32c86656173671ee1c2fce59cab66"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Ceramica grafite cobre.mat.meta",
+      "bytes": 188,
+      "sha256": "fdf5fed103fe3d29408173107f14f5e0112239b01ee6c4750c27c3c264f450da"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Character_BaseColor.png",
+      "bytes": 1134585,
+      "sha256": "81e8091f82aae02ef950dfb9edb29545a85d742e817599657db95a2e42976844"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Character_BaseColor.png.meta",
+      "bytes": 2652,
+      "sha256": "0d8cfa706977c6caf53f4a48915cf93fdcbff97c81f306d7482e3cc12462a17b"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Character_MetallicSmoothness.png",
+      "bytes": 22276,
+      "sha256": "482129043be3ba3f3219bc8cb274ae7b4ceaac9c9723505d375bbb78b0b02ed4"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Character_MetallicSmoothness.png.meta",
+      "bytes": 2652,
+      "sha256": "3d0f69d677e08300d2fa5ebf475eeaa7ec6e0f47d8e818c1018db1c4580f6703"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Character_Normal.png",
+      "bytes": 32046,
+      "sha256": "a519f2341444f17f8d02466b290ccc2dda66524d4db29a7244776cadad063df8"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Character_Normal.png.meta",
+      "bytes": 2652,
+      "sha256": "140c38dce805d97c8e17116e56434b5719b15ff3eb228add96ac22ac4180034a"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Emissor_MeshLibrary.fbx",
+      "bytes": 101452,
+      "sha256": "e04ac8d6ce477047bc64378c8128ea21026cc8733480c0ebbac1e615bbcb695a"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Emissor_MeshLibrary.fbx.meta",
+      "bytes": 2993,
+      "sha256": "453e3f2b8e2d16dadc1fdbe4fe44d83152c40c237c4575637111d88c3da7c555"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Fragmento_MeshLibrary.fbx",
+      "bytes": 109708,
+      "sha256": "f5fa7ba1c93359b31b2a055c7f7d15d90c6bf3d989b4a95ec41b6d5c8b723851"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Fragmento_MeshLibrary.fbx.meta",
+      "bytes": 2993,
+      "sha256": "6c3a4744e73fbf02d9c5ab0405e97dcbc722596c80afe8426e6c5c794dcd4bf4"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Camara_interna.asset",
+      "bytes": 47848,
+      "sha256": "f129263a86b06e0b66f8f8014e4a4102789f3768251f5b2c0c8b06c895a092b9"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Camara_interna.asset.meta",
+      "bytes": 188,
+      "sha256": "8a8d48e854f514a665ea6ea9b0a776dcab3f8ac42e0fe14a178b2aa668bb46ca"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Canal_oco.asset",
+      "bytes": 101589,
+      "sha256": "233ab9073e29b244ea4c41d027fee2c55d1edd043cef15a38ed92c9aa935ce15"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Canal_oco.asset.meta",
+      "bytes": 188,
+      "sha256": "4b7c8e1778085a131dfae9ccf866fbe37b4cb8aae245108dabaf7da760f03b0b"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Carcaca_estruturada_0.asset",
+      "bytes": 90921,
+      "sha256": "51dade077a2eb8a9e374bbdb8b0f395a891ac65bac07212a00dc6c9f8a88dbc4"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Carcaca_estruturada_0.asset.meta",
+      "bytes": 188,
+      "sha256": "904f91e7aa7e80585054391137e8bd5adbd3f8cfaaca83d9b73f62c80766eaec"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Carcaca_estruturada_1.asset",
+      "bytes": 92407,
+      "sha256": "3ce898104cc7ca83ce21fb7022d4e8459cb99ed20dae500885e0cf834278d95e"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Carcaca_estruturada_1.asset.meta",
+      "bytes": 188,
+      "sha256": "f3a8124ae211193a0fb186be24f9b2ca9b68da6ed450cbbc72fe61daac4395e5"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Nucleo.asset",
+      "bytes": 66503,
+      "sha256": "4da8f959f7bf84b52076c3a8257887d46a84d4c0af1d564f0399980a168ef01d"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Nucleo.asset.meta",
+      "bytes": 188,
+      "sha256": "14edf93dadbc211f4fce7c497f59d07b4beaa002d8381a4ec790d384ef6ecdc2"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Quilha_0.asset",
+      "bytes": 29480,
+      "sha256": "1ad1dd1f2ac50ca7a8f7704d6d81794a2277e3ec4d63bada5cb1791600f88c2c"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Quilha_0.asset.meta",
+      "bytes": 188,
+      "sha256": "b7b5b87e271d43012bf410a0d6392b7fef7919a9ffd3a83938f8ebf8a596fa25"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Quilha_1.asset",
+      "bytes": 31358,
+      "sha256": "cfc6346b1ed760b070ff4f97925157427297e5c02450296068f090df3456638b"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/E_Quilha_1.asset.meta",
+      "bytes": 188,
+      "sha256": "fe62d310c00cb1d432ce4ff4f53622449ad539178a4305be0f856246e393e4f6"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Apoio_bipartido.asset",
+      "bytes": 61576,
+      "sha256": "cb29140a05c4caf29baea22c7ea45c6fd97017f816e9df87a89f349597b3f419"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Apoio_bipartido.asset.meta",
+      "bytes": 188,
+      "sha256": "7362a7dfc5f647faef418cdf04c9db4d8d7a12407b5a69be7186ae26146df630"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Cabeca.asset",
+      "bytes": 63189,
+      "sha256": "9e93c4fbcb2b5bfecc255aceb25cb7e6be6348d10faa252dfdd57fa323e0bf83"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Cabeca.asset.meta",
+      "bytes": 188,
+      "sha256": "57b6d3d9347ee2c53fea282f76f2bdc8f2f01e146c8066adf34b86fa871374e8"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Canela_com_joelho.asset",
+      "bytes": 43634,
+      "sha256": "9bd0a23f7dee312dbc870bda32a6a8f3ec9ed86fa49578d3419944fd8d421b5f"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Canela_com_joelho.asset.meta",
+      "bytes": 188,
+      "sha256": "fc05a8bb4ccee00d1806b38999e5e42d95529d7b0773d0ed0435a8a7c9e91124"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Carapaca.asset",
+      "bytes": 57103,
+      "sha256": "b425e9b434b48497468ae81b5f34d8cfe54b83091fad7f09f23b5a752cf7b6ed"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Carapaca.asset.meta",
+      "bytes": 188,
+      "sha256": "d804367a86f87807ca8976b4a50486e0eb4748746396ce0cc23d2317556ac177"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Coxa_com_encaixe.asset",
+      "bytes": 68121,
+      "sha256": "d0307dae59168af48bea890912117927135a573a0d6c2504d56b8972ce5cc03f"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Coxa_com_encaixe.asset.meta",
+      "bytes": 188,
+      "sha256": "40ba91ec54dcab5e81f9cd23238e22eef10377f731d443004780f0b0a6315f39"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Dorso_segmentado.asset",
+      "bytes": 179190,
+      "sha256": "5928aed54dbfabd270633e34314ecb67b3672b049c7d91a5bee1c943f8e90a5f"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Dorso_segmentado.asset.meta",
+      "bytes": 188,
+      "sha256": "ddadbacec8d0e7629a57bde6018ee4e2673cc7f3e020442d2998d7cdc25f923d"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Mandibula_laminada.asset",
+      "bytes": 66436,
+      "sha256": "3b5e539504f56f8023326f1db26c05b8591f320e021eb2a63b4f3047a954b2bb"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Mandibula_laminada.asset.meta",
+      "bytes": 188,
+      "sha256": "a5edc52a009573b202c31df7e979478642b9170e1798cd39f5330d79c1cc2d48"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Testa.asset",
+      "bytes": 58383,
+      "sha256": "84862f91ac0f27f0987e8d623c126693e58b1fa06d2f8ced7cb768c21f27433c"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes/F_Testa.asset.meta",
+      "bytes": 188,
+      "sha256": "f490ee7d62029cadbc748c4b2a6a2106868f005ca0665c315e215456eac99208"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Meshes.meta",
+      "bytes": 172,
+      "sha256": "0e4f061f0487f869e8fa3ed34700a859def10b2b4f0d1001cf184f57e3502661"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Nucleo contido.mat",
+      "bytes": 4131,
+      "sha256": "86116d2b1ea56eb5d78e2dcb51b13b913a2886b0b44677dd35a0a08a5e2f63da"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies/Nucleo contido.mat.meta",
+      "bytes": 188,
+      "sha256": "edb1c56da1569d397967243c0ad02132940589d21094a38421d6e84be77f4986"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Enemies.meta",
+      "bytes": 172,
+      "sha256": "20a40f7571ef92489734000d0968374ba1961fc6a5403e2c9ec9838aa1953f77"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/Archive_MeshLibrary.fbx",
+      "bytes": 141612,
+      "sha256": "e1a906a6f0daadac375dab5878580438df5b393c6f1cb042c1caef6509b2ed2d"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/Archive_MeshLibrary.fbx.meta",
+      "bytes": 2993,
+      "sha256": "65709f2d6d16b64535f97223fede63c8c8e4fec86119257d781a47065a68b7ca"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/ArchiveCover.asset",
+      "bytes": 726602,
+      "sha256": "abd6ffa75dedddbd322c1bfb0466555467456eefec4d113711852ac9ee072a55"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/ArchiveCover.asset.meta",
+      "bytes": 188,
+      "sha256": "0a3368ddf6c4a7210fd309b587c7e0cbe2665261c17c51a404ec6e8b1cf9dcf1"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/ArchiveFloor.png",
+      "bytes": 6837,
+      "sha256": "57f4905ea3548ca7742980e92122e925cf702f9ac81ed6a4a34be23d4081836b"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/ArchiveFloor.png.meta",
+      "bytes": 2652,
+      "sha256": "cd1e2b79ca54bd5dfb9a06e8e66af4d8e7b161f1d77f8d6e042bc1af08c481f2"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/ArchiveServiceRack.asset",
+      "bytes": 460105,
+      "sha256": "3f7bb575024617f3bc7074e4ecc5fb6b93c673b8901fcc2f96a2ca6ce7e8bf7b"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/ArchiveServiceRack.asset.meta",
+      "bytes": 188,
+      "sha256": "a140866263fe60615592dedf5d2800baf98ec1f4e619a6a306ce0efb5b07ab11"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/Estrutura de arquivo.mat",
+      "bytes": 3852,
+      "sha256": "1321d8ce917789962c712fc36f6266dd95b7be4514acc86e8729bb7392b5b269"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/Estrutura de arquivo.mat.meta",
+      "bytes": 188,
+      "sha256": "bccb0a1a379fbaf8791c66ce78d5714d98b2576b91b1de62c0c58d1badcf2435"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/Piso de arquivo.mat",
+      "bytes": 3956,
+      "sha256": "8e8b93e04b3a1d86a3abf89bb8a849dc9e5e9f8192d54ab5571820db2bfdec47"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment/Piso de arquivo.mat.meta",
+      "bytes": 188,
+      "sha256": "da8f79d8455d6bc64cc7ecc3b45588cdd49392a70d74607ebaaa3f1b99c2f9a3"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp05/Environment.meta",
+      "bytes": 172,
+      "sha256": "6a017ba81e98271a88ce077eb939a58127e0da119f3ee58db4ed2180e2ba4156"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Conductor.png",
+      "bytes": 152975,
+      "sha256": "1eabc9d5d290643f4d971b9dbabd3e5b2db697ac460549252757ff785a5d1b9a"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Conductor.png.meta",
+      "bytes": 2651,
+      "sha256": "eddf82f584b1e0ecb94763ba4b9a7be8687df79c4cc9fffef83b38d81af76888"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Frost.png",
+      "bytes": 199715,
+      "sha256": "ad7ac78cf6991b4bf42d41bba48bcf62d333c27c5a4a779180f730be77808cab"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Frost.png.meta",
+      "bytes": 2651,
+      "sha256": "70ce2da43d6f318fc79b8335cc50d1cc8a3f54af34172e5527300ba62b1b78cd"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Ignite.png",
+      "bytes": 171604,
+      "sha256": "aa59264f37e980a8cefda616d9f5160f139fac02f0250e5f00b62aebc1fac3c5"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Ignite.png.meta",
+      "bytes": 2651,
+      "sha256": "9cceff11500821cd0656d19b0b8e56d76bdc4f678ca875ae149357e441b328e1"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Judgment.png",
+      "bytes": 181140,
+      "sha256": "f6eb77121d5b0e8c28cb5f1272fab4f1af1ac35fd0628af038b5b31c033e598f"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Judgment.png.meta",
+      "bytes": 2651,
+      "sha256": "64ebb6a02000b5ab2fd5ed1415af47fcb6ca22a7ebb429627d9089942d958713"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Piercing.png",
+      "bytes": 103645,
+      "sha256": "69e30d5cd338757143f08a0f033987d0641f6c4261955bad57dc4a0175d92024"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Piercing.png.meta",
+      "bytes": 2651,
+      "sha256": "b28dd74f3b120b79c599eac19064b5f424d866969a50b220fd0fbfaa18d68bf9"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/SpearOrbit.png",
+      "bytes": 184412,
+      "sha256": "798eadfeb93aaf504f6d86e98f6192bd2cec82d3a1f6a23850ea74ef97a39cef"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/SpearOrbit.png.meta",
+      "bytes": 2651,
+      "sha256": "3a4fdeab028904cb972dacf61a4d0df901db9be673e4d95002ef9bf6f846bed6"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/TemporalEcho.png",
+      "bytes": 191890,
+      "sha256": "1c7c28f31656522210e3d31244e53e9e3fb71b9ea9b516cddd45c2788148ff1d"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/TemporalEcho.png.meta",
+      "bytes": 2651,
+      "sha256": "8655c1aa341e48d9a3ef33fd20115f3538d6658ed157a05312922b2a145ae395"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Titanic.png",
+      "bytes": 221915,
+      "sha256": "207c6a5d1ea585373b441d4d92d9688820eb2b1f7c4ecf77bc670eda6d742cc0"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp05/Titanic.png.meta",
+      "bytes": 2651,
+      "sha256": "a79d82c1b7b71de75fdfec60f093e9535befd271242fa28c029329adab54bac1"
+    },
+    {
+      "path": "Assets/_Project/Prefabs/FirstSector/RunExp05/Emissor.prefab",
+      "bytes": 31875,
+      "sha256": "76c0312faf8ee2a5f6833555ce1e33202a7eb87f75f04801780b052b445a75c1"
+    },
+    {
+      "path": "Assets/_Project/Prefabs/FirstSector/RunExp05/Emissor.prefab.meta",
+      "bytes": 154,
+      "sha256": "0b2e9e483c5115aa003ea64d8a06318d4f5b2a13868e1f19f56d44c03337fe14"
+    },
+    {
+      "path": "Assets/_Project/Prefabs/FirstSector/RunExp05/Fragmento.prefab",
+      "bytes": 64892,
+      "sha256": "cc5211c0a3a29b562968b1eb84cf9eea9bf7b8123d1f636f9be01a84632f25d4"
+    },
+    {
+      "path": "Assets/_Project/Prefabs/FirstSector/RunExp05/Fragmento.prefab.meta",
+      "bytes": 154,
+      "sha256": "73bceeacfe012849002cfbe511f82956d87c03483892242a347d42727a0fa029"
+    },
+    {
+      "path": "Tools/RunExp05/Source/archive-dcc-manifest.json",
+      "bytes": 722,
+      "sha256": "1cc7f6d2debbe048a5ed820693400e7d7129dc5ae966990db0382145832dbeb5"
+    },
+    {
+      "path": "Tools/RunExp05/Source/Archive_ArtSource.blend",
+      "bytes": 1477360,
+      "sha256": "e886b4cb8215d967cf3c000e0573ec8be875b77e2e9c13c3daae28136a19b1da"
+    },
+    {
+      "path": "Tools/RunExp05/Source/emissor-contract.json",
+      "bytes": 44090,
+      "sha256": "a59a49cbdfa44210942c77acfdf7cc658a225f7c5596411d1869bb2ad7b22d94"
+    },
+    {
+      "path": "Tools/RunExp05/Source/emissor-dcc-manifest.json",
+      "bytes": 1570,
+      "sha256": "03b8a16c160f9ae7d70db914b6e7c016c4270e01ca8e71c0301477777f558b86"
+    },
+    {
+      "path": "Tools/RunExp05/Source/emissor-rest-rig.json",
+      "bytes": 759,
+      "sha256": "6081724d112af525e9312657c88b38153fae934e2fe7ec4d38b72d4d92fbb5bf"
+    },
+    {
+      "path": "Tools/RunExp05/Source/Emissor_ArtSource.blend",
+      "bytes": 1385570,
+      "sha256": "cabddb525618c0e4f4a0ccf5e858d6e172ee68804ebf165e623dc78f3b4d3c63"
+    },
+    {
+      "path": "Tools/RunExp05/Source/fragmento-concept.png",
+      "bytes": 1805849,
+      "sha256": "2dd576c09a837b7fc34c52e4cdf41d7f64d1c41b619d6da478e4ce0c36b75b78"
+    },
+    {
+      "path": "Tools/RunExp05/Source/fragmento-contract.json",
+      "bytes": 110190,
+      "sha256": "b2b4506b83dfdc048e7587623846c6148d333a6d9e72e588232273ed7b595ebe"
+    },
+    {
+      "path": "Tools/RunExp05/Source/fragmento-dcc-manifest.json",
+      "bytes": 1746,
+      "sha256": "00bd896d3cada2d18ea48a5b7695de064c379dfcb585670a74e1c7a921fbb498"
+    },
+    {
+      "path": "Tools/RunExp05/Source/fragmento-rest-rig.json",
+      "bytes": 2136,
+      "sha256": "55036d984048db984905789c6f8422d342478dc70d0e0e680a7f70e2a196b733"
+    },
+    {
+      "path": "Tools/RunExp05/Source/Fragmento_ArtSource.blend",
+      "bytes": 1328371,
+      "sha256": "9da78475605b1f21aebe18fbc1e54a0ae732d62027619d778130de56f3d94d8d"
+    },
+    {
+      "path": "Tools/RunExp05/Source/reward-atlas-01.png",
+      "bytes": 2478466,
+      "sha256": "46dc5b3fb588f6734517e1178d06a1350ba76fee0d4eee9c868649100153fef5"
+    },
+    {
+      "path": "Tools/RunExp05/Source/reward-atlas-02.png",
+      "bytes": 1228578,
+      "sha256": "01d66b5c3459f3f52114917af145f09a13f6b644ff5ba90bdec92f49b9a8a9fb"
+    }
+  ]
+}

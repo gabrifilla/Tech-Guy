@@ -1,5 +1,45 @@
 # Tech Guy — plano integrado de incursões, recompensas, salas e inimigos
 
+<!-- RUNEXP06 CURRENT -->
+## RUN-EXP-06 — publicação concluída e STOP antes07
+
+03/11/2026. C05 é normal nos tickets reais. Arte05 de inimigos/ambiente já estava instalada e foi consolidada sem duplicações. Aceite01–05 recebido no pedido06. Direção multiverso e brief2.5D são somente propostas; não iniciar07.
+
+Estado06 prevalece sobre gates pendentes/restrições de fases anteriores abaixo, preservados como histórico. [Evidência e limites](../decisions/RUN_EXP_06_RELATORIO.md).
+<!-- /RUNEXP06 CURRENT -->
+
+<!-- RUNEXP05 CURRENT -->
+## RUN-EXP-05 — fatia visual até05.4
+
+02/11/2026. C05 evolui a síntese com ilustrações originais e feedback curto, apenas laboratório/prévia reversível. Fragmento recebeu remodelagemDCC e Emissor passe secundário, cópias05 noContent; ambiente de arquivo sobre as massas aprovadas, sem física/grafo/economia novos. Direção visual e leitura sob pressão aguardam desenvolvedor. STOP05.4, sem06/publicaçãoC/expansão.
+
+05.4 **DONE no escopo técnico**:21/21 Play integrados,33/33 regressões selecionadas,10/10 verificações de habilidades e29/29 Edit.32 preferências existentes iguais;15 adições noPlayer original preservadas sem origem atribuída. EditorNexusBlockout limpa, fora dePlay. Aprovação visual humana pendente; sem declaração global de suíte verde.
+
+[Entrega e limites](../decisions/RUN_EXP_05_RELATORIO.md).
+<!-- /RUNEXP05 CURRENT -->
+
+Pedido adicional02/11/2026: prever cenários híbridos2.5D na próxima frente de mapas, com aprovação das imagens antes de aplicação em planos/volumes simples, física independente e comparação de custo. Ver [plano futuro](../decisions/MAP_ART_2_5D_FUTURE_PLAN.md). Preparação documental; não altera o escopo implementado05 nem inicia06.
+
+## RUN-EXP-04 — 04.0–04.5 executadas; STOP
+
+02/11/2026. 04.0 baseline atual e owners concluídos; 04.1 encontros implementados/testados, sem novos rosters obrigatórios; 04.2 revisão intermediária de dois inimigos integrada/testada; 04.3 apresentação das salas implementada/testada; 04.4 protótipo C e comparadores entregues; 04.5 validação técnica selecionada concluída. Aprovação física e publicação da UI pendentes. Não iniciar05, bosses, Singularity, novos boons ou Q/E/R modular.
+
+15/15 PlayMode integrados; matriz ampliada1/1 com12 cenários;33/33 regressões selecionadas;10/10 efeitos de habilidades;28/28 EditMode. Seleções não equivalem à suite global.1562/1574 hashes idênticos,12 alterações previstas,0 removidos no escopo;32 preferências TechGuy atuais iguais. Console final0 erros; checker mantém um erro e um aviso históricos fora do escopo. Editor NexusBlockout limpo/Edit, assistência desligada e sem overrides. [Entrega e revisão visual](../decisions/RUN_EXP_04_RELATORIO.md) · [Jobs, performance e limites](../decisions/RUN_EXP_04_5_VALIDATION.md).
+
+
+## RUN-EXP-03 — frente entregue até03.4; revisão visual aberta
+
+Atualização02/11/2026. O pedido03 aprovou a base Fragmento/Emissor/cobertura02 e rejeitou a UI02. Gameplay03 integra os candidatos e salas aberta/coberta à FirstSector normal antes do boss, conservando16 famílias anteriores, quantidades, grafo, recompensas e lifecycle. Não há garantia de sequência/build. Refino de modelos é intermediário. UIA/B são conceitos reais isolados/temporários, sem substituir produção. [Entrega consolidada e instruções](../decisions/RUN_EXP_03_RELATORIO.md) · [comparação visual](../validation/artifacts/run-exp-03/REVIEW.html).
+
+03.0 baseline,03.1 integração,03.2 conceitosUI,03.3 refino e03.4 validação concluídos no recorte técnico.12/12 PlayMode integrados,24/24 regressões e26/26 EditMode selecionados.8/32/64 ativos medidos no Editor. GateA técnicoPASS; B técnico com pressão humana por revisar; C/D **aguardam desenvolvedor**; E no filtro; F verificado no checkpointUnity30/10, com divergências posteriores de quatro preferências preservadas. Arte final e perfil standalone continuam abertos. **STOP03.4; sem expansão automática.** O histórico02 abaixo permanece histórico e não reverte a integração autorizada03.
+
+## RUN-EXP-02 — 30/10/2026, entrega isolada para revisão
+
+Fragmento/Emissor autorados e jogáveis, arenas aberta/cobertura com NavMesh próprio e inspeção de recompensas reais sem aquisição. **STOP após02.4; gameplay/visual/arte aguardam revisão física, sem rollout.** Relatório: [RUN_EXP_02_RELATORIO](../decisions/RUN_EXP_02_RELATORIO.md). Estabilidade13/13, fatia10/10, geometria1/1 e contratos11/11 em jobs separados; não somar seleções sobrepostas. Dívida histórica31 classificada, sem verde global353.306 hashes protegidos idênticos e três chaves PlayerPrefs iguais; limitação do inventário integral de preferências registrada.8/32/64 agentes reais medidos no Editor, sem aprovação de orçamento.
+
+Requisitos deste recorte: candidatos usam Actor/EnemyVariant/AI/CombatActions/reactions/receipts; produção preservada; cena de revisão sem ProgressionDirector/save/coins; estatísticas locais descartadas; UI consulta ofertas, não chama Choose. Cobertura separa volumes dos básicos e bloqueia projéteis, sem alterar oclusão global de áreas. Arte procedural/intermediária não equivale a arte final. Entrada: Tools/Tech Guy/RUN-EXP-02, em Edit Mode.
+
+
 **Frente RUN-EXP-01,30/10/2026. Plano para revisão; STOP após os protótipos da etapa2.** Identificador independente de GPR. Não autoriza rollout futuro, troca modular Q/E/R, armas/especiais/Singularity ou criação de bosses.
 
 ## Resultado desta frente

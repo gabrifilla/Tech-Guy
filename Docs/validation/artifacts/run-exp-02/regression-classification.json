@@ -1,0 +1,343 @@
+[
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsBasicUsesAndHitsComeFromProductionCallbacks",
+    "classification": "Expectativa obsoleta da fixture",
+    "evidence": "Asserção de HP/recursos/eventos antes do contato efetivo do scheduler vigente; não mudar timing de combate.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsBasicUsesAndHitsComeFromProductionCallbacks",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNaturalTicketsAcquireAAndCWithoutFixtureGrants",
+    "classification": "Ambiente/preparação de evidência",
+    "evidence": "Recusa correta de sobrescrever diretório reutilizado; regressão nova vermelha reproduziu destino repetido.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.CompositionNaturalTicketsAcquireAAndCWithoutFixtureGrants",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.FourPathsAcquireMutationAtC4AndExecuteItsRealShapeInNextCombat",
+    "classification": "Expectativa obsoleta da fixture",
+    "evidence": "Pressupõe catálogo reduzido ou presença garantida de card em sorteio; RNG não será alterado.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.FourPathsAcquireMutationAtC4AndExecuteItsRealShapeInNextCombat",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3AuthoredZeroChildDelaysKeepProducerFirst",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3AuthoredZeroChildDelaysKeepProducerFirst",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3BasicWithoutRunPaysOnceForMultipleAndLethalTargets",
+    "classification": "Expectativa obsoleta da fixture",
+    "evidence": "Asserção de HP/recursos/eventos antes do contato efetivo do scheduler vigente; não mudar timing de combate.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3BasicWithoutRunPaysOnceForMultipleAndLethalTargets",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CadencedWaitRejectsUnavailableSkillsAndAcceptsQWEOrBasic",
+    "classification": "Expectativa obsoleta da fixture",
+    "evidence": "Asserção de HP/recursos/eventos antes do contato efetivo do scheduler vigente; não mudar timing de combate.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3CadencedWaitRejectsUnavailableSkillsAndAcceptsQWEOrBasic",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3DemolishingAdvanceTraversesBodiesAndLaunchesOnlyOnBreak",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3DemolishingAdvanceTraversesBodiesAndLaunchesOnlyOnBreak",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3LegacyShockwaveKeepsItsEffectEventsAndDistinctProducer",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3LegacyShockwaveKeepsItsEffectEventsAndDistinctProducer",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3PublicEventOrderSeesCompleteGainAndNoDuplicateFist",
+    "classification": "Expectativa obsoleta da fixture",
+    "evidence": "Asserção de HP/recursos/eventos antes do contato efetivo do scheduler vigente; não mudar timing de combate.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3PublicEventOrderSeesCompleteGainAndNoDuplicateFist",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RConsumesOnceReservesRanksAndPublishesAtomicResources",
+    "classification": "Expectativa obsoleta da fixture",
+    "evidence": "Asserção de HP/recursos/eventos antes do contato efetivo do scheduler vigente; não mudar timing de combate.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RConsumesOnceReservesRanksAndPublishesAtomicResources",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3ReentrantRequestWaitsUntilImpactAndRevalidatesMana",
+    "classification": "Expectativa obsoleta da fixture",
+    "evidence": "Asserção de HP/recursos/eventos antes do contato efetivo do scheduler vigente; não mudar timing de combate.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3ReentrantRequestWaitsUntilImpactAndRevalidatesMana",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RewardsOfferExecutableMutationsAndPreserveLegacyQ",
+    "classification": "Expectativa obsoleta da fixture",
+    "evidence": "Pressupõe catálogo reduzido ou presença garantida de card em sorteio; RNG não será alterado.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3RewardsOfferExecutableMutationsAndPreserveLegacyQ",
+      "baseline": "Passed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3SharedHudGroupsEffectiveGainsShowsMutationsAndUnbinds",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.GauntletPhase3SharedHudGroupsEffectiveGainsShowsMutationsAndUnbinds",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualBossBatchDeathWinsAndNeverCreatesPortal",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualBossBatchDeathWinsAndNeverCreatesPortal",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualDeathBeforePortalRejectsResidualContactAndOldSessionRequests",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualDeathBeforePortalRejectsResidualContactAndOldSessionRequests",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualExtractionClaimsOnceAndRetryPreservesResultAndTeardown",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualExtractionClaimsOnceAndRetryPreservesResultAndTeardown",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualImpossibleFirstMutationKeepsBossBlockedAndAllowsAbortWithoutVictory",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualImpossibleFirstMutationKeepsBossBlockedAndAllowsAbortWithoutVictory",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastBasicBatchWaitsForFeedbackCloseAndPreservesLethalEnergyHitStopAndEpoch",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastBasicBatchWaitsForFeedbackCloseAndPreservesLethalEnergyHitStopAndEpoch",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastEchoClosesItsOwnBatchAndNeverPaysNativeEnergyAgain",
+    "classification": "Caso não resolvido",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastEchoClosesItsOwnBatchAndNeverPaysNativeEnergyAgain",
+      "baseline": "Failed",
+      "fixed": "Passed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastSkillCancelsFutureChildrenAfterConfirmedProducerWithoutResettingCategory",
+    "classification": "Teste não determinístico",
+    "evidence": "Falhou na seleção353 e passou em ambos os comparadores; causa temporal/ambiental não isolada.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualLastSkillCancelsFutureChildrenAfterConfirmedProducerWithoutResettingCategory",
+      "baseline": "Passed",
+      "fixed": "Passed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualPlayerDeathInLastLethalBatchWinsWithoutRewardPublication",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualPlayerDeathInLastLethalBatchWinsWithoutRewardPublication",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRepairUsesRealHealthEventAndHudWithoutChangingManaAsuraOrCooldowns",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.ManualRepairUsesRealHealthEventAndHudWithoutChangingManaAsuraOrCooldowns",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.MigratedGauntletBasicInputsUseWeaponReactionWithoutLeakingToBow",
+    "classification": "Expectativa obsoleta da fixture",
+    "evidence": "Asserção de HP/recursos/eventos antes do contato efetivo do scheduler vigente; não mudar timing de combate.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.MigratedGauntletBasicInputsUseWeaponReactionWithoutLeakingToBow",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseConfirmedAbortWaitsForResumeFrameAndReturnsFromUnavailableMutationWithoutVictory",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.PauseConfirmedAbortWaitsForResumeFrameAndReturnsFromUnavailableMutationWithoutVictory",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.RunFocusDiscountsEffectiveQCostOnceForEachWeaponFamily",
+    "classification": "Comportamento histórico falhando",
+    "evidence": "Reproduzido antes e depois do fix; não estabelece causa de produção.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.RunFocusDiscountsEffectiveQCostOnceForEachWeaponFamily",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonContactStakeDamageCanEndEncounterInsideItsCallback",
+    "classification": "Teste não determinístico",
+    "evidence": "Falhou na seleção353 e passou em ambos os comparadores; causa temporal/ambiental não isolada.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonContactStakeDamageCanEndEncounterInsideItsCallback",
+      "baseline": "Passed",
+      "fixed": "Passed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonHorizonUsesOneCostAndCrossingConsumesItsOriginalRootOnce",
+    "classification": "Teste não determinístico",
+    "evidence": "Falhou na seleção353 e passou em ambos os comparadores; causa temporal/ambiental não isolada.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonHorizonUsesOneCostAndCrossingConsumesItsOriginalRootOnce",
+      "baseline": "Passed",
+      "fixed": "Passed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonPathStakeDamageCanDisableTheExecutorInsideItsCallback",
+    "classification": "Teste não determinístico",
+    "evidence": "Falhou na seleção353 e passou em ambos os comparadores; causa temporal/ambiental não isolada.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonPathStakeDamageCanDisableTheExecutorInsideItsCallback",
+      "baseline": "Passed",
+      "fixed": "Passed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.TargetClickDuringHitStopKeepsOneAttackAfterRelease",
+    "classification": "Teste não determinístico",
+    "evidence": "Falhou na seleção353 e passou em ambos os comparadores; causa temporal/ambiental não isolada.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TargetClickDuringHitStopKeepsOneAttackAfterRelease",
+      "baseline": "Passed",
+      "fixed": "Passed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+    "classification": "Ambiente/preparação de evidência",
+    "evidence": "Recusa correta de sobrescrever diretório reutilizado; regressão nova vermelha reproduziu destino repetido.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorGameViewShowsMovingWindAndImpactBoundArc",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  },
+  {
+    "test": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+    "classification": "Ambiente/preparação de evidência",
+    "evidence": "Recusa correta de sobrescrever diretório reutilizado; regressão nova vermelha reproduziu destino repetido.",
+    "comparison": {
+      "name": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorNaturalTicketsAcquireBothWithoutFixtureGrants",
+      "baseline": "Failed",
+      "fixed": "Failed"
+    },
+    "new_production_defect_confirmed": false
+  }
+]

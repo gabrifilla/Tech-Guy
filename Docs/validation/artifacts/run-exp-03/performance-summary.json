@@ -1,0 +1,302 @@
+[
+  {
+    "count": 8,
+    "renderers": 75,
+    "triangles": 3300,
+    "materials": 3,
+    "skinned": 14,
+    "skinnedTriangles": 54944,
+    "impacts": 10,
+    "droppedQueue": 0,
+    "spawnMs": 7.7115,
+    "cleanupMs": 430.9118,
+    "fixture": "Editor; roster controlado 1:1:1 Fragmento/Emissor/Grunt no snapshot; spawn pelo diretor nativo. AI/nav/dano/animações ativos. Jogador imune, moedas removidas apenas na fixture. Amostrador LINQ/UTF acrescenta CPU e GC. BehaviourUpdate é agregado, não CPU isolada da AI. Sem aprovação de orçamento standalone.",
+    "markerNames": [
+      "BehaviourUpdate",
+      "MeshSkinning.Update",
+      "MeshSkinning.Skin",
+      "Main Thread",
+      "Components.NavMeshAgent.State",
+      "NavMeshManager",
+      "GC Allocated In Frame",
+      "RUNEXP03.EnemyPose"
+    ],
+    "source": "firstsector/20261030-231908-5338985/integrated-active-8.json",
+    "samples": 1174,
+    "frameMs": {
+      "0.5": 3.7851970195770264,
+      "0.95": 5.276594161987305,
+      "0.99": 6.84559965133667
+    },
+    "active_min": 8,
+    "moving": {
+      "min": 0,
+      "max": 6,
+      "p95": 6
+    },
+    "windups": {
+      "min": 0,
+      "max": 4,
+      "p95": 3
+    },
+    "projectiles": {
+      "min": 0,
+      "max": 3,
+      "p95": 3
+    },
+    "drawCalls": {
+      "min": 372,
+      "max": 503,
+      "p95": 499
+    },
+    "batches": {
+      "min": -1,
+      "max": -1,
+      "p95": -1
+    },
+    "queue": {
+      "min": 0,
+      "max": 0,
+      "p95": 0
+    },
+    "roots": {
+      "min": 0,
+      "max": 0,
+      "p95": 0
+    },
+    "markers": {
+      "BehaviourUpdate": {
+        "p50": 554700,
+        "p95": 862400
+      },
+      "MeshSkinning.Update": {
+        "p50": 50100,
+        "p95": 70900
+      },
+      "MeshSkinning.Skin": {
+        "p50": 0,
+        "p95": 0
+      },
+      "Main Thread": {
+        "p50": 3773500,
+        "p95": 5283800
+      },
+      "Components.NavMeshAgent.State": {
+        "p50": 0,
+        "p95": 0
+      },
+      "NavMeshManager": {
+        "p50": 76400,
+        "p95": 110600
+      },
+      "GC Allocated In Frame": {
+        "p50": 374480,
+        "p95": 471808
+      },
+      "RUNEXP03.EnemyPose": {
+        "p50": 41300,
+        "p95": 60700
+      }
+    }
+  },
+  {
+    "count": 32,
+    "renderers": 275,
+    "triangles": 12100,
+    "materials": 3,
+    "skinned": 70,
+    "skinnedTriangles": 274720,
+    "impacts": 32,
+    "droppedQueue": 0,
+    "spawnMs": 21.5971,
+    "cleanupMs": 435.8392,
+    "fixture": "Editor; roster controlado 1:1:1 Fragmento/Emissor/Grunt no snapshot; spawn pelo diretor nativo. AI/nav/dano/animações ativos. Jogador imune, moedas removidas apenas na fixture. Amostrador LINQ/UTF acrescenta CPU e GC. BehaviourUpdate é agregado, não CPU isolada da AI. Sem aprovação de orçamento standalone.",
+    "markerNames": [
+      "BehaviourUpdate",
+      "MeshSkinning.Update",
+      "MeshSkinning.Skin",
+      "Main Thread",
+      "Components.NavMeshAgent.State",
+      "NavMeshManager",
+      "GC Allocated In Frame",
+      "RUNEXP03.EnemyPose"
+    ],
+    "source": "firstsector/20261030-231853-8419867/integrated-active-32.json",
+    "samples": 647,
+    "frameMs": {
+      "0.5": 6.821003437042236,
+      "0.95": 9.651601791381836,
+      "0.99": 11.729300498962402
+    },
+    "active_min": 32,
+    "moving": {
+      "min": 0,
+      "max": 22,
+      "p95": 22
+    },
+    "windups": {
+      "min": 0,
+      "max": 11,
+      "p95": 11
+    },
+    "projectiles": {
+      "min": 0,
+      "max": 11,
+      "p95": 9
+    },
+    "drawCalls": {
+      "min": 1317,
+      "max": 1565,
+      "p95": 1562
+    },
+    "batches": {
+      "min": -1,
+      "max": -1,
+      "p95": -1
+    },
+    "queue": {
+      "min": 0,
+      "max": 0,
+      "p95": 0
+    },
+    "roots": {
+      "min": 0,
+      "max": 0,
+      "p95": 0
+    },
+    "markers": {
+      "BehaviourUpdate": {
+        "p50": 839000,
+        "p95": 1393100
+      },
+      "MeshSkinning.Update": {
+        "p50": 106900,
+        "p95": 145900
+      },
+      "MeshSkinning.Skin": {
+        "p50": 0,
+        "p95": 0
+      },
+      "Main Thread": {
+        "p50": 6788300,
+        "p95": 9521600
+      },
+      "Components.NavMeshAgent.State": {
+        "p50": 0,
+        "p95": 0
+      },
+      "NavMeshManager": {
+        "p50": 184900,
+        "p95": 275800
+      },
+      "GC Allocated In Frame": {
+        "p50": 624460,
+        "p95": 759806
+      },
+      "RUNEXP03.EnemyPose": {
+        "p50": 158100,
+        "p95": 239300
+      }
+    }
+  },
+  {
+    "count": 64,
+    "renderers": 543,
+    "triangles": 23820,
+    "materials": 3,
+    "skinned": 147,
+    "skinnedTriangles": 576912,
+    "impacts": 44,
+    "droppedQueue": 0,
+    "spawnMs": 37.5175,
+    "cleanupMs": 450.27610000000004,
+    "fixture": "Editor; roster controlado 1:1:1 Fragmento/Emissor/Grunt no snapshot; spawn pelo diretor nativo. AI/nav/dano/animações ativos. Jogador imune, moedas removidas apenas na fixture. Amostrador LINQ/UTF acrescenta CPU e GC. BehaviourUpdate é agregado, não CPU isolada da AI. Sem aprovação de orçamento standalone.",
+    "markerNames": [
+      "BehaviourUpdate",
+      "MeshSkinning.Update",
+      "MeshSkinning.Skin",
+      "Main Thread",
+      "Components.NavMeshAgent.State",
+      "NavMeshManager",
+      "GC Allocated In Frame",
+      "RUNEXP03.EnemyPose"
+    ],
+    "source": "firstsector/20261030-231901-2983228/integrated-active-64.json",
+    "samples": 436,
+    "frameMs": {
+      "0.5": 10.438003540039062,
+      "0.95": 13.309800148010254,
+      "0.99": 14.56770133972168
+    },
+    "active_min": 64,
+    "moving": {
+      "min": 23,
+      "max": 48,
+      "p95": 48
+    },
+    "windups": {
+      "min": 0,
+      "max": 23,
+      "p95": 23
+    },
+    "projectiles": {
+      "min": 0,
+      "max": 14,
+      "p95": 12
+    },
+    "drawCalls": {
+      "min": 2915,
+      "max": 3171,
+      "p95": 3171
+    },
+    "batches": {
+      "min": -1,
+      "max": -1,
+      "p95": -1
+    },
+    "queue": {
+      "min": 0,
+      "max": 0,
+      "p95": 0
+    },
+    "roots": {
+      "min": 0,
+      "max": 0,
+      "p95": 0
+    },
+    "markers": {
+      "BehaviourUpdate": {
+        "p50": 1340500,
+        "p95": 2015100
+      },
+      "MeshSkinning.Update": {
+        "p50": 165400,
+        "p95": 224600
+      },
+      "MeshSkinning.Skin": {
+        "p50": 0,
+        "p95": 0
+      },
+      "Main Thread": {
+        "p50": 10401500,
+        "p95": 13249600
+      },
+      "Components.NavMeshAgent.State": {
+        "p50": 0,
+        "p95": 0
+      },
+      "NavMeshManager": {
+        "p50": 299800,
+        "p95": 431400
+      },
+      "GC Allocated In Frame": {
+        "p50": 995180,
+        "p95": 1219106
+      },
+      "RUNEXP03.EnemyPose": {
+        "p50": 321900,
+        "p95": 485200
+      }
+    }
+  }
+]

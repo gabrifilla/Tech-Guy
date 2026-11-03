@@ -1,0 +1,148 @@
+{
+  "missing": [],
+  "images": 81,
+  "jobs": [
+    {
+      "file": "art-final.json",
+      "job": "5f39b0a28e514783a92b8642b46cce16",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 10.1013859,
+      "resultState": "Passed"
+    },
+    {
+      "file": "art-play-warm.json",
+      "job": "d0b42145bf444eb3beea82e8ba76446a",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 9.9516237,
+      "resultState": "Passed"
+    },
+    {
+      "file": "art-play.json",
+      "job": "5675aa08bf01495caf1f0793d538495a",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 10.4057856,
+      "resultState": "Passed"
+    },
+    {
+      "file": "baseline-play.json",
+      "job": "2873b6f5b7b34fab8188ed7f969066dc",
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 67.6440655,
+      "resultState": "Passed"
+    },
+    {
+      "file": "environment-first.json",
+      "job": "c7822075a0bc4dee9e8d8ae0f49a352d",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 15.4135458,
+      "resultState": "Passed"
+    },
+    {
+      "file": "final-edit.json",
+      "job": "391fbbeca474439bb40e58a44a36a99c",
+      "total": 29,
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 1.7387881,
+      "resultState": "Passed"
+    },
+    {
+      "file": "final-play.json",
+      "job": "d1652afc48ef4b01a31f361beb9de68c",
+      "total": 21,
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 263.7586158,
+      "resultState": "Passed"
+    },
+    {
+      "file": "integration-second.json",
+      "job": "d25be072df654c39a773209f6a51467a",
+      "total": 2,
+      "passed": 1,
+      "failed": 1,
+      "skipped": 0,
+      "durationSeconds": 1.7630034,
+      "resultState": "Failed(Child)"
+    },
+    {
+      "file": "integration-third.json",
+      "job": "7e0c1c0f5c0742c386714df8db4e0eb5",
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 18.1333096,
+      "resultState": "Passed"
+    },
+    {
+      "file": "regression.json",
+      "job": "20501c947d8d45e1b6f073462f80ccff",
+      "total": 33,
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 44.5932332,
+      "resultState": "Passed"
+    },
+    {
+      "file": "skill-effects.json",
+      "job": "35ae7fabc39844c3b8edf2cb77f6b0a4",
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 11.3461235,
+      "resultState": "Passed"
+    },
+    {
+      "file": "ui-final.json",
+      "job": "7fcc50d08c6b497b9dc626ddf2b19da7",
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 23.0180159,
+      "resultState": "Passed"
+    },
+    {
+      "file": "ui-first.json",
+      "job": "67ffd450984d42c79768b456035f5d97",
+      "total": 6,
+      "passed": 5,
+      "failed": 1,
+      "skipped": 0,
+      "durationSeconds": 20.8189364,
+      "resultState": "Failed(Child)"
+    },
+    {
+      "file": "ui-second.json",
+      "job": "4e2ee2d2a7a64b11ada186ae0c3e1dd6",
+      "total": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 21.1888993,
+      "resultState": "Passed"
+    }
+  ],
+  "zipBytes": 17784162,
+  "crcError": null
+}

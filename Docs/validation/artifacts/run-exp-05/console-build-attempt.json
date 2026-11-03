@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "message": "Retrieved 2 log entries.",
+  "data": [
+    "ArgumentException: Invalid build path: 'Library/RunExp05/Standalone/TechGuyProfile.exe'. The 'Library' directory is an internal work directory of Unity and projects should not be built inside it. Please choose another directory for the build output.",
+    "NullReferenceException: Object reference not set to an instance of an object"
+  ]
+}

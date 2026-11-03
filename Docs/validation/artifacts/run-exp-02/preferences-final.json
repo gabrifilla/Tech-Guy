@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "scene": "Assets/_Project/Scenes/NexusBlockout.unity",
+      "playing": false,
+      "prefs": [
+        {
+          "key": "TechGuy.Loadout.Weapon",
+          "exists": true,
+          "number": 0,
+          "value_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "key": "TechGuy.RunSummary.v1",
+          "exists": true,
+          "number": -999,
+          "value_sha256": "d8e57f509fd0afa2656cc652f4bded039aa412a81242bbe5d934b11d80b688c0"
+        },
+        {
+          "key": "TechGuy.Progress.TutorialSeen",
+          "exists": true,
+          "number": 1,
+          "value_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    "compiler": "codedom"
+  }
+}

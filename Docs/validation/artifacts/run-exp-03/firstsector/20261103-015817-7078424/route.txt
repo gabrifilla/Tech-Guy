@@ -1,0 +1,9 @@
+seed=1 weapon=2 path=0/1/2/4/5/7/8/9/10; completion automated; player immune only in fixture
+1:Combat cover=False Hooker|Sniper|Fragmento|Shooter|Mirror
+2:Combat cover=True Sniper|Swarm|Heavy|Hooker
+4:Combat cover=False Shooter|Grunt|Emissor|Grunt|Mirror|Healer|SpreadShooter
+5:Combat cover=True Rush|Sniper|Spawner|Grunt|Healer|Fragmento|Fragmento
+7:Elite cover=False Magic_Haste|Shooter|Emissor|HazardCaster|HazardCaster|Grunt|Rush|Bomber
+8:Combat cover=True Hooker|Grunt|SpreadShooter|Charger|SpreadShooter|Hooker|Grunt|ShieldSupport
+9:Combat cover=True Swarm|Shooter|Charger|ShieldSupport|Rush|Mirror|Swarm|Rush
+10:Boss cover=False Heavy

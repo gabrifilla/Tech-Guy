@@ -17,7 +17,7 @@ public static class ManualRunRandomizer
     private const float SpawnInset = 3f;
 
     public static ManualRouteSnapshot Generate(ManualRouteSnapshot source, ulong runSeed,
-        IReadOnlyList<GameObject> enemyPrefabs)
+        IReadOnlyList<GameObject> enemyPrefabs, FirstSectorContentDefinition content = null)
     {
         if (source == null) throw new ArgumentNullException(nameof(source));
         var ordered = source.Nodes.OrderBy(node => node.Id).ToList();
@@ -34,6 +34,11 @@ public static class ManualRunRandomizer
         }
         Vector3 origin = source.Node(source.StartNode).Center;
         var pool = BuildPool(source, enemyPrefabs);
+        if(content)
+        {
+            var seen=new HashSet<GameObject>(pool);
+            foreach(var prefab in content.AdditionalEnemies)AddPrefab(prefab,pool,seen);
+        }
         var fighters = pool.Where(prefab => !IsSupport(prefab)).ToList();
         if (fighters.Count == 0)
             throw new InvalidOperationException("Procedural run needs at least one combat-capable enemy prefab.");
@@ -52,6 +57,8 @@ public static class ManualRunRandomizer
             var center = origin + new Vector3(lanes.TryGetValue(node.Id, out float x) ? x : 0f, 0f, levels[depths[node.Id]]);
             var steps = PlanRewards(node, rewards, node.Id == openingReward);
             var spawns = PlanEnemies(node, size, depths[node.Id], pool, fighters, enemies);
+            if(content && content.HasCover(runSeed,node))spawns=FirstSectorContentDefinition.SafeSpawns(spawns,size);
+            if(content && node.Kind==ManualNodeKind.Combat)spawns=FirstSectorEncounterLayout.Arrange(spawns,runSeed,node.Id);
             RunRewardKind first = steps.Count == 0 ? RunRewardKind.None : steps[0].Kind;
             int acquisitions = steps.Count == 0 ? 0 : steps[0].Quantity;
             var copy = new ManualNodeDefinition(node.Id, node.Label, node.Kind, first, acquisitions,

@@ -1,5 +1,9 @@
 # Roadmap de qualidade e prioridade
 
+## Próxima revisão dos mapas — imagens com volume aparente
+
+Avaliar uma abordagem híbrida2.5D com imagens aprovadas pelo desenvolvedor antes da aplicação em planos ou volumes simples. Protótipo pequeno, física/LOS preservados e custo comparável precedem a adoção por família. [Plano registrado](decisions/MAP_ART_2_5D_FUTURE_PLAN.md); não é conversão atual dos mapas nem início automático deRUN-EXP-06.
+
 ## Estado vigente — GPR-01.1,28/10/2026
 
 GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.

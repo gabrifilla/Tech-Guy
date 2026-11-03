@@ -1,0 +1,59 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "7fd066ef6b754ac699edb2b896b4146a",
+    "status": "failed",
+    "mode": "PlayMode",
+    "started_unix_ms": 1793397724140,
+    "finished_unix_ms": 1793397732998,
+    "last_update_unix_ms": 1793397732998,
+    "progress": {
+      "completed": 1,
+      "total": 1,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.RunExp02IntegrationTests.ReviewCoverKeepsGauntletAndSpearBasicsOutsideReachAcrossSolid",
+      "last_finished_unix_ms": 1793397732960,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [
+        {
+          "full_name": "TechGuy.Tests.RunExp02IntegrationTests.ReviewCoverKeepsGauntletAndSpearBasicsOutsideReachAcrossSolid",
+          "message": "  Weapons/Melee/Spear/Spear: opaque review cover must separate the basic hit volumes.\r\n  Expected: 1000.0f\r\n  But was:  978.0f\r\n"
+        }
+      ],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "PlayMode",
+      "summary": {
+        "total": 1,
+        "passed": 0,
+        "failed": 1,
+        "skipped": 0,
+        "durationSeconds": 2.6980949,
+        "resultState": "Failed(Child)"
+      },
+      "results": [
+        {
+          "name": "ReviewCoverKeepsGauntletAndSpearBasicsOutsideReachAcrossSolid",
+          "fullName": "TechGuy.Tests.RunExp02IntegrationTests.ReviewCoverKeepsGauntletAndSpearBasicsOutsideReachAcrossSolid",
+          "state": "Failed",
+          "durationSeconds": 2.6526705,
+          "message": "  Weapons/Melee/Spear/Spear: opaque review cover must separate the basic hit volumes.\r\n  Expected: 1000.0f\r\n  But was:  978.0f\r\n",
+          "stackTrace": "at TechGuy.Tests.RunExp02IntegrationTests+<ReviewCoverKeepsGauntletAndSpearBasicsOutsideReachAcrossSolid>d__14.MoveNext () [0x0027c] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp02IntegrationTests.cs:177\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player RUN-EXP-02\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        }
+      ]
+    }
+  },
+  "hint": null
+}

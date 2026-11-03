@@ -1,0 +1,513 @@
+{
+    "fixture": "Full retained manual-catalog declarations sourced from native weapon/expansion/mutation/protocol branches. Eligibility recipe witnesses use native current eligibility and ApplyOffer on disposable Lab inventory. Read-only presentation is explicit assistance, not normal RNG or end-to-end ticket evidence. Disabled declarations and out-of-pool art reported separately.",
+    "entries": [
+        {
+            "id": "augment_gauntlet_echoing_fist",
+            "title": "Punho Ecoante",
+            "family": "APRIMORAMENTO",
+            "art": "TemporalEcho",
+            "scope": "HABILIDADE · E",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 3,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "augment_gauntlet_perfect_rhythm",
+            "title": "Ritmo Perfeito",
+            "family": "APRIMORAMENTO",
+            "art": "family-mark",
+            "scope": "ESPECIAL · Mouse direito",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 3,
+            "prerequisites": [
+                "gauntlet_mutation_CadencedAsura"
+            ],
+            "dedicatedArt": false
+        },
+        {
+            "id": "augment_gauntlet_temporal_echo",
+            "title": "Eco Temporal",
+            "family": "APRIMORAMENTO",
+            "art": "TemporalEcho",
+            "scope": "HABILIDADE · Q, R",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 3,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "augment_gauntlet_violent_fall",
+            "title": "Queda Violenta",
+            "family": "APRIMORAMENTO",
+            "art": "family-mark",
+            "scope": "HABILIDADE · Q",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 3,
+            "prerequisites": [
+                "mutation_gauntlet_eclipse_uppercut"
+            ],
+            "dedicatedArt": false
+        },
+        {
+            "id": "conductor",
+            "title": "Condutor",
+            "family": "PROTOCOLO",
+            "art": "Conductor",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "detonation",
+            "title": "Detonação",
+            "family": "PROTOCOLO",
+            "art": "family-mark",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "duo_gauntlet_titan_fall",
+            "title": "Queda dos Titãs",
+            "family": "RESSONÂNCIA / DUO",
+            "art": "family-mark",
+            "scope": "HABILIDADE · Q",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 4,
+            "prerequisites": [
+                "mutation_gauntlet_eclipse_uppercut",
+                "augment_gauntlet_violent_fall"
+            ],
+            "dedicatedArt": false
+        },
+        {
+            "id": "frost",
+            "title": "Geada",
+            "family": "PROTOCOLO",
+            "art": "Frost",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "gauntlet_mutation_CadencedAsura",
+            "title": "Asura Cadenciada",
+            "family": "MUTAÇÃO",
+            "art": "family-mark",
+            "scope": "ESPECIAL · Mouse direito",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "ignite",
+            "title": "Ignição",
+            "family": "PROTOCOLO",
+            "art": "Ignite",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "mutation_gauntlet_eclipse_uppercut",
+            "title": "Uppercut do Eclipse",
+            "family": "MUTAÇÃO",
+            "art": "family-mark",
+            "scope": "HABILIDADE · Q",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "mutation_gauntlet_titan_fists",
+            "title": "Punhos Titânicos",
+            "family": "MUTAÇÃO",
+            "art": "Titanic",
+            "scope": "ATAQUE BÁSICO",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "weapon_AsuraEcho",
+            "title": "Asura reverberante",
+            "family": "TÉCNICA",
+            "art": "family-mark",
+            "scope": "ESPECIAL · Mouse direito",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 2,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "weapon_FlurryEcho",
+            "title": "Mil punhos",
+            "family": "TÉCNICA",
+            "art": "family-mark",
+            "scope": "HABILIDADE · E",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 0,
+            "glyph": 2,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "augment_bow_cutting_return",
+            "title": "Retorno Cortante",
+            "family": "APRIMORAMENTO",
+            "art": "family-mark",
+            "scope": "ESPECIAL · Mouse direito",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 3,
+            "prerequisites": [
+                "mutation_bow_judgment_arrow"
+            ],
+            "dedicatedArt": false
+        },
+        {
+            "id": "augment_bow_predator_seal",
+            "title": "Selo do Predador",
+            "family": "APRIMORAMENTO",
+            "art": "family-mark",
+            "scope": "HABILIDADE · R",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 3,
+            "prerequisites": [
+                "mutation_bow_mine_garden"
+            ],
+            "dedicatedArt": false
+        },
+        {
+            "id": "conductor",
+            "title": "Condutor",
+            "family": "PROTOCOLO",
+            "art": "Conductor",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "detonation",
+            "title": "Detonação",
+            "family": "PROTOCOLO",
+            "art": "family-mark",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "duo_bow_eclipse_archer",
+            "title": "Arqueiro do Eclipse",
+            "family": "RESSONÂNCIA / DUO",
+            "art": "family-mark",
+            "scope": "ESPECIAL · Mouse direito",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 4,
+            "prerequisites": [
+                "mutation_bow_hunting_bond",
+                "mutation_bow_judgment_arrow"
+            ],
+            "dedicatedArt": false
+        },
+        {
+            "id": "duo_bow_hunting_detonator",
+            "title": "Detonador da Caça",
+            "family": "RESSONÂNCIA / DUO",
+            "art": "family-mark",
+            "scope": "HABILIDADE · R",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 4,
+            "prerequisites": [
+                "mutation_bow_mine_garden",
+                "augment_bow_predator_seal"
+            ],
+            "dedicatedArt": false
+        },
+        {
+            "id": "frost",
+            "title": "Geada",
+            "family": "PROTOCOLO",
+            "art": "Frost",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "ignite",
+            "title": "Ignição",
+            "family": "PROTOCOLO",
+            "art": "Ignite",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "mutation_bow_hunting_bond",
+            "title": "Vínculo da Caça",
+            "family": "MUTAÇÃO",
+            "art": "family-mark",
+            "scope": "HABILIDADE · Q",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "mutation_bow_judgment_arrow",
+            "title": "Flecha do Juízo",
+            "family": "MUTAÇÃO",
+            "art": "Judgment",
+            "scope": "ESPECIAL · Mouse direito",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "mutation_bow_mine_garden",
+            "title": "Jardim de Minas",
+            "family": "MUTAÇÃO",
+            "art": "family-mark",
+            "scope": "HABILIDADE · R",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "weapon_RapidBurst",
+            "title": "Tambor de disparos",
+            "family": "MUTAÇÃO",
+            "art": "family-mark",
+            "scope": "HABILIDADE · Q",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "weapon_Ricochet",
+            "title": "Flecha saltadora",
+            "family": "TÉCNICA",
+            "art": "family-mark",
+            "scope": "FLECHAS",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 1,
+            "glyph": 2,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "augment_spear_moon_echo",
+            "title": "Eco da Lua",
+            "family": "APRIMORAMENTO",
+            "art": "family-mark",
+            "scope": "ESPECIAL · Mouse direito",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 3,
+            "prerequisites": [
+                "mutation_spear_dragon_orbit"
+            ],
+            "dedicatedArt": false
+        },
+        {
+            "id": "augment_spear_return_mark",
+            "title": "Marca de Retorno",
+            "family": "APRIMORAMENTO",
+            "art": "family-mark",
+            "scope": "ESPECIAL · Mouse direito",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 3,
+            "prerequisites": [
+                "mutation_spear_dragon_orbit"
+            ],
+            "dedicatedArt": false
+        },
+        {
+            "id": "conductor",
+            "title": "Condutor",
+            "family": "PROTOCOLO",
+            "art": "Conductor",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "detonation",
+            "title": "Detonação",
+            "family": "PROTOCOLO",
+            "art": "family-mark",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "duo_spear_return_line",
+            "title": "Linha de Retorno",
+            "family": "RESSONÂNCIA / DUO",
+            "art": "family-mark",
+            "scope": "ESPECIAL · Mouse direito",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 4,
+            "prerequisites": [
+                "mutation_spear_dragon_orbit",
+                "augment_spear_return_mark"
+            ],
+            "dedicatedArt": false
+        },
+        {
+            "id": "frost",
+            "title": "Geada",
+            "family": "PROTOCOLO",
+            "art": "Frost",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "ignite",
+            "title": "Ignição",
+            "family": "PROTOCOLO",
+            "art": "Ignite",
+            "scope": "COMBATE",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 1,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "mutation_spear_dragon_orbit",
+            "title": "Órbita do Dragão",
+            "family": "MUTAÇÃO",
+            "art": "SpearOrbit",
+            "scope": "ESPECIAL · Mouse direito",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": true
+        },
+        {
+            "id": "mutation_spear_horizon_cut",
+            "title": "Corte do Horizonte",
+            "family": "MUTAÇÃO",
+            "art": "family-mark",
+            "scope": "HABILIDADE · Q",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "mutation_spear_stake_siege",
+            "title": "Cerco de Hastes",
+            "family": "MUTAÇÃO",
+            "art": "family-mark",
+            "scope": "HABILIDADE · R",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "weapon_ChainThrust",
+            "title": "Encadeamento",
+            "family": "MUTAÇÃO",
+            "art": "family-mark",
+            "scope": "ESTOCADAS",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "weapon_EchoThrust",
+            "title": "Estocada ecoante",
+            "family": "TÉCNICA",
+            "art": "family-mark",
+            "scope": "ESTOCADAS",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 2,
+            "prerequisites": [],
+            "dedicatedArt": false
+        },
+        {
+            "id": "weapon_PhantomSpear",
+            "title": "Lança fantasma",
+            "family": "MUTAÇÃO",
+            "art": "family-mark",
+            "scope": "ESTOCADAS",
+            "status": "Native eligibility witness; prerequisites applied only in isolated audit fixture",
+            "weapon": 2,
+            "glyph": 0,
+            "prerequisites": [],
+            "dedicatedArt": false
+        }
+    ],
+    "disabledExpansionIds": [],
+    "unusedIllustrationIds": [
+        "weapon_Piercing"
+    ]
+}

@@ -1,0 +1,135 @@
+{
+  "success": true,
+  "message": "Test job status retrieved.",
+  "error": null,
+  "data": {
+    "job_id": "e6b9561b948c4f4aa3ec9576af6f5064",
+    "status": "succeeded",
+    "mode": "PlayMode",
+    "started_unix_ms": 1793654338878,
+    "finished_unix_ms": 1793654356035,
+    "last_update_unix_ms": 1793654356035,
+    "progress": {
+      "completed": 10,
+      "total": 10,
+      "current_test_full_name": null,
+      "current_test_started_unix_ms": null,
+      "last_finished_test_full_name": "TechGuy.Tests.BowBoonPlayModeTests.BowBoonMineGardenArmsOnceAndEncounterCleanupDropsAllReservations",
+      "last_finished_unix_ms": 1793654356018,
+      "stuck_suspected": false,
+      "editor_is_focused": false,
+      "run_in_background": true,
+      "focus_nudge_attempts": null,
+      "focus_nudge_limit": null,
+      "focus_nudge_status": null,
+      "blocked_reason": null,
+      "failures_so_far": [],
+      "failures_capped": false
+    },
+    "error": null,
+    "result": {
+      "mode": "PlayMode",
+      "summary": {
+        "total": 10,
+        "passed": 10,
+        "failed": 0,
+        "skipped": 0,
+        "durationSeconds": 11.5321682,
+        "resultState": "Passed"
+      },
+      "results": [
+        {
+          "name": "AnalyticsNativeEMatchesRealHp",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeEMatchesRealHp",
+          "state": "Passed",
+          "durationSeconds": 0.9778067,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "AnalyticsNativeQMatchesRealHp",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeQMatchesRealHp",
+          "state": "Passed",
+          "durationSeconds": 0.738297,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "AnalyticsNativeRMatchesRealHp",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeRMatchesRealHp",
+          "state": "Passed",
+          "durationSeconds": 2.0145335,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "AnalyticsNativeWMultihitMatchesRealHp",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.AnalyticsNativeWMultihitMatchesRealHp",
+          "state": "Passed",
+          "durationSeconds": 1.5041692,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nEfeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "SpearBoonHorizonUsesOneCostAndCrossingConsumesItsOriginalRootOnce",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonHorizonUsesOneCostAndCrossingConsumesItsOriginalRootOnce",
+          "state": "Passed",
+          "durationSeconds": 0.3772125,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "SpearBoonOrbitHitsOncePerTurnAndReturnWhileReleasingPlayerActions",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonOrbitHitsOncePerTurnAndReturnWhileReleasingPlayerActions",
+          "state": "Passed",
+          "durationSeconds": 4.6771023,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "SpearBoonSiegeHasNoCollidersAndEachStakePulsesAtMostOnce",
+          "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.SpearBoonSiegeHasNoCollidersAndEachStakePulsesAtMostOnce",
+          "state": "Passed",
+          "durationSeconds": 0.5211794,
+          "message": null,
+          "stackTrace": null,
+          "output": "Efeito de clique não configurado!\r\nDashScript nao configurado!\r\nMain camera nao configurada!\r\n"
+        },
+        {
+          "name": "BowBoonChargedShotConsumesBondOnlyAfterConfirmedNativeHp",
+          "fullName": "TechGuy.Tests.BowBoonPlayModeTests.BowBoonChargedShotConsumesBondOnlyAfterConfirmedNativeHp",
+          "state": "Passed",
+          "durationSeconds": 0.1611196,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "BowBoonJudgmentShortAndFullUseDifferentCorridorsAndOneManaDebit",
+          "fullName": "TechGuy.Tests.BowBoonPlayModeTests.BowBoonJudgmentShortAndFullUseDifferentCorridorsAndOneManaDebit",
+          "state": "Passed",
+          "durationSeconds": 0.3317667,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        },
+        {
+          "name": "BowBoonMineGardenArmsOnceAndEncounterCleanupDropsAllReservations",
+          "fullName": "TechGuy.Tests.BowBoonPlayModeTests.BowBoonMineGardenArmsOnceAndEncounterCleanupDropsAllReservations",
+          "state": "Passed",
+          "durationSeconds": 0.1865109,
+          "message": null,
+          "stackTrace": null,
+          "output": "AbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+        }
+      ]
+    }
+  },
+  "hint": null
+}

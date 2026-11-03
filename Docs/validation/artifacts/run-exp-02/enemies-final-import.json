@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": "{\"enemies\":[{\"name\":\"Fragmento\",\"rootScale\":0.5,\"hp\":60.0,\"agentSpeed\":3.5,\"agentRadius\":0.5,\"archetype\":\"Rush\",\"components\":[\"Transform\",\"NavMeshAgent\",\"CapsuleCollider\",\"EnemyAI\",\"Interactable\",\"Actor\",\"EnemyVariant\",\"CombatReadabilityUI\",\"EnemyCombatActions\",\"SoftGroupingService\",\"CombatReactionController\",\"RunExp02EnemyPose\"],\"renderers\":8,\"triangles\":304,\"materials\":[\"Carcaca\",\"Nucleo\"],\"skinned\":0},{\"name\":\"Emissor\",\"rootScale\":0.5,\"hp\":60.0,\"agentSpeed\":3.5,\"agentRadius\":0.5,\"archetype\":\"Sniper\",\"components\":[\"Transform\",\"NavMeshAgent\",\"CapsuleCollider\",\"EnemyAI\",\"Interactable\",\"Actor\",\"EnemyVariant\",\"CombatReadabilityUI\",\"EnemyCombatActions\",\"SoftGroupingService\",\"PreferredDistanceLayer\",\"CombatReactionController\",\"RunExp02EnemyPose\"],\"renderers\":7,\"triangles\":288,\"materials\":[\"Carcaca\",\"Nucleo\"],\"skinned\":0}],\"scene\":\"Assets/_Project/Prototypes/RunExp02/ArenaA.unity\",\"playing\":false}",
+    "compiler": "codedom"
+  }
+}

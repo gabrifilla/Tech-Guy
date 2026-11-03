@@ -1,5 +1,58 @@
 # Gameplay Rework — tarefas propostas e gates
 
+<!-- RUNEXP06 CURRENT -->
+## RUN-EXP-06 — tarefas concluídas
+
+03/11/2026. 06.0 baseline atual;06.1 publicaçãoC05 ecatálogo32IDs;06.2/3 consolidação sem duplicação;06.4 seleções finais/perfil/integridade;06.5 direção ebrief07 de duas peças. DONE no escopo descrito. NOT DONE: implementação07,24 ilustrações e acabamentoDCC final.
+
+Estado06 prevalece sobre gates pendentes/restrições de fases anteriores abaixo, preservados como histórico. [Evidência e limites](../decisions/RUN_EXP_06_RELATORIO.md).
+<!-- /RUNEXP06 CURRENT -->
+
+<!-- RUNEXP05 CURRENT -->
+## RUN-EXP-05 — estado por responsabilidade
+
+02/11/2026. 05.0 auditoria/direção de trabalho;05.1 C05 opcional e arte de recompensas;05.2 fonteDCC/cópias05 e compatibilidade nativa;05.3 camada de ambiente sobre geometria aprovada. Ver entrega05.4 para encerramento de testes/performance/integridade. Aceite visual/jogo e publicaçãoC permanecem PENDING DEVELOPER APPROVAL; não iniciar06 automaticamente.
+
+05.4 **DONE no escopo técnico**:21/21 Play integrados,33/33 regressões selecionadas,10/10 verificações de habilidades e29/29 Edit.32 preferências existentes iguais;15 adições noPlayer original preservadas sem origem atribuída. EditorNexusBlockout limpa, fora dePlay. Aprovação visual humana pendente; sem declaração global de suíte verde.
+
+[Entrega e limites](../decisions/RUN_EXP_05_RELATORIO.md).
+<!-- /RUNEXP05 CURRENT -->
+
+## Próxima frente de mapas — candidato híbrido2.5D
+
+- [x] Registrar o pedido de imagens aprovadas pelo desenvolvedor antes de aplicação em planos/volumes simples.
+- [ ] Autorizar e montar protótipo isolado de uma fachada e uma cobertura, preservando física/LOS e câmera efetiva.
+- [ ] Aprovar imagens e revisar o resultado emGameView, incluindo profundidade/oclusão, sombras e limites de câmera.
+- [ ] Comparar custo com3D antes de decidir adoção por família. Sem conversão global ou promessa automática deFPS.
+
+Fonte da próxima implementação: [Mapas híbridos2.5D](../decisions/MAP_ART_2_5D_FUTURE_PLAN.md). Planejamento solicitado em02/11/2026; nenhuma implementação de renderer nesta etapa.
+
+## RUN-EXP-04 — Entrega e tarefas ainda abertas
+
+02/11/2026. Concluídos e testados: baseline/isolamento de moeda; organização espacial; cópias intermediárias dos dois modelos; apresentação das duas salas; preview C; integração selecionada. Pendentes de revisão humana: pressão/recuperação/telegraphs, direção artística e escolha da UI. Não implementados: arte final DCC/rig/atlas/LOD, publicação permanente da UI e RUN-EXP-05. Nenhuma autorização para avançar por resultado de teste.
+
+15/15 PlayMode integrados; matriz ampliada1/1 com12 cenários;33/33 regressões selecionadas;10/10 efeitos de habilidades;28/28 EditMode. Seleções não equivalem à suite global.1562/1574 hashes idênticos,12 alterações previstas,0 removidos no escopo;32 preferências TechGuy atuais iguais. Console final0 erros; checker mantém um erro e um aviso históricos fora do escopo. Editor NexusBlockout limpo/Edit, assistência desligada e sem overrides. [Entrega e revisão visual](../decisions/RUN_EXP_04_RELATORIO.md) · [Jobs, performance e limites](../decisions/RUN_EXP_04_5_VALIDATION.md).
+
+
+## RUN-EXP-03 — estado das tarefas,02/11/2026
+
+| Etapa | Estado e gate |
+|---|---|
+| 03.0 | Feita: baseline/restaurável/arquitetura antes das edições publicadas |
+| 03.1 | Integrada: dupla e cobertura antes do boss na FirstSector; pool/grafo/tickets nativos |
+| 03.2 | Dois conceitos reais em revisão; **escolha humana pendente**, sem troca da UI publicada |
+| 03.3 | Refino intermediário em cópias novas; **aprovação artística pendente**, sem arte final alegada |
+| 03.4 | Validação e pacote entregues:12/12 PlayMode,24/24 regressões,26/26 EditMode;8/32/64 Editor |
+
+[Relatórios, rotas e playtest](../decisions/RUN_EXP_03_RELATORIO.md). STOP03.4. Próximas ações dependem da direção UI/arte escolhida; não iniciar produção em massa, novos bosses/boons, Singularity ou slots modulares. Antes de novo teste, capturar preferências atuais: o checkpoint30/10 foi preservado nos testes, mas a conferência posterior detectou quatro valores de gameplay diferentes e os manteve.
+
+## RUN-EXP-02 — 30/10/2026, entrega isolada para revisão
+
+Fragmento/Emissor autorados e jogáveis, arenas aberta/cobertura com NavMesh próprio e inspeção de recompensas reais sem aquisição. **STOP após02.4; gameplay/visual/arte aguardam revisão física, sem rollout.** Relatório: [RUN_EXP_02_RELATORIO](../decisions/RUN_EXP_02_RELATORIO.md). Estabilidade13/13, fatia10/10, geometria1/1 e contratos11/11 em jobs separados; não somar seleções sobrepostas. Dívida histórica31 classificada, sem verde global353.306 hashes protegidos idênticos e três chaves PlayerPrefs iguais; limitação do inventário integral de preferências registrada.8/32/64 agentes reais medidos no Editor, sem aprovação de orçamento.
+
+Requisitos deste recorte: candidatos usam Actor/EnemyVariant/AI/CombatActions/reactions/receipts; produção preservada; cena de revisão sem ProgressionDirector/save/coins; estatísticas locais descartadas; UI consulta ofertas, não chama Choose. Cobertura separa volumes dos básicos e bloqueia projéteis, sem alterar oclusão global de áreas. Arte procedural/intermediária não equivale a arte final. Entrada: Tools/Tech Guy/RUN-EXP-02, em Edit Mode.
+
+
 ## Estado vigente — auditoria GPR-01.5, 29/10/2026
 
 **GPR-01.5 concluída como auditoria, com ressalva de estabilidade e aceite físico pendente. STOP após01.5.** O desenvolvedor aceita01.4 como implementada/demonstrada no foco documentado; não aceitou fisicamente as novas camadas fogo/eletricidade ou a tripla. Gameplay01.3 já foi aceito. O histórico199/203 +4/4 isolados de01.4 não foi reclassificado como203/203.
@@ -112,8 +165,6 @@ Parâmetros experimentais: caixa frontal de 1,5× o alcance/largura efetivos do 
 
 **STOP após GPR-01.2. GPR-01.3 e etapas seguintes não autorizadas.** Revisão humana da mutação e de seu visual permanece pendente; moonwalk/cadência e swap modular continuam diferidos. As seções anteriores preservadas abaixo são históricas onde divergirem deste estado.
 
-
-
 ## Histórico da entrega GPR-01.1 — superado pelo estado vigente acima
 
 GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
@@ -129,8 +180,6 @@ A decisão direta mais recente **substitui todo modelo de quatro slots modulares
 WASD e demais ações configuráveis no Settings; InteractG dedicado e finisherF distintos por padrão, sem sobrescrever personalizações. Dash padrãoCursor; opçãoMovimento usa vetor configurado/câmera normalizado e **facing atual quando não há direção pressionada**, conforme esclarecimento posterior do desenvolvedor. A sugestão histórica de fallbackcursor no modoMovimento está superada. Escape reservado à pausa/cancel seguro. Migração só lê/repara em memória, Apply explícito grava nomes de ações; sem reset de progresso.
 
 Registro histórico de C01.4: implementação e116 casos cumulativos concluídos antes do aceite físico. A pendência humana foi encerrada por C01.5; o estado vigente e o novo STOP de GPR-01 estão no início deste documento.
-
-
 
 ## Histórico C01.3b — fechamento na data,28/10/2026
 

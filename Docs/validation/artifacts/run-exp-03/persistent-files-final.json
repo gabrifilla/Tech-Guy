@@ -1,0 +1,41 @@
+{
+  "method": "Historical02 reference, not a newly invented03 pre-edit file baseline. Gameplay preferences have their own complete03 registry comparison. TestResults/log/analytics are explicitly not gameplay saves.",
+  "files": [
+    {
+      "path": "C:\\Users\\gabri\\AppData\\LocalLow\\DefaultCompany\\T.G - Tech Guy\\Player-prev.log",
+      "reference02": "9e480a7ab78dd2a5fb43c20c96a845b434386598631b20a86821e6af430b30f4",
+      "current": "9e480a7ab78dd2a5fb43c20c96a845b434386598631b20a86821e6af430b30f4",
+      "equal": true,
+      "kind": "log/test/analytics; não classificado como save de gameplay"
+    },
+    {
+      "path": "C:\\Users\\gabri\\AppData\\LocalLow\\DefaultCompany\\T.G - Tech Guy\\Player.log",
+      "reference02": "157c0909e4fad5710b2c961a2f4462805d27b7a6b8ad02fd5041a74fd34cb4c1",
+      "current": "157c0909e4fad5710b2c961a2f4462805d27b7a6b8ad02fd5041a74fd34cb4c1",
+      "equal": true,
+      "kind": "log/test/analytics; não classificado como save de gameplay"
+    },
+    {
+      "path": "C:\\Users\\gabri\\AppData\\LocalLow\\DefaultCompany\\T.G - Tech Guy\\TestResults.xml",
+      "reference02": "209656f38fdcf2f776713993a5396af2e0c902f8c2f5df9bf20ca0b016134584",
+      "current": "25b9e0ff6dea5f48340e8c31b6f3aece8a5e800ab54fad3ce3339b8119a2e556",
+      "equal": false,
+      "kind": "log/test/analytics; não classificado como save de gameplay"
+    },
+    {
+      "path": "C:\\Users\\gabri\\AppData\\LocalLow\\DefaultCompany\\T.G - Tech Guy\\Unity\\7c5e1734-9500-4bdb-a191-78aaa7f6da38\\Editor\\Analytics\\config",
+      "reference02": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "current": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "equal": true,
+      "kind": "log/test/analytics; não classificado como save de gameplay"
+    },
+    {
+      "path": "C:\\Users\\gabri\\AppData\\LocalLow\\DefaultCompany\\T.G - Tech Guy\\Unity\\7c5e1734-9500-4bdb-a191-78aaa7f6da38\\Editor\\Analytics\\values",
+      "reference02": "8263c5a5d5c65d4d9a2877e52c17715d132df88c37d17662c83c9cc08f93a91e",
+      "current": "8263c5a5d5c65d4d9a2877e52c17715d132df88c37d17662c83c9cc08f93a91e",
+      "equal": true,
+      "kind": "log/test/analytics; não classificado como save de gameplay"
+    }
+  ],
+  "extraFiles": []
+}

@@ -1,5 +1,41 @@
 # Gameplay Rework — requisitos da migração e da primeira fatia
 
+<!-- RUNEXP06 CURRENT -->
+## RUN-EXP-06 — escopo e autorização
+
+03/11/2026. IntegrarC05 aprovada ao caminho real; consolidar o que já existe emFirstSector; validar três armas/boss/Nexus, input/tickets/catálogo/custo/integridade. Preparar três linguagens e umbrief07, sem implementar2.5D ou retunar jogo. Escopo técnico concluído, limites eGit autorizado no relatório.
+
+Estado06 prevalece sobre gates pendentes/restrições de fases anteriores abaixo, preservados como histórico. [Evidência e limites](../decisions/RUN_EXP_06_RELATORIO.md).
+<!-- /RUNEXP06 CURRENT -->
+
+<!-- RUNEXP05 CURRENT -->
+## RUN-EXP-05 — escopo autorizado de qualidade visual
+
+02/11/2026. Revisar C sem publicação permanente; produzir fonteDCC viável deFragmento e coerênciaEmissor; ambiente coberto reconhecível sem alterar física/nav/LOS/rotas; demonstrar três armas/recompensas/rotas reais e medir custo8/32/64. Manter save/bindings/boons/grafo, reportar limites e obter aprovação humana posteriormente. STOP05.4, sem expansão de conteúdo.
+
+[Entrega e limites](../decisions/RUN_EXP_05_RELATORIO.md).
+<!-- /RUNEXP05 CURRENT -->
+
+## RUN-EXP-04 — Contratos de consolidação
+
+02/11/2026. Obrigatório preservar roster/ranks/slots seguros, RNG de recompensa, famílias antigas, grafo/boss/Nexus e limites de suporte. Forma/articulação dos dois inimigos muda sem retiming/dano/cápsula/origem novos. Salas mantêm física, duas rotas e LOS; decoração sem collider. UI deve usar posse real, descrição de comportamento, binding atual e confirmação única; seleção/detalhes não adquirem. UI permanente exige aprovação explícita.
+
+15/15 PlayMode integrados; matriz ampliada1/1 com12 cenários;33/33 regressões selecionadas;10/10 efeitos de habilidades;28/28 EditMode. Seleções não equivalem à suite global.1562/1574 hashes idênticos,12 alterações previstas,0 removidos no escopo;32 preferências TechGuy atuais iguais. Console final0 erros; checker mantém um erro e um aviso históricos fora do escopo. Editor NexusBlockout limpo/Edit, assistência desligada e sem overrides. [Entrega e revisão visual](../decisions/RUN_EXP_04_RELATORIO.md) · [Jobs, performance e limites](../decisions/RUN_EXP_04_5_VALIDATION.md).
+
+
+## RUN-EXP-03 — contrato vigente deste recorte
+
+O pedido03 autoriza integração restrita antes do primeiro boss e preserva os papéis/silhuetas/cobertura aprovados em02. Implementado: pool nativo16+duas entradas; Combat aberto/coberto45% por stream próprio; mesmos grafo/contagens/tickets/RNG de recompensa/ownership; cópias de arte novas. Sem garantia de build/aparição em toda run. UI03 deve ter duas composições substancialmente diferentes, texto comportamental curto, detalhes progressivos, contexto só de posse real e escolha legal única. Implementada apenas em revisão; **publicação requer escolha humana**.
+
+[Requisitos/evidências03](../decisions/RUN_EXP_03_RELATORIO.md):12/12 integração,24/24 regressões,26/26 EditMode selecionados naUnity30/10. Silhuetas/aprovação02 não equivalem a arte final03. Permanecem fora do escopo novos boons/bosses, rework de grafo/economia, Singularity e aquisição modularQ/E/R. Parar03.4. Atualização documental02/11/2026; dados atuais do usuário não devem ser restaurados a um checkpoint antigo.
+
+## RUN-EXP-02 — 30/10/2026, entrega isolada para revisão
+
+Fragmento/Emissor autorados e jogáveis, arenas aberta/cobertura com NavMesh próprio e inspeção de recompensas reais sem aquisição. **STOP após02.4; gameplay/visual/arte aguardam revisão física, sem rollout.** Relatório: [RUN_EXP_02_RELATORIO](../decisions/RUN_EXP_02_RELATORIO.md). Estabilidade13/13, fatia10/10, geometria1/1 e contratos11/11 em jobs separados; não somar seleções sobrepostas. Dívida histórica31 classificada, sem verde global353.306 hashes protegidos idênticos e três chaves PlayerPrefs iguais; limitação do inventário integral de preferências registrada.8/32/64 agentes reais medidos no Editor, sem aprovação de orçamento.
+
+Requisitos deste recorte: candidatos usam Actor/EnemyVariant/AI/CombatActions/reactions/receipts; produção preservada; cena de revisão sem ProgressionDirector/save/coins; estatísticas locais descartadas; UI consulta ofertas, não chama Choose. Cobertura separa volumes dos básicos e bloqueia projéteis, sem alterar oclusão global de áreas. Arte procedural/intermediária não equivale a arte final. Entrada: Tools/Tech Guy/RUN-EXP-02, em Edit Mode.
+
+
 ## Estado vigente — auditoria GPR-01.5, 29/10/2026
 
 **GPR-01.5 concluída como auditoria, com ressalva de estabilidade e aceite físico pendente. STOP após01.5.** O desenvolvedor aceita01.4 como implementada/demonstrada no foco documentado; não aceitou fisicamente as novas camadas fogo/eletricidade ou a tripla. Gameplay01.3 já foi aceito. O histórico199/203 +4/4 isolados de01.4 não foi reclassificado como203/203.
@@ -85,8 +121,6 @@ Parâmetros experimentais: caixa frontal de 1,5× o alcance/largura efetivos do 
 
 **STOP após GPR-01.2. GPR-01.3 e etapas seguintes não autorizadas.** Revisão humana da mutação e de seu visual permanece pendente; moonwalk/cadência e swap modular continuam diferidos. As seções anteriores preservadas abaixo são históricas onde divergirem deste estado.
 
-
-
 ## Critérios da entrega01.2
 
 GPR-R10/12/13: A implementada e validada tecnicamente nas seleções descritas; humano/visual/balanceamento pendentes. GPR-R14: aquisição legal de A por ticket/seed0 em fixture; duas runs físicas e economia completa seguem em01.5. GPR-R11: novos grants B/C não habilitados. RF-TROCA/novo skill permanecem fora do escopo.
@@ -106,8 +140,6 @@ A decisão direta mais recente **substitui todo modelo de quatro slots modulares
 WASD e demais ações configuráveis no Settings; InteractG dedicado e finisherF distintos por padrão, sem sobrescrever personalizações. Dash padrãoCursor; opçãoMovimento usa vetor configurado/câmera normalizado e **facing atual quando não há direção pressionada**, conforme esclarecimento posterior do desenvolvedor. A sugestão histórica de fallbackcursor no modoMovimento está superada. Escape reservado à pausa/cancel seguro. Migração só lê/repara em memória, Apply explícito grava nomes de ações; sem reset de progresso.
 
 Registro histórico de C01.4: implementação e116 casos cumulativos concluídos antes do aceite físico. A pendência humana foi encerrada por C01.5; o estado vigente e o novo STOP de GPR-01 estão no início deste documento.
-
-
 
 ## Histórico C01.3b — fechamento na data,28/10/2026
 

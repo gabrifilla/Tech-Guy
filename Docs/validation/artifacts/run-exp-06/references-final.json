@@ -1,0 +1,62 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "firstSector": {
+        "guid": "f62bb8b29264e014aa2e95e916388ed9",
+        "dirty": false,
+        "missing": 0,
+        "dependencies": 314
+      },
+      "cameras": [
+        {
+          "path": "MainCamera(Clone)(Clone)",
+          "orthographic": false,
+          "fov": 40.0,
+          "near": 0.2,
+          "far": 500.0,
+          "follow": {
+            "height": 16.0,
+            "distance": 16.0,
+            "angle": 0.0
+          }
+        }
+      ],
+      "prefabs": [
+        {
+          "name": "Fragmento",
+          "guid": "af5d41ab4bac433419d3d4399f164eca",
+          "renderers": 18,
+          "triangles": 5772,
+          "missing": 0,
+          "radius": 0.85
+        },
+        {
+          "name": "Emissor",
+          "guid": "b47ff7d4f586a5b4abd96e57dbfaf617",
+          "renderers": 7,
+          "triangles": 2172,
+          "missing": 0,
+          "radius": 0.8
+        }
+      ],
+      "environment": {
+        "coverGuid": "913941b46de5d444b91becc973d5696c",
+        "rackGuid": "3e6aec07e23dc51468831880af7a632d",
+        "coverVertices": 7080,
+        "rackVertices": 4472,
+        "material": "Ceramica grafite cobre",
+        "floor": "Piso de arquivo",
+        "wall": "Estrutura de arquivo",
+        "sourceFbxReadable": false,
+        "coverUvs": true,
+        "rackUvs": true
+      },
+      "company": "DefaultCompany",
+      "product": "T.G - Tech Guy",
+      "frameTiming": false
+    },
+    "compiler": "codedom"
+  }
+}

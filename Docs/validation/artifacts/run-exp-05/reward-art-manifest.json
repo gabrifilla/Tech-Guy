@@ -1,0 +1,220 @@
+{
+  "tool": "Built-in image_gen, original atlas plus one spacing correction; not external game assets",
+  "source": "Tools/RunExp05/Source/reward-atlas-02.png",
+  "sourceSize": [
+    1774,
+    887
+  ],
+  "prompt": "Tools/RunExp05/reward-art-prompt.txt",
+  "normalization": "Exact4x2 crop and Lanczos512 resize only; original pixels/alpha retained",
+  "entries": [
+    {
+      "name": "Titanic",
+      "path": "Assets/_Project/Resources/UI/RunExp05/Titanic.png",
+      "sha256": "207c6a5d1ea585373b441d4d92d9688820eb2b1f7c4ecf77bc670eda6d742cc0",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sourceCell": [
+        0,
+        0,
+        444,
+        444
+      ],
+      "sourceAlphaBounds": [
+        85,
+        96,
+        383,
+        368
+      ],
+      "approval": "PENDING DEVELOPER APPROVAL"
+    },
+    {
+      "name": "TemporalEcho",
+      "path": "Assets/_Project/Resources/UI/RunExp05/TemporalEcho.png",
+      "sha256": "1c7c28f31656522210e3d31244e53e9e3fb71b9ea9b516cddd45c2788148ff1d",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sourceCell": [
+        444,
+        0,
+        443,
+        444
+      ],
+      "sourceAlphaBounds": [
+        57,
+        132,
+        377,
+        344
+      ],
+      "approval": "PENDING DEVELOPER APPROVAL"
+    },
+    {
+      "name": "Conductor",
+      "path": "Assets/_Project/Resources/UI/RunExp05/Conductor.png",
+      "sha256": "1eabc9d5d290643f4d971b9dbabd3e5b2db697ac460549252757ff785a5d1b9a",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sourceCell": [
+        887,
+        0,
+        443,
+        444
+      ],
+      "sourceAlphaBounds": [
+        88,
+        99,
+        362,
+        366
+      ],
+      "approval": "PENDING DEVELOPER APPROVAL"
+    },
+    {
+      "name": "Frost",
+      "path": "Assets/_Project/Resources/UI/RunExp05/Frost.png",
+      "sha256": "ad7ac78cf6991b4bf42d41bba48bcf62d333c27c5a4a779180f730be77808cab",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sourceCell": [
+        1330,
+        0,
+        444,
+        444
+      ],
+      "sourceAlphaBounds": [
+        88,
+        81,
+        354,
+        370
+      ],
+      "approval": "PENDING DEVELOPER APPROVAL"
+    },
+    {
+      "name": "Ignite",
+      "path": "Assets/_Project/Resources/UI/RunExp05/Ignite.png",
+      "sha256": "aa59264f37e980a8cefda616d9f5160f139fac02f0250e5f00b62aebc1fac3c5",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sourceCell": [
+        0,
+        444,
+        444,
+        443
+      ],
+      "sourceAlphaBounds": [
+        95,
+        70,
+        359,
+        349
+      ],
+      "approval": "PENDING DEVELOPER APPROVAL"
+    },
+    {
+      "name": "SpearOrbit",
+      "path": "Assets/_Project/Resources/UI/RunExp05/SpearOrbit.png",
+      "sha256": "798eadfeb93aaf504f6d86e98f6192bd2cec82d3a1f6a23850ea74ef97a39cef",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sourceCell": [
+        444,
+        444,
+        443,
+        443
+      ],
+      "sourceAlphaBounds": [
+        79,
+        101,
+        373,
+        348
+      ],
+      "approval": "PENDING DEVELOPER APPROVAL"
+    },
+    {
+      "name": "Judgment",
+      "path": "Assets/_Project/Resources/UI/RunExp05/Judgment.png",
+      "sha256": "f6eb77121d5b0e8c28cb5f1272fab4f1af1ac35fd0628af038b5b31c033e598f",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sourceCell": [
+        887,
+        444,
+        443,
+        443
+      ],
+      "sourceAlphaBounds": [
+        90,
+        76,
+        367,
+        362
+      ],
+      "approval": "PENDING DEVELOPER APPROVAL"
+    },
+    {
+      "name": "Piercing",
+      "path": "Assets/_Project/Resources/UI/RunExp05/Piercing.png",
+      "sha256": "69e30d5cd338757143f08a0f033987d0641f6c4261955bad57dc4a0175d92024",
+      "size": [
+        512,
+        512
+      ],
+      "alpha": [
+        0,
+        255
+      ],
+      "sourceCell": [
+        1330,
+        444,
+        444,
+        443
+      ],
+      "sourceAlphaBounds": [
+        70,
+        147,
+        378,
+        308
+      ],
+      "approval": "PENDING DEVELOPER APPROVAL"
+    }
+  ]
+}

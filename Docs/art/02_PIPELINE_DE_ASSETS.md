@@ -1,6 +1,24 @@
 # Pipeline de assets — consistência para arte gerada por IA
 
+<!-- RUNEXP06 CURRENT -->
+## RUN-EXP-06 — consolidar autoria; imagem antes da conversão futura
+
+03/11/2026. FontesBlender/FBX/UV/materials05 preservadas e refs produtivas confirmadas. Sem nova modelagem06.32IDs/24 ilustrações faltantes auditados. Futuro07: imagem original revisada antes de aplicar emfachada/cobertura, depois revisãoUnity emmovimento. Sem renderer/stylemanager ou conversão atual; ganho de autoria/desempenho precisa ser medido.
+
+Estado06 prevalece sobre gates pendentes/restrições de fases anteriores abaixo, preservados como histórico. [Evidência e limites](../decisions/RUN_EXP_07_2_5D_PROTOTYPE_BRIEF.md).
+<!-- /RUNEXP06 CURRENT -->
+
+<!-- RUNEXP05 CURRENT -->
+## RUN-EXP-05 — pipelineDCC efetivamente disponível
+
+02/11/2026. Blender5.2.2LTS viaMCP9876: fontes.blend separadas preservamScene original; malhas autoradas/limpas, UVtrimatlas1024/basecolor/metallicsmoothness/normal, calibração de eixo e exportFBX real. UnityMCP importou/inspecionou normais/tangentes/UVs/GUIDs e cópias de prefabs nativos. Fragmento5772tris/18renderers; Emissor2172/7. Rig rígido/IK atual, semArmature/clips finaisDCC ou produção artística final.8 ilustrações512 originais mapeiam9IDs; resto do catálogo usa fallback declarado. Fontes/proveniência emTools/RunExp05 easset-manifest05.
+
+[Entrega e limites](../decisions/RUN_EXP_05_2_ENEMY_ART.md).
+<!-- /RUNEXP05 CURRENT -->
+
 ## Pipeline desejado
+
+Para a futura frente de mapas, incluir a variante **imagem aprovada → câmera/pivot/escala definidos → plano ou volume simples texturizado → física nativa independente → revisãoGameView → comparação de custo**. O [plano2.5D](../decisions/MAP_ART_2_5D_FUTURE_PLAN.md) serve como brief de profundidade/oclusão, sombras e faixa de câmera. É preparação documental, não pipeline já implementado.
 
 `brief com referência → concept (com orientação consistente) → modelo/asset → limpeza/retopo/rig → import Unity → materiais compartilhados → animação → prefab em cena-teste → revisão na câmera real`
 

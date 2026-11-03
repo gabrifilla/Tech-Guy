@@ -1,0 +1,76 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "persistent": "C:/Users/gabri/AppData/LocalLow/DefaultCompany/T.G - Tech Guy",
+      "company": "DefaultCompany",
+      "product": "T.G - Tech Guy",
+      "prefsSha256": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+      "playerPrefabs": [
+        "Assets/_Project/Prefabs/PlayerArmature.prefab",
+        "Assets/_Project/Prefabs/PlayerFollowCamera.prefab",
+        "Assets/_Project/Prefabs/PlayerHUD.prefab"
+      ],
+      "enemy": [
+        {
+          "name": "Rush",
+          "scale": "(0.50, 0.50, 0.50)",
+          "children": [
+            "MESH_FACEHAIR_03",
+            "MESH_GLASSES",
+            "MESH_HANDS",
+            "MESH_HAT_02",
+            "MESH_HEAD_02",
+            "MESH_PANTS_02",
+            "MESH_TORSO_01",
+            "root"
+          ],
+          "components": [
+            "Transform",
+            "Animator",
+            "NavMeshAgent",
+            "CapsuleCollider",
+            "EnemyAI",
+            "Interactable",
+            "Actor",
+            "EnemyVariant",
+            "CombatReadabilityUI",
+            "EnemyCombatActions",
+            "SoftGroupingService",
+            "PreferredDistanceLayer"
+          ]
+        },
+        {
+          "name": "Sniper",
+          "scale": "(0.50, 0.50, 0.50)",
+          "children": [
+            "MESH_FACEHAIR_03",
+            "MESH_GLASSES",
+            "MESH_HANDS",
+            "MESH_HAT_02",
+            "MESH_HEAD_02",
+            "MESH_PANTS_02",
+            "MESH_TORSO_01",
+            "root"
+          ],
+          "components": [
+            "Transform",
+            "Animator",
+            "NavMeshAgent",
+            "CapsuleCollider",
+            "EnemyAI",
+            "Interactable",
+            "Actor",
+            "EnemyVariant",
+            "CombatReadabilityUI",
+            "EnemyCombatActions",
+            "SoftGroupingService",
+            "PreferredDistanceLayer"
+          ]
+        }
+      ]
+    },
+    "compiler": "codedom"
+  }
+}

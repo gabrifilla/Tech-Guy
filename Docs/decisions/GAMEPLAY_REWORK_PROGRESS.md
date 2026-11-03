@@ -1,5 +1,43 @@
 # Gameplay Rework — progresso mestre
 
+<!-- RUNEXP06 CURRENT -->
+## RUN-EXP-06 — integração encerrada no escopo
+
+03/11/2026. 06.0–06.4 concluídos tecnicamente; C05 publicada após aceite01–05.06.5 ebrief07 entregues somente como preparação. Regressões e preservação47prefs registradas, sem novosboons/bosses/arquétipos/economia/renderer. Commit/push integral e desligamento seguro autorizados posteriormente pelo usuário; registro de entrega separado.
+
+Estado06 prevalece sobre gates pendentes/restrições de fases anteriores abaixo, preservados como histórico. [Evidência e limites](RUN_EXP_06_RELATORIO.md).
+<!-- /RUNEXP06 CURRENT -->
+
+<!-- RUNEXP05 CURRENT -->
+## RUN-EXP-05 — entrega de apresentação, gates humanos abertos
+
+02/11/2026. UI de revisão, duas cópiasDCC e ambiente de arquivo preservam autoridades de combate/progressão atuais. Não há tuning de arma, novosboons/bosses/arquétipos/economia/framework. Os resultados exatos e falhas estão no05.4; não somar seleções sobrepostas nem declarar suite global. STOP05.4, semcommit/push/desligamento nesta etapa.
+
+05.4 **DONE no escopo técnico**:21/21 Play integrados,33/33 regressões selecionadas,10/10 verificações de habilidades e29/29 Edit.32 preferências existentes iguais;15 adições noPlayer original preservadas sem origem atribuída. EditorNexusBlockout limpa, fora dePlay. Aprovação visual humana pendente; sem declaração global de suíte verde.
+
+[Entrega e limites](RUN_EXP_05_RELATORIO.md).
+<!-- /RUNEXP05 CURRENT -->
+
+## RUN-EXP-04 — Registro de entrega limitada
+
+02/11/2026. RUN-EXP-04 concluída tecnicamente até04.5. Foram preservados os modelos anteriores, a UI publicada, as autoridades atuais e o estado de gameplay da entrada04. Baseline CC intermitente e observador de ranged corrigido estão registrados com jobs intermediários. Nenhum tuning de arma/economia, novo arquétipo/boon/boss ou framework. Avaliação física/arte/UI pendentes; STOP. Sem commit, push ou desligamento nesta etapa.
+
+15/15 PlayMode integrados; matriz ampliada1/1 com12 cenários;33/33 regressões selecionadas;10/10 efeitos de habilidades;28/28 EditMode. Seleções não equivalem à suite global.1562/1574 hashes idênticos,12 alterações previstas,0 removidos no escopo;32 preferências TechGuy atuais iguais. Console final0 erros; checker mantém um erro e um aviso históricos fora do escopo. Editor NexusBlockout limpo/Edit, assistência desligada e sem overrides. [Entrega e revisão visual](RUN_EXP_04_RELATORIO.md) · [Jobs, performance e limites](RUN_EXP_04_5_VALIDATION.md).
+
+
+## RUN-EXP-03 — entregue até03.4, atualização02/11/2026
+
+Base02 de silhuetas/papéis e cobertura foi aprovada fisicamente no pedido03; a UI02 foi rejeitada. Integração FirstSector agora implementada e Unity-verificada, com novos prefabs próprios e geometria de cobertura em stream independente. UI03A/B e arte refinada continuam sem aprovação humana. [Relatório03](RUN_EXP_03_RELATORIO.md). Não converter aprovação da base02 em aceite artístico03.
+
+Jobs finais: `37282363f9d443efa8ff6dc5c4c7d6a4`12/12 PlayMode; `e59091e659fb4cd1bb1a03cd6b676a9f`24/24 regressões; `4366e480686840c7a4d9f16a77955d22`26/26 EditMode. Intermediário11/12 e correções de apoio/pausa preservados. GateA técnicoPASS; B técnico com game feel humano pendente; C/D aguardam revisão; E no filtro; F no checkpoint30/10, com quatro divergências posteriores de preferências preservadas sem atribuição. Editor fechado/MCP indisponível na conferência posterior; não inventar revalidação atual. **STOP03.4**.
+
+## RUN-EXP-02 — 30/10/2026, entrega isolada para revisão
+
+Fragmento/Emissor autorados e jogáveis, arenas aberta/cobertura com NavMesh próprio e inspeção de recompensas reais sem aquisição. **STOP após02.4; gameplay/visual/arte aguardam revisão física, sem rollout.** Relatório: [RUN_EXP_02_RELATORIO](RUN_EXP_02_RELATORIO.md). Estabilidade13/13, fatia10/10, geometria1/1 e contratos11/11 em jobs separados; não somar seleções sobrepostas. Dívida histórica31 classificada, sem verde global353.306 hashes protegidos idênticos e três chaves PlayerPrefs iguais; limitação do inventário integral de preferências registrada.8/32/64 agentes reais medidos no Editor, sem aprovação de orçamento.
+
+Requisitos deste recorte: candidatos usam Actor/EnemyVariant/AI/CombatActions/reactions/receipts; produção preservada; cena de revisão sem ProgressionDirector/save/coins; estatísticas locais descartadas; UI consulta ofertas, não chama Choose. Cobertura separa volumes dos básicos e bloqueia projéteis, sem alterar oclusão global de áreas. Arte procedural/intermediária não equivale a arte final. Entrada: Tools/Tech Guy/RUN-EXP-02, em Edit Mode.
+
+
 ## RUN-EXP-01 — entrega das etapas0–2,30/10/2026
 
 **Escopo autorizado entregue para revisão; STOP após2.** Fixes localizados de pull/fogo, auditoria/especificação e cinco estudos geométricos com dois layouts isolados. Não foram publicados inimigos/salas/economia novos. [Plano integrado](../gameplay/TECH_GUY_RUN_REWARDS_ROOMS_ENEMIES_MASTERPLAN.md) · [Etapa0](RUN_STAGE_0_CRITICAL_FIXES.md) · [Etapa1](RUN_STAGE_1_AUDIT_AND_DESIGN.md) · [Etapa2](RUN_STAGE_2_PROTOTYPES.md).
@@ -106,8 +144,6 @@ Parâmetros experimentais: caixa frontal de 1,5× o alcance/largura efetivos do 
 
 **STOP após GPR-01.2. GPR-01.3 e etapas seguintes não autorizadas.** Revisão humana da mutação e de seu visual permanece pendente; moonwalk/cadência e swap modular continuam diferidos. As seções anteriores preservadas abaixo são históricas onde divergirem deste estado.
 
-
-
 ## Histórico da entrega GPR-01.1 — superado pelo estado vigente acima
 
 GPR-C01 permanece **COMPLETA e aceita pelo desenvolvedor**; GPR-01.P1 aceita como planejamento. LMB básico, RMB especial permanente e exatamente três modulares Q/E/R, sem X. Moonwalk/cadência continuam refinamentos futuros não bloqueadores, sem tuning nesta etapa.
@@ -127,8 +163,6 @@ Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecân
 | GPR-01.2 | TÉCNICA ACEITA / GAMEPLAY REJEITADO COMO FINAL | Punhos Titânicos, aquisição por ticket, geometria/HP/caps e quatro capturas; [relatório](GPR-01.2_RELATORIO.md) | STOP e revisão humana antes de01.3 |
 | GPR-01.2b | CONCLUÍDA TECNICAMENTE / HUMANO PENDENTE | Tornado móvel/whiff;305 casos distintos,6 Game View; [relatório](GPR-01.2b_RELATORIO.md) | Revisão física antes de autorizar01.3 |
 | GPR-01.3–01.6 | NÃO INICIADAS/NÃO AUTORIZADAS | Sem nova composição Conductor/Detonation | Cada próxima etapa depende de aprovação posterior |
-
-
 
 ## Histórico do fechamento C01.4,28/10/2026
 

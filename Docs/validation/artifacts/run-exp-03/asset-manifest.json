@@ -1,0 +1,163 @@
+{
+  "origin": "Geometria facetada, materiais e glifos originais autorados em C# nos builders RunExp03EnemyArtAuthoring e RunExp03RewardsAuthoring. Prefabs derivados dos candidatos RUNEXP02 preservados. Sem Blender executado, gerador externo, texturas de terceiros ou alegação de arte final.",
+  "textures": "PNG RGBA 512x512, sRGB, alphaIsTransparency, bilinear, sem mipmap, uncompressed; importer versionado em .meta.",
+  "uv": "UV planar simples das malhas novas. Materiais URP/Lit; sem atlas de produção ou textura final.",
+  "files": [
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/Ceramica de memoria.mat",
+      "sha256": "bcf4209ed810bf9ff830f71306aec9eebd339d14fa6f0f6665afaa4d68f9fd1e"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/Ceramica de memoria.mat.meta",
+      "sha256": "8f53d96cff8f3895dff72e2e3ce1c26ab1ef66180f15cebcce600772d68a0666"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/E_Camara_interna.asset",
+      "sha256": "7b9b33ddcfde62fc4e9360dd89dbaa51efbb0a55a4e21874dfce6f914ff7181e"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/E_Camara_interna.asset.meta",
+      "sha256": "c6f6756ea5a31c36e7a664bae421d8e208353876e411a5f302fa6f2a263072e2"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/E_Canal_oco.asset",
+      "sha256": "ed52cdff569675b30a9679cf307b67e6811bc7a7f53e844fc26e6c97060a4ca9"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/E_Canal_oco.asset.meta",
+      "sha256": "9415e31d1093f16b3bbd60c5c49aaa3527a5a809e95def85fef10cb61bab5ef1"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/E_Carcaca_chanfrada_0.asset",
+      "sha256": "1b1280023aa206255ca031a6fccb99c174f732c8b2317c1c38f8a5059a598f31"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/E_Carcaca_chanfrada_0.asset.meta",
+      "sha256": "1b82b30fb5aed6250eb02de9cb2587e06e958bf0518f139e80f5a1e385de26ee"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/E_Carcaca_chanfrada_1.asset",
+      "sha256": "8d86a8aaf8624e747d9f0fa6e1ee79ecf889061fbbe86971350e85db221e3c93"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/E_Carcaca_chanfrada_1.asset.meta",
+      "sha256": "6181883b5739b2b9c63da3b8de9fded5f417f721ca37bda63085b8600e1d2a66"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/Estrutura.mat",
+      "sha256": "331444d324680bde1ebb9b3fcf56d4f74b9a3580704fe5ee54cd31cae92488b9"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/Estrutura.mat.meta",
+      "sha256": "f269540f0b753112234dc06b159661f0a1b9861cb0b7fdeaf367618a25e03006"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Apoio.asset",
+      "sha256": "51ba73a41826179b90dac540d3e2c34b3339d356e044f34583febd9cc22132a1"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Apoio.asset.meta",
+      "sha256": "0f8c00d63ec5d7b089c82b958b673fe4627b4d0f9e328da742b6f20709354be2"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Braco_articulado.asset",
+      "sha256": "beabe03d326bc510ca91a7a44ad4ce97b4815f3e9a8db6792e7036f269c24c75"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Braco_articulado.asset.meta",
+      "sha256": "5ceae9ce1a1b9484b183a4ec6f9e6e70a5695f1ce4363b72cfae8b120631e33d"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Dorso_segmentado.asset",
+      "sha256": "3b6e3f5b664015e9289139bce72e0c480e8a70d0efe44e89574452a9e8cab616"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Dorso_segmentado.asset.meta",
+      "sha256": "203fad78eeff4c937dc5e568106f0a0449d6cbfe2b186c816c7e575601863a2f"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Perna_articulada.asset",
+      "sha256": "2ae1539e16c8da84ac8ac107835b63a6364e4b01a25fa74f0e46cc6c18508518"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Perna_articulada.asset.meta",
+      "sha256": "c47d9e171a0ae78d9c623047b26a3c0b492babb1f7dc9070f2e4d77e40a62c3f"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Placa_dorsal.asset",
+      "sha256": "9ebfbcb26233ed7839db7d4a405973a3aad9db750afff8aec9608d1a7f8082b0"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Placa_dorsal.asset.meta",
+      "sha256": "472caed9bce876b3255377ad02af232da3ee3bbd8c8ceac61b21e0f7972d9bc2"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Testa.asset",
+      "sha256": "5b3c4577ccaae16cd71e5bf9c7b1fc37e5a6862f5cdde38b93097e077139f861"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/F_Testa.asset.meta",
+      "sha256": "5c3b5cdc01d44665a1b75f35f7ae90919887dabfa83f5ffb590baeddec830fc9"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/Placas.mat",
+      "sha256": "37a841cafc64496cff556973f3537aeea20255b92728ab792251b5b084585740"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies/Placas.mat.meta",
+      "sha256": "e6178d6a109995e0e5f8c81602c257c7b5b62d15cdfd8d84199a4ea761ed37cb"
+    },
+    {
+      "path": "Assets/_Project/Art/RunExp03/Enemies.meta",
+      "sha256": "52f3b192e4fb1430a37ffb3bb858759b3c4d7738b8d24635035c10767dd3d81d"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp03/GlyphFrame.png",
+      "sha256": "deca30f9402d1b6001fb0ec24e43d4895752636e54704ab92b9e2d11e95e7be0"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp03/GlyphFrame.png.meta",
+      "sha256": "e630b13008ce965191ffd8bc5f6f300b98abf5df2f621551ecb38418d3d501e5"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp03/GlyphMutation.png",
+      "sha256": "cf4ae8935e3e82d8f33d879535e8c15f08b6ea99bbf1523314b5fae474472c08"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp03/GlyphMutation.png.meta",
+      "sha256": "a69d3c08c01447cc10df4f633c765bbaf4c0a5ad520bf1050ca4da8f552f93da"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp03/GlyphProtocol.png",
+      "sha256": "43ffe788ea852d05eb84a0238136b0052aeb8b2dff227425630fb8cba6a4ffd5"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp03/GlyphProtocol.png.meta",
+      "sha256": "997eb2d8af22a7c19014c4bd9628c5fc41740818fc9bb0cc420cb3854aa6ba66"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp03/GlyphTechnique.png",
+      "sha256": "24c2b555337b031b17a32ef293a67190e2350c4eac27ba8df06c90c2cb3834e5"
+    },
+    {
+      "path": "Assets/_Project/Resources/UI/RunExp03/GlyphTechnique.png.meta",
+      "sha256": "0d8918dde64e5c1b1edeef5788be6be94b6372d70228c7a7e649eb347411ebe4"
+    },
+    {
+      "path": "Assets/_Project/Prefabs/FirstSector/RunExp03/Emissor.prefab",
+      "sha256": "fd368fa43018e14b2aa10006a44227bbfe64f2782add51f016665f592cd21843"
+    },
+    {
+      "path": "Assets/_Project/Prefabs/FirstSector/RunExp03/Emissor.prefab.meta",
+      "sha256": "510eeb914e49995f1788648e08349eb349c2daba00444d38f7477a8ed35eed16"
+    },
+    {
+      "path": "Assets/_Project/Prefabs/FirstSector/RunExp03/Fragmento.prefab",
+      "sha256": "63e763a0e9bbf38cb6883dc574328c0907c41c1af7a52450eb9eed001bd59642"
+    },
+    {
+      "path": "Assets/_Project/Prefabs/FirstSector/RunExp03/Fragmento.prefab.meta",
+      "sha256": "30520a9e33864fbf9ca36a4e300bc75eaf3d5f06c0681b17a49d800bc8f1b1da"
+    }
+  ]
+}

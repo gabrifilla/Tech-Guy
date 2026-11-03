@@ -1,0 +1,370 @@
+{
+  "baselineFiles": 1500,
+  "unchangedFiles": 1495,
+  "modifiedExistingFiles": [
+    {
+      "path": "Assets/_Project/Scenes/FirstSector.unity",
+      "before": "8f6447910afb441bf1bdd445dcf9a908057b5a8d24fcc087d3514ccecc3909d0",
+      "after": "7c7469076f4e822b1f3acb620c887071d0cc94514c75d104b95eefb5be0d12d9"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Core/Run/ManualRunRandomizer.cs",
+      "before": "27701491c96de78d77ccc740675310f41c90d6c266475f2e766c69f4343e82af",
+      "after": "629905c194ff4d6317083d47a8797ab451978d2c10955720f8bce87a7d4ca893"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.Procedural.cs",
+      "before": "d50cdf6c297f289e97a2cc3339fb2a8cb08e75f76c8f65b6f22ba1cd22ac7b99",
+      "after": "33fc72fe8baa101b5a720739e4f254690af5dfb3367a2b6e74bbb58063b24fb6"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs",
+      "before": "fd157219ad2253a70e449232f88fbb3952378bc034a48cdd8bdf17349b70e728",
+      "after": "f03b288966d803129addbdcd6cfcf02b6f6d94b32537c225bb6c26ab828fd991"
+    },
+    {
+      "path": "Assets/_Project/Scripts/Stages/RunSeedSource.cs",
+      "before": "5131ee9227d9050a933ba2e2dd59ba2de2aed397b41c121db377caa5bd75c0b1",
+      "after": "4fd77196e1d8d1e46f751a02dc1baadb4f0445ede00d492e8e8c35fb363220dc"
+    }
+  ],
+  "unexpectedExistingFileChanges": [],
+  "gamePreferenceCount": 32,
+  "unityRecordedPreferenceChanges": [
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "PT_Run_h3313722519",
+      "before": {
+        "name": "PT_Run_h3313722519",
+        "kind": "Binary",
+        "hash": "9dd1dea41fd191793e46fb699d44756f98e2dbde0ecfe8bd9cf71b3004e2d797"
+      },
+      "after": {
+        "name": "PT_Run_h3313722519",
+        "kind": "Binary",
+        "hash": "209f59348d6633ac5ed4793508025b422df50f35aa3f01a3fb690b2c9d0c8d97"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity.player_session_count_h922449978",
+      "before": {
+        "name": "unity.player_session_count_h922449978",
+        "kind": "Binary",
+        "hash": "3db894ad66353876e3ffa4112c66943a8ffd4624ffc2d4d9242ef78b6f878211"
+      },
+      "after": {
+        "name": "unity.player_session_count_h922449978",
+        "kind": "Binary",
+        "hash": "dfbdfde073e4f04eb36eaef78f19ed2f4a72722fe367fdaddf1bf13d49901199"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity.player_sessionid_h1351336811",
+      "before": {
+        "name": "unity.player_sessionid_h1351336811",
+        "kind": "Binary",
+        "hash": "8821802c5a26f52cde48e0e7345d3250424707385628e010ed75346f7ae81bd8"
+      },
+      "after": {
+        "name": "unity.player_sessionid_h1351336811",
+        "kind": "Binary",
+        "hash": "471e0af077b521e37f080777d61171a544d83815518b85b126d77c3f4d8759fc"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity_connect.mega_session_id_h1802243016",
+      "before": {
+        "name": "unity_connect.mega_session_id_h1802243016",
+        "kind": "Binary",
+        "hash": "f93a8a675e39ef5d8b3561fd2aa733a7b4d2918ad3350c0d44469686371ea02c"
+      },
+      "after": {
+        "name": "unity_connect.mega_session_id_h1802243016",
+        "kind": "Binary",
+        "hash": "048771fe2ad2f40a2fd6ced2cd011e8df46ed26bfa7024b6ade5a88a49229b5e"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity_connect.session_id_h4145606137",
+      "before": {
+        "name": "unity_connect.session_id_h4145606137",
+        "kind": "Binary",
+        "hash": "bd58e4aa1ff3c4a2fd3fde654680efd084ba2b5e7991bf7f2336f90661996294"
+      },
+      "after": {
+        "name": "unity_connect.session_id_h4145606137",
+        "kind": "Binary",
+        "hash": "102089871c936b904b88f14093ce55793fc45d5cdd9f0ca068d4a4b10cca0412"
+      }
+    }
+  ],
+  "currentRegistryChanges": [
+    {
+      "registryPath": "Software\\DefaultCompany\\T.G - Tech Guy",
+      "name": "Screenmanager Fullscreen mode_h3630240806",
+      "before": {
+        "name": "Screenmanager Fullscreen mode_h3630240806",
+        "kind": "DWord",
+        "hash": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b"
+      },
+      "after": {
+        "name": "Screenmanager Fullscreen mode_h3630240806",
+        "kind": "DWord",
+        "hash": "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce"
+      }
+    },
+    {
+      "registryPath": "Software\\DefaultCompany\\T.G - Tech Guy",
+      "name": "TechGuy.Currency.Coins_h3749453035",
+      "before": {
+        "name": "TechGuy.Currency.Coins_h3749453035",
+        "kind": "DWord",
+        "hash": "a4e00d7e6aa82111575438c5e5d3e63269d4c475c718b2389f6d02932c47f8a6"
+      },
+      "after": {
+        "name": "TechGuy.Currency.Coins_h3749453035",
+        "kind": "DWord",
+        "hash": "3068430da9e4b7a674184035643d9e19af3dc7483e31cc03b35f75268401df77"
+      }
+    },
+    {
+      "registryPath": "Software\\DefaultCompany\\T.G - Tech Guy",
+      "name": "TechGuy.Loadout.Weapon_h72199070",
+      "before": {
+        "name": "TechGuy.Loadout.Weapon_h72199070",
+        "kind": "DWord",
+        "hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+      },
+      "after": {
+        "name": "TechGuy.Loadout.Weapon_h72199070",
+        "kind": "DWord",
+        "hash": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+      }
+    },
+    {
+      "registryPath": "Software\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity.player_session_count_h922449978",
+      "before": {
+        "name": "unity.player_session_count_h922449978",
+        "kind": "Binary",
+        "hash": "2da5ef3d9ef1605b7838829b7093ff92009e2fed8139cbca1381e7ca7d88758f"
+      },
+      "after": {
+        "name": "unity.player_session_count_h922449978",
+        "kind": "Binary",
+        "hash": "79d9eb10df3d7b996983083b1ba0c96a44c36b0e85e9ba4339e27e56ec55b08c"
+      }
+    },
+    {
+      "registryPath": "Software\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity.player_sessionid_h1351336811",
+      "before": {
+        "name": "unity.player_sessionid_h1351336811",
+        "kind": "Binary",
+        "hash": "9bc867327a1a6c095dfb37a0805e10a0f288cc7104cc093174ef4901ecc97472"
+      },
+      "after": {
+        "name": "unity.player_sessionid_h1351336811",
+        "kind": "Binary",
+        "hash": "3d115510dce6ad4b571c7d8e511cdaea96aaa573e96cc76ef696c4a53dc7363e"
+      }
+    },
+    {
+      "registryPath": "Software\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity_connect.mega_session_id_h1802243016",
+      "before": {
+        "name": "unity_connect.mega_session_id_h1802243016",
+        "kind": "Binary",
+        "hash": "b0b2f1a3f4ffe644652768aad89657bae28efbae53a496ab609e7ae50ea1f534"
+      },
+      "after": {
+        "name": "unity_connect.mega_session_id_h1802243016",
+        "kind": "Binary",
+        "hash": "378344fc1d29caa01cfa4824aa55b829f1b7ee9d8944b3bcc025cdda27407bc3"
+      }
+    },
+    {
+      "registryPath": "Software\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity_connect.session_id_h4145606137",
+      "before": {
+        "name": "unity_connect.session_id_h4145606137",
+        "kind": "Binary",
+        "hash": "6665b45b05b47fca0570b14a4985c6b141c504514a5f139fa60b748f9d266b59"
+      },
+      "after": {
+        "name": "unity_connect.session_id_h4145606137",
+        "kind": "Binary",
+        "hash": "cb215824b06b3187730e9396acb37943ce39db917f899b856e7095b1e16bbf96"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "PT_Run_h3313722519",
+      "before": {
+        "name": "PT_Run_h3313722519",
+        "kind": "Binary",
+        "hash": "9dd1dea41fd191793e46fb699d44756f98e2dbde0ecfe8bd9cf71b3004e2d797"
+      },
+      "after": {
+        "name": "PT_Run_h3313722519",
+        "kind": "Binary",
+        "hash": "209f59348d6633ac5ed4793508025b422df50f35aa3f01a3fb690b2c9d0c8d97"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "TechGuy.Currency.Coins_h3749453035",
+      "before": {
+        "name": "TechGuy.Currency.Coins_h3749453035",
+        "kind": "DWord",
+        "hash": "8ba89f83a19745038de329531b2e1c2b1d58b6d7f7e2a22e993024a1b78adeba"
+      },
+      "after": {
+        "name": "TechGuy.Currency.Coins_h3749453035",
+        "kind": "DWord",
+        "hash": "e2a424edff99af60a8d9e6b9943562d6b148a49603445aaf4371d722e12c7f28"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "TechGuy.RunSummary.v1_h3722393526",
+      "before": {
+        "name": "TechGuy.RunSummary.v1_h3722393526",
+        "kind": "Binary",
+        "hash": "b027b0b8089a86e8d24bf7c2f614b5025f29d9a11af9ee4b6159f32d50f1efd1"
+      },
+      "after": {
+        "name": "TechGuy.RunSummary.v1_h3722393526",
+        "kind": "Binary",
+        "hash": "c7ddae8b9cfd01314fc76c3c89386c77e3fa5ebf928c92c7690e0f4b96fa3d2c"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity.player_session_count_h922449978",
+      "before": {
+        "name": "unity.player_session_count_h922449978",
+        "kind": "Binary",
+        "hash": "3db894ad66353876e3ffa4112c66943a8ffd4624ffc2d4d9242ef78b6f878211"
+      },
+      "after": {
+        "name": "unity.player_session_count_h922449978",
+        "kind": "Binary",
+        "hash": "cf493ff2674beaf451d200ab5570053d258f0d5a981c653533ae58a8459d2f1f"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity.player_sessionid_h1351336811",
+      "before": {
+        "name": "unity.player_sessionid_h1351336811",
+        "kind": "Binary",
+        "hash": "8821802c5a26f52cde48e0e7345d3250424707385628e010ed75346f7ae81bd8"
+      },
+      "after": {
+        "name": "unity.player_sessionid_h1351336811",
+        "kind": "Binary",
+        "hash": "bacb97b58de614f5aa5ef221d7f66f85e888640fe3b44453e005e3d7187c313f"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity_connect.mega_session_id_h1802243016",
+      "before": {
+        "name": "unity_connect.mega_session_id_h1802243016",
+        "kind": "Binary",
+        "hash": "f93a8a675e39ef5d8b3561fd2aa733a7b4d2918ad3350c0d44469686371ea02c"
+      },
+      "after": {
+        "name": "unity_connect.mega_session_id_h1802243016",
+        "kind": "Binary",
+        "hash": "048771fe2ad2f40a2fd6ced2cd011e8df46ed26bfa7024b6ade5a88a49229b5e"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "unity_connect.session_id_h4145606137",
+      "before": {
+        "name": "unity_connect.session_id_h4145606137",
+        "kind": "Binary",
+        "hash": "bd58e4aa1ff3c4a2fd3fde654680efd084ba2b5e7991bf7f2336f90661996294"
+      },
+      "after": {
+        "name": "unity_connect.session_id_h4145606137",
+        "kind": "Binary",
+        "hash": "5ff5f8449154609d13b2715f692c92d4224e3f8ee5f213980fde0d3aed9f8f3b"
+      }
+    }
+  ],
+  "gamePreferenceChanges": [
+    {
+      "registryPath": "Software\\DefaultCompany\\T.G - Tech Guy",
+      "name": "TechGuy.Currency.Coins_h3749453035",
+      "before": {
+        "name": "TechGuy.Currency.Coins_h3749453035",
+        "kind": "DWord",
+        "hash": "a4e00d7e6aa82111575438c5e5d3e63269d4c475c718b2389f6d02932c47f8a6"
+      },
+      "after": {
+        "name": "TechGuy.Currency.Coins_h3749453035",
+        "kind": "DWord",
+        "hash": "3068430da9e4b7a674184035643d9e19af3dc7483e31cc03b35f75268401df77"
+      }
+    },
+    {
+      "registryPath": "Software\\DefaultCompany\\T.G - Tech Guy",
+      "name": "TechGuy.Loadout.Weapon_h72199070",
+      "before": {
+        "name": "TechGuy.Loadout.Weapon_h72199070",
+        "kind": "DWord",
+        "hash": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+      },
+      "after": {
+        "name": "TechGuy.Loadout.Weapon_h72199070",
+        "kind": "DWord",
+        "hash": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "TechGuy.Currency.Coins_h3749453035",
+      "before": {
+        "name": "TechGuy.Currency.Coins_h3749453035",
+        "kind": "DWord",
+        "hash": "8ba89f83a19745038de329531b2e1c2b1d58b6d7f7e2a22e993024a1b78adeba"
+      },
+      "after": {
+        "name": "TechGuy.Currency.Coins_h3749453035",
+        "kind": "DWord",
+        "hash": "e2a424edff99af60a8d9e6b9943562d6b148a49603445aaf4371d722e12c7f28"
+      }
+    },
+    {
+      "registryPath": "Software\\Unity\\UnityEditor\\DefaultCompany\\T.G - Tech Guy",
+      "name": "TechGuy.RunSummary.v1_h3722393526",
+      "before": {
+        "name": "TechGuy.RunSummary.v1_h3722393526",
+        "kind": "Binary",
+        "hash": "b027b0b8089a86e8d24bf7c2f614b5025f29d9a11af9ee4b6159f32d50f1efd1"
+      },
+      "after": {
+        "name": "TechGuy.RunSummary.v1_h3722393526",
+        "kind": "Binary",
+        "hash": "c7ddae8b9cfd01314fc76c3c89386c77e3fa5ebf928c92c7690e0f4b96fa3d2c"
+      }
+    }
+  ],
+  "expectedNonGameplayChanges": "PT_Run is the Unity performance test framework metadata (Utils.PlayerPrefKeyRunJSON); unity.* session IDs/count change across Editor sessions. Their hashes are not claimed identical.",
+  "head": "314d28ec22ae2d242409fbfd10ea7f8368dd76e9",
+  "branch": "gameplayOverhaul",
+  "status": " M Assets/_Project/Scenes/FirstSector.unity\n M Assets/_Project/Scripts/Core/Run/ManualRunRandomizer.cs\n M Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.Procedural.cs\n M Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs\n M Assets/_Project/Scripts/Stages/RunSeedSource.cs\n M Assets/_Project/Scripts/Tests/PlayMode/Gpr015ProductionAuditTests.cs\n M Assets/_Project/Scripts/Tests/PlayMode/TitanicConductorPlayModeTests.cs\n D Docs.zip\n M Docs/02_ESTADO_E_LACUNAS.md\n M Docs/decisions/GAMEPLAY_REWORK_PROGRESS.md\n M Docs/gameplay/GPR_REQUIREMENTS.md\n M Docs/gameplay/GPR_TASKS.md\n M Docs/gameplay/GPR_TECHNICAL_DESIGN.md\n M Docs/gameplay/GPR_VALIDATION_PLAN.md\n M Docs/gameplay/TECH_GUY_RUN_REWARDS_ROOMS_ENEMIES_MASTERPLAN.md\n M Docs/validation/01_MATRIZ_DE_VALIDACAO.md\n?? Assets/_Project/Art/RunExp03.meta\n?? Assets/_Project/Art/RunExp03/\n?? Assets/_Project/Prefabs/FirstSector.meta\n?? Assets/_Project/Prefabs/FirstSector/\n?? Assets/_Project/Prototypes/RunExp02.meta\n?? Assets/_Project/Prototypes/RunExp02/\n?? Assets/_Project/Resources/UI.meta\n?? Assets/_Project/Resources/UI/\n?? Assets/_Project/Scenes/Review.meta\n?? Assets/_Project/Scenes/Review/\n?? Assets/_Project/ScriptableObjects/Run/FirstSectorContent.asset\n?? Assets/_Project/ScriptableObjects/Run/FirstSectorContent.asset.meta\n?? Assets/_Project/Scripts/Characters/Enemy/FirstSectorEnemyDespawn.cs\n?? Assets/_Project/Scripts/Characters/Enemy/FirstSectorEnemyDespawn.cs.meta\n?? Assets/_Project/Scripts/Characters/Enemy/FirstSectorEnemyPose.cs\n?? Assets/_Project/Scripts/Characters/Enemy/FirstSectorEnemyPose.cs.meta\n?? Assets/_Project/Scripts/Core/Run/FirstSectorContentDefinition.cs\n?? Assets/_Project/Scripts/Core/Run/FirstSectorContentDefinition.cs.meta\n?? Assets/_Project/Scripts/Editor/RunExp02.meta\n?? Assets/_Project/Scripts/Editor/RunExp02/\n?? Assets/_Project/Scripts/Editor/RunExp03Authoring.cs\n?? Assets/_Project/Scripts/Editor/RunExp03Authoring.cs.meta\n?? Assets/_Project/Scripts/Editor/RunExp03EnemyArtAuthoring.cs\n?? Assets/_Project/Scripts/Editor/RunExp03EnemyArtAuthoring.cs.meta\n?? Assets/_Project/Scripts/Editor/RunExp03RewardsAuthoring.cs\n?? Assets/_Project/Scripts/Editor/RunExp03RewardsAuthoring.cs.meta\n?? Assets/_Project/Scripts/Prototypes.meta\n?? Assets/_Project/Scripts/Prototypes/\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunExp02GeometryTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunExp02GeometryTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunExp03ArtTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunExp03ArtTests.cs.meta\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunExp03ContentTests.cs\n?? Assets/_Project/Scripts/Tests/EditMode/Editor/RunExp03ContentTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp02IntegrationTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp02IntegrationTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp02StabilityTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp02StabilityTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Cost.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Cost.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Lifecycle.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Lifecycle.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Observation.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Observation.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Weapons.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Weapons.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03RewardTests.Input.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03RewardTests.Input.cs.meta\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03RewardTests.cs\n?? Assets/_Project/Scripts/Tests/PlayMode/RunExp03RewardTests.cs.meta\n?? Assets/_Project/Scripts/UI/Review.meta\n?? Assets/_Project/Scripts/UI/Review/\n?? Docs/decisions/RUN_EXP_02_0_STABILITY.md\n?? Docs/decisions/RUN_EXP_02_1_ENEMIES.md\n?? Docs/decisions/RUN_EXP_02_2_ARENAS.md\n?? Docs/decisions/RUN_EXP_02_3_REWARDS.md\n?? Docs/decisions/RUN_EXP_02_4_INTEGRATION.md\n?? Docs/decisions/RUN_EXP_02_RELATORIO.md\n?? Docs/decisions/RUN_EXP_03_0_BASELINE.md\n?? Docs/decisions/RUN_EXP_03_1_FIRSTSECTOR_INTEGRATION.md\n?? Docs/decisions/RUN_EXP_03_2_REWARD_UI_DESIGN.md\n?? Docs/decisions/RUN_EXP_03_3_ENEMY_ART.md\n?? Docs/decisions/RUN_EXP_03_4_INTEGRATION.md\n?? Docs/decisions/RUN_EXP_03_RELATORIO.md\n?? Docs/validation/artifacts/gameplay-rework/gpr-01-3/replays/\n?? Docs/validation/artifacts/gameplay-rework/gpr-01-5/b/production/20261030-222537-3760319/\n?? Docs/validation/artifacts/gameplay-rework/gpr-01-5/c/20261030-222534-3193473/\n?? Docs/validation/artifacts/gameplay-rework/gpr-01-5/c/20261030-231609-2370164/\n?? Docs/validation/artifacts/gameplay-rework/gpr-01-5/c/20261030-231612-0405308/\n?? Docs/validation/artifacts/gameplay-rework/gpr-01-5/c/20261030-231614-7976765/\n?? Docs/validation/artifacts/gameplay-rework/gpr-01-5/c/20261030-231617-5994403/\n?? Docs/validation/artifacts/gameplay-rework/run-exp-02/\n?? Docs/validation/artifacts/run-exp-02/\n?? Docs/validation/artifacts/run-exp-03/\n?? Tools/RunExp02/\n?? Tools/RunExp03/\n",
+  "lastUnityVerifiedScene": "Assets/_Project/Prototypes/RunExp02/ArenaB.unity",
+  "lastUnityVerifiedDirty": false,
+  "lastUnityVerifiedAssistance": false,
+  "unityRecordedGamePreferenceChanges": [],
+  "scope": "The saved final Unity checkpoint on30/10 preserved all32 TechGuy values. Current registry is a later read after an interruption/Editor closure; later differences are observed, not attributed to this work and never restored over current user data."
+}

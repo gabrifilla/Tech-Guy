@@ -1,0 +1,176 @@
+{
+  "missing": [],
+  "images": 141,
+  "jobs": [
+    {
+      "file": "art-edit.json",
+      "job": "180e47065a964a638617bc88999f339c",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 0.6951416,
+      "resultState": "Passed"
+    },
+    {
+      "file": "art-open-paired-final.json",
+      "job": "1c11f19931944dde863eb6dc73da0aba",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 11.7598855,
+      "resultState": "Passed"
+    },
+    {
+      "file": "art-play.json",
+      "job": "88fc9eb896f441578413fc8a618e6c9d",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 8.3051444,
+      "resultState": "Passed"
+    },
+    {
+      "file": "baseline-isolation-fixed.json",
+      "job": "12565ffe79f4445fba2977cfa5bf63df",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 35.951645,
+      "resultState": "Passed"
+    },
+    {
+      "file": "baseline-lifecycle-isolated.json",
+      "job": "9d28879fe2734502937743887cc0a3da",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 11.9353913,
+      "resultState": "Passed"
+    },
+    {
+      "file": "baseline-tests.json",
+      "job": "a4f83a2bd80c49bb8f6a1362f26550a5",
+      "total": 4,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "durationSeconds": 33.6955724,
+      "resultState": "Failed(Child)"
+    },
+    {
+      "file": "edit-final.json",
+      "job": "4d746fc92cc54f2d8ba0177b48aa16c5",
+      "total": 28,
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 1.5687123,
+      "resultState": "Passed"
+    },
+    {
+      "file": "encounters-edit.json",
+      "job": "66a4dc7e8b9849b595972c8dc77e8187",
+      "total": 11,
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 0.5336905,
+      "resultState": "Passed"
+    },
+    {
+      "file": "encounters-play.json",
+      "job": "884828fb86c349a5bc18ebdb5e9da684",
+      "total": 4,
+      "passed": 3,
+      "failed": 1,
+      "skipped": 0,
+      "durationSeconds": 69.2738284,
+      "resultState": "Failed(Child)"
+    },
+    {
+      "file": "encounters-roles-fixed.json",
+      "job": "1aa3e18588154c4c95303d1213859dbd",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 38.6078016,
+      "resultState": "Passed"
+    },
+    {
+      "file": "integrated-final.json",
+      "job": "cd2586b50d234408804d2be5557da77a",
+      "total": 15,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 173.5165052,
+      "resultState": "Passed"
+    },
+    {
+      "file": "mixed-hooks-final.json",
+      "job": "e75f95a417d24d38a52bd3894511cdc5",
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 79.5789132,
+      "resultState": "Passed"
+    },
+    {
+      "file": "regression-final.json",
+      "job": "75f05fe357744cc4adfe3e41a091bd70",
+      "total": 33,
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 47.2677182,
+      "resultState": "Passed"
+    },
+    {
+      "file": "rooms-play.json",
+      "job": "854f15035d3a450d8f45a73c4770e43d",
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 27.7766581,
+      "resultState": "Passed"
+    },
+    {
+      "file": "skill-effects-final.json",
+      "job": "e6b9561b948c4f4aa3ec9576af6f5064",
+      "total": 10,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 11.5321682,
+      "resultState": "Passed"
+    },
+    {
+      "file": "ui-tests-final.json",
+      "job": "7ed0275de84c491f9cbbeed4b050002a",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 5.5418123,
+      "resultState": "Passed"
+    },
+    {
+      "file": "ui-tests.json",
+      "job": "e3c509a3e18d4e57b3a4a39d60d78cd9",
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 7.126962,
+      "resultState": "Passed"
+    }
+  ]
+}

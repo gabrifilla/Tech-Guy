@@ -1,5 +1,21 @@
 # HUD e UI — legibilidade antes de ornamento
 
+<!-- RUNEXP06 CURRENT -->
+## RUN-EXP-06 — C05 aprovada e publicada
+
+03/11/2026. O aceite direto01–05/C05 substitui o gate pendente histórico. Três alternativas quando disponíveis, foco/detalhes/contexto/rank, categoria/ordinal e cancelamento com ticket pendente. 32IDs alcançáveis:8 com7 imagens e24 com fallback de família; Continuação não promete aquisição. Mouse/teclado/gamepad/foco/remapeamento e1160×600/1280×800/1920×1080 verificados no escopo06.
+
+Estado06 prevalece sobre gates pendentes/restrições de fases anteriores abaixo, preservados como histórico. [Evidência e limites](../decisions/RUN_EXP_06_1_REWARD_UI_PRODUCTION.md).
+<!-- /RUNEXP06 CURRENT -->
+
+<!-- RUNEXP05 CURRENT -->
+## RUN-EXP-05 — C05 continua prévia
+
+02/11/2026. C05 mantém três alternativas, foco e detalhes, com8 ilustrações originais de efeitos existentes, informações de inventário real/rank futuro e feedback curto. Não converte cooferta emsinergia ativa. Mouse/teclado/gamepad e1160×600/1280×800/1920×1080 têm evidência; movimento reduzido e mostruário assistido somente leitura no menu05. ComparadoresOriginal/C04/C05 preservados. C é recomendação, PENDING DEVELOPER APPROVAL; nenhuma cena instala override permanente.
+
+[Entrega e limites](../decisions/RUN_EXP_05_1_REWARD_UI.md).
+<!-- /RUNEXP05 CURRENT -->
+
 Fonte documental principal da apresentação e interação de combate/run. As decisões de produto abaixo continuam vigentes; presença de widgets não prova legibilidade aprovada.
 
 ## Decisões

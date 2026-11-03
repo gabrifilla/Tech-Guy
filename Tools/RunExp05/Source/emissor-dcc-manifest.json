@@ -1,0 +1,58 @@
+{
+  "blender": "5.2.2 LTS",
+  "kind": "Emissor",
+  "axis": "Unity(x,y,z)->Blender(-x,-z,y), verified calibration",
+  "atlas": "1024 basecolor and metallic/smoothness trim atlas; smart UVs reused deliberately, one material slot per mesh",
+  "rig": "Native Unity rigid joint IK; assembled Blender rest guide, no humanoid retargeting or authored hit events",
+  "meshes": [
+    {
+      "sourceKey": "E_Carcaca_estruturada_0",
+      "triangles": 426,
+      "nonmanifoldEdges": 0,
+      "volume": 0.0537629049529751,
+      "vertices": 215
+    },
+    {
+      "sourceKey": "E_Quilha_0",
+      "triangles": 132,
+      "nonmanifoldEdges": 0,
+      "volume": 0.005140076775333596,
+      "vertices": 68
+    },
+    {
+      "sourceKey": "E_Carcaca_estruturada_1",
+      "triangles": 438,
+      "nonmanifoldEdges": 0,
+      "volume": 0.05390459499353302,
+      "vertices": 221
+    },
+    {
+      "sourceKey": "E_Quilha_1",
+      "triangles": 144,
+      "nonmanifoldEdges": 0,
+      "volume": 0.005144443639306922,
+      "vertices": 74
+    },
+    {
+      "sourceKey": "E_Nucleo",
+      "triangles": 312,
+      "nonmanifoldEdges": 0,
+      "volume": 0.04716420217636451,
+      "vertices": 158
+    },
+    {
+      "sourceKey": "E_Canal_oco",
+      "triangles": 496,
+      "nonmanifoldEdges": 0,
+      "volume": 0.029225481854657984,
+      "vertices": 248
+    },
+    {
+      "sourceKey": "E_Camara_interna",
+      "triangles": 224,
+      "nonmanifoldEdges": 0,
+      "volume": 0.0023840925876496676,
+      "vertices": 114
+    }
+  ]
+}

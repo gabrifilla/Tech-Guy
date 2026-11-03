@@ -1,5 +1,48 @@
 # Matriz de validação: prova antes de declarar pronto
 
+<!-- RUNEXP06 CURRENT -->
+## RUN-EXP-06 — gates técnicos executados e aceite05 recebido
+
+03/11/2026. A produção/C05 e catálogo verificados; C/D inimigos/LOS/duas rotas preservados; E nenhuma regressão bloqueante nova confirmada; F47prefs existentes e assets protegidos iguais no escopo; G planejamento/brief sem07. Seleções finais27/27,33/33,10/10,29/29adicionais e29/29Edit. Falhas intermediárias corrigidas e checkerhistórico permanecem registrados. Não é suite global nem playthrough humano.
+
+Estado06 prevalece sobre gates pendentes/restrições de fases anteriores abaixo, preservados como histórico. [Evidência e limites](../decisions/RUN_EXP_06_4_VALIDATION.md).
+<!-- /RUNEXP06 CURRENT -->
+
+<!-- RUNEXP05 CURRENT -->
+## RUN-EXP-05 — evidências por gate
+
+02/11/2026. A recompensa: C05 disponível, publicação proibida sem aprovação. B inimigos: pipelineDCC e compatibilidade verificados, qualidade final/rig de produção pendentes. C ambiente: malhas/estrutura distintas com física/LOS/duas rotas preservadas. D combate: seleções atuais nativas e capturas, leitura humana pendente. E custo: Editor8/32/64 e comparação standalone limitada quando executada; números e disponibilidade deGPU no relatório. F estabilidade/G integridade: jobs, falhas intermediárias, hashes e escopos atuais no05.4. H aprovação: explicitamente pendente; testes não a concedem.
+
+[Entrega e limites](../decisions/RUN_EXP_05_4_VALIDATION.md).
+<!-- /RUNEXP05 CURRENT -->
+
+## RUN-EXP-04 — Gates A–G atualizados
+
+02/11/2026. A combate e C salas: contratos técnicos verificados, pressão física pendente. B identidade e D coesão: revisão geométrica intermediária demonstrada, aprovação artística pendente. E UI: original/A/B/C disponíveis, publicação não feita e escolha humana pendente. F estabilidade: nenhum novo bloqueio produtivo confirmado no recorte; intermitência de baseline e dívida global continuam. G integridade: escopos enumerados comparados ao início04, sem garantia universal de saves.
+
+15/15 PlayMode integrados; matriz ampliada1/1 com12 cenários;33/33 regressões selecionadas;10/10 efeitos de habilidades;28/28 EditMode. Seleções não equivalem à suite global.1562/1574 hashes idênticos,12 alterações previstas,0 removidos no escopo;32 preferências TechGuy atuais iguais. Console final0 erros; checker mantém um erro e um aviso históricos fora do escopo. Editor NexusBlockout limpo/Edit, assistência desligada e sem overrides. [Entrega e revisão visual](../decisions/RUN_EXP_04_RELATORIO.md) · [Jobs, performance e limites](../decisions/RUN_EXP_04_5_VALIDATION.md).
+
+
+## RUN-EXP-03 — matriz de entrega, atualização02/11/2026
+
+| Gate | Resultado observado |
+|---|---|
+| A integração | PASS técnico: rotas0/1/2 até boss/tickets/Nexus;63 dupla+cover no primeiro combate |
+| B gameplay | PASS técnico: contato três armas, caminhos, LOS bloqueado/retomado, dano/CC/pausa/reuso/cleanup; game feel humano pendente |
+| C UI | Dois conceitos reais/mesmas ofertas; **aprovação humana pendente**, nenhuma troca permanente |
+| D arte | Refino intermediário válido em novas cópias; **arte final não aceita** |
+| E regressão | 12/12 integração +24/24 regressões PlayMode;26/26 EditMode; sem verde global |
+| F segurança | 1495/1500 hashes iguais; cinco mudanças previstas.32 prefs iguais no checkpointUnity; quatro divergências posteriores preservadas sem atribuição |
+
+Jobs finais:`37282363f9d443efa8ff6dc5c4c7d6a4`/`e59091e659fb4cd1bb1a03cd6b676a9f`/`4366e480686840c7a4d9f16a77955d22`. Intermediário11/12 e correções estão arquivados. Console final0; checker mantém missing-script Playground/aviso de sampler legados.8/32/64 ativos Editor p95≈5,28/9,65/13,31ms, sem budget standalone. [Método e limitações](../decisions/RUN_EXP_03_4_INTEGRATION.md) · [evidência visual](artifacts/run-exp-03/REVIEW.html). ÚltimaUnity devolvida à ArenaB limpa/EditMode; conexão posterior indisponível com Editor fechado. **STOP03.4**.
+
+## RUN-EXP-02 — 30/10/2026, entrega isolada para revisão
+
+Fragmento/Emissor autorados e jogáveis, arenas aberta/cobertura com NavMesh próprio e inspeção de recompensas reais sem aquisição. **STOP após02.4; gameplay/visual/arte aguardam revisão física, sem rollout.** Relatório: [RUN_EXP_02_RELATORIO](../decisions/RUN_EXP_02_RELATORIO.md). Estabilidade13/13, fatia10/10, geometria1/1 e contratos11/11 em jobs separados; não somar seleções sobrepostas. Dívida histórica31 classificada, sem verde global353.306 hashes protegidos idênticos e três chaves PlayerPrefs iguais; limitação do inventário integral de preferências registrada.8/32/64 agentes reais medidos no Editor, sem aprovação de orçamento.
+
+Requisitos deste recorte: candidatos usam Actor/EnemyVariant/AI/CombatActions/reactions/receipts; produção preservada; cena de revisão sem ProgressionDirector/save/coins; estatísticas locais descartadas; UI consulta ofertas, não chama Choose. Cobertura separa volumes dos básicos e bloqueia projéteis, sem alterar oclusão global de áreas. Arte procedural/intermediária não equivale a arte final. Entrada: Tools/Tech Guy/RUN-EXP-02, em Edit Mode.
+
+
 ## RUN-EXP-01 — fechamento do recorte,30/10/2026
 
 Etapas0–2 entregues no escopo técnico/documental; implementação de design futuro e aceite humano **não concluídos**. [Plano e gates](../gameplay/TECH_GUY_RUN_REWARDS_ROOMS_ENEMIES_MASTERPLAN.md).
@@ -132,8 +175,6 @@ Parâmetros experimentais: caixa frontal de 1,5× o alcance/largura efetivos do 
 
 **STOP após GPR-01.2. GPR-01.3 e etapas seguintes não autorizadas.** Revisão humana da mutação e de seu visual permanece pendente; moonwalk/cadência e swap modular continuam diferidos. As seções anteriores preservadas abaixo são históricas onde divergirem deste estado.
 
-
-
 ## Evidência vigente GPR-01.2
 
 | Seleção/critério | Resultado | Limite |
@@ -169,8 +210,6 @@ Q/Avanço para aproximação é compatibilidade de ações, não sinergia mecân
 | GPR-01.P1 |PLANEJAMENTO CONCLUÍDO; design aguardando revisão | [FatiaA/B/C](../gameplay/GPR_01_VERTICAL_SLICE.md); leitura estática do grafo/receipt/protocolos/timers; zero gameplay novo/zero testes Unity novos |
 
 As evidências anteriores mantêm seus resultados, revisões e limites. O aceite atual encerra somente a pendência humana dos controles atuais; não transforma capturas virtuais antigas em playtest humano, nem aprova GPR-01.
-
-
 
 ## Histórico do fechamento C01.4,28/10/2026
 
@@ -435,8 +474,6 @@ O comentário antigo de CharControlScript que chama todo básico de cosmético n
 - Quebra efetiva: E isolado causa 10/44 HP e reduz postura, mas não quebra esse alvo. W o mata antes da quebra. Nenhuma StanceBroken natural nova foi observada. Testes controlados cobrem quebra/launch/ranks; não são essa demonstração. Menor extensão: direcionar a agenda/rota a um alvo de produção sobrevivente com perfil adequado; não mudar HP/postura/dano para obtê-la.
 - Interrupção: tentativa W155 (`20261019T013202143-4c65393b`) acerta o alvo próximo enquanto o Sniper distante prepara/executa ataque. São atores diferentes; não comprova interrupção. Necessária seleção explícita de alvo + movimento até alcance, mantendo janelas/resistências.
 - Ataque → movimento → dash: o cliente seeded só dirige basic/skill/finish e current não dirige input. Validação automatizada existe nos testes de navegação/input/cancel, mas não foi capturada uma sequência natural nova. Menor extensão: alimentar os dispositivos virtuais já existentes/rotas públicas de movimento e dash, adicionando agenda e condições do manifesto ao validador atual. Nenhum driver de input paralelo será criado nesta tarefa.
-
-
 
 ### Resultado da melhoria 1.2 e evidências
 
