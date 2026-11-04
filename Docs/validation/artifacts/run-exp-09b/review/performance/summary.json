@@ -1,0 +1,38 @@
+{
+  "plan": {
+    "median_ms": 0.01435,
+    "p95_ms": 0.0224,
+    "allocation_counter_valid": false,
+    "net_heap_median_no_gc_bytes": 4096.0,
+    "net_heap_p95_no_gc_bytes": 8192,
+    "samples_without_gc": 256,
+    "samples": 256
+  },
+  "legacy_generate": {
+    "median_ms": 2.6389500000000004,
+    "p95_ms": 4.1335,
+    "allocation_counter_valid": false,
+    "net_heap_median_no_gc_bytes": 892928.0,
+    "net_heap_p95_no_gc_bytes": 1314816,
+    "samples_without_gc": 256,
+    "samples": 256
+  },
+  "history_generate": {
+    "median_ms": 2.6143,
+    "p95_ms": 3.9347999999999996,
+    "allocation_counter_valid": false,
+    "net_heap_median_no_gc_bytes": 913408.0,
+    "net_heap_p95_no_gc_bytes": 1323008,
+    "samples_without_gc": 256,
+    "samples": 256
+  },
+  "oriented_generate": {
+    "median_ms": 3.0723000000000003,
+    "p95_ms": 4.3882,
+    "allocation_counter_valid": false,
+    "net_heap_median_no_gc_bytes": 913408.0,
+    "net_heap_p95_no_gc_bytes": 1331200,
+    "samples_without_gc": 254,
+    "samples": 256
+  }
+}

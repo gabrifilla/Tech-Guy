@@ -1,0 +1,51 @@
+<!doctype html><meta charset="utf-8"><link rel="stylesheet" href="../style.css"><main><a href="../index.html">←09B</a><h1>RUN-EXP-09B.1 — política de variedade e orientação</h1>
+<h2>Decisão</h2>
+<p>DONE: pressão suave com três salas Combat ancestrais. Peso normal100; família imediatamente anterior50; duas iguais consecutivas20; três iguais5; família vista há duas salas80 se ela não é a anterior. Pesos são relativos, não percentuais finais: todos os candidatos elegíveis mantêm peso positivo. Não há cota, hard cap, rotação fixa, lista de famílias ainda não usadas ou garantia de cobertura.</p>
+<p>O deck já é planejado inteiro. Por isso, usamos os prefixos dos quatro caminhos existentes, em ordem topológica (profundidade, ID). Em merge, fazemos média proporcional por soma inteira dos pesos de históricos distintos de até três famílias. O histórico de um ramo mutuamente exclusivo não é tratado como “sala anterior” de outro. Não é memória da trajetória que o jogador acabará escolhendo: no merge a pressão é uma estimativa das trajetórias possíveis, e um streak ainda pode ocorrer. Nenhum nó é rerrolado na visita/revisita.</p>
+<p>Primeiro Combat conserva o hash09, incluindo os utilitários históricos de seed para a família inicial. Depois, hash com domínio espacial e nodeId misturado seleciona pesos cumulativos na ordem enum0..4; não consome streams de enemies/rewards/base-layout. Um HashSet deduplica históricos, mas sua ordem só afeta somas inteiras comutativas. Elegibilidade0 recusa explicitamente; uma família elegível sempre é escolhida.</p>
+<h2>Alternativas comparadas antes da adoção</h2>
+<p>Nas256 seeds de calibração, o original teve980 repetições adjacentes e24 rotas com streak≥4. Trocar apenas o hash, sem penalidade, deu968 e29: não resolve o problema por si. Penalidade leve75/50/25/90 deu816 e4; moderada50/20/5/80 deu578 e2; forte25/5/1/60 deu456 e1. Escolhemos a moderada por reduzir repetições longas mantendo mais repetição legítima que a forte. A expansão a1024 seeds inclui768 fora da calibração. CSVs originais e candidatos preservados, não apenas o perfil vencedor.</p>
+<p>Rejeitados: round-robin/bag que força cobertura; least-recently-used que vira checklist; cap rígido que mascara restrições de elegibilidade; histórico global por ID que pune um ramo pelo irmão não visitado; replanejar no encontro que rerrola salas já materializadas. Coeficientes podem ser editados no FirstSectorContent.asset e são normalizados para1..100; autoria de pesos não cria estado de run.</p>
+<h2>Adendo: família ≠ orientação</h2>
+<p>L e pátio:0°,90°,180°,270° elegíveis. São oito configurações genuínas, verificadas contra células/colliders e não quatro materiais. Galeria, anel e retângulo: somente0° nesta etapa. Retângulo0/180 é equivalente no contrato atual; não inflar variedade com isso. Não se habilitou rotação de eixo da galeria nem massa do anel sem passar pela mesma matriz específica. Espelhamentos opcionais NOT DONE para limitar autoria e não multiplicar variantes equivalentes/sem revisão.</p>
+<p>Escolha de ângulo usa hash separado de seed+nodeId+família. Não há sequência forçada de ângulos. Pesos de família contam L em qualquer ângulo como L. Pátio fora das dimensões produtivas mínimas22×18 é filtrado para0°; L usa seu envelope canônico fixo28×26. Os sockets cardinais das variantes habilitadas passaram a malha completa de dimensões e os decks reais. Novas restrições exigirão ampliar o filtro antes de habilitar outra forma.</p>
+<h2>Jobs Unity executados</h2>
+<div class="table-scroll"><table>
+<tr><td>Registro</td><td>Job Unity</td><td>Resultado</td></tr>
+<tr><td>compile-empty-job.json</td><td>36fafdb91ece4803a9cf6b8ab4e96e42</td><td>0/0; falhas0</td></tr>
+<tr><td>edit-final-job.json</td><td>e6f63c976b1f4df9920ea0f624bd7eb1</td><td>5/5; falhas0</td></tr>
+<tr><td>first-play-job.json</td><td>3f7f86e94fcd4c2485b7431d2ee7d49d</td><td>7/9; falhas2</td></tr>
+<tr><td>initial-empty-job.json</td><td>b50e6275e94c4b9a95ab1982ed59bc39</td><td>0/0; falhas0</td></tr>
+<tr><td>performance-final-job.json</td><td>d2e1c7d486b14df5a03d200383e8eeee</td><td>1/1; falhas0</td></tr>
+<tr><td>regression-job.json</td><td>54a03aee47044a7ca8e43a22350806df</td><td>5/5; falhas0</td></tr>
+<tr><td>second-play-job.json</td><td>9596028854864fd0af44b7bbaa774c07</td><td>25/25; falhas0</td></tr>
+</table></div>
+<h2>Performance do planejamento</h2>
+<div class="table-scroll"><table>
+<tr><td>Escopo</td><td>Mediana ms</td><td>P95 ms</td><td>Heap líquido mediano sem GC (bytes)</td></tr>
+<tr><td>plan</td><td>0.01435</td><td>0.02240</td><td>4096.0</td></tr>
+<tr><td>legacy_generate</td><td>2.63895</td><td>4.13350</td><td>892928.0</td></tr>
+<tr><td>history_generate</td><td>2.61430</td><td>3.93480</td><td>913408.0</td></tr>
+<tr><td>oriented_generate</td><td>3.07230</td><td>4.38820</td><td>913408.0</td></tr>
+</table></div>
+<p>A sondagem de byte[100000] mostrou que GC.GetAllocatedBytesForCurrentThread retorna0 neste Mono. Os dados finais usam-1/indisponível;0 inicial não é “zero alocação”. ProfilerRecorder GC.Alloc expõe tempo em nanossegundos, não bytes nesta captura. Heap líquido é observado por Profiler.GetMonoUsedSizeLong e contador de coletas; não equivale a alocação exata nem GC/frame. O acréscimo estrutural é um mapa temporário de até sete escolhas, históricos≤número de prefixos, array de cinco pesos e dois campos por plano orientado; sem lista global que cresça entre runs. As rotações criam dados temporários canônicos/transformados uma vez, não a cada visita.</p>
+<p>CPU mede plano isolado, geração de dados legada, com política e com política+orientação. Não inclui materialização/renderer/NavMesh nem prova GPU. Amostras curtas de Editor e overhead de coleta estão declarados em conditions.txt.</p>
+<h2>Fontes, skills e limites</h2>
+<p>Pedido09B, adendo de orientação e autorização posterior para commit/push/desligamento governam esta entrega. AGENTS/README/visão; docs de run, encontros/combate, câmera/nav, relatórios/revisões09/08, matriz/ledger/masterplan e auditorias reais foram consultados. Skills locais tech-guy-game-vision/vision-and-constraints, tech-guy-combat-unity/combat-matrix e tech-guy-unity-acceptance/editor-validation. Instaladas: router, unity-mcp-orchestrator, unity-csharp-scripting, procedural-gen/dungeon-generation, level-design, tech-guy-level-layout/level-brief, tech-guy-enemy-encounters/encounter-spec, camera-systems, unity-navmesh e performance-optimization. Não se inventou skill especializada em estatística: usamos UTF e dados exportados pelo código real.</p>
+<p>Aplicação: RNG isolado e ordem estável; escolhas por rotas possíveis e papéis existentes; validar piso real e apresentação na câmera fixa; medir custo em vez de presumir; diferenciar teste e aceite físico. Nenhuma delegação. A direção das formas09 foi aceita fisicamente pelo desenvolvedor no pedido09B. A nova distribuição e suas orientações permanecem PENDING DEVELOPER APPROVAL.</p>
+<p>Projeto confirmado por MCP: D:/Dev/Personal/My_games/Tech-Guy, Unity6000.5.10f1, Tech-Guy@fccafb2b47cd7671. Branch gameplayOverhaul, HEAD inicial766afa66d93a58afc1b9de1f2eafa15ed8a5504b. Antes09B:2413 arquivos existentes e47 preferências posteriores ao playtest humano. Diffs07/08/09 preservados. Hashes antes/depois e estado final em evidence; nenhum save antigo restaurado sobre dados humanos atuais.</p>
+<p>NOT TESTED: campanha humana prolongada, todas as2^64 seeds, GPU/standalone e alocação exata por chamada neste Mono. A validação é da seleção executada, não suíte global do projeto. O browser bloqueou file:// anteriormente; não se contornou essa política por servidor/superfície alternativa. QA do pacote é estática (referências/PNG/CRC/hash/ZIP), sem afirmar renderização no browser. Capturas Unity não foram retocadas.</p>
+<h2>Gates e integridade de encerramento</h2>
+<div class="table-scroll"><table>
+<tr><td>Gate09B</td><td>Situação observada</td></tr>
+<tr><td>A — formas existentes</td><td>DONE: construção canônica preservada e transformada rigidamente no adendo; outras famílias/reviews preservadas</td></tr>
+<tr><td>B — variedade</td><td>DONE amostra: repetição reduzida; pares e streak4 ainda possíveis; sem cobertura garantida</td></tr>
+<tr><td>C — replay</td><td>DONE:1024 seeds repetidas + seed5 em duas runs reais com famílias/ângulos/tickets iguais</td></tr>
+<tr><td>D — fluxo natural</td><td>DONE automação:7 runs pelo portal Nexus, seleção produtiva, chefe e retorno</td></tr>
+<tr><td>E — conteúdo</td><td>DONE escopo: rosters/rewards/ranks/centros/grafo iguais; Boss/Elite/especiais fora da transformação</td></tr>
+<tr><td>F — gameplay</td><td>DONE técnico:24 variantes×armas,50 NavMesh, LOS/projétil/dash/oclusão/C05/tripla; aceite físico pendente</td></tr>
+<tr><td>G — custo</td><td>DONE CPU/heap líquido limitado; NOT TESTED alocação exata/GPU/standalone; nenhuma avaliação por frame</td></tr>
+<tr><td>H — integridade</td><td>DONE snapshot2413→2427, sete existentes alterados intencionalmente, nenhum removido e47 prefs iguais</td></tr>
+</table></div>
+<p>Lista exata das diferenças em evidence/integrity-comparison.json. Os sete preexistentes são FirstSector.unity, FirstSectorContent.asset, FirstSectorContentDefinition.cs, FirstSectorRoomLayout.cs, ManualRunRandomizer.cs, ManualStageEnvironment.cs e ProgressionDirector.Manual.cs. .gitignore/Docs/Tools têm mudanças intencionais fora do escopo de hashes de gameplay. Novos scripts/metadata09B foram importados pelo Unity; nenhum GUID preexistente foi substituído.</p>
+<p>O perfil de revisão física futura deve verificar visibilidade/pressão em L0/90/180/270, recortes do pátio e sensação de repetição na seed5/6 e em runs sem debug. Isso não autoriza uma etapa10. Publicação Git e pedido de desligamento foram autorizados pelo usuário após o escopo inicial; somente serão executados após a revisão do diff/pacote.</p></main>

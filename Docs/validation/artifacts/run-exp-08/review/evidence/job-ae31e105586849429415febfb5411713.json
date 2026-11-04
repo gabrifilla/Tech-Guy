@@ -1,0 +1,326 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "ae31e105586849429415febfb5411713",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793747160175,
+      "finished_unix_ms": 1793747242308,
+      "last_update_unix_ms": 1793747242308,
+      "progress": {
+        "completed": 31,
+        "total": 31,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08TripleNativeWindElectricityFireWithTelegraph",
+        "last_finished_unix_ms": 1793747242263,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 31,
+          "passed": 31,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 75.8859632,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "ActiveCameraFadeLetsGroundClicksCrossTheWallAndDisableRestoresBlocking",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.ActiveCameraFadeLetsGroundClicksCrossTheWallAndDisableRestoresBlocking",
+            "state": "Passed",
+            "durationSeconds": 0.3331767,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ChangingTargetImmediatelyRestoresThePreviousTargetsObstructions",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.ChangingTargetImmediatelyRestoresThePreviousTargetsObstructions",
+            "state": "Passed",
+            "durationSeconds": 0.0033118,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ChildCollidersResolveParentMeshesAndRigidbodySiblingMeshes(False)",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.ChildCollidersResolveParentMeshesAndRigidbodySiblingMeshes(False)",
+            "state": "Passed",
+            "durationSeconds": 0.0060823,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ChildCollidersResolveParentMeshesAndRigidbodySiblingMeshes(True)",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.ChildCollidersResolveParentMeshesAndRigidbodySiblingMeshes(True)",
+            "state": "Passed",
+            "durationSeconds": 0.0013277,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DisposeImmediatelyRestoresMaterialsAndCanBeCalledTwice",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.DisposeImmediatelyRestoresMaterialsAndCanBeCalledTwice",
+            "state": "Passed",
+            "durationSeconds": 0.0007829,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "EverySolidObstacleBetweenCameraAndPlayerFadesWithoutRemovingCollision",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.EverySolidObstacleBetweenCameraAndPlayerFadesWithoutRemovingCollision",
+            "state": "Passed",
+            "durationSeconds": 0.0022589,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FadeIsGradualAndBriefLossOfOcclusionDoesNotCauseFlicker",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.FadeIsGradualAndBriefLossOfOcclusionDoesNotCauseFlicker",
+            "state": "Passed",
+            "durationSeconds": 0.0021802,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FadingUsesPrivateMaterialsAndRestoresTheExactOriginalReferences",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.FadingUsesPrivateMaterialsAndRestoresTheExactOriginalReferences",
+            "state": "Passed",
+            "durationSeconds": 0.0038082,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ForwardPathProbeRevealsAnObstructionBeyondThePlayersFeet",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.ForwardPathProbeRevealsAnObstructionBeyondThePlayersFeet",
+            "state": "Passed",
+            "durationSeconds": 0.0008808,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "GameplayActorsInteractionsTriggersGroundAndPlayerNeverFade(\"Actor\")",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.GameplayActorsInteractionsTriggersGroundAndPlayerNeverFade(\"Actor\")",
+            "state": "Passed",
+            "durationSeconds": 0.0034221,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "GameplayActorsInteractionsTriggersGroundAndPlayerNeverFade(\"Interactable\")",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.GameplayActorsInteractionsTriggersGroundAndPlayerNeverFade(\"Interactable\")",
+            "state": "Passed",
+            "durationSeconds": 0.0009276,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "GameplayActorsInteractionsTriggersGroundAndPlayerNeverFade(\"Trigger\")",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.GameplayActorsInteractionsTriggersGroundAndPlayerNeverFade(\"Trigger\")",
+            "state": "Passed",
+            "durationSeconds": 0.0008662,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "GameplayActorsInteractionsTriggersGroundAndPlayerNeverFade(\"Ground\")",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.GameplayActorsInteractionsTriggersGroundAndPlayerNeverFade(\"Ground\")",
+            "state": "Passed",
+            "durationSeconds": 0.0006847,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "GameplayActorsInteractionsTriggersGroundAndPlayerNeverFade(\"Player\")",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.GameplayActorsInteractionsTriggersGroundAndPlayerNeverFade(\"Player\")",
+            "state": "Passed",
+            "durationSeconds": 0.0007389,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "IllustratedMaterialUsesItsDitherOpacityWithoutChangingSourceOrRenderMode",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.IllustratedMaterialUsesItsDitherOpacityWithoutChangingSourceOrRenderMode",
+            "state": "Passed",
+            "durationSeconds": 0.0011814,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "InvalidDeltaDoesNotCorruptOpacityOrAdvanceTheRestoreClock(float.NaN)",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.InvalidDeltaDoesNotCorruptOpacityOrAdvanceTheRestoreClock(float.NaN)",
+            "state": "Passed",
+            "durationSeconds": 0.0011034,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "InvalidDeltaDoesNotCorruptOpacityOrAdvanceTheRestoreClock(float.PositiveInfinity)",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.InvalidDeltaDoesNotCorruptOpacityOrAdvanceTheRestoreClock(float.PositiveInfinity)",
+            "state": "Passed",
+            "durationSeconds": 0.0007362,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "InvalidDeltaDoesNotCorruptOpacityOrAdvanceTheRestoreClock(float.NegativeInfinity)",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.InvalidDeltaDoesNotCorruptOpacityOrAdvanceTheRestoreClock(float.NegativeInfinity)",
+            "state": "Passed",
+            "durationSeconds": 0.0006202,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "InvalidDeltaDoesNotCorruptOpacityOrAdvanceTheRestoreClock(-1.0f)",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.InvalidDeltaDoesNotCorruptOpacityOrAdvanceTheRestoreClock(-1.0f)",
+            "state": "Passed",
+            "durationSeconds": 0.0005956,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "LosingTheTargetImmediatelyRestoresItsObstructions",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.LosingTheTargetImmediatelyRestoresItsObstructions",
+            "state": "Passed",
+            "durationSeconds": 0.0007416,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "NonFiniteAuthoringValuesFallBackToAWorkingFiniteFade(float.NaN)",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.NonFiniteAuthoringValuesFallBackToAWorkingFiniteFade(float.NaN)",
+            "state": "Passed",
+            "durationSeconds": 0.0011458,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "NonFiniteAuthoringValuesFallBackToAWorkingFiniteFade(float.PositiveInfinity)",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.NonFiniteAuthoringValuesFallBackToAWorkingFiniteFade(float.PositiveInfinity)",
+            "state": "Passed",
+            "durationSeconds": 0.0006831,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "NonFiniteAuthoringValuesFallBackToAWorkingFiniteFade(float.NegativeInfinity)",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.NonFiniteAuthoringValuesFallBackToAWorkingFiniteFade(float.NegativeInfinity)",
+            "state": "Passed",
+            "durationSeconds": 0.0006906,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ObstacleContainingTheCameraIsAlsoRevealed",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.ObstacleContainingTheCameraIsAlsoRevealed",
+            "state": "Passed",
+            "durationSeconds": 0.0009164,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "RestorePreservesAMaterialReplacedByAnotherOwnerDuringTheFade",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.RestorePreservesAMaterialReplacedByAnotherOwnerDuringTheFade",
+            "state": "Passed",
+            "durationSeconds": 0.0007636,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "UnscaledFadeAndRestoreContinueDuringPause",
+            "fullName": "TechGuy.Tests.CameraOcclusionFadeTests.UnscaledFadeAndRestoreContinueDuringPause",
+            "state": "Passed",
+            "durationSeconds": 0.0011272,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "Painterly08BoundedEditorCostABBA",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08BoundedEditorCostABBA",
+            "state": "Passed",
+            "durationSeconds": 13.3551125,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 63 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Painterly08BowCombatCoverAndDoorFlow",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08BowCombatCoverAndDoorFlow",
+            "state": "Passed",
+            "durationSeconds": 19.7278214,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 63 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Painterly08GauntletCombatCoverAndDoorFlow",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08GauntletCombatCoverAndDoorFlow",
+            "state": "Passed",
+            "durationSeconds": 21.0339003,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 63 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Painterly08SpearCombatCoverAndDoorFlow",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08SpearCombatCoverAndDoorFlow",
+            "state": "Passed",
+            "durationSeconds": 18.6926554,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 63 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Painterly08TripleNativeWindElectricityFireWithTelegraph",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08TripleNativeWindElectricityFireWithTelegraph",
+            "state": "Passed",
+            "durationSeconds": 2.6394882,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 63 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

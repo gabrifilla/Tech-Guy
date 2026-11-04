@@ -259,3 +259,13 @@ PlayerActor registra ConfirmedHpReceipt no callback de HP efetivo da transação
 ProtocolBasicEffects.None é o padrão. Grants explícitos Conductor/Detonation habilitam só as arestas permitidas, com uma emissão de cada, sem recursão e sem elementos/Overflow/Resonance ou hooks de recurso herdados. Fila, LOS, dedupe, geração, lifecycle e caps são os existentes. Nenhuma política nativa global ou limite autorado foi mudado.
 
 RefreshAfterBoonAcquisition conserva estados/timers de referências de habilidade idênticas; equip/reset explícito continua separado. Identidade substituída mantém reset legado; isso não é transação de swap. ID desconhecido é rejeitado antes de completar uma aquisição. Evidência e limites no relatório01.1.
+
+## Fechamento RUN-EXP-09 — 03/11/2026
+
+DONE: RUN-EXP-09 acrescenta FirstSectorRoomLayout ao contrato do snapshot de nó, sem migrar input, kit, boons ou C05. ProceduralRunGeometryPlan resolve portas no contorno e ManualStageEnvironment materializa piso real/colisão/NavMesh. O retângulo é fallback; o override da cena produtiva controla adoção. O plano é opcional em cenas históricas. [Arquitetura09](../decisions/RUN_EXP_09_2_PLAYABLE_GEOMETRY.md), [relatório](../decisions/RUN_EXP_09_RELATORIO.md). Testes de input/reward e três armas passaram; aceite físico e campanha longa pendentes.
+
+## Fechamento RUN-EXP-09B
+
+RUN-EXP-09B acrescenta uma passagem de distribuição ao randomizador e quarter-turns aos dados do footprint, sem novo diretor/serviço nem trabalho por frame. A elegibilidade atual continua Combat+conteúdo+opção espacial, com cinco famílias; orientações de L/pátio habilitadas no FirstSector por opção própria, sem confundir variantes com famílias. O snapshot armazena o resultado e mantém replay/revisitas; histórico é local à geração. Pesos no ContentDefinition e strings de seed em SessionState não alteram ownership de boons.
+
+Dados/geometria/gameplay foram verificados com testes e capturas reais; [relatório09B](../decisions/RUN_EXP_09B_RELATORIO.md). Gates: existentes preservados, variedade/replay/progressão e8 orientações testados; GPU/standalone/alocação exata e aceite humano da nova política permanecem pendentes. STOP após09B.

@@ -1,0 +1,31 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": [
+      {
+        "seed": 0,
+        "node": 1,
+        "center": "(500.0000, 0.0000, 38.0000)",
+        "size": "(29.0000, 19.0000)",
+        "cover": false,
+        "fixturePlayer": "(500.0000, 0.0000, 38.0000)",
+        "computedFollowPosition": "(500.0000, 16.0000, 22.0000)",
+        "computedFollowEuler": "(45, 0, 0)",
+        "provenance": "Seeded planner reconstruction in Unity; not screenshot-frame camera telemetry"
+      },
+      {
+        "seed": 63,
+        "node": 1,
+        "center": "(500.0000, 0.0000, 43.0000)",
+        "size": "(28.0000, 24.0000)",
+        "cover": true,
+        "fixturePlayer": "(500.0000, 0.0000, 43.0000)",
+        "computedFollowPosition": "(500.0000, 16.0000, 27.0000)",
+        "computedFollowEuler": "(45, 0, 0)",
+        "provenance": "Seeded planner reconstruction in Unity; not screenshot-frame camera telemetry"
+      }
+    ],
+    "compiler": "codedom"
+  }
+}

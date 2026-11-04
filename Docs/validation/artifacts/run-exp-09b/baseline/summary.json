@@ -1,0 +1,52 @@
+{
+  "seeds": 256,
+  "paths": 1024,
+  "frequency_path_weighted": {
+    "ElongatedGallery": 968,
+    "Rectangle": 1210,
+    "LChamber": 1166,
+    "FragmentedRing": 1122,
+    "AsymmetricCourtyard": 1166
+  },
+  "max_streak_hist": {
+    "2": 488,
+    "3": 127,
+    "1": 385,
+    "4": 18,
+    "5": 6
+  },
+  "unique_hist": {
+    "4": 384,
+    "3": 493,
+    "2": 92,
+    "5": 50,
+    "1": 5
+  },
+  "adjacent_repeats": 980,
+  "seed5": [
+    {
+      "seed": "5",
+      "path": "0",
+      "nodes": "1|2|5|6|9",
+      "families": "LChamber|ElongatedGallery|ElongatedGallery|ElongatedGallery|Rectangle"
+    },
+    {
+      "seed": "5",
+      "path": "1",
+      "nodes": "1|2|5|8|9",
+      "families": "LChamber|ElongatedGallery|ElongatedGallery|ElongatedGallery|Rectangle"
+    },
+    {
+      "seed": "5",
+      "path": "2",
+      "nodes": "1|2|4|5|6|9",
+      "families": "LChamber|ElongatedGallery|ElongatedGallery|ElongatedGallery|ElongatedGallery|Rectangle"
+    },
+    {
+      "seed": "5",
+      "path": "3",
+      "nodes": "1|2|4|5|8|9",
+      "families": "LChamber|ElongatedGallery|ElongatedGallery|ElongatedGallery|ElongatedGallery|Rectangle"
+    }
+  ]
+}

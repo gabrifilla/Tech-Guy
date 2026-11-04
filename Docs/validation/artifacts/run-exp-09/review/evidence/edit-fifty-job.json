@@ -1,0 +1,35 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "98d2dcdc823746238ddb4b218ecd835c",
+      "status": "succeeded",
+      "mode": "EditMode",
+      "started_unix_ms": 1793748626588,
+      "finished_unix_ms": 1793748632721,
+      "last_update_unix_ms": 1793748632721,
+      "progress": {
+        "completed": 1,
+        "total": 1,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.RunExp09SpatialTests.FiftySeedsPreserveRewardsRostersAndConnectedRealFootprints",
+        "last_finished_unix_ms": 1793748632578,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": null
+    },
+    "hint": null
+  }
+}

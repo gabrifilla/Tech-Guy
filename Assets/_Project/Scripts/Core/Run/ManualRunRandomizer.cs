@@ -17,7 +17,8 @@ public static class ManualRunRandomizer
     private const float SpawnInset = 3f;
 
     public static ManualRouteSnapshot Generate(ManualRouteSnapshot source, ulong runSeed,
-        IReadOnlyList<GameObject> enemyPrefabs, FirstSectorContentDefinition content = null)
+        IReadOnlyList<GameObject> enemyPrefabs, FirstSectorContentDefinition content = null, bool spatialLayouts = false,
+        bool spatialVariety = true, bool spatialOrientations = false)
     {
         if (source == null) throw new ArgumentNullException(nameof(source));
         var ordered = source.Nodes.OrderBy(node => node.Id).ToList();
@@ -48,6 +49,8 @@ public static class ManualRunRandomizer
             node.Reward != RunRewardKind.Mutation).OrderBy(node => depths[node.Id]).ThenBy(node => node.Id)
             .Select(node => node.Id).DefaultIfEmpty(-1).First();
         var generated = new List<ManualNodeDefinition>();
+        var spatialFamilies = spatialLayouts && content && spatialVariety
+            ? FirstSectorRoomDistribution.Plan(source,runSeed,content.SpatialVariety) : null;
         foreach (var node in ordered)
         {
             ulong nodeSeed = SeedDerivation.SplitMix64(runSeed ^ unchecked((ulong)node.Id));
@@ -59,11 +62,24 @@ public static class ManualRunRandomizer
             var spawns = PlanEnemies(node, size, depths[node.Id], pool, fighters, enemies);
             if(content && content.HasCover(runSeed,node))spawns=FirstSectorContentDefinition.SafeSpawns(spawns,size);
             if(content && node.Kind==ManualNodeKind.Combat)spawns=FirstSectorEncounterLayout.Arrange(spawns,runSeed,node.Id);
+            FirstSectorRoomLayout spatial = null;
+            if (spatialLayouts && content && node.Kind == ManualNodeKind.Combat)
+            {
+                var family = spatialFamilies != null ? spatialFamilies[node.Id] : FirstSectorRoomLayout.SelectFamily(runSeed, node.Id);
+                if (family != FirstSectorRoomFamily.Rectangle)
+                {
+                    int turns=spatialOrientations?FirstSectorRoomDistribution.Orientation(runSeed,node.Id,family,size):0;
+                    spatial = new FirstSectorRoomLayout(family, size, content.HasCover(runSeed,node),turns);
+                    size = spatial.Size;
+                    spawns = spatial.Arrange(spawns);
+                }
+            }
             RunRewardKind first = steps.Count == 0 ? RunRewardKind.None : steps[0].Kind;
             int acquisitions = steps.Count == 0 ? 0 : steps[0].Quantity;
             var copy = new ManualNodeDefinition(node.Id, node.Label, node.Kind, first, acquisitions,
                 center, size, node.RepairFraction, spawns);
             copy.ConfigureRewardSteps(steps);
+            copy.ConfigureSpatialLayout(spatial);
             generated.Add(copy);
         }
         return new ManualRouteSnapshot(source, generated, runSeed);

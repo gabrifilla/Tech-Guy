@@ -58,6 +58,25 @@ public static class ProceduralRunGeometryPlan
                     points.Add(to.Center - Vector3.right * side * to.ArenaSize.x * .5f);
                 }
             }
+            if (from.SpatialLayout != null || to.SpatialLayout != null)
+            {
+                Vector3 start = from.SpatialLayout == null ? points[0] : from.Center + from.SpatialLayout.Port(points[0]-from.Center);
+                Vector3 end = to.SpatialLayout == null ? points[points.Count-1] : to.Center + to.SpatialLayout.Port(points[points.Count-1]-to.Center);
+                Vector3 startNormal=(points[1]-points[0]).normalized;
+                Vector3 endNormal=(points[points.Count-2]-points[points.Count-1]).normalized;
+                Vector3 a=start+startNormal*4, b=end+endNormal*4;
+                var resolved=new List<Vector3>{start,a};
+                bool firstHorizontal=Mathf.Abs(startNormal.x)>.5f, lastHorizontal=Mathf.Abs(endNormal.x)>.5f;
+                if(firstHorizontal==lastHorizontal)
+                {
+                    if(firstHorizontal){float x=(a.x+b.x)*.5f;resolved.Add(new Vector3(x,0,a.z));resolved.Add(new Vector3(x,0,b.z));}
+                    else{float z=(a.z+b.z)*.5f;resolved.Add(new Vector3(a.x,0,z));resolved.Add(new Vector3(b.x,0,z));}
+                }
+                else resolved.Add(firstHorizontal?new Vector3(b.x,0,a.z):new Vector3(a.x,0,b.z));
+                resolved.Add(b);resolved.Add(end);
+                points=new List<Vector3>();
+                foreach(var p in resolved)if(points.Count==0||(points[points.Count-1]-p).sqrMagnitude>.0001f)points.Add(p);
+            }
             result.Add(edge.Id, points.ToArray());
         }
         return result;

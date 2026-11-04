@@ -67,6 +67,8 @@ public sealed class ManualNodeDefinition
     public int Acquisitions => _acquisitions;
     public Vector3 Center => _center;
     public Vector2 ArenaSize => _arenaSize;
+    public FirstSectorRoomLayout SpatialLayout { get; private set; }
+    internal void ConfigureSpatialLayout(FirstSectorRoomLayout layout) { SpatialLayout = layout; }
     public float RepairFraction => _repairFraction;
     public IReadOnlyList<ManualEnemySpawn> Spawns => _spawns?.AsReadOnly();
     public bool IsEncounter => Kind == ManualNodeKind.Combat || Kind == ManualNodeKind.Elite || Kind == ManualNodeKind.Boss;
@@ -82,6 +84,7 @@ public sealed class ManualNodeDefinition
         var spawns = new List<ManualEnemySpawn>();
         foreach (var spawn in _spawns) spawns.Add(new ManualEnemySpawn(spawn.Prefab, spawn.Offset, spawn.Rank));
         var copy = new ManualNodeDefinition(Id, Label, Kind, Reward, Acquisitions, Center, ArenaSize, RepairFraction, spawns);
+        copy.ConfigureSpatialLayout(SpatialLayout);
         if (_rewardSteps != null) copy.ConfigureRewardSteps(_rewardSteps);
         return copy;
     }

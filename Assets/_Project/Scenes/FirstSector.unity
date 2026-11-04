@@ -1407,6 +1407,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: FirstSectorManualEnvironment
       objectReference: {fileID: 0}
+    - target: {fileID: 3725101256911225433, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: _useSpatialLayouts
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725101256911225433, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
+        type: 3}
+      propertyPath: _useSpatialOrientations
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7831491249586954218, guid: bf6c2c11bb28e6a4dbb40743c37f5b61,
         type: 3}
       propertyPath: m_IsActive

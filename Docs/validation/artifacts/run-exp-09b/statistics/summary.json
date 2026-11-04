@@ -1,0 +1,112 @@
+{
+  "legacy": {
+    "paths": 4096,
+    "selections": 22528,
+    "families": {
+      "ElongatedGallery": 4180,
+      "Rectangle": 4378,
+      "LChamber": 4642,
+      "FragmentedRing": 4752,
+      "AsymmetricCourtyard": 4576
+    },
+    "orientations": {
+      "0": 22528
+    },
+    "variants": {
+      "ElongatedGallery:0": 4180,
+      "Rectangle:0": 4378,
+      "LChamber:0": 4642,
+      "FragmentedRing:0": 4752,
+      "AsymmetricCourtyard:0": 4576
+    },
+    "streak_hist": {
+      "2": 2087,
+      "3": 450,
+      "1": 1451,
+      "4": 90,
+      "5": 16,
+      "6": 2
+    },
+    "unique_hist": {
+      "4": 1763,
+      "3": 1753,
+      "2": 310,
+      "5": 260,
+      "1": 10
+    },
+    "adjacent_repeats": 3992,
+    "orientation_repeats": 18432,
+    "combined_repeats": 3992,
+    "mean_unique": 3.476806640625,
+    "mean_unique_variants": 3.476806640625,
+    "long": 558,
+    "holdout_long": 407,
+    "first_room_families": {
+      "ElongatedGallery": 190,
+      "Rectangle": 199,
+      "LChamber": 211,
+      "FragmentedRing": 216,
+      "AsymmetricCourtyard": 208
+    },
+    "distinct_family_sequences": 3148,
+    "distinct_variant_sequences": 3148
+  },
+  "history": {
+    "paths": 4096,
+    "selections": 22528,
+    "families": {
+      "ElongatedGallery": 4570,
+      "FragmentedRing": 4724,
+      "LChamber": 4432,
+      "Rectangle": 4346,
+      "AsymmetricCourtyard": 4456
+    },
+    "orientations": {
+      "0": 15752,
+      "270": 2316,
+      "180": 2186,
+      "90": 2274
+    },
+    "variants": {
+      "ElongatedGallery:0": 4570,
+      "FragmentedRing:0": 4724,
+      "LChamber:270": 1178,
+      "Rectangle:0": 4346,
+      "AsymmetricCourtyard:270": 1138,
+      "LChamber:0": 1008,
+      "LChamber:180": 1072,
+      "AsymmetricCourtyard:90": 1100,
+      "AsymmetricCourtyard:180": 1114,
+      "AsymmetricCourtyard:0": 1104,
+      "LChamber:90": 1174
+    },
+    "streak_hist": {
+      "2": 1764,
+      "1": 2194,
+      "3": 131,
+      "4": 7
+    },
+    "unique_hist": {
+      "3": 1327,
+      "4": 2152,
+      "5": 510,
+      "2": 107
+    },
+    "adjacent_repeats": 2308,
+    "orientation_repeats": 9276,
+    "combined_repeats": 1596,
+    "mean_unique": 3.748291015625,
+    "mean_unique_variants": 4.23095703125,
+    "long": 138,
+    "holdout_long": 111,
+    "first_room_families": {
+      "ElongatedGallery": 190,
+      "Rectangle": 199,
+      "LChamber": 211,
+      "FragmentedRing": 216,
+      "AsymmetricCourtyard": 208
+    },
+    "distinct_family_sequences": 3054,
+    "distinct_variant_sequences": 3734
+  }
+}

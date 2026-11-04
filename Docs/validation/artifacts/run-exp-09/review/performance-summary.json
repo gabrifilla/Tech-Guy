@@ -1,0 +1,82 @@
+{
+  "Rectangle": {
+    "samples": 522,
+    "seed": "4",
+    "frame_median_ms": 5.651,
+    "frame_p95_ms": 7.443,
+    "cpu_median_ms": 5.678,
+    "nav_bake_ms": 28.422,
+    "load_bake_ms": 933.569,
+    "draw_calls": 383.0,
+    "renderers": 307.0,
+    "colliders": 281.0,
+    "nav_triangles": 371.0,
+    "enemies": [
+      6
+    ]
+  },
+  "AsymmetricCourtyard": {
+    "samples": 627,
+    "seed": "10",
+    "frame_median_ms": 4.587,
+    "frame_p95_ms": 6.982,
+    "cpu_median_ms": 4.596,
+    "nav_bake_ms": 14.959,
+    "load_bake_ms": 672.158,
+    "draw_calls": 327.0,
+    "renderers": 318.0,
+    "colliders": 294.0,
+    "nav_triangles": 406.0,
+    "enemies": [
+      4
+    ]
+  },
+  "LChamber": {
+    "samples": 613,
+    "seed": "5",
+    "frame_median_ms": 4.783,
+    "frame_p95_ms": 6.47,
+    "cpu_median_ms": 4.785,
+    "nav_bake_ms": 17.294,
+    "load_bake_ms": 634.906,
+    "draw_calls": 351.0,
+    "renderers": 336.0,
+    "colliders": 309.0,
+    "nav_triangles": 501.0,
+    "enemies": [
+      5
+    ]
+  },
+  "ElongatedGallery": {
+    "samples": 442,
+    "seed": "0",
+    "frame_median_ms": 6.709,
+    "frame_p95_ms": 8.47,
+    "cpu_median_ms": 6.68,
+    "nav_bake_ms": 16.183,
+    "load_bake_ms": 598.232,
+    "draw_calls": 399.0,
+    "renderers": 289.0,
+    "colliders": 267.0,
+    "nav_triangles": 362.0,
+    "enemies": [
+      6
+    ]
+  },
+  "FragmentedRing": {
+    "samples": 584,
+    "seed": "8",
+    "frame_median_ms": 5.041,
+    "frame_p95_ms": 6.815,
+    "cpu_median_ms": 5.056,
+    "nav_bake_ms": 18.402,
+    "load_bake_ms": 775.871,
+    "draw_calls": 332.0,
+    "renderers": 337.0,
+    "colliders": 308.0,
+    "nav_triangles": 394.0,
+    "enemies": [
+      5
+    ]
+  }
+}

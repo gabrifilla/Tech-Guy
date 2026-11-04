@@ -10,6 +10,10 @@ public sealed partial class ManualStageEnvironment : MonoBehaviour
     [SerializeField] private NavMeshSurface _navigation;
     [SerializeField] private List<ManualNodeBinding> _nodes = new List<ManualNodeBinding>();
     [SerializeField] private List<ManualConnectionBinding> _connections = new List<ManualConnectionBinding>();
+    [SerializeField] private bool _useSpatialLayouts;
+    public bool SpatialLayoutsEnabled => _useSpatialLayouts;
+    [SerializeField] private bool _useSpatialOrientations;
+    public bool SpatialOrientationsEnabled => _useSpatialLayouts && _useSpatialOrientations;
     public GameObject GeometryRoot => _geometryRoot;
     public NavMeshSurface Navigation => _navigation;
     public IReadOnlyList<ManualNodeBinding> Nodes => _nodes.AsReadOnly();
@@ -49,8 +53,13 @@ public sealed partial class ManualStageEnvironment : MonoBehaviour
     public bool ContainsPlayer(int nodeId, Vector3 position)
     {
         var node = Node(nodeId);
-        return node != null && node.EntryVolume && node.EntryVolume.bounds.Contains(position);
+        if (node == null || !node.EntryVolume || !node.EntryVolume.bounds.Contains(position)) return false;
+        var layout = NodeLayout(nodeId);
+        return layout == null || layout.Contains(position-node.Arena.position,.55f);
     }
+
+    private readonly Dictionary<int,FirstSectorRoomLayout> _spatialLayouts = new Dictionary<int,FirstSectorRoomLayout>();
+    public FirstSectorRoomLayout NodeLayout(int id) => _spatialLayouts.TryGetValue(id,out var layout) ? layout : null;
 
     public void ApplyGateState(RunSessionState session)
     {

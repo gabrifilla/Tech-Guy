@@ -1,0 +1,323 @@
+[
+  {
+    "file": "compile-empty-job.json",
+    "job": "36fafdb91ece4803a9cf6b8ab4e96e42",
+    "summary": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 8.51e-05,
+      "resultState": "Passed"
+    },
+    "tests": []
+  },
+  {
+    "file": "edit-final-job.json",
+    "job": "e6f63c976b1f4df9920ea0f624bd7eb1",
+    "summary": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 19.5100264,
+      "resultState": "Passed"
+    },
+    "tests": [
+      {
+        "fullName": "TechGuy.Tests.RunExp09BDistributionTests.DebugSeedIsOneShotAndNormalSeedsAreNotPinned",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp09BDistributionTests.PlanningCpuAndAllocationsAreMeasuredWithoutFrameWork",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp09BDistributionTests.RotationsAreRigidFootprintTransformsWithMatchingCoversAndSafeSockets",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp09BDistributionTests.SingleTwoAndVaryingEligibilityShortRunsAndNodeOrderAreStable",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp09BDistributionTests.ThousandSeedsPreserveOtherStreamsReplayEligibilityAndReduceLongStreaks",
+        "state": "Passed",
+        "message": null
+      }
+    ]
+  },
+  {
+    "file": "first-play-job.json",
+    "job": "3f7f86e94fcd4c2485b7431d2ee7d49d",
+    "summary": {
+      "total": 9,
+      "passed": 7,
+      "failed": 2,
+      "skipped": 0,
+      "durationSeconds": 212.6938866,
+      "resultState": "Failed(Child)"
+    },
+    "tests": [
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard0Gauntlet",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard180Gauntlet",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard270Gauntlet",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard90Gauntlet",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BFiftyOrientedDecksHaveConnectedNavMeshAndSockets",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL0Gauntlet",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL180Gauntlet",
+        "state": "Failed:Error",
+        "message": "System.InvalidOperationException : Sequence contains no elements"
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL270Gauntlet",
+        "state": "Failed:Error",
+        "message": "System.InvalidOperationException : Sequence contains no elements"
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL90Gauntlet",
+        "state": "Passed",
+        "message": null
+      }
+    ]
+  },
+  {
+    "file": "initial-empty-job.json",
+    "job": "b50e6275e94c4b9a95ab1982ed59bc39",
+    "summary": {
+      "total": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 0.0085274,
+      "resultState": "Passed"
+    },
+    "tests": []
+  },
+  {
+    "file": "performance-final-job.json",
+    "job": "d2e1c7d486b14df5a03d200383e8eeee",
+    "summary": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 3.6616455,
+      "resultState": "Passed"
+    },
+    "tests": [
+      {
+        "fullName": "TechGuy.Tests.RunExp09BDistributionTests.PlanningCpuAndAllocationsAreMeasuredWithoutFrameWork",
+        "state": "Passed",
+        "message": null
+      }
+    ]
+  },
+  {
+    "file": "regression-job.json",
+    "job": "54a03aee47044a7ca8e43a22350806df",
+    "summary": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 32.1605153,
+      "resultState": "Passed"
+    },
+    "tests": [
+      {
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorLethalWindSharesDetonationTargetDedupeWithoutResources",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.BasicAttackR1PlayModeTests.TitanicConductorWallBlocksArcFromActualImpact",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BTripleNativeInRotatedL90",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08GauntletCombatCoverAndDoorFlow",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Published06FocusModalAndRemappedSubmitCannotLeakIntoCombat",
+        "state": "Passed",
+        "message": null
+      }
+    ]
+  },
+  {
+    "file": "second-play-job.json",
+    "job": "9596028854864fd0af44b7bbaa774c07",
+    "summary": {
+      "total": 25,
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0,
+      "durationSeconds": 407.0918703,
+      "resultState": "Passed"
+    },
+    "tests": [
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard0Bow",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard0Spear",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard180Bow",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard180Spear",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard270Bow",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard270Spear",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard90Bow",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BCourtyard90Spear",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL0Bow",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL0Spear",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL180Bow",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL180Gauntlet",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL180Spear",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL270Bow",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL270Gauntlet",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL270Spear",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL90Bow",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BL90Spear",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BNexusBow",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BNexusGauntlet",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BNexusRandom",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BNexusSeed5A",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BNexusSeed5B",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BNexusSeed6",
+        "state": "Passed",
+        "message": null
+      },
+      {
+        "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Distribution09BNexusSpear",
+        "state": "Passed",
+        "message": null
+      }
+    ]
+  }
+]

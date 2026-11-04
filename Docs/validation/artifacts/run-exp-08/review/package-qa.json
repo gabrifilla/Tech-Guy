@@ -1,0 +1,463 @@
+{
+  "status": "PASS",
+  "relative_references_checked": 65,
+  "png_count": 75,
+  "pngs": [
+    {
+      "file": "images/approved-C-concept.png",
+      "width": 1745,
+      "height": 901,
+      "valid_chunks": 4
+    },
+    {
+      "file": "images/approved-C-sheet.png",
+      "width": 1746,
+      "height": 901,
+      "valid_chunks": 4
+    },
+    {
+      "file": "images/iteration-1-occluded-door.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 67
+    },
+    {
+      "file": "materials/PigmentStrata.png",
+      "width": 1774,
+      "height": 887,
+      "valid_chunks": 4
+    },
+    {
+      "file": "materials/QuietSlate.png",
+      "width": 1254,
+      "height": 1254,
+      "valid_chunks": 4
+    },
+    {
+      "file": "performance/08-cost-block-0-baseline.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "performance/08-cost-block-1-painterly.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "performance/08-cost-block-2-painterly.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "performance/08-cost-block-3-baseline.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "triple/08-triple-confirmed.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 87
+    },
+    {
+      "file": "triple/08-triple-travel.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 87
+    },
+    {
+      "file": "triple/08-triple-warning.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 87
+    },
+    {
+      "file": "gameplay/weapon-0/08-baseline-room.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "gameplay/weapon-0/08-C05-real-reward-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 19
+    },
+    {
+      "file": "gameplay/weapon-0/08-C05-real-reward-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 17
+    },
+    {
+      "file": "gameplay/weapon-0/08-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 66
+    },
+    {
+      "file": "gameplay/weapon-0/08-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 79
+    },
+    {
+      "file": "gameplay/weapon-0/08-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 77
+    },
+    {
+      "file": "gameplay/weapon-0/08-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 77
+    },
+    {
+      "file": "gameplay/weapon-0/08-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 78
+    },
+    {
+      "file": "gameplay/weapon-0/08-next-room-regular-flow.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 38
+    },
+    {
+      "file": "gameplay/weapon-0/08-open-door-transition.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 67
+    },
+    {
+      "file": "gameplay/weapon-0/08-painted-cover-occlusion.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-0/08-painterly-room.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-0/08-player-circulating.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 87
+    },
+    {
+      "file": "gameplay/weapon-0/emissor-blocked-by-cover-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 103
+    },
+    {
+      "file": "gameplay/weapon-0/emissor-reacquired-los-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 90
+    },
+    {
+      "file": "gameplay/weapon-0/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-0/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-0/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-0/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-0/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-0/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-1/08-baseline-room.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "gameplay/weapon-1/08-C05-real-reward-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 12
+    },
+    {
+      "file": "gameplay/weapon-1/08-C05-real-reward-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 17
+    },
+    {
+      "file": "gameplay/weapon-1/08-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 70
+    },
+    {
+      "file": "gameplay/weapon-1/08-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 86
+    },
+    {
+      "file": "gameplay/weapon-1/08-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 86
+    },
+    {
+      "file": "gameplay/weapon-1/08-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 86
+    },
+    {
+      "file": "gameplay/weapon-1/08-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 98
+    },
+    {
+      "file": "gameplay/weapon-1/08-next-room-regular-flow.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 38
+    },
+    {
+      "file": "gameplay/weapon-1/08-open-door-transition.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 67
+    },
+    {
+      "file": "gameplay/weapon-1/08-painted-cover-occlusion.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-1/08-painterly-room.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-1/08-player-circulating.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 87
+    },
+    {
+      "file": "gameplay/weapon-1/emissor-blocked-by-cover-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 103
+    },
+    {
+      "file": "gameplay/weapon-1/emissor-reacquired-los-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 90
+    },
+    {
+      "file": "gameplay/weapon-1/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-1/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-1/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-1/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-1/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-1/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-2/08-baseline-room.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "gameplay/weapon-2/08-C05-real-reward-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 13
+    },
+    {
+      "file": "gameplay/weapon-2/08-C05-real-reward-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 17
+    },
+    {
+      "file": "gameplay/weapon-2/08-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 63
+    },
+    {
+      "file": "gameplay/weapon-2/08-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 86
+    },
+    {
+      "file": "gameplay/weapon-2/08-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 86
+    },
+    {
+      "file": "gameplay/weapon-2/08-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 86
+    },
+    {
+      "file": "gameplay/weapon-2/08-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 86
+    },
+    {
+      "file": "gameplay/weapon-2/08-next-room-regular-flow.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 38
+    },
+    {
+      "file": "gameplay/weapon-2/08-open-door-transition.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 67
+    },
+    {
+      "file": "gameplay/weapon-2/08-painted-cover-occlusion.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-2/08-painterly-room.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-2/08-player-circulating.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 86
+    },
+    {
+      "file": "gameplay/weapon-2/emissor-blocked-by-cover-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 103
+    },
+    {
+      "file": "gameplay/weapon-2/emissor-reacquired-los-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 90
+    },
+    {
+      "file": "gameplay/weapon-2/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-2/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-2/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-2/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-2/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    },
+    {
+      "file": "gameplay/weapon-2/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 102
+    }
+  ],
+  "manifest_records": 75,
+  "javascript_syntax": [],
+  "errors": [],
+  "browser_render": "NOT TESTED — file protocol blocked by browser security policy",
+  "image_visual_review": "Actual Unity room/door/occlusion/triple captures inspected; two generated material sources and approved concept are separate categories",
+  "scope": "File paths, PNG signatures/chunk CRC/dimensions, manifest/original SHA256, JavaScript syntax, portable ZIP only"
+}

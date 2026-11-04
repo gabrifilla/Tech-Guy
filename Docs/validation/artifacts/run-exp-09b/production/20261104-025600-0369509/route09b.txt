@@ -1,0 +1,18 @@
+Normal Nexus portal, native director/session/rosters/RNG/tickets. Automated warp/kill completion, player immunity and temporary loadout access only in fixture. No reward grants, review menus, forced offers or guarantee of synergy.
+weapon=0 seed=6 random=False path=0/1/2/3/5/6/9/10
+geometry node=1 family=ElongatedGallery degrees=0
+node=1 ordinal=0 id=weapon_AsuraEcho resolvedOnce=true view=C05
+node=1 ordinal=1 id=frost resolvedOnce=true view=C05
+geometry node=2 family=ElongatedGallery degrees=0
+node=2 ordinal=0 id=weapon_FlurryEcho resolvedOnce=true view=C05
+node=2 ordinal=1 id=conductor resolvedOnce=true view=C05
+geometry node=3 family=Rectangle degrees=0
+geometry node=5 family=FragmentedRing degrees=0
+node=5 ordinal=0 id=mutation_gauntlet_eclipse_uppercut resolvedOnce=true view=C05
+geometry node=6 family=FragmentedRing degrees=0
+node=6 ordinal=0 id=augment_gauntlet_violent_fall resolvedOnce=true view=C05
+node=6 ordinal=1 id=ignite resolvedOnce=true view=C05
+geometry node=9 family=ElongatedGallery degrees=0
+node=9 ordinal=0 id=weapon_AsuraEcho resolvedOnce=true view=C05
+node=9 ordinal=1 id=detonation resolvedOnce=true view=C05
+geometry node=10 family=Rectangle degrees=0

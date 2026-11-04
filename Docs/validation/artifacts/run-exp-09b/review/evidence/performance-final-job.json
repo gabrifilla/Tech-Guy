@@ -1,0 +1,56 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "d2e1c7d486b14df5a03d200383e8eeee",
+      "status": "succeeded",
+      "mode": "EditMode",
+      "started_unix_ms": 1793761195661,
+      "finished_unix_ms": 1793761205205,
+      "last_update_unix_ms": 1793761205205,
+      "progress": {
+        "completed": 1,
+        "total": 1,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.RunExp09BDistributionTests.PlanningCpuAndAllocationsAreMeasuredWithoutFrameWork",
+        "last_finished_unix_ms": 1793761205087,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "EditMode",
+        "summary": {
+          "total": 1,
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 3.6616455,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "PlanningCpuAndAllocationsAreMeasuredWithoutFrameWork",
+            "fullName": "TechGuy.Tests.RunExp09BDistributionTests.PlanningCpuAndAllocationsAreMeasuredWithoutFrameWork",
+            "state": "Passed",
+            "durationSeconds": 3.2574662,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

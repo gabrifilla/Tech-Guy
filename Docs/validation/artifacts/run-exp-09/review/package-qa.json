@@ -1,0 +1,2287 @@
+{
+  "status": "PASS",
+  "relative_references_checked": 201,
+  "png_count": 379,
+  "pngs": [
+    {
+      "file": "baseline/05-room-cover-after-normal-camera.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/05-room-cover-before-normal-camera.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 26
+    },
+    {
+      "file": "baseline/05-room-open-after-normal-camera.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "baseline/05-room-open-before-normal-camera.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 23
+    },
+    {
+      "file": "baseline/05-room-player-circulating.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "baseline/emissor-blocked-by-cover-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "baseline/emissor-reacquired-los-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 38
+    },
+    {
+      "file": "baseline/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "edges/04-mixed-hooks-1-seed-0-action-window.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 31
+    },
+    {
+      "file": "edges/04-mixed-hooks-1-seed-10-action-window.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 31
+    },
+    {
+      "file": "edges/04-mixed-hooks-1-seed-5-action-window.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 30
+    },
+    {
+      "file": "edges/04-mixed-hooks-1-seed-8-action-window.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 31
+    },
+    {
+      "file": "edges/09-concave-dash-AsymmetricCourtyard.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 28
+    },
+    {
+      "file": "edges/09-concave-dash-ElongatedGallery.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 29
+    },
+    {
+      "file": "edges/09-concave-dash-FragmentedRing.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "edges/09-concave-dash-LChamber.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 38
+    },
+    {
+      "file": "edges/09-reinforcements-AsymmetricCourtyard.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 29
+    },
+    {
+      "file": "edges/09-reinforcements-ElongatedGallery.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 30
+    },
+    {
+      "file": "edges/09-reinforcements-FragmentedRing.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 31
+    },
+    {
+      "file": "edges/09-reinforcements-LChamber.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 32
+    },
+    {
+      "file": "occlusion/09-mass-occlusion-normal-camera.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 24
+    },
+    {
+      "file": "performance/09-cost-AsymmetricCourtyard.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "performance/09-cost-ElongatedGallery.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 37
+    },
+    {
+      "file": "performance/09-cost-FragmentedRing.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "performance/09-cost-LChamber.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "performance/09-cost-Rectangle.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 44
+    },
+    {
+      "file": "scene-viewport/09-scene-view-AsymmetricCourtyard.png",
+      "width": 1160,
+      "height": 594,
+      "valid_chunks": 24
+    },
+    {
+      "file": "scene-viewport/09-scene-view-ElongatedGallery.png",
+      "width": 1160,
+      "height": 594,
+      "valid_chunks": 21
+    },
+    {
+      "file": "scene-viewport/09-scene-view-FragmentedRing.png",
+      "width": 1160,
+      "height": 594,
+      "valid_chunks": 21
+    },
+    {
+      "file": "scene-viewport/09-scene-view-LChamber.png",
+      "width": 1160,
+      "height": 594,
+      "valid_chunks": 23
+    },
+    {
+      "file": "triple/09-triple-confirmed.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "triple/09-triple-real-mass-blocks-wind.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "triple/09-triple-travel.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "triple/09-triple-warning.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-normal-node-1-cover-weapon-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 52
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-normal-node-2-open-weapon-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 47
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-normal-node-4-open-weapon-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 44
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-normal-node-5-cover-weapon-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 51
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-normal-node-6-cover-weapon-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 51
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-normal-node-9-open-weapon-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 41
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-published-C05-weapon-1-node-1-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 15
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-published-C05-weapon-1-node-1-ticket-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 25
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-published-C05-weapon-1-node-2-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 14
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-published-C05-weapon-1-node-2-ticket-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 23
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-published-C05-weapon-1-node-4-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 14
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-published-C05-weapon-1-node-4-ticket-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 23
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-published-C05-weapon-1-node-5-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 23
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-published-C05-weapon-1-node-6-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 15
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-published-C05-weapon-1-node-6-ticket-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 23
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-published-C05-weapon-1-node-9-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 25
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-published-C05-weapon-1-node-9-ticket-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 24
+    },
+    {
+      "file": "production/20261103-234506-9589902/06-returned-Nexus-weapon-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 19
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-normal-node-1-open-weapon-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 37
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-normal-node-2-open-weapon-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 36
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-normal-node-4-cover-weapon-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 42
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-normal-node-5-open-weapon-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 36
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-normal-node-8-cover-weapon-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 47
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-normal-node-9-cover-weapon-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 38
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-1-ticket-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 19
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-1-ticket-1.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 17
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-2-ticket-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 18
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-2-ticket-1.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 19
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-4-ticket-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 13
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-4-ticket-1.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 19
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-5-ticket-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 16
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-7-ticket-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 13
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-7-ticket-1.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 14
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-7-ticket-2.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 13
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-8-ticket-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 13
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-9-ticket-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 13
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-published-C05-weapon-0-node-9-ticket-1.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 18
+    },
+    {
+      "file": "production/20261103-234514-6507142/06-returned-Nexus-weapon-0.png",
+      "width": 1160,
+      "height": 600,
+      "valid_chunks": 15
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-normal-node-1-cover-weapon-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 52
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-normal-node-2-open-weapon-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 47
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-normal-node-5-cover-weapon-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 50
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-normal-node-8-open-weapon-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 50
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-normal-node-9-open-weapon-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 42
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-1-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 18
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-1-ticket-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 22
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-2-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 23
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-2-ticket-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 22
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-5-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 24
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-7-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 18
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-7-ticket-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 24
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-7-ticket-2.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 18
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-8-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 18
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-8-ticket-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 24
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-9-ticket-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 16
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-published-C05-weapon-0-node-9-ticket-1.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 23
+    },
+    {
+      "file": "production/20261103-234520-5713411/06-returned-Nexus-weapon-0.png",
+      "width": 1280,
+      "height": 800,
+      "valid_chunks": 19
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-normal-node-1-open-weapon-2.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 80
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-normal-node-2-cover-weapon-2.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 84
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-normal-node-4-open-weapon-2.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 80
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-normal-node-5-cover-weapon-2.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 91
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-normal-node-8-cover-weapon-2.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 83
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-normal-node-9-cover-weapon-2.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 93
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-1-ticket-0.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 24
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-1-ticket-1.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 28
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-2-ticket-0.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 24
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-2-ticket-1.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 42
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-4-ticket-0.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 38
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-4-ticket-1.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 24
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-5-ticket-0.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 29
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-7-ticket-0.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 44
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-7-ticket-1.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 39
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-7-ticket-2.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 38
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-8-ticket-0.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 43
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-8-ticket-1.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 37
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-published-C05-weapon-2-node-9-ticket-0.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 38
+    },
+    {
+      "file": "production/20261103-234526-2189063/06-returned-Nexus-weapon-2.png",
+      "width": 1920,
+      "height": 1080,
+      "valid_chunks": 30
+    },
+    {
+      "file": "gameplay/LChamber/0/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/0/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 14
+    },
+    {
+      "file": "gameplay/LChamber/0/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 14
+    },
+    {
+      "file": "gameplay/LChamber/0/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/LChamber/0/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 31
+    },
+    {
+      "file": "gameplay/LChamber/0/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 36
+    },
+    {
+      "file": "gameplay/LChamber/0/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 30
+    },
+    {
+      "file": "gameplay/LChamber/0/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/0/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "gameplay/LChamber/0/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "gameplay/LChamber/0/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/LChamber/0/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "gameplay/LChamber/0/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/LChamber/0/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 15
+    },
+    {
+      "file": "gameplay/LChamber/0/natural-Emissor-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/0/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/0/natural-Emissor-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/0/natural-Emissor-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/0/natural-Emissor-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 44
+    },
+    {
+      "file": "gameplay/LChamber/0/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/0/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/0/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/0/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/1/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/LChamber/1/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 12
+    },
+    {
+      "file": "gameplay/LChamber/1/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 14
+    },
+    {
+      "file": "gameplay/LChamber/1/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/1/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 30
+    },
+    {
+      "file": "gameplay/LChamber/1/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 36
+    },
+    {
+      "file": "gameplay/LChamber/1/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 30
+    },
+    {
+      "file": "gameplay/LChamber/1/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/1/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/1/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/1/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 44
+    },
+    {
+      "file": "gameplay/LChamber/1/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/LChamber/1/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/LChamber/1/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 15
+    },
+    {
+      "file": "gameplay/LChamber/1/natural-Emissor-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/1/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/1/natural-Emissor-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/1/natural-Emissor-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/1/natural-Emissor-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 44
+    },
+    {
+      "file": "gameplay/LChamber/1/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/1/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/1/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/1/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/2/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/LChamber/2/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 13
+    },
+    {
+      "file": "gameplay/LChamber/2/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 14
+    },
+    {
+      "file": "gameplay/LChamber/2/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/2/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 31
+    },
+    {
+      "file": "gameplay/LChamber/2/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 36
+    },
+    {
+      "file": "gameplay/LChamber/2/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 30
+    },
+    {
+      "file": "gameplay/LChamber/2/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/2/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/2/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/2/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "gameplay/LChamber/2/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 44
+    },
+    {
+      "file": "gameplay/LChamber/2/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/LChamber/2/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 15
+    },
+    {
+      "file": "gameplay/LChamber/2/natural-Emissor-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/2/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/2/natural-Emissor-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/2/natural-Emissor-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/LChamber/2/natural-Emissor-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "gameplay/LChamber/2/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/2/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/2/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/LChamber/2/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 19
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 19
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 36
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 34
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 35
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 31
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 16
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/0/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 39
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 12
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 19
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 34
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 35
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 31
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 16
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/FragmentedRing/1/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 13
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 19
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 39
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 34
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 35
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 31
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 16
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/FragmentedRing/2/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 39
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 14
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 19
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 39
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 32
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 44
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 38
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 43
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 44
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 37
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 15
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/natural-Emissor-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/natural-Emissor-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/natural-Emissor-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/natural-Emissor-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/0/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 38
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 12
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 19
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 32
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 44
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 38
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 38
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 37
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 15
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/natural-Emissor-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/natural-Emissor-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/natural-Emissor-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/natural-Emissor-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/1/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 39
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 13
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 19
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 32
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 44
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 38
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 37
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 15
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/natural-Emissor-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/natural-Emissor-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/natural-Emissor-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/natural-Emissor-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/ElongatedGallery/2/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 14
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 19
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 33
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 36
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 16
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/natural-Emissor-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/0/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 12
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 19
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 33
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 36
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 16
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/natural-Emissor-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/1/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-actual-player-circulation.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 40
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-C05-ticket-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 13
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-C05-ticket-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 19
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-dash-recovered.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-door-open-physical-traversal.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 33
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-emissor-cover-blocked.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-emissor-LOS-reacquired.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-gameplay-overview.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-native-skill-0.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-native-skill-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-native-skill-2.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-native-skill-3.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-next-node.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 36
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/09-technical-top-down.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 16
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/natural-Emissor-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 47
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "gameplay/AsymmetricCourtyard/2/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    }
+  ],
+  "manifest_records": 456,
+  "javascript_syntax": [],
+  "errors": [],
+  "browser_render": "NOT TESTED — file protocol blocked by browser security policy",
+  "image_visual_review": "Actual Unity Game View/technical top-down/Scene View captures; diagrams derived from colliders/NavMesh; no generated art09",
+  "scope": "File paths, PNG signatures/chunk CRC/dimensions, manifest/original SHA256, JavaScript syntax, portable ZIP only"
+}

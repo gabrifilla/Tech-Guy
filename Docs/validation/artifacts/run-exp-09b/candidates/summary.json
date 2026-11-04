@@ -1,0 +1,115 @@
+{
+  "neutral": {
+    "repeats": 968,
+    "streak_hist": {
+      "2": 526,
+      "3": 105,
+      "1": 364,
+      "4": 26,
+      "5": 3
+    },
+    "unique_hist": {
+      "3": 421,
+      "4": 432,
+      "5": 97,
+      "2": 74
+    },
+    "freq": {
+      "ElongatedGallery": 1076,
+      "LChamber": 1132,
+      "Rectangle": 1192,
+      "FragmentedRing": 1060,
+      "AsymmetricCourtyard": 1172
+    },
+    "seed5": [
+      "LChamber|Rectangle|LChamber|LChamber|Rectangle",
+      "LChamber|Rectangle|LChamber|ElongatedGallery|Rectangle",
+      "LChamber|Rectangle|Rectangle|LChamber|LChamber|Rectangle",
+      "LChamber|Rectangle|Rectangle|LChamber|ElongatedGallery|Rectangle"
+    ]
+  },
+  "soft": {
+    "repeats": 816,
+    "streak_hist": {
+      "3": 81,
+      "2": 526,
+      "4": 4,
+      "1": 413
+    },
+    "unique_hist": {
+      "3": 380,
+      "4": 513,
+      "5": 96,
+      "2": 35
+    },
+    "freq": {
+      "ElongatedGallery": 1038,
+      "FragmentedRing": 1092,
+      "AsymmetricCourtyard": 1140,
+      "Rectangle": 1152,
+      "LChamber": 1210
+    },
+    "seed5": [
+      "LChamber|LChamber|Rectangle|LChamber|ElongatedGallery",
+      "LChamber|LChamber|Rectangle|Rectangle|ElongatedGallery",
+      "LChamber|LChamber|AsymmetricCourtyard|Rectangle|LChamber|ElongatedGallery",
+      "LChamber|LChamber|AsymmetricCourtyard|Rectangle|Rectangle|ElongatedGallery"
+    ]
+  },
+  "moderate": {
+    "repeats": 578,
+    "streak_hist": {
+      "2": 452,
+      "1": 545,
+      "3": 25,
+      "4": 2
+    },
+    "unique_hist": {
+      "3": 307,
+      "4": 551,
+      "5": 133,
+      "2": 33
+    },
+    "freq": {
+      "ElongatedGallery": 1074,
+      "FragmentedRing": 1220,
+      "LChamber": 1200,
+      "Rectangle": 1098,
+      "AsymmetricCourtyard": 1040
+    },
+    "seed5": [
+      "LChamber|AsymmetricCourtyard|FragmentedRing|AsymmetricCourtyard|AsymmetricCourtyard",
+      "LChamber|AsymmetricCourtyard|FragmentedRing|Rectangle|AsymmetricCourtyard",
+      "LChamber|AsymmetricCourtyard|LChamber|FragmentedRing|AsymmetricCourtyard|AsymmetricCourtyard",
+      "LChamber|AsymmetricCourtyard|LChamber|FragmentedRing|Rectangle|AsymmetricCourtyard"
+    ]
+  },
+  "strong": {
+    "repeats": 456,
+    "streak_hist": {
+      "1": 634,
+      "2": 376,
+      "3": 13,
+      "4": 1
+    },
+    "unique_hist": {
+      "4": 550,
+      "3": 299,
+      "5": 155,
+      "2": 20
+    },
+    "freq": {
+      "ElongatedGallery": 1150,
+      "AsymmetricCourtyard": 1152,
+      "Rectangle": 1096,
+      "LChamber": 1160,
+      "FragmentedRing": 1074
+    },
+    "seed5": [
+      "LChamber|FragmentedRing|ElongatedGallery|Rectangle|LChamber",
+      "LChamber|FragmentedRing|ElongatedGallery|FragmentedRing|LChamber",
+      "LChamber|FragmentedRing|LChamber|ElongatedGallery|Rectangle|LChamber",
+      "LChamber|FragmentedRing|LChamber|ElongatedGallery|FragmentedRing|LChamber"
+    ]
+  }
+}

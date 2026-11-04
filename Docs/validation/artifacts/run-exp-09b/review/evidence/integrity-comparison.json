@@ -1,0 +1,39 @@
+{
+  "files": {
+    "before": 2413,
+    "after": 2427,
+    "changed": [
+      "Assets/_Project/Scenes/FirstSector.unity",
+      "Assets/_Project/Scripts/Core/Run/FirstSectorContentDefinition.cs",
+      "Assets/_Project/Scripts/Core/Run/FirstSectorRoomLayout.cs",
+      "Assets/_Project/Scripts/Core/Run/ManualRunRandomizer.cs",
+      "Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.cs",
+      "Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs",
+      "Assets/_Project/ScriptableObjects/Run/FirstSectorContent.asset"
+    ],
+    "removed": [],
+    "added": [
+      "Assets/_Project/Scripts/Core/Run/FirstSectorRoomDistribution.cs",
+      "Assets/_Project/Scripts/Core/Run/FirstSectorRoomDistribution.cs.meta",
+      "Assets/_Project/Scripts/Editor/RunExp09BAuthoring.cs",
+      "Assets/_Project/Scripts/Editor/RunExp09BAuthoring.cs.meta",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/RunExp09BDistributionTests.cs",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/RunExp09BDistributionTests.cs.meta",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Distribution09BGameplay.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Distribution09BGameplay.cs.meta",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Distribution09BNav.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Distribution09BNav.cs.meta",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Distribution09BProduction.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Distribution09BProduction.cs.meta",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Distribution09BTriple.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Distribution09BTriple.cs.meta"
+    ]
+  },
+  "prefs": {
+    "before": 47,
+    "after": 47,
+    "changed": [],
+    "removed": [],
+    "added": []
+  }
+}

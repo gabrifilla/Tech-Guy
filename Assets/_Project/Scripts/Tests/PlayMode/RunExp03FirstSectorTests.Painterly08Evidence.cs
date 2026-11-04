@@ -1,0 +1,108 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using NUnit.Framework;
+using Unity.Profiling;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Profiling;
+using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
+using Object = UnityEngine.Object;
+
+namespace TechGuy.Tests
+{
+    public sealed partial class RunExp03FirstSectorTests
+    {
+        [UnityTest] public IEnumerator Painterly08BoundedEditorCostABBA()
+        {
+            _dir = Path.GetFullPath("Docs/validation/artifacts/run-exp-08/performance/" + DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")); Directory.CreateDirectory(_dir);
+            PlayerPrefs.SetInt(WeaponLoadout.PreferenceKey,0); SessionState.SetString(RunSeedSource.NextEditorSeedKey,"63");
+            EditorSceneManager.LoadSceneInPlayMode(PainterlyScene,new LoadSceneParameters(LoadSceneMode.Single));
+            for(int i=0;i<5;i++)yield return null;
+            var view=Object.FindAnyObjectByType<PainterlyRoomPrototype>();while(!view.Ready)yield return null;
+            var director=Object.FindAnyObjectByType<ProgressionDirector>();var player=Object.FindAnyObjectByType<PlayerActor>();var session=director.ManualSession;var node=session.Route.Node(1);
+            player.AddDamageImmunity(director);Assert.IsTrue(director.TryCommitDestination(session.Id,1));Assert.IsTrue(player.GetComponent<NavMeshAgent>().Warp(node.Center));Assert.IsTrue(director.TryEnterNode(session.Id,1));
+            foreach(var coin in director.GetComponentsInChildren<CoinDrop>())Object.DestroyImmediate(coin);
+            yield return new WaitForSeconds(1);
+            var rows=new List<string>{"block,painterly,frame,unscaled_ms,main_thread_ns,draw_calls,allocated_bytes,active_enemies"};
+            using(var cpu=ProfilerRecorder.StartNew(ProfilerCategory.Internal,"Main Thread",1))
+            {
+                int block=0;
+                foreach(bool revised in new[]{false,true,true,false})
+                {
+                    view.SetPainterlyVisible(revised);yield return new WaitForSeconds(.5f);
+                    float end=Time.realtimeSinceStartup+2;
+                    while(Time.realtimeSinceStartup<end)
+                    {
+                        yield return null;
+                        rows.Add(string.Join(",",block,revised?1:0,Time.frameCount,(Time.unscaledDeltaTime*1000).ToString(CultureInfo.InvariantCulture),cpu.Valid?cpu.LastValue:-1,UnityStats.drawCalls,Profiler.GetTotalAllocatedMemoryLong(),director.GetComponentsInChildren<Actor>().Length));
+                    }
+                    yield return Capture("08-cost-block-"+block+"-"+(revised?"painterly":"baseline"));block++;
+                }
+                File.WriteAllText(Path.Combine(_dir,"conditions.txt"),"Editor only; ABBA,2s/block after0.5s settling; native AI/nav/attack poses active, player immune, no enemy damage/AI disabled. Actors evolve between blocks; indicative cost, not identical-frame optimization proof. Main Thread recorder valid="+cpu.Valid+"; GPU NOT MEASURED; no standalone. "+SystemInfo.processorType+" / "+SystemInfo.graphicsDeviceName+" / "+Screen.width+"x"+Screen.height+" / "+Application.unityVersion);
+            }
+            File.WriteAllLines(Path.Combine(_dir,"frames.csv"),rows);
+        }
+
+        [UnityTest] public IEnumerator Painterly08TripleNativeWindElectricityFireWithTelegraph()
+        {
+            _dir=Path.GetFullPath("Docs/validation/artifacts/run-exp-08/triple/"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff"));Directory.CreateDirectory(_dir);
+            PlayerPrefs.SetInt(WeaponLoadout.PreferenceKey,0);SessionState.SetString(RunSeedSource.NextEditorSeedKey,"63");
+            EditorSceneManager.LoadSceneInPlayMode(PainterlyScene,new LoadSceneParameters(LoadSceneMode.Single));for(int i=0;i<5;i++)yield return null;
+            var view=Object.FindAnyObjectByType<PainterlyRoomPrototype>();while(!view.Ready)yield return null;
+            var director=Object.FindAnyObjectByType<ProgressionDirector>();var player=Object.FindAnyObjectByType<PlayerActor>();var session=director.ManualSession;var run=player.GetComponent<RunBoons>();var runtime=player.GetComponent<ProtocolRuntime>();
+            player.AddDamageImmunity(director);
+            foreach(string id in new[]{TitanicFistsDefinition.Id,"conductor","detonation"})
+                Assert.IsTrue((bool)typeof(RunBoons).GetMethod("ApplyOffer",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(run,new object[]{new RunBoons.Offer(id,"fixture","Assisted visual comparison; not natural acquisition"),false}));
+            var node=session.Route.Node(1);Assert.IsTrue(director.TryCommitDestination(session.Id,1));Assert.IsTrue(player.GetComponent<NavMeshAgent>().Warp(node.Center+new Vector3(-8,0,0)));Assert.IsTrue(director.TryEnterNode(session.Id,1));yield return null;
+            foreach(var coin in director.GetComponentsInChildren<CoinDrop>())Object.DestroyImmediate(coin);
+            var enemies=director.GetComponentsInChildren<Actor>().OrderBy(a=>EntityId.ToULong(a.GetEntityId())).ToArray();Assert.GreaterOrEqual(enemies.Length,4);
+            Vector3 origin=player.transform.position;
+            for(int i=0;i<enemies.Length;i++)
+            {
+                if(enemies[i].TryGetComponent<EnemyAI>(out var ai))ai.enabled=false;
+                if(enemies[i].TryGetComponent<EnemyCombatActions>(out var actions))actions.Cancel();
+                Assert.IsTrue(enemies[i].GetComponent<NavMeshAgent>().Warp(origin+new Vector3(7+i,0,7)));
+                enemies[i].SetMaxHealth(1000);enemies[i].RestoreHealthToMax();
+            }
+            var controls=player.GetComponent<CharControlScript>();
+            Assert.IsTrue(enemies[0].GetComponent<NavMeshAgent>().Warp(origin+Vector3.forward*1.2f));yield return new WaitForSeconds(.25f);
+            yield return NativeBasic08(controls,player);yield return NativeBasic08(controls,player);
+            Assert.IsTrue(enemies[0].GetComponent<NavMeshAgent>().Warp(origin+Vector3.forward*5.8f));
+            Assert.IsTrue(enemies[1].GetComponent<NavMeshAgent>().Warp(origin+new Vector3(2,0,5.8f)));
+            Assert.IsTrue(enemies[2].GetComponent<NavMeshAgent>().Warp(origin+new Vector3(4,0,5.8f)));
+            Assert.IsTrue(enemies[3].GetComponent<NavMeshAgent>().Warp(origin+new Vector3(-2,0,3)));
+            enemies[1].SetMaxHealth(.5f);enemies[1].RestoreHealthToMax();Physics.SyncTransforms();
+            using(var receipts=new RunStatistics(player,session.Id,1,Time.realtimeSinceStartupAsDouble,Time.timeAsDouble))
+            {
+                foreach(var enemy in enemies)receipts.Watch(enemy);
+                yield return NativeBasic08(controls,player);
+                float until=Time.realtimeSinceStartup+5;
+                while(runtime.FirstTitanicPosition.HasValue&&runtime.FirstTitanicPosition.Value.z<origin.z+2.3f){Assert.Less(Time.realtimeSinceStartup,until);yield return null;}
+                Assert.Greater(runtime.PendingTitanicWaves,0);
+                var attack=enemies[3].GetComponent<EnemyCombatActions>();attack.StartCoroutine(attack.Perform(EnemyAttackKind.HeavySlam,player,10,()=>true));
+                yield return null;Assert.IsTrue(attack.IsWindingUp);
+                yield return Capture("08-triple-warning");yield return new WaitForSeconds(.1f);yield return Capture("08-triple-travel");
+                while(!receipts.Snapshot().RecentDamage.Any(r=>r.ProducerId==TitanicFistsDefinition.Id)){Assert.Less(Time.realtimeSinceStartup,until);yield return null;}
+                var data=receipts.Snapshot();Assert.IsTrue(data.RecentDamage.Any(r=>r.Producer=="Conductor"));Assert.IsTrue(data.RecentDamage.Any(r=>r.Producer=="Detonation"));
+                File.WriteAllText(Path.Combine(_dir,"native-damage.json"),JsonUtility.ToJson(data,true));yield return Capture("08-triple-confirmed");
+            }
+            File.WriteAllText(Path.Combine(_dir,"fixture.txt"),"Assisted visual triple: real native boons temporarily applied in memory; AI disabled for controlled target positions, HP changed on target to trigger existing kill detonation, native attack/HP/proc lineage asserted, real HeavySlam telegraph. Separate three-weapon tests have natural AI. No Burn/DoT or boon tuning authored.");
+        }
+
+        private static IEnumerator NativeBasic08(CharControlScript controls,PlayerActor player)
+        {
+            float until=Time.realtimeSinceStartup+4;
+            while(!controls.TryDirectionalBasicAttack(player.transform.position+Vector3.forward*10)){Assert.Less(Time.realtimeSinceStartup,until);yield return null;}
+            do{yield return null;}while(controls.HasScheduledBasic&&Time.realtimeSinceStartup<until);
+            Assert.IsFalse(controls.HasScheduledBasic);
+        }
+    }
+}

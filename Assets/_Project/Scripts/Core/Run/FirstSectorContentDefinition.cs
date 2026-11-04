@@ -10,6 +10,8 @@ public sealed class FirstSectorContentDefinition : ScriptableObject
     [SerializeField] private Material _openFloor,_coveredFloor,_roomTrim;
     [SerializeField] private Mesh _archiveCover,_archiveRack;
     [SerializeField] private Material _archiveMaterial,_archiveFloor,_archiveWall;
+    [SerializeField] private FirstSectorRoomVarietyWeights _spatialVariety = new FirstSectorRoomVarietyWeights();
+    public FirstSectorRoomVarietyWeights SpatialVariety => _spatialVariety ?? (_spatialVariety = new FirstSectorRoomVarietyWeights());
     public Mesh ArchiveCover=>_archiveCover;
     public Mesh ArchiveRack=>_archiveRack;
     public Material ArchiveMaterial=>_archiveMaterial;

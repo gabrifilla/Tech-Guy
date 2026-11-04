@@ -1,0 +1,155 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "4c18678ca16e4c28942777143f9ccb10",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793749543197,
+      "finished_unix_ms": 1793749756342,
+      "last_update_unix_ms": 1793749756342,
+      "progress": {
+        "completed": 12,
+        "total": 12,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09RingSpear",
+        "last_finished_unix_ms": 1793749756328,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 12,
+          "passed": 12,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 211.7117695,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "Spatial09CourtyardBow",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09CourtyardBow",
+            "state": "Passed",
+            "durationSeconds": 18.3666385,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 36 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09CourtyardGauntlet",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09CourtyardGauntlet",
+            "state": "Passed",
+            "durationSeconds": 19.3259787,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 36 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09CourtyardSpear",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09CourtyardSpear",
+            "state": "Passed",
+            "durationSeconds": 16.9072601,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 36 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09GalleryBow",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09GalleryBow",
+            "state": "Passed",
+            "durationSeconds": 16.6094568,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 2 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09GalleryGauntlet",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09GalleryGauntlet",
+            "state": "Passed",
+            "durationSeconds": 18.3218675,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 2 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09GallerySpear",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09GallerySpear",
+            "state": "Passed",
+            "durationSeconds": 15.1725544,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 2 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09LBow",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09LBow",
+            "state": "Passed",
+            "durationSeconds": 17.8162484,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 5 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09LGauntlet",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09LGauntlet",
+            "state": "Passed",
+            "durationSeconds": 18.5578677,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 5 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09LSpear",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09LSpear",
+            "state": "Passed",
+            "durationSeconds": 16.8599594,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 5 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09RingBow",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09RingBow",
+            "state": "Passed",
+            "durationSeconds": 18.0637522,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 8 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09RingGauntlet",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09RingGauntlet",
+            "state": "Passed",
+            "durationSeconds": 19.0331533,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 8 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09RingSpear",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09RingSpear",
+            "state": "Passed",
+            "durationSeconds": 16.6204968,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 8 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

@@ -1,5 +1,19 @@
 # Tech Guy — plano integrado de incursões, recompensas, salas e inimigos
 
+<!-- RUNEXP08 CURRENT -->
+## RUN-EXP-08 — protótipo pictórico isolado; STOP
+
+03/11/2026. Direção C/pictórica escolhida explicitamente no pedido08. Cópia de cena com nó 1 e seus acessos: fachada fixa 2.5D, coberturas pintadas, piso quieto e pórticos revisados; física / roster/combate/grafo intactos. Revisão final31/31; seleção anterior33/33. Custo Editor ABBA: drawcalls366→418, sem GPU/standalone; tempos não isolam arte porque AI/população evoluem.2368 arquivos antigos e47 prefs idênticos;25 arquivos novosUnity. Beleza/fluxo percebido **PENDING DEVELOPER APPROVAL**; sem conversão produtiva ou conteúdo novo. [Relatório, imagens e limites](../decisions/RUN_EXP_08_RELATORIO.md).
+<!-- /RUNEXP08 CURRENT -->
+
+<!-- RUNEXP07 CURRENT -->
+## RUN-EXP-07 — exploração visual entregue até07.4; STOP
+
+03/11/2026. AuditoriaUnity6000.5/URP17.5, baseline atual e três linguagens originais A/B/C com seis artes raster e pacoteHTML offline. A recomendada, **PENDING DEVELOPER APPROVAL**. Conceitos propostos; nenhum método2.5D implementado ou benchmark07.6 executado. UTF existente focado1/1Passed em duas execuções do mesmo caso, não suíte global. Camera metadata reconstruída identificada como tal. C05/combate/boons/física/fontes preservados; integridade nos artefatos07.
+
+07.5/07.6 **NOT DONE**, exigem escolha/autorização explícita. Recorte futuro: uma fachada + uma cobertura; sem conversão produtiva. Este bloco atualiza o estado07 sem reescrever a história06. [Pacote, evidência e limites](../decisions/RUN_EXP_07_RELATORIO.md).
+<!-- /RUNEXP07 CURRENT -->
+
 <!-- RUNEXP06 CURRENT -->
 ## RUN-EXP-06 — publicação concluída e STOP antes07
 
@@ -123,3 +137,27 @@ Correções: jobs e todos os resultados em relatório0;10/10 finais,4/4 visuais 
 Arquivos da frente: PlayerActor.cs; TitanicFistsVisual.cs; novos TitanicFlameSilhouette.cs, RunFrontCriticalPlayModeTests.cs, RunFrontPublishedHookTests.cs, RunFrontPrototypeReviewTests.cs; `partial` em Gpr015ProductionAuditTests; árvore Prototypes/RunExperience; três relatórios, checkpoint, este plano, ledger/matriz/estado e artefatos. Outros diffs anteriores permanecem e foram autorizados para o commit/push conjunto pelo usuário. Skills aplicadas estão nos relatórios por atividade.
 
 Revisão solicitada ao desenvolvedor: reconhecer o fogo na câmera normal; avaliar janela do gancho; escolher ou rejeitar a direção geométrica e o par inicial; escolher aberta/linhas partidas para integração; aprovar uma futura atividade de comunicação/economia com métricas de descoberta. Esta revisão será a base da próxima autorização, não uma continuação automática.
+
+## Fechamento RUN-EXP-09 — 03/11/2026
+
+DONE: quatro famílias físicas (pátio assimétrico, L, galeria com bolsões e anel) integradas à seleção normal de Combat do FirstSector por override _useSpatialLayouts. Seleção espacial independente do RNG de rewards/inimigos, com retângulo fallback; Boss/Elite/especiais preservados. Pisos ausentes não têm NavMesh, paredes/sockets seguem o contorno e spawns nativos são reposicionados sem alterar roster/rank/pesos. Tratamento painterly08 continua isolado.
+
+DONE técnico: 50 seeds em dados, 50 decks materializados (277 salas espaciais:72 pátios,70 L,70 galerias,65 anéis), 12/12 famílias×armas, 5/5 produção (rotas Nexus/chefe/retorno nas três armas, rota aleatória e foco/C05), Spawner/bordas/HookLine, tripla com caso negativo da massa e Scene View real das quatro formas. Regressão09: 9/9 (cinco ataques físicos/projétil, morte/retorno e três armas na cena08) e2/2 protocolos Titanic/Conductor. Fixtures de posições, imunidade/HP, mana/Asura, boons em memória, Warps e kills estão declaradas; não são aceite humano nem aquisição natural de sinergia.
+
+Custo medido no Editor: bake por deck, frame/CPU/draws e contagens; amostras curtas, seeds/rosters diferentes. GPU/standalone/GC por frame e custo exclusivo de nav/fader NOT TESTED. Integridade por snapshot2393 arquivos/47 prefs, comparação final em artefatos09. Sem commit/push. PENDING DEVELOPER APPROVAL: fluxo, ritmo, câmera, beleza e dificuldade em controle físico. STOP após09.
+
+[Relatório09](../decisions/RUN_EXP_09_RELATORIO.md) · [Validação09](../decisions/RUN_EXP_09_6_VALIDATION.md). Pacote: Docs/validation/artifacts/run-exp-09/review/index.html e RUN_EXP_09_REVIEW.zip.
+
+## Fechamento RUN-EXP-09B
+
+DONE: controle suave de repetição no planejamento produtivo, com pesos relativos100/50/20/5 e80 para duas salas atrás; históricos distintos de até três Combat e merges conscientes de ramos. Sem quota, round-robin, cap ou lista obrigatória. Seed e streams de reward/roster preservados. Formas canônicas09 mantidas; o adendo09B habilita rotações físicas0/90/180/270 de L/pátio. Galeria/anel/retângulo ficam0°, sem espelho. Família e variante são métricas separadas.
+
+1024 seeds ×4 rotas por versão: repetição adjacente3992→2308; rotas com streak≥3,558→138; fora da calibração407→111. Média de famílias3,4768→3,7483 e de variantes3,4768→4,2310. Há107 rotas finais com só duas famílias e sete com streak4: sem cobertura/cap garantidos. Primeiro Combat conserva hash09; depois há seleção ponderada e orientação em hash independente.
+
+DONE Unity:5/5 EditMode focados (mais reexecução1/1 de performance corrigida),50 decks de NavMesh real,24/24 orientações×armas,7/7 rotas Nexus/chefe/retorno incluindo replay5/5 e outra seed6. Cinco regressões adicionais passaram: tripla no L90°, painterly08 Manopla, foco/Enter/C05 e dois contratos Titanic/Conductor. Primeira rodada teve dois destinos inválidos na fixture L180/L270, corrigidos por procura de ponto no piso real, sem reduzir a exigência de movimento. Jobs vazios/erros de import são evidência de falha, não passes.
+
+FirstSector produtivo tem famílias/orientações habilitadas; cenas09/08 preservam orientação canônica/isolamento. Conteúdo tem pesos serializados e confirmados após salvar/reabrir. Prefs47/47 iguais ao snapshot09B posterior ao playtest humano; nenhum arquivo protegido removido, cenas/prefabs/GUIDs e kits/boons preservados fora das diferenças intencionais. Estado final NexusBlockout limpa/Edit, TimeScale1, seed debug vazia, assistência falsa. Históricos07/08/09 preservados. A direção espacial09 foi aprovada fisicamente no pedido09B; distribuição/rotações novas permanecem PENDING DEVELOPER APPROVAL.
+
+CPU/heap no Editor medidos no CSV; contador de bytes Mono inválido=-1 e heap líquido não é alocação exata. Sem trabalho por frame ou lista global crescente; GPU/standalone e campanha humana longa NOT TESTED. STOP após09B, sem10. O usuário autorizou posteriormente commit/push destas mudanças e do trabalho07–09 deste chat, seguido de desligamento; isso substitui a proibição anterior de commit/push para a entrega atual.
+
+[Relatório09B](../decisions/RUN_EXP_09B_RELATORIO.md) · [Distribuição](../decisions/RUN_EXP_09B_1_DISTRIBUTION_DESIGN.md) · [Validação](../decisions/RUN_EXP_09B_4_GAMEPLAY_VALIDATION.md). Revisão: Docs/validation/artifacts/run-exp-09b/review/index.html e ZIP local reproduzível. Arquivos ZIP de revisão são ignorados no Git por tamanho; fontes/HTML/imagens/evidências e construtores são versionados.

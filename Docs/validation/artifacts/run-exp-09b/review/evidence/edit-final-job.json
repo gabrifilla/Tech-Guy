@@ -1,0 +1,92 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "e6f63c976b1f4df9920ea0f624bd7eb1",
+      "status": "succeeded",
+      "mode": "EditMode",
+      "started_unix_ms": 1793752050852,
+      "finished_unix_ms": 1793752076034,
+      "last_update_unix_ms": 1793752076034,
+      "progress": {
+        "completed": 5,
+        "total": 5,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.RunExp09BDistributionTests.ThousandSeedsPreserveOtherStreamsReplayEligibilityAndReduceLongStreaks",
+        "last_finished_unix_ms": 1793752075991,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "EditMode",
+        "summary": {
+          "total": 5,
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 19.5100264,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "DebugSeedIsOneShotAndNormalSeedsAreNotPinned",
+            "fullName": "TechGuy.Tests.RunExp09BDistributionTests.DebugSeedIsOneShotAndNormalSeedsAreNotPinned",
+            "state": "Passed",
+            "durationSeconds": 0.0189175,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "PlanningCpuAndAllocationsAreMeasuredWithoutFrameWork",
+            "fullName": "TechGuy.Tests.RunExp09BDistributionTests.PlanningCpuAndAllocationsAreMeasuredWithoutFrameWork",
+            "state": "Passed",
+            "durationSeconds": 2.2487219,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "RotationsAreRigidFootprintTransformsWithMatchingCoversAndSafeSockets",
+            "fullName": "TechGuy.Tests.RunExp09BDistributionTests.RotationsAreRigidFootprintTransformsWithMatchingCoversAndSafeSockets",
+            "state": "Passed",
+            "durationSeconds": 2.3715064,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "SingleTwoAndVaryingEligibilityShortRunsAndNodeOrderAreStable",
+            "fullName": "TechGuy.Tests.RunExp09BDistributionTests.SingleTwoAndVaryingEligibilityShortRunsAndNodeOrderAreStable",
+            "state": "Passed",
+            "durationSeconds": 0.027439,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "ThousandSeedsPreserveOtherStreamsReplayEligibilityAndReduceLongStreaks",
+            "fullName": "TechGuy.Tests.RunExp09BDistributionTests.ThousandSeedsPreserveOtherStreamsReplayEligibilityAndReduceLongStreaks",
+            "state": "Passed",
+            "durationSeconds": 14.339169,
+            "message": null,
+            "stackTrace": null,
+            "output": "09B old/new long=558/138 repeats=3992/2308 distinctSequences=3054\r\n"
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

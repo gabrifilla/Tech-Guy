@@ -1,0 +1,10 @@
+{
+  "success": false,
+  "message": "Compilation failed",
+  "data": {
+    "errors": [
+      "Roslyn compilation error: MissingMethodException: Method not found: System.Collections.Immutable.ImmutableArray`1<byte> System.Reflection.Metadata.MetadataReader.GetBlobContent(System.Reflection.Metadata.BlobHandle)"
+    ],
+    "compiler": "roslyn"
+  }
+}

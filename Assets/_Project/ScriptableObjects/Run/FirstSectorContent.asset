@@ -24,3 +24,8 @@ MonoBehaviour:
   _archiveMaterial: {fileID: 2100000, guid: 6ea3e750973748445bfac02647cd3555, type: 2}
   _archiveFloor: {fileID: 2100000, guid: 4e1acc6a39c656b4e806d07a8cdd27f3, type: 2}
   _archiveWall: {fileID: 2100000, guid: 25fe1b9348be87e448b92abf11088ea7, type: 2}
+  _spatialVariety:
+    _previous: 50
+    _twice: 20
+    _threeOrMore: 5
+    _twoRoomsAgo: 80

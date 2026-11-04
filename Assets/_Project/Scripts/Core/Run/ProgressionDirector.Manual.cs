@@ -49,7 +49,8 @@ public sealed partial class ProgressionDirector
             {
                 var prefabs = new List<GameObject>();
                 if (_archetypePrefabs != null) foreach (var variant in _archetypePrefabs) if (variant) prefabs.Add(variant.gameObject);
-                route = ManualRunRandomizer.Generate(route, AcquireRunSeed(), prefabs, _firstSectorContent);
+                route = ManualRunRandomizer.Generate(route, AcquireRunSeed(), prefabs, _firstSectorContent, _manualEnvironment.SpatialLayoutsEnabled,
+                    true,_manualEnvironment.SpatialOrientationsEnabled);
                 if (_environment) _environment.SetGeometryActive(false);
                 if (!_manualEnvironment.BuildGenerated(route, out error, _firstSectorContent))
                 { Debug.LogError(error, this); enabled = false; return true; }

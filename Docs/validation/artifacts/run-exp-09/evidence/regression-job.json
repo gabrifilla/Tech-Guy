@@ -1,0 +1,128 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "945d844689924515b0f96465c5dee775",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793750356480,
+      "finished_unix_ms": 1793750429004,
+      "last_update_unix_ms": 1793750429004,
+      "progress": {
+        "completed": 9,
+        "total": 9,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08SpearCombatCoverAndDoorFlow",
+        "last_finished_unix_ms": 1793750428991,
+        "stuck_suspected": false,
+        "editor_is_focused": true,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 9,
+          "passed": 9,
+          "failed": 0,
+          "skipped": 0,
+          "durationSeconds": 71.0905241,
+          "resultState": "Passed"
+        },
+        "results": [
+          {
+            "name": "ChargeActuallyMovesAndHitsOnlyOnce",
+            "fullName": "TechGuy.Tests.EnemyPhysicalAttackTests.ChargeActuallyMovesAndHitsOnlyOnce",
+            "state": "Passed",
+            "durationSeconds": 2.1740915,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "DisablingAttackerCancelsWindup",
+            "fullName": "TechGuy.Tests.EnemyPhysicalAttackTests.DisablingAttackerCancelsWindup",
+            "state": "Passed",
+            "durationSeconds": 1.2116776,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrostProjectileCannotHitThroughWall",
+            "fullName": "TechGuy.Tests.EnemyPhysicalAttackTests.FrostProjectileCannotHitThroughWall",
+            "state": "Passed",
+            "durationSeconds": 1.5341964,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "FrostProjectileTravelsToTargetAndHitsOnce",
+            "fullName": "TechGuy.Tests.EnemyPhysicalAttackTests.FrostProjectileTravelsToTargetAndHitsOnce",
+            "state": "Passed",
+            "durationSeconds": 1.8845431,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "PunchHasNoDamageBeforeContactAndCannotHitBehind",
+            "fullName": "TechGuy.Tests.EnemyPhysicalAttackTests.PunchHasNoDamageBeforeContactAndCannotHitBehind",
+            "state": "Passed",
+            "durationSeconds": 1.1417338,
+            "message": null,
+            "stackTrace": null,
+            "output": ""
+          },
+          {
+            "name": "PublishedDeathReturnsToNexusAndBowUsesGeneratedRoomsWithCompatibleInventory",
+            "fullName": "TechGuy.Tests.ManualPublishedRunPlayModeTests.PublishedDeathReturnsToNexusAndBowUsesGeneratedRoomsWithCompatibleInventory",
+            "state": "Passed",
+            "durationSeconds": 2.8858426,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 5009883243956404469 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nCharControlScript active on Player - Nexus\r\nProgressionDirector Run_Seed = 5060120390935732479 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Painterly08BowCombatCoverAndDoorFlow",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08BowCombatCoverAndDoorFlow",
+            "state": "Passed",
+            "durationSeconds": 19.8615812,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 63 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Painterly08GauntletCombatCoverAndDoorFlow",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08GauntletCombatCoverAndDoorFlow",
+            "state": "Passed",
+            "durationSeconds": 21.4806383,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 63 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Painterly08SpearCombatCoverAndDoorFlow",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08SpearCombatCoverAndDoorFlow",
+            "state": "Passed",
+            "durationSeconds": 18.8608758,
+            "message": null,
+            "stackTrace": null,
+            "output": "ProgressionDirector Run_Seed = 63 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

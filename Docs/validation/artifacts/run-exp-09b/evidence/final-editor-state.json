@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "project": "D:/Dev/Personal/My_games/Tech-Guy/Assets",
+      "scene": "Assets/_Project/Scenes/NexusBlockout.unity",
+      "dirty": false,
+      "play": false,
+      "timeScale": 1,
+      "seed": "",
+      "assist": false,
+      "flags": [
+        "Assets/_Project/Scenes/FirstSector.unity: randomizeEachRun=True",
+        "Assets/_Project/Scenes/FirstSector.unity: families=True orientations=True",
+        "Assets/_Project/Scenes/Review/RunExp09SpatialReview.unity: randomizeEachRun=True",
+        "Assets/_Project/Scenes/Review/RunExp09SpatialReview.unity: families=True orientations=False",
+        "Assets/_Project/Scenes/Review/RunExp08PainterlyRoom.unity: randomizeEachRun=False",
+        "Assets/_Project/Scenes/Review/RunExp08PainterlyRoom.unity: families=False orientations=False"
+      ],
+      "weights": [
+        50,
+        20,
+        5,
+        80
+      ]
+    },
+    "compiler": "codedom"
+  }
+}

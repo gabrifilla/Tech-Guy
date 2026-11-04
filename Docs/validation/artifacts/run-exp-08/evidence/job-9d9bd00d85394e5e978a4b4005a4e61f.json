@@ -1,0 +1,40 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "9d9bd00d85394e5e978a4b4005a4e61f",
+      "status": "failed",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793746472310,
+      "finished_unix_ms": 1793746552668,
+      "last_update_unix_ms": 1793746552668,
+      "progress": {
+        "completed": 31,
+        "total": 31,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08TripleNativeWindElectricityFireWithTelegraph",
+        "last_finished_unix_ms": 1793746552625,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [
+          {
+            "full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Painterly08BowCombatCoverAndDoorFlow",
+            "message": "  Expected: less than 31.9345818f\r\n  But was:  31.9390335f\r\n"
+          }
+        ],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": null
+    },
+    "hint": null
+  }
+}

@@ -9,6 +9,7 @@ public sealed partial class ManualStageEnvironment
 {
     private NavMeshData _generatedNavigation;
     public bool HasGeneratedLayout => _generatedNavigation;
+    public double LastNavigationBuildMilliseconds { get; private set; }
 
     /// <summary>Build a session-only deck using the materials of the new authored rooms.</summary>
     public bool BuildGenerated(ManualRouteSnapshot route, out string error, FirstSectorContentDefinition content = null)
@@ -33,6 +34,7 @@ public sealed partial class ManualStageEnvironment
         _geometryRoot.transform.SetParent(transform, false);
         _nodes = new List<ManualNodeBinding>();
         _connections = new List<ManualConnectionBinding>();
+        _spatialLayouts.Clear();
         try
         {
             foreach (var node in route.Nodes)
@@ -40,22 +42,28 @@ public sealed partial class ManualStageEnvironment
                 var arena = new GameObject(node.Label).transform;
                 arena.SetParent(_geometryRoot.transform, false);
                 arena.position = node.Center;
-                GeneratedBox(arena, "Walkable arena", node.Center + Vector3.down * .25f,
-                    new Vector3(node.ArenaSize.x, .5f, node.ArenaSize.y), floor).layer = LayerMask.NameToLayer("Ground");
+                if (node.SpatialLayout == null)
+                    GeneratedBox(arena, "Walkable arena", node.Center + Vector3.down * .25f,
+                        new Vector3(node.ArenaSize.x, .5f, node.ArenaSize.y), floor).layer = LayerMask.NameToLayer("Ground");
                 var ports = new List<Vector3>();
                 foreach (var edge in route.Connections)
                 {
                     if (edge.From == node.Id) ports.Add(corridors[edge.Id][0]);
                     if (edge.To == node.Id) ports.Add(corridors[edge.Id][corridors[edge.Id].Length - 1]);
                 }
-                GeneratedArenaWalls(arena, node, ports, wall);
-                if(content && content.HasCover(route.RewardSeed ?? 0,node))
+                if (node.SpatialLayout != null)
+                {
+                    _spatialLayouts.Add(node.Id,node.SpatialLayout);
+                    BuildSpatialArena(arena,node,ports,floor,wall,content);
+                }
+                else GeneratedArenaWalls(arena, node, ports, wall);
+                if(node.SpatialLayout == null && content && content.HasCover(route.RewardSeed ?? 0,node))
                     for(int i=0;i<2;i++)
                     {
                         var cover=GeneratedBox(arena,"Cobertura deslocada "+i,node.Center+FirstSectorContentDefinition.CoverCenter(i),FirstSectorContentDefinition.CoverSize,wall);
                         var modifier=cover.AddComponent<NavMeshModifier>();modifier.overrideArea=true;modifier.area=1;
                     }
-                if(content && node.Kind==ManualNodeKind.Combat && content.OpenFloor && content.CoveredFloor && content.RoomTrim)
+                if(node.SpatialLayout == null && content && node.Kind==ManualNodeKind.Combat && content.OpenFloor && content.CoveredFloor && content.RoomTrim)
                     FirstSectorRoomPresentation.Create(arena,node,content.HasCover(route.RewardSeed??0,node),content);
                 if(content && node.Kind==ManualNodeKind.Combat)
                     FirstSectorEnvironmentArt.Create(arena,content);
@@ -90,7 +98,10 @@ public sealed partial class ManualStageEnvironment
             _navigation.collectObjects = CollectObjects.Children;
             _navigation.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
             Physics.SyncTransforms();
+            var navigationTimer = System.Diagnostics.Stopwatch.StartNew();
             _navigation.BuildNavMesh();
+            navigationTimer.Stop();
+            LastNavigationBuildMilliseconds = navigationTimer.Elapsed.TotalMilliseconds;
             _generatedNavigation = _navigation.navMeshData;
             if (!_generatedNavigation || !Validate(route, out error) || !ValidateGeneratedPaths(route, out error))
                 throw new InvalidOperationException(error ?? "Generated navigation is missing.");

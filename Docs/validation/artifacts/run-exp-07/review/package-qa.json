@@ -1,0 +1,132 @@
+{
+  "status": "PASS",
+  "relative_references_checked": 72,
+  "png_count": 19,
+  "pngs": [
+    {
+      "file": "baseline/05-room-cover-after-normal-camera.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/05-room-cover-before-normal-camera.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 26
+    },
+    {
+      "file": "baseline/05-room-open-after-normal-camera.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 41
+    },
+    {
+      "file": "baseline/05-room-open-before-normal-camera.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 23
+    },
+    {
+      "file": "baseline/05-room-player-circulating.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 42
+    },
+    {
+      "file": "baseline/emissor-blocked-by-cover-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 46
+    },
+    {
+      "file": "baseline/emissor-reacquired-los-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 39
+    },
+    {
+      "file": "baseline/natural-Emissor-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/natural-Fragmento-attack-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/natural-Fragmento-idle-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/natural-Fragmento-move-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/natural-Fragmento-recovery-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "baseline/natural-Fragmento-windup-node-1.png",
+      "width": 1160,
+      "height": 599,
+      "valid_chunks": 45
+    },
+    {
+      "file": "images/A-overview.png",
+      "width": 1745,
+      "height": 901,
+      "valid_chunks": 4
+    },
+    {
+      "file": "images/A-sheet.png",
+      "width": 1774,
+      "height": 887,
+      "valid_chunks": 4
+    },
+    {
+      "file": "images/B-overview.png",
+      "width": 1745,
+      "height": 901,
+      "valid_chunks": 4
+    },
+    {
+      "file": "images/B-sheet.png",
+      "width": 1746,
+      "height": 901,
+      "valid_chunks": 4
+    },
+    {
+      "file": "images/C-overview.png",
+      "width": 1745,
+      "height": 901,
+      "valid_chunks": 4
+    },
+    {
+      "file": "images/C-sheet.png",
+      "width": 1746,
+      "height": 901,
+      "valid_chunks": 4
+    }
+  ],
+  "manifest_records": 19,
+  "javascript_syntax": [
+    {
+      "exit_code": 0,
+      "stderr": ""
+    }
+  ],
+  "errors": [],
+  "browser_render": "NOT TESTED — file protocol blocked by browser security policy",
+  "image_visual_review": "Six ImageGen outputs inspected; actual Unity cover/windup captures inspected",
+  "scope": "File paths, PNG signatures/chunk CRC/dimensions, manifest/original SHA256, JavaScript syntax, portable ZIP only"
+}

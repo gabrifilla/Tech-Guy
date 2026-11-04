@@ -1,0 +1,57 @@
+{
+  "success": true,
+  "message": "Code executed successfully.",
+  "data": {
+    "result": {
+      "scene": "Assets/_Project/Scenes/Review/RunExp08PainterlyRoom.unity",
+      "missing": 0,
+      "refs": [
+        {
+          "name": "_director",
+          "valid": true
+        },
+        {
+          "name": "_paint",
+          "valid": true
+        },
+        {
+          "name": "_floor",
+          "valid": true
+        },
+        {
+          "name": "_edge",
+          "valid": true
+        },
+        {
+          "name": "_closed",
+          "valid": true
+        },
+        {
+          "name": "_coverTop",
+          "valid": true
+        }
+      ],
+      "textures": [
+        {
+          "name": "PigmentStrata.png",
+          "width": 2048,
+          "height": 1024,
+          "format": "BC7",
+          "mips": 12,
+          "readable": false,
+          "bytes": 5593408
+        },
+        {
+          "name": "QuietSlate.png",
+          "width": 1024,
+          "height": 1024,
+          "format": "BC7",
+          "mips": 11,
+          "readable": false,
+          "bytes": 2797184
+        }
+      ]
+    },
+    "compiler": "codedom"
+  }
+}

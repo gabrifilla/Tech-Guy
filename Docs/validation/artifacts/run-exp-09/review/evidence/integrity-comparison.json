@@ -1,0 +1,45 @@
+{
+  "files": {
+    "before": 2393,
+    "after": 2413,
+    "changed": [
+      "Assets/_Project/Scenes/FirstSector.unity",
+      "Assets/_Project/Scripts/Core/Run/ManualRunDefinition.cs",
+      "Assets/_Project/Scripts/Core/Run/ManualRunRandomizer.cs",
+      "Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.cs",
+      "Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.Procedural.cs",
+      "Assets/_Project/Scripts/Core/Run/ProceduralRunGeometryPlan.cs",
+      "Assets/_Project/Scripts/Core/Run/ProgressionDirector.Manual.cs"
+    ],
+    "removed": [],
+    "added": [
+      "Assets/_Project/Scenes/Review/RunExp09SpatialReview.unity",
+      "Assets/_Project/Scenes/Review/RunExp09SpatialReview.unity.meta",
+      "Assets/_Project/Scripts/Core/Run/FirstSectorRoomLayout.cs",
+      "Assets/_Project/Scripts/Core/Run/FirstSectorRoomLayout.cs.meta",
+      "Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.Spatial.cs",
+      "Assets/_Project/Scripts/Core/Run/ManualStageEnvironment.Spatial.cs.meta",
+      "Assets/_Project/Scripts/Editor/RunExp09Authoring.cs",
+      "Assets/_Project/Scripts/Editor/RunExp09Authoring.cs.meta",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/RunExp09SpatialTests.cs",
+      "Assets/_Project/Scripts/Tests/EditMode/Editor/RunExp09SpatialTests.cs.meta",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Spatial09.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Spatial09.cs.meta",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Spatial09Edges.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Spatial09Edges.cs.meta",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Spatial09Evidence.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Spatial09Evidence.cs.meta",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Spatial09Gameplay.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Spatial09Gameplay.cs.meta",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Spatial09SceneView.cs",
+      "Assets/_Project/Scripts/Tests/PlayMode/RunExp03FirstSectorTests.Spatial09SceneView.cs.meta"
+    ]
+  },
+  "prefs": {
+    "before": 47,
+    "after": 47,
+    "changed": [],
+    "removed": [],
+    "added": []
+  }
+}

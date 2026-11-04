@@ -1,0 +1,74 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "bf7dada9ee6341739670045ad24e9c99",
+      "status": "failed",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793749845940,
+      "finished_unix_ms": 1793749867502,
+      "last_update_unix_ms": 1793749867502,
+      "progress": {
+        "completed": 2,
+        "total": 2,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09TripleNativeWindElectricityFireNearRingMass",
+        "last_finished_unix_ms": 1793749867491,
+        "stuck_suspected": false,
+        "editor_is_focused": false,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [
+          {
+            "full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09ReinforcementsConcaveEdgesAndHookRecovery",
+            "message": "  Expected: greater than 0.150000006f\r\n  But was:  0.0f\r\n"
+          },
+          {
+            "full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09TripleNativeWindElectricityFireNearRingMass",
+            "message": "UnityEngine.MissingReferenceException : The object of type 'Actor' has been destroyed but you are still trying to access it.\nYour script should either check if it is null or you should not destroy the object."
+          }
+        ],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": {
+        "mode": "PlayMode",
+        "summary": {
+          "total": 2,
+          "passed": 0,
+          "failed": 2,
+          "skipped": 0,
+          "durationSeconds": 15.9337577,
+          "resultState": "Failed(Child)"
+        },
+        "results": [
+          {
+            "name": "Spatial09ReinforcementsConcaveEdgesAndHookRecovery",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09ReinforcementsConcaveEdgesAndHookRecovery",
+            "state": "Failed",
+            "durationSeconds": 13.2126811,
+            "message": "  Expected: greater than 0.150000006f\r\n  But was:  0.0f\r\n",
+            "stackTrace": "at TechGuy.Tests.RunExp03FirstSectorTests+<VerifySpatialHook09>d__40.MoveNext () [0x004cb] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp03FirstSectorTests.Spatial09Edges.cs:95\r\nat UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44\r\n",
+            "output": "ProgressionDirector Run_Seed = 10 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          },
+          {
+            "name": "Spatial09TripleNativeWindElectricityFireNearRingMass",
+            "fullName": "TechGuy.Tests.RunExp03FirstSectorTests.Spatial09TripleNativeWindElectricityFireNearRingMass",
+            "state": "Failed:Error",
+            "durationSeconds": 2.684613,
+            "message": "UnityEngine.MissingReferenceException : The object of type 'Actor' has been destroyed but you are still trying to access it.\nYour script should either check if it is null or you should not destroy the object.",
+            "stackTrace": "  at UnityEngine.Object+MarshalledUnityObject.TryThrowEditorNullExceptionObject (UnityEngine.Object unityObj, System.String parameterName) [0x00065] in <2f52b751ded44e96b74c2c8a24c6c65b>:0 \r\n  at UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) [0x0000a] in <2f52b751ded44e96b74c2c8a24c6c65b>:0 \r\n  at UnityEngine.Component.GetComponentFastPath (System.Type type) [0x00006] in <2f52b751ded44e96b74c2c8a24c6c65b>:0 \r\n  at UnityEngine.Component.GetComponent[T] () [0x00000] in <2f52b751ded44e96b74c2c8a24c6c65b>:0 \r\n  at TechGuy.Tests.RunExp03FirstSectorTests+<Spatial09TripleNativeWindElectricityFireNearRingMass>d__41.MoveNext () [0x008e2] in D:\\Dev\\Personal\\My_games\\Tech-Guy\\Assets\\_Project\\Scripts\\Tests\\PlayMode\\RunExp03FirstSectorTests.Spatial09Evidence.cs:66 \r\n  at UnityEngine.TestTools.TestEnumerator+<Execute>d__7.MoveNext () [0x0003a] in .\\Library\\PackageCache\\com.unity.test-framework@1405238725ab\\UnityEngine.TestRunner\\NUnitExtensions\\Attributes\\TestEnumerator.cs:44 ",
+            "output": "ProgressionDirector Run_Seed = 8 (reuse this value in RunSeedSource to reproduce this Run).\r\nCharControlScript active on Player\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\nAbilityHolder: keys array has fewer entries than weapon abilities. Default Q/W/E/R bindings will be used where needed.\r\n"
+          }
+        ]
+      }
+    },
+    "hint": null
+  }
+}

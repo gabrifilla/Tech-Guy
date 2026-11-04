@@ -1,0 +1,31 @@
+{
+  "seed5A": [
+    "geometry node=1 family=LChamber degrees=180",
+    "geometry node=2 family=AsymmetricCourtyard degrees=90",
+    "geometry node=3 family=Rectangle degrees=0",
+    "geometry node=5 family=FragmentedRing degrees=0",
+    "geometry node=6 family=AsymmetricCourtyard degrees=0",
+    "geometry node=9 family=AsymmetricCourtyard degrees=90",
+    "geometry node=10 family=Rectangle degrees=0"
+  ],
+  "seed5B": [
+    "geometry node=1 family=LChamber degrees=180",
+    "geometry node=2 family=AsymmetricCourtyard degrees=90",
+    "geometry node=3 family=Rectangle degrees=0",
+    "geometry node=5 family=FragmentedRing degrees=0",
+    "geometry node=6 family=AsymmetricCourtyard degrees=0",
+    "geometry node=9 family=AsymmetricCourtyard degrees=90",
+    "geometry node=10 family=Rectangle degrees=0"
+  ],
+  "seed6": [
+    "geometry node=1 family=ElongatedGallery degrees=0",
+    "geometry node=2 family=ElongatedGallery degrees=0",
+    "geometry node=3 family=Rectangle degrees=0",
+    "geometry node=5 family=FragmentedRing degrees=0",
+    "geometry node=6 family=FragmentedRing degrees=0",
+    "geometry node=9 family=ElongatedGallery degrees=0",
+    "geometry node=10 family=Rectangle degrees=0"
+  ],
+  "same_seed_same_sequence": true,
+  "different_seed_distinct": true
+}

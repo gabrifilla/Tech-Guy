@@ -84,3 +84,10 @@ crashlytics-build.properties
 
 # Transient Python utility bytecode
 **/__pycache__/
+
+# Reproducible local review archives; their HTML, evidence, assets and builders are versioned.
+# RUN-EXP-09 exceeds GitHub's individual-file limit as a ZIP.
+/Docs/validation/artifacts/run-exp-07/*.zip
+/Docs/validation/artifacts/run-exp-08/*.zip
+/Docs/validation/artifacts/run-exp-09/*.zip
+/Docs/validation/artifacts/run-exp-09b/*.zip

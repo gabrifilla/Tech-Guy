@@ -1,0 +1,35 @@
+{
+  "result": {
+    "success": true,
+    "message": "Test job status retrieved.",
+    "error": null,
+    "data": {
+      "job_id": "0c4eed4e5e0042fba8845412ced7466e",
+      "status": "succeeded",
+      "mode": "PlayMode",
+      "started_unix_ms": 1793742104377,
+      "finished_unix_ms": 1793742129186,
+      "last_update_unix_ms": 1793742129186,
+      "progress": {
+        "completed": 1,
+        "total": 1,
+        "current_test_full_name": null,
+        "current_test_started_unix_ms": null,
+        "last_finished_test_full_name": "TechGuy.Tests.RunExp03FirstSectorTests.Archive05ComparisonPreservesCoverRoutesLosMovementAndAbilities",
+        "last_finished_unix_ms": 1793742129152,
+        "stuck_suspected": false,
+        "editor_is_focused": true,
+        "run_in_background": true,
+        "focus_nudge_attempts": null,
+        "focus_nudge_limit": null,
+        "focus_nudge_status": null,
+        "blocked_reason": null,
+        "failures_so_far": [],
+        "failures_capped": false
+      },
+      "error": null,
+      "result": null
+    },
+    "hint": null
+  }
+}

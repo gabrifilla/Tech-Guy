@@ -1,0 +1,29 @@
+{
+  "0": {
+    "samples": 747,
+    "frame_median_ms": 5.158305,
+    "frame_p95_ms": 7.333695,
+    "cpu_median_ms": 5.1752,
+    "cpu_p95_ms": 7.37,
+    "drawcalls_median": 366,
+    "allocated_mib_median": 1169.3967542648315,
+    "enemy_counts": [
+      6,
+      7,
+      8
+    ]
+  },
+  "1": {
+    "samples": 726,
+    "frame_median_ms": 5.108999,
+    "frame_p95_ms": 6.739902,
+    "cpu_median_ms": 5.091749999999999,
+    "cpu_p95_ms": 6.7371,
+    "drawcalls_median": 418.0,
+    "allocated_mib_median": 1169.4190559387207,
+    "enemy_counts": [
+      6,
+      7
+    ]
+  }
+}
