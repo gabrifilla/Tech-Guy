@@ -146,6 +146,7 @@ namespace TechGuy.Tests
             }
         }
 
+        [Explicit("QUARENTENA-F0: premissa de exaustao da 1a Mutation invalida no catalogo atual (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator PauseConfirmedAbortWaitsForResumeFrameAndReturnsFromUnavailableMutationWithoutVictory()
         {

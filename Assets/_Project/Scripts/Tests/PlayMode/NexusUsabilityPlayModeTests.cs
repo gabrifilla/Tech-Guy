@@ -93,6 +93,7 @@ namespace TechGuy.Tests
             yield return null;
         }
 
+        [Explicit("QUARENTENA-F0: navega por clique; click-to-move removido no C01, premissa obsoleta")]
         [UnityTest] public IEnumerator PedestalKeyEquipsWithoutCastingAndDoesNotRepeatWhileHeld()
         {
             yield return Walk(new Vector3(-7, .06f, -5));
@@ -122,6 +123,7 @@ namespace TechGuy.Tests
             Assert.AreEqual("Gauntlet", _player.CurrentWeapon.name);
         }
 
+        [Explicit("QUARENTENA-F0: navega por clique; click-to-move removido no C01, premissa obsoleta")]
         [UnityTest] public IEnumerator ResultsBlockPedestalKeyAndKeepLoadoutUnchanged()
         {
             yield return Walk(new Vector3(-4.9f, .06f, -4.8f));
@@ -141,6 +143,7 @@ namespace TechGuy.Tests
             Assert.IsFalse(presenter.BlocksInput);
         }
 
+        [Explicit("QUARENTENA-F0: navega por clique; click-to-move removido no C01, premissa obsoleta")]
         [UnityTest] public IEnumerator CombatHudIsReservedForTrainingAndPauseBlocksEquipment()
         {
             var hud = Object.FindFirstObjectByType<PlayerHUD>();
@@ -163,6 +166,7 @@ namespace TechGuy.Tests
             Assert.IsFalse(_player.GetComponent<AbilityHolder>().BlocksWorldInput);
         }
 
+        [Explicit("QUARENTENA-F0: navega por clique; click-to-move removido no C01, premissa obsoleta")]
         [UnityTest] public IEnumerator PointerWalkAndInteractionStartIncursionThenAbortReturnsMatchingResults()
         {
             yield return Walk(new Vector3(-3, .06f, -4));

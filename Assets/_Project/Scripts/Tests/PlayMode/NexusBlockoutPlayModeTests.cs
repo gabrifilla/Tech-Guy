@@ -79,7 +79,9 @@ namespace TechGuy.Tests
             PlayerPrefs.Save(); SessionState.EraseBool("VS034.Automated");
             Time.timeScale = _clock; AudioListener.pause = _audio; yield return null;
         }
+        [Explicit("QUARENTENA-F0: navega por clique; click-to-move removido no C01, premissa obsoleta")]
         [UnityTest] public IEnumerator Journey720() { yield return Journey(1280, 720); }
+        [Explicit("QUARENTENA-F0: navega por clique; click-to-move removido no C01, premissa obsoleta")]
         [UnityTest] public IEnumerator Journey1080() { yield return Journey(1920, 1080); }
 
         private IEnumerator Walk(float x, float z)

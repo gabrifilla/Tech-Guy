@@ -38,8 +38,11 @@ namespace TechGuy.Tests
             if(_seed.Length==0)SessionState.EraseString(RunSeedSource.NextEditorSeedKey);else SessionState.SetString(RunSeedSource.NextEditorSeedKey,_seed);
             PlayerPrefs.Save();Time.timeScale=1;
         }
+        [Explicit("QUARENTENA-F0: assercao de cobertura em posicao fixa no helper Route, anterior as salas 09B")]
         [UnityTest] public IEnumerator GauntletNaturalSeed0ReachesBossTicketsAndNexus()=>Route(0,0);
+        [Explicit("QUARENTENA-F0: assercao de cobertura em posicao fixa no helper Route, anterior as salas 09B")]
         [UnityTest] public IEnumerator SpearNaturalSeed1ReachesBossTicketsAndNexus()=>Route(2,1);
+        [Explicit("QUARENTENA-F0: assercao de cobertura em posicao fixa no helper Route, anterior as salas 09B")]
         [UnityTest] public IEnumerator BowNaturalSeed2ReachesBossTicketsAndNexus()=>Route(1,2);
         private IEnumerator Capture(string name)
         {

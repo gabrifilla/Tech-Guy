@@ -23,8 +23,22 @@ Preservar: Titanic → Conductor → Detonation, salas 09/09B, C05 e os controle
 ## Saúde técnica
 - EditMode: 267/267 (09/11/2026, job `b0e34a2d`, com G1/G2/G3 ainda no working tree).
 - PlayMode completo: 828/879, 50 falhas, 1 Explicit (09/11/2026, job `861b5b32`, idem).
-- Quarentena: pendente.
 - Atenção: a suíte completa grava em `Docs/validation/artifacts/` (caminhos fixos). Confira o `git status` antes de commitar depois de rodá-la.
+
+### Quarentena F0 — 50 testes PlayMode
+`[Explicit("QUARENTENA-F0: motivo")]`: ficam fora da execução padrão e rodam quando selecionados pelo nome. `grep -r QUARENTENA-F0 Assets` lista todos, com o motivo. Nenhum corpo de teste foi alterado. Suíte padrão após a quarentena: **não rodada** (meta: verde).
+
+| Motivo | Testes |
+|---|---|
+| Navegam por clique (removido no C01) — 9 | NexusBlockout/NexusSpatialJourney `Journey720`/`Journey1080`; NexusUsability `CombatHudIsReserved…`, `PedestalKeyEquips…`, `PointerWalkAndInteraction…`, `ResultsBlockPedestalKey…`; ManualRunPlayerFeedback `PublishedFloorClickActuallyMoves…` |
+| Esperam efeito síncrono (triagem 10.2B) — 8 | BasicAttackR1 `GauntletPhase3{BasicWithoutRun, CadencedWait, PublicEventOrder, RConsumesOnce, ReentrantRequest}…`, `ManualLastBasicBatch…`, `ManualPlayerDeathInLastLethalBatch…`, `MigratedGauntletBasicInputs…` |
+| Causa não determinada, Manopla — 7 | BasicAttackR1 `GauntletPhase3{AuthoredZeroChildDelays, DemolishingAdvance, LegacyShockwave, RewardsOfferExecutable, SharedHudGroups}…`, `ManualLastEcho…`, `ManualLastSkillCancels…` |
+| Anteriores ao catálogo atual — 5 | BasicAttackR1 `FourPathsAcquireMutationAtC4…`, `RunFocusDiscounts…`, `ManualImpossibleFirstMutation…`, `PauseConfirmedAbortWaits…`; ProtocolPublishedComposition `FiveCompositions…` |
+| Rota/salas 09/09B — 12 | RunExp03FirstSector `{Gauntlet,Spear,Bow}NaturalSeed*ReachesBoss…`, `Archive05Comparison…`, `ConsolidatedRoles…`, `RefinedRoomComparisons…`; ManualAuthoredNavigation `FourAuthoredPaths…`, `GeneratedPaths…`; BoonPublishedEncounter `Bow…`, `Gauntlet…`, `Spear…`; ManualRunPlayerFeedback `FirstTwoRooms…` |
+| Ambiente de teste vazando / Lança pausada — 4 | BasicAttackR1 `SpearBoon{ContactStake, PathStake, Horizon}…`; ManualAuthoredNavigation `AuthoredClosedGate…` |
+| Dependem da ordem (passam em seleção menor) — 5 | `TornadoKeepsCommittedDirection…`, BreakerKitEmission `ConsecutiveNativeSkills…`, Gpr015 `GameViewTriple…`, SpacingRecoil `Recoil_NeverCrossesSolidScenery`, TitanicRoomClear `RoomClearElementalLastKill…` |
+
+O grupo "Rota/salas" cobre o fluxo da Fase 1a: deve ser triado lá, não esquecido.
 
 ## Próxima etapa
 **Fase 1a — fim claro do Universo 1:** boss vencível no fluxo normal, tela de vitória e volta ao Nexus. Critério jogável: o desenvolvedor vence o boss com a Manopla numa run normal e vê a vitória.

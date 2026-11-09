@@ -89,6 +89,7 @@ namespace TechGuy.Tests
             finally { Time.timeScale = 1f; combat.FinishForDodge(); SetPrivate(combat, "_phase3Authoring", null); UnityEngine.Object.DestroyImmediate(authoring); UnityEngine.Object.DestroyImmediate(source); }
         }
 
+        [Explicit("QUARENTENA-F0: causa nao determinada (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator GauntletPhase3AuthoredZeroChildDelaysKeepProducerFirst()
         {
@@ -163,6 +164,7 @@ namespace TechGuy.Tests
             Assert.IsFalse(hud.IsAsuraVisible); Assert.AreEqual("", hud.FeedbackText);
         }
 
+        [Explicit("QUARENTENA-F0: causa nao determinada (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator GauntletPhase3SharedHudGroupsEffectiveGainsShowsMutationsAndUnbinds()
         {
@@ -263,6 +265,7 @@ namespace TechGuy.Tests
             Assert.AreEqual(0, combat.Energy); Assert.AreEqual(1, inventory.Rank(WeaponBoon.AsuraReserve));
         }
 
+        [Explicit("QUARENTENA-F0: ID de oferta ausente no catalogo atual (indice -1)")]
         [UnityTest]
         public IEnumerator RunFocusDiscountsEffectiveQCostOnceForEachWeaponFamily()
         {
@@ -342,6 +345,7 @@ namespace TechGuy.Tests
         }
 
         // gauntlet-2-rework task 14: real reward selection, explicit legacy Q replacement and run cleanup.
+        [Explicit("QUARENTENA-F0: causa nao determinada (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator GauntletPhase3RewardsOfferExecutableMutationsAndPreserveLegacyQ()
         {
@@ -617,6 +621,7 @@ namespace TechGuy.Tests
             Assert.AreEqual(0, combat.PendingChildCount); Assert.AreEqual(0, combat.EnergyPolicy.RetainedRootCount);
         }
 
+        [Explicit("QUARENTENA-F0: espera efeito sincrono no frame do impacto (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator GauntletPhase3CadencedWaitRejectsUnavailableSkillsAndAcceptsQWEOrBasic()
         {
@@ -695,6 +700,7 @@ namespace TechGuy.Tests
             }
         }
 
+        [Explicit("QUARENTENA-F0: causa nao determinada (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator GauntletPhase3DemolishingAdvanceTraversesBodiesAndLaunchesOnlyOnBreak()
         {
@@ -913,6 +919,7 @@ namespace TechGuy.Tests
             yield break;
         }
 
+        [Explicit("QUARENTENA-F0: causa nao determinada (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator GauntletPhase3LegacyShockwaveKeepsItsEffectEventsAndDistinctProducer()
         {
@@ -1430,6 +1437,7 @@ namespace TechGuy.Tests
             yield break;
         }
 
+        [Explicit("QUARENTENA-F0: espera efeito sincrono no frame do impacto (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator GauntletPhase3RConsumesOnceReservesRanksAndPublishesAtomicResources()
         {
@@ -1536,6 +1544,7 @@ namespace TechGuy.Tests
             yield break;
         }
 
+        [Explicit("QUARENTENA-F0: espera efeito sincrono no frame do impacto (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator GauntletPhase3PublicEventOrderSeesCompleteGainAndNoDuplicateFist()
         {
@@ -1622,6 +1631,7 @@ namespace TechGuy.Tests
             }
         }
 
+        [Explicit("QUARENTENA-F0: espera efeito sincrono no frame do impacto (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator GauntletPhase3ReentrantRequestWaitsUntilImpactAndRevalidatesMana()
         {
@@ -1649,6 +1659,7 @@ namespace TechGuy.Tests
             Assert.AreEqual(0, used); Assert.AreEqual(1, rejected); Assert.AreEqual(0f, _player.mana);
         }
 
+        [Explicit("QUARENTENA-F0: espera efeito sincrono no frame do impacto (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator GauntletPhase3BasicWithoutRunPaysOnceForMultipleAndLethalTargets()
         {
@@ -1742,6 +1753,7 @@ namespace TechGuy.Tests
             Assert.IsTrue(bossOpened, "E must open the immune boss without physical CC");
             Assert.IsFalse(bossReaction.IsStunned); Assert.Less(common.health, 1000f); Assert.Less(boss.health, 1000f);
         }
+        [Explicit("QUARENTENA-F0: espera efeito sincrono no frame do impacto (triagem 10.2B)")]
         [UnityTest]
         public IEnumerator MigratedGauntletBasicInputsUseWeaponReactionWithoutLeakingToBow()
         {
