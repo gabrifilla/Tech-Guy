@@ -91,3 +91,7 @@ crashlytics-build.properties
 /Docs/validation/artifacts/run-exp-08/*.zip
 /Docs/validation/artifacts/run-exp-09/*.zip
 /Docs/validation/artifacts/run-exp-09b/*.zip
+
+# RUN-EXP-10.x: evidence of the G1/G2/G3 prototypes (branch proto/run-exp-10-g123) stays local.
+# Not versioned: ~500 MB, and run-exp-10-2b-review.zip exceeds GitHub's individual-file limit.
+/Docs/validation/artifacts/run-exp-10*
