@@ -38,11 +38,8 @@ namespace TechGuy.Tests
             if(_seed.Length==0)SessionState.EraseString(RunSeedSource.NextEditorSeedKey);else SessionState.SetString(RunSeedSource.NextEditorSeedKey,_seed);
             PlayerPrefs.Save();Time.timeScale=1;
         }
-        [Explicit("QUARENTENA-F0: assercao de cobertura em posicao fixa no helper Route, anterior as salas 09B")]
         [UnityTest] public IEnumerator GauntletNaturalSeed0ReachesBossTicketsAndNexus()=>Route(0,0);
-        [Explicit("QUARENTENA-F0: assercao de cobertura em posicao fixa no helper Route, anterior as salas 09B")]
         [UnityTest] public IEnumerator SpearNaturalSeed1ReachesBossTicketsAndNexus()=>Route(2,1);
-        [Explicit("QUARENTENA-F0: assercao de cobertura em posicao fixa no helper Route, anterior as salas 09B")]
         [UnityTest] public IEnumerator BowNaturalSeed2ReachesBossTicketsAndNexus()=>Route(1,2);
         private IEnumerator Capture(string name)
         {
@@ -51,6 +48,8 @@ namespace TechGuy.Tests
         }
         private IEnumerator Route(int weapon,ulong seed)
         {
+            // Fase 1a: route captures stay outside the repository (never under Docs/).
+            _dir=Path.Combine(Application.temporaryCachePath,"TechGuyTests","route-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff"));Directory.CreateDirectory(_dir);
             PlayerPrefs.SetInt(WeaponLoadout.PreferenceKey,weapon);SessionState.SetString(RunSeedSource.NextEditorSeedKey,seed.ToString());
             yield return SceneManager.LoadSceneAsync("FirstSector");yield return null;yield return null;yield return null;
             var director=Object.FindFirstObjectByType<ProgressionDirector>();var player=Object.FindFirstObjectByType<PlayerActor>();var session=director.ManualSession;var run=player.GetComponent<RunBoons>();
@@ -76,9 +75,21 @@ namespace TechGuy.Tests
                 bool covered=content.HasCover(seed,node);sawCover|=covered;
                 if(covered)
                 {
-                    foreach(float x in new[]{-node.ArenaSize.x*.5f+2,node.ArenaSize.x*.5f-2})
-                    {var navPath=new NavMeshPath();Assert.IsTrue(NavMesh.CalculatePath(node.Center+new Vector3(x,0,-6),node.Center+new Vector3(x,0,6),NavMesh.AllAreas,navPath));Assert.AreEqual(NavMeshPathStatus.PathComplete,navPath.status);}
-                    Assert.IsTrue(Physics.Raycast(node.Center+new Vector3(-3,.8f,-5),Vector3.forward,7,Physics.DefaultRaycastLayers,QueryTriggerInteraction.Ignore));
+                    var layout=director.ManualEnvironment.NodeLayout(nodeId);
+                    if(layout!=null)
+                    {
+                        // RUN-EXP-09/09B: shape, orientation and cover come from the oriented spatial plan, not fixed offsets.
+                        Assert.Greater(layout.Covers.Count,0,"Covered spatial room "+nodeId+" ("+layout.Family+") has no planned cover.");
+                        foreach(var cover in layout.Covers)
+                            Assert.IsTrue(Physics.CheckBox(node.Center+new Vector3(cover.center.x,.8f,cover.center.y),Vector3.one*.2f,Quaternion.identity,Physics.DefaultRaycastLayers,QueryTriggerInteraction.Ignore),
+                                "Planned cover is not physically solid in room "+nodeId+" ("+layout.Family+").");
+                    }
+                    else
+                    {
+                        foreach(float x in new[]{-node.ArenaSize.x*.5f+2,node.ArenaSize.x*.5f-2})
+                        {var navPath=new NavMeshPath();Assert.IsTrue(NavMesh.CalculatePath(node.Center+new Vector3(x,0,-6),node.Center+new Vector3(x,0,6),NavMesh.AllAreas,navPath));Assert.AreEqual(NavMeshPathStatus.PathComplete,navPath.status);}
+                        Assert.IsTrue(Physics.Raycast(node.Center+new Vector3(-3,.8f,-5),Vector3.forward,7,Physics.DefaultRaycastLayers,QueryTriggerInteraction.Ignore));
+                    }
                 }
                 if(node.Kind==ManualNodeKind.Combat)
                 {

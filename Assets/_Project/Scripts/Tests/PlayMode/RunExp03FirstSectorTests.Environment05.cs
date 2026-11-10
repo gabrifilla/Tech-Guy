@@ -45,7 +45,7 @@ namespace TechGuy.Tests
                 File.WriteAllText(Path.Combine(_dir,"05-room-weapon-"+weapon+".txt"),"Real FirstSector seed63, native current Q/E/R slots0/1/2 and special3 each accepted once with actual mana cost, followed by dash and recovery. Native AI/damage/nav stay active; player immune with fixture mana/Asura resource. Does not assert every skill damages each enemy; separate HP attribution and wall-contact selections cover those contracts.");
             }
         }
-        [Explicit("QUARENTENA-F0: rota/salas publicadas 09/09B; causa nao determinada")]
+        [Explicit("QUARENTENA-F0: comparacao historica RUN-EXP-05 pressupoe sala retangular fixa no no 1; a 09B gera forma e orientacao por seed (triagem 1a)")]
         [UnityTest] public IEnumerator Archive05ComparisonPreservesCoverRoutesLosMovementAndAbilities()
         {
             foreach(ulong seed in new ulong[]{0,63})

@@ -39,15 +39,13 @@ namespace TechGuy.Tests
             Time.timeScale = _scale; Time.captureDeltaTime = _capture;
         }
 
-        [Explicit("QUARENTENA-F0: rota/salas publicadas 09/09B; causa nao determinada")]
         [UnityTest]
         public IEnumerator PublishedBowLastMineOpensOneRewardAndLeavesNoWorkInTheNextRoom() => LastPersistentHit(1);
 
-        [Explicit("QUARENTENA-F0: rota/salas publicadas 09/09B; causa nao determinada")]
         [UnityTest]
         public IEnumerator PublishedSpearLastOrbitHitOpensOneRewardAndLeavesNoWorkInTheNextRoom() => LastPersistentHit(2);
 
-        [Explicit("QUARENTENA-F0: rota/salas publicadas 09/09B; causa nao determinada")]
+        [Explicit("QUARENTENA-F0: Q base executa mas nao confirma dano no alvo a frente; seed de sala aleatoria por execucao, causa nao determinada (triagem 1a)")]
         [UnityTest]
         public IEnumerator PublishedGauntletUsesBaseQThenUppercutFallAndEarlyAsuraOnRealActors()
         {
@@ -82,7 +80,11 @@ namespace TechGuy.Tests
                 float baseReach = ((BreakerGauntletAbility)holder.ActiveAbilities[0]).AdvanceDistance + 1.2f;
                 target.transform.position = player.transform.position + Vector3.forward * baseReach; Physics.SyncTransforms();
                 float baseBefore = target.health;
-                Assert.IsTrue(holder.TryUseAbility(0));
+                // Environment: MCP runs keep the Editor unfocused; mirror the established focus restore used by other fixtures.
+                player.GetComponent<CharControlScript>().SendMessage("OnApplicationFocus", true);
+                yield return null; yield return null; // let the direct-input release gate observe the restored focus
+                AbilityUseFailure? baseQRejection = null; holder.AbilityRejected += (_, failure) => baseQRejection = failure;
+                Assert.IsTrue(holder.TryUseAbility(0), "Base Q rejected: " + baseQRejection + Gate(holder, player));
                 yield return WaitFor(() => !holder.IsCasting && !player.IsCombatHitStopped, "The boon-free published Q must complete.");
                 Assert.Less(target.health, baseBefore, "The boon-free kit must still confirm damage.");
                 float baseDamage = baseBefore - target.health;
@@ -133,6 +135,16 @@ namespace TechGuy.Tests
             }
         }
 
+        private static string Gate(AbilityHolder holder, PlayerActor player)
+        {
+            var run = player.GetComponent<RunBoons>(); var controls = player.GetComponent<CharControlScript>();
+            var blocked = typeof(AbilityHolder).GetField("_manualInitializationBlocked", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(holder);
+            var menu = run ? typeof(RunBoons).GetField("_manualMenuOpen", BindingFlags.Instance | BindingFlags.NonPublic)?.GetValue(run) : null;
+            return " | timeScale=" + Time.timeScale + " worldBlocked=" + holder.BlocksWorldInput + " initBlocked=" + blocked +
+                " choosing=" + (run && run.IsChoosing) + " offenseBlocked=" + (run && run.BlocksManualOffense) + " menuOpen=" + menu +
+                " inputReady=" + (controls ? controls.GameplayInputReady.ToString() : "n/a") + " dead=" + player.IsDead;
+        }
+
         private static IEnumerator WaitFor(Func<bool> condition, string reason)
         {
             float deadline = Time.realtimeSinceStartup + 12;
@@ -174,7 +186,11 @@ namespace TechGuy.Tests
             last.Died += _ => { deaths++; Assert.AreEqual(RunPhase.Encounter, session.Phase, "Death notification precedes encounter frontier closure."); };
             float mana = player.mana; long roots = runtime.Budget.RootsCreated;
             int slot = weapon == 1 ? 2 : 3;
-            Assert.IsTrue(holder.TryUseAbility(slot));
+            // Environment: MCP runs keep the Editor unfocused; mirror the established focus restore used by other fixtures.
+            player.GetComponent<CharControlScript>().SendMessage("OnApplicationFocus", true);
+            yield return null; yield return null; // let the direct-input release gate observe the restored focus
+            AbilityUseFailure? slotRejection = null; holder.AbilityRejected += (_, failure) => slotRejection = failure;
+            Assert.IsTrue(holder.TryUseAbility(slot), "Slot " + slot + " rejected: " + slotRejection + Gate(holder, player));
             yield return WaitFor(() => weapon == 1 ? bow.ActiveMines > 0 : spear.HasOrbit, "The real published skill must create its persistent producer.");
             Vector3 contact;
             if (weapon == 1)

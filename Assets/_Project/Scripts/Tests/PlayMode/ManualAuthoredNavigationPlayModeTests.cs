@@ -16,7 +16,7 @@ namespace TechGuy.Tests
 #if UNITY_EDITOR
         // Exercises saved geometry/gates/NavMesh, with pure-policy commits standing in for enemy
         // combat and rewards. This is physical route validation, not a full run or gameplay acceptance.
-        [Explicit("QUARENTENA-F0: PathPartial entre salas 0 e 1; causa nao determinada")]
+        [Explicit("QUARENTENA-F0: modo autorado sem randomizacao, nao usado pelo FirstSector desde a 09B; PathPartial 0 para 1 nao investigado (triagem 1a)")]
         [UnityTest] public IEnumerator FourAuthoredPathsAreNavigableAndRejectedBranchesRemainPhysicallySealed()
         {
             const string definitionPath = "Assets/_Project/ScriptableObjects/Run/FirstSectorManual.asset";
@@ -34,24 +34,23 @@ namespace TechGuy.Tests
             finally { UnityEngine.Object.DestroyImmediate(instance); }
         }
 
-        [Explicit("QUARENTENA-F0: gerador recusa sala com spawn inalcancavel; causa nao determinada")]
         [UnityTest] public IEnumerator GeneratedPathsAreNavigableAndRejectedBranchesRemainPhysicallySealed()
         {
-            var definition = AssetDatabase.LoadAssetAtPath<ManualRunDefinition>("Assets/_Project/ScriptableObjects/Run/FirstSectorManual.asset");
-            Assert.IsTrue(ManualRouteValidator.TrySnapshot(definition, Resources.Load<WeaponScript>(WeaponLoadout.ResourcePaths[0]), out var source, out string error), error);
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/Run/FirstSectorManualEnvironment.prefab");
+            // RUN-EXP-09/09B: production generation lives in FirstSector.unity (spatial layouts + orientations over the
+            // environment prefab, content definition and the scene archetype pool). Validate the route the real
+            // director generated for each seed instead of a prefab-only configuration the game never uses.
             foreach (ulong seed in new ulong[] { 17, 1701 })
             {
-                var instance = UnityEngine.Object.Instantiate(prefab);
-                try
-                {
-                    var route = ManualRunRandomizer.Generate(source, seed, null);
-                    var environment = instance.GetComponent<ManualStageEnvironment>();
-                    Assert.IsTrue(environment.BuildGenerated(route, out error), error);
-                    Assert.IsTrue(environment.Validate(route, out error), error);
-                    yield return VerifyPhysicalPaths(route, environment);
-                }
-                finally { UnityEngine.Object.DestroyImmediate(instance); }
+                SessionState.SetString(RunSeedSource.NextEditorSeedKey, seed.ToString());
+                yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("FirstSector");
+                for (int frame = 0; frame < 4; frame++) yield return null;
+                var director = UnityEngine.Object.FindFirstObjectByType<ProgressionDirector>();
+                Assert.IsNotNull(director, "FirstSector has no ProgressionDirector.");
+                Assert.IsNotNull(director.ManualSession, "FirstSector refused generated seed " + seed + ".");
+                Assert.IsTrue(director.ManualEnvironment.HasGeneratedLayout, "Seed " + seed + " did not build a generated layout.");
+                var route = director.ManualSession.Route; var environment = director.ManualEnvironment;
+                director.enabled = false; // The pure-policy commits below own the gate state for this physical check.
+                yield return VerifyPhysicalPaths(route, environment);
             }
         }
 

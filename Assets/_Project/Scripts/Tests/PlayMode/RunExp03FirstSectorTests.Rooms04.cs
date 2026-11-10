@@ -12,7 +12,7 @@ namespace TechGuy.Tests
 {
     public sealed partial class RunExp03FirstSectorTests
     {
-        [Explicit("QUARENTENA-F0: rota/salas publicadas 09/09B; causa nao determinada")]
+        [Explicit("QUARENTENA-F0: comparacao historica RUN-EXP-04 exige FirstSectorRoomPresentation de sala retangular; ausente nos layouts 09B (triagem 1a)")]
         [UnityTest] public IEnumerator RefinedRoomComparisonsPreserveCollidersCoverAndBothCirculationRoutes()
         {
             foreach(ulong seed in new ulong[]{0,63})

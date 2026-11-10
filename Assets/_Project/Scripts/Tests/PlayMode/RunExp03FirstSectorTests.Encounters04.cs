@@ -16,7 +16,7 @@ namespace TechGuy.Tests
 {
     public sealed partial class RunExp03FirstSectorTests
     {
-        [Explicit("QUARENTENA-F0: rota/salas publicadas 09/09B; causa nao determinada")]
+        [Explicit("QUARENTENA-F0: teleporte em offset fixo de sala retangular (RUN-EXP-04) cai fora do piso nos layouts 09B (triagem 1a)")]
         [UnityTest] public IEnumerator ConsolidatedRolesAlonePairAndMixedUseNativeExecutorsInBothLayouts()
         {
             var groups=new[]{new[]{"Fragmento"},new[]{"Emissor"},new[]{"Fragmento","Emissor"},new[]{"Fragmento","Emissor","Grunt","Healer"},new[]{"Fragmento","Emissor","Hooker"},new[]{"Fragmento","Emissor","Hooker","Hooker"}};

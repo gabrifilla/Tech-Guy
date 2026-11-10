@@ -48,7 +48,7 @@ namespace TechGuy.Tests
             finally { InputSystem.RemoveDevice(mouse); if(enabled) InputSystem.EnableDevice(original); }
         }
 
-        [Explicit("QUARENTENA-F0: rota/salas publicadas 09/09B; causa nao determinada")]
+        [Explicit("QUARENTENA-F0: espera morte sincrona no golpe; o basico da Manopla agenda o contato (mesma causa das 8 sincronas da triagem 10.2B)")]
         [UnityTest] public IEnumerator FirstTwoRoomsNativeLethalFeedbackAutomaticallyPresentsRewardAndRespectsDismissal()
         {
             yield return Load();
