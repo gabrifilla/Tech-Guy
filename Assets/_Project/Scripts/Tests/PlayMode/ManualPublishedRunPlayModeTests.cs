@@ -83,6 +83,7 @@ namespace TechGuy.Tests
                     yield return null;
                 }
                 Assert.AreEqual(RunPhase.ExtractionAvailable,session.Phase);
+                yield return RunVictoryTestSupport.WaitForPortal(director); // Fase 1a: portal after the victory banner
                 var portal=director.ManualExtractionPortal; Assert.IsNotNull(portal);
                 Assert.IsTrue(player.GetComponent<NavMeshAgent>().Warp(portal.transform.position)); Assert.IsTrue(portal.TryEnter());
                 Assert.AreEqual(RunOutcome.Extracted,session.Outcome);

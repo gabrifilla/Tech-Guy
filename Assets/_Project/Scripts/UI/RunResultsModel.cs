@@ -21,8 +21,8 @@ public sealed class RunResultsModel
     public bool Available => _snapshot != null;
     public string SessionId => _snapshot?.SessionId;
     public string Outcome => _snapshot?.Outcome;
-    public string Title => !Available ? "Resultado indisponível" : Outcome == "Victory" ? "Extração concluída" : Outcome == "Death" ? "Morte na incursão" : "Incursão abandonada";
-    public string Subtitle => !Available ? "Nenhum resumo válido para esta consulta. Não é possível inferir o desfecho." : Outcome == "Victory" ? "Run concluída por extração." : Outcome == "Death" ? "Seu personagem foi derrotado." : "Você encerrou o percurso antes da extração.";
+    public string Title => !Available ? "Resultado indisponível" : Outcome == "Victory" ? "VITÓRIA" : Outcome == "Death" ? "Morte na incursão" : "Incursão abandonada";
+    public string Subtitle => !Available ? "Nenhum resumo válido para esta consulta. Não é possível inferir o desfecho." : Outcome == "Victory" ? "Universo 1 concluído: boss derrotado e retorno pelo portal." : Outcome == "Death" ? "Seu personagem foi derrotado." : "Você encerrou o percurso antes da extração.";
     public string Identity { get; }
     public string Warning { get; }
     public double Total => _snapshot?.EffectiveDamage ?? 0;

@@ -109,6 +109,9 @@ public sealed partial class ProgressionDirector
         StartRunStatistics();
         _manualHolder.SetManualInitializationBlocked(false);
         _boons.ManualRewardChosen += OnManualRewardResolved;
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        DevBossShortcut.Attach(this, _player);
+#endif
         StartCoroutine(ManualEntryLoop());
     }
 
@@ -174,6 +177,7 @@ public sealed partial class ProgressionDirector
             var membership = instance.GetComponent<ProtocolEncounterMembership>() ?? instance.AddComponent<ProtocolEncounterMembership>();
             membership.Configure(ManualSession.Id, ManualSession.CurrentNode);
             _manualActors.Add(actor); actor.Died += OnManualEnemyDied;
+            if (spawn.Rank == EnemyRank.Boss) actor.Died += OnManualBossDied;
             _runStatistics?.Watch(actor);
             instance.SetActive(true);
         }

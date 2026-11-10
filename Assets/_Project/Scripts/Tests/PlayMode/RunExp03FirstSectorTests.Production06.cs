@@ -123,6 +123,7 @@ namespace TechGuy.Tests
                 }
                 Assert.Greater(tickets,0);Assert.IsTrue(canceled);Assert.AreEqual(RunPhase.ExtractionAvailable,session.Phase);
                 if(seed.HasValue){Assert.IsTrue(sawCover);Assert.IsTrue(sawArt);}
+                yield return RunVictoryTestSupport.WaitForPortal(director); // Fase 1a: portal after the victory banner
                 Assert.IsTrue(player.GetComponent<NavMeshAgent>().Warp(director.ManualExtractionPortal.transform.position));Assert.IsTrue(director.ManualExtractionPortal.TryEnter());
                 float deadline=Time.realtimeSinceStartup+10;while(SceneManager.GetActiveScene().name!="NexusBlockout"){Assert.Less(Time.realtimeSinceStartup,deadline);yield return null;}
                 Assert.AreEqual(RunOutcome.Extracted,session.Outcome);Assert.AreEqual(RunPhase.Ended,session.Phase);yield return Capture("06-returned-Nexus-weapon-"+weapon);

@@ -79,7 +79,7 @@ public sealed class RunResultsView : MonoBehaviour
     public void Show(RunResultsModel model)
     {
         _model=model;_sheet.gameObject.SetActive(true);_manual.gameObject.SetActive(false);_detail.gameObject.SetActive(false);
-        _title.text=model.Title;_title.color=model.Outcome=="Victory"?Gold:model.Outcome=="Death"?new Color(.90f,.63f,.60f):TextColor;
+        _title.text=model.Title;_title.color=model.Outcome=="Victory"?Gold:model.Outcome=="Death"?new Color(.90f,.63f,.60f):TextColor;_title.fontStyle=model.Outcome=="Victory"?FontStyles.Bold:FontStyles.Normal;_title.characterSpacing=model.Outcome=="Victory"?6:0;
         _subtitle.text=model.Subtitle;_identity.text=model.Identity;_duration.text=model.Duration+"\n<size=24>Inclui pausas</size>";_duration.richText=true;
         _damage.text=model.Damage;_received.text=model.Received;_kills.text=model.Kills;_warning.text=model.Warning;
         for(int i=0;i<3;i++)_tabs[i].interactable=model.Available;

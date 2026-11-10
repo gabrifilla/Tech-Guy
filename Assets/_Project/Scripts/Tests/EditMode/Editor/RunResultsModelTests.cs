@@ -2,7 +2,7 @@ using System;
 using NUnit.Framework;
 public sealed class RunResultsModelTests
 {
-    [TestCase("Victory","Extração concluída")]
+    [TestCase("Victory","VITÓRIA")]
     [TestCase("Death","Morte na incursão")]
     [TestCase("Aborted","Incursão abandonada")]
     public void OutcomeDoesNotDependOnKillsOrDamage(string outcome,string title)

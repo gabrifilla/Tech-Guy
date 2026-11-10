@@ -108,6 +108,7 @@ namespace TechGuy.Tests
             }
             Assert.IsTrue(sawCover,"Selected reproducible route must demonstrate cover.");Assert.Greater(seen.Count,0);Assert.Greater(tickets,0);
             Assert.AreEqual(RunPhase.ExtractionAvailable,session.Phase);File.WriteAllLines(Path.Combine(_dir,"route.txt"),rows);
+            yield return RunVictoryTestSupport.WaitForPortal(director); // Fase 1a: portal after the victory banner
             Assert.IsTrue(player.GetComponent<NavMeshAgent>().Warp(director.ManualExtractionPortal.transform.position));Assert.IsTrue(director.ManualExtractionPortal.TryEnter());
             float end=Time.realtimeSinceStartup+8;while(SceneManager.GetActiveScene().name!="NexusBlockout"){Assert.Less(Time.realtimeSinceStartup,end);yield return null;}
             Assert.AreEqual(RunPhase.Ended,session.Phase);

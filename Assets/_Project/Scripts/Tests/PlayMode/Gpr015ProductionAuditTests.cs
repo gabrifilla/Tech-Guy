@@ -104,6 +104,7 @@ namespace TechGuy.Tests
             Assert.AreEqual(1, mutationOpportunities); Assert.GreaterOrEqual(protocolOpportunities, 2);
             File.WriteAllLines(Path.Combine(DirectoryFor("b/production"), "path-" + pathIndex + "-tickets.txt"), rows);
             File.WriteAllText(Path.Combine(DirectoryFor("b/production"), "path-" + pathIndex + "-summary.json"), JsonUtility.ToJson(director.CurrentRunSummary, true));
+            yield return RunVictoryTestSupport.WaitForPortal(director); // Fase 1a: portal after the victory banner
             var portal = director.ManualExtractionPortal; Assert.IsNotNull(portal);
             Assert.IsTrue(player.GetComponent<NavMeshAgent>().Warp(portal.transform.position)); Assert.IsTrue(portal.TryEnter());
             float end = Time.realtimeSinceStartup + 8;

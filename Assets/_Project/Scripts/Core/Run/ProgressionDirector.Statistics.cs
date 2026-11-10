@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public sealed partial class ProgressionDirector
@@ -12,6 +13,38 @@ public sealed partial class ProgressionDirector
         _runStatistics?.Dispose();
         _runStatistics = new RunStatistics(_player, ManualSession.Id, ActiveRunSeed, _statisticsWallStart, _statisticsScaledStart);
         _runStatistics.Progress(ManualSession);
+        RecordMetaProgressStart();
     }
-    private void FinishRunStatistics() => _runStatistics?.Finish(ManualSession);
+    private void FinishRunStatistics()
+    {
+        _runStatistics?.Finish(ManualSession);
+        RecordMetaProgressFinish();
+    }
+
+    // Fase 1a: invisible meta-progression base. Same start/finish points as RunStatistics, once per session.
+    [SerializeField] private string _universeId = MetaProgressStore.Universe1;
+    private MetaProgressStore _metaProgress;
+    private Guid _metaStartedSession, _metaFinishedSession, _metaBossVictorySession;
+    public string UniverseId => _universeId;
+    /// <summary>Victory counts when the universe boss dies, not when the player walks into the portal.</summary>
+    private void RecordMetaProgressBossVictory()
+    {
+        if (ManualSession == null || _metaProgress == null || _metaStartedSession != ManualSession.Id ||
+            _metaBossVictorySession == ManualSession.Id) return;
+        _metaBossVictorySession = ManualSession.Id;
+        _metaProgress.RecordBossVictory(_universeId);
+    }
+    private void RecordMetaProgressStart()
+    {
+        if (ManualSession == null || _metaStartedSession == ManualSession.Id) return;
+        _metaStartedSession = ManualSession.Id;
+        (_metaProgress ??= MetaProgressStore.CreateDefault()).RecordRunStarted();
+    }
+    private void RecordMetaProgressFinish()
+    {
+        if (ManualSession == null || ManualSession.Outcome == RunOutcome.None || _metaProgress == null ||
+            _metaStartedSession != ManualSession.Id || _metaFinishedSession == ManualSession.Id) return;
+        _metaFinishedSession = ManualSession.Id;
+        _metaProgress.RecordRunFinished(ManualSession.Outcome, _universeId, _metaBossVictorySession == ManualSession.Id);
+    }
 }
