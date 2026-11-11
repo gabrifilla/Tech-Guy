@@ -140,24 +140,28 @@ namespace TechGuy.Tests
             Assert.Less(Vector3.Distance(destination, agent.destination), .01f);
         }
 
-        [UnityTest] public IEnumerator GamepadConfirmsAnAvailablePassageAndViewConsultsWithoutChangingItsDestination()
+        // Since 10/11/2026 the passage is chosen by walking into its door; buttons do not commit it.
+        [UnityTest] public IEnumerator DoorTouchConfirmsAnAvailablePassageAndViewConsultsWithoutChangingItsDestination()
         {
             yield return Load();
             var director = Object.FindFirstObjectByType<ProgressionDirector>();
             var player = Object.FindFirstObjectByType<PlayerActor>();
             var ui = director.GetComponent<ManualRunUI>();
             var pause = player.GetComponent<PauseMenuUI>();
+            var agent = player.GetComponent<NavMeshAgent>();
             int destination = director.ManualDestinations[0];
             Assert.AreEqual(1, director.ManualDestinations.Count, "The initial decision has one available passage.");
-            InputSystem.QueueStateEvent(_gamepad, new GamepadState().WithButton(GamepadButton.DpadRight));
-            yield return null;
-            Assert.AreEqual(destination, ui.InspectedNode,
-                "The transient decision cycles available passages; future-room consultation belongs to pause.");
-            Assert.AreEqual(RunPhase.RouteChoice, director.ManualSession.Phase);
-            InputSystem.QueueStateEvent(_gamepad, new GamepadState());
-            yield return null;
+            Assert.IsFalse(ui.IsOpen, "Route choice has no modal.");
             InputSystem.QueueStateEvent(_gamepad, new GamepadState().WithButton(GamepadButton.South));
             yield return null;
+            Assert.AreEqual(RunPhase.RouteChoice, director.ManualSession.Phase, "A button press is not a door.");
+            InputSystem.QueueStateEvent(_gamepad, new GamepadState());
+            yield return null;
+            var door = director.ManualEnvironment.Connections.Single(c =>
+                director.ManualSession.Route.Connections.Single(e => e.Id == c.ConnectionId).To == destination &&
+                director.ManualSession.Route.Connections.Single(e => e.Id == c.ConnectionId).From == director.ManualSession.CurrentNode);
+            Assert.IsTrue(agent.Warp(door.FromAnchor.position));
+            yield return null; yield return null;
             Assert.AreEqual(RunPhase.Traversal, director.ManualSession.Phase);
             Assert.AreEqual(destination, director.ManualSession.PendingDestination);
             Assert.IsFalse(ui.IsOpen);

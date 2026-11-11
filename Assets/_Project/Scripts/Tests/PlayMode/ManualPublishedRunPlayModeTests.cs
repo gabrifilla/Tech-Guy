@@ -193,7 +193,8 @@ namespace TechGuy.Tests
                 Assert.That(run.RunWeapon.abilities[slot], Is.Not.SameAs(source.abilities[slot]));
         }
 
-        [UnityTest] public IEnumerator PublishedMapOwnsInputAndClosingWaitsForClickRelease()
+        // Route choice has no modal since 10/11/2026: the player walks into a door to choose.
+        [UnityTest] public IEnumerator PublishedRouteChoiceLeavesWorldInputFreeAndPauseCannotCommit()
         {
             yield return Load("FirstSector");
             var player=Object.FindFirstObjectByType<PlayerActor>(); var ui=Object.FindFirstObjectByType<ManualRunUI>();
@@ -210,19 +211,12 @@ namespace TechGuy.Tests
             var mouse=UnityEngine.InputSystem.InputSystem.AddDevice<UnityEngine.InputSystem.Mouse>();
             try
             {
-                Assert.IsTrue(ui.IsOpen,"Initial map open"); Assert.IsTrue(holder.BlocksWorldInput,"Initial map blocks input");
-                Assert.IsFalse(holder.TryUseAbility(0)); Assert.IsFalse(controls.TryDirectionalBasicAttack(player.transform.position+Vector3.forward));
-                Assert.IsTrue(player.GetComponent<NavMeshAgent>().isStopped,"Initial map stops movement");
-                UnityEngine.InputSystem.InputSystem.QueueStateEvent(mouse,new UnityEngine.InputSystem.LowLevel.MouseState().WithButton(UnityEngine.InputSystem.LowLevel.MouseButton.Left));
-                UnityEngine.InputSystem.InputSystem.Update();
-                Assert.IsTrue(mouse.leftButton.isPressed,"Fixture close click held");
-                typeof(ManualRunUI).GetMethod("ReleasedAction",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance).Invoke(ui,null);
-                yield return null;
-                Assert.IsFalse(ui.IsOpen); Assert.IsTrue(holder.BlocksWorldInput,"Held close click keeps input locked");
-                Assert.IsFalse(holder.TryUseAbility(0));
-                UnityEngine.InputSystem.InputSystem.QueueStateEvent(mouse,new UnityEngine.InputSystem.LowLevel.MouseState());
-                UnityEngine.InputSystem.InputSystem.Update(); yield return null; yield return null;
-                Assert.IsFalse(holder.BlocksWorldInput); Assert.IsFalse(player.GetComponent<NavMeshAgent>().isStopped);
+                yield return null; yield return null;
+                Assert.AreEqual(RunPhase.RouteChoice,Object.FindFirstObjectByType<ProgressionDirector>().ManualSession.Phase);
+                Assert.IsFalse(ui.IsOpen,"Route choice opens no modal");
+                Assert.IsFalse(holder.BlocksWorldInput,"The player walks to a door, so world input stays free");
+                Assert.IsFalse(player.GetComponent<NavMeshAgent>().isStopped,"Route choice does not stop movement");
+                Assert.Greater(ui.RouteDoors.Count,0,"The start room exposes its exit door");
                 Time.timeScale=0f;
                 var director=Object.FindFirstObjectByType<ProgressionDirector>();
                 Assert.IsFalse(director.TryCommitDestination(director.ManualSession.Id,1)); Time.timeScale=1f;

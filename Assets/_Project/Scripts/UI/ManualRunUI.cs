@@ -41,7 +41,7 @@ public sealed partial class ManualRunUI : MonoBehaviour
     // GUIStyle holds native GUI state and must be rebuilt after Editor/domain/hot reload.
     // Allocate lazily inside the first OnGUI for this enabled lifecycle, never each frame.
     private void OnEnable() => ResetStyles();
-    private void ResetStyles() => _heading = _body = _small = _detailTitle = _button = _center = _nodeLabel = _badge = null;
+    private void ResetStyles() => _heading = _body = _small = _detailTitle = _button = _center = _nodeLabel = _badge = _stripLabel = _stripBadge = null;
 
     private void Awake()
     {
@@ -66,12 +66,15 @@ public sealed partial class ManualRunUI : MonoBehaviour
         if (!_observedPhase || _knownPhase != session.Phase)
         {
             _observedPhase = true; _knownPhase = session.Phase;
-            _open = session.Phase == RunPhase.RouteChoice || session.Phase == RunPhase.RepairPending ||
+            // Route choice has no modal: the player walks into a door (ManualRunUI.Doors).
+            _open = session.Phase == RunPhase.RepairPending ||
                 session.Phase == RunPhase.RewardPending && (!_run || !_run.IsChoosing) || session.IsClosed;
             var destinations = _director.ManualDestinations;
             _selectedNode = destinations.Count > 0 ? destinations[0] : session.PendingDestination >= 0 ? session.PendingDestination : session.CurrentNode;
             _repairUseSelected = _director.ManualRepairAmount > 0;
+            _doorArmed = false;
         }
+        UpdateDoors(session);
         if (session.Phase == RunPhase.RewardPending) _open = !_run || !_run.IsChoosing;
         if (session.Phase == RunPhase.RouteChoice && !ManualRouteMapPresentation.CanSelectDestination(session, _selectedNode))
         { var options = _director.ManualDestinations; if (options.Count > 0) _selectedNode = options[0]; }
@@ -113,7 +116,9 @@ public sealed partial class ManualRunUI : MonoBehaviour
 
     public bool TryInspectNode(int nodeId)
     {
-        if ((!_open && (!_pause || !_pause.IsMapVisible)) || _director.ManualSession == null || _director.ManualSession.Route.Node(nodeId) == null) return false;
+        var session = _director.ManualSession;
+        if (session == null || session.Route.Node(nodeId) == null ||
+            !_open && session.Phase != RunPhase.RouteChoice && (!_pause || !_pause.IsMapVisible)) return false;
         _selectedNode = nodeId;
         return true;
     }
@@ -121,7 +126,8 @@ public sealed partial class ManualRunUI : MonoBehaviour
     public bool TryConfirmInspection()
     {
         var session = _director.ManualSession;
-        if (!_open || !_release.CanConfirm || session == null || _run && _run.IsChoosing) return false;
+        if (session == null || !_open && session.Phase != RunPhase.RouteChoice || _pause && _pause.BlocksInput ||
+            !_release.CanConfirm || _run && _run.IsChoosing) return false;
         if (session.Phase == RunPhase.RepairPending) return TryResolveRepair(_repairUseSelected);
         if (session.Phase == RunPhase.RewardPending)
         {
@@ -140,7 +146,7 @@ public sealed partial class ManualRunUI : MonoBehaviour
     public bool TryChooseDestination(int index)
     {
         var session = _director.ManualSession;
-        if (!_open || !_release.CanConfirm || session == null || session.Phase != RunPhase.RouteChoice || _run && _run.IsChoosing) return false;
+        if (!_release.CanConfirm || session == null || session.Phase != RunPhase.RouteChoice || _pause && _pause.BlocksInput || _run && _run.IsChoosing) return false;
         var destinations = _director.ManualDestinations;
         if (index < 0 || index >= destinations.Count || !_director.TryCommitDestination(session.Id, destinations[index])) return false;
         _selectedNode = destinations[index];
@@ -224,14 +230,18 @@ public sealed partial class ManualRunUI : MonoBehaviour
     private void OnGUI()
     {
         var session = _director.ManualSession;
-        if (session == null || !_open || Time.timeScale <= 0f || _pause && _pause.BlocksInput || _run && _run.IsChoosing) return;
+        if (session == null || Time.timeScale <= 0f || _pause && _pause.BlocksInput) return;
+        bool decision = _open && !(_run && _run.IsChoosing);
+        bool strip = ShouldDrawRouteStrip(session);
+        if (!decision && !strip) return;
         Styles();
         Matrix4x4 matrix = GUI.matrix; int depth = GUI.depth; bool enabled = GUI.enabled;
         Color background = GUI.backgroundColor;
         float scale = VirtualScale;
         GUI.matrix = Matrix4x4.TRS(new Vector3((Screen.width - 1280f * scale) * .5f, (Screen.height - 720f * scale) * .5f, 0), Quaternion.identity, Vector3.one * scale);
         GUI.depth = -90;
-        try { DrawDecision(session); }
+        // Strip after the decision card so the dimmed backdrop does not cover it.
+        try { if (decision) DrawDecision(session); if (strip) { DrawDoorMarkers(session); DrawRouteStrip(session); } }
         finally { GUI.matrix = matrix; GUI.depth = depth; GUI.enabled = enabled; GUI.backgroundColor = background; }
     }
 
