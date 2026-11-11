@@ -53,6 +53,27 @@ public sealed partial class RunBoons
         return true;
     }
 
+    /// <summary>Fase 1b terminal upgrades for this run: cards per offer and rerolls. Called once after binding.</summary>
+    public void ConfigureManualRunUpgrades(int offerCount, int rerolls)
+    {
+        if (_manualRewards == null) return;
+        _manualRewards.OfferCount = Mathf.Clamp(offerCount, 1, 4);
+        _manualRewards.RerollsRemaining = Mathf.Max(0, rerolls);
+    }
+
+    public int ManualRerollsRemaining => _manualRewards?.RerollsRemaining ?? 0;
+    public bool CanRerollManual => IsChoosing && _manualTicket != null && _manualTicket.State == RunRewardTicketState.Pending &&
+        !_manualTicket.IsAlternative && ManualRerollsRemaining > 0 &&
+        _manualTicket.Pool != null && _manualTicket.Pool.Count > _manualTicket.Choices.Count; // nothing to redraw otherwise
+
+    /// <summary>Redraws the open offer (same pool, deterministic). The view refreshes on the new revision.</summary>
+    public bool TryRerollManual()
+    {
+        if (!CanRerollManual || !_manualRewards.TryReroll(_manualTicket.Request, ManualRewardContext())) return false;
+        _choices.Clear(); _choices.AddRange(_manualTicket.Choices);
+        return true;
+    }
+
     public bool OfferReward(RunRewardRequest request)
     {
         if (_manualRewards == null || !_weapon || !_player || _player.CurrentWeapon != _weapon ||

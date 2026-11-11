@@ -46,7 +46,7 @@ public sealed class RunResultsPresenter : MonoBehaviour
         // Reuse the existing safe stop: no retained cast/dash buffer may replay after this Nexus modal.
         if(_holder&&!_holder.TryStopEncounterOffense())return;
         RunSummary snapshot;string diagnostic;RunSummaryStore.TryRead(out snapshot,out diagnostic);
-        Model=new RunResultsModel(snapshot,expected);IsOpen=true;_openedFrame=Time.frameCount;
+        Model=new RunResultsModel(snapshot,expected).WithProgress(MetaProgressStore.CreateDefault().Load());IsOpen=true;_openedFrame=Time.frameCount;
         _cursorVisible=Cursor.visible;_cursorLock=Cursor.lockState;Cursor.lockState=CursorLockMode.None;Cursor.visible=true;
         _ownsAgent=_agent&&_agent.isOnNavMesh&&_agent.enabled;
         if(_ownsAgent){_stopped=_agent.isStopped;_agent.isStopped=true;}

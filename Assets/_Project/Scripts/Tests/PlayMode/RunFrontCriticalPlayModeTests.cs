@@ -101,7 +101,10 @@ namespace TechGuy.Tests
             _player.BeginExternalPull(source.transform, .25f);
             Assert.IsFalse(_player.IsBeingPulled, "Paused wall time cannot consume the HookLine-only escape window.");
             Time.timeScale = 1;
-            yield return new WaitForSeconds(.65f);
+            yield return new WaitForSeconds(PlayerActor.ExternalPullRecovery - .5f);
+            _player.BeginExternalPull(source.transform, .25f);
+            Assert.IsFalse(_player.IsBeingPulled, "Still inside the escape window (2.5 s since the threat pass).");
+            yield return new WaitForSeconds(.55f);
             _player.BeginExternalPull(source.transform, .25f);
             Assert.IsTrue(_player.IsBeingPulled, "Recovery must expire; there is no unlimited pull immunity.");
         }

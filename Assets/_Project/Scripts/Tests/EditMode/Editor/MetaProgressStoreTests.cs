@@ -44,7 +44,7 @@ namespace TechGuy.Tests
             Assert.AreEqual(2, profile.victories); Assert.AreEqual(0, profile.deaths); Assert.AreEqual(0, profile.abandons);
             CollectionAssert.AreEqual(new[] { MetaProgressStore.Universe1 }, profile.universesCleared, "A universe is listed once.");
             Assert.IsTrue(DateTime.TryParse(profile.lastUpdatedUtc, null, System.Globalization.DateTimeStyles.RoundtripKind, out _));
-            StringAssert.Contains("\"schemaVersion\": 1", File.ReadAllText(_store.FilePath), "JSON field names are the contract.");
+            StringAssert.Contains("\"schemaVersion\": 2", File.ReadAllText(_store.FilePath), "JSON field names are the contract (v2 since Fase 1b).");
             Assert.IsFalse(File.Exists(_store.FilePath + ".tmp"), "The write-then-swap leaves no temporary file.");
         }
 

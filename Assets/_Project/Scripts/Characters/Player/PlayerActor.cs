@@ -772,8 +772,9 @@ public class PlayerActor : Actor, IExternalPullTarget
     private Coroutine _externalPullCoroutine;
     private bool _externalPullActive, _restoreMovementAfterPull;
     private float _externalPullRecovery;
-    // A narrow HookLine-only escape window; does not grant damage or general CC immunity.
-    private const float ExternalPullRecovery = .6f;
+    // HookLine-only escape window; does not grant damage or general CC immunity. Raised from 0.6 s to 2.5 s in the threat
+    // pass (11/11/2026): chained hooks trapped the player in a pull loop.
+    internal const float ExternalPullRecovery = 2.5f;
 
     private NavMeshAgent Agent => _agent ? _agent : (_agent = GetComponent<NavMeshAgent>());
     private CharControlScript MovementControl =>

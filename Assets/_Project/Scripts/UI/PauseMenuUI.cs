@@ -93,7 +93,7 @@ public sealed class PauseMenuUI : MonoBehaviour
 
     public void Pause()
     {
-        if (IsPaused || _loading || !_player || _player.IsDead || (_results && _results.BlocksInput)) return;
+        if (IsPaused || _loading || !_player || _player.IsDead || (_results && _results.BlocksInput) || GameplayModal.IsOpen) return;
         _previousTimeScale = Time.timeScale;
         _previousAudioPause = AudioListener.pause;
         if (TryGetComponent(out CharControlScript controls)) controls.RequireAttackRelease();

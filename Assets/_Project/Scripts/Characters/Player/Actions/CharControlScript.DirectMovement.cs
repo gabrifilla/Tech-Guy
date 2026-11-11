@@ -159,6 +159,16 @@ public partial class CharControlScript
         SetAnimations();
     }
 
+    /// <summary>
+    /// Focus only ever recovers here; losing it still comes from <see cref="OnApplicationFocus"/>. In the Editor the
+    /// focus-gained event can be missed (Play started without the Game view focused, Play Unfocused mode), which left
+    /// every direct input (WASD, attacks, skills) discarded for the whole session (10/11/2026).
+    /// </summary>
+    private void RecoverDirectFocus()
+    {
+        if (!_directHasFocus && _directKeyboardMovement && Application.isFocused) _directHasFocus = true;
+    }
+
     private void OnApplicationFocus(bool focused)
     {
         _directHasFocus = focused;

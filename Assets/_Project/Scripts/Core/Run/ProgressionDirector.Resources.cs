@@ -7,7 +7,8 @@ public sealed partial class ProgressionDirector
     private bool _manualResourcesInitialized;
     public RunRepairResult ManualRepairResult => _manualRepair?.Result;
     public float ManualRepairAmount => ManualSession != null && ManualSession.Phase == RunPhase.RepairPending && _player &&
-        RunResourceMath.TryRepair(_player.health,_player.maxHealth,ManualSession.Route.Node(ManualSession.CurrentNode).RepairFraction,out float amount) ? amount : 0;
+        RunResourceMath.TryRepair(_player.health,_player.maxHealth,_manualRepair!=null ? _manualRepair.EffectiveFraction(ManualSession.Route.Node(ManualSession.CurrentNode))
+            : ManualSession.Route.Node(ManualSession.CurrentNode).RepairFraction,out float amount) ? amount : 0;
     public event Action<RunRepairResult> ManualRepairResolved;
 
     private void InitializeManualResourcesOnce()

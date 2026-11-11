@@ -626,6 +626,51 @@ Transform:
   - {fileID: 1969758741}
   m_Father: {fileID: 1241138384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &81845706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 81845708}
+  - component: {fileID: 81845707}
+  m_Layer: 0
+  m_Name: Terminal de Melhorias
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &81845707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81845706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f40197f678b16084394277f218ea6c2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TechGuy::NexusUpgradeTerminal
+  _player: {fileID: 415681199}
+--- !u!4 &81845708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 81845706}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -7.5, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &91841557
 GameObject:
   m_ObjectHideFlags: 0
@@ -3403,6 +3448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fe7a78383bdd348a207d3482580988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _directInteractionRange: 3.5
   _directKeyboardMovement: 1
   clickEffect: {fileID: 2629482439324332389, guid: d73518ac39297e64995acb17999b6908,
     type: 3}
@@ -15456,3 +15502,4 @@ SceneRoots:
   - {fileID: 208826719}
   - {fileID: 939445241}
   - {fileID: 299658825}
+  - {fileID: 81845708}

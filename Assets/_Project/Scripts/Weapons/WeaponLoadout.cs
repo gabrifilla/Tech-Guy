@@ -68,28 +68,37 @@ public static class WeaponLoadout
         return Resolve(index);
     }
 
-    /// <summary>True when the weapon at <paramref name="index"/> has been unlocked. Index 0 is always unlocked.</summary>
+    /// <summary>
+    /// True when the weapon at <paramref name="index"/> is available. Fase 1b: the gauntlet (index 0) is always
+    /// available; the bow and the spear are released by universe progression in Fase 1d, so they stay locked for now.
+    /// The legacy coin-purchase flags (<c>TechGuy.Loadout.Unlocked.N</c>) are no longer read in the game.
+    /// </summary>
     public static bool IsUnlocked(int index)
     {
         if (index < 0 || index >= ResourcePaths.Length) return false;
         if (index == 0) return true;
-        return PlayerPrefs.GetInt(UnlockKeyPrefix + index, 0) == 1;
+        if (LegacyUnlockFlagsForTests) return PlayerPrefs.GetInt(UnlockKeyPrefix + index, 0) == 1;
+        return IsReleasedByProgression(index);
     }
+
+    /// <summary>Message shown on locked pedestals.</summary>
+    public const string ProgressionLockedLabel = "Liberada ao avançar nos universos";
+
+    /// <summary>Fase 1d will map universe clears to weapons here; until then nothing besides the gauntlet is released.</summary>
+    public static bool IsReleasedByProgression(int index) => index == 0;
+
+    /// <summary>
+    /// Test-only: existing fixtures select the bow/spear through the legacy PlayerPrefs flags. The PlayMode assembly
+    /// SetUpFixture turns this on; tests that check the progression lock turn it off locally.
+    /// </summary>
+    internal static bool LegacyUnlockFlagsForTests;
 
     /// <summary>Coin cost to unlock the weapon at <paramref name="index"/>.</summary>
     public static int GetCost(int index) =>
         index >= 0 && index < UnlockCosts.Length ? Mathf.Max(0, UnlockCosts[index]) : 0;
 
-    /// <summary>Spends coins from the wallet to unlock a weapon. Returns true on success.</summary>
-    public static bool TryUnlock(int index)
-    {
-        if (index < 0 || index >= ResourcePaths.Length) return false;
-        if (IsUnlocked(index)) return true;
-        if (!CurrencyWallet.TrySpend(GetCost(index))) return false;
-        PlayerPrefs.SetInt(UnlockKeyPrefix + index, 1);
-        PlayerPrefs.Save();
-        return true;
-    }
+    /// <summary>Fase 1b: weapons are no longer bought. True only for an already available weapon.</summary>
+    public static bool TryUnlock(int index) => IsUnlocked(index);
 
     public static bool Select(PlayerActor actor, int index)
     {

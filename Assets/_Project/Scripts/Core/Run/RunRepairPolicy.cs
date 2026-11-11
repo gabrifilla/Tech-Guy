@@ -29,6 +29,10 @@ public sealed class RunRepairPolicy
     private readonly ManualRoutePolicy _route;
     public RunRepairResult Result { get; private set; }
     public RunRepairPolicy(ManualRoutePolicy route) { _route=route??throw new ArgumentNullException(nameof(route)); }
+    /// <summary>Fase 1b "Reparo reforçado": extra fraction of max health, added to the node's own fraction (capped at 1).</summary>
+    public float FractionBonus { get; set; }
+    public float EffectiveFraction(ManualNodeDefinition node) =>
+        node==null||node.RepairFraction<=0 ? 0 : Math.Min(1f,node.RepairFraction+Math.Max(0f,FractionBonus));
     public bool TryResolve(Guid sessionId,int nodeId,bool use,float health,float maxHealth,
         Func<RunActionContext> observe,Action<float> heal)
     {
@@ -37,7 +41,7 @@ public sealed class RunRepairPolicy
             session.CurrentNode!=nodeId||Result!=null) return false;
         var node=session.Route.Node(nodeId);
         float amount=0;
-        if(node.Kind!=ManualNodeKind.Repair||use&&(heal==null||!RunResourceMath.TryRepair(health,maxHealth,node.RepairFraction,out amount))) return false;
+        if(node.Kind!=ManualNodeKind.Repair||use&&(heal==null||!RunResourceMath.TryRepair(health,maxHealth,EffectiveFraction(node),out amount))) return false;
         Result=new RunRepairResult(sessionId,nodeId){State=RunRepairState.Committing,Used=use,Amount=amount};
         try
         {

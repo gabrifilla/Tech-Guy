@@ -6,7 +6,32 @@
 
 Tech Guy é um **ARPG roguelite top-down em Unity**, de ritmo intenso, protagonizado por um desenvolvedor preso em um universo digital. Há um hub (Nexus), encontros e progressão em runs. O jogo procura combinar a resposta de combate de Lost Ark com a compreensão visual de Diablo e uma estética estilizada com referências artísticas em Hades, sem se converter numa cópia desses jogos.
 
-Na intenção narrativa, o protagonista foi sugado para o próprio computador, procura voltar à Terra e entender o sistema. O Nexus é o espaço seguro de preparação. As armas são imaginadas como companheiras inteligentes e expressivas, com personalidade, humor e diálogos; High on Life orienta esse aspecto. A presença de kits de arma não comprova um sistema de diálogos implementado. Spider-Verse permanece referência de estudo visual, não aprovação de um shader, paleta ou mundo final. O papel de cada referência está em [references/README.md](references/README.md).
+A história está na seção [Narrativa](#narrativa) abaixo. O Nexus é o espaço seguro de preparação. As armas são companheiras inteligentes e expressivas, com personalidade, humor e diálogos; High on Life orienta esse aspecto. A presença de kits de arma não comprova um sistema de diálogos implementado. Spider-Verse permanece referência de estudo visual, não aprovação de um shader, paleta ou mundo final. O papel de cada referência está em [references/README.md](references/README.md).
+
+## Narrativa
+
+*Definida pelo desenvolvedor em 10/11/2026. Substitui a sinopse antiga ("sugado para o próprio computador").*
+
+**Premissa.** O protagonista é um desenvolvedor de jogos do mundo real. Numa madrugada de crunch, ele desmaia em frente ao computador enquanto trabalha no próprio jogo. Ao acordar, está **dentro do mundo do jogo que estava construindo**, só que fragmentado e confuso.
+
+**A Manopla.** Ele encontra um objeto desconhecido, que não tem forma de manopla. Ao ser tocado, o objeto se funde à mão dele de forma agressiva e invasiva e se conecta pelos nervos até o cérebro. A fusão causa muita dor, mas transfere todo o conhecimento da arma, principalmente a arte marcial para a qual ela foi "criada": o **boxe**. É assim que o jogador ganha as skills para sobreviver. Ainda atordoado, ele começa a conversar com ela.
+- **Nome:** **Ico** (decidido em 10/11/2026). O nome é intencional: em algum momento haverá um easter egg referenciando o jogo *ICO* (Sony, 2001), em forma de homenagem (sem usar assets, personagens ou marca do jogo).
+- **Personalidade:** smug e sarcástica, mas solidária e amigável.
+- **Motivação:** ela também não sabe como foi parar ali. Os dois buscam juntos o caminho de volta ao mundo real.
+
+**Universos como caminho de volta.** Cada universo deixa o protagonista um pouco mais perto do mundo real. A ordem planejada é (1) tecnológico, (2) cartoonizado e (3) noir em preto e branco, conforme o plano.
+
+**Armas.** Cada arma tem personalidade própria, pertence a um universo diferente e se conecta ao jogador de um jeito diferente para transmitir a arte marcial que domina.
+- **Lança:** personalidade mais feminina, refinada, *lady-like*, por causa da leveza dos golpes.
+- **Arco:** a decidir.
+- **Foco atual:** só a Manopla.
+
+**O Desconhecido (primeiro NPC resgatado).** *Decidido em 10/11/2026.* É um NPC que o protagonista começou a criar para o próprio jogo e nunca terminou. "Desconhecido" é literalmente o nome provisório que ficou no projeto.
+- **Ironia dramática:** o jogador sabe que está diante da própria criação; o NPC não sabe.
+- **Conhecimento parcial:** ele conhece aquele universo e sabe **um pouco** sobre a "confusão" entre os universos, mas tem lacunas, como um personagem incompleto.
+- **Progressão:** a cada retorno ao Nexus, ele pode ganhar uma camada nova (nome, lembrança, função), como se estivesse sendo "terminado". Isso também dá motivo para conversas novas e evita repetir diálogo.
+
+**Boss final (conceito).** Um ser cujo propósito é destruir tudo e todos, inclusive a si mesmo: a destruição de todos os universos é "um preço baixo a se pagar" (uma pegada de vilão convicto à la Thanos, sem copiar). Os golpes **mudam os universos**: ondas de choque fazem o jogador alternar entre universos durante a luta.
 
 ## Fantasia de jogo
 

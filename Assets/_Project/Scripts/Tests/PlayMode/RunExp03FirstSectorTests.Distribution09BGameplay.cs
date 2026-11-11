@@ -60,6 +60,8 @@ namespace TechGuy.Tests
                 player.AddDamageImmunity(director);var nav=player.GetComponent<NavMeshAgent>();
                 Assert.IsTrue(director.TryCommitDestination(session.Id,1));Assert.IsTrue(nav.Warp(node.Center));Assert.IsTrue(director.TryEnterNode(session.Id,1));yield return null;
                 foreach(var coin in director.GetComponentsInChildren<CoinDrop>())Object.DestroyImmediate(coin);
+                // Spawn positions, for the quiet-centre fixture below (encounter AI is room-wide aggro since 10/11/2026).
+                var spawnPositions=director.GetComponentsInChildren<EnemyAI>().ToDictionary(e=>e,e=>e.transform.position);
                 var arena=director.ManualEnvironment.Node(1).Arena;
                 Assert.IsTrue(director.ManualEnvironment.Connections.Where(b=>session.Route.Connections.Any(e=>e.Id==b.ConnectionId&&e.From==1)).All(b=>b.Barrier.activeSelf));
                 yield return new WaitForSeconds(.3f);yield return Capture("09-gameplay-overview");
@@ -87,6 +89,12 @@ namespace TechGuy.Tests
                 // Basic HP impact in the quiet center. Temporary actor HP/position/AI fixture, restored before skills.
                 var victim=director.GetComponentsInChildren<Actor>().First(a=>a.name.StartsWith("Fragmento"));var ai=victim.GetComponent<EnemyAI>();bool enabled=ai.enabled;var old=victim.transform.position;
                 ai.InterruptAttack();ai.enabled=false;victim.SetMaxHealth(1000);victim.RestoreHealthToMax();
+                // Quiet centre: the other roles go back to their spawns with AI paused for the isolated basic/dash checks
+                // (room-wide aggro would otherwise crowd the immune player). Restored before the forced kills.
+                var paused=new List<EnemyAI>();
+                foreach(var pair in spawnPositions){var other=pair.Key;if(!other||other==ai||!other.enabled)continue;other.InterruptAttack();other.enabled=false;other.agent.Warp(pair.Value);paused.Add(other);}
+                foreach(var shot in Object.FindObjectsByType<EnemyProjectile>(FindObjectsSortMode.None))Object.Destroy(shot.gameObject); // shots already in flight
+                yield return null;Physics.SyncTransforms();
                 if(weapon==1)
                 {
                     var cb=cover.bounds;Assert.IsTrue(nav.Warp(new Vector3(cb.center.x,0,cb.min.z-1.5f)));Assert.IsTrue(victim.GetComponent<NavMeshAgent>().Warp(new Vector3(cb.center.x,0,cb.max.z+1.5f)));Physics.SyncTransforms();
@@ -109,6 +117,7 @@ namespace TechGuy.Tests
                 }
                 var dash=AssetDatabase.LoadAssetAtPath<DashScript>("Assets/_Project/ScriptableObjects/Abilities/Dash/Dash.asset");player.mana=1500;Assert.IsTrue(holder.TryUseDash(dash));yield return new WaitForSeconds(.4f);
                 Assert.IsTrue(layout.Contains(player.transform.position-node.Center,.3f));Assert.IsTrue(nav.isOnNavMesh);yield return Capture("09-dash-recovered");
+                foreach(var other in paused)if(other)other.enabled=true;
                 foreach(var actor in director.GetComponentsInChildren<Actor>())actor.TakeDamage(1000000);
                 until=Time.realtimeSinceStartup+12;while(session.Phase==RunPhase.Encounter){Assert.Less(Time.realtimeSinceStartup,until);yield return null;}
                 var run=player.GetComponent<RunBoons>();while(session.Phase==RunPhase.RewardPending)

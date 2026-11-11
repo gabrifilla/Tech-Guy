@@ -27,6 +27,9 @@ public sealed class RunRewardTicket
     public string ResultId { get; internal set; }
     public string Diagnostic { get; internal set; }
     internal string InventoryKey;
+    internal List<RunBoons.Offer> Pool;
+    /// <summary>Times this ticket was rerolled (Fase 1b "Reroll" upgrade).</summary>
+    public int Rerolls { get; internal set; }
     internal RunRewardTicket(RunRewardRequest request, RunRewardKind kind)
     { Request = request; AnnouncedKind = kind; Choices = Array.Empty<RunBoons.Offer>(); }
 }
@@ -37,6 +40,33 @@ public sealed class RunRewardPolicy
     private readonly ManualRoutePolicy _route;
     private readonly Dictionary<RunRewardRequest, RunRewardTicket> _tickets = new Dictionary<RunRewardRequest, RunRewardTicket>();
     public RunRewardPolicy(ManualRoutePolicy route) { _route = route ?? throw new ArgumentNullException(nameof(route)); }
+
+    /// <summary>Cards per offer: 3 by default, 4 with the "Quarta opção" upgrade. Set before the first ticket opens.</summary>
+    public int OfferCount { get; set; } = 3;
+    /// <summary>Rerolls left in this run ("Reroll" upgrade). Each reroll redraws one pending ticket.</summary>
+    public int RerollsRemaining { get; set; }
+
+    /// <summary>
+    /// Redraws a pending ticket from the same eligible pool. Bumps the revision (stale clicks are rejected) and the
+    /// derived seed includes it, so the redraw is deterministic for a given run seed and never consumes shared RNG.
+    /// </summary>
+    public bool TryReroll(RunRewardRequest request, RunActionContext context)
+    {
+        var ticket = Find(request);
+        if (RerollsRemaining <= 0 || !Authorize(request, context) || ticket == null || ticket.State != RunRewardTicketState.Pending ||
+            ticket.IsAlternative || ticket.Pool == null || ticket.Pool.Count <= ticket.Choices.Count) return false;
+        RerollsRemaining--; ticket.Rerolls++; ticket.Revision++;
+        ticket.Choices = BoonOfferDraw.Draw(ticket.Pool, new Random(TicketSeed(request, ticket)), OfferCount);
+        return true;
+    }
+
+    private int TicketSeed(RunRewardRequest request, RunRewardTicket ticket)
+    {
+        string rewardIdentity = _route.Session.Route.RewardSeed.HasValue
+            ? _route.Session.Route.RewardSeed.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)
+            : request.SessionId.ToString("N");
+        return StableSeed(rewardIdentity + ":" + request.NodeId + ":" + request.Ordinal + ":" + ticket.Revision);
+    }
     public RunRewardTicket Find(RunRewardRequest request) => _tickets.TryGetValue(request, out var ticket) ? ticket : null;
     public bool Authorize(RunRewardRequest request, RunActionContext context) => context.CanConfirm &&
         !_route.Session.IsClosed && request.SessionId == _route.Session.Id && _route.Session.Phase == RunPhase.RewardPending &&
@@ -63,12 +93,9 @@ public sealed class RunRewardPolicy
         ordered = ordered.GroupBy(o => o.Id).Select(g => g.First()).OrderBy(o => o.Id, StringComparer.Ordinal).ToList();
         if (ordered.Count == 0) ticket.Diagnostic = "No eligible first Mutation; Boss remains blocked. Abort and return to Nexus.";
         // A derived seed, rather than shared RNG, makes reopening/revision independent of unrelated rolls.
-        string rewardIdentity = _route.Session.Route.RewardSeed.HasValue
-            ? _route.Session.Route.RewardSeed.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)
-            : request.SessionId.ToString("N");
-        int seed = StableSeed(rewardIdentity + ":" + request.NodeId + ":" + request.Ordinal + ":" + ticket.Revision);
-        var random = new Random(seed);
-        ticket.Choices = BoonOfferDraw.Draw(ordered, random);
+        var random = new Random(TicketSeed(request, ticket));
+        ticket.Pool = ordered;
+        ticket.Choices = BoonOfferDraw.Draw(ordered, random, OfferCount);
         return ticket;
     }
 

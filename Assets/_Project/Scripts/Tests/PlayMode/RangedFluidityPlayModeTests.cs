@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -29,7 +30,8 @@ namespace TechGuy.Tests
             if (_navigation) Object.DestroyImmediate(_navigation);
         }
 
-        private EnemyAI BuildShooter(float distance = 4f, bool disconnected = false, bool restrictedArea = false)
+        private EnemyAI BuildShooter(float distance = 4f, bool disconnected = false, bool restrictedArea = false,
+            GameObject prefabOverride = null)
         {
 #if UNITY_EDITOR
             var source = new NavMeshBuildSource { shape = NavMeshBuildSourceShape.Box,
@@ -65,13 +67,14 @@ namespace TechGuy.Tests
 
             var parent = new GameObject("Ranged fluidity encounter");
             _objects.Add(parent); parent.SetActive(false);
-            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/EnemyArchetypes/Shooter.prefab");
+            var prefab = prefabOverride ? prefabOverride : AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/EnemyArchetypes/Shooter.prefab");
             Assert.That(prefab, Is.Not.Null, "The actual Shooter prefab must exist.");
             var shooter = Object.Instantiate(prefab, Center + Vector3.right * distance, Quaternion.LookRotation(Vector3.left), parent.transform);
             var ai = shooter.GetComponent<EnemyAI>();
             // The fixture lives outside the scene camera; animation checks must still sample the real clips.
-            shooter.GetComponent<Animator>().cullingMode = AnimatorCullingMode.AlwaysAnimate;
-            Assert.That(shooter.GetComponent<PreferredDistanceLayer>(), Is.Not.Null, "The fixture must include the real distance layer.");
+            var animator = shooter.GetComponentInChildren<Animator>();
+            if (animator) animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+            if (!prefabOverride) Assert.That(shooter.GetComponent<PreferredDistanceLayer>(), Is.Not.Null, "The fixture must include the real distance layer.");
             ai.player = player.transform; ai.whatIsPlayer = 1 << 8; ai.sightRange = 100; ai.walkPointRange = 0;
             Set(ai, "_natural", new EnemyAI.NaturalBehaviorConfig { AngularSpeed = 1440, ReactionDelay = 0,
                 SightLossReset = 1, ApproachOffset = 0, ApproachRefresh = 1 });
@@ -229,6 +232,86 @@ namespace TechGuy.Tests
             Assert.That(ai.RetreatPhase, Is.EqualTo(KiteController.Phase.Cooldown));
             Assert.That(ai.agent.hasPath, Is.False);
             Assert.That(Vector3.Distance(ai.transform.position, Center + Vector3.right * 4), Is.LessThan(.1f));
+        }
+
+        [UnityTest]
+        public IEnumerator EncounterRoomPutsEveryEnemyInSight()
+        {
+            var ai = BuildShooter();
+            float authored = ai.sightRange;
+            ai.ConfigureEncounterBounds(Center, new Vector2(24, 20));
+            Assert.That(ai.sightRange, Is.GreaterThanOrEqualTo(24f), "The whole arena is aggro, not just the authored " + authored + " m.");
+            yield return null;
+            Assert.That(ai.playerInSightRange, Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator EncounterRetreatBudgetIsSpentThenTheEnemyHoldsGround()
+        {
+            var ai = BuildShooter();
+            ai.ConfigureEncounterBounds(Center, new Vector2(36, 36));
+            Set(ai, "nextAttackTime", Time.time + 1000);
+            yield return null;
+            Assert.That(ai.IsRetreating, Is.True, "Inside the budget the Shooter still opens space once.");
+            float end = Time.time + 3f;
+            while (ai.IsRetreating && Time.time < end) yield return null;
+            Assert.That(Get<float>(ai, "_encounterRetreatSpent"), Is.GreaterThan(0f), "Retreating draws from the encounter budget.");
+
+            // Budget spent: the player closes in again and the enemy no longer runs.
+            Set(ai, "_encounterRetreatSpent", 100f);
+            end = Time.time + 4f;
+            while (ai.RetreatPhase == KiteController.Phase.Cooldown && Time.time < end) yield return null;
+            Assert.That(ai.RetreatPhase, Is.Not.EqualTo(KiteController.Phase.Cooldown), "Kite cooldown elapsed.");
+            Assert.That(ai.agent.Warp(Center + Vector3.right * 3f), Is.True);
+            for (int frame = 0; frame < 20; frame++) yield return null;
+            Assert.That(ai.EncounterRetreatExhausted, Is.True);
+            Assert.That(ai.IsRetreating, Is.False, "Out of budget: holds ground and fights.");
+            Assert.That(Vector3.Distance(ai.transform.position, Center), Is.LessThan(3.3f), "Did not move away from the player.");
+        }
+
+        [UnityTest]
+        public IEnumerator OutOfBudgetEmissorStillFiresAtCloseRange()
+        {
+#if UNITY_EDITOR
+            var content = AssetDatabase.LoadAssetAtPath<FirstSectorContentDefinition>("Assets/_Project/ScriptableObjects/Run/FirstSectorContent.asset");
+            var emissor = content.AdditionalEnemies.Single(p => p.name == "Emissor");
+            var ai = BuildShooter(3f, prefabOverride: emissor);
+            ai.ConfigureEncounterBounds(Center, new Vector2(36, 36));
+            Set(ai, "_encounterRetreatSpent", 100f);
+            var actions = ai.GetComponent<EnemyCombatActions>();
+            int impacts = actions.ResolvedImpacts;
+            float end = Time.time + 8f;
+            string trace = "";
+            while (actions.ResolvedImpacts == impacts && Time.time < end)
+            {
+                trace = $"dist={Vector3.Distance(ai.transform.position, Center):F2} sight={ai.playerInSightRange} range={ai.playerInAttackRange} " +
+                    $"winding={ai.IsWindingUp} hasPath={ai.agent.hasPath} stopped={ai.agent.isStopped} retreat={ai.IsRetreating} " +
+                    $"presentation={ai.HasAttackPresentation}";
+                yield return null;
+            }
+            Assert.That(actions.ResolvedImpacts, Is.GreaterThan(impacts), "Out of retreat budget, the sniper still shoots. Last: " + trace);
+#else
+            Assert.Ignore("Editor only."); yield break;
+#endif
+        }
+
+        [UnityTest]
+        public IEnumerator ChargerOpensItsChargeFromADistance()
+        {
+#if UNITY_EDITOR
+            var charger = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/EnemyArchetypes/Charger.prefab");
+            var ai = BuildShooter(5f, prefabOverride: charger);
+            ai.ConfigureEncounterBounds(Center, new Vector2(36, 36));
+            float end = Time.time + 4f, startDistance = -1f;
+            while (Time.time < end && startDistance < 0f)
+            {
+                if (ai.IsWindingUp) startDistance = Vector3.Distance(ai.transform.position, Center);
+                yield return null;
+            }
+            Assert.That(startDistance, Is.GreaterThan(3f), "The charge telegraph starts from a distance, not in contact.");
+#else
+            Assert.Ignore("Editor only."); yield break;
+#endif
         }
 
         [UnityTest]

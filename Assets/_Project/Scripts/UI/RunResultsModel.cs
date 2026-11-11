@@ -21,6 +21,10 @@ public sealed class RunResultsModel
     public bool Available => _snapshot != null;
     public string SessionId => _snapshot?.SessionId;
     public string Outcome => _snapshot?.Outcome;
+    /// <summary>Fase 1b progress section (Fragmentos, balance, next upgrade, ally). Null when unavailable.</summary>
+    public string Progress { get; private set; }
+    public RunResultsModel WithProgress(MetaProgressProfile profile)
+    { Progress = Available ? MetaProgressSummary.Describe(profile, SessionId) : null; return this; }
     public string Title => !Available ? "Resultado indisponível" : Outcome == "Victory" ? "VITÓRIA" : Outcome == "Death" ? "Morte na incursão" : "Incursão abandonada";
     public string Subtitle => !Available ? "Nenhum resumo válido para esta consulta. Não é possível inferir o desfecho." : Outcome == "Victory" ? "Universo 1 concluído: boss derrotado e retorno pelo portal." : Outcome == "Death" ? "Seu personagem foi derrotado." : "Você encerrou o percurso antes da extração.";
     public string Identity { get; }

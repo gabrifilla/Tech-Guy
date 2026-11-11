@@ -27,6 +27,10 @@ public static class EnemyAttackPatterns
     /// <summary>Long (Sniper-class) engagement band in meters, strictly greater than the medium band (R9.2).</summary>
     public const float LongEngagementRange = 22f;
 
+    /// <summary>Charger engagement band (enemy pass, 10/11/2026): it opens its locked charge from a distance instead of
+    /// only when already in contact; matches its 6 m preferred distance and the 7.5 m charge reach.</summary>
+    public const float ChargerEngagementRange = 6.5f;
+
     /// <summary>Existing trait-driven engagement range. Preserved verbatim for backward compatibility.</summary>
     public static float EngagementRange(EnemyAttackTraits traits, int sequence, float meleeRange) =>
         (traits & EnemyAttackTraits.Frost) != 0 ? 9f :
@@ -51,10 +55,11 @@ public static class EnemyAttackPatterns
                 case ArchetypeId.HazardCaster:
                 case ArchetypeId.Hooker:
                     return MediumEngagementRange;
+                case ArchetypeId.Charger:
+                    return ChargerEngagementRange;
                 case ArchetypeId.Rush:
                 case ArchetypeId.Grunt:
                 case ArchetypeId.Heavy:
-                case ArchetypeId.Charger:
                     return Mathf.Min(meleeRange, MeleeEngagementRange);
             }
         }

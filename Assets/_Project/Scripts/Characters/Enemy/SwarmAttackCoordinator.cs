@@ -51,6 +51,25 @@ public sealed class SwarmAttackCoordinator : MonoBehaviour
     /// the new capacity takes effect; a non-positive value is clamped up to 1 (R5.1).
     /// </summary>
     /// <param name="maxConcurrentMelee">Desired simultaneous melee attackers for this encounter.</param>
+    // Room-pack prototype (10/11/2026): fodder archetypes may attack without holding one of the capped melee
+    // tokens, so a crowd of Swarm/Rush adds pressure without starving the anchor. Empty = everyone is capped.
+    private readonly System.Collections.Generic.HashSet<ArchetypeId> _uncappedArchetypes = new System.Collections.Generic.HashSet<ArchetypeId>();
+
+    /// <summary>Archetypes that attack outside the concurrent-melee cap in this encounter.</summary>
+    public void ConfigureUncapped(System.Collections.Generic.IEnumerable<ArchetypeId> archetypes)
+    {
+        _uncappedArchetypes.Clear();
+        if (archetypes != null) foreach (var id in archetypes) _uncappedArchetypes.Add(id);
+    }
+
+    /// <summary>True when <paramref name="enemy"/> attacks without a token (see <see cref="ConfigureUncapped"/>).</summary>
+    public bool IsUncapped(EnemyAI enemy)
+    {
+        if (enemy == null || _uncappedArchetypes.Count == 0) return false;
+        var variant = enemy.GetComponent<EnemyVariant>();
+        return variant && variant.ArchetypeId is ArchetypeId id && _uncappedArchetypes.Contains(id);
+    }
+
     public void ConfigureCapacity(int maxConcurrentMelee)
     {
         _maxConcurrentMelee = maxConcurrentMelee;

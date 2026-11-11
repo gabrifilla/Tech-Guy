@@ -81,6 +81,7 @@ public sealed partial class ProgressionDirector
         // Final impact: reuse the player's existing hit-stop clock (extends an in-flight stop, never shortens it).
         if (_player && _player.TryGetComponent(out HitStopRunner hitStop)) hitStop.Apply(_victoryHitStopSeconds);
         RecordMetaProgressBossVictory();
+        OnManualBossVictoryFragments();
         if (ManualSession != null) StartCoroutine(ClearBossRoom(ManualSession.Id));
     }
 

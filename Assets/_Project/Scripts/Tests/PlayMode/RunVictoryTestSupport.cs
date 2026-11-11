@@ -5,7 +5,8 @@ using UnityEngine;
 
 /// <summary>
 /// Assembly-wide (no namespace): every PlayMode test that runs a real ProgressionDirector writes the meta-progress
-/// profile into a throwaway folder, never into Application.persistentDataPath or Docs/.
+/// profile into a throwaway folder, never into Application.persistentDataPath or Docs/. It also keeps the legacy
+/// weapon unlock flags readable for the existing bow/spear fixtures.
 /// </summary>
 [SetUpFixture]
 public sealed class MetaProgressTestIsolation
@@ -18,12 +19,15 @@ public sealed class MetaProgressTestIsolation
         Directory = Path.Combine(Path.GetTempPath(), "TechGuyTests", "MetaProgress-" + System.Guid.NewGuid().ToString("N"));
         System.IO.Directory.CreateDirectory(Directory);
         MetaProgressStore.DirectoryOverride = Directory;
+        // Existing bow/spear fixtures select weapons through the legacy unlock flags (Fase 1b locks them in the game).
+        WeaponLoadout.LegacyUnlockFlagsForTests = true;
     }
 
     [OneTimeTearDown]
     public void Restore()
     {
         MetaProgressStore.DirectoryOverride = null;
+        WeaponLoadout.LegacyUnlockFlagsForTests = false;
         try { System.IO.Directory.Delete(Directory, true); } catch (System.Exception) { }
     }
 }

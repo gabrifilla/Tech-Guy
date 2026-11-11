@@ -95,6 +95,21 @@ public class EnemyAI : MonoBehaviour
     private Vector3 _retreatOrigin;
     private Vector3 _retreatDestination;
     [SerializeField, Min(.1f)] private float _retreatMaxDistance = 3f;
+
+    // Encounter pressure (enemy pass after the Fase 1b playtest, 10/11/2026): inside a configured encounter the whole
+    // arena is in sight from the start, and a ranged/control enemy moving away from the player (kite or preferred
+    // distance) draws from a per-encounter budget. Once spent it holds ground and fights instead of turning the room
+    // into a chase. Melee spacing (short back-steps to keep 2–2.5 m) is swarm choreography and is not budgeted.
+    [Header("Encounter Pressure")]
+    [Tooltip("Sight range inside an encounter, as a multiple of the arena's longest side (the whole room is aggro).")]
+    [SerializeField, Range(0f, 3f)] private float _encounterSightFactor = 1.5f;
+    [Tooltip("Seconds per encounter a ranged/control enemy may spend moving away from the player. 0 = never retreats in an encounter.")]
+    [SerializeField, Range(0f, 10f)] private float _encounterRetreatBudget = 1.2f;
+    private float _encounterRetreatSpent;
+    private bool RetreatIsBudgeted => _hasEncounterBounds && IsRangedArchetype(ResolveArchetypeId());
+    /// <summary>True once this ranged/control enemy has used its retreat budget in the current encounter.</summary>
+    public bool EncounterRetreatExhausted => RetreatIsBudgeted && _encounterRetreatSpent >= _encounterRetreatBudget;
+    private bool MayRetreatByDistance => !IsStandoffKiter(ResolveArchetypeId()) && !EncounterRetreatExhausted;
     public bool IsRetreating => _retreating;
     public KiteController.Phase RetreatPhase => _kite.Current;
 
@@ -259,6 +274,8 @@ public class EnemyAI : MonoBehaviour
     /// </summary>
     private void ClampKitingConfiguration()
     {
+        _encounterSightFactor = ClampFinite(_encounterSightFactor, 0f, 3f, 1.5f);
+        _encounterRetreatBudget = ClampFinite(_encounterRetreatBudget, 0f, 10f, 1.2f);
         _kiting.RetreatSpeedMultiplier = ClampFinite(_kiting.RetreatSpeedMultiplier, 0.1f, 0.9f, 0.5f);
         _kiting.StandoffFraction = ClampFinite(_kiting.StandoffFraction, 0f, 1f, 0.45f);
         _kiting.StandoffMargin = ClampFinite(_kiting.StandoffMargin, 1f, 2f, 1.15f);
@@ -419,8 +436,10 @@ public class EnemyAI : MonoBehaviour
         // attack anywhere inside their engagement band — they do NOT require melee proximity. Melee
         // archetypes (and every non-archetype enemy) keep the existing melee/ranged-move gate untouched.
         bool ranged = IsRangedArchetype(archetype);
+        // The Charger opens its committed charge anywhere inside its band (not only in contact).
+        bool charger = archetype == ArchetypeId.Charger;
         playerInAttackRange = CheckPlayerInRange(engagement) &&
-            (ranged || distance<=meleeRange || (hasRangedMove && distance>3.2f));
+            (ranged || charger || distance<=meleeRange || (hasRangedMove && distance>3.2f));
     }
 
     /// <summary>
@@ -453,6 +472,10 @@ public class EnemyAI : MonoBehaviour
     /// standoff distance is resolved by the pure <see cref="RetreatCadence.StandoffDistance"/> from the
     /// engagement band inside <see cref="TryMaintainStandoff"/>.
     /// </summary>
+    /// <summary>Direct-fire shapes that need a clear line (arcs and placed hazards do not).</summary>
+    private static bool FiresDirect(ArchetypeId? archetype) => archetype is ArchetypeId id &&
+        (id == ArchetypeId.Shooter || id == ArchetypeId.SpreadShooter || id == ArchetypeId.Sniper || id == ArchetypeId.Hooker);
+
     private static bool IsStandoffKiter(ArchetypeId? archetype)
     {
         return archetype is ArchetypeId id && id == ArchetypeId.Shooter;
@@ -557,7 +580,7 @@ public class EnemyAI : MonoBehaviour
     /// </summary>
     private void ChasePlayer()
     {
-        if (TryPreferredPositioning(allowRetreat: !IsStandoffKiter(ResolveArchetypeId()))) return;
+        if (TryPreferredPositioning(allowRetreat: MayRetreatByDistance)) return;
         Vector3 offset = _approach.Tick(Time.deltaTime, _natural.ApproachOffset, _natural.ApproachRefresh, _rng);
         Vector3 desired = player.position + offset;
 
@@ -581,10 +604,19 @@ public class EnemyAI : MonoBehaviour
         // to the attack path, so their behavior is unchanged.
         if (TryMaintainStandoff()) return;
 
+        // In an encounter a ranged/control enemy whose shot is blocked by geometry closes in to find a line,
+        // instead of waiting behind cover at its preferred distance (or, out of budget, unable to back off).
+        if (RetreatIsBudgeted && FiresDirect(ResolveArchetypeId()) && _combatActions && !_combatActions.HasClearShotAt(ResolvePlayerActor()))
+        {
+            FacePlayer();
+            agent.SetDestination(player.position);
+            return;
+        }
+
         FacePlayer();
         if (Time.time < nextAttackTime)
         {
-            if (!TryPreferredPositioning(allowRetreat: !IsStandoffKiter(ResolveArchetypeId()))) agent.ResetPath();
+            if (!TryPreferredPositioning(allowRetreat: MayRetreatByDistance)) agent.ResetPath();
             return;
         }
         agent.ResetPath();
@@ -598,7 +630,7 @@ public class EnemyAI : MonoBehaviour
         // archetypes bypass the melee slot pool entirely.
         if (!TryAcquireAttackSlot())
         {
-            TryPreferredPositioning(allowRetreat: !IsStandoffKiter(ResolveArchetypeId()));
+            TryPreferredPositioning(allowRetreat: MayRetreatByDistance);
             return;
         }
 
@@ -612,6 +644,9 @@ public class EnemyAI : MonoBehaviour
         _hasEncounterBounds = EnemyNavigation.IsFinite(center) && !float.IsNaN(size.x) && !float.IsInfinity(size.x) &&
             !float.IsNaN(size.y) && !float.IsInfinity(size.y) && size.x > 0f && size.y > 0f;
         if (!_hasEncounterBounds) return;
+        _encounterRetreatSpent = 0f;
+        // The room is the encounter: every enemy in it sees the player (same rule as the procedural composer).
+        sightRange = Mathf.Max(sightRange, Mathf.Max(size.x, size.y) * _encounterSightFactor);
         float inset = agent ? Mathf.Max(.1f, agent.radius) : .5f;
         _encounterBounds = new Bounds(center, new Vector3(Mathf.Max(.1f, size.x - 2f * inset),
             1000f, Mathf.Max(.1f, size.y - 2f * inset)));
@@ -627,6 +662,12 @@ public class EnemyAI : MonoBehaviour
             Vector3 targetOffset = target - player.position; targetOffset.y = 0f;
             // Preferred firing distance is an approach goal, never another escape from melee pressure.
             if (targetOffset.sqrMagnitude > currentOffset.sqrMagnitude + .01f) return false;
+        }
+        else if (RetreatIsBudgeted)
+        {
+            Vector3 currentOffset = transform.position - player.position; currentOffset.y = 0f;
+            Vector3 targetOffset = target - player.position; targetOffset.y = 0f;
+            if (targetOffset.sqrMagnitude > currentOffset.sqrMagnitude + .01f) _encounterRetreatSpent += Time.deltaTime;
         }
         if (!EnemyNavigation.TryResolveDestination(agent, target, Mathf.Max(.5f, agent.radius), _positioningPath,
             _hasEncounterBounds, _encounterBounds, out Vector3 destination))
@@ -646,6 +687,8 @@ public class EnemyAI : MonoBehaviour
         if (agent == null || !agent.enabled || !agent.isOnNavMesh || player == null) return false;
         ArchetypeId? archetype = ResolveArchetypeId();
         if (!IsStandoffKiter(archetype)) return false;
+        if (EncounterRetreatExhausted) { EndRetreat(); return false; }
+        if (_retreating && RetreatIsBudgeted) _encounterRetreatSpent += Time.deltaTime;
         float meleeRange = Mathf.Min(attackRange, 1.45f * Mathf.Clamp(transform.lossyScale.y, .5f, 2f) + .35f);
         float engagementBand = EnemyAttackPatterns.EngagementRange(_attackTraits, _attackSequence, meleeRange, archetype);
         float standoff = RetreatCadence.StandoffDistance(engagementBand, ClampFinite(_kiting.StandoffFraction, 0f, 1f, .45f));
@@ -822,6 +865,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (_attackCoordinator == null) return true;
         if (IsRangedArchetype(ResolveArchetypeId())) return true;
+        if (_attackCoordinator.IsUncapped(this)) return true;
 
         if (_holdsAttackSlot) return true;
 

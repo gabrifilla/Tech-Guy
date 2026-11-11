@@ -207,6 +207,7 @@ public partial class CharControlScript : MonoBehaviour
         if (!playerActor || playerActor.IsDead) { _groundMoveBuffer.Discard(); return; }
         RefreshWeaponStats();
         RefreshMovementStats();
+        RecoverDirectFocus();
         if (!GameplayInputReady) return;
         if (HandleDirectWorldInteraction()) return;
         TrackChargedShot();

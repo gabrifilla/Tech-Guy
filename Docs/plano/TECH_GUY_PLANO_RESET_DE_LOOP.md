@@ -49,7 +49,7 @@ Começar com **duas** moedas, não mais:
 
 **Fase 1 — Motivo para jogar.**
 - 1a: Universo 1 com fim claro (boss vencível → tela de vitória → retorno ao Nexus).
-- 1b: Fragmentos + primeiro NPC resgatável no Universo 1, que abre o terminal do Nexus + tela de fim de run com progresso.
+- 1b: Fragmentos + primeiro NPC resgatável no Universo 1, que abre o terminal do Nexus + tela de fim de run com progresso. *Playtest 10/11/2026: estrutura aprovada; economia rápida demais, catálogo pouco empolgante (só o reroll), boon extra grátis vetado, resgate sem urgência. O gancho veio do NPC, não da tela de resultado. Detalhes no STATUS.*
 - 1c: Rapport da Manopla (níveis 1–5, artefatos nos níveis 2, 4 e 5) + presentes + slot de artefato no Nexus.
 - 1d: Universo 2 em **gray-box** (salas atuais, inimigos reaproveitados com outra cor) + **sala de descanso** entre universos (troca de artefato, cura) + Lança liberada ao vencer o Universo 1.
 
@@ -98,6 +98,63 @@ Sala curta, sem combate, entre o boss de um universo e o início do próximo. MV
 - **MVP recomendado:** **um** NPC resgatado no Universo 1, garantido numa das primeiras runs. Ao chegar ao Nexus, ele **abre o terminal de Fragmentos**. Assim o primeiro serviço do hub nasce de um evento da run, não de um menu que já estava lá.
 - Diálogo em texto curto, sem voz no MVP. Rapport fica para as armas; NPCs podem ter progressão mais simples (conversas que avançam por visitas/eventos).
 
+### Inimigos: papéis e ameaça em camadas (APROVADA em 10/11/2026, com ajustes)
+> **Ajustes do desenvolvedor:** o Hooker vira **gancho rápido em skillshot** (arrasta o jogador rápido, como os puxadores de Dota/Diablo IV), não puxão lento. Entra um novo **Shooter "Rajada"** (metralhadora na cauda, laser em rajadas; prefab do desenvolvedor em desenvolvimento). **Bosses viram frente própria, depois**: cada um com estilo único e épico (referências: God of War, Phantom Blade Zero, Wukong, Lost Ark, Diablo, adaptadas ao isométrico, sem copiar). A direção A+C abaixo fica como insumo dessa frente.
+Origem: playtest de 10/11 ("IA melhor, mas nada é perigoso, nem o boss"; causa provável = papel de cada inimigo, não números). Levantamento só por leitura de código/prefabs; nada jogado nem alterado. Relatório e decisões no `Docs/STATUS.md`.
+
+**Por que hoje nada é perigoso (leitura do código):**
+- Os 16 prefabs têm a mesma base (dano 12, cadência 1,5 s); só os multiplicadores do perfil mudam. Ninguém é "o perigoso da sala".
+- Melee: no máximo 3 atacando ao mesmo tempo (`SwarmAttackCoordinator`), e o Swarm disputa esses 3 lugares com Grunt e Heavy. Enxame não consegue cercar.
+- As salas são um sorteio uniforme: 4–10 inimigos, os 3 primeiros lutadores distintos e o resto aleatório num pool de 18 (16 arquétipos + Fragmento = Rush + Emissor = Sniper). Não há regra de combinação, então as combinações perigosas só aparecem por acaso.
+- A elite é o variante legado `Magic_Haste` (não é um arquétipo; muda só reação e postura). Não há elite que torne os comuns mais perigosos.
+
+**Tabela de papéis**
+
+| Inimigo | Hoje (código) | Esquisito hoje | Papel proposto: o que pede do jogador | Veredito |
+|---|---|---|---|---|
+| Swarm | 0,2× HP, soco 0,7 s; Spawner gera até 10 | ocupa slot melee: o enxame fica parado esperando a vez | **Bucha**: cerca, morre num golpe, enche Asura. Perigo só se ignorado | Manter; tirar do limite de 3 (pool próprio) |
+| Fragile | 0,7× HP, postura 30, soco padrão | igual ao Swarm/Rush, sem papel próprio | **Volátil**: explode 0,8 s após morrer (área pequena). Pune AoE descuidado no meio do grupo | Fundir no Swarm **ou** virar Volátil |
+| Rush (+ Fragmento) | 0,6× HP, 1,5× velocidade, soco 0,3 s | Fragmento é Rush com outro corpo | **Bucha rápida**: chega primeiro e interrompe | Manter; Fragmento vira só skin |
+| Grunt | soco 0,4 s, 2,2 m | já documentado: para fora do alcance do próprio soco | **Linha**: pressão melee básica | Manter |
+| Heavy | 2,2× HP, slam 0,95 s → shockwave 1,3 s | ok | **Âncora**: zona proibida na frente; pune quem fica colado sem ler | Manter |
+| Charger | perfil 6 m, mas só ataca a ≤1,8 m (gate melee) e o "charge" sai colado | a investida nunca vem de longe | **Investida**: de 5–8 m, faixa travada; obriga a sair da linha | Corrigir o gate (prioridade) |
+| Shooter | tiro reto ≥0,25 s, kite curto | ok | **Linha à distância**: pune ficar parado longe | Manter |
+| SpreadShooter | 5 tiros em 40°, 0,8× dano | quase igual ao Shooter de perto | **Parede**: nega o ângulo de aproximação, obriga a flanquear | Manter **ou** virar modificador do Shooter |
+| Sniper (+ Emissor) | linha 1,0 s, 1,8× dano, 14 m | peso dobrado no pool; aviso e disparo podem divergir (GI1.8) | **Pune parar**: no máximo 1 por sala | Manter; limitar a 1 por sala |
+| Bomber | lob 0,35 s + área 2 m na queda; escala 0,5 | pequeno demais para ser lido; o "ataque de cima" do playtest | **Expulsa do lugar**: área onde você está | Manter; corpo maior |
+| HazardCaster | zona a cada 6 s, 6 dano/0,5 s, 35% lento, 6 s | dev ficou dentro sem perder HP (não reproduzido) | **Encolhe a arena**: combina com melee | Manter; verificar o dano |
+| Hooker | linha 0,6 s, puxa 1,5 s, dano 0 | puxar para perto **ajuda** a Manopla; ninguém pune o puxão | **Desloca para o perigo**: puxa para dentro de zona/aliados, ou enraíza | Refazer |
+| Healer | cura 15 a cada 2 s, foge a 3,5 m, usa soco padrão | foge e tenta socar (dois comandos brigando) | **Prioridade**: caçar primeiro | Manter; tirar o soco |
+| ShieldSupport | escudo 40 a cada 4 s | sobrepõe o Healer | **Prioridade**: protege a âncora | Manter, nunca junto do Healer |
+| Spawner | Swarm a cada 3 s, teto 10, 0,4× vel. | aprovado no playtest | **Prioridade/relógio**: a luta piora se você enrolar | Manter |
+| Mirror | reflete só projéteis, 90–180° | com a Manopla só, é um Grunt mais tanque | **Guarda**: frente imune a golpe, abre com quebra de postura ou pelas costas | Cortar até o Arco **ou** virar Guarda |
+| Elite (`Magic_Haste`) | variante legado (Charge + DoublePunch) | não é elite de verdade | **Comandante**: arquétipo + modificador + aura que acelera os comuns por perto | Refazer (encaixa na Fase 2) |
+
+**Sobreposições:** 4 corpos de melee fraco (Swarm, Fragile, Rush, Fragmento); 4 de tiro direto (Shooter, Spread, Sniper, Emissor); Bomber e HazardCaster põem área no jogador (ok: um é instantâneo, o outro persiste); Healer e Shield protegem. **Faltam:** um inimigo que pune bater no grupo sem olhar (Volátil), um que exige quebrar guarda (Guarda), elites que tornam os comuns perigosos (Comandante) e ataques de grupo sincronizados.
+
+**Ameaça em camadas (estilo Lost Ark):**
+1. **Bucha** (Swarm, Rush, Volátil): muitos, frágeis e rápidos. Dão sensação de poder. Fora do limite de 3.
+2. **Linha** (Grunt, Shooter, Spread): pressão de fundo. Sozinhos, são previsíveis.
+3. **Âncora** (Heavy, Charger): 1–2 por sala; telegraphs grandes que fecham espaço.
+4. **Combinador** (Hooker, HazardCaster, Bomber, Sniper): 0–1 por sala, 2 no fundo da rota. É ele que transforma a bucha em perigo.
+5. **Prioridade** (Healer, Shield, Spawner): 0–1 por sala; marcada e protegida pelos outros.
+6. **Elite/Boss**: ameaça real sozinha, e piora os comuns ao redor.
+
+**Mix proposto (troca o sorteio por "pacotes"):** cada sala = 1 âncora + bucha (4–8, em 1–2 ondas) + 0–1 combinador + 0–1 prioridade. A profundidade da rota aumenta combinadores, prioridade e ondas, não só o número de inimigos. Pacotes de exemplo: *Fornalha* (Heavy + Swarm + HazardCaster), *Anzol* (Hooker + Bomber + Rush), *Fortaleza* (Shield + Heavy + Spread), *Colmeia* (Spawner + Grunt + Sniper). Risco: o `ManualRunRandomizer` está preso a seeds e distribuições testadas (09/09B). Os pacotes precisam entrar sem mudar a geometria nem as asserções dessas salas.
+
+**Boss do Universo 1 (Guardião do Núcleo), diagnóstico:**
+- Usa o mesmo vocabulário do Heavy e do Charger (Charge, HeavySlam, DoublePunch, Shockwave): nada novo para aprender.
+- Fica 1,4 s parado entre ciclos (0,9 s com fúria), com telegraphs de 0,85–1,3 s: a Manopla bate de graça.
+- Luta sozinho, sem enxame, sem controle de arena e sem fase nova; a fúria só acrescenta um golpe de continuação.
+- A quebra de postura dá atordoamento: mais janelas grátis.
+
+**Direções para o boss:**
+- (A) **Núcleo + enxame**: a 66% e 33%, abre o núcleo e chama ondas de bucha. O perigo vem dos telegraphs dele sobrepostos ao cerco.
+- (B) **Arena que encolhe**: o slam deixa zona eletrificada, setores do chão ligam.
+- (C) **Combos de ritmo**: sequências de 3 com tempo variado, slam atrasado, agarrão (puxa e bate), sem pausa morta.
+- Recomendação: A + C enxuto. Fase 1: brigão sem pausa morta. A cada terço: núcleo exposto, enxame e anel de zona. Quebrar a postura com o núcleo aberto = janela de dano grande. Sem stun-lock (regra Boss mantida).
+
 ### Ainda em aberto
+- Inimigos: as 7 decisões da revisão de papéis (ver `Docs/STATUS.md`, "Revisão de design dos inimigos").
 - Quem é o primeiro NPC (identidade, lore, onde é resgatado) e o tom das conversas.
 - O terminal fica fechado até o primeiro resgate ou existe numa versão mínima desde a primeira run? *(Recomendado: resgate garantido na 1ª ou 2ª run, para o terminal abrir cedo.)*

@@ -112,7 +112,7 @@ namespace TechGuy.Tests
             Assert.AreEqual("Cobertura deslocada 0",hit.collider.name,"The actual cover collider is the LOS obstruction");
             int impacts=actions.ResolvedImpacts;yield return new WaitForSeconds(.7f);Assert.AreEqual(impacts,actions.ResolvedImpacts,"Cover blocks native Emissor impact");yield return Capture("09-emissor-cover-blocked");
             Assert.IsTrue(player.GetComponent<NavMeshAgent>().Warp(new Vector3(cover.min.x-1.4f,0,cover.min.z-1.3f)));
-            float until=Time.realtimeSinceStartup+12;while(actions.ResolvedImpacts==impacts){Assert.Less(Time.realtimeSinceStartup,until,"Ranged reacquisition");yield return null;}
+            float until=Time.realtimeSinceStartup+12;while(actions.ResolvedImpacts==impacts){Assert.Less(Time.realtimeSinceStartup,until,"Ranged reacquisition. dist="+Vector3.Distance(emitter.transform.position,player.transform.position).ToString("F2")+" sight="+ai.playerInSightRange+" range="+ai.playerInAttackRange+" winding="+ai.IsWindingUp+" path="+agent.hasPath+" stopped="+agent.isStopped+" exhausted="+ai.EncounterRetreatExhausted+" clear="+actions.HasClearShotAt(player)+" presentation="+ai.HasAttackPresentation+" enabled="+ai.enabled);yield return null;}
             yield return Capture("09-emissor-LOS-reacquired");Assert.IsTrue(agent.Warp(oldEnemy));Assert.IsTrue(player.GetComponent<NavMeshAgent>().Warp(oldPlayer));
         }
 

@@ -69,6 +69,8 @@ public sealed class ManualNodeDefinition
     public Vector2 ArenaSize => _arenaSize;
     public FirstSectorRoomLayout SpatialLayout { get; private set; }
     internal void ConfigureSpatialLayout(FirstSectorRoomLayout layout) { SpatialLayout = layout; }
+    /// <summary>Room-pack prototype: replaces this run copy's roster (never the authored asset; the snapshot is a copy).</summary>
+    internal void ConfigurePrototypeSpawns(IEnumerable<ManualEnemySpawn> spawns) { _spawns = new List<ManualEnemySpawn>(spawns); }
     public float RepairFraction => _repairFraction;
     public IReadOnlyList<ManualEnemySpawn> Spawns => _spawns?.AsReadOnly();
     public bool IsEncounter => Kind == ManualNodeKind.Combat || Kind == ManualNodeKind.Elite || Kind == ManualNodeKind.Boss;

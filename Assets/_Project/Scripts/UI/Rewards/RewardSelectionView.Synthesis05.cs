@@ -52,15 +52,17 @@ public sealed partial class RewardSelectionView
         Line(new Vector2(45,159),new Vector2(1234,159),1,new Color(.20f,.27f,.28f));
         if(_models.Length==0)
         {Label(new Rect(80,300,1100,100),"Nenhuma escolha disponível agora. A recompensa permanece pendente.",_title);return;}
+        // Fase 1b: N cards share the approved 1175px band; three cards keep the exact 381/397 geometry.
+        int cards=Mathf.Max(3,_models.Length);float cardWidth=(1175f-16f*(cards-1))/cards,art=cards>3?80:102;
         for(int i=0;i<_models.Length;i++)
         {
-            var m=_models[i];bool selected=i==_selected;float x=44+i*397;var row=new Rect(x,185,381,119);
+            var m=_models[i];bool selected=i==_selected;float x=44+i*(cardWidth+16);var row=new Rect(x,185,cardWidth,119);
             bool hover=GUI.enabled&&!_details&&row.Contains(Event.current.mousePosition);
             Frame05(row,selected?Copper05:hover?Teal05:new Color(.19f,.26f,.27f));
-            if(selected){Fill(new Rect(x+1,186,379,117),new Color(.15f,.19f,.20f));Fill(new Rect(x+1,186,4,117),Paper);}
-            Art05(new Rect(x+8,193,102,102),m,selected?1:.72f);
-            Label(new Rect(x+119,200,248,23),m.Family,_small,selected?Teal05:Muted);
-            Title05(new Rect(x+119,230,245,69),m.Name,_center);
+            if(selected){Fill(new Rect(x+1,186,cardWidth-2,117),new Color(.15f,.19f,.20f));Fill(new Rect(x+1,186,4,117),Paper);}
+            Art05(new Rect(x+8,193+(102-art)*.5f,art,art),m,selected?1:.72f);
+            Label(new Rect(x+art+17,200,cardWidth-art-33,23),m.Family,_small,selected?Teal05:Muted);
+            Title05(new Rect(x+art+17,230,cardWidth-art-36,69),m.Name,_center);
             if(hover&&Event.current.mousePosition!=_lastPointer)Select(i);
             if(!_details&&GUI.Button(row,GUIContent.none,GUIStyle.none))Select(i);
         }
@@ -81,6 +83,8 @@ public sealed partial class RewardSelectionView
         if(Action05(new Rect(944,626,292,47),model.Id==RunBoonOfferCatalog.ExhaustedId?"Continuar": "Incorporar"))Confirm();
         GUI.enabled=enabled;
         if(Button(new Rect(756,636,165,30),_details?"Fechar detalhes":"Detalhes",new Color(.55f,.67f,.68f)))ToggleDetails();
+        // Fase 1b "Reroll" upgrade: same eligible pool, deterministic redraw; hidden when unavailable.
+        if(!_details&&_allowCommit&&_run.CanRerollManual&&Button(new Rect(560,636,180,30),"Nova rolagem ("+_run.ManualRerollsRemaining+")",Teal05))_run.TryRerollManual();
         Label(new Rect(44,684,1170,25),Time.unscaledTime<_rejectedUntil05?"Escolha indisponível. Feche os detalhes e confira a oferta atual.":"← → / direcional: escolher · Enter / sul: incorporar · Tab / oeste: detalhes · Backspace / leste: voltar · Esc: pausa",_small,Muted);
         if(_details)DrawDetails05(model);
     }

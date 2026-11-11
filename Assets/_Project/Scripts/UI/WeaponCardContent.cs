@@ -82,7 +82,10 @@ public static class WeaponCardContent
         Unlockable,
 
         /// <summary>Weapon is locked and the player cannot afford it.</summary>
-        Insufficient
+        Insufficient,
+
+        /// <summary>Fase 1b: weapon is released by universe progression, not bought.</summary>
+        ProgressionLocked
     }
 
     /// <summary>
@@ -156,6 +159,8 @@ public static class WeaponCardContent
                 return "LIBERAR · " + unlockCost.ToString(CultureInfo.InvariantCulture) + " moedas";
             case StateKind.Insufficient:
                 return "Moedas insuficientes";
+            case StateKind.ProgressionLocked:
+                return WeaponLoadout.ProgressionLockedLabel;
             default:
                 string key = string.IsNullOrEmpty(interactionKeyLabel) ? "?" : interactionKeyLabel;
                 return "[" + key + "] Equipar";

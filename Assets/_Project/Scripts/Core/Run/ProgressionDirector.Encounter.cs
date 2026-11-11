@@ -41,6 +41,7 @@ public sealed partial class ProgressionDirector
         bool resolved=_manualPolicy.TryResolveEncounter(request.SessionId,request.NodeId,true,new RunActionContext(true));
         _manualCleanupPending=false;
         if(!resolved) return;
+        OnManualEncounterWonForMeta(request.NodeId);
         if(_boons) _boons.CloseProtocolEncounter();
         _manualCompletionCandidate=false;
         ManualSession.IsEncounterClosing=false;

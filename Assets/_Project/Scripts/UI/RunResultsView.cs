@@ -100,6 +100,7 @@ public sealed class RunResultsView : MonoBehaviour
         if(!_model.Available)AddText("Sem estatísticas disponíveis\n\nA ausência de resumo não indica vitória, morte ou abandono. Você pode continuar no Nexus.",110);
         else if(index==0)
         {
+            if(!string.IsNullOrEmpty(_model.Progress))AddText(_model.Progress,_model.Progress.Split((char)10).Length*30+12);
             AddText("Dano por habilidade   /   Nativo + secundário incluído",22);
             if(_model.Total==0)AddText("Nenhum dano efetivo registrado. Sem percentuais ou destaque.",75);
             foreach(var row in _model.Abilities)

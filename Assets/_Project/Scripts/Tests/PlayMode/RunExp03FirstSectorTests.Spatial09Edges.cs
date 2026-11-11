@@ -54,7 +54,12 @@ namespace TechGuy.Tests
                     Vector3 direction=family==FirstSectorRoomFamily.AsymmetricCourtyard?Vector3.left:Vector3.right;
                     var nav=p.GetComponent<NavMeshAgent>();Assert.IsTrue(nav.Warp(n.Center+near));p.transform.rotation=Quaternion.LookRotation(direction);
                     UnityEngine.InputSystem.InputSystem.QueueStateEvent(UnityEngine.InputSystem.Mouse.current,new UnityEngine.InputSystem.LowLevel.MouseState{position=(Vector2)Camera.main.WorldToScreenPoint(p.transform.position+direction*10)});yield return null;yield return null;
-                    var dash=AssetDatabase.LoadAssetAtPath<DashScript>("Assets/_Project/ScriptableObjects/Abilities/Dash/Dash.asset");Assert.IsTrue(p.GetComponent<AbilityHolder>().TryUseDash(dash));yield return new WaitForSeconds(.4f);
+                    var dash=AssetDatabase.LoadAssetAtPath<DashScript>("Assets/_Project/ScriptableObjects/Abilities/Dash/Dash.asset");
+                    // Dash cooldown 1.2 s since the threat pass (11/11/2026): the previous family's hook-recovery dash may still be cooling down.
+                    float cooled=Time.realtimeSinceStartup+5;while(dash.GetRemainingCooldown(p.gameObject)>0){Assert.Less(Time.realtimeSinceStartup,cooled);yield return null;}
+                    p.GetComponent<CharControlScript>().SendMessage("OnApplicationFocus",true); // explicit virtual focus in a background Editor, as in the hook fixture
+                    float focused=Time.realtimeSinceStartup+4;while(!p.GetComponent<CharControlScript>().GameplayInputReady){Assert.Less(Time.realtimeSinceStartup,focused,"Dash fixture focus/release ready");yield return null;}
+                    Assert.IsTrue(p.GetComponent<AbilityHolder>().TryUseDash(dash),"Concave dash accepted; cooldown="+dash.GetRemainingCooldown(p.gameObject));yield return new WaitForSeconds(.4f);
                     Assert.IsTrue(l.Contains(p.transform.position-n.Center,.1f),"Native dash stays within real concave footprint");Assert.IsTrue(nav.isOnNavMesh);yield return Capture("09-concave-dash-"+family);
                     float ready=Time.realtimeSinceStartup+15;while(dash.GetRemainingCooldown(p.gameObject)>0){Assert.Less(Time.realtimeSinceStartup,ready);yield return null;}
                     float lane=family==FirstSectorRoomFamily.AsymmetricCourtyard?7:-11;

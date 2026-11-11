@@ -18,6 +18,7 @@ public sealed partial class ProgressionDirector
     private void FinishRunStatistics()
     {
         _runStatistics?.Finish(ManualSession);
+        EndFragmentRun();
         RecordMetaProgressFinish();
     }
 
@@ -38,13 +39,15 @@ public sealed partial class ProgressionDirector
     {
         if (ManualSession == null || _metaStartedSession == ManualSession.Id) return;
         _metaStartedSession = ManualSession.Id;
-        (_metaProgress ??= MetaProgressStore.CreateDefault()).RecordRunStarted();
+        var started = (_metaProgress ??= MetaProgressStore.CreateDefault()).RecordRunStarted(ManualSession.Id.ToString());
+        // Fase 1b ally: 2nd combat room on the very first run, 1st combat room from then on until rescued.
+        _npcTargetRoom = started.HasAlly(MetaAllies.Unknown) ? 0 : started.runsStarted <= 1 ? 2 : 1;
     }
     private void RecordMetaProgressFinish()
     {
         if (ManualSession == null || ManualSession.Outcome == RunOutcome.None || _metaProgress == null ||
             _metaStartedSession != ManualSession.Id || _metaFinishedSession == ManualSession.Id) return;
         _metaFinishedSession = ManualSession.Id;
-        _metaProgress.RecordRunFinished(ManualSession.Outcome, _universeId, _metaBossVictorySession == ManualSession.Id);
+        _metaProgress.RecordRunFinished(ManualSession.Outcome, _universeId, _metaBossVictorySession == ManualSession.Id, ManualSession.Id.ToString());
     }
 }

@@ -140,21 +140,9 @@ public sealed class LobbyArsenal : MonoBehaviour
     {
         int index = pedestal.weaponIndex;
         WeaponPedestalState state = WeaponPedestalState.FromLoadout(index);
-        bool canAfford = CurrencyWallet.CanAfford(state.UnlockCost);
-
-        switch (state.Resolve(canAfford))
-        {
-            case PedestalAction.Equip:
-                if (WeaponLoadout.Select(_player, index)) RefreshPlayerLoadout();
-                break;
-            case PedestalAction.Unlock:
-                if (WeaponLoadout.TryUnlock(index) && WeaponLoadout.Select(_player, index)) RefreshPlayerLoadout();
-                break;
-            case PedestalAction.Denied:
-                // Locked and cannot afford: communicate the lack of coins without changing any state.
-                Debug.Log("Moedas insuficientes para liberar esta arma.", this);
-                break;
-        }
+        // Fase 1b: no coin purchase. Locked weapons are released by universe progression (Fase 1d).
+        if (state.IsUnlocked) { if (WeaponLoadout.Select(_player, index)) RefreshPlayerLoadout(); }
+        else Debug.Log(WeaponLoadout.ProgressionLockedLabel + ".", this);
     }
 
     /// <summary>Refreshes the player's ability loadout so HUD and Training Dummy reflect the new weapon.</summary>
@@ -201,8 +189,7 @@ public sealed class LobbyArsenal : MonoBehaviour
         WeaponCardContent.StateKind kind;
         if (state.IsEquipped(equipped)) kind = WeaponCardContent.StateKind.Equipped;
         else if (state.IsUnlocked) kind = WeaponCardContent.StateKind.Equippable;
-        else if (CurrencyWallet.CanAfford(state.UnlockCost)) kind = WeaponCardContent.StateKind.Unlockable;
-        else kind = WeaponCardContent.StateKind.Insufficient;
+        else kind = WeaponCardContent.StateKind.ProgressionLocked;
 
         return WeaponCardContent.Build(weapon, kind, state.UnlockCost, GamePreferences.BindingLabel(GamePreferences.InteractionAction));
     }

@@ -1,8 +1,10 @@
 using UnityEngine;
 
 /// <summary>
-/// A coin dropped by an enemy. It spins and bobs in place until the player walks over it,
-/// then banks its worth into the persistent <see cref="CurrencyWallet"/>.
+/// A Fragmento de Dados dropped by an enemy (Fase 1b; formerly a coin — the class/prefab names are kept for GUID
+/// and pool stability). It spins and bobs in place until the player walks over it, then raises
+/// <see cref="FragmentsCollected"/>; the run director banks the value into the meta-progress profile. The legacy
+/// PlayerPrefs coin balance (<see cref="CurrencyWallet"/>) is no longer credited.
 /// Player detection mirrors WeaponPickup (tag + PlayerActor in parents).
 /// </summary>
 [DisallowMultipleComponent]
@@ -25,7 +27,26 @@ public sealed class CoinPickup : MonoBehaviour
 
     static CoinPickup()
     {
-        PoolResetRegistry.Register(() => Pool = null);
+        PoolResetRegistry.Register(() => { Pool = null; Live.Clear(); FragmentsCollected = null; });
+    }
+
+    /// <summary>Raised with the value of every collected Fragmento (player pickup or <see cref="CollectAllLive"/>).</summary>
+    public static event System.Action<int> FragmentsCollected;
+    private static readonly System.Collections.Generic.HashSet<CoinPickup> Live = new System.Collections.Generic.HashSet<CoinPickup>();
+    private static readonly Color FragmentColor = new Color(.30f, .92f, 1f, 1f);
+
+    /// <summary>Collects every Fragmento still on the floor (end of a room). Returns the total value collected.</summary>
+    public static int CollectAllLive()
+    {
+        int total = 0;
+        foreach (var coin in new System.Collections.Generic.List<CoinPickup>(Live))
+        {
+            if (!coin || coin._collected) continue;
+            total += coin.value;
+            FragmentsCollected?.Invoke(coin.value);
+            coin.Collect();
+        }
+        return total;
     }
 
     /// <summary>
@@ -107,6 +128,8 @@ public sealed class CoinPickup : MonoBehaviour
     private void ResetForReuse()
     {
         _collected = false;
+        Live.Add(this);
+        TintAsFragment();
         _player = null;
         _playerSearchTimer = 0f;
         _spin = spinTarget ? spinTarget : transform;
@@ -187,9 +210,27 @@ public sealed class CoinPickup : MonoBehaviour
     {
         if (_collected) return;
         _player = player;
-        CurrencyWallet.Add(value);
+        FragmentsCollected?.Invoke(value);
         Collect();
     }
+
+    private bool _tinted;
+    /// <summary>Data-fragment cyan over the existing coin mesh (no new asset). Applied once per instance.</summary>
+    private void TintAsFragment()
+    {
+        if (_tinted) return;
+        _tinted = true;
+        var block = new MaterialPropertyBlock();
+        foreach (var renderer in GetComponentsInChildren<Renderer>(true))
+        {
+            renderer.GetPropertyBlock(block);
+            block.SetColor("_BaseColor", FragmentColor); block.SetColor("_Color", FragmentColor);
+            block.SetColor("_EmissionColor", FragmentColor * 1.6f);
+            renderer.SetPropertyBlock(block);
+        }
+    }
+
+    private void OnDestroy() => Live.Remove(this);
 
     private void Expire()
     {
@@ -200,6 +241,7 @@ public sealed class CoinPickup : MonoBehaviour
     {
         if (_collected) return;
         _collected = true;
+        Live.Remove(this);
         CancelInvoke();
         if (pickupFlourish > 0f && isActiveAndEnabled) StartCoroutine(FlourishThenDestroy());
         else ReleaseToPool();

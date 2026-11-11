@@ -173,7 +173,7 @@ public sealed class EnemyCombatActions : MonoBehaviour
     {
         if (!_agent || !_agent.enabled || !_agent.isOnNavMesh) yield break;
         Vector3 origin=transform.position, forward=Face(target);
-        float distance=Mathf.Clamp(Vector3.Distance(origin,target.transform.position)+1f,2f,boss?10f:6f);
+        float distance=Mathf.Clamp(Vector3.Distance(origin,target.transform.position)+1f,2f,boss?10f:7.5f); // 7.5: Charger band 6.5 m
         Vector3 end=origin+forward*distance;
         if (_agent.Raycast(end,out NavMeshHit edge)) end=edge.position;
         distance=Vector3.Distance(origin,end);
@@ -298,6 +298,8 @@ public sealed class EnemyCombatActions : MonoBehaviour
     private const float SpreadShotRange = 14f;
     private const float SniperShotRange = 26f;
     private const int SpreadShotCount = 5;      // >=3 (R8.2)
+    // Threat pass (11/11/2026): 0.25 s with no visible warning read as unfair; shots now telegraph their path.
+    private const float StraightShotWindup = .6f;
     private const float SpreadConeDegrees = 40f; // fixed forward cone, locked at telegraph start (R8.3)
 
     // Bomber lob tuning (R10). The arced EnemyProjectile owns the ground telegraph + single land check;
@@ -306,7 +308,7 @@ public sealed class EnemyCombatActions : MonoBehaviour
     private const float LobShotSpeed = 10f;          // horizontal travel speed feeding the arc duration
     private const float LobShotRadius = .35f;        // projectile body overlap radius (unused on land, kept for Spawn)
     private const float LobShotImpactRadius = 2f;    // ground-area impact radius (R10.2/R10.3)
-    private const float LobShotWindup = .35f;        // brief aim before the projectile leaves the hand
+    private const float LobShotWindup = .6f;         // aim before the projectile leaves the hand (was .35, threat pass 11/11/2026)
 
     // Hooker line tuning (R12). This case owns the locked-direction line telegraph and the
     // connect/miss decision at fire; the actual displacement is the player-side pull entry point
@@ -319,7 +321,7 @@ public sealed class EnemyCombatActions : MonoBehaviour
 
     // Hazard_Caster placement tuning (R11). The concrete HazardZone.Activate is driven by
     // HazardCasterBehavior (task 8.3); this case only owns the >=0.25s placement telegraph (R11.3).
-    private const float HazardPlaceWindup = .25f;    // >=0.25s placement telegraph (R11.3)
+    private const float HazardPlaceWindup = .6f;     // placement telegraph (was .25, threat pass 11/11/2026; R11.3 asks >=0.25)
     private const float HazardPlaceRadius = 2.5f;    // telegraph footprint hint; the zone owns its real radius
     private static readonly Color HazardColor = new Color(1f,.5f,.15f);
 
@@ -337,15 +339,16 @@ public sealed class EnemyCombatActions : MonoBehaviour
         // LoS-aware windup predicate: control lock is already inside valid(); add the sight check so a
         // broken line of sight cancels the shot mid-windup without firing (R7.6).
         Func<bool> canFire=()=>valid() && HasLineOfSight(target);
-        yield return _warning.Execute(Array.Empty<EnemyAttackArea>(),target,.25f,0,ShotColor,canFire,
-            animateWindup:t=>_animation.Strike(SkillMotion.PunchRight,t*.25f,0,.25f,.6f),
-            showWarning:false,impactHold:0);
+        // Visible aim line, locked at telegraph start: the shot goes where the warning showed, so a side-step dodges it.
+        var line=new EnemyAttackArea(EnemyAttackShape.Lane,origin,forward,ShooterShotRange,StraightShotRadius*2);
+        yield return _warning.Execute(new[]{line},target,StraightShotWindup,0,ShotColor,canFire,
+            animateWindup:t=>_animation.Strike(SkillMotion.PunchRight,t*StraightShotWindup,0,StraightShotWindup,.6f),
+            showWarning:true,impactHold:0);
         if(!_warning.Completed || !canFire()) yield break;
         _animation.Contact(SkillMotion.PunchRight); ResolvedImpacts++;
-        // Aim captured at windup end; single straight projectile travels over frames and hits at most once.
-        Vector3 aim=Face(target);
-        EnemyProjectile.Spawn(MuzzleOrigin(aim),aim,_owner,target,damage,StraightShotSpeed,
-            ShooterShotRange,StraightShotRadius,EnemyProjectile.PathKind.Straight,ShotColor);
+        // Single straight projectile along the telegraphed line; travels over frames and hits at most once.
+        EnemyProjectile.Spawn(origin,forward,_owner,target,damage,StraightShotSpeed,
+            ShooterShotRange,StraightShotRadius,EnemyProjectile.PathKind.Straight,ShotColor,lockDirection:true);
         yield return Recover(SkillMotion.PunchRight,.25f,.3f,valid);
     }
 
@@ -361,9 +364,10 @@ public sealed class EnemyCombatActions : MonoBehaviour
         Vector3 center=Face(target);
         Vector3 origin=MuzzleOrigin(center);
         AttackCenter=origin; AttackRadius=0;
-        yield return _warning.Execute(Array.Empty<EnemyAttackArea>(),target,.25f,0,ShotColor,valid,
-            animateWindup:t=>_animation.Strike(SkillMotion.PunchRight,t*.25f,0,.25f,.6f),
-            showWarning:false,impactHold:0);
+        var cone=new EnemyAttackArea(EnemyAttackShape.Cone,origin,center,SpreadShotRange,angle:SpreadConeDegrees);
+        yield return _warning.Execute(new[]{cone},target,StraightShotWindup,0,ShotColor,valid,
+            animateWindup:t=>_animation.Strike(SkillMotion.PunchRight,t*StraightShotWindup,0,StraightShotWindup,.6f),
+            showWarning:true,impactHold:0);
         if(!_warning.Completed || !valid()) yield break;
         _animation.Contact(SkillMotion.PunchRight); ResolvedImpacts++;
         // Equal angular spacing across the fixed cone: N shots span [-half, +half] in even steps.
@@ -525,6 +529,9 @@ public sealed class EnemyCombatActions : MonoBehaviour
     /// target and this enemy) never block sight — only static geometry does — matching the projectile's
     /// clip rule. Used to fold LoS into the Shooter/Sniper windup predicate (R7.6, R9.6).
     /// </summary>
+    /// <summary>Public read of <see cref="HasLineOfSight"/> for positioning decisions (no side effects).</summary>
+    public bool HasClearShotAt(Actor target) => HasLineOfSight(target);
+
     private bool HasLineOfSight(Actor target)
     {
         if(!target) return false;

@@ -59,6 +59,8 @@ public sealed partial class ProgressionDirector
             { Debug.LogError("New room generation refused: " + exception.Message, this); enabled = false; return true; }
         }
         route = TitanicConductorPlaytestRewards.Apply(route, selected);
+        ApplyMetaRouteUpgrades(route);
+        ApplyPrototypeRoomPacks(route);
         _manualPolicy = new ManualRoutePolicy(route);
         MarkStatisticsStart();
         ManualProjection = ManualRoomProjection.Create(route, _manualEnvironment);
@@ -106,7 +108,9 @@ public sealed partial class ProgressionDirector
             yield break;
         }
         InitializeManualResourcesOnce();
+        ApplyMetaRunUpgrades();
         StartRunStatistics();
+        BeginFragmentRun();
         _manualHolder.SetManualInitializationBlocked(false);
         _boons.ManualRewardChosen += OnManualRewardResolved;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
@@ -151,10 +155,13 @@ public sealed partial class ProgressionDirector
         _manualCompletionCandidate = false;
         ManualSession.IsEncounterClosing=false;
         var node = ManualSession.Route.Node(nodeId);
+        BeginEncounterFragments(node);
         _manualEncounterRoot = new GameObject("Manual encounter " + nodeId);
         _manualEncounterRoot.transform.SetParent(transform, false);
         _manualEncounterRoot.SetActive(false);
-        _manualEncounterRoot.AddComponent<SwarmAttackCoordinator>().ConfigureCapacity(_maxConcurrentMeleePerRoom);
+        var coordinator = _manualEncounterRoot.AddComponent<SwarmAttackCoordinator>();
+        coordinator.ConfigureCapacity(_maxConcurrentMeleePerRoom);
+        ConfigurePackCoordinator(coordinator, nodeId);
         foreach (var spawn in node.Spawns)
         {
             GameObject instance = Instantiate(spawn.Prefab, node.Center + spawn.Offset, Quaternion.identity, _manualEncounterRoot.transform);
@@ -178,6 +185,7 @@ public sealed partial class ProgressionDirector
             membership.Configure(ManualSession.Id, ManualSession.CurrentNode);
             _manualActors.Add(actor); actor.Died += OnManualEnemyDied;
             if (spawn.Rank == EnemyRank.Boss) actor.Died += OnManualBossDied;
+            if (spawn.Rank == EnemyRank.Elite) actor.Died += OnManualEliteDied;
             _runStatistics?.Watch(actor);
             instance.SetActive(true);
         }
