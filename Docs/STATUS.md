@@ -165,6 +165,25 @@ Decisões: vida por papel e velocidade dos comuns (investida curta e jogador mai
 - **Playtest (11/11/2026): aprovado.** "Ficou muito melhor": medo de morrer no meio da run; depois de 3 salas, com 282 de 500 de vida, mesmo sem ficar parado batendo. É a run em que o desenvolvedor mais apanhou.
 - **Pendente para rever:** fugir andando ainda é fácil (possíveis caminhos: investida curta nos comuns, jogador mais lento, dash com cooldown maior já decidido para a frente de mana/HUD/dash).
 
+### Frente de mana, HUD e dash (11/11/2026)
+- **Mana desligada para o jogador:** chave `playerManaEnabled` no `CombatBalanceConfig`, desligada. As skills não exigem nem gastam mana (`PlayerActor.HasMana`/`TrySpendMana`). O HUD esconde o orbe de mana, o valor, a legenda e o ornamento do lado do orbe; os textos das skills mostram só o cooldown. O sistema de mana continua intacto, para ser revisitado.
+- **Testes:** `ManaSystemTestDefaults` (assembly PlayMode inteira) religa a mana, para os testes existentes continuarem exercitando o sistema; `PlayerManaSwitchPlayModeTests` (novo) garante o estado do jogo: mana desligada no config, skills sem gasto e orbe escondido.
+- **Dash:** cooldown 1,2 → 2,0 s.
+- **Validação:** compila sem erros; 45/46 focados (mana, Asura, responsividade, cancelamentos, dash, input direto, 1b, salas-pacote, mutações). A falha, `Spatial09ReinforcementsConcaveEdgesAndHookRecovery`, é "Failed to capture screen shot" na 4ª sala, depois das checagens de jogo: ambiente (a aba Game provavelmente não está visível); o mesmo teste passou mais cedo hoje. Não jogado.
+- **Playtest (11/11/2026): aprovado** ("ficou tudo correto").
+- **O que jogar:** o HUD sem o orbe de mana ficou bem resolvido ou deixou um vazio estranho? O dash com 2,0 s obriga a escolher o momento? Ainda dá para fugir andando com facilidade?
+
+### Caminhos mais curtos (11/11/2026)
+- **Compactação da rota** (`ManualRunRandomizer.Compact`): depois do sorteio, cada nível de profundidade fica a meia-profundidade das maiores salas vizinhas mais **14 m** de corredor; cada ramo de bifurcação fica a meia-largura da sua maior sala mais **16 m**. Considera a rotação das salas espaciais. Sorteio, seeds e conteúdo das salas não mudam; só os centros das salas.
+- **Medido em 200 rotas:** corredores com média de 58 → **36 m**, mediana 68 → **41 m**, 90% até 84 → **50 m**.
+- **Testes:** EditMode 45/45 (corredores não atravessam outras salas, não dividem chão, aberturas únicas, 09/09B). Um contrato mudou de propósito: a variedade de salas do 09B pode mover a sala, porque agora a posição acompanha o tamanho real; o teste passou a exigir posições iguais para a mesma seed. PlayMode: testes de mundo da run e caminhos gerados passaram.
+- **Bloqueio de ambiente:** os testes visuais das salas 09/09B falham com "Failed to capture screen shot", **inclusive no código do último commit, sem estas mudanças** (comparação feita guardando as alterações). Provável causa: o Game view está num segundo monitor. Falhas antigas, sem relação: testes que pedem Arco ou Lança, bloqueados por progressão desde a 1b.
+- **O que jogar:** a caminhada entre salas ficou curta o bastante? Alguma sala ou corredor ficou sobreposto, apertado ou estranho, principalmente nas bifurcações?
+
+### Próximo, depois dos caminhos curtos (pedido do desenvolvedor, 11/11/2026)
+- **Hooker como projétil visível, no estilo do hook do Thresh (LoL):** o gancho sai como um projétil que dá para ver vindo e desviar; lançamento mais rápido e puxão mais rápido até o Hooker. Substitui o puxão atual (decisão 4 da revisão de inimigos). Manter a janela anti-loop de 2,5 s.
+- **Hooker útil fora do gancho:** enquanto o gancho recarrega, ataques de média distância usando a corrente/o gancho (golpes, não puxão). O gancho não volta a ser usado assim que o cooldown termina: uso com atraso aleatório, para ficar imprevisível.
+
 ## Roteiro de validação antes da próxima etapa (11/11/2026)
 Preparação: com o jogo fechado, apagar `MetaProgress.json` (e `MetaProgress.v1.json`, se existir) em `%USERPROFILE%\AppData\LocalLow\DefaultCompany\T.G - Tech Guy\`. Salas-pacote ligadas (padrão). Jogar a partir do MainMenu. F9 pula para o boss.
 1. **Input no Editor:** WASD, ataque, especial (botão direito), Q/E/R, dash, Esc. Sair do Unity (Alt+Tab) e voltar: tudo continua respondendo.
@@ -191,7 +210,7 @@ Perguntas para responder depois: a vida de 700 dá cuidado sem ficar injusta? O 
   4. **Ordem:** (a) legibilidade e ameaça: rótulo com o nome de cada inimigo, melee atacando dentro do alcance, avisos de longe mais fortes, HazardCaster ajustado; (b) mana, HUD e dash 2,0 s; (c) caminhos mais curtos. Uma frente por vez, cada uma jogável.
 
 ## Próxima etapa
-Passe de inimigos jogado em 10/11/2026: aggro e contorno de cobertura aprovados; ranged ficaram alcançáveis (às vezes ainda recuam). **Ainda não há perigo, nem no boss**; segundo o desenvolvedor, a causa é o papel de cada inimigo, não valores ou quantidade. Decisões da revisão aprovadas em 10/11/2026. Salas-pacote aprovadas em 11/11/2026; passe de ameaça 2 jogado em 11/11/2026. Frente de ameaça (passes 1–5) aprovada em 11/11/2026. **Agora: frente de mana, HUD e dash** → mana/HUD/dash → caminhos curtos → (se aprovado) Volátil, Guarda, gancho do Hooker, Shooter/Rajada e pool → Fase 1c (rapport da Ico). Bosses: frente própria, depois.
+Passe de inimigos jogado em 10/11/2026: aggro e contorno de cobertura aprovados; ranged ficaram alcançáveis (às vezes ainda recuam). **Ainda não há perigo, nem no boss**; segundo o desenvolvedor, a causa é o papel de cada inimigo, não valores ou quantidade. Decisões da revisão aprovadas em 10/11/2026. Salas-pacote aprovadas em 11/11/2026; passe de ameaça 2 jogado em 11/11/2026. Frente de ameaça (passes 1–5) aprovada em 11/11/2026. Mana, HUD e dash aprovados em 11/11/2026. **Agora: playtest dos caminhos mais curtos** → Hooker (gancho visível e ataques de média distância) → mana/HUD/dash → caminhos curtos → (se aprovado) Volátil, Guarda, gancho do Hooker, Shooter/Rajada e pool → Fase 1c (rapport da Ico). Bosses: frente própria, depois.
 
 ## Backlog
 - Boss do Universo 1 aprovado tecnicamente, mas sem graça no playtest; redesign pendente (diagnóstico e direções A/B/C na revisão de inimigos de 10/11).

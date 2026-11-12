@@ -155,6 +155,4 @@ Origem: playtest de 10/11 ("IA melhor, mas nada é perigoso, nem o boss"; causa 
 - Recomendação: A + C enxuto. Fase 1: brigão sem pausa morta. A cada terço: núcleo exposto, enxame e anel de zona. Quebrar a postura com o núcleo aberto = janela de dano grande. Sem stun-lock (regra Boss mantida).
 
 ### Ainda em aberto
-- Inimigos: as 7 decisões da revisão de papéis (ver `Docs/STATUS.md`, "Revisão de design dos inimigos").
-- Quem é o primeiro NPC (identidade, lore, onde é resgatado) e o tom das conversas.
-- O terminal fica fechado até o primeiro resgate ou existe numa versão mínima desde a primeira run? *(Recomendado: resgate garantido na 1ª ou 2ª run, para o terminal abrir cedo.)*
+*(Atualizado em 11/11/2026: as 7 decisões de inimigos foram aprovadas; o Desconhecido é um NPC inacabado do jogo do protagonista; o terminal fica escuro até o 1º resgate, como implementado e aprovado na 1b.)* A ordem das próximas etapas e o que falta decidir estão em `Docs/plano/ROTEIRO_PROXIMAS_ETAPAS.md`.
