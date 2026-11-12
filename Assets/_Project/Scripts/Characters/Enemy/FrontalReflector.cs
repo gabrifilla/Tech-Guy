@@ -35,7 +35,7 @@ using UnityEngine;
 /// <remarks>Feature: enemy-swarm-core-archetypes, task 8.8; combat-balance-tuning, task 6.5. Requirements: 18.2, 18.3, 18.4, 18.5, 18.6, 18.7, 18.8, 6.4.</remarks>
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Actor))]
-public sealed class FrontalReflector : MonoBehaviour
+public sealed class FrontalReflector : MonoBehaviour, IIncomingDamageFilter
 {
     [Header("Protected arc")]
     [Tooltip("Frontal arc protected by the shield, in degrees. Clamped to the design range 90–180 (R18.2).")]
@@ -68,6 +68,31 @@ public sealed class FrontalReflector : MonoBehaviour
 
     private ProtectionIndicator _protectionIndicator;
 
+    // Guarda (Etapa 3, 11/11/2026): the front is immune to the player's hits (HP only; posture still lands), and
+    // the Guarda turns slowly so it can be flanked. Opens on posture break or from outside the arc.
+    public const float GuardTurnSpeed = 90f;   // degrees per second (the EnemyAI floor); player circles faster
+    private static readonly Color BlockedColor = new Color(.55f, .85f, 1f);
+    private EnemyAI _ai;
+    private float _nextBlockedWord;
+
+    /// <summary>Total hits blocked by the front (test/telemetry seam).</summary>
+    public int BlockedHits { get; private set; }
+
+    public float FilterIncomingDamage(float amount)
+    {
+        if (amount <= 0f || !_ai || !_ai.player) return amount;
+        RefreshShieldState();
+        if (!FrontalArcReflection.GuardBlocks(_shieldActive, transform.forward, _ai.player.position - transform.position, ArcDegrees))
+            return amount;
+        BlockedHits++;
+        if (Time.time >= _nextBlockedWord)
+        {
+            _nextBlockedWord = Time.time + .35f;
+            DamagePopup.ShowText(transform.position + Vector3.up * 1.6f, "Bloqueado", BlockedColor);
+        }
+        return 0f;
+    }
+
     private void Awake()
     {
         _owner = GetComponent<Actor>();
@@ -76,6 +101,8 @@ public sealed class FrontalReflector : MonoBehaviour
             Debug.LogError($"{nameof(FrontalReflector)} on '{name}' requires an {nameof(Actor)}; the frontal shield is disabled.", this);
 
         EnsureProtectionIndicator();
+        _ai = GetComponent<EnemyAI>();
+        if (_ai) _ai.ConfigureTurnSpeed(GuardTurnSpeed);
     }
 
     /// <summary>

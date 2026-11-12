@@ -119,7 +119,7 @@ Origem: playtest de 10/11 ("IA melhor, mas nada é perigoso, nem o boss"; causa 
 | Heavy | 2,2× HP, slam 0,95 s → shockwave 1,3 s | ok | **Âncora**: zona proibida na frente; pune quem fica colado sem ler | Manter |
 | Charger | perfil 6 m, mas só ataca a ≤1,8 m (gate melee) e o "charge" sai colado | a investida nunca vem de longe | **Investida**: de 5–8 m, faixa travada; obriga a sair da linha | Corrigir o gate (prioridade) |
 | Shooter | tiro reto ≥0,25 s, kite curto | ok | **Linha à distância**: pune ficar parado longe | Manter |
-| SpreadShooter | 5 tiros em 40°, 0,8× dano | quase igual ao Shooter de perto | **Parede**: nega o ângulo de aproximação, obriga a flanquear | Manter **ou** virar modificador do Shooter |
+| SpreadShooter | 5 tiros em 40°, 0,8× dano | quase igual ao Shooter de perto | **Parede**: nega o ângulo de aproximação, obriga a flanquear | **Virou modificador "Leque" do Shooter em 11/11/2026** |
 | Sniper (+ Emissor) | linha 1,0 s, 1,8× dano, 14 m | peso dobrado no pool; aviso e disparo podem divergir (GI1.8) | **Pune parar**: no máximo 1 por sala | Manter; limitar a 1 por sala |
 | Bomber | lob 0,35 s + área 2 m na queda; escala 0,5 | pequeno demais para ser lido; o "ataque de cima" do playtest | **Expulsa do lugar**: área onde você está | Manter; corpo maior |
 | HazardCaster | zona a cada 6 s, 6 dano/0,5 s, 35% lento, 6 s | dev ficou dentro sem perder HP (não reproduzido) | **Encolhe a arena**: combina com melee | Manter; verificar o dano |
@@ -127,7 +127,7 @@ Origem: playtest de 10/11 ("IA melhor, mas nada é perigoso, nem o boss"; causa 
 | Healer | cura 15 a cada 2 s, foge a 3,5 m, usa soco padrão | foge e tenta socar (dois comandos brigando) | **Prioridade**: caçar primeiro | Manter; tirar o soco |
 | ShieldSupport | escudo 40 a cada 4 s | sobrepõe o Healer | **Prioridade**: protege a âncora | Manter, nunca junto do Healer |
 | Spawner | Swarm a cada 3 s, teto 10, 0,4× vel. | aprovado no playtest | **Prioridade/relógio**: a luta piora se você enrolar | Manter |
-| Mirror | reflete só projéteis, 90–180° | com a Manopla só, é um Grunt mais tanque | **Guarda**: frente imune a golpe, abre com quebra de postura ou pelas costas | Cortar até o Arco **ou** virar Guarda |
+| Mirror | reflete só projéteis, 90–180° | com a Manopla só, é um Grunt mais tanque | **Guarda**: frente imune a golpe, abre com quebra de postura ou pelas costas | **Virou Guarda em 11/11/2026** (ver STATUS) |
 | Elite (`Magic_Haste`) | variante legado (Charge + DoublePunch) | não é elite de verdade | **Comandante**: arquétipo + modificador + aura que acelera os comuns por perto | Refazer (encaixa na Fase 2) |
 
 **Sobreposições:** 4 corpos de melee fraco (Swarm, Fragile, Rush, Fragmento); 4 de tiro direto (Shooter, Spread, Sniper, Emissor); Bomber e HazardCaster põem área no jogador (ok: um é instantâneo, o outro persiste); Healer e Shield protegem. **Faltam:** um inimigo que pune bater no grupo sem olhar (Volátil), um que exige quebrar guarda (Guarda), elites que tornam os comuns perigosos (Comandante) e ataques de grupo sincronizados.

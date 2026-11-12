@@ -147,6 +147,10 @@ public class Actor : MonoBehaviour
         // multipliers because immunity is absolute, not a scaling. The dash arms/disarms this through
         // Add/RemoveDamageImmunity around its i-frame window.
         if (IsDamageImmune) return;
+        // Directional blocks (the Guarda's front, Etapa 3): the filter may zero the HP damage of this hit.
+        // Posture is a separate channel and is not affected here.
+        if (amount > 0f && TryGetComponent<IIncomingDamageFilter>(out var damageFilter))
+            amount = Mathf.Max(0f, damageFilter.FilterIncomingDamage(amount));
         foreach (var modifier in _damageTakenModifiers)
             if (modifier.Key) amount *= modifier.Value;
 

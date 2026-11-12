@@ -45,6 +45,8 @@ public sealed class EnemyCombatActions : MonoBehaviour
         EnemyAttackKind.HazardPlace => "Zona de perigo",
         EnemyAttackKind.ChainThrust => "Estocada de corrente",
         EnemyAttackKind.ChainSweep => "Chicotada",
+        EnemyAttackKind.BurstShot => "Rajada de laser",
+        EnemyAttackKind.Lunge => "Investida curta",
         _ => "Soco"
     };
 
@@ -103,6 +105,8 @@ public sealed class EnemyCombatActions : MonoBehaviour
             case EnemyAttackKind.HazardPlace: yield return HazardPlace(target,valid); break;
             case EnemyAttackKind.ChainThrust: yield return ChainStrike(target,damage,valid,sweep:false); break;
             case EnemyAttackKind.ChainSweep: yield return ChainStrike(target,damage,valid,sweep:true); break;
+            case EnemyAttackKind.BurstShot: yield return BurstShot(target,damage,valid); break;
+            case EnemyAttackKind.Lunge: yield return Lunge(target,damage,valid); break;
             default:
                 int punches = kind == EnemyAttackKind.DoublePunch ? 2 : 1;
                 for (int i=0; i<punches && valid(); i++)
@@ -646,6 +650,84 @@ public sealed class EnemyCombatActions : MonoBehaviour
         // activate its configured HazardZone at zonePoint (R11.4). No damage is applied here.
         _animation.Contact(SkillMotion.Slam); ResolvedImpacts++;
         yield return Recover(SkillMotion.Slam,HazardPlaceWindup,.3f,valid);
+    }
+
+    // Shooter "Rajada" placeholder (Etapa 3, 11/11/2026): bursts of short laser bolts, each burst with its own
+    // aim-line warning. Shots leave from _tailMuzzle when the modeled tail exists; until then, the normal muzzle.
+    [SerializeField, Tooltip("Rajada: ponta da cauda (origem dos tiros). Vazio = boca padrão.")] private Transform _tailMuzzle;
+    internal const int RajadaBursts = 2, RajadaShotsPerBurst = 4;
+    internal const float RajadaBurstWindup = .45f, RajadaShotGap = .07f, RajadaBurstGap = .3f;
+    internal const float RajadaDamageFraction = .35f, RajadaRange = 16f, RajadaSpeed = 24f, RajadaShotRadius = .25f;
+    private static readonly Color RajadaColor = new Color(1f, .2f, .45f);
+
+    private Vector3 ShotOrigin(Vector3 forward) => _tailMuzzle ? _tailMuzzle.position : MuzzleOrigin(forward);
+
+    private IEnumerator BurstShot(Actor target,float damage,Func<bool> valid)
+    {
+        Func<bool> canFire=()=>valid() && HasLineOfSight(target);
+        for(int burst=0;burst<RajadaBursts;burst++)
+        {
+            Vector3 forward=Face(target);
+            Vector3 origin=ShotOrigin(forward);
+            AttackCenter=origin; AttackRadius=0;
+            var line=new EnemyAttackArea(EnemyAttackShape.Lane,origin,forward,RajadaRange,ShotWarningWidth);
+            yield return _warning.Execute(new[]{line},target,RajadaBurstWindup,0,RajadaColor,canFire,
+                animateWindup:t=>_animation.Strike(SkillMotion.PunchRight,t*RajadaBurstWindup,0,RajadaBurstWindup,.6f),
+                showWarning:true,impactHold:0);
+            if(!_warning.Completed || !canFire()) yield break;
+            _animation.Contact(SkillMotion.PunchRight); ResolvedImpacts++;
+            for(int shot=0;shot<RajadaShotsPerBurst && valid();shot++)
+            {
+                EnemyProjectile.Spawn(ShotOrigin(forward),forward,_owner,target,damage*RajadaDamageFraction,RajadaSpeed,
+                    RajadaRange,RajadaShotRadius,EnemyProjectile.PathKind.Straight,RajadaColor,lockDirection:true);
+                for(float waited=0;waited<RajadaShotGap && valid();waited+=Time.deltaTime) yield return null;
+            }
+            if(burst<RajadaBursts-1)
+                for(float waited=0;waited<RajadaBurstGap && valid();waited+=Time.deltaTime) yield return null;
+            if(!valid()) yield break;
+        }
+        yield return Recover(SkillMotion.PunchRight,.25f,.35f,valid);
+    }
+
+    // Grunt/Rush short lunge (Etapa 3): punishes walking away. Direction and length lock at telegraph start.
+    internal const float LungeMinDistance = 2.5f, LungeMaxDistance = 4.5f, LungeOvershoot = 1.5f;
+    internal const float LungeWindup = .3f, LungeSpeed = 14f, LungeRadius = .7f, LungeRecovery = .45f;
+
+    private IEnumerator Lunge(Actor target,float damage,Func<bool> valid)
+    {
+        if (!_agent || !_agent.enabled || !_agent.isOnNavMesh) yield break;
+        Vector3 origin=transform.position, forward=Face(target);
+        Vector3 toTarget=target.transform.position-origin; toTarget.y=0;
+        float distance=Mathf.Clamp(toTarget.magnitude+LungeOvershoot-1f,LungeMinDistance,LungeMaxDistance);
+        Vector3 end=origin+forward*distance;
+        if(_agent.Raycast(end,out NavMeshHit edge)) end=edge.position;
+        distance=Vector3.Distance(origin,end);
+        if(distance<.3f) yield break;
+        var lane=new EnemyAttackArea(EnemyAttackShape.Lane,origin,forward,distance+LungeRadius,LungeRadius*2);
+        AttackCenter=origin; AttackRadius=distance;
+        yield return _warning.Execute(new[]{lane},target,LungeWindup,0,Warm,valid,
+            animateWindup:t=>_animation.Strike(SkillMotion.PunchRight,t*.25f,0,1,1.5f),impactHold:0);
+        if(!_warning.Completed || !valid()) yield break;
+        bool hit=false;
+        float travelled=0;
+        ResolvedImpacts++;
+        while(travelled<distance && valid())
+        {
+            if(Time.deltaTime<=0) { yield return null; continue; }
+            float step=Mathf.Min(LungeSpeed*Time.deltaTime,distance-travelled);
+            Vector3 start=_agent.nextPosition;
+            float allowed=ClipTravel(start+Vector3.up*.8f,forward,step,.35f);
+            _agent.Move(forward*allowed);
+            Vector3 finish=_agent.nextPosition;
+            if(!hit && SegmentContains(target.transform.position,start,finish,LungeRadius))
+            { target.TakeDamage(damage); hit=true; }
+            travelled+=Vector3.Distance(start,finish);
+            if(allowed+.001f<step || (step>.001f && Vector3.Distance(start,finish)<.001f)) break;
+            yield return null;
+        }
+        if(!valid()) yield break;
+        _animation.Contact(SkillMotion.PunchRight);
+        yield return Recover(SkillMotion.PunchRight,.5f,LungeRecovery,valid);
     }
 
     /// <summary>Muzzle point in front of and slightly above the enemy, so shots clear its own body.</summary>

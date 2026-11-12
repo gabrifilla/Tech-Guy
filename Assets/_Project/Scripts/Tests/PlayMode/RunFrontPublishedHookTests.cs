@@ -132,6 +132,38 @@ namespace TechGuy.Tests
             finally { Object.DestroyImmediate(source); }
         }
 
+        /// <summary>Etapa 3: the Grunt's short lunge closes a 3.5 m gap along a locked lane and lands its hit.</summary>
+        [UnityTest, Category("RUN00Published")]
+        public IEnumerator ETAPA3PublishedGruntLungeClosesTheGapAndHits()
+        {
+            yield return LoadProduction();
+            var director = Object.FindFirstObjectByType<ProgressionDirector>();
+            var player = Object.FindFirstObjectByType<PlayerActor>();
+            var session = director.ManualSession;
+            Assert.IsTrue(director.TryCommitDestination(session.Id, 1));
+            Assert.IsTrue(player.GetComponent<NavMeshAgent>().Warp(session.Route.Node(1).Center));
+            Assert.IsTrue(director.TryEnterNode(session.Id, 1)); yield return null;
+            PreventCoinPersistence(director);
+            foreach (var enemy in director.GetComponentsInChildren<Actor>()) enemy.gameObject.SetActive(false);
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/_Project/Prefabs/EnemyArchetypes/Grunt.prefab");
+            var grunt = Object.Instantiate(prefab, player.transform.position + Vector3.forward * 3.5f, Quaternion.identity);
+            try
+            {
+                grunt.GetComponent<EnemyAI>().enabled = false;
+                foreach (var coin in grunt.GetComponents<CoinDrop>()) Object.DestroyImmediate(coin);
+                Assert.IsTrue(grunt.GetComponent<NavMeshAgent>().Warp(player.transform.position + Vector3.forward * 3.5f));
+                yield return null;
+                var actions = grunt.GetComponent<EnemyCombatActions>();
+                Vector3 start = grunt.transform.position;
+                float hp = player.health;
+                yield return actions.Perform(EnemyAttackKind.Lunge, player, 20f, () => true);
+                Vector3 moved = grunt.transform.position - start; moved.y = 0;
+                Assert.Greater(moved.magnitude, 2f, "The lunge travels toward the player.");
+                Assert.Less(player.health, hp, "A player standing in the lunge lane is hit.");
+            }
+            finally { Object.DestroyImmediate(grunt); }
+        }
+
         private static IEnumerator RunPublishedHooks(EnemyCombatActions actions, PlayerActor player)
         { for(int i=0;i<5;i++) yield return actions.Perform(EnemyAttackKind.HookLine,player,0,()=>true); }
     }

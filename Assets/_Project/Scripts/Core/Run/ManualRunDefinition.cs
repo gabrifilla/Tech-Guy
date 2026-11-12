@@ -25,8 +25,13 @@ public sealed class ManualEnemySpawn
     public GameObject Prefab => _prefab;
     public Vector3 Offset => _offset;
     public EnemyRank Rank => _rank;
+    // Etapa 3 (11/11/2026): run-only variation on top of the archetype (Shooter · Leque / Rajada). Default None.
+    [SerializeField] private EnemyModifier _modifier = EnemyModifier.None;
+    public EnemyModifier Modifier => _modifier;
     public ManualEnemySpawn(GameObject prefab, Vector3 offset, EnemyRank rank = EnemyRank.Normal)
     { _prefab = prefab; _offset = offset; _rank = rank; }
+    public ManualEnemySpawn(GameObject prefab, Vector3 offset, EnemyRank rank, EnemyModifier modifier)
+    { _prefab = prefab; _offset = offset; _rank = rank; _modifier = modifier; }
 }
 
 [Serializable]

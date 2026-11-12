@@ -40,11 +40,12 @@ public sealed partial class ProgressionDirector
             if (node.Kind != ManualNodeKind.Combat) continue;
             string packName = PackName(node.Id);
             var roster = packName == "Fornalha"
-                ? Pack((ArchetypeId.Heavy, 1), (ArchetypeId.Swarm, 9), (ArchetypeId.HazardCaster, 1))
+                // Etapa 3 (11/11/2026): Volátil (Fragile) in the Fornalha; Guarda (Mirror) and Shooter · Leque/Rajada in the Mira.
+                ? Pack((ArchetypeId.Heavy, 1), (ArchetypeId.Swarm, 7), (ArchetypeId.Fragile, 2), (ArchetypeId.HazardCaster, 1))
                 : packName == "Anzol"
                     // Hooker added back (Etapa 2, 11/11/2026): its hook drags the player into the Rush and the bomb.
                     ? Pack((ArchetypeId.Charger, 1), (ArchetypeId.Hooker, 1), (ArchetypeId.Bomber, 1), (ArchetypeId.Rush, 4))
-                    : Pack((ArchetypeId.Grunt, 3), (ArchetypeId.Shooter, 2), (ArchetypeId.SpreadShooter, 1));
+                    : Pack((ArchetypeId.Grunt, 2), (ArchetypeId.Mirror, 1), (ArchetypeId.Shooter, 3));
             if (roster == null) { Debug.LogWarning("[Salas-pacote] Prefab de arquétipo ausente; sala " + node.Id + " mantida.", this); continue; }
             var placed = PlacePack(node, roster);
             if (placed == null) { Debug.LogWarning("[Salas-pacote] Sem posições seguras na sala " + node.Id + "; mantida.", this); continue; }

@@ -47,7 +47,16 @@
 - **Manter** a janela anti-loop de 2,5 s depois de um puxão (`PlayerActor.ExternalPullRecovery`).
 - Testes que tocam no puxão: `RunFrontCriticalPlayModeTests` (RUN00), `Spatial09ReinforcementsConcaveEdgesAndHookRecovery`.
 
-### Etapa 3 — Redesenhos de inimigos já aprovados (revisão de 10/11/2026)
+### Etapa 3 — Redesenhos de inimigos já aprovados (revisão de 10/11/2026) *(implementada em 11/11/2026; aguardando playtest — detalhes no STATUS)*
+**Decisões do desenvolvedor (11/11/2026, 23h) — valem para a execução da etapa:**
+- **Volátil:** ao morrer, anel vermelho no chão que pisca cada vez mais rápido (bomba-relógio) por ~0,8 s; explode em raio 2,5 m, 30 de dano, **só no jogador**.
+- **Guarda:** arco frontal de 120° bloqueia 100% do dano de golpes e skills (o golpe ainda tira postura); abre com postura quebrada ou pelas costas; vira devagar (dá para flanquear); mostra "Bloqueado" no acerto bloqueado.
+- **Leque:** SpreadShooter deixa de ser arquétipo próprio no pool; 1 em cada 3 Shooters nasce com o modificador "Leque" (leque de 5, marca visual, rótulo "Shooter · Leque"). Preservar enum/IDs/saves.
+- **Emissor e Fragmento:** saem do sorteio como inimigos extras; viram skins com 50% de chance para Sniper (Emissor) e Rush (Fragmento).
+- **Rajada:** fazer **placeholder agora** (corpo do Shooter, rajadas de laser curtas com aviso por rajada); a origem dos tiros deve poder ser trocada pela ponta da cauda quando o modelo chegar.
+- **Fuga:** Grunt e Rush ganham passo-investida (~2,5 m, aviso 0,3 s) quando o jogador está a 2,5–5 m se afastando. Velocidade do jogador sem mudança.
+- **Pacotes:** Fornalha = Heavy + 7 Swarm + 2 Volátil + HazardCaster; Anzol sem mudança; Mira = 2 Grunt + 1 Guarda + 3 Shooter (1 Leque).
+- **Fim da etapa:** commitar tudo (mesmo com teste falhando; anotar falhas no STATUS), `git push` de `gameplayOverhaul` para `origin`, depois `shutdown /s /t 60`.
 - **Fragile → Volátil:** explode ~0,8 s depois de morrer (área pequena); pune AoE descuidado no meio do grupo.
 - **Mirror → Guarda:** frente imune a golpe; abre com quebra de postura ou pelas costas.
 - **SpreadShooter → modificador do Shooter** (deixa de ser arquétipo próprio).

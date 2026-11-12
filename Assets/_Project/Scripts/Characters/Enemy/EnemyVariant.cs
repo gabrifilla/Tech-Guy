@@ -321,6 +321,7 @@ public sealed class EnemyVariant : MonoBehaviour
             case global::ArchetypeId.Spawner: return typeof(SpawnerBehavior);
             case global::ArchetypeId.HazardCaster: return typeof(HazardCasterBehavior);
             case global::ArchetypeId.Mirror: return typeof(FrontalReflector);
+            case global::ArchetypeId.Fragile: return typeof(VolatileBehavior); // Volátil (Etapa 3)
             default: return null; // Attack-shaped: Rush, Grunt, Heavy, Charger, Shooter, SpreadShooter,
                                    // Sniper, Bomber, Hooker, Swarm, Fragile — driven by the attack pipeline.
         }

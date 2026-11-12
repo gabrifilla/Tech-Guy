@@ -28,8 +28,24 @@ public sealed class DamagePopup : MonoBehaviour
         return popup;
     }
 
+    private Color? _textColor;
+
+    /// <summary>A short word instead of a number (e.g. "Bloqueado"). Same lifetime and motion as damage numbers.</summary>
+    public static DamagePopup ShowText(Vector3 point, string text, Color color)
+    {
+        if (string.IsNullOrEmpty(text) || !IsFinite(point)) return null;
+        var popup = new GameObject("Combat word").AddComponent<DamagePopup>();
+        popup.transform.position = popup._impact = point;
+        popup._burst.TryBegin(1f, false, Time.time);
+        popup._impactAt = Time.time - 1f; // no impact cross for a word
+        popup._text = text; popup._textColor = color;
+        Destroy(popup.gameObject, .8f);
+        return popup;
+    }
+
     public bool TryAccumulate(Vector3 point, float amount, bool lethal)
     {
+        if (_textColor.HasValue) return false;
         if (!isActiveAndEnabled || !IsFinite(point) || !_burst.TryAccumulate(amount, lethal, Time.time)) return false;
         _impact = point;
         _impactAt = Time.time; // Every confirmed contact retains its short impact marker.
@@ -70,7 +86,8 @@ public sealed class DamagePopup : MonoBehaviour
         var rect = new Rect(screen.x-100,Screen.height-screen.y-20,200,70);
         GUI.color = new Color(0,0,0,alpha);
         GUI.Label(new Rect(rect.x+2,rect.y+2,rect.width,rect.height),_text,_style);
-        GUI.color = IsLethal ? new Color(1,.8f,.25f,alpha) : new Color(1,1,1,alpha);
+        GUI.color = _textColor.HasValue ? new Color(_textColor.Value.r,_textColor.Value.g,_textColor.Value.b,alpha)
+            : IsLethal ? new Color(1,.8f,.25f,alpha) : new Color(1,1,1,alpha);
         GUI.Label(rect,_text,_style);
         // A brief impact marker appears only after damage is confirmed, never on misses.
         float contactAge = Time.time - _impactAt;

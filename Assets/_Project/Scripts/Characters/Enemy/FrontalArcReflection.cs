@@ -91,4 +91,17 @@ public static class FrontalArcReflection
 
         return MaxReflectedFraction;           // frontal player projectile: reduced to ≤25% (R18.3)
     }
+
+    /// <summary>
+    /// Guarda (Etapa 3, 11/11/2026): with the shield up, any hit whose attacker stands inside the frontal arc
+    /// is fully blocked (HP only — posture still lands). Open it by breaking posture (shield drops while
+    /// control-locked) or by hitting from outside the arc (flank/back).
+    /// </summary>
+    public static bool GuardBlocks(bool shieldActive, Vector3 guardForward, Vector3 toAttacker, float arcDegrees)
+    {
+        if (!shieldActive) return false;
+        toAttacker.y = 0f;
+        if (toAttacker.sqrMagnitude < 1e-6f) return true; // standing on top of it still counts as the front
+        return IsWithinArc(guardForward, toAttacker, arcDegrees);
+    }
 }

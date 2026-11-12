@@ -88,6 +88,11 @@ public class EnemyAI : MonoBehaviour
     private PreferredDistanceLayer _preferredDistance;
     // Hooker (Etapa 2): hook cooldown + random hold; chain strikes in between. Runtime-only state.
     private readonly HookerCadence _hookCadence = new HookerCadence();
+    // Etapa 3: short lunge of Grunt/Rush against a player walking away.
+    private bool _lungeWanted;
+    private float _lungeReadyAt;
+    private Vector3 _playerVelocity, _lastPlayerPosition;
+    private bool _hasLastPlayerPosition;
     private NavMeshPath _positioningPath;
     private Bounds _encounterBounds;
     private bool _hasEncounterBounds;
@@ -326,6 +331,7 @@ public class EnemyAI : MonoBehaviour
 
         if (agent.isStopped && _reaction && !_reaction.IsControlLocked) _reaction.EvaluateResumeEligibility(false);
         if (agent.isStopped || (_reaction && _reaction.IsControlLocked) || ProtocolElementQuery.IsFrozen(_owner)) { EndRetreat(); CancelAttack(); return; }
+        TrackPlayerVelocity();
         if (_attackRoutine != null) return;
 
         UpdatePerception();
@@ -398,6 +404,15 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    /// <summary>Overrides how fast this enemy turns to face the player (Guarda turns slowly so it can be flanked).</summary>
+    public void ConfigureTurnSpeed(float degreesPerSecond)
+    {
+        if (float.IsNaN(degreesPerSecond) || float.IsInfinity(degreesPerSecond)) return;
+        _natural.AngularSpeed = Mathf.Clamp(degreesPerSecond, 90f, 1440f);
+        var navAgent = agent ? agent : GetComponent<NavMeshAgent>();
+        if (navAgent) navAgent.angularSpeed = Mathf.Min(navAgent.angularSpeed, _natural.AngularSpeed);
+    }
+
     public void ConfigureAttackTraits(EnemyAttackTraits traits)
     {
         CancelAttack();
@@ -454,7 +469,23 @@ public class EnemyAI : MonoBehaviour
         }
         playerInAttackRange = CheckPlayerInRange(engagement) &&
             (ranged || charger || distance<=meleeRange || (hasRangedMove && distance>3.2f));
+        // Etapa 3: Grunt/Rush lunge at a player walking away just out of reach.
+        _lungeWanted = !playerInAttackRange && LungeRules.UsesLunge(archetype) &&
+            LungeRules.ShouldLunge(transform.position, player.position, _playerVelocity, Time.time, _lungeReadyAt);
+        if (_lungeWanted) playerInAttackRange = true;
     }
+
+    private void TrackPlayerVelocity()
+    {
+        if (!player) return;
+        Vector3 position = player.position;
+        if (_hasLastPlayerPosition && Time.deltaTime > 0f)
+            _playerVelocity = Vector3.Lerp(_playerVelocity, (position - _lastPlayerPosition) / Time.deltaTime, .5f);
+        _lastPlayerPosition = position; _hasLastPlayerPosition = true;
+    }
+
+    /// <summary>The live Shooter modifier (Leque/Rajada) of this enemy, None otherwise.</summary>
+    private EnemyModifier CurrentModifier => TryGetComponent(out EnemyModifierTag tag) ? tag.Modifier : EnemyModifier.None;
 
     /// <summary>The Hooker's next attack at <paramref name="distance"/>, or null when nothing reaches.</summary>
     private EnemyAttackKind? ChooseHookerAttack(float distance)
@@ -826,6 +857,14 @@ public class EnemyAI : MonoBehaviour
                 yield break;
             }
             kind = hooker.Value;
+        }
+        EnemyAttackKind? modified = EnemyModifierRules.AttackFor(archetype, CurrentModifier);
+        if (modified.HasValue) kind = modified.Value;
+        if (_lungeWanted && LungeRules.UsesLunge(archetype))
+        {
+            kind = EnemyAttackKind.Lunge;
+            _lungeWanted = false;
+            _lungeReadyAt = Time.time + LungeRules.Cooldown;
         }
         int impactsBefore = _combatActions.ResolvedImpacts;
         // Per-archetype melee telegraph: Rush winds up faster than Grunt (R3.4/R4.3). The override only

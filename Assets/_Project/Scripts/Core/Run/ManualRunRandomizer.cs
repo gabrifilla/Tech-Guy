@@ -35,11 +35,10 @@ public static class ManualRunRandomizer
         }
         Vector3 origin = source.Node(source.StartNode).Center;
         var pool = BuildPool(source, enemyPrefabs);
-        if(content)
-        {
-            var seen=new HashSet<GameObject>(pool);
-            foreach(var prefab in content.AdditionalEnemies)AddPrefab(prefab,pool,seen);
-        }
+        // Etapa 3 (11/11/2026): one weight per archetype. Emissor/Fragmento (content.AdditionalEnemies) are now looks
+        // applied after the draw (ProgressionDirector.EnemyVariety), and the SpreadShooter became the Shooter's
+        // "Leque" modifier, so neither enters the draw as an enemy of its own.
+        pool.RemoveAll(IsRetiredFromDraw);
         var fighters = pool.Where(prefab => !IsSupport(prefab)).ToList();
         if (fighters.Count == 0)
             throw new InvalidOperationException("Procedural run needs at least one combat-capable enemy prefab.");
@@ -156,6 +155,9 @@ public static class ManualRunRandomizer
         if (prefab && prefab.GetComponent<Actor>() && prefab.GetComponent<EnemyAI>() &&
             !prefab.GetComponent<SectorBoss>() && seen.Add(prefab)) pool.Add(prefab);
     }
+
+    private static bool IsRetiredFromDraw(GameObject prefab) =>
+        prefab && prefab.TryGetComponent(out EnemyVariant variant) && variant.ArchetypeId == ArchetypeId.SpreadShooter;
 
     private static bool IsSupport(GameObject prefab)
     {

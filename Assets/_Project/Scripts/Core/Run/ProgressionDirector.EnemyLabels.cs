@@ -39,7 +39,9 @@ public sealed partial class ProgressionDirector
             if (!actor || actor.IsDead || !actor.gameObject.activeInHierarchy) continue;
             var variant = actor.GetComponent<EnemyVariant>();
             var reaction = actor.GetComponent<CombatReactionController>();
-            string name = variant && variant.ArchetypeId is ArchetypeId id ? id.ToString() : actor.name.Replace("(Clone)", "");
+            var modifierTag = actor.GetComponent<EnemyModifierTag>();
+            string name = EnemyModifierRules.DisplayName(variant ? variant.ArchetypeId : null,
+                modifierTag ? modifierTag.Modifier : EnemyModifier.None, actor.name.Replace("(Clone)", ""));
             if (reaction && reaction.Rank != EnemyRank.Normal) name += " · " + reaction.Rank;
             float height = 1.2f;
             var collider = actor.GetComponent<Collider>();

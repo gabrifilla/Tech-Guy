@@ -43,9 +43,12 @@ namespace TechGuy.Tests
             {
                 string pack = director.RoomPackFor(node.Id);
                 Assert.AreEqual(ProgressionDirector.PackName(node.Id), pack, "Room " + node.Id);
-                Assert.AreEqual(pack == "Fornalha" ? "Heavy,HazardCaster,Swarm,Swarm,Swarm,Swarm,Swarm,Swarm,Swarm,Swarm,Swarm"
-                    : pack == "Anzol" ? "Rush,Rush,Rush,Rush,Charger,Bomber,Hooker" : "Grunt,Grunt,Grunt,Shooter,Shooter,SpreadShooter",
+                Assert.AreEqual(pack == "Fornalha" ? "Heavy,HazardCaster,Swarm,Swarm,Swarm,Swarm,Swarm,Swarm,Swarm,Fragile,Fragile"
+                    : pack == "Anzol" ? "Rush,Rush,Rush,Rush,Charger,Bomber,Hooker" : "Grunt,Grunt,Shooter,Shooter,Shooter,Mirror",
                     Roster(node), "Roster of " + pack);
+                if (pack == "Mira")
+                    Assert.AreEqual("Leque,None,Rajada", string.Join(",", node.Spawns.Where(s => s.Prefab.GetComponent<EnemyVariant>().ArchetypeId == ArchetypeId.Shooter)
+                        .Select(s => s.Modifier.ToString()).OrderBy(m => m)), "Mira always has one Leque and one Rajada Shooter.");
                 Assert.IsTrue(node.Spawns.All(s => s.Rank == EnemyRank.Normal));
                 if (node.SpatialLayout != null) Assert.IsTrue(node.Spawns.All(s => node.SpatialLayout.Clear(s.Offset, 1f)), "Safe slots in room " + node.Id);
             }

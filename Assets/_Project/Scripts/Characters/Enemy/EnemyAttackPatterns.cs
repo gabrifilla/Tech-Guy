@@ -3,7 +3,7 @@ using UnityEngine;
 
 [Flags]
 public enum EnemyAttackTraits { None = 0, Haste = 1, Frost = 2, Guard = 4 }
-public enum EnemyAttackKind { Punch, DoublePunch, HeavySlam, Charge, FrostBolt, Shockwave, AimedShot, SpreadShot, SniperShot, LobShot, HookLine, HazardPlace, ChainThrust, ChainSweep }
+public enum EnemyAttackKind { Punch, DoublePunch, HeavySlam, Charge, FrostBolt, Shockwave, AimedShot, SpreadShot, SniperShot, LobShot, HookLine, HazardPlace, ChainThrust, ChainSweep, BurstShot, Lunge }
 
 /// <summary>Repertoire depends on distance and anatomy, rather than a rotation of ground shapes.</summary>
 /// <remarks>

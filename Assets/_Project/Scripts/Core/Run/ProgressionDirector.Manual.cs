@@ -61,6 +61,7 @@ public sealed partial class ProgressionDirector
         route = TitanicConductorPlaytestRewards.Apply(route, selected);
         ApplyMetaRouteUpgrades(route);
         ApplyPrototypeRoomPacks(route);
+        ApplyEnemyVariety(route);
         _manualPolicy = new ManualRoutePolicy(route);
         MarkStatisticsStart();
         ManualProjection = ManualRoomProjection.Create(route, _manualEnvironment);
@@ -165,6 +166,8 @@ public sealed partial class ProgressionDirector
         foreach (var spawn in node.Spawns)
         {
             GameObject instance = Instantiate(spawn.Prefab, node.Center + spawn.Offset, Quaternion.identity, _manualEncounterRoot.transform);
+            if (spawn.Modifier != EnemyModifier.None)
+                (instance.GetComponent<EnemyModifierTag>() ?? instance.AddComponent<EnemyModifierTag>()).Configure(spawn.Modifier);
             if (instance.TryGetComponent<EnemyAI>(out var ai))
             { ai.player = _player.transform; ai.ConfigureEncounterBounds(node.Center, node.ArenaSize); }
             if (instance.TryGetComponent<SpawnerBehavior>(out var spawner))

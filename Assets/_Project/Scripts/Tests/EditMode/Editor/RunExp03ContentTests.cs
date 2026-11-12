@@ -34,7 +34,11 @@ namespace TechGuy.Tests
                 }
                 if(!found)without++;
             }
-            Assert.Greater(cover,0);Assert.Greater(open,0);Assert.Greater(fragmento,0);Assert.Greater(emissor,0);Assert.Greater(old.Count,10);
+            Assert.Greater(cover,0);Assert.Greater(open,0);Assert.Greater(old.Count,10);
+            // Etapa 3 (11/11/2026): Emissor/Fragmento are looks applied after the draw, and the SpreadShooter became the
+            // Shooter's "Leque" modifier, so none of them is drawn as an enemy of its own (one weight per archetype).
+            Assert.AreEqual(0,fragmento,"Fragmento is a Rush look, not a drawn enemy.");Assert.AreEqual(0,emissor,"Emissor is a Sniper look, not a drawn enemy.");
+            Assert.IsFalse(old.Contains("SpreadShooter"),"SpreadShooter leaves the draw.");
             Directory.CreateDirectory("Docs/validation/artifacts/run-exp-03");File.WriteAllLines("Docs/validation/artifacts/run-exp-03/distribution-128.csv",rows);
             File.WriteAllText("Docs/validation/artifacts/run-exp-03/distribution-summary.txt","Combat cover="+cover+" open="+open+" Fragmento spawns="+fragmento+" Emissor spawns="+emissor+" old families="+old.Count+" runs with neither="+without);
         }
