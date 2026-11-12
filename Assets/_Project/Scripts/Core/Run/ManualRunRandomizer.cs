@@ -82,7 +82,49 @@ public static class ManualRunRandomizer
             copy.ConfigureSpatialLayout(spatial);
             generated.Add(copy);
         }
+        Compact(source, generated, depths, origin);
         return new ManualRouteSnapshot(source, generated, runSeed);
+    }
+
+    // Route compaction (11/11/2026, playtest: walking between rooms took too long). The fixed spacing above is sized for
+    // the worst case (30 m rotated spatial rooms), which left 14–32 m corridors and ~50 m branch legs. Once every room's real
+    // footprint is known, each depth level sits just past the deepest rooms around it and each branch just past its widest
+    // room. Draws, seeds and room contents are untouched: only centres move.
+    internal const float CorridorGap = 14f;   // edge-to-edge distance between consecutive levels (4 m port stubs + 6 m between)
+    internal const float BranchGap = 16f;     // extra lateral distance past a branch's widest room
+
+    private static Vector2 Footprint(ManualNodeDefinition node)
+    {
+        var size = node.ArenaSize;
+        return node.SpatialLayout != null && node.SpatialLayout.QuarterTurns % 2 == 1 ? new Vector2(size.y, size.x) : size;
+    }
+
+    private static void Compact(ManualRouteSnapshot source, List<ManualNodeDefinition> nodes, Dictionary<int, int> depths, Vector3 origin)
+    {
+        if (nodes.Count == 0) return;
+        int maxDepth = depths.Values.Max();
+        var halfDepth = new float[maxDepth + 1];
+        foreach (var node in nodes) halfDepth[depths[node.Id]] = Mathf.Max(halfDepth[depths[node.Id]], Footprint(node).y * .5f);
+        var levels = new float[maxDepth + 1];
+        for (int i = 1; i <= maxDepth; i++) levels[i] = levels[i - 1] + halfDepth[i - 1] + halfDepth[i] + CorridorGap;
+
+        var byId = nodes.ToDictionary(node => node.Id);
+        var lanes = new Dictionary<int, float>();
+        foreach (var group in source.Groups)
+        {
+            var branchIds = group.FirstBranch.Concat(group.SecondBranch).Where(byId.ContainsKey).ToList();
+            if (branchIds.Count == 0) continue;
+            float widest = branchIds.Max(id => Footprint(byId[id]).x * .5f);
+            float lane = widest + BranchGap;
+            // Keep each branch on the side the draw chose.
+            float firstSign = group.FirstBranch.Select(id => byId.TryGetValue(id, out var n) ? Mathf.Sign(n.Center.x - origin.x) : 0f)
+                .FirstOrDefault(sign => sign != 0f);
+            if (firstSign == 0f) firstSign = 1f;
+            foreach (int id in group.FirstBranch) lanes[id] = lane * firstSign;
+            foreach (int id in group.SecondBranch) lanes[id] = -lane * firstSign;
+        }
+        foreach (var node in nodes)
+            node.ConfigureCenter(origin + new Vector3(lanes.TryGetValue(node.Id, out float x) ? x : 0f, 0f, levels[depths[node.Id]]));
     }
 
     private static Dictionary<int, int> Depths(ManualRouteSnapshot route)

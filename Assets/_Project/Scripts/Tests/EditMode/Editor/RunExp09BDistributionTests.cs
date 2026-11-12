@@ -31,7 +31,7 @@ namespace TechGuy.Tests
                 foreach(var n in run.Nodes)
                 {
                     var o=old.Node(n.Id);var r=repeat.Node(n.Id);
-                    Assert.AreEqual(o.Kind,n.Kind);Assert.AreEqual(o.Center,n.Center);Assert.AreEqual(Family(n),Family(r));
+                    Assert.AreEqual(o.Kind,n.Kind);Assert.AreEqual(r.Center,n.Center);Assert.AreEqual(Family(n),Family(r)); // since the route compaction (11/11/2026) a room's position follows its real footprint, so variety may move it; the same seed still places it identically
                     Assert.AreEqual(n.SpatialLayout?.QuarterTurns??0,r.SpatialLayout?.QuarterTurns??0);
                     CollectionAssert.AreEqual(o.RewardSteps.Select(x=>x.Kind+":"+x.Quantity),n.RewardSteps.Select(x=>x.Kind+":"+x.Quantity));
                     CollectionAssert.AreEqual(o.Spawns.Select(x=>x.Prefab.GetEntityId()+":"+x.Rank),n.Spawns.Select(x=>x.Prefab.GetEntityId()+":"+x.Rank));
