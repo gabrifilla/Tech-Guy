@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dash
   m_EditorClassIdentifier: 
   name: Dash
-  cooldownTime: 1.2
+  cooldownTime: 2
   activeTime: 0.5
   _manaCost: 0
   _displayName: Esquiva

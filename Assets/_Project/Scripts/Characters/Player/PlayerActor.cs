@@ -945,13 +945,20 @@ public class PlayerActor : Actor, IExternalPullTarget
         _watchedStanceControllers.Clear();
     }
 
+    /// <summary>Test seam: forces mana on/off regardless of <see cref="CombatBalanceConfig"/>. The test assembly turns it on
+    /// so tests keep exercising the mana system, which still exists while the player-facing mana is switched off.</summary>
+    internal static bool? ManaEnabledOverride;
+
+    /// <summary>Whether mana gates and pays for skills. Off in the game since 11/11/2026 (see CombatBalanceConfig).</summary>
+    public static bool ManaEnabled => ManaEnabledOverride ?? (CombatBalance.Current == null || CombatBalance.Current.PlayerManaEnabled);
+
     public void UseMana(float amount)
     {
         TrySpendMana(amount);
     }
 
-    public bool HasMana(float amount) => !IsDead && !float.IsNaN(amount) &&
-        !float.IsInfinity(amount) && mana >= Mathf.Max(0f, amount);
+    public bool HasMana(float amount) => !IsDead && (!ManaEnabled || !float.IsNaN(amount) &&
+        !float.IsInfinity(amount) && mana >= Mathf.Max(0f, amount));
 
     public bool TrySpendMana(float amount)
         => TrySpendMana(amount, null);
@@ -959,6 +966,7 @@ public class PlayerActor : Actor, IExternalPullTarget
     internal bool TrySpendMana(float amount, System.Action<System.Action> publish)
     {
         if (!HasMana(amount)) return false;
+        if (!ManaEnabled) return true; // mana switched off: skills are free
         amount = Mathf.Max(0f, amount);
         if (amount == 0f) return true;
         mana = Mathf.Clamp(mana - amount, 0f, maxMana);

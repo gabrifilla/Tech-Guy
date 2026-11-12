@@ -79,9 +79,36 @@ public sealed class PlayerHUD : MonoBehaviour
         _controls = _player.GetComponent<CharControlScript>();
         _player.healthBar = _healthFill;
         _player.manaBar = _manaFill;
+        ApplyManaVisibility();
         _initialized = true;
         BindEvents();
         RefreshResources();
+    }
+
+    /// <summary>
+    /// Player mana is switched off (11/11/2026): hide the mana orb group (orb, value, caption and the orb shoulder ornament
+    /// nearest to it) so the dock does not show a resource that does nothing. Shown again when mana is switched on.
+    /// </summary>
+    private void ApplyManaVisibility()
+    {
+        bool show = PlayerActor.ManaEnabled;
+        if (!_manaFill) return;
+        Transform orb = _manaFill.transform.parent, dock = orb ? orb.parent : null;
+        if (orb) orb.gameObject.SetActive(show);
+        if (_manaValue) _manaValue.gameObject.SetActive(show);
+        if (!dock) return;
+        Transform caption = dock.Find("Mana Caption");
+        if (caption) caption.gameObject.SetActive(show);
+        if (!orb) return;
+        Transform nearestShoulder = null, nearestInlay = null; float shoulderDistance = float.MaxValue, inlayDistance = float.MaxValue;
+        foreach (Transform child in dock)
+        {
+            float distance = (child.position - orb.position).sqrMagnitude;
+            if (child.name == "Orb Shoulder" && distance < shoulderDistance) { shoulderDistance = distance; nearestShoulder = child; }
+            if (child.name == "Shoulder Inlay" && distance < inlayDistance) { inlayDistance = distance; nearestInlay = child; }
+        }
+        if (nearestShoulder) nearestShoulder.gameObject.SetActive(show);
+        if (nearestInlay) nearestInlay.gameObject.SetActive(show);
     }
 
     private void OnEnable()
@@ -238,7 +265,8 @@ public sealed class PlayerHUD : MonoBehaviour
                     ? GamePreferences.KeyLabel(_holder.GetAbilityKey(3)) + " / " + GamePreferences.BindingLabel(GameControl.FinishSequence) : extensionStatus);
             if (ability && RectTransformUtility.RectangleContainsScreenPoint(_slots[i].Rect, pointer, null))
             {
-                tooltip = HudFormatter.Tooltip(actionName, ability.ManaCost, ability.cooldownTime);
+                tooltip = PlayerActor.ManaEnabled ? HudFormatter.Tooltip(actionName, ability.ManaCost, ability.cooldownTime)
+                    : $"{actionName}  ·  {ability.cooldownTime:0.#}s recarga";
                 if (i == 3 && _bowBoons && _bowBoons.Handles(ability as ArsenalAbility))
                     tooltip += "\nSegure " + GamePreferences.KeyLabel(_holder.GetAbilityKey(3)) + ": concentração completa em 0,8s; solte para disparar.";
                 if (i == 3 && _spearBoons && _spearBoons.HasOrbit)
@@ -287,7 +315,7 @@ public sealed class PlayerHUD : MonoBehaviour
         string message = ability is BreakerGauntletAbility gauntlet && gauntlet.AsuraBurst
             ? (_breaker && _breaker.IsCadencedAsura ? "ASURA CADENCIADA · 3 pressionamentos · proteção só nos golpes" : "ASURA · 85% proteção · esquiva na janela")
                 + $" · reserva {(_breaker ? _breaker.Energy : 0)}"
-            : ability.ManaCost > 0 ? $"{ActionName(index, ability)}  -{ability.ManaCost:0} mana" : $"{ActionName(index, ability)}  |  Gratis";
+            : ability.ManaCost > 0 && PlayerActor.ManaEnabled ? $"{ActionName(index, ability)}  -{ability.ManaCost:0} mana" : ActionName(index, ability);
         ShowFeedback(message, new Color(.94f,.78f,.45f));
         _gauntletFeedback = ability is BreakerGauntletAbility;
         if (_gauntletFeedback) _gauntletFeedbackMessage = message;

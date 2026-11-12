@@ -31,6 +31,11 @@ public sealed class CombatBalanceConfig : ScriptableObject
     [Tooltip("Alcance efetivo do básico da manopla, alinhado a attackDistance (R2.4). Lido com clamp > 0.")]
     [SerializeField] private float gauntletBasicReach = 2.2f;
 
+    [Header("Mana do jogador")]
+    [Tooltip("Desligado (11/11/2026, decisão do desenvolvedor): as skills não exigem nem gastam mana e o orbe some do HUD. " +
+             "O sistema continua intacto para ser revisitado (ex.: recursos próprios da Lança e do Arco).")]
+    [SerializeField] private bool playerManaEnabled = false;
+
     [Header("Manopla — skills (R3)")]
     [Tooltip("Multiplica o custo de mana das skills da manopla. Lido com clamp [0.1; 2.0].")]
     [SerializeField] private float skillManaCostMultiplier = 0.7f;
@@ -87,6 +92,9 @@ public sealed class CombatBalanceConfig : ScriptableObject
     /// clamped strictly &gt; 0 so the player never spawns with a degenerate health pool (R4.4).
     /// </summary>
     public float StartingHealth => startingHealth <= 0f ? 0f : CombatBalanceBounds.ClampBaseHealth(startingHealth);
+
+    /// <summary>Whether the player's mana gates and pays for skills (and is shown on the HUD).</summary>
+    public bool PlayerManaEnabled => playerManaEnabled;
 
     /// <summary>Whether the shield icon above protected enemies is enabled (R6.1).</summary>
     public bool ProtectionIconEnabled => protectionIconEnabled;
