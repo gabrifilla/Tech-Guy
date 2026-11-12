@@ -299,7 +299,8 @@ public sealed class EnemyCombatActions : MonoBehaviour
     private const float SniperShotRange = 26f;
     private const int SpreadShotCount = 5;      // >=3 (R8.2)
     // Threat pass (11/11/2026): 0.25 s with no visible warning read as unfair; shots now telegraph their path.
-    private const float StraightShotWindup = .6f;
+    private const float StraightShotWindup = .8f;   // .6 still read as too fast in the 11/11/2026 playtest
+    private const float ShotWarningWidth = 1f;      // visual width of the aim line (the projectile radius is unchanged)
     private const float SpreadConeDegrees = 40f; // fixed forward cone, locked at telegraph start (R8.3)
 
     // Bomber lob tuning (R10). The arced EnemyProjectile owns the ground telegraph + single land check;
@@ -340,7 +341,7 @@ public sealed class EnemyCombatActions : MonoBehaviour
         // broken line of sight cancels the shot mid-windup without firing (R7.6).
         Func<bool> canFire=()=>valid() && HasLineOfSight(target);
         // Visible aim line, locked at telegraph start: the shot goes where the warning showed, so a side-step dodges it.
-        var line=new EnemyAttackArea(EnemyAttackShape.Lane,origin,forward,ShooterShotRange,StraightShotRadius*2);
+        var line=new EnemyAttackArea(EnemyAttackShape.Lane,origin,forward,ShooterShotRange,ShotWarningWidth);
         yield return _warning.Execute(new[]{line},target,StraightShotWindup,0,ShotColor,canFire,
             animateWindup:t=>_animation.Strike(SkillMotion.PunchRight,t*StraightShotWindup,0,StraightShotWindup,.6f),
             showWarning:true,impactHold:0);

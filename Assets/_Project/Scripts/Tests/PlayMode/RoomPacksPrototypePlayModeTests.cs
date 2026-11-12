@@ -42,8 +42,9 @@ namespace TechGuy.Tests
             foreach (var node in combat)
             {
                 string pack = director.RoomPackFor(node.Id);
-                Assert.AreEqual(node.Id % 2 == 1 ? "Fornalha" : "Anzol", pack, "Room " + node.Id);
-                Assert.AreEqual(pack == "Fornalha" ? "Heavy,HazardCaster,Swarm,Swarm,Swarm,Swarm,Swarm,Swarm" : "Rush,Rush,Rush,Rush,Charger,Bomber",
+                Assert.AreEqual(ProgressionDirector.PackName(node.Id), pack, "Room " + node.Id);
+                Assert.AreEqual(pack == "Fornalha" ? "Heavy,HazardCaster,Swarm,Swarm,Swarm,Swarm,Swarm,Swarm,Swarm,Swarm,Swarm"
+                    : pack == "Anzol" ? "Rush,Rush,Rush,Rush,Charger,Bomber" : "Grunt,Grunt,Grunt,Shooter,Shooter,SpreadShooter",
                     Roster(node), "Roster of " + pack);
                 Assert.IsTrue(node.Spawns.All(s => s.Rank == EnemyRank.Normal));
                 if (node.SpatialLayout != null) Assert.IsTrue(node.Spawns.All(s => node.SpatialLayout.Clear(s.Offset, 1f)), "Safe slots in room " + node.Id);

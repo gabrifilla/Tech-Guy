@@ -128,8 +128,70 @@ Tabela completa, camadas, mix e boss: plano, seção "Inimigos: papéis e ameaç
 - **Validação:** compila sem erros. Testes focados, 101 + 1: ranged, projéteis, apresentação inimiga, puxão (RUN00), input direto, dash/cancel, 1b, salas-pacote, arquétipos, ataque físico, 24 variantes 09B e bordas côncavas/gancho. Ajustes de teste: janela de puxão usa a constante nova; o teste de bordas côncavas espera o cooldown do dash e declara foco explícito, como o restante da fixture. Suíte completa não rodada (é do desenvolvedor). Não jogado.
 - **O que jogar para validar:** 2–3 runs. Os tiros de longe agora dão para ler e desviar? O Hooker ainda prende? O dash com cooldown obriga a escolher o momento? Com 700 de vida, dá medo sem ficar injusto?
 
+### Frente de legibilidade e ameaça (11/11/2026)
+- **Melee atacam de verdade:** confirmado nos prefabs que a escala 0,5 dá alcance de ~1,1 m, enquanto a distância preferida era 1,8–2,5 m. A regra de "aproximar até o próprio alcance" (`EnemyAI.PositioningAttackRange`), antes só do Grunt normal, vale agora para Rush, Grunt, Heavy, Swarm, Fragile e Mirror, em qualquer rank exceto Boss. O teste de escopo foi atualizado para o contrato novo, e um teste novo exige que Rush, Heavy e Swarm acertem um alvo parado.
+- **Nomes dos inimigos:** cada inimigo mostra o nome do arquétipo acima dele, colorido por papel (branco = melee, laranja = tiro, roxo = controle, verde = suporte; " · Elite" quando aplicável). Só no Editor, ligado por padrão; menu **Tech Guy ▸ Protótipo ▸ Nomes dos inimigos**.
+- **HazardCaster:** a IA genérica disparava um "ataque" dele a cada 1,5 s (aviso sem chão) e podia cancelar a criação real do chão. Agora só o ciclo próprio dele (a cada 6 s) cria o chão. O dano continua vindo de pisar no chão, não da criação.
+- **Tiros diretos:** aviso de 0,6 → 0,8 s e linha de mira mais grossa (1 m; o projétil não mudou).
+- **Validação:** compila sem erros; testes focados 53/53 (melee, ranged, arquétipos, ataque físico, apresentação, projéteis, salas-pacote, 1b) e 09B + bordas 24/25. A falha, `Distribution09BL270Bow` (o alvo leva 18 de dano antes da checagem de tiro bloqueado), é intermitente: passa isolada e já tinha aparecido antes em outra variante do Arco (arma pausada). Não jogado.
+
+- **Playtest (11/11/2026):** os nomes facilitaram muito o feedback. Os melee atacam, mas **ainda não ameaçam**; 700 de vida ainda parece muito. HazardCaster bem melhor. Tiros diretos não apareceram: os pacotes Fornalha e Anzol não têm Shooter nem SpreadShooter, que só aparecem nas salas de elite.
+
+### Passe de ameaça 3 (11/11/2026)
+Decisões do desenvolvedor: dano por papel, vida 500, mais atacantes juntos, terceiro pacote "Mira".
+- **Dano por golpe** (base 12 × multiplicador do perfil em `ScriptableObjects/Enemies/Archetypes/*.asset`): Rush, Grunt e Mirror 24; Heavy e Charger 45; Swarm 10; Fragile 18; Shooter 22; Sniper 36; Bomber 30. Hooker sem mudança (o gancho não causa dano).
+- **Vida inicial:** 700 → 500 (Vida reforçada: 700).
+- **Atacantes melee simultâneos:** 3 → 5 (`_maxConcurrentMeleePerRoom` no FirstSector). Swarm e Rush continuam fora do limite nas salas-pacote.
+- **Pacote Mira:** 3 Grunt + 2 Shooter + 1 SpreadShooter. As salas de combate revezam Fornalha, Anzol e Mira pelo id da sala.
+- **Validação:** compila sem erros; testes focados 46/46 (melee com dano real por papel, ranged, arquétipos, ataque físico, salas-pacote com os três pacotes, 1b, projéteis). Não jogado.
+- **O que jogar:** os melee agora ameaçam? 500 de vida dá medo sem ficar injusto? Na Mira, o aviso dos tiros diretos (0,8 s, linha grossa) dá para ler e desviar?
+
+- **Playtest do passe 3 (11/11/2026):** 500 de vida ficou mais justo; o tiro direto ficou legível. Problemas: andando, o jogador escapa de quase todos (jogador 5,0 contra 2,1–4,2 dos inimigos; só o Rush, 5,25, acompanhava) e 2 socos fracos matam a maioria (vida base 60; Swarm 12, Rush 36).
+
+### Passe de ameaça 4 (11/11/2026)
+Decisões: vida por papel e velocidade dos comuns (investida curta e jogador mais lento ficaram de fora).
+- **Vida:** Grunt 150, Rush 90, Charger 165, Heavy 330, Mirror 180, atiradores e controle 120 (Sniper 108), Fragile 60. Swarm continua 12 (bucha).
+- **Velocidade (jogador 5,0):** Grunt, Swarm, Charger, Fragile, Shooter e SpreadShooter 4,55; Mirror, Bomber, HazardCaster e Hooker 4,2; Sniper 3,85. Rush 5,25 e Heavy 2,1, sem mudança.
+- **Testes:** compila sem erros; 41/41 focados. O teste dos melee agora confere vida e velocidade reais. Dois testes que fixavam a vida antiga do Grunt (60) passaram a usar a vida máxima. O teste da animação de recuo do Shooter teve a faixa ajustada para "caminhada, longe de corrida" (0,3–0,65): com o Shooter mais rápido, o valor amortecido ainda está subindo quando é medido.
+- **O que jogar:** fugir andando ainda funciona, mas devagar o bastante para o dash ser a saída? Os inimigos aguentam o suficiente para os golpes deles importarem?
+
+- **Playtest do passe 4 (11/11/2026):** ainda dá para fugir andando, sem dash (rever depois). O melee para ao lado do jogador e só então começa o golpe, o que dá tempo de sair. Swarm frágil demais; deve aguentar mais e bater pouco, ser bucha. Mais Swarm. Heavy ainda pouco tanque. HazardCaster perfeito.
+
+### Passe de ameaça 5 (11/11/2026)
+- **Golpe quase na chegada:** preparação dos comuns encurtada (`EnemyAttackPatterns.MeleeWindup`): Rush 0,3 → 0,25 s (piso de aviso R2.1); Grunt 0,4 → 0,3 s; Swarm e Fragile 0,7 (padrão) → 0,3 s; Mirror 0,7 → 0,35 s. Heavy e Charger mantêm os avisos longos.
+- **Swarm bucha:** vida 12 → 45, dano 10 → 6. **Fornalha:** 6 → 9 Swarm.
+- **Heavy:** vida 330 → 600.
+- **Testes:** compila sem erros; 41/41 focados (com vida/dano reais de Swarm e Heavy e a Fornalha de 9 Swarm). Não jogado.
+- **Playtest (11/11/2026): aprovado.** "Ficou muito melhor": medo de morrer no meio da run; depois de 3 salas, com 282 de 500 de vida, mesmo sem ficar parado batendo. É a run em que o desenvolvedor mais apanhou.
+- **Pendente para rever:** fugir andando ainda é fácil (possíveis caminhos: investida curta nos comuns, jogador mais lento, dash com cooldown maior já decidido para a frente de mana/HUD/dash).
+
+## Roteiro de validação antes da próxima etapa (11/11/2026)
+Preparação: com o jogo fechado, apagar `MetaProgress.json` (e `MetaProgress.v1.json`, se existir) em `%USERPROFILE%\AppData\LocalLow\DefaultCompany\T.G - Tech Guy\`. Salas-pacote ligadas (padrão). Jogar a partir do MainMenu. F9 pula para o boss.
+1. **Input no Editor:** WASD, ataque, especial (botão direito), Q/E/R, dash, Esc. Sair do Unity (Alt+Tab) e voltar: tudo continua respondendo.
+2. **Run 1 (morrer de propósito):** vida 700. Salas alternam Fornalha / Anzol. Na 2ª sala de combate, o NPC aparece preso (âmbar) desde o início, falando; vencer destrava (ciano); libertar cura 30%. Anotar os Fragmentos ganhos.
+3. **Ameaça:** Shooter e SpreadShooter mostram linha/cone por ~0,6 s e dá para desviar andando de lado; Bomber e HazardCaster têm aviso legível; o Charger investe de longe; depois de um puxão do Hooker, há ~2,5 s sem novo puxão; o dash espera 1,2 s (indicador no HUD); Swarm cerca (bloqueio por corpo mantido).
+4. **Nexus:** tela de resultado com Fragmentos e próxima meta; terminal com custos 20/40/50/60/75/90; a conversa toca uma vez e depois o terminal abre direto. Comprar Vida reforçada quando der.
+5. **Run 2:** vida 900 com a Vida reforçada; sem cápsula (NPC já resgatado); vencer o boss (+10).
+6. **Ao final:** em `MetaProgress.json`, conferir `fragments`, `upgrades`, `rescuedAllies`, `seenDialogues` e `runHistory`.
+Perguntas para responder depois: a vida de 700 dá cuidado sem ficar injusta? O cooldown de 1,2 s no dash está certo? Os ataques de longe ficaram justos? O Hooker ainda prende? A economia está no ritmo (1ª compra em 1–2 runs)?
+
+### Playtest do passe de ameaça 2 (11/11/2026)
+- **Aprovado:** Vida reforçada funciona; Hooker sem loop, como combinado; dash com cooldown ficou melhor (pode subir mais); 1ª compra sai na 1ª run completa, ou em 2.
+- **Melee quase não atacam.** O dano vem só do Bomber. Causa provável, por leitura de código, ainda não confirmada no Unity: a regra que limita a distância de espera ao alcance do golpe (`EnemyAI.PositioningAttackRange`) só vale para o Grunt; Rush (para a 2,0 m), Heavy (2,5 m) e Swarm (1,8 m) param fora do próprio alcance (~1,8 m ou menos) e só acertam se o jogador entrar.
+- **Vida 700 ≈ infinita** com os inimigos como estão (consequência do item acima).
+- **HazardCaster:** não causa dano no momento em que cria o chão, só quando o chão já existe; ataca rápido demais.
+- **Avisos de longe ainda fracos**, exceto Sniper, Hooker e Charger. Bomber e HazardCaster não foram identificados.
+- **Identificação:** todos usam o mesmo modelo; o desenvolvedor não consegue dizer qual inimigo é qual. Pedido: identificação visível para dar feedback.
+- **Caminhos entre salas longos demais:** encurtar ou dar relevância. Ideias do desenvolvedor para recompensas de dash: cargas extras, golpes básicos que reduzem o cooldown.
+- **Mana sem função:** as skills são usadas livremente. O desenvolvedor considera remover a mana e ajustar o HUD; quer opiniões antes.
+- **Decisões (11/11/2026):**
+  1. **Mana:** sai do jogador (custos 0, orbe fora do HUD; sistema interno mantido desligado). **Revisitar depois**, por exemplo quando Lança e Arco voltarem com recursos próprios.
+  2. **Caminhos:** encurtar já; dar relevância depois (Fase 2: Fragmentos, emboscadas ou eventos no caminho).
+  3. **Dash:** cooldown 2,0 s. Boons de dash (cargas extras, básico que reduz o cooldown) entram na frente de boons.
+  4. **Ordem:** (a) legibilidade e ameaça: rótulo com o nome de cada inimigo, melee atacando dentro do alcance, avisos de longe mais fortes, HazardCaster ajustado; (b) mana, HUD e dash 2,0 s; (c) caminhos mais curtos. Uma frente por vez, cada uma jogável.
+
 ## Próxima etapa
-Passe de inimigos jogado em 10/11/2026: aggro e contorno de cobertura aprovados; ranged ficaram alcançáveis (às vezes ainda recuam). **Ainda não há perigo, nem no boss**; segundo o desenvolvedor, a causa é o papel de cada inimigo, não valores ou quantidade. Decisões da revisão aprovadas em 10/11/2026. Salas-pacote aprovadas em 11/11/2026. **Agora: playtest do passe de ameaça 2** (acima) → (se aprovado) Volátil, Guarda, gancho do Hooker, Shooter/Rajada e pool → Fase 1c (rapport da Ico). Bosses: frente própria, depois.
+Passe de inimigos jogado em 10/11/2026: aggro e contorno de cobertura aprovados; ranged ficaram alcançáveis (às vezes ainda recuam). **Ainda não há perigo, nem no boss**; segundo o desenvolvedor, a causa é o papel de cada inimigo, não valores ou quantidade. Decisões da revisão aprovadas em 10/11/2026. Salas-pacote aprovadas em 11/11/2026; passe de ameaça 2 jogado em 11/11/2026. Frente de ameaça (passes 1–5) aprovada em 11/11/2026. **Agora: frente de mana, HUD e dash** → mana/HUD/dash → caminhos curtos → (se aprovado) Volátil, Guarda, gancho do Hooker, Shooter/Rajada e pool → Fase 1c (rapport da Ico). Bosses: frente própria, depois.
 
 ## Backlog
 - Boss do Universo 1 aprovado tecnicamente, mas sem graça no playtest; redesign pendente (diagnóstico e direções A/B/C na revisão de inimigos de 10/11).

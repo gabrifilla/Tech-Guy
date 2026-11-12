@@ -131,11 +131,11 @@ public static class EnemyAttackPatterns
     /// <summary>Grunt baseline melee telegraph floor in seconds. The Grunt's melee windup is at least
     /// this long (R4.3), Rush is shorter than this (R3.4), and Heavy's ground-area windup is at least
     /// this long as well (R5.4).</summary>
-    public const float GruntMeleeWindup = 0.4f;
+    public const float GruntMeleeWindup = 0.3f;   // was 0.4: melee "paused next to the player" before striking (playtest 11/11/2026)
 
     /// <summary>Rush melee telegraph in seconds. Strictly shorter than <see cref="GruntMeleeWindup"/>
     /// so a Rush winds up faster than a Grunt (R3.4) while still clearing the 0.25s global floor (R2.1).</summary>
-    public const float RushMeleeWindup = 0.3f;
+    public const float RushMeleeWindup = 0.25f;   // the 0.25 s global telegraph floor (R2.1); was 0.3
 
     /// <summary>
     /// Archetype-scoped melee windup (telegraph duration in seconds) for the melee <see cref="Punch"/>
@@ -155,7 +155,11 @@ public static class EnemyAttackPatterns
                 case ArchetypeId.Rush:
                     return RushMeleeWindup;   // < Grunt (R3.4)
                 case ArchetypeId.Grunt:
-                    return GruntMeleeWindup;  // >= 0.4s baseline (R4.3)
+                case ArchetypeId.Swarm:
+                case ArchetypeId.Fragile:
+                    return GruntMeleeWindup;  // close-range commons strike almost on arrival (11/11/2026)
+                case ArchetypeId.Mirror:
+                    return .35f;
             }
         }
         return -1f; // No override: keep the attack's own authored windup.

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Shooter
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProfile
   _rarity: 0
-  _healthMultiplier: 1
-  _damageMultiplier: 1
-  _movementMultiplier: 1
+  _healthMultiplier: 2
+  _damageMultiplier: 1.8
+  _movementMultiplier: 1.3
   _attackSpeedMultiplier: 1
   _affixPrefabs: []
   _maxStance: 80

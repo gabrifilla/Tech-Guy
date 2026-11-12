@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Swarm
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProfile
   _rarity: 0
-  _healthMultiplier: 0.2
-  _damageMultiplier: 0.6
-  _movementMultiplier: 1.2
+  _healthMultiplier: 0.75
+  _damageMultiplier: 0.5
+  _movementMultiplier: 1.3
   _attackSpeedMultiplier: 1
   _affixPrefabs: []
   _maxStance: 20

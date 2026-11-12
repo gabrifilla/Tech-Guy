@@ -28,7 +28,7 @@ public static class MetaUpgrades
     /// <summary>Retired 10/11/2026 (granted a free boon). Kept only so old saves are refunded; never offered.</summary>
     public const string RetiredInitialOffer = "oferta_inicial";
 
-    public const float VitalityMaxHealthBonus = 200f;   // +200 over the 700 base (threat pass 11/11/2026); the only numeric upgrade
+    public const float VitalityMaxHealthBonus = 200f;   // +200 over the 500 base (threat pass 3, 11/11/2026); the only numeric upgrade
     public const int CleanRoomFragments = 2;
     public const int RerollsPerUpgrade = 1;             // "Reroll" and "Rolagem extra" each add one per run
     public const float RepairFractionBonus = .25f;

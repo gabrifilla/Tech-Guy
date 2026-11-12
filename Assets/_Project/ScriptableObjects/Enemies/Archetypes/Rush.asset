@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Rush
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProfile
   _rarity: 0
-  _healthMultiplier: 0.6
-  _damageMultiplier: 1
+  _healthMultiplier: 1.5
+  _damageMultiplier: 2
   _movementMultiplier: 1.5
   _attackSpeedMultiplier: 1.15
   _affixPrefabs: []

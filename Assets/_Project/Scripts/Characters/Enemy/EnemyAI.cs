@@ -140,12 +140,17 @@ public class EnemyAI : MonoBehaviour
     internal bool HasAttackPresentation => _attackRoutine != null || (alreadyAttacked && Time.time < nextAttackTime);
     public EnemyAttackTraits AttackTraits => _attackTraits;
 
-    // GI1.7 is limited to the baseline Grunt. Keep every other archetype/rank's positioning
-    // policy intact, and derive the approach limit from the unchanged attack eligibility.
-    internal float PositioningAttackRange => _variant && _variant.ArchetypeId == ArchetypeId.Grunt &&
-        _reaction && _reaction.Rank == EnemyRank.Normal && _reaction.Category == ReactionCategory.SmallMob
+    // GI1.7 started with the baseline Grunt; extended to every close-range archetype on 11/11/2026: their preferred
+    // distances (1.8–2.5 m) sat outside their own reach (~1.1 m at scale 0.5), so melee enemies held position and almost
+    // never attacked. The approach limit still derives from the unchanged attack eligibility. Bosses keep their policy.
+    internal float PositioningAttackRange => _variant && IsCloseRangeArchetype(_variant.ArchetypeId) &&
+        !(_reaction && _reaction.Rank == EnemyRank.Boss)
             ? Mathf.Min(attackRange, 1.45f * Mathf.Clamp(transform.lossyScale.y, .5f, 2f) + .35f)
             : float.PositiveInfinity;
+
+    private static bool IsCloseRangeArchetype(ArchetypeId? archetype) => archetype is ArchetypeId id &&
+        (id == ArchetypeId.Grunt || id == ArchetypeId.Rush || id == ArchetypeId.Heavy || id == ArchetypeId.Swarm ||
+         id == ArchetypeId.Fragile || id == ArchetypeId.Mirror);
 
     // Ranged standoff (R7.3): the Shooter kites to keep the player outside a minimum standoff distance.
     // The distance is derived from the archetype's engagement band (a fraction of it) so no extra
@@ -623,6 +628,9 @@ public class EnemyAI : MonoBehaviour
         // Attack facing and the offensive cadence remain unchanged; positioning waiting is now
         // authorized before stopping, so a held approach is not reset and reissued every frame.
         if (!IsFacingPlayer()) return;
+        // The Hazard_Caster's placement is owned by HazardCasterBehavior (its own cadence). A generic beat here only
+        // showed a warning with no zone every 1.5 s and could cancel the real placement (playtest 11/11/2026).
+        if (ResolveArchetypeId() == ArchetypeId.HazardCaster) return;
 
         // Swarm attack-slot gate (R5.2): a melee attacker must hold a token before it may attack. When
         // the encounter is at its limit the request is denied and the enemy simply holds position here

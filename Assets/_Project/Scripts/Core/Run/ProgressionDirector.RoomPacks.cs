@@ -5,8 +5,9 @@ using UnityEngine;
 /// <summary>
 /// Room packs (enemy review 10/11/2026; approved after playtest 11/11/2026 and made the default): normal combat rooms get
 /// a role "pack" instead of the uniform draw. On in builds; in the Editor it can be switched off to compare
-/// (menu: Tech Guy ▸ Protótipo ▸ Salas-pacote). Odd room ids get Fornalha, even ids get Anzol. Elite and Boss rooms
-/// are untouched. Swarm and Rush attack outside the 3-token melee cap in pack rooms.
+/// (menu: Tech Guy ▸ Protótipo ▸ Salas-pacote). Room ids rotate Fornalha (id % 3 == 1), Anzol (== 2) and Mira (== 0,
+/// added 11/11/2026 so Shooter/SpreadShooter appear outside elite rooms). Elite and Boss rooms are untouched. Swarm and
+/// Rush attack outside the melee token cap in pack rooms.
 /// </summary>
 public sealed partial class ProgressionDirector
 {
@@ -37,18 +38,23 @@ public sealed partial class ProgressionDirector
         foreach (var node in route.Nodes)
         {
             if (node.Kind != ManualNodeKind.Combat) continue;
-            bool furnace = node.Id % 2 == 1;
-            var roster = furnace
-                ? Pack((ArchetypeId.Heavy, 1), (ArchetypeId.Swarm, 6), (ArchetypeId.HazardCaster, 1))
-                : Pack((ArchetypeId.Charger, 1), (ArchetypeId.Bomber, 1), (ArchetypeId.Rush, 4));
+            string packName = PackName(node.Id);
+            var roster = packName == "Fornalha"
+                ? Pack((ArchetypeId.Heavy, 1), (ArchetypeId.Swarm, 9), (ArchetypeId.HazardCaster, 1))
+                : packName == "Anzol"
+                    ? Pack((ArchetypeId.Charger, 1), (ArchetypeId.Bomber, 1), (ArchetypeId.Rush, 4))
+                    : Pack((ArchetypeId.Grunt, 3), (ArchetypeId.Shooter, 2), (ArchetypeId.SpreadShooter, 1));
             if (roster == null) { Debug.LogWarning("[Salas-pacote] Prefab de arquétipo ausente; sala " + node.Id + " mantida.", this); continue; }
             var placed = PlacePack(node, roster);
             if (placed == null) { Debug.LogWarning("[Salas-pacote] Sem posições seguras na sala " + node.Id + "; mantida.", this); continue; }
             node.ConfigurePrototypeSpawns(placed);
-            _roomPackByNode[node.Id] = furnace ? "Fornalha" : "Anzol";
+            _roomPackByNode[node.Id] = packName;
         }
 
     }
+
+    /// <summary>Fornalha, Anzol and Mira in rotation by room id.</summary>
+    public static string PackName(int nodeId) => nodeId % 3 == 1 ? "Fornalha" : nodeId % 3 == 2 ? "Anzol" : "Mira";
 
     private List<ManualEnemySpawn> Pack(params (ArchetypeId id, int count)[] entries)
     {

@@ -117,7 +117,7 @@ namespace TechGuy.Tests
             Assert.GreaterOrEqual(windups,2,"Must start another legal windup after recovery.");
             Assert.GreaterOrEqual(finished,2);Assert.AreEqual(windups,hits,"One HP transaction per connected authored punch.");
             Assert.AreEqual(ai.attackDamage*hits,damage,.001f);Assert.IsNull(Get<Coroutine>(ai,"_attackRoutine"));
-            Assert.IsFalse(ai.GetComponent<Actor>().IsDead);Assert.AreEqual(60,ai.GetComponent<Actor>().health);
+            Assert.IsFalse(ai.GetComponent<Actor>().IsDead);Assert.AreEqual(ai.GetComponent<Actor>().maxHealth,ai.GetComponent<Actor>().health,"Untouched Grunt keeps full health (150 since 11/11/2026).");
         }
         [UnityTest] public IEnumerator PreferredPositioningAblationRecordsTheSameGrunt()
         {
@@ -188,14 +188,36 @@ namespace TechGuy.Tests
             Save("unreachable");Assert.AreEqual(0,ai.GetComponent<EnemyCombatActions>().ResolvedImpacts);
             Assert.AreEqual(1000,_target.health);Assert.Less(ai.transform.position.x,Center.x);
         }
-        [UnityTest] public IEnumerator OnlyNormalSmallGruntReceivesTheApproachConstraint()
+        // Contract changed on 11/11/2026 (playtest: melee almost never attacked): every close-range archetype, at any
+        // rank but Boss, approaches to its own reach. Bosses and ranged keep their own positioning.
+        [UnityTest] public IEnumerator CloseRangeArchetypesReceiveTheApproachConstraintExceptBosses()
         {
             BuildNavigation();var ai=Spawn();yield return null;
             var reaction=ai.GetComponent<CombatReactionController>();Assert.IsFalse(float.IsInfinity(ai.PositioningAttackRange));
-            reaction.ConfigureRank(EnemyRank.Elite);Assert.IsTrue(float.IsInfinity(ai.PositioningAttackRange));
-            reaction.ConfigureRank(EnemyRank.Legendary);Assert.IsTrue(float.IsInfinity(ai.PositioningAttackRange));
+            reaction.ConfigureRank(EnemyRank.Elite);Assert.IsFalse(float.IsInfinity(ai.PositioningAttackRange));
+            reaction.ConfigureRank(EnemyRank.Legendary);Assert.IsFalse(float.IsInfinity(ai.PositioningAttackRange));
             reaction.ConfigureRank(EnemyRank.Boss);Assert.IsTrue(float.IsInfinity(ai.PositioningAttackRange));
-            var heavy=Spawn("Heavy",Center+Vector3.back*6);yield return null;Assert.IsTrue(float.IsInfinity(heavy.PositioningAttackRange));
+            foreach(var type in new[]{"Heavy","Rush","Swarm","Fragile","Mirror"})
+            {var other=Spawn(type,Center+Vector3.back*6);yield return null;Assert.IsFalse(float.IsInfinity(other.PositioningAttackRange),type);}
+            var charger=Spawn("Charger",Center+Vector3.back*6);yield return null;Assert.IsTrue(float.IsInfinity(charger.PositioningAttackRange),"Charger opens from its band.");
+        }
+        [UnityTest] public IEnumerator RushHeavyAndSwarmCloseInAndLandHits()
+        {
+            BuildNavigation();
+            var damage=new System.Collections.Generic.Dictionary<string,float>{{"Rush",24},{"Heavy",45},{"Swarm",6}}; // per-role damage, 11/11/2026
+            foreach(var type in new[]{"Rush","Heavy","Swarm"})
+            {
+                var ai=Spawn(type,Center+Vector3.left*5);yield return null;
+                Assert.AreEqual(damage[type],ai.attackDamage,1f,type+" per-role damage");
+                var life=new System.Collections.Generic.Dictionary<string,float>{{"Rush",90},{"Heavy",600},{"Swarm",45}};
+                var speed=new System.Collections.Generic.Dictionary<string,float>{{"Rush",5.25f},{"Heavy",2.1f},{"Swarm",4.55f}};
+                Assert.AreEqual(life[type],ai.GetComponent<Actor>().maxHealth,1f,type+" per-role health (11/11/2026)");
+                Assert.AreEqual(speed[type],ai.GetComponent<EnemyVariant>().ChaseSpeed,.05f,type+" per-role chase speed (11/11/2026)");
+                var actions=ai.GetComponent<EnemyCombatActions>();float end=Time.time+8;
+                while(actions.ResolvedImpacts==0&&Time.time<end)yield return null;
+                Assert.Greater(actions.ResolvedImpacts,0,type+" must reach the player and attack.");
+                ai.transform.parent.gameObject.SetActive(false);
+            }
         }
         [UnityTest] public IEnumerator TargetLossDuringWindupCancelsWithoutDamageAndReleasesBusy()
         {
@@ -217,7 +239,7 @@ namespace TechGuy.Tests
                     HitReactionType.Stagger,HitStrength.Light,12,StanceBreakEffect.None).WithInterruptContribution(.35f));
                 yield return new WaitForSeconds(.1f);
             }
-            Assert.IsFalse(enemy.IsDead);Assert.AreEqual(40,enemy.health);Assert.IsFalse(reaction.IsControlLocked);
+            Assert.IsFalse(enemy.IsDead);Assert.AreEqual(enemy.maxHealth-20,enemy.health);Assert.IsFalse(reaction.IsControlLocked);
             float end=Time.time+10;while(Time.time<end && ai.GetComponent<EnemyCombatActions>().ResolvedImpacts<2)yield return null;
             Assert.GreaterOrEqual(ai.GetComponent<EnemyCombatActions>().ResolvedImpacts,2);
         }

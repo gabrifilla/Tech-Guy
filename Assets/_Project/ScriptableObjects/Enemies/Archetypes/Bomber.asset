@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Bomber
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProfile
   _rarity: 0
-  _healthMultiplier: 1
-  _damageMultiplier: 1.4
-  _movementMultiplier: 0.9
+  _healthMultiplier: 2
+  _damageMultiplier: 2.5
+  _movementMultiplier: 1.2
   _attackSpeedMultiplier: 0.7
   _affixPrefabs: []
   _maxStance: 80

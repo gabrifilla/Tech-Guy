@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Mirror
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProfile
   _rarity: 0
-  _healthMultiplier: 1.2
-  _damageMultiplier: 0.8
-  _movementMultiplier: 0.9
+  _healthMultiplier: 3
+  _damageMultiplier: 2
+  _movementMultiplier: 1.2
   _attackSpeedMultiplier: 1
   _affixPrefabs: []
   _maxStance: 100

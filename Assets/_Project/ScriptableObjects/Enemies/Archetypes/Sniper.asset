@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Sniper
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProfile
   _rarity: 0
-  _healthMultiplier: 0.9
-  _damageMultiplier: 1.8
-  _movementMultiplier: 0.85
+  _healthMultiplier: 1.8
+  _damageMultiplier: 3
+  _movementMultiplier: 1.1
   _attackSpeedMultiplier: 0.5
   _affixPrefabs: []
   _maxStance: 60

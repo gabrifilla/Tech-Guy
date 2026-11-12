@@ -210,7 +210,7 @@ MonoBehaviour:
   _objective: {fileID: 918177795}
   _environment: {fileID: 133740931}
   _requiredBossAccessFragments: 3
-  _maxConcurrentMeleePerRoom: 3
+  _maxConcurrentMeleePerRoom: 5
   _stageCount: 1
 --- !u!114 &133740930
 MonoBehaviour:

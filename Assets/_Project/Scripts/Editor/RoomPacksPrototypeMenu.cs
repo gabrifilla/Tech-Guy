@@ -20,3 +20,23 @@ public static class RoomPacksPrototypeMenu
         return true;
     }
 }
+
+/// <summary>Editor switch for the enemy name labels (development aid). On by default.</summary>
+public static class EnemyLabelsMenu
+{
+    private const string MenuPath = "Tech Guy/Protótipo/Nomes dos inimigos";
+
+    [MenuItem(MenuPath)]
+    private static void Toggle()
+    {
+        bool enabled = !EditorPrefs.GetBool(ProgressionDirector.EnemyLabelsPrefKey, true);
+        EditorPrefs.SetBool(ProgressionDirector.EnemyLabelsPrefKey, enabled);
+    }
+
+    [MenuItem(MenuPath, true)]
+    private static bool ToggleValidate()
+    {
+        Menu.SetChecked(MenuPath, EditorPrefs.GetBool(ProgressionDirector.EnemyLabelsPrefKey, true));
+        return true;
+    }
+}

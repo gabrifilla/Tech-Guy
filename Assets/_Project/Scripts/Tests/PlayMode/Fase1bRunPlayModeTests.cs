@@ -180,7 +180,7 @@ namespace TechGuy.Tests
             var run = player.GetComponent<RunBoons>();
             Assert.AreEqual(0, director.ManualAllyTargetRoom, "Already rescued: no capsule.");
             Assert.AreEqual(player.maxHealth, player.health, "Vida reforçada starts full.");
-            Assert.AreEqual(900f, player.maxHealth, 0.01f, "Vida reforçada: +200 over the 700 base (threat pass 11/11/2026).");
+            Assert.AreEqual(700f, player.maxHealth, 0.01f, "Vida reforçada: +200 over the 500 base (threat pass 3, 11/11/2026).");
             Assert.AreEqual(2, run.ManualRerollsRemaining, "Reroll + Rolagem extra.");
             var repair = (RunRepairPolicy)typeof(ProgressionDirector).GetField("_manualRepair", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(director);
             Assert.AreEqual(MetaUpgrades.RepairFractionBonus, repair.FractionBonus, 1e-5f);

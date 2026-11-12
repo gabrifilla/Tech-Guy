@@ -185,7 +185,9 @@ namespace TechGuy.Tests
                 "Crossing the entry threshold must not end retreat before the hysteresis exit distance.");
             Vector3 direction = ai.player.position - ai.transform.position; direction.y = 0;
             Assert.That(Vector3.Angle(ai.transform.forward, direction), Is.LessThan(30));
-            Assert.That(ai.GetComponent<Animator>().GetFloat("Speed"), Is.EqualTo(.5f).Within(.1f),
+            // Walk band, far from Run (~1.0, the defect this guards: a halved reference). The damped blend is still rising
+            // when sampled; since the Shooter's chase speed went 3.5 -> 4.55 (11/11/2026) it reads ~0.38 here, not 0.5.
+            Assert.That(ai.GetComponent<Animator>().GetFloat("Speed"), Is.InRange(.3f, .65f),
                 "Half-speed backpedal must use the chase-speed gait reference and blend toward Walk, not Run.");
             Time.timeScale = 0;
             var pausedPosition = ai.transform.position;

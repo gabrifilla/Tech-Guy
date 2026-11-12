@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Hazard_Caster
   m_EditorClassIdentifier: Assembly-CSharp::EnemyProfile
   _rarity: 0
-  _healthMultiplier: 1
+  _healthMultiplier: 2
   _damageMultiplier: 0.9
-  _movementMultiplier: 0.9
+  _movementMultiplier: 1.2
   _attackSpeedMultiplier: 0.8
   _affixPrefabs: []
   _maxStance: 80
