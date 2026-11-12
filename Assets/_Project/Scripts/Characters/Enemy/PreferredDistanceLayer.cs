@@ -42,6 +42,8 @@ public sealed class PreferredDistanceLayer : MonoBehaviour
         target = PreferredDistanceResolver.PositioningTarget(
             _ai.player.position, transform.position, preferred);
         target = ApplySeparation(target, resolution.SeparationRadius);
+        if (_variant && _variant.ArchetypeId == global::ArchetypeId.Hooker && TryFindHookerAnchor(out Vector3 anchor, out float behind))
+            target = HookerPositioning.BehindAnchor(_ai.player.position, anchor, transform.position, behind);
         if (meleeApproach)
         {
             // Separation may spread approach angles, but cannot choose a holding point outside
@@ -92,6 +94,46 @@ public sealed class PreferredDistanceLayer : MonoBehaviour
     {
         float meleeRange = Mathf.Min(_ai.attackRange, 1.45f * Mathf.Clamp(transform.lossyScale.y, .5f, 2f) + .35f);
         return EnemyAttackPatterns.EngagementRange(_ai.AttackTraits, 0, meleeRange, archetype);
+    }
+
+    private readonly Collider[] _anchorBuffer = new Collider[48];
+    private readonly System.Collections.Generic.HashSet<EnemyAI> _anchorSeen = new System.Collections.Generic.HashSet<EnemyAI>();
+
+    /// <summary>
+    /// Hooker (Etapa 2): an active danger zone near the Hooker wins (the pull drops the player inside it);
+    /// otherwise the center of the living non-Hooker allies around it (the pull drops the player among them).
+    /// </summary>
+    private bool TryFindHookerAnchor(out Vector3 anchor, out float behind)
+    {
+        anchor = transform.position; behind = 0f;
+        int count = Physics.OverlapSphereNonAlloc(transform.position, HookerPositioning.AnchorSearchRadius,
+            _anchorBuffer, Physics.AllLayers, QueryTriggerInteraction.Collide);
+        Vector3 allies = Vector3.zero; int allyCount = 0;
+        float bestHazard = float.PositiveInfinity; bool hazard = false;
+        var seen = _anchorSeen; seen.Clear();
+        for (int i = 0; i < count; i++)
+        {
+            Collider collider = _anchorBuffer[i];
+            if (!collider || collider.transform.IsChildOf(transform)) continue;
+            var zone = collider.GetComponentInParent<HazardZone>();
+            if (zone && zone.IsActive)
+            {
+                float d = (zone.transform.position - transform.position).sqrMagnitude;
+                if (d < bestHazard) { bestHazard = d; anchor = zone.transform.position; hazard = true; }
+                continue;
+            }
+            var ally = collider.GetComponentInParent<EnemyAI>();
+            if (!ally || ally == _ai || !seen.Add(ally) || !ally.isActiveAndEnabled) continue;
+            var allyVariant = ally.GetComponent<EnemyVariant>();
+            if (allyVariant && allyVariant.ArchetypeId == global::ArchetypeId.Hooker) continue;
+            var actor = ally.GetComponent<Actor>();
+            if (actor && actor.IsDead) continue;
+            allies += ally.transform.position; allyCount++;
+        }
+        if (hazard) { behind = HookerPositioning.BehindHazard; return true; }
+        if (allyCount == 0) return false;
+        anchor = allies / allyCount; behind = HookerPositioning.BehindAllies;
+        return true;
     }
 
     /// <summary>

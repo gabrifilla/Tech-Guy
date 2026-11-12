@@ -42,7 +42,8 @@ public sealed partial class ProgressionDirector
             var roster = packName == "Fornalha"
                 ? Pack((ArchetypeId.Heavy, 1), (ArchetypeId.Swarm, 9), (ArchetypeId.HazardCaster, 1))
                 : packName == "Anzol"
-                    ? Pack((ArchetypeId.Charger, 1), (ArchetypeId.Bomber, 1), (ArchetypeId.Rush, 4))
+                    // Hooker added back (Etapa 2, 11/11/2026): its hook drags the player into the Rush and the bomb.
+                    ? Pack((ArchetypeId.Charger, 1), (ArchetypeId.Hooker, 1), (ArchetypeId.Bomber, 1), (ArchetypeId.Rush, 4))
                     : Pack((ArchetypeId.Grunt, 3), (ArchetypeId.Shooter, 2), (ArchetypeId.SpreadShooter, 1));
             if (roster == null) { Debug.LogWarning("[Salas-pacote] Prefab de arquétipo ausente; sala " + node.Id + " mantida.", this); continue; }
             var placed = PlacePack(node, roster);

@@ -86,6 +86,8 @@ public class EnemyAI : MonoBehaviour
     private Actor _owner;
     private EnemyVariant _variant;
     private PreferredDistanceLayer _preferredDistance;
+    // Hooker (Etapa 2): hook cooldown + random hold; chain strikes in between. Runtime-only state.
+    private readonly HookerCadence _hookCadence = new HookerCadence();
     private NavMeshPath _positioningPath;
     private Bounds _encounterBounds;
     private bool _hasEncounterBounds;
@@ -443,8 +445,30 @@ public class EnemyAI : MonoBehaviour
         bool ranged = IsRangedArchetype(archetype);
         // The Charger opens its committed charge anywhere inside its band (not only in contact).
         bool charger = archetype == ArchetypeId.Charger;
+        if (archetype == ArchetypeId.Hooker)
+        {
+            // The Hooker only stands and attacks when something reaches: the hook (ready and possible) or a
+            // chain strike. Otherwise it keeps closing in / positioning behind its allies.
+            playerInAttackRange = CheckPlayerInRange(engagement) && ChooseHookerAttack(distance).HasValue;
+            return;
+        }
         playerInAttackRange = CheckPlayerInRange(engagement) &&
             (ranged || charger || distance<=meleeRange || (hasRangedMove && distance>3.2f));
+    }
+
+    /// <summary>The Hooker's next attack at <paramref name="distance"/>, or null when nothing reaches.</summary>
+    private EnemyAttackKind? ChooseHookerAttack(float distance)
+    {
+        _hookCadence.EnsureInitialized(Time.time, _rng);
+        bool ready = _hookCadence.HookReady(Time.time);
+        bool possible = false;
+        if (ready)
+        {
+            Actor target = ResolvePlayerActor();
+            possible = target is IExternalPullTarget pull && pull.AcceptsExternalPull &&
+                _combatActions && _combatActions.HasClearShotAt(target);
+        }
+        return HookerCadence.Choose(ready, possible, distance);
     }
 
     /// <summary>
@@ -789,12 +813,30 @@ public class EnemyAI : MonoBehaviour
         float distance = Vector3.Distance(transform.position, player.position);
         ArchetypeId? archetype = ResolveArchetypeId();
         EnemyAttackKind kind = EnemyAttackPatterns.Select(_attackTraits, _attackSequence++, distance, archetype);
+        if (archetype == ArchetypeId.Hooker)
+        {
+            EnemyAttackKind? hooker = ChooseHookerAttack(distance);
+            if (!hooker.HasValue)
+            {
+                // Perception raced the player out of reach: nothing to throw, try again shortly.
+                nextAttackTime = Time.time + .2f;
+                if (_reaction) _reaction.EndOffensiveAction(reactionExecution);
+                _attackRoutine = null;
+                ReleaseAttackSlot();
+                yield break;
+            }
+            kind = hooker.Value;
+        }
+        int impactsBefore = _combatActions.ResolvedImpacts;
         // Per-archetype melee telegraph: Rush winds up faster than Grunt (R3.4/R4.3). The override only
         // affects the Punch/DoublePunch beat; Heavy's slam/ground-pound and Charger's charge own their
         // own longer telegraphs and ignore it. A negative sentinel means "keep the attack's default",
         // so ranged archetypes and legacy (non-archetype) enemies are unaffected.
         float meleeWindup = EnemyAttackPatterns.MeleeWindup(archetype);
         yield return _combatActions.Perform(kind, target, attackDamage, CanAttack, boss: false, meleeWindupOverride: meleeWindup);
+        // The hook recharges only once it actually left the hand; an interrupted wind-up keeps it ready.
+        if (kind == EnemyAttackKind.HookLine && _combatActions.ResolvedImpacts > impactsBefore)
+            _hookCadence.OnHookThrown(Time.time, _rng);
         // Cadence jitter (R12): add bounded, seeded random variation to the next-attack delay so the
         // enemy doesn't fire on a metronome, without introducing a new timing channel. The same
         // Max(_attackRecovery, timeBetweenAttacks) value is passed as BOTH the base interval and the

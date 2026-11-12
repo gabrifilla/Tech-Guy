@@ -783,6 +783,9 @@ public class PlayerActor : Actor, IExternalPullTarget
     /// <summary>True while an external pull (a Hooker hook) is displacing this player.</summary>
     public bool IsBeingPulled => _externalPullActive;
 
+    /// <summary>A pull started now would take effect: alive, active, not pulled and outside the escape window.</summary>
+    public bool AcceptsExternalPull => !IsDead && isActiveAndEnabled && !_externalPullActive && _externalPullRecovery <= 0f;
+
     /// <summary>
     /// Begins a bounded pull of the player toward <paramref name="source"/> (the Hooker), suspending
     /// <see cref="CharControlScript"/> agent steering, moving the player's <see cref="NavMeshAgent"/>

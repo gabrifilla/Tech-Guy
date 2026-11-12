@@ -1,6 +1,6 @@
 # Tech Guy — STATUS
 
-**Atualizado:** 11/11/2026 · **Branch:** `gameplayOverhaul` · **Fase atual:** inimigos — passe de ameaça 2 implementado em 11/11/2026 (salas-pacote como padrão, avisos mais longos, anti-loop do Hooker, dash com cooldown, vida 700), aguardando playtest. Salas-pacote aprovadas em playtest em 11/11/2026. 1b.1 aprovada em playtest em 10/11/2026. 1a aprovada em playtest em 09/11/2026. ([plano](plano/TECH_GUY_PLANO_RESET_DE_LOOP.md))
+**Atualizado:** 11/11/2026 · **Branch:** `gameplayOverhaul` · **Fase atual:** Etapa 2 do roteiro — Hooker refeito em 11/11/2026 (gancho em projétil, golpes de corrente, recarga com atraso aleatório, Hooker no Anzol), aguardando playtest. Etapa 1 (playtest dos caminhos curtos) ainda pendente. Frente de ameaça, mana/HUD/dash e salas-pacote aprovadas em 11/11/2026. 1b.1 aprovada em 10/11/2026. 1a aprovada em 09/11/2026. ([plano](plano/TECH_GUY_PLANO_RESET_DE_LOOP.md))
 
 > Ponto de entrada único. `02_ESTADO_E_LACUNAS.md` e `03_PRIORIDADES.md` ficam como histórico e não são mais atualizados.
 
@@ -180,9 +180,17 @@ Decisões: vida por papel e velocidade dos comuns (investida curta e jogador mai
 - **Bloqueio de ambiente:** os testes visuais das salas 09/09B falham com "Failed to capture screen shot", **inclusive no código do último commit, sem estas mudanças** (comparação feita guardando as alterações). Provável causa: o Game view está num segundo monitor. Falhas antigas, sem relação: testes que pedem Arco ou Lança, bloqueados por progressão desde a 1b.
 - **O que jogar:** a caminhada entre salas ficou curta o bastante? Alguma sala ou corredor ficou sobreposto, apertado ou estranho, principalmente nas bifurcações?
 
-### Próximo, depois dos caminhos curtos (pedido do desenvolvedor, 11/11/2026)
-- **Hooker como projétil visível, no estilo do hook do Thresh (LoL):** o gancho sai como um projétil que dá para ver vindo e desviar; lançamento mais rápido e puxão mais rápido até o Hooker. Substitui o puxão atual (decisão 4 da revisão de inimigos). Manter a janela anti-loop de 2,5 s.
-- **Hooker útil fora do gancho:** enquanto o gancho recarrega, ataques de média distância usando a corrente/o gancho (golpes, não puxão). O gancho não volta a ser usado assim que o cooldown termina: uso com atraso aleatório, para ficar imprevisível.
+### Hooker refeito — Etapa 2 (11/11/2026)
+Decisões do desenvolvedor (todas as recomendadas): mira curta + projétil rápido; puxão até o Hooker, que se posiciona perto do perigo; estocada + chicotada; recarga de 5 s + 0 a 2,5 s; Hooker entra no Anzol.
+- **Gancho:** 0,4 s de preparação com uma seta curta de 3 m (antes: linha de 12 m por 0,6 s e acerto instantâneo). Depois, a cabeça do gancho e a corrente voam a 22 m/s até 12 m; a geometria para o gancho. Só pega se a cabeça encostar no jogador; sair da linha ou dar dash através (imunidade do dash) desvia. Sem dano, como antes.
+- **Puxão:** até 1 m do Hooker, em distância/20 m/s (0,15 a 0,6 s; antes 1,5 s). A janela anti-loop de 2,5 s, o fim do puxão se o Hooker for atordoado e a devolução do controle continuam iguais. O Hooker não lança o gancho se o jogador ainda estiver na janela de 2,5 s.
+- **Posição:** o Hooker procura ficar logo atrás dos aliados (1,5 m além do centro do grupo), ou no meio de uma zona de perigo ativa, sempre a 4,5–10,5 m do jogador. Um puxão joga o jogador no meio do grupo ou dentro da zona.
+- **Na recarga:** *Estocada de corrente* (linha de 6,5 m, aviso 0,45 s) a meia distância; *Chicotada* (arco de 100°, 4,5 m, aviso 0,5 s) quando o jogador chega a menos de 4 m. Dano = o do Hooker (12 × 0,9). Sem puxão.
+- **Recarga:** 5 s + 0 a 2,5 s aleatórios depois de cada lançamento; o primeiro gancho do encontro sai entre 0,5 e 2,5 s. Gancho interrompido na preparação não gasta a recarga.
+- **Anzol:** Charger + **Hooker** + Bomber + 4 Rush (antes, o Hooker não aparecia em nenhuma sala-pacote).
+- **Código:** `HookerTactics.cs` (novo: `HookerCadence`, `HookerPositioning`), `EnemyCombatActions` (gancho em projétil, `ChainThrust`/`ChainSweep` adicionados no fim do enum), `EnemyAI` (escolha e recarga), `PreferredDistanceLayer` (âncora do Hooker), `PlayerActor`/`IExternalPullTarget` (`AcceptsExternalPull`), `ProgressionDirector.RoomPacks`.
+- **Testes (Unity MCP):** EditMode `HookerTacticsTests` 4/4. PlayMode RUN00 12/12 (2 novos: o gancho viaja e puxa rápido; desvio andando de lado e com dash), RUN00Published 2/2 (novo: a IA real lança o gancho, puxa, usa a corrente e não repete o gancho antes de 5 s), `ArchetypeIntegrationTests` 4/4, `RoomPacksPrototypePlayModeTests` 3/3. Dois testes antigos ajustados porque o contrato mudou de propósito: o gancho agora tem tempo de voo, e um teste esperava 0,65 s fixos em vez de esperar a janela de 2,5 s acabar. `Spatial09ReinforcementsConcaveEdgesAndHookRecovery` falha no erro conhecido de captura de tela (segundo monitor), **inconclusivo**.
+- **O que jogar:** salas Anzol. Dá para ver o gancho vindo e desviar andando de lado ou com dash? O puxão rápido te joga no meio dos Rush ou da bomba? Entre um gancho e outro, a estocada e a chicotada fazem o Hooker valer a pena como ameaça? O intervalo do gancho parece imprevisível sem virar spam?
 
 ## Roteiro de validação antes da próxima etapa (11/11/2026)
 Preparação: com o jogo fechado, apagar `MetaProgress.json` (e `MetaProgress.v1.json`, se existir) em `%USERPROFILE%\AppData\LocalLow\DefaultCompany\T.G - Tech Guy\`. Salas-pacote ligadas (padrão). Jogar a partir do MainMenu. F9 pula para o boss.
@@ -210,7 +218,7 @@ Perguntas para responder depois: a vida de 700 dá cuidado sem ficar injusta? O 
   4. **Ordem:** (a) legibilidade e ameaça: rótulo com o nome de cada inimigo, melee atacando dentro do alcance, avisos de longe mais fortes, HazardCaster ajustado; (b) mana, HUD e dash 2,0 s; (c) caminhos mais curtos. Uma frente por vez, cada uma jogável.
 
 ## Próxima etapa
-Passe de inimigos jogado em 10/11/2026: aggro e contorno de cobertura aprovados; ranged ficaram alcançáveis (às vezes ainda recuam). **Ainda não há perigo, nem no boss**; segundo o desenvolvedor, a causa é o papel de cada inimigo, não valores ou quantidade. Decisões da revisão aprovadas em 10/11/2026. Salas-pacote aprovadas em 11/11/2026; passe de ameaça 2 jogado em 11/11/2026. Frente de ameaça (passes 1–5) aprovada em 11/11/2026. Mana, HUD e dash aprovados em 11/11/2026. **Agora: playtest dos caminhos mais curtos** → Hooker (gancho visível e ataques de média distância) → mana/HUD/dash → caminhos curtos → (se aprovado) Volátil, Guarda, gancho do Hooker, Shooter/Rajada e pool → Fase 1c (rapport da Ico). Bosses: frente própria, depois.
+Passe de inimigos jogado em 10/11/2026: aggro e contorno de cobertura aprovados; ranged ficaram alcançáveis (às vezes ainda recuam). **Ainda não há perigo, nem no boss**; segundo o desenvolvedor, a causa é o papel de cada inimigo, não valores ou quantidade. Decisões da revisão aprovadas em 10/11/2026. Salas-pacote aprovadas em 11/11/2026; passe de ameaça 2 jogado em 11/11/2026. Frente de ameaça (passes 1–5) aprovada em 11/11/2026. Mana, HUD e dash aprovados em 11/11/2026. **Agora: playtest do Hooker refeito (Etapa 2) e dos caminhos mais curtos (Etapa 1)** → (se aprovado) Volátil, Guarda, gancho do Hooker, Shooter/Rajada e pool → Fase 1c (rapport da Ico). Bosses: frente própria, depois.
 
 ## Backlog
 - Boss do Universo 1 aprovado tecnicamente, mas sem graça no playtest; redesign pendente (diagnóstico e direções A/B/C na revisão de inimigos de 10/11).

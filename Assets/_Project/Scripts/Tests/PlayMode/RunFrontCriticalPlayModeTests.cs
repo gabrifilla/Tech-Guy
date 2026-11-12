@@ -47,7 +47,9 @@ namespace TechGuy.Tests
                 var first = BasicVictim(Vector3.forward * 6).gameObject.AddComponent<EnemyCombatActions>();
                 var second = BasicVictim(Vector3.right * 6).gameObject.AddComponent<EnemyCombatActions>();
                 first.StartCoroutine(RUN00HookLoop(first));
-                yield return new WaitForSeconds(.7f);
+                // Etapa 2: the hook is a projectile, so the connect comes after wind-up + flight, not at wind-up end.
+                float connectDeadline = Time.time + 1.2f;
+                while (!_player.IsBeingPulled && Time.time < connectDeadline) yield return null;
                 Assert.IsTrue(_player.IsBeingPulled, "Production HookLine must actually connect before testing recovery.");
                 second.StartCoroutine(RUN00HookLoop(second));
                 float deadline = Time.time + 2;
@@ -71,6 +73,64 @@ namespace TechGuy.Tests
                 }
                 finally { Object.DestroyImmediate(dash); first.Cancel(); second.Cancel(); }
             }
+        }
+
+        [UnityTest, Category("RUN00")]
+        public IEnumerator RUN00HookIsATravellingProjectileThatYanksQuicklyToTheHooker()
+        {
+            BuildDirectRig(); yield return null;
+            var hooker = BasicVictim(Vector3.forward * 9).gameObject.AddComponent<EnemyCombatActions>();
+            try
+            {
+                hooker.StartCoroutine(hooker.Perform(EnemyAttackKind.HookLine, _player, 0, () => true));
+                yield return new WaitForSeconds(EnemyCombatActions.HookLineWindup + .05f);
+                Assert.IsFalse(_player.IsBeingPulled, "The hook must travel after the wind-up; no instant connect.");
+                float deadline = Time.time + 1f;
+                while (!_player.IsBeingPulled && Time.time < deadline) yield return null;
+                Assert.IsTrue(_player.IsBeingPulled, "A player standing on the throw line is hooked.");
+                float pulledAt = Time.time;
+                deadline = Time.time + 1f;
+                while (_player.IsBeingPulled && Time.time < deadline) yield return null;
+                Assert.IsFalse(_player.IsBeingPulled);
+                Assert.LessOrEqual(Time.time - pulledAt, EnemyCombatActions.HookPullMaxDuration + .1f, "Faster pull than the old 1.5 s.");
+                Vector3 gap = hooker.transform.position - _player.transform.position; gap.y = 0;
+                Assert.Less(gap.magnitude, 2.2f, "The pull lands the player beside the Hooker.");
+                Assert.IsFalse(_player.AcceptsExternalPull, "The 2.5 s escape window still follows a pull.");
+            }
+            finally { hooker.Cancel(); }
+        }
+
+        [UnityTest, Category("RUN00")]
+        public IEnumerator RUN00HookIsDodgedBySideStepOrDashImmunity()
+        {
+            BuildDirectRig(); yield return null;
+            var hooker = BasicVictim(Vector3.forward * 9).gameObject.AddComponent<EnemyCombatActions>();
+            var agent = _player.GetComponent<UnityEngine.AI.NavMeshAgent>();
+            try
+            {
+                // Side-step: the throw direction is locked at wind-up start; leaving the line dodges it.
+                var throwing = hooker.StartCoroutine(hooker.Perform(EnemyAttackKind.HookLine, _player, 0, () => true));
+                yield return new WaitForSeconds(EnemyCombatActions.HookLineWindup * .5f);
+                Vector3 side = _player.transform.position + Vector3.right * 3f;
+                if (agent && agent.enabled && agent.isOnNavMesh) agent.Warp(side); else _player.transform.position = side;
+                float deadline = Time.time + 1.5f;
+                while (Time.time < deadline) { Assert.IsFalse(_player.IsBeingPulled, "Side-stepped hook must miss."); yield return null; }
+                yield return throwing;
+
+                // Dash: damage immunity lets the hook pass through the player.
+                var dashToken = new GameObject("Hook test dash token");
+                _player.AddDamageImmunity(dashToken);
+                try
+                {
+                    Vector3 lane = hooker.transform.position + Vector3.back * 6f; lane.y = _player.transform.position.y;
+                    if (agent && agent.enabled && agent.isOnNavMesh) agent.Warp(lane); else _player.transform.position = lane;
+                    yield return hooker.Perform(EnemyAttackKind.HookLine, _player, 0, () => true);
+                    Assert.IsFalse(_player.IsBeingPulled, "Dash immunity dodges the hook.");
+                    Assert.IsTrue(_player.AcceptsExternalPull, "A dodged hook leaves no escape window to spend.");
+                }
+                finally { _player.RemoveDamageImmunity(dashToken); Object.Destroy(dashToken); }
+            }
+            finally { hooker.Cancel(); }
         }
 
         private IEnumerator RUN00HookLoop(EnemyCombatActions actions)

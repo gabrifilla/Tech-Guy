@@ -43,6 +43,8 @@ public sealed class EnemyCombatActions : MonoBehaviour
         EnemyAttackKind.LobShot => "Bomba em arco",
         EnemyAttackKind.HookLine => "Gancho",
         EnemyAttackKind.HazardPlace => "Zona de perigo",
+        EnemyAttackKind.ChainThrust => "Estocada de corrente",
+        EnemyAttackKind.ChainSweep => "Chicotada",
         _ => "Soco"
     };
 
@@ -99,6 +101,8 @@ public sealed class EnemyCombatActions : MonoBehaviour
             case EnemyAttackKind.LobShot: yield return LobShot(target,damage,valid); break;
             case EnemyAttackKind.HookLine: yield return HookLine(target,damage,valid); break;
             case EnemyAttackKind.HazardPlace: yield return HazardPlace(target,valid); break;
+            case EnemyAttackKind.ChainThrust: yield return ChainStrike(target,damage,valid,sweep:false); break;
+            case EnemyAttackKind.ChainSweep: yield return ChainStrike(target,damage,valid,sweep:true); break;
             default:
                 int punches = kind == EnemyAttackKind.DoublePunch ? 2 : 1;
                 for (int i=0; i<punches && valid(); i++)
@@ -311,14 +315,25 @@ public sealed class EnemyCombatActions : MonoBehaviour
     private const float LobShotImpactRadius = 2f;    // ground-area impact radius (R10.2/R10.3)
     private const float LobShotWindup = .6f;         // aim before the projectile leaves the hand (was .35, threat pass 11/11/2026)
 
-    // Hooker line tuning (R12). This case owns the locked-direction line telegraph and the
-    // connect/miss decision at fire; the actual displacement is the player-side pull entry point
-    // (IExternalPullTarget.BeginExternalPull, implemented by PlayerActor in task 9.1).
-    private const float HookLineWindup = .6f;        // >= Grunt melee windup (0.4s baseline, R4.3/R12.4)
-    private const float HookLineRange = 12f;         // length of the locked hook line
-    private const float HookLineTolerance = 1f;      // hook-line tolerance in [0.5,1.5]m (R12.5)
-    private const float HookPullMaxDuration = 1.5f;  // bounded pull duration <=1.5s (R12.3/R12.6)
+    // Hooker redo (Etapa 2, 11/11/2026): the hook is a visible projectile (short aim cue, then a fast
+    // hook head trailing a chain). It connects only where the head actually is, so stepping off its line or
+    // dashing through it (damage immunity) dodges it. A connect yanks the player quickly to the Hooker via
+    // the player-side bounded pull (IExternalPullTarget.BeginExternalPull, still capped at 1.5 s).
+    internal const float HookLineWindup = .4f;       // short throw wind-up; the flying head is the main warning
+    internal const float HookAimCueLength = 3f;      // short arrow showing the throw direction (was a 12 m lane)
+    internal const float HookProjectileSpeed = 22f;  // 12 m in ~0.55 s
+    internal const float HookHitRadius = .55f;       // hook head + player body
+    internal const float HookPullSpeed = 20f;        // pull duration = distance / speed, clamped below
+    internal const float HookPullMinDuration = .15f, HookPullMaxDuration = .6f;
+    private const float HookRetractSpeed = 30f;
     private static readonly Color HookColor = new Color(.7f,.35f,1f);
+
+    // Chain strikes used while the hook recharges (damage, no pull).
+    internal const float ChainThrustReach = HookerCadence.ThrustRange, ChainThrustWidth = 1.2f, ChainThrustWindup = .45f;
+    internal const float ChainSweepReach = HookerCadence.SweepRange + .5f, ChainSweepAngle = 100f, ChainSweepWindup = .5f;
+    private GameObject _chain, _hookHead;
+    private LineRenderer _chainLine;
+    private Material _chainMaterial;
 
     // Hazard_Caster placement tuning (R11). The concrete HazardZone.Activate is driven by
     // HazardCasterBehavior (task 8.3); this case only owns the >=0.25s placement telegraph (R11.3).
@@ -448,48 +463,163 @@ public sealed class EnemyCombatActions : MonoBehaviour
     }
 
     /// <summary>
-    /// Hooker (R12): face the target and LOCK the hook's straight-line direction at telegraph start,
-    /// showing a LINE telegraph (<see cref="EnemyAttackShape.Lane"/>) for a windup at least as long as
-    /// the Grunt's melee windup (R12.4, floor 0.4s — <see cref="HookLineWindup"/> is 0.6s). The
-    /// direction and origin captured here are held fixed for the whole windup and used unchanged at
-    /// fire (R12.2). When the windup completes, the fire step measures the player's distance to the
-    /// locked hook line: WITHIN <see cref="HookLineTolerance"/> (0.5–1.5m, R12.5) => connect, invoking
-    /// the player-side bounded pull via <see cref="IExternalPullTarget.BeginExternalPull"/> (owned by
-    /// PlayerActor, task 9.1); BEYOND tolerance => miss, resolving with no displacement (R12.5). The
-    /// beat carries <c>damage=0</c>: the hook displaces, it does not deal telegraph damage. Cancels on
-    /// control lock during the windup like every other beat.
+    /// Hooker hook (Etapa 2): face the target and lock the throw direction, show a short aim cue for
+    /// <see cref="HookLineWindup"/>, then throw a visible hook head trailing a chain at
+    /// <see cref="HookProjectileSpeed"/> up to <see cref="HookerCadence.HookRange"/>. Static geometry stops the
+    /// head. The hook connects only if the head's swept path touches the player while the player is not
+    /// damage-immune (a dash through it dodges). A connect yanks the player to the Hooker through
+    /// <see cref="IExternalPullTarget.BeginExternalPull"/> in a time proportional to the distance
+    /// (<see cref="HookPullMinDuration"/>..<see cref="HookPullMaxDuration"/>); the player-side 2.5 s escape
+    /// window and all control-restore guarantees are unchanged. The hook deals no damage.
     /// </summary>
     private IEnumerator HookLine(Actor target,float damage,Func<bool> valid)
     {
-        // Lock the straight-line direction + origin at telegraph start; both stay fixed until fire (R12.2).
         Vector3 forward=Face(target);
         Vector3 origin=MuzzleOrigin(forward);
-        Vector3 lineEnd=origin+forward*HookLineRange;
-        // Line telegraph along the locked direction (a lane the length of the hook's reach), shown for
-        // the full windup so the pull is always readable and avoidable before it fires.
-        var line=new EnemyAttackArea(EnemyAttackShape.Lane,origin,forward,HookLineRange,HookLineTolerance*2);
-        AttackCenter=origin; AttackRadius=HookLineRange;
-        // damage=0: connect resolves as a pull, not telegraph damage. Windup >= Grunt melee windup (R12.4).
-        yield return _warning.Execute(new[]{line},target,HookLineWindup,0,HookColor,valid,
+        Vector3 ground=transform.position;
+        var cue=new EnemyAttackArea(EnemyAttackShape.Lane,ground,forward,HookAimCueLength,HookHitRadius*2);
+        AttackCenter=origin; AttackRadius=HookerCadence.HookRange;
+        yield return _warning.Execute(new[]{cue},target,HookLineWindup,0,HookColor,valid,
             animateWindup:t=>_animation.Strike(SkillMotion.PunchRight,t*HookLineWindup,0,HookLineWindup,HookLineWindup+.5f),
             showWarning:true,impactHold:0);
         if(!_warning.Completed || !valid()) yield break;
         _animation.Contact(SkillMotion.PunchRight); ResolvedImpacts++;
-        // Fire: connect vs miss is decided against the LOCKED hook line (origin->lineEnd), not a fresh
-        // aim, so a player who left the telegraphed line during the windup is missed (R12.2/R12.5).
-        bool connect=SegmentContains(target.transform.position,origin,lineEnd,HookLineTolerance);
-        if(connect && target is IExternalPullTarget pullTarget)
+        EnsureChainVisuals(withHead:true);
+        Vector3 head=origin;
+        _hookHead.transform.position=head;
+        bool connected=false;
+        for(float travelled=0;travelled<HookerCadence.HookRange && valid();)
         {
-            // Within tolerance => pull the player toward this Hooker over a bounded <=1.5s (R12.3).
-            // PlayerActor.BeginExternalPull (task 9.1) suspends CharControlScript steering, moves the
-            // player agent, and always restores control (R12.6/R12.7). Until 9.1 lands, no type
-            // implements IExternalPullTarget, so this branch is skipped and the hook resolves as a
-            // harmless miss rather than breaking compilation.
-            pullTarget.BeginExternalPull(transform,HookPullMaxDuration);
+            if(Time.deltaTime<=0) { DrawChain(HandPosition(forward),head); yield return null; continue; }
+            float step=Mathf.Min(HookProjectileSpeed*Time.deltaTime,HookerCadence.HookRange-travelled);
+            float allowed=ClipTravel(head,forward,step,.15f);
+            Vector3 next=head+forward*allowed;
+            if(!target.IsDamageImmune && SegmentContains(target.transform.position,head,next,HookHitRadius))
+            {
+                head=target.transform.position+Vector3.up*(origin.y-transform.position.y);
+                connected=true;
+            }
+            else head=next;
+            _hookHead.transform.position=head;
+            DrawChain(HandPosition(forward),head);
+            travelled+=allowed;
+            if(connected || allowed+.001f<step) break;
+            yield return null;
         }
-        // Beyond tolerance (or no pull target) => miss: resolve with no displacement (R12.5). Nothing
-        // else to do — the recovery below plays whether the hook connected or missed.
-        yield return Recover(SkillMotion.PunchRight,HookLineWindup,.4f,valid);
+        if(!valid()) yield break;
+        if(connected && target is IExternalPullTarget pullTarget && pullTarget.AcceptsExternalPull)
+        {
+            float distance=Vector3.Distance(Flat(target.transform.position),Flat(transform.position));
+            float duration=Mathf.Clamp((distance-HookPullModel.StopDistance)/HookPullSpeed,HookPullMinDuration,HookPullMaxDuration);
+            pullTarget.BeginExternalPull(transform,duration);
+            // The chain stays taut on the player for the (bounded) pull.
+            for(float elapsed=0;elapsed<HookPullMaxDuration+.1f && valid() && pullTarget.IsBeingPulled;elapsed+=Time.deltaTime)
+            {
+                Vector3 hand=HandPosition(Face(target));
+                head=target.transform.position+Vector3.up*(origin.y-transform.position.y);
+                _hookHead.transform.position=head;
+                DrawChain(hand,head);
+                yield return null;
+            }
+        }
+        // Miss (or a connect the player's escape window refused): the head flies back to the hand.
+        while(valid() && _hookHead)
+        {
+            Vector3 hand=HandPosition(forward);
+            if(Time.deltaTime>0) head=Vector3.MoveTowards(head,hand,HookRetractSpeed*Time.deltaTime);
+            _hookHead.transform.position=head;
+            DrawChain(hand,head);
+            if((head-hand).sqrMagnitude<.04f) break;
+            yield return null;
+        }
+        ClearChainVisuals();
+        yield return Recover(SkillMotion.PunchRight,HookLineWindup,.3f,valid);
+    }
+
+    /// <summary>
+    /// Chain strikes the Hooker uses while the hook recharges: a straight thrust (lane) at mid range, or a
+    /// sweep (cone) when the player is close. Same warning/damage pipeline as melee; no pull.
+    /// </summary>
+    private IEnumerator ChainStrike(Actor target,float damage,Func<bool> valid,bool sweep)
+    {
+        if(!valid()) yield break;
+        Vector3 forward=Face(target), origin=transform.position;
+        var area=sweep
+            ? new EnemyAttackArea(EnemyAttackShape.Cone,origin,forward,ChainSweepReach,angle:ChainSweepAngle)
+            : new EnemyAttackArea(EnemyAttackShape.Lane,origin,forward,ChainThrustReach,ChainThrustWidth);
+        float windup=sweep ? ChainSweepWindup : ChainThrustWindup;
+        SkillMotion motion=sweep ? SkillMotion.PunchLeft : SkillMotion.PunchRight;
+        AttackCenter=area.Center; AttackRadius=area.Reach;
+        yield return _warning.Execute(new[]{area},target,windup,damage,HookColor,valid,
+            ()=>{ _animation.Contact(motion); ResolvedImpacts++; },
+            t=>_animation.Strike(motion,t*windup,0,windup,windup+.5f),showWarning:true,impactHold:0);
+        if(!_warning.Completed || !valid()) yield break;
+        // Short chain flick so the hit reads as the chain, not a punch.
+        EnsureChainVisuals(withHead:false);
+        const float flick=.16f;
+        for(float elapsed=0;elapsed<flick && valid();elapsed+=Time.deltaTime)
+        {
+            float t=Mathf.Clamp01(elapsed/flick);
+            Vector3 hand=HandPosition(forward);
+            Vector3 direction=sweep
+                ? Quaternion.AngleAxis(Mathf.Lerp(-ChainSweepAngle*.5f,ChainSweepAngle*.5f,t),Vector3.up)*forward
+                : forward;
+            float reach=sweep ? ChainSweepReach : ChainThrustReach*Mathf.Sin(t*Mathf.PI);
+            DrawChain(hand,hand+direction*reach);
+            yield return null;
+        }
+        ClearChainVisuals();
+        yield return Recover(motion,windup,.35f,valid);
+    }
+
+    private static Vector3 Flat(Vector3 v) { v.y=0; return v; }
+
+    private Vector3 HandPosition(Vector3 forward)
+    {
+        Transform hand=_animator && _animator.isHuman ? _animator.GetBoneTransform(HumanBodyBones.RightHand) : null;
+        return hand ? hand.position : MuzzleOrigin(forward);
+    }
+
+    private void EnsureChainVisuals(bool withHead)
+    {
+        if(!_chainMaterial)
+        {
+            _chainMaterial=new Material(Shader.Find("Universal Render Pipeline/Unlit"));
+            _chainMaterial.SetColor("_BaseColor",HookColor);
+        }
+        if(!_chain)
+        {
+            _chain=new GameObject("Hooker chain");
+            _chainLine=_chain.AddComponent<LineRenderer>();
+            _chainLine.sharedMaterial=_chainMaterial;
+            _chainLine.positionCount=2; _chainLine.useWorldSpace=true;
+            _chainLine.startWidth=.09f; _chainLine.endWidth=.07f;
+            _chainLine.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;
+        }
+        _chain.SetActive(true);
+        if(withHead && !_hookHead)
+        {
+            _hookHead=GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            _hookHead.name="Hooker hook head";
+            var collider=_hookHead.GetComponent<Collider>(); collider.enabled=false; Destroy(collider);
+            _hookHead.transform.localScale=Vector3.one*.4f;
+            var renderer=_hookHead.GetComponent<Renderer>();
+            renderer.sharedMaterial=_chainMaterial;
+            renderer.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;
+        }
+    }
+
+    private void DrawChain(Vector3 from,Vector3 to)
+    {
+        if(!_chainLine) return;
+        _chainLine.SetPosition(0,from); _chainLine.SetPosition(1,to);
+    }
+
+    private void ClearChainVisuals()
+    {
+        if(_hookHead) { _hookHead.SetActive(false); Destroy(_hookHead); _hookHead=null; }
+        if(_chain) { _chain.SetActive(false); Destroy(_chain); _chain=null; _chainLine=null; }
+        if(_chainMaterial) { Destroy(_chainMaterial); _chainMaterial=null; }
     }
 
     /// <summary>
@@ -594,6 +724,7 @@ public sealed class EnemyCombatActions : MonoBehaviour
         if(_wave) { _wave.gameObject.SetActive(false); Destroy(_wave.gameObject); _wave=null; }
         if(_bolt) { _bolt.SetActive(false); Destroy(_bolt); _bolt=null; }
         if(_boltMaterial) { Destroy(_boltMaterial); _boltMaterial=null; }
+        ClearChainVisuals();
     }
     private void OnDisable() => Cancel();
 }

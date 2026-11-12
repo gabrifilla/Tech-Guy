@@ -123,7 +123,7 @@ Origem: playtest de 10/11 ("IA melhor, mas nada é perigoso, nem o boss"; causa 
 | Sniper (+ Emissor) | linha 1,0 s, 1,8× dano, 14 m | peso dobrado no pool; aviso e disparo podem divergir (GI1.8) | **Pune parar**: no máximo 1 por sala | Manter; limitar a 1 por sala |
 | Bomber | lob 0,35 s + área 2 m na queda; escala 0,5 | pequeno demais para ser lido; o "ataque de cima" do playtest | **Expulsa do lugar**: área onde você está | Manter; corpo maior |
 | HazardCaster | zona a cada 6 s, 6 dano/0,5 s, 35% lento, 6 s | dev ficou dentro sem perder HP (não reproduzido) | **Encolhe a arena**: combina com melee | Manter; verificar o dano |
-| Hooker | linha 0,6 s, puxa 1,5 s, dano 0 | puxar para perto **ajuda** a Manopla; ninguém pune o puxão | **Desloca para o perigo**: puxa para dentro de zona/aliados, ou enraíza | Refazer |
+| Hooker | linha 0,6 s, puxa 1,5 s, dano 0 | puxar para perto **ajuda** a Manopla; ninguém pune o puxão | **Desloca para o perigo**: puxa para dentro de zona/aliados, ou enraíza | **Refeito em 11/11/2026** (gancho em projétil, golpes de corrente; ver STATUS) |
 | Healer | cura 15 a cada 2 s, foge a 3,5 m, usa soco padrão | foge e tenta socar (dois comandos brigando) | **Prioridade**: caçar primeiro | Manter; tirar o soco |
 | ShieldSupport | escudo 40 a cada 4 s | sobrepõe o Healer | **Prioridade**: protege a âncora | Manter, nunca junto do Healer |
 | Spawner | Swarm a cada 3 s, teto 10, 0,4× vel. | aprovado no playtest | **Prioridade/relógio**: a luta piora se você enrolar | Manter |

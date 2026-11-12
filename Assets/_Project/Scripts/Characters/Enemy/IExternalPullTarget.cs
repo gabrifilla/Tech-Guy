@@ -27,4 +27,13 @@ public interface IExternalPullTarget
     /// <param name="source">The Hooker the target is pulled toward.</param>
     /// <param name="maxDuration">Upper bound on the pull duration in seconds (≤ 1.5s per R12.3/R12.6).</param>
     void BeginExternalPull(Transform source, float maxDuration);
+
+    /// <summary>True while an external pull is displacing this target.</summary>
+    bool IsBeingPulled { get; }
+
+    /// <summary>
+    /// True when a pull started now would actually take effect (alive, active, not already pulled and outside
+    /// the post-pull escape window). Lets the Hooker skip a throw that could only fizzle (Etapa 2).
+    /// </summary>
+    bool AcceptsExternalPull { get; }
 }

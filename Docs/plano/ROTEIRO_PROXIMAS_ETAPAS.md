@@ -40,7 +40,7 @@
 - Perguntas: a caminhada ficou curta o bastante? Alguma sala ou corredor ficou sobreposto, apertado ou estranho, principalmente nas bifurcações?
 - **Pendência de validação:** os testes visuais 09/09B falham com "Failed to capture screen shot" também no último commit, sem as mudanças. A causa provável é o Game view num segundo monitor. Com o Game view no monitor principal, rodar `Distribution09B*Gauntlet` e `Spatial09*Gauntlet`. As variantes L e Ring recusaram uma skill da Manopla na linha 84 de `RunExp03FirstSectorTests.Spatial09Gameplay.cs`; confirmar se foi foco perdido ou efeito da compactação.
 
-### Etapa 2 — Hooker refeito *(pedido do desenvolvedor)*
+### Etapa 2 — Hooker refeito *(implementada em 11/11/2026; aguardando playtest — detalhes no STATUS)*
 - **Gancho como projétil visível**, no estilo do hook do Thresh (LoL): dá para ver vindo e desviar; lançamento mais rápido; puxão mais rápido até o Hooker, de preferência para perto dos aliados ou de zona de perigo. Substitui o puxão atual (`EnemyCombatActions.HookLine`, `PlayerActor.BeginExternalPull`).
 - **Útil fora do gancho:** enquanto o gancho recarrega, ataques de média distância com a corrente/gancho (golpes, não puxão).
 - **Imprevisível:** o gancho não sai assim que recarrega; espera um tempo aleatório.
@@ -108,4 +108,3 @@
 ## 6. Decisões ainda em aberto
 - Nome final do Desconhecido, quando ele for "terminado".
 - Quem é o Arco (personalidade e universo).
-- Detalhes do Hooker novo (alcance, velocidades, quais ataques de média distância).
