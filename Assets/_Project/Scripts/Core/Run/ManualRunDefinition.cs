@@ -78,6 +78,18 @@ public sealed class ManualNodeDefinition
     internal void ConfigureCenter(Vector3 center) { _center = center; }
     /// <summary>Room-pack prototype: replaces this run copy's roster (never the authored asset; the snapshot is a copy).</summary>
     internal void ConfigurePrototypeSpawns(IEnumerable<ManualEnemySpawn> spawns) { _spawns = new List<ManualEnemySpawn>(spawns); }
+    /// <summary>
+    /// Fase 1c: a serene fishing room. Technically a Repair-kind node (no combat, resolved on entry with a small
+    /// rest heal), so the route policy and its phases are untouched; this flag only changes presentation and adds the pond.
+    /// </summary>
+    public bool IsSerene { get; private set; }
+    /// <summary>Turns this run copy (never the authored asset) into a serene room: no enemies, no reward, a small rest heal.</summary>
+    internal void ConvertToSerene(float restFraction)
+    {
+        _kind = ManualNodeKind.Repair; _reward = RunRewardKind.None; _acquisitions = 0;
+        _spawns = new List<ManualEnemySpawn>(); _rewardSteps = new List<ManualRewardStep>();
+        _repairFraction = Mathf.Clamp(restFraction, .01f, 1f); IsSerene = true;
+    }
     public float RepairFraction => _repairFraction;
     public IReadOnlyList<ManualEnemySpawn> Spawns => _spawns?.AsReadOnly();
     public bool IsEncounter => Kind == ManualNodeKind.Combat || Kind == ManualNodeKind.Elite || Kind == ManualNodeKind.Boss;
@@ -91,9 +103,10 @@ public sealed class ManualNodeDefinition
     internal ManualNodeDefinition Copy()
     {
         var spawns = new List<ManualEnemySpawn>();
-        foreach (var spawn in _spawns) spawns.Add(new ManualEnemySpawn(spawn.Prefab, spawn.Offset, spawn.Rank));
+        foreach (var spawn in _spawns) spawns.Add(new ManualEnemySpawn(spawn.Prefab, spawn.Offset, spawn.Rank, spawn.Modifier));
         var copy = new ManualNodeDefinition(Id, Label, Kind, Reward, Acquisitions, Center, ArenaSize, RepairFraction, spawns);
         copy.ConfigureSpatialLayout(SpatialLayout);
+        copy.IsSerene = IsSerene;
         if (_rewardSteps != null) copy.ConfigureRewardSteps(_rewardSteps);
         return copy;
     }

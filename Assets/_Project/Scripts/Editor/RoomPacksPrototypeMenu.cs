@@ -40,3 +40,32 @@ public static class EnemyLabelsMenu
         return true;
     }
 }
+
+/// <summary>Fase 1c test aids: force the rare serene fishing room into every run, and grant a rapport gift.</summary>
+public static class RapportPrototypeMenu
+{
+    private const string SerenePath = "Tech Guy/Protótipo/Sala serena em toda run (teste)";
+    private const string GiftPath = "Tech Guy/Protótipo/Ganhar 1 Easter Egg (teste)";
+
+    [MenuItem(SerenePath)]
+    private static void ToggleSerene()
+    {
+        bool enabled = !EditorPrefs.GetBool(ProgressionDirector.ForceSereneRoomPrefKey, false);
+        EditorPrefs.SetBool(ProgressionDirector.ForceSereneRoomPrefKey, enabled);
+        UnityEngine.Debug.Log("[Sala serena] " + (enabled ? "forçada em toda run" : "rara (35% das runs)") + ". Vale a partir da próxima run.");
+    }
+
+    [MenuItem(SerenePath, true)]
+    private static bool ToggleSereneValidate()
+    {
+        Menu.SetChecked(SerenePath, EditorPrefs.GetBool(ProgressionDirector.ForceSereneRoomPrefKey, false));
+        return true;
+    }
+
+    [MenuItem(GiftPath)]
+    private static void GrantGift()
+    {
+        var profile = MetaProgressStore.CreateDefault().AddGift();
+        UnityEngine.Debug.Log("[Rapport] +1 " + Rapport.GiftName + " no perfil (total para entregar: " + profile.gifts + "). Reabra o Nexus para ver.");
+    }
+}

@@ -69,16 +69,17 @@ public static class FragmentEconomy
     public const int BossVictory = 10;       // at the universe boss death
 }
 
-/// <summary>Fase 1b allies. Identity, lore and final lines belong to the developer (placeholders marked TODO-TEXTO).</summary>
+/// <summary>Fase 1b allies. Identity, lore and final lines belong to the developer (first drafts since Fase 1c).</summary>
 public static class MetaAllies
 {
     public const string Unknown = "desconhecido";
     public const string UnknownDisplayName = "Desconhecido";
+    // First draft of the "unfinished NPC" voice (12/11/2026); the developer owns the final text.
     public static readonly string[] UnknownRescueLines =
     {
-        "TODO-TEXTO: …Você consegue me ver? Achei que ninguém mais passava por aqui.",
-        "TODO-TEXTO: Toma, segura isso. É o pouco que eu consigo consertar daqui.",
-        "TODO-TEXTO: Obrigado. Vou te esperar no Nexus.",
+        "…Você consegue me ver? Faz tempo que ninguém olha direto pra mim.",
+        "Eu devia ter uma fala aqui. Acho que alguém ia escrever depois.",
+        "Toma. É o pouco que eu sei consertar. Te espero no lugar seguro. Eu sei o caminho; só não sei por quê.",
     };
     /// <summary>Fraction of max health the ally restores on rescue (immediate payoff inside the run).</summary>
     public const float RescueHealFraction = .30f;
@@ -95,11 +96,8 @@ public static class MetaAllies
         Waiting = new[] { "Ei… não me deixa aqui.", "Por favor, me solta!" },
     };
 
-    public static readonly string[] UnknownNexusLines =
-    {
-        "TODO-TEXTO: Consegui religar este terminal. Ele converte Fragmentos em melhorias.",
-        "TODO-TEXTO: Traga mais Fragmentos e eu faço o resto.",
-    };
+    /// <summary>The first Nexus talk (kept as a field for existing callers); the text lives in <see cref="NexusDialogues"/>.</summary>
+    public static readonly string[] UnknownNexusLines = System.Linq.Enumerable.ToArray(NexusDialogues.Unknown(0));
 }
 
 /// <summary>What a trapped ally says during the rescue room, by moment.</summary>
@@ -123,6 +121,10 @@ public static class MetaProgressSummary
         else if (profile.fragments >= next.Cost) lines.Add("Próxima melhoria: " + next.Name + " (" + next.Cost + ") — já dá para comprar no terminal.");
         else lines.Add("Próxima melhoria: " + next.Name + " — faltam " + (next.Cost - profile.fragments).ToString(CultureInfo.InvariantCulture) + " Fragmentos.");
         if (record != null && !string.IsNullOrEmpty(record.allyRescued)) lines.Add("Novo aliado resgatado.");
+        if (record != null && record.giftsFound > 0)
+            lines.Add(record.giftsFound == 1 ? Rapport.GiftName + " encontrado nesta run!" : record.giftsFound + " " + Rapport.GiftNamePlural + " encontrados nesta run!");
+        if (profile.gifts > 0)
+            lines.Add("Você tem " + profile.gifts + " " + (profile.gifts == 1 ? Rapport.GiftName : Rapport.GiftNamePlural) + " para entregar no Nexus.");
         return string.Join("\n", lines);
     }
 }

@@ -33,6 +33,15 @@ internal sealed class PlayerNavigationMotor
                 var collider = _hits[i].collider;
                 if (collider.transform.IsChildOf(_owner) || ignoreActors && collider.GetComponentInParent<Actor>()) continue;
                 if (Vector3.Dot(_hits[i].normal, Vector3.up) >= .7f) continue;
+                // Already overlapping this collider when the cast starts (a dash or a hook pull passes through
+                // enemies and can end inside one): the cast reports distance 0 for EVERY direction, which froze
+                // walking until the enemy moved (playtest 12/11/2026). Moving away from it is always allowed;
+                // moving deeper into it is still blocked.
+                if (_hits[i].distance <= 0f && _hits[i].point == Vector3.zero)
+                {
+                    Vector3 away = feet - collider.bounds.center; away.y = 0f;
+                    if (away.sqrMagnitude < .000001f || Vector3.Dot(away, offset) >= 0f) continue;
+                }
                 float distance = Mathf.Max(0, _hits[i].distance - Skin);
                 if (distance < allowed) { allowed = distance; normal = _hits[i].normal; }
             }

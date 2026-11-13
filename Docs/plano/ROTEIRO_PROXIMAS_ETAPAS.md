@@ -65,12 +65,26 @@
 - Revisar os pacotes de sala quando esses inimigos existirem.
 - **Em aberto do playtest:** ainda dá para fugir andando sem dash. Opções levantadas: investida curta nos comuns, jogador mais lento, ou deixar o dash (2,0 s) resolver.
 
-### Etapa 4 — Fase 1c: rapport da Ico (Manopla)
+### Etapa 4 — Fase 1c: rapport da Ico (Manopla) *(implementada em 12/11/2026; aguardando playtest — detalhes no STATUS)*
+**Decisões do desenvolvedor (12/11/2026) — substituem o esboço abaixo onde houver conflito:**
+- **Rapport por presentes, não por uso** (modelo néctar/ambrosia do Hades): um item raro é achado nas runs e **entregue a um NPC** no Nexus. Ico e Desconhecido recebem; o jogador escolhe a quem dar.
+- **Custo:** Ico nível 1 de graça (primeira conversa); níveis 2 e 3 custam 1 presente cada; 4 e 5 custam 2 cada (6 no total). Cada entrega toca uma conversa nova. Desconhecido: cada presente revela uma camada (3 agora).
+- **Fontes (≈1 presente a cada 3 runs):** pesca 8% por fisgada (3 por visita), elite 4%, boss 10%. O primeiro presente da vida é garantido na primeira pescaria.
+- **Sala serena de pesca:** tipo **novo e raro** de sala na rota (momento de descanso; minigame simples de pesca). Preservar as salas 09/09B.
+- **Boons por rapport:** revisto no mesmo dia — nível 2 libera Titan Fall; nível 3 libera Ritmo Perfeito. Eco Temporal e Punho Ecoante ficam livres (trancá-los deixava a primeira oferta com 2 cartas). Os boons iniciais serão refeitos depois. Combo Titanic → Conductor → Detonation livre desde o início.
+- **Artefatos (1 slot):** nível 4 — Protetor Bucal (ofertas de elite com 1 opção a mais); nível 5, assinatura — Segundo Round (uma vez por run, levanta do nocaute com 40% da vida); Desconhecido, 1º presente — Anzol da Sorte (dobra a chance de presente na pesca). **O artefato do nível 2 não pode depender de Protocol** (o desenvolvedor quer rever a ideia de Protocol em outro momento): usar um efeito provisório e marcar para revisão.
+- **Nexus:** tudo da Ico fica **na escolha da arma** (cartão do pedestal), com o cartão refeito: visual mais "de jogo", bordas mais épicas e efeitos que mudam com o nível de rapport.
 - Rapport níveis 1–5, subindo com o uso da Manopla (salas, boss, tempo) e com **presentes** raros nas runs.
 - Nível 1: primeira conversa; 2: artefato comum + 2–3 boons da Manopla no pool; 3: conversa + mais boons; 4: segundo artefato; 5: artefato assinatura.
 - **Artefatos** estilo Keepsakes: 1 slot no Nexus, 4–5 no MVP, efeitos que direcionam a build. Ideias: começar com um tipo de boon; primeira oferta de cada universo com Protocol; elites largam presente; uma revivida por run; oferta de elite com opção extra; Fragmentos por sala sem dano.
 - **Texto:** primeiras falas da Ico (smug, sarcástica, solidária; easter egg em homenagem ao *ICO* da Sony, sem assets nem marca) e reescrita das falas do Desconhecido como NPC inacabado (hoje `TODO-TEXTO` em `MetaUpgrades.cs` → `MetaAllies`). Ele ganha uma camada nova a cada retorno ao Nexus.
 - Observar: com vida 500, a cura da sala de reparo e do resgate passou a valer mais; pode pedir ajuste de economia.
+
+### Etapa 4b — Ajustes da Fase 1c pedidos no playtest de 12/11/2026 *(implementada em 12/11/2026; aguardando playtest — detalhes no STATUS)*
+- **Bancada/armário de artefatos** no Nexus: é onde os artefatos ficam guardados e são equipados. Sai do painel da Ico.
+- **Mini-menu de conversa por proximidade** (sem tela cheia): ao chegar perto da Ico (pedestal) ou do Desconhecido, opções curtas como "Entregar Easter Egg" e "Conversar". O terminal de melhorias continua sendo o do Desconhecido.
+- **Feito em gray-box; falta o modelo/arte:** o Desconhecido começa como um prefab **incompleto** e partes dele se reconstroem a cada Easter Egg entregue (3 camadas hoje). Enquanto não há modelo, dá para fazer em gray-box com primitivas (peças que aparecem por camada).
+- Confirmar em jogo as correções do Bomber (voo mínimo de 1,1 s) e do Volátil (bomba ao morrer).
 
 ### Etapa 5 — Fase 1d: Universo 2 em gray-box
 - Universo 2 (cartoonizado) com as salas atuais e os inimigos reaproveitados em outra cor.

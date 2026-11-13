@@ -62,6 +62,7 @@ public sealed partial class ProgressionDirector
         ApplyMetaRouteUpgrades(route);
         ApplyPrototypeRoomPacks(route);
         ApplyEnemyVariety(route);
+        ApplySereneRoom(route);
         _manualPolicy = new ManualRoutePolicy(route);
         MarkStatisticsStart();
         ManualProjection = ManualRoomProjection.Create(route, _manualEnvironment);
@@ -138,6 +139,8 @@ public sealed partial class ProgressionDirector
             !_manualPolicy.TryEnterNode(sessionId, nodeId, ManualContext())) return false;
         _manualEnvironment.ApplyGateState(ManualSession);
         if (ManualSession.Phase == RunPhase.Encounter) SpawnManualEncounter(nodeId);
+        else if (ManualSession.Phase == RunPhase.RepairPending && ManualSession.Route.Node(nodeId).IsSerene)
+            EnterSereneRoom(ManualSession.Route.Node(nodeId));
         return true;
     }
 

@@ -63,6 +63,7 @@ public static class ManualRouteMapPresentation
 
     public static string RewardSummary(ManualNodeDefinition node)
     {
+        if (node.IsSerene) return "Pesca";
         if (node.Kind == ManualNodeKind.Repair) return "Repair";
         if (node.Kind == ManualNodeKind.Boss) return "Boss / extração";
         if (node.Kind == ManualNodeKind.Start) return "Início da rota";
@@ -73,6 +74,7 @@ public static class ManualRouteMapPresentation
 
     public static string RewardAbbreviation(ManualNodeDefinition node)
     {
+        if (node.IsSerene) return "PESCA";
         if (node.Kind == ManualNodeKind.Repair) return "REPAIR";
         if (node.Kind == ManualNodeKind.Boss) return "BOSS";
         if (node.Kind == ManualNodeKind.Start) return "INÍCIO";
@@ -130,6 +132,7 @@ public static class ManualRouteMapPresentation
     public static string EncounterSummary(ManualNodeDefinition node)
     {
         if (node.Kind == ManualNodeKind.Start) return "Planeje seu percurso até o Boss.";
+        if (node.IsSerene) return "Sem combate · descanso e pesca (até " + GiftEconomy.CastsPerVisit + " lançamentos).";
         if (node.Kind == ManualNodeKind.Repair) return "Sem combate · um uso · até " + (node.RepairFraction * 100f).ToString("0") + "% da vida máxima.";
         int elites = node.Spawns.Count(s => s.Rank == EnemyRank.Elite);
         return node.Kind == ManualNodeKind.Boss ? "Confronto final. A vitória libera a extração." :

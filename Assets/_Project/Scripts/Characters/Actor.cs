@@ -72,6 +72,12 @@ public class Actor : MonoBehaviour
     /// </summary>
     public bool IsDamageImmune => _damageImmunitySources.Count > 0;
 
+    /// <summary>
+    /// Called when a hit leaves health at zero, before <see cref="Death"/>. Returning true after raising health
+    /// above zero cancels the death (the artifact revive). Null by default: nothing changes for other actors.
+    /// </summary>
+    internal Func<Actor, bool> LethalDamageInterceptor;
+
     public void SetDamageTakenMultiplier(UnityEngine.Object source, float multiplier)
     {
         if (source) _damageTakenModifiers[source] = Mathf.Clamp(multiplier, 0.1f, 10f);
@@ -196,6 +202,8 @@ public class Actor : MonoBehaviour
 
         if (health <= 0)
         {
+            // Fase 1c ("Segundo Round"): one owner may veto this death after restoring health itself.
+            if (LethalDamageInterceptor != null && LethalDamageInterceptor(this) && health > 0f) return;
             var previous = _deathNotifications;
             _deathNotifications = notifications;
             try { Death(); } finally { _deathNotifications = previous; }

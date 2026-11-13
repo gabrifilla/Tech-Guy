@@ -13,6 +13,16 @@ public sealed class MetaRunRecord
     public string allyRescued = "";
     public string startedUtc = "";
     public string finishedUtc = "";
+    // Fase 1c (additive): rapport gifts found in this run.
+    public int giftsFound;
+}
+
+/// <summary>Rapport with one NPC: how many gifts it has received (Fase 1c). The level is derived, never stored.</summary>
+[Serializable]
+public sealed class MetaRapportEntry
+{
+    public string npcId = "";
+    public int giftsGiven;
 }
 
 /// <summary>
@@ -40,10 +50,24 @@ public sealed class MetaProgressProfile
     public List<MetaRunRecord> runHistory = new List<MetaRunRecord>();
     // v2, added 10/11/2026 (additive: a missing field reads as empty) — dialogue keys already shown in full.
     public List<string> seenDialogues = new List<string>();
+    // v2, added 12/11/2026 (Fase 1c, additive): rapport by gifts, artifact collection and the equipped artifact.
+    public int gifts;
+    public int giftsFoundTotal;
+    public List<MetaRapportEntry> rapport = new List<MetaRapportEntry>();
+    public List<string> artifacts = new List<string>();
+    public string equippedArtifact = "";
 
     public bool HasUpgrade(string id) => upgrades != null && upgrades.Contains(id);
     public bool HasAlly(string id) => rescuedAllies != null && rescuedAllies.Contains(id);
     public bool HasSeenDialogue(string key) => seenDialogues != null && seenDialogues.Contains(key);
+    public bool HasArtifact(string id) => !string.IsNullOrEmpty(id) && artifacts != null && artifacts.Contains(id);
+    public bool HasEquipped(string id) => !string.IsNullOrEmpty(id) && equippedArtifact == id && HasArtifact(id);
+    public int GiftsGivenTo(string npcId)
+    {
+        if (rapport == null || string.IsNullOrEmpty(npcId)) return 0;
+        foreach (var entry in rapport) if (entry != null && entry.npcId == npcId) return Math.Max(0, entry.giftsGiven);
+        return 0;
+    }
     public MetaRunRecord FindRun(string sessionId)
     {
         if (string.IsNullOrEmpty(sessionId) || runHistory == null) return null;
@@ -208,6 +232,47 @@ public sealed class MetaProgressStore
         return profile;
     }
 
+    /// <summary>A rapport gift was found in a run: banked at once (kept on death and abandon).</summary>
+    public MetaProgressProfile AddGift(string sessionId = null)
+    {
+        var profile = Load();
+        profile.gifts = checked(profile.gifts + 1);
+        profile.giftsFoundTotal = checked(profile.giftsFoundTotal + 1);
+        var record = profile.FindRun(sessionId);
+        if (record != null) record.giftsFound++;
+        Save(profile);
+        return profile;
+    }
+
+    /// <summary>
+    /// Hands one gift to <paramref name="npcId"/>. False when there is no gift, the NPC is unknown or already at its
+    /// maximum. Artifacts unlocked by the new rapport are added to the collection in the same save.
+    /// </summary>
+    public bool TryGiveGift(string npcId, out MetaProgressProfile profile)
+    {
+        profile = Load();
+        int given = profile.GiftsGivenTo(npcId);
+        if (profile.gifts <= 0 || !Rapport.CanReceive(npcId, given)) return false;
+        profile.gifts--;
+        MetaRapportEntry entry = null;
+        foreach (var candidate in profile.rapport) if (candidate != null && candidate.npcId == npcId) entry = candidate;
+        if (entry == null) { entry = new MetaRapportEntry { npcId = npcId }; profile.rapport.Add(entry); }
+        entry.giftsGiven = given + 1;
+        foreach (var artifact in Artifacts.UnlockedBy(npcId, entry.giftsGiven))
+            if (!profile.artifacts.Contains(artifact.Id)) profile.artifacts.Add(artifact.Id);
+        return Save(profile);
+    }
+
+    /// <summary>Equips an owned artifact (or none with an empty id). False when it is not in the collection.</summary>
+    public bool TryEquipArtifact(string artifactId, out MetaProgressProfile profile)
+    {
+        profile = Load();
+        artifactId ??= "";
+        if (artifactId.Length > 0 && !profile.HasArtifact(artifactId)) return false;
+        profile.equippedArtifact = artifactId;
+        return Save(profile);
+    }
+
     /// <summary>Marks a dialogue as seen (saved at once). Idempotent.</summary>
     public MetaProgressProfile RecordDialogueSeen(string dialogueKey)
     {
@@ -231,6 +296,13 @@ public sealed class MetaProgressStore
         profile.runHistory ??= new List<MetaRunRecord>();
         profile.runHistory.RemoveAll(record => record == null);
         profile.seenDialogues ??= new List<string>();
+        profile.rapport ??= new List<MetaRapportEntry>();
+        profile.rapport.RemoveAll(entry => entry == null || string.IsNullOrEmpty(entry.npcId));
+        profile.artifacts ??= new List<string>();
+        profile.equippedArtifact ??= "";
+        if (profile.gifts < 0) profile.gifts = 0;
+        if (profile.giftsFoundTotal < 0) profile.giftsFoundTotal = 0;
+        if (profile.equippedArtifact.Length > 0 && !profile.artifacts.Contains(profile.equippedArtifact)) profile.equippedArtifact = "";
         // Retired upgrades are refunded and removed (idempotent: the file only changes on the next save).
         foreach (var retired in MetaUpgrades.RetiredRefunds)
             if (profile.upgrades.Remove(retired.Key)) profile.fragments += retired.Value;

@@ -76,6 +76,8 @@ public sealed class EnemyProjectile : MonoBehaviour
     private Vector3 _launchPoint;    // arced path start
     private Vector3 _groundPoint;    // arced path landing point
     private float _arcHeight;        // arced path apex height
+    /// <summary>Shortest flight of an arced shot (Bomber): the landing warning is readable for at least this long.</summary>
+    public const float MinArcFlight = 1.1f;
     private float _flightDuration;   // arced path total flight time
     private float _flightElapsed;    // arced path elapsed flight time
 
@@ -152,7 +154,9 @@ public sealed class EnemyProjectile : MonoBehaviour
         _groundPoint.y = _launchPoint.y;
 
         float distance = Vector3.Distance(_launchPoint, _groundPoint);
-        _flightDuration = Mathf.Max(0.15f, distance / _speed);
+        // Playtest 12/11/2026: a close lob landed in ~0.15–0.4 s, before the ground warning could be read ("I know I
+        // will take damage"). The warning now always stays at least MinArcFlight on the floor.
+        _flightDuration = Mathf.Max(MinArcFlight, distance / _speed);
         _arcHeight = Mathf.Clamp(distance * 0.5f, 1.5f, 8f);
         _flightElapsed = 0f;
 

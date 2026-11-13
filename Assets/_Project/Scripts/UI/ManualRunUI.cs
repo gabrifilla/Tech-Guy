@@ -371,7 +371,21 @@ public sealed partial class ManualRunUI : MonoBehaviour
     private static Color IconColor(ManualNodeKind kind, RunRewardKind reward) => kind == ManualNodeKind.Repair ? Completed :
         kind == ManualNodeKind.Elite ? new Color(1f, .47f, .29f) : kind == ManualNodeKind.Boss ? new Color(1f, .34f, .43f) :
         reward == RunRewardKind.Mutation ? new Color(.78f, .57f, 1f) : reward == RunRewardKind.Protocol ? new Color(.39f, .76f, 1f) : Gold;
-    private static void DrawIcon(Rect rect, ManualNodeDefinition node, Color color) => DrawIcon(rect, node.Kind, node.Reward, color);
+    private static readonly Color Serene = new Color(.38f, .86f, .78f);
+    private static void DrawIcon(Rect rect, ManualNodeDefinition node, Color color)
+    {
+        if (node != null && node.IsSerene) { DrawSereneIcon(rect); return; }
+        DrawIcon(rect, node.Kind, node.Reward, color);
+    }
+    /// <summary>Fase 1c: a fish-hook glyph (line, curve, barb) for the serene fishing room.</summary>
+    private static void DrawSereneIcon(Rect r)
+    {
+        Vector2 c = r.center; float w = Mathf.Max(2f, r.width * .12f);
+        DrawLine(new Vector2(c.x + r.width * .18f, r.y + 1), new Vector2(c.x + r.width * .18f, r.yMax - r.height * .32f), Serene, w);
+        DrawLine(new Vector2(c.x + r.width * .18f, r.yMax - r.height * .32f), new Vector2(c.x, r.yMax - 2), Serene, w);
+        DrawLine(new Vector2(c.x, r.yMax - 2), new Vector2(c.x - r.width * .26f, r.yMax - r.height * .30f), Serene, w);
+        DrawLine(new Vector2(c.x - r.width * .26f, r.yMax - r.height * .30f), new Vector2(c.x - r.width * .12f, r.yMax - r.height * .52f), Serene, w);
+    }
     private static void DrawIcon(Rect r, ManualNodeKind kind, RunRewardKind reward, Color color)
     {
         Vector2 c = r.center;

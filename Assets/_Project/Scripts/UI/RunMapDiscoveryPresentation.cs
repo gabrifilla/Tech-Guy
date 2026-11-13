@@ -31,6 +31,7 @@ public static class RunMapDiscoveryPresentation
     {
         var node = session?.Route.Node(nodeId);
         if (node == null) return Unknown;
+        if (node.IsSerene) return "Sala serena · pesca e um pouco de descanso";
         if (node.Kind == ManualNodeKind.Repair)
             return "Recuperação · até " + (node.RepairFraction * 100f).ToString("0") + "% da vida máxima";
         if (node.Kind == ManualNodeKind.Boss) return "Extração";
@@ -41,6 +42,7 @@ public static class RunMapDiscoveryPresentation
     {
         var node = session?.Route.Node(nodeId);
         if (node == null) return Unknown;
+        if (node.IsSerene) return "PESCA";
         if (node.Kind == ManualNodeKind.Repair) return "RECUP.";
         if (node.Kind == ManualNodeKind.Boss) return "EXTRAÇÃO";
         return ManualRouteMapPresentation.RewardAbbreviation(node);
@@ -53,6 +55,7 @@ public static class RunMapDiscoveryPresentation
     {
         if (!IsDiscovered(session, nodeId)) return "Explore esta sala para revelar seu conteúdo.";
         var node = session.Route.Node(nodeId);
+        if (node.IsSerene) return "Um lugar calmo. Pesque no lago: quase sempre vêm Fragmentos; raramente, um " + Rapport.GiftName + ".";
         switch (node.Kind)
         {
             case ManualNodeKind.Repair: return "Recupere vida sem enfrentar inimigos. Esta oportunidade pode ser usada ou dispensada uma vez.";

@@ -61,6 +61,26 @@ public sealed partial class RunBoons
         _manualRewards.RerollsRemaining = Mathf.Max(0, rerolls);
     }
 
+    // Fase 1c: Ico's rapport level gates four Gauntlet boons; the Protetor Bucal artifact adds a card in elite rooms.
+    // Defaults keep everything unlocked, so runs that never call ConfigureManualRapport behave as before.
+    private int _manualIcoLevel = Rapport.IcoMaxLevel, _manualEliteExtraChoices, _manualBaseOfferCount = 3;
+
+    /// <summary>Fase 1c: rapport level and artifact effects for this run. Called once after binding.</summary>
+    public void ConfigureManualRapport(int icoLevel, int eliteExtraChoices)
+    {
+        _manualIcoLevel = Mathf.Clamp(icoLevel, 1, Rapport.IcoMaxLevel);
+        _manualEliteExtraChoices = Mathf.Max(0, eliteExtraChoices);
+        if (_manualRewards != null) _manualBaseOfferCount = _manualRewards.OfferCount;
+    }
+
+    /// <summary>Eligible offers for this run: the catalog's, minus the boons Ico's rapport has not unlocked yet.</summary>
+    private IReadOnlyList<Offer> ManualEligible(RunRewardKind kind)
+    {
+        var eligible = ManualRewardCatalog.Eligible(kind, WeaponModifiers, _weapon, Protocols, _manualRoute.Session.ProtocolAcquisitions + 1);
+        if (_manualIcoLevel >= Rapport.IcoMaxLevel) return eligible;
+        return eligible.Where(offer => Rapport.IsBoonUnlocked(offer.Id, _manualIcoLevel)).ToList().AsReadOnly();
+    }
+
     public int ManualRerollsRemaining => _manualRewards?.RerollsRemaining ?? 0;
     public bool CanRerollManual => IsChoosing && _manualTicket != null && _manualTicket.State == RunRewardTicketState.Pending &&
         !_manualTicket.IsAlternative && ManualRerollsRemaining > 0 &&
@@ -97,11 +117,12 @@ public sealed partial class RunBoons
     {
         if(_manualRewards==null||!_player||_player.IsDead||_player.CurrentWeapon!=_weapon) return null;
         var node=_manualRoute.Session.Route.Node(request.NodeId); if(node==null) return null;
+        if (_manualEliteExtraChoices > 0)
+            _manualRewards.OfferCount = Mathf.Clamp(_manualBaseOfferCount + (node.Kind == ManualNodeKind.Elite ? _manualEliteExtraChoices : 0), 1, 4);
         var ticket = _manualRewards.Open(request, new RunActionContext(true),
             ManualInventoryKey(),
             TitanicConductorPlaytestRewards.Prioritize(_manualRoute.Session.Route, node.RewardAt(request.Ordinal),
-                ManualRewardCatalog.Eligible(node.RewardAt(request.Ordinal), WeaponModifiers, _weapon, Protocols,
-                    _manualRoute.Session.ProtocolAcquisitions + 1), Protocols),
+                ManualEligible(node.RewardAt(request.Ordinal)), Protocols),
             ManualRewardCatalog.Alternatives(node.RewardAt(request.Ordinal), WeaponModifiers, _weapon, Protocols));
         if (ticket == null) return null;
         _manualTicket = ticket;
@@ -134,8 +155,7 @@ public sealed partial class RunBoons
             () => _player.CurrentWeapon == _weapon && WeaponModifiers.Family == WeaponRunModifiers.Identify(_weapon) &&
                 ManualRewardContext().CanConfirm && (ticket.IsAlternative &&
                 ManualRewardCatalog.Alternatives(ticket.AnnouncedKind, WeaponModifiers, _weapon, Protocols).Any(o => o.Id == offer.Id) ||
-                ManualRewardCatalog.Eligible(ticket.AnnouncedKind, WeaponModifiers, _weapon, Protocols,
-                    _manualRoute.Session.ProtocolAcquisitions + 1).Any(o => o.Id == offer.Id)),
+                ManualEligible(ticket.AnnouncedKind).Any(o => o.Id == offer.Id)),
             () =>
             {
                 if (offer.Id == RunBoonOfferCatalog.ExhaustedId) { IsChoosing = false; _choices.Clear(); }

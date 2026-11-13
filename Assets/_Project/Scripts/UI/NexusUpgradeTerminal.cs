@@ -30,6 +30,14 @@ public sealed class NexusUpgradeTerminal : MonoBehaviour
     private readonly List<(Image background, TMP_Text name, TMP_Text detail, TMP_Text state)> _rows = new List<(Image, TMP_Text, TMP_Text, TMP_Text)>();
     private GUIStyle _prompt;
     private CharControlScript _inputOwner;
+    // Etapa 4b: mini menu next to the Desconhecido (terminal · conversar · entregar Easter Egg) and his gray-box body,
+    // which is rebuilt piece by piece with every gift.
+    private readonly ProximityMenu _menu = new ProximityMenu();
+    private readonly List<ProximityMenu.Option> _menuOptions = new List<ProximityMenu.Option>(3);
+    private readonly System.Random _chatRng = new System.Random();
+    private UnknownFigure _figure;
+
+    public UnknownFigure Figure => _figure;
 
     public bool IsActive => _active;
     public bool IsOpen => _open;
@@ -51,8 +59,49 @@ public sealed class NexusUpgradeTerminal : MonoBehaviour
     {
         if (!_active) return;
         if (_open) { UpdatePanel(); return; }
-        if (GameplayModal.IsOpen || !PlayerInRange) return;
-        if (GamePreferences.WasPressed(GamePreferences.InteractionAction)) Talk();
+        if (GameplayModal.IsOpen || DialoguePanel.IsOpen || !PlayerInRange) return;
+        if (_menu.WasChosen(0)) Talk();
+        else if (_menu.WasChosen(1)) Chat();
+        else if (_menu.WasChosen(2)) TryGiveGift();
+    }
+
+    /// <summary>"Conversar": one short line; he has more to say once a layer is back (public for tests and tools).</summary>
+    public void Chat()
+    {
+        if (!_active || _open || GameplayModal.IsOpen || DialoguePanel.IsOpen) return;
+        if (HasNewDialogue) { Talk(); return; }
+        _profile = _store.Load();
+        int layers = Rapport.UnknownLayers(_profile.GiftsGivenTo(MetaAllies.Unknown));
+        DialoguePanel.Show(MetaAllies.UnknownDisplayName, new[] { NexusDialogues.UnknownChatLine(layers, _chatRng.NextDouble()) }, null, _inputOwner);
+    }
+
+    /// <summary>
+    /// "Entregar Easter Egg": one gift to the Desconhecido — a new layer of him (his body gains its pieces) and its
+    /// conversation. False without a gift or at his maximum.
+    /// </summary>
+    public bool TryGiveGift()
+    {
+        if (!_active || _open || GameplayModal.IsOpen || DialoguePanel.IsOpen) return false;
+        bool given = _store.TryGiveGift(MetaAllies.Unknown, out var profile);
+        _profile = profile;
+        if (!given)
+        {
+            RunToast.Show(_profile.gifts <= 0 ? "Você não tem nenhum " + Rapport.GiftName + "." : "O Desconhecido já recebeu tudo o que consegue guardar.", Muted, 2.5f);
+            return false;
+        }
+        int gifts = _profile.GiftsGivenTo(MetaAllies.Unknown);
+        if (_figure) _figure.Rebuild(Rapport.UnknownLayers(gifts));
+        string key = NexusDialogues.UnknownKey(gifts), artifact = "";
+        foreach (var candidate in Artifacts.All)
+            if (candidate.NpcId == MetaAllies.Unknown && candidate.GiftsRequired == gifts) artifact = candidate.Name;
+        DialoguePanel.Show(MetaAllies.UnknownDisplayName, NexusDialogues.Unknown(gifts), () =>
+        {
+            if (!this) return;
+            _profile = _store.RecordDialogueSeen(key);
+            RunToast.Show("Camada " + gifts + "/" + Rapport.UnknownMaxLayers + ": " + NexusDialogues.UnknownLayerSummary(gifts) +
+                (artifact.Length > 0 ? "  Novo artefato no armário: " + artifact + "." : ""), Gold, 5f);
+        }, _inputOwner);
+        return true;
     }
 
     /// <summary>True while the ally still has an unseen line; otherwise interacting opens the terminal straight away.</summary>
@@ -179,7 +228,7 @@ public sealed class NexusUpgradeTerminal : MonoBehaviour
         Part(PrimitiveType.Cube, Mat(body, 0), new Vector3(0, .6f, 0), new Vector3(1.1f, 1.2f, .6f), "Terminal body");
         Part(PrimitiveType.Cube, _active ? Mat(Cyan, 1.4f) : Mat(new Color(.05f, .06f, .07f), 0), new Vector3(0, 1.45f, -.05f), new Vector3(1f, .65f, .08f), "Terminal screen");
         if (!_active) return;
-        Part(PrimitiveType.Capsule, Mat(new Color(.55f, .58f, .62f), 0), new Vector3(1.3f, 1f, .2f), new Vector3(.55f, .9f, .55f), "Desconhecido");
+        _figure = UnknownFigure.Create(transform, new Vector3(1.3f, 0f, .2f), Rapport.UnknownLayers(_profile.GiftsGivenTo(MetaAllies.Unknown)));
         var glow = new GameObject("Terminal glow").AddComponent<Light>();
         glow.transform.SetParent(transform, false); glow.transform.localPosition = new Vector3(0, 1.8f, -.6f);
         glow.type = LightType.Point; glow.color = Cyan; glow.intensity = 2.5f; glow.range = 6f;
@@ -195,12 +244,19 @@ public sealed class NexusUpgradeTerminal : MonoBehaviour
 
     private void OnGUI()
     {
-        if (!_active || _open || GameplayModal.IsOpen || !PlayerInRange) return;
-        _prompt ??= new GUIStyle(GUI.skin.label) { fontSize = Mathf.RoundToInt(Screen.height / 36f), alignment = TextAnchor.MiddleCenter, fontStyle = FontStyle.Bold };
-        _prompt.normal.textColor = Cyan;
-        GUI.Label(new Rect(0, Screen.height * .70f, Screen.width, Screen.height * .06f),
-            "[" + GamePreferences.BindingLabel(GamePreferences.InteractionAction) + "] " +
-            (HasNewDialogue ? "Falar com " + MetaAllies.UnknownDisplayName : "Terminal de melhorias"), _prompt);
+        if (!_active || _open || GameplayModal.IsOpen || DialoguePanel.IsOpen || !PlayerInRange) return;
+        int given = _profile.GiftsGivenTo(MetaAllies.Unknown), layers = Rapport.UnknownLayers(given);
+        bool canReceive = Rapport.CanReceive(MetaAllies.Unknown, given), has = _profile.gifts > 0;
+        _menuOptions.Clear();
+        _menuOptions.Add(new ProximityMenu.Option(HasNewDialogue ? "Falar com " + MetaAllies.UnknownDisplayName : "Terminal de melhorias",
+            HasNewDialogue ? "" : "Saldo: " + _profile.fragments + " Fragmentos"));
+        _menuOptions.Add(new ProximityMenu.Option("Conversar"));
+        _menuOptions.Add(!canReceive
+            ? new ProximityMenu.Option("Entregar " + Rapport.GiftName, "Ele já está tão completo quanto consegue ficar.", false, "COMPLETO")
+            : has ? new ProximityMenu.Option("Entregar " + Rapport.GiftName, "Um pedaço dele volta a cada entrega.", true, _profile.gifts + " em mãos")
+                  : new ProximityMenu.Option("Entregar " + Rapport.GiftName, "Você não tem nenhum. Pesca na sala serena, elites e o boss.", false, "SEM ITEM"));
+        _menu.Draw(MetaAllies.UnknownDisplayName.ToUpperInvariant(),
+            "Ficha " + layers + "/" + Rapport.UnknownMaxLayers + "  ·  " + NexusDialogues.UnknownLayerSummary(layers), _menuOptions, 2);
     }
 
     private void OnDisable() => CloseTerminal();

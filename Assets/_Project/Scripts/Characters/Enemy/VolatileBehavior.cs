@@ -19,16 +19,34 @@ public sealed class VolatileBehavior : MonoBehaviour
         _ai = GetComponent<EnemyAI>();
     }
 
-    private void OnEnable() { if (_owner) _owner.Died += OnDied; }
-    private void OnDisable() { if (_owner) _owner.Died -= OnDied; }
+    private bool _bombSpawned;
 
-    private void OnDied(Actor actor)
+    /// <summary>True once this Volátil left its bomb (test seam).</summary>
+    public bool BombSpawned => _bombSpawned;
+
+    // Subscribed for the whole lifetime, like CoinDrop. Hits from the player publish Died through the impact
+    // feedback (after the hit-stop), by which time this object was already being destroyed: with the old
+    // OnEnable/OnDisable pair the handler was gone and no bomb appeared in real combat (playtest 12/11/2026).
+    private void Start() { if (_owner) _owner.Died += OnDied; }
+
+    private void OnDestroy()
     {
+        if (_owner) _owner.Died -= OnDied;
+        // Safety net for any ordering: a Volátil that died always leaves its bomb, even if Died never reached us.
+        if (_owner && _owner.IsDead && gameObject.scene.isLoaded) SpawnBomb();
+    }
+
+    private void OnDied(Actor actor) => SpawnBomb();
+
+    private void SpawnBomb()
+    {
+        if (_bombSpawned) return;
         if (!_ai || !_ai.player) return;
         var player = _ai.player.GetComponent<PlayerActor>();
-        if (!player) return;
-        // Detached from the dying enemy (which is destroyed this frame); parented to the encounter root so
-        // an encounter teardown removes a pending bomb with the rest of the room.
+        if (!player || player.IsDead) return;
+        _bombSpawned = true;
+        // Detached from the dying enemy; parented to the encounter root so an encounter teardown removes a
+        // pending bomb with the rest of the room.
         VolatileBlast.Spawn(transform.position, player, transform.parent);
     }
 }

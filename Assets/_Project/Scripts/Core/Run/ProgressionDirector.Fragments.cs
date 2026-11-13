@@ -44,7 +44,8 @@ public sealed partial class ProgressionDirector
         }
         if (_manualRepair != null && Owns(MetaUpgrades.Repair)) _manualRepair.FractionBonus = MetaUpgrades.RepairFractionBonus;
         if (_boons) _boons.ConfigureManualRunUpgrades(Owns(MetaUpgrades.FourthOption) ? MetaUpgrades.OfferCountWithFourthOption : 3,
-            MetaUpgrades.RerollsFor(_metaProfileAtStart));
+            MetaUpgrades.RerollsFor(_metaProfileAtStart) + (Equipped(Artifacts.SparringWrap) ? Artifacts.SparringWrapRerolls : 0));
+        ApplyRapportToRun();
     }
 
     private void BeginFragmentRun()
@@ -63,6 +64,7 @@ public sealed partial class ProgressionDirector
         _fragmentsTracking = false;
         CoinPickup.FragmentsCollected -= OnFragmentsCollected;
         if (_player) { _player.HealthChanged -= OnPlayerHealthChangedForMeta; if (_player.Stats != null) _player.Stats.RemoveModifiersFrom(this); }
+        EndRapportRun();
     }
 
     private void OnFragmentsCollected(int value) => AddRunFragments(value);
@@ -101,6 +103,7 @@ public sealed partial class ProgressionDirector
     {
         if (elite) elite.Died -= OnManualEliteDied;
         AddRunFragments(FragmentEconomy.EliteKilled);
+        if (elite) TryDropGift(elite.transform.position, GiftEconomy.EliteChance);
     }
 
     /// <summary>The encounter frontier resolved this room: floor pickup, room bonuses, ally capsule, then bank.</summary>
@@ -123,6 +126,7 @@ public sealed partial class ProgressionDirector
     {
         AddRunFragments(FragmentEconomy.BossVictory);
         FlushRunFragments();
+        if (_player) TryDropGift(_player.transform.position, GiftEconomy.BossChance);
     }
 
     private void SpawnRescueCapsule(ManualNodeDefinition node)

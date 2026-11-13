@@ -33,7 +33,7 @@ Conclusão: o núcleo (combate) funciona. O que falta é o **loop ao redor**: me
 
 Começar com **duas** moedas, não mais:
 - **Fragmentos de Dados** (comum): ganhos em toda run, inclusive na morte. Gastos num terminal do Nexus.
-- **Rapport por arma:** sobe ao usar a arma (salas vencidas, boss, tempo de uso) e com **presentes** raros achados nas runs.
+- **Rapport por NPC (revisto em 12/11/2026):** sobe só com **presentes** raros achados nas runs e entregues no Nexus (Ico e Desconhecido), como o néctar do Hades. Não sobe por uso.
 
 **Rapport — níveis por arma:** ver o esboço na seção 7.
 
@@ -50,7 +50,7 @@ Começar com **duas** moedas, não mais:
 **Fase 1 — Motivo para jogar.**
 - 1a: Universo 1 com fim claro (boss vencível → tela de vitória → retorno ao Nexus).
 - 1b: Fragmentos + primeiro NPC resgatável no Universo 1, que abre o terminal do Nexus + tela de fim de run com progresso. *Playtest 10/11/2026: estrutura aprovada; economia rápida demais, catálogo pouco empolgante (só o reroll), boon extra grátis vetado, resgate sem urgência. O gancho veio do NPC, não da tela de resultado. Detalhes no STATUS.*
-- 1c: Rapport da Manopla (níveis 1–5, artefatos nos níveis 2, 4 e 5) + presentes + slot de artefato no Nexus.
+- 1c: Rapport da Manopla (níveis 1–5, artefatos nos níveis 2, 4 e 5) + presentes + slot de artefato no Nexus. *Implementada em 12/11/2026 com mudança de modelo decidida pelo desenvolvedor: rapport **por presentes entregues aos NPCs** (não por uso), sala serena de pesca e a Ico no cartão da arma. Detalhes no STATUS.*
 - 1d: Universo 2 em **gray-box** (salas atuais, inimigos reaproveitados com outra cor) + **sala de descanso** entre universos (troca de artefato, cura) + Lança liberada ao vencer o Universo 1.
 
 **Fase 2 — Runs diferentes entre si.** ~10 boons "barulhentos" para a Manopla; portas com tipo de recompensa; elite opcional, sala-desafio e sala-loja; elites com modificadores.

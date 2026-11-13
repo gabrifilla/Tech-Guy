@@ -55,6 +55,51 @@ namespace TechGuy.Tests
             finally { if (near) Object.Destroy(near); if (far) Object.Destroy(far); }
         }
 
+        /// <summary>Playtest 12/11/2026: in real combat the bomb never appeared (the handler was gone by the time Died was
+        /// published). The bomb must not depend on the component still being enabled when the death is announced.</summary>
+        [UnityTest, Category("ETAPA3")]
+        public IEnumerator ETAPA3VolatileStillLeavesItsBombWhenTheDeathIsAnnouncedLate()
+        {
+            BuildDirectRig(); yield return null;
+            var volatileEnemy = SpawnArchetype("Fragile", _player.transform.position + Vector3.forward * 1.5f, _player.transform);
+            try
+            {
+                yield return null; yield return null;
+                var behavior = volatileEnemy.GetComponent<VolatileBehavior>();
+                behavior.enabled = false; // what the destroy pass does before a deferred Died arrives
+                float before = _player.health;
+                var actor = volatileEnemy.GetComponent<Actor>();
+                actor.TakeDamage(actor.maxHealth * 10f);
+                yield return new WaitForSeconds(VolatileBlastModel.Fuse + .3f);
+                Assert.AreEqual(before - VolatileBlastModel.Damage, _player.health, .5f, "The bomb still goes off.");
+            }
+            finally { if (volatileEnemy) Object.Destroy(volatileEnemy); }
+        }
+
+        /// <summary>Playtest 12/11/2026: a dash (or a hook pull) can end inside an enemy's body; walking then
+        /// froze in every direction. Walking out of an overlap must always work.</summary>
+        [UnityTest, Category("ETAPA3")]
+        public IEnumerator ETAPA3PlayerOverlappingAnEnemyCanStillWalkAway()
+        {
+            using (var input = new DirectInputScope())
+            {
+                BuildDirectRig(); input.Keys(); yield return null; yield return null;
+                var enemy = BasicVictim(Vector3.forward * 4f);
+                yield return null;
+                var agent = _player.GetComponent<NavMeshAgent>();
+                // Land right on the enemy, slightly off-centre, as a dash through it does.
+                Vector3 inside = enemy.transform.position + Vector3.left * .15f;
+                if (agent && agent.enabled && agent.isOnNavMesh) agent.Warp(inside); else _player.transform.position = inside;
+                yield return null;
+                _controls.SendMessage("OnApplicationFocus", true);
+                Vector3 start = _player.transform.position;
+                input.Keys(UnityEngine.InputSystem.Key.A);
+                yield return new WaitForSeconds(.4f);
+                input.Keys();
+                Assert.Greater(Vector3.Distance(start, _player.transform.position), .5f, "Overlapping an enemy must not freeze walking.");
+            }
+        }
+
         [UnityTest, Category("ETAPA3")]
         public IEnumerator ETAPA3GuardaBlocksFromTheFrontAndTakesDamageFromBehind()
         {

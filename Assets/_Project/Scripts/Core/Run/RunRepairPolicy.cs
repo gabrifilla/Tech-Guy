@@ -38,7 +38,10 @@ public sealed class RunRepairPolicy
     {
         var session=_route.Session;
         if(observe==null||!observe().CanConfirm||session.Id!=sessionId||session.IsClosed||session.Phase!=RunPhase.RepairPending||
-            session.CurrentNode!=nodeId||Result!=null) return false;
+            session.CurrentNode!=nodeId) return false;
+        // One claim per room. A run may now hold two Repair-kind rooms (the repair and the serene room, Fase 1c), so a
+        // resolved claim of ANOTHER room no longer blocks this one; an unresolved or same-room claim still does.
+        if(Result!=null&&(Result.NodeId==nodeId||Result.State!=RunRepairState.Resolved)) return false;
         var node=session.Route.Node(nodeId);
         float amount=0;
         if(node.Kind!=ManualNodeKind.Repair||use&&(heal==null||!RunResourceMath.TryRepair(health,maxHealth,EffectiveFraction(node),out amount))) return false;
